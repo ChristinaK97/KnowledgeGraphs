@@ -32,12 +32,18 @@ public class RTable {
         setHasSimpleAttribute();
         set_isPK_subsetOf_FK();
     }
-
+    //------------------------------------------------------------------------
+    // PRIMARY COLUMNS
+    //------------------------------------------------------------------------
     public void addColumn(String name, String datatype) {
         columns.put(name, datatype);
     }
     public int nColumns() {
         return columns.size();
+    }
+
+    public HashMap<String, String> getColumns() {
+        return columns;
     }
     //------------------------------------------------------------------------
     // PRIMARY KEYS
@@ -65,6 +71,10 @@ public class RTable {
     }
     public FKpointer getFKpointer(String fkCol) {
         return FKs.get(fkCol);
+    }
+
+    public boolean isFK(String columnName) {
+        return FKs.containsKey(columnName);
     }
     //------------------------------------------------------------------------
     // PRIMARY/FOREIGN KEY COMMON ELEMENTS

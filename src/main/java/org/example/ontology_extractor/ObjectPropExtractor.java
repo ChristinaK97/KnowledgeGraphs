@@ -3,7 +3,7 @@ package org.example.ontology_extractor;
 import org.example.database_connector.DBSchema;
 import org.example.database_connector.RTable.FKpointer;
 import org.example.database_connector.RTable;
-import org.example.ontology_extractor.OntologyExtractor.Property;
+import org.example.ontology_extractor.Property;
 
 import java.util.*;
 
@@ -26,8 +26,6 @@ public class ObjectPropExtractor {
             objPropRule7();
             objPropRule8(db);
         });
-        System.out.println(objProperties);
-        getObjProperties();
         System.out.println(objProperties);
     }
 
@@ -104,22 +102,23 @@ public class ObjectPropExtractor {
     }
 
     public ArrayList<Property> getObjProperties() {
+
         Iterator<Property> iterator = objProperties.iterator();
         while (iterator.hasNext()) {
             Property property = iterator.next();
-            String domain = convertedIntoClass.get(property.domain);
-            String range  = convertedIntoClass.get(property.range);
+            String domain = convertedIntoClass.get(property.getDomain());
+            String range  = convertedIntoClass.get(property.getRange());
 
             if(domain == null || range == null) {
-                    System.err.printf("Table has not been converted into class : %s = %s, %s = %s",
-                            property.domain, domain, property.range, range);
+                    System.err.printf("\nTable has not been converted into class : %s = %s, %s = %s, %s\n",
+                            property.getDomain(), domain, property.getRange(), range, property.propertyName);
                     iterator.remove();
             }
             else if (domain.equals(range) && !(property.propertyName.equals("r6") || property.propertyName.equals("r7")))
                 iterator.remove();
             else {
-                property.domain = domain;
-                property.range = range;
+                property.setDomain(domain);
+                property.setRange(range);
             }
         }
         return objProperties;
