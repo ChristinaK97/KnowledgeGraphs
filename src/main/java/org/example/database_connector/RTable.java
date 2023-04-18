@@ -19,6 +19,7 @@ public class RTable {
     private HashMap<String, FKpointer> FKs;
     private HashSet<String> PK_FK_intersection;
     private boolean hasSimpleAttribute;
+    private boolean isPK_subsetOf_FK;
 
     public RTable() {
         columns = new HashMap<>();
@@ -29,6 +30,7 @@ public class RTable {
     public void setTableOperations() {
         set_PK_FK_intersection();
         setHasSimpleAttribute();
+        set_isPK_subsetOf_FK();
     }
 
     public void addColumn(String name, String datatype) {
@@ -78,8 +80,11 @@ public class RTable {
     public boolean is_PKs_eq_FKs() {
         return FKs.keySet().equals(PKs);
     }
+    private void set_isPK_subsetOf_FK(){
+        isPK_subsetOf_FK = FKs.keySet().containsAll(PKs);
+    }
     public boolean is_PKs_subset_FKs(){
-        return FKs.keySet().containsAll(PKs);
+        return isPK_subsetOf_FK;
     }
 
     private void setHasSimpleAttribute() {
