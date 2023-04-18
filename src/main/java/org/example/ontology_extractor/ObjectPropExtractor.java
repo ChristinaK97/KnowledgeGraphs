@@ -10,26 +10,28 @@ import java.util.*;
 public class ObjectPropExtractor {
 
     private ArrayList<Property> objProperties = new ArrayList<>();
-    private DBSchema db;
+    private HashMap<String, String> convertedIntoClass;
     private String tableName;
     private RTable table;
 
-    public ObjectPropExtractor(DBSchema db) {
-        this.db = db;
+    public ObjectPropExtractor(DBSchema db, HashMap<String, String> convertedIntoClass) {
+        this.convertedIntoClass = convertedIntoClass;
         db.getrTables().forEach((tableName, table) -> {
             this.tableName = tableName;
             this.table = table;
-            objPropRule1();
+            objPropRule1(db);
             objPropRule2();
             objPropRule3_4();
             objPropRule6();
             objPropRule7();
-            objPropRule8();
+            objPropRule8(db);
         });
+        System.out.println(objProperties);
+        getObjProperties();
         System.out.println(objProperties);
     }
 
-    private void objPropRule1() {
+    private void objPropRule1(DBSchema db) {
 
         table.getFKs().forEach((fkCol, fkp) -> {
             if(isClass(tableName) && !table.isPK(fkCol) &&
@@ -66,6 +68,7 @@ public class ObjectPropExtractor {
     }
 
     private void objPropRule6() {
+        // self ref property
         HashSet<String> referencesTables = new HashSet<>();
         if(table.nPk() % 2 == 0 && table.is_PKs_subset_FKs())
             for (String PFkey : table.getIntersection())
@@ -77,27 +80,52 @@ public class ObjectPropExtractor {
     }
 
     private void objPropRule7() {
+        // self ref property
         if(isClass(tableName))
             for(FKpointer fkp : table.getFKs().values())
                 if(tableName.equals(fkp.refTable) && table.isPK(fkp.refColumn))
                     objProperties.add(new Property("r7", tableName, tableName));
     }
 
-    private void objPropRule8() {
+    private void objPropRule8(DBSchema db) {
         db.getrTables().forEach((tableName2, table2) -> {
             if(!tableName.equals(tableName2)) {
                 HashSet<String> FKintersection = new HashSet<>(table.getFKs().keySet());
                 FKintersection.retainAll(table2.getFKs().keySet());
                 if(FKintersection.size() > 0)
-                    objProperties.add(new Property("r", tableName, tableName2));
+                    objProperties.add(new Property("r8", tableName, tableName2));
             }
         });
     }
 
 
     private boolean isClass(String tableName) {
-        return true;
+        return convertedIntoClass.containsKey(tableName);
     }
+
+    public ArrayList<Property> getObjProperties() {
+        Iterator<Property> iterator = objProperties.iterator();
+        while (iterator.hasNext()) {
+            Property property = iterator.next();
+            String domain = convertedIntoClass.get(property.domain);
+            String range  = convertedIntoClass.get(property.range);
+
+            if(domain == null || range == null) {
+                    System.err.printf("Table has not been converted into class : %s = %s, %s = %s",
+                            property.domain, domain, property.range, range);
+                    iterator.remove();
+            }
+            else if (domain.equals(range) && !(property.propertyName.equals("r6") || property.propertyName.equals("r7")))
+                iterator.remove();
+            else {
+                property.domain = domain;
+                property.range = range;
+            }
+        }
+        return objProperties;
+    }
+
+
 }
 
 

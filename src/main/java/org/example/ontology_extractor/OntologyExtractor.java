@@ -2,6 +2,9 @@ package org.example.ontology_extractor;
 
 import org.example.database_connector.DBSchema;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class OntologyExtractor {
 
     public static class Property{
@@ -20,13 +23,11 @@ public class OntologyExtractor {
     }
 
     private DBSchema db;
-    private ClassExtractor classExtractor;
-    private ObjectPropExtractor objPropExtractor;
 
     public OntologyExtractor(DBSchema db) {
         this.db = db;
-        classExtractor = new ClassExtractor(db);
-        objPropExtractor = new ObjectPropExtractor(db);
+        HashMap<String, String> convertedIntoClass = new ClassExtractor(db).getConvertedIntoClass();
+        ArrayList<Property> objProperties = new ObjectPropExtractor(db, convertedIntoClass).getObjProperties();
     }
 
 
