@@ -15,7 +15,14 @@ public class OntologyExtractor {
         this.db = db;
         HashMap<String, String> convertedIntoClass = new ClassExtractor(db).getConvertedIntoClass();
         ArrayList<Property> objProperties = new ObjectPropExtractor(db, convertedIntoClass).getObjProperties();
+
         System.out.println(objProperties);
+        DataPropExtractor dpExtr = new DataPropExtractor(db,true, convertedIntoClass);
+        ArrayList<Property> dataProperties = dpExtr.getDataProperties();
+        ArrayList<Property> newObjProp = dpExtr.getNewObjProp();
+        objProperties.addAll(newObjProp);
+        ArrayList<String> newClasses = dpExtr.getNewClasses();
+
     }
 
 
