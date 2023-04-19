@@ -8,9 +8,10 @@ import java.util.HashMap;
 
 public class DataPropExtractor {
 
-    private ArrayList<Property> dataProperties = new ArrayList<>();
-    private ArrayList<Property> newObjProp = new ArrayList<>();
-    private ArrayList<String> newClasses = new ArrayList<>();
+    private Properties dataProp = new Properties();
+    private Properties newObjProp = new Properties();
+
+    private ArrayList<String> attrClasses = new ArrayList<>();
     private boolean turnAttrToClasses;
 
     public DataPropExtractor(DBSchema db, boolean turnAttrToClasses, HashMap<String, String> convertedIntoClass) {
@@ -19,27 +20,29 @@ public class DataPropExtractor {
             if(convertedIntoClass.containsKey(tableName))
                 extractDataProp(convertedIntoClass.get(tableName), table);
         });
-        System.out.println(dataProperties);
+        System.out.println(dataProp);
     }
 
-    private void extractDataProp(String tableClass, RTable table) {
+    private void extractDataProp(String tClass, RTable table) {
         table.getColumns().forEach((colName, datatype) -> {
             if (!(table.isPK(colName) || table.isFK(colName))) {
+                colName = colName.toLowerCase();
+
                 // Class (existing)     Column new class
                 // tableName -has_colName-> colName -has_colName_value-> datatype
-                colName = colName.toLowerCase();
                 if(turnAttrToClasses) {
-                    newClasses.add(colName);
-                    newObjProp.add(new Property("has_"+colName, tableClass, colName));
-                    dataProperties.add(new Property("has_"+colName+"_value", colName, convertToXSD(datatype)));
+                    attrClasses.add(colName);
+                    newObjProp.addProperty("dp", tClass,"has_"+colName,  colName);
+                    dataProp.addProperty("dp", colName,"has_"+colName+"_value",  convertToXSD(datatype));
+
                 }else
-                    dataProperties.add(new Property("has_"+colName, tableClass, convertToXSD(datatype)));
+                    dataProp.addProperty("dp", tClass,"has_"+colName,  convertToXSD(datatype));
         }});
     }
 
-    public ArrayList<String> getNewClasses() {return newClasses;}
-    public ArrayList<Property> getNewObjProp() {return newObjProp;}
-    public ArrayList<Property> getDataProperties() {return dataProperties;}
+    public ArrayList<String> getAttrClasses() {return attrClasses;}
+    public Properties getNewObjProp() {return newObjProp;}
+    public Properties getDataProp() {return dataProp;}
 
 
     private String convertToXSD(String sqlType) {

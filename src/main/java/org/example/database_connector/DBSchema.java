@@ -8,9 +8,11 @@ import java.util.Iterator;
 public class DBSchema implements Iterable<RTable> {
     private HashMap<String, RTable> rTables = new HashMap<>();
     private DatabaseConnector connector;
+    private String schema;
 
     public DBSchema(){
         connector =  new DatabaseConnector();
+        schema = connector.getSchemaName();
         retrieveSchema();
         connector.closeConnection();
     }
@@ -71,5 +73,6 @@ public class DBSchema implements Iterable<RTable> {
     public boolean isPK(String tableName, String columnName){
         return rTables.get(tableName).isPK(columnName);
     }
+    public String getSchemaName(){return schema;}
 
 }

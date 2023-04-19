@@ -53,6 +53,8 @@ public class DatabaseConnector {
         return metadata.getImportedKeys(connection.getCatalog(), schema, tableName);
     }
 
+    public String getSchemaName(){return schema;}
+
 
 }
 
