@@ -18,6 +18,11 @@ public class Properties{
             this.domain.add(domain);
             this.range.add(range);
         }
+        public String getObjectPropertyLabel() {return "has_" + normalise(range);}
+        public String getInverse() {return String.format("p_%s_%s", normalise(range), normalise(domain));}
+        private String normalise(Set<String> s){
+            return s.toString().replaceAll("[\\[\\],]","");
+        }
     }
     private HashMap<String, DomRan> properties;
 
@@ -35,7 +40,7 @@ public class Properties{
     }
 
     private String pName(String domain, String range) {
-        return String.format("%s_%s", domain, range);
+        return String.format("p_%s_%s", domain, range);
     }
 
     public HashMap<String, DomRan> getProperties() {

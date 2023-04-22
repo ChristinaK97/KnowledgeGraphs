@@ -35,10 +35,11 @@ public class ObjectPropExtractor {
             String otherClass = tClass(fkp.refTable);
 
             if(isClass(thisClass) && isClass(otherClass) && !thisClass.equals(otherClass) &&
-                    !table.isPK(fkCol) && db.isPK(fkp.refTable, fkp.refColumn))
+                    !table.isPK(fkCol) && db.isPK(fkp.refTable, fkp.refColumn)) {
 
                 objProperties.addProperty("r1", thisClass, null, otherClass);
-        });
+                objProperties.addProperty("r1 inv", otherClass, null, thisClass);
+        }});
     }
 
     private void objPropRule2() {
@@ -71,8 +72,10 @@ public class ObjectPropExtractor {
 
                         String thisClass = tClass(tableName);
                         if (isClass(thisClass)) {
-                            objProperties.addProperty("r4", otherClass1, null, thisClass);
-                            objProperties.addProperty("r4", otherClass2, null, thisClass);
+                            if(!thisClass.equals(otherClass1))
+                                objProperties.addProperty("r4", otherClass1, null, thisClass);
+                            if(!thisClass.equals(otherClass2))
+                                objProperties.addProperty("r4", otherClass2, null, thisClass);
                         }
                 }}
         }}
@@ -110,14 +113,16 @@ public class ObjectPropExtractor {
 
             db.getrTables().forEach((tableName2, table2) -> {
                 String otherClass = tClass(tableName2);
+
                 if(isClass(otherClass) && !thisClass.equals(otherClass)) {
 
-                    HashSet<String> FKintersection = new HashSet<>(table.getFKs().keySet());
-                    FKintersection.retainAll(table2.getFKs().keySet());
+                    HashSet<String> FKintersection = new HashSet<>(table.FK_PK_difference());
+                    FKintersection.retainAll(table2.FK_PK_difference());
 
                     if(FKintersection.size() > 0)
                         objProperties.addProperty("r8", thisClass, null, otherClass);
                 }
+
             });
     }
 

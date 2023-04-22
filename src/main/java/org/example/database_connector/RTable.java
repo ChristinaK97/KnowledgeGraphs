@@ -1,8 +1,6 @@
 package org.example.database_connector;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class RTable {
     public static class FKpointer {
@@ -12,12 +10,18 @@ public class RTable {
             this.refTable = refTable;
             this.refColumn = refColumn;
         }
+
+        @Override
+        public String toString() {
+            return String.format("%s.%s", refTable, refColumn);
+        }
     }
 
     private HashMap<String, String> columns;
     private HashSet<String> PKs;
     private HashMap<String, FKpointer> FKs;
     private HashSet<String> PK_FK_intersection;
+    private HashSet<String> FK_PK_difference;
     private boolean hasSimpleAttribute;
     private boolean isPK_subsetOf_FK;
 
@@ -31,6 +35,7 @@ public class RTable {
         set_PK_FK_intersection();
         setHasSimpleAttribute();
         set_isPK_subsetOf_FK();
+        set_FK_PK_difference();
     }
     //------------------------------------------------------------------------
     // PRIMARY COLUMNS
@@ -87,6 +92,18 @@ public class RTable {
     public Set<String> getIntersection(){
         return PK_FK_intersection;
     }
+
+    private void set_FK_PK_difference() {
+        FK_PK_difference = new HashSet<>();
+        FKs.forEach((fk, fkp) -> {
+            if(!PKs.contains(fk))
+                FK_PK_difference.add(fkp.toString());
+        });
+    }
+    public HashSet<String> FK_PK_difference() {
+        return FK_PK_difference;
+    }
+
     public boolean is_PKs_eq_FKs() {
         return FKs.keySet().equals(PKs);
     }
