@@ -10,17 +10,17 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class OntologyExtractor {
 
 
     private DBSchema db;
     private String msBbasePrefix;
-    OWLOntologyManager oMan;
-    OWLOntology oOntology;
-    OWLDataFactory factory;
-    PrefixManager pm;
+    private OWLOntologyManager oMan;
+    private OWLOntology oOntology;
+    private OWLDataFactory factory;
+    private PrefixManager pm;
+    private boolean turnAttributesToClasses = true;
 
     public OntologyExtractor(DBSchema db) {
         this.db = db;
@@ -36,7 +36,7 @@ public class OntologyExtractor {
         Properties objProperties = new ObjectPropExtractor(db, convertedIntoClass).getObjProperties();
 
         System.out.println(objProperties);
-        DataPropExtractor dpExtr = new DataPropExtractor(db,true, convertedIntoClass);
+        DataPropExtractor dpExtr = new DataPropExtractor(db,turnAttributesToClasses, convertedIntoClass);
         // data properties
         Properties dataProperties = dpExtr.getDataProp();
         // object properties connecting table classes with attribute classes. if !turnAttrToClasses :empty
@@ -181,7 +181,7 @@ public class OntologyExtractor {
 
     private void addDescriptions(IRI iri, String resourceName, String description) {
         //Add label
-        String label = resourceName.replace("_", " ").replace("p ", "");
+        String label = DomRan.normalise(resourceName);
         OWLAnnotation sLabel = factory.getOWLAnnotation(
                 factory.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI()),
                 factory.getOWLLiteral(label));

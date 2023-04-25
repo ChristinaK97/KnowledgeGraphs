@@ -33,7 +33,7 @@ public class DataPropExtractor {
                 if(turnAttrToClasses) {
                     attrClasses.add(colName);
                     newObjProp.addProperty("dp", tClass,"has_"+colName,  colName);
-                    dataProp.addProperty("dp", colName,"has_"+colName+"_value",  convertToXSD(datatype));
+                    dataProp.addProperty("dp", colName,"has_"+colName+"_VALUE",  convertToXSD(datatype));
 
                 }else
                     dataProp.addProperty("dp", tClass,"has_"+colName,  convertToXSD(datatype));

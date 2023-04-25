@@ -20,8 +20,14 @@ public class Properties{
         }
         public String getObjectPropertyLabel() {return "has_" + normalise(range);}
         public String getInverse() {return String.format("p_%s_%s", normalise(range), normalise(domain));}
-        private String normalise(Set<String> s){
-            return s.toString().replaceAll("[\\[\\],]","");
+        public static String normalise(String s) {
+            return normalise(new HashSet<>(Collections.singleton(s)));
+        }
+        public static String normalise(Set<String> s){
+            return s.toString().replaceAll("[\\[\\],]","")
+                               .replaceAll("_", " ")
+                               .replace("p ", "")
+                               .replace("VALUE", "");
         }
     }
     private HashMap<String, DomRan> properties;
