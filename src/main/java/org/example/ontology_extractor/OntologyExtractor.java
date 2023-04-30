@@ -20,7 +20,7 @@ public class OntologyExtractor {
     private OWLOntology oOntology;
     private OWLDataFactory factory;
     private PrefixManager pm;
-    private boolean turnAttributesToClasses = true;
+    private boolean turnAttributesToClasses = false;
 
     public OntologyExtractor(DBSchema db) {
         this.db = db;
@@ -104,14 +104,17 @@ public class OntologyExtractor {
 
         OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(objproperty);
 
-
         //Add object property
         oMan.addAxiom(oOntology, declaration);
         addDescriptions(objproperty.getIRI(), domRan.getObjectPropertyLabel(), domRan.rule.toString());
 
         ////////////////////////////////////
         // add domain
-        OWLClass domainClass= factory.getOWLClass(domRan.domain.iterator().next(), pm);
+        Set<OWLClassExpression> domainClasses = new HashSet<>();
+        for (String className : domRan.domain) {
+            domainClasses.add(factory.getOWLClass(className, pm));
+        }
+        OWLObjectUnionOf domainClass = factory.getOWLObjectUnionOf(domainClasses);
         OWLObjectPropertyDomainAxiom domainAxiom = factory.getOWLObjectPropertyDomainAxiom(objproperty, domainClass);
         oMan.addAxiom(oOntology, domainAxiom);
 
@@ -123,12 +126,14 @@ public class OntologyExtractor {
 
         // domain (property someValuesFrom range)
         OWLObjectSomeValuesFrom restriction = factory.getOWLObjectSomeValuesFrom(objproperty, rangeClass);
-        OWLAxiom axiom = factory.getOWLSubClassOfAxiom(domainClass, restriction);
-        oMan.applyChange(new AddAxiom(oOntology, axiom));
+        for (OWLClassExpression domClass : domainClasses) {
+            OWLAxiom axiom = factory.getOWLSubClassOfAxiom(domClass, restriction);
+            oMan.applyChange(new AddAxiom(oOntology, axiom));
+        }
 
         // inverse property
         OWLObjectProperty inverse = factory.getOWLObjectProperty(domRan.getInverse(), pm);
-        System.out.println(inverse.getIRI());
+        // System.out.println(inverse.getIRI());
         if(oOntology.containsObjectPropertyInSignature(inverse.getIRI())) {
             OWLInverseObjectPropertiesAxiom inverseAxiom = factory.getOWLInverseObjectPropertiesAxiom(objproperty, inverse);
             oMan.applyChange(new AddAxiom(oOntology, inverseAxiom));
@@ -150,30 +155,22 @@ public class OntologyExtractor {
         oMan.addAxiom(oOntology, declaration);
         OWLDataPropertyExpression man = factory.getOWLDataProperty(propName, pm);
 
-        if(domRan.domain.size() > 1) {
-            Set<OWLClassExpression> domainClasses = new HashSet<>();
-            for (String className : domRan.domain)
-                domainClasses.add(factory.getOWLClass(className, pm));
-
-            OWLObjectUnionOf domainClass = factory.getOWLObjectUnionOf(domainClasses);
-            OWLDataPropertyDomainAxiom domainAxiom = factory.getOWLDataPropertyDomainAxiom(man, domainClass);
-            // Add domain
-            oMan.addAxiom(oOntology, domainAxiom);
-        }else{
-            OWLClass domainClass= factory.getOWLClass(domRan.domain.iterator().next(), pm);
-
-            OWLDataPropertyDomainAxiom domainAxiom=factory.getOWLDataPropertyDomainAxiom(man, domainClass);
-            //Add domain
-            oMan.addAxiom(oOntology, domainAxiom);
+        Set<OWLClassExpression> domainClasses = new HashSet<>();
+        for (String className : domRan.domain) {
+            domainClasses.add(factory.getOWLClass(className, pm));
         }
+        OWLObjectUnionOf domainClass = factory.getOWLObjectUnionOf(domainClasses);
+        OWLDataPropertyDomainAxiom domainAxiom = factory.getOWLDataPropertyDomainAxiom(man, domainClass);
+        oMan.addAxiom(oOntology, domainAxiom);
+
+
         OWLDatatype dt = factory.getOWLDatatype(domRan.range.iterator().next(), pm);
         OWLDataPropertyRangeAxiom rangeAxiom = factory.getOWLDataPropertyRangeAxiom(man, dt);
         oMan.addAxiom(oOntology, rangeAxiom);
 
-        for (String className : domRan.domain){
-            OWLClass domainClass= factory.getOWLClass(className, pm);
+        for (OWLClassExpression domClass : domainClasses) {
             OWLDataSomeValuesFrom restriction = factory.getOWLDataSomeValuesFrom(datatype, dt);
-            OWLAxiom axiom = factory.getOWLSubClassOfAxiom(domainClass, restriction);
+            OWLAxiom axiom = factory.getOWLSubClassOfAxiom(domClass, restriction);
             oMan.applyChange(new AddAxiom(oOntology, axiom));
         }
     }
