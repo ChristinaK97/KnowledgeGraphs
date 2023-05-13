@@ -2,6 +2,7 @@ package org.example.ontology_extractor;
 
 import org.example.database_connector.DBSchema;
 import org.example.ontology_extractor.Properties.DomRan;
+import org.example.other.JSONExtractor;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.*;
@@ -20,7 +21,7 @@ public class OntologyExtractor {
     private OWLOntology oOntology;
     private OWLDataFactory factory;
     private PrefixManager pm;
-    private boolean turnAttributesToClasses = false;
+    private boolean turnAttributesToClasses = true;
 
     public OntologyExtractor(DBSchema db) {
         this.db = db;
@@ -44,12 +45,15 @@ public class OntologyExtractor {
 
 
         // attribute classes
-        ArrayList<String> attrClasses = dpExtr.getAttrClasses();
+        HashMap<String, String> attrClasses = dpExtr.getAttrClasses();
 
         // add elements to the ontology
-        addClasses(convertedIntoClass, attrClasses);
+        addClasses(convertedIntoClass, true);
+        addClasses(attrClasses, false);
         addObjectProperties(objProperties, newObjProp);
         dataProperties.getProperties().forEach(this::addDatatype);
+
+        new JSONExtractor().createMappingJSON_fromOntology(db, convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
 
     }
 
@@ -71,13 +75,13 @@ public class OntologyExtractor {
     }
 
     // CLASSES
-    private void addClasses(HashMap<String, String> convertedIntoClass, ArrayList<String> attrClasses) {
-        convertedIntoClass.forEach((tableName, tableClass) -> {
-            String sDescription = String.format("Table %s converted to class %s", tableName, tableClass);
-            addClass(tableClass, sDescription);
+    private void addClasses(HashMap<String, String> classes, boolean tableClasses) {
+        String type = tableClasses ? "Table" : "Attribute";
+        classes.forEach((elementName, elementClass) -> {
+            String sDescription = String.format("%s %s converted to class %s", type, elementName, elementClass);
+            addClass(elementClass, sDescription);
         });
-        for(String attrClass : attrClasses)
-            addClass(attrClass, "Attribute class");
+
     }
 
     public void addClass(String className, String sDescription) {
@@ -106,7 +110,8 @@ public class OntologyExtractor {
 
         //Add object property
         oMan.addAxiom(oOntology, declaration);
-        addDescriptions(objproperty.getIRI(), domRan.getObjectPropertyLabel(), domRan.rule.toString());
+        addDescriptions(objproperty.getIRI(), domRan.getObjectPropertyLabel(),
+                String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
 
         ////////////////////////////////////
         // add domain
@@ -149,7 +154,8 @@ public class OntologyExtractor {
         OWLDataProperty datatype = factory.getOWLDataProperty(propName, pm);
 
         OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(datatype);
-        addDescriptions(datatype.getIRI(), propName, domRan.rule.toString());
+        addDescriptions(datatype.getIRI(), propName,
+                        String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
 
         // Add datatype
         oMan.addAxiom(oOntology, declaration);

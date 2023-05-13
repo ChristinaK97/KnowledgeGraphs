@@ -37,8 +37,8 @@ public class ObjectPropExtractor {
             if(isClass(thisClass) && isClass(otherClass) && !thisClass.equals(otherClass) &&
                     !table.isPK(fkCol) && db.isPK(fkp.refTable, fkp.refColumn)) {
 
-                objProperties.addProperty("r1", thisClass, null, otherClass);
-                objProperties.addProperty("r1 inv", otherClass, null, thisClass);
+                objProperties.addProperty("r1", thisClass, null, otherClass, null);
+                objProperties.addProperty("r1 inv", otherClass, null, thisClass, null);
         }});
     }
 
@@ -52,7 +52,7 @@ public class ObjectPropExtractor {
                 String otherClass = tClass(table.getFKpointer(key).refTable);
 
                 if (isClass(otherClass) && !thisClass.equals(otherClass))
-                    objProperties.addProperty("r2", thisClass, null, otherClass);
+                    objProperties.addProperty("r2", thisClass, null, otherClass, null);
         }}
     }
 
@@ -68,14 +68,14 @@ public class ObjectPropExtractor {
                         String otherClass2 = tClass(fkp2.refTable);
 
                         if (isClass(otherClass2) && !otherClass1.equals(otherClass2))
-                            objProperties.addProperty("r3", otherClass1, null, otherClass2);
+                            objProperties.addProperty("r3", otherClass1, null, otherClass2, null);
 
                         String thisClass = tClass(tableName);
                         if (isClass(thisClass)) {
                             if(!thisClass.equals(otherClass1))
-                                objProperties.addProperty("r4", otherClass1, null, thisClass);
+                                objProperties.addProperty("r4", otherClass1, null, thisClass, null);
                             if(!thisClass.equals(otherClass2))
-                                objProperties.addProperty("r4", otherClass2, null, thisClass);
+                                objProperties.addProperty("r4", otherClass2, null, thisClass, null);
                         }
                 }}
         }}
@@ -93,7 +93,7 @@ public class ObjectPropExtractor {
         if(referencesTables.size() == 1) {
             String selfRefClass = referencesTables.iterator().next();
             if(isClass(selfRefClass))
-                objProperties.addProperty("r6", selfRefClass, "has_"+selfRefClass, selfRefClass);
+                objProperties.addProperty("r6", selfRefClass, "has_"+selfRefClass, selfRefClass, null);
         }
     }
 
@@ -104,7 +104,7 @@ public class ObjectPropExtractor {
             for(FKpointer fkp : table.getFKs().values())
 
                 if(tableName.equals(fkp.refTable) && table.isPK(fkp.refColumn))
-                    objProperties.addProperty("r7", selfRefClass, "has_"+selfRefClass, selfRefClass);
+                    objProperties.addProperty("r7", selfRefClass, "has_"+selfRefClass, selfRefClass, null);
     }
 
     private void objPropRule8(DBSchema db) {
@@ -120,7 +120,7 @@ public class ObjectPropExtractor {
                     FKintersection.retainAll(table2.FK_PK_difference());
 
                     if(FKintersection.size() > 0)
-                        objProperties.addProperty("r8", thisClass, null, otherClass);
+                        objProperties.addProperty("r8", thisClass, null, otherClass, null);
                 }
 
             });

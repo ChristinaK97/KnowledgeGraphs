@@ -1,5 +1,7 @@
 package org.example.ontology_extractor;
 
+import org.example.database_connector.RTable.FKpointer;
+
 import java.util.*;
 
 public class Properties{
@@ -7,42 +9,54 @@ public class Properties{
         Set<String> domain;
         Set<String> range;
         Set<String> rule;
+        Set<String> extractedField;
 
-        public DomRan(String rule, String domain, String range) {
+        public DomRan(String rule, String domain, String range, String extractedField) {
             this.rule = new HashSet<>(Collections.singleton(rule));
             this.domain = new HashSet<>(Collections.singleton(domain));
             this.range = new HashSet<>(Collections.singleton(range));
+            this.extractedField = new HashSet<>(Collections.singleton(extractedField));
         }
-        public void makeUnion(String rule, String domain, String range) {
+        public void makeUnion(String rule, String domain, String range, String extractedField) {
             this.rule.add(rule);
             this.domain.add(domain);
             this.range.add(range);
+            this.extractedField.add(extractedField);
         }
         public String getObjectPropertyLabel() {return "has_" + normalise(range);}
         public String getInverse() {return String.format("p_%s_%s", normalise(range), normalise(domain));}
+
         public static String normalise(String s) {
             return normalise(new HashSet<>(Collections.singleton(s)));
         }
+
         public static String normalise(Set<String> s){
             return s.toString().replaceAll("[\\[\\],]","")
                                .replaceAll("_", " ")
                                .replace("p ", "")
                                .replace("VALUE", "");
         }
+
+        public Set<String> getExtractedField() {
+            return extractedField;
+        }
     }
+
+    // ==============================================================================================================
     private HashMap<String, DomRan> properties;
 
     public Properties(){
         properties = new HashMap<>();
     }
-    public void addProperty(String rule, String domain, String propertyName, String range) {
+
+    public void addProperty(String rule, String domain, String propertyName, String range, String extractedField) {
         if(propertyName == null)
             propertyName = pName(domain, range);
 
         if(properties.containsKey(propertyName))
-            properties.get(propertyName).makeUnion(rule, domain, range);
+            properties.get(propertyName).makeUnion(rule, domain, range, extractedField);
         else
-            properties.put(propertyName, new DomRan(rule, domain, range));
+            properties.put(propertyName, new DomRan(rule, domain, range, extractedField));
     }
 
     private String pName(String domain, String range) {
@@ -64,6 +78,9 @@ public class Properties{
         return bd.toString();
     }
 
+    public boolean contains(String propertyName) {
+        return properties.containsKey(propertyName);
+    }
 
 }
 
