@@ -1,21 +1,21 @@
 package org.example.other;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.example.database_connector.DBSchema;
+import org.example.database_connector.RTable;
+import org.example.ontology_extractor.Properties;
+import org.example.ontology_extractor.Properties.DomRan;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
-import org.example.database_connector.RTable;
-import org.example.database_connector.RTable.FKpointer;
-import org.example.ontology_extractor.Properties;
-import org.example.ontology_extractor.Properties.DomRan;
-import java.util.Map.Entry;
 
 public class JSONExtractor {
 
@@ -34,16 +34,16 @@ public class JSONExtractor {
         }
     }
     HashMap<String, ArrayList<Transformation>> trf = new HashMap<>();
-    String prf;
+    String msBbasePrefix;
 
     public void createMappingJSON_fromOntology(DBSchema db,
+                                               String msBbasePrefix,
                                                HashMap<String, String> tableCls,
                                                HashMap<String, String> attrCls,
                                                Properties objProp,
                                                Properties newObjProp,
                                                Properties dataProp) {
-         prf = "http://www.example.net/ontologies/" + db.getSchemaName() + ".owl#/";
-
+        this.msBbasePrefix = msBbasePrefix;
         tableCls.forEach((tableName, tableClass) -> {
             addTrf(tableName, tableClass, "Class");
         });
@@ -119,7 +119,7 @@ public class JSONExtractor {
                     String objP = String.format("p_%s_%s", sourceClass, targetClass);
                     String invP = String.format("p_%s_%s", targetClass, sourceClass);
 
-                    String ontoEl = objProp.contains(objP) ? prf + objP : (objProp.contains(invP) ? prf + invP : "-");
+                    String ontoEl = objProp.contains(objP) ? msBbasePrefix + objP : (objProp.contains(invP) ? msBbasePrefix + invP : "-");
 
                     JsonObject fkMapping = new JsonObject();
                     fkMapping.addProperty("type", "ObjectProperty");
@@ -164,7 +164,7 @@ public class JSONExtractor {
 
     private void addTrf(String elementName, String ontoElement, String type) {
 
-        ontoElement = prf + ontoElement;
+        ontoElement = msBbasePrefix + ontoElement;
         if (trf.containsKey(elementName))
             trf.get(elementName).add(new Transformation(ontoElement, type));
         else

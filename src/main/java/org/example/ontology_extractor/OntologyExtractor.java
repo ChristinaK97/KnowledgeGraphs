@@ -58,7 +58,8 @@ public class OntologyExtractor {
         addObjectProperties(objProperties, newObjProp);
         dataProperties.getProperties().forEach(this::addDatatype);
 
-        new JSONExtractor().createMappingJSON_fromOntology(db, convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
+        new JSONExtractor().createMappingJSON_fromOntology(db, msBbasePrefix,
+                convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
 
     }
 
@@ -229,7 +230,7 @@ public class OntologyExtractor {
         File saveIn = new File(sPath);
         IRI fileIRI = IRI.create(saveIn.toURI());
         TurtleDocumentFormat turtleFormat = new TurtleDocumentFormat();
-        turtleFormat.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI().get().getIRIString() + "/");
+        turtleFormat.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI().get().getIRIString());
         try {
             manager.saveOntology(ontology, turtleFormat, fileIRI);
         } catch (OWLOntologyStorageException e) {
