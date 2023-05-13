@@ -8,6 +8,8 @@ import java.util.HashMap;
 
 public class DataPropExtractor {
 
+    private HashMap<String, String> convertedIntoClass;
+
     private Properties dataProp = new Properties();
     private Properties newObjProp = new Properties();
 
@@ -16,6 +18,8 @@ public class DataPropExtractor {
 
     public DataPropExtractor(DBSchema db, boolean turnAttrToClasses, HashMap<String, String> convertedIntoClass) {
         this.turnAttrToClasses = turnAttrToClasses;
+        this.convertedIntoClass =  convertedIntoClass;
+
         db.getrTables().forEach((tableName, table) -> {
             if(convertedIntoClass.containsKey(tableName))
                 extractDataProp(tableName, convertedIntoClass.get(tableName), table);
@@ -30,6 +34,10 @@ public class DataPropExtractor {
                 String extractedField = String.format("%s.%s", tableName, colName);
                 colName = colName.toLowerCase();
 
+                // Column has the same name as a table class
+                if(convertedIntoClass.containsValue(colName))
+                    colName = colName + "_ATTR";
+
                 // Class (existing)     Column new class
                 // tableName -has_colName-> colName -has_colName_value-> datatype
                 if(turnAttrToClasses) {
@@ -38,6 +46,7 @@ public class DataPropExtractor {
                     dataProp.addProperty("dp", colName,"has_"+colName+"_VALUE",  convertToXSD(datatype), extractedField);
 
                 }else
+                    // Don't turn attributes to classes
                     dataProp.addProperty("dp", tClass,"has_"+colName,  convertToXSD(datatype), extractedField);
         }});
     }

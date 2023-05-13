@@ -6,7 +6,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/act_type",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -15,20 +15,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phonebehavior",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phonebehavior",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phonebehavior_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -38,20 +38,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/act_type_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_act_type_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_act_type_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -61,20 +61,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -84,20 +84,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/isadmin",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_isadmin",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_isadmin_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -107,20 +107,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/type_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_type_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_type__VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -130,20 +130,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/allows_backdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_allows_backdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_allows_backdated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -153,20 +153,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/action_contact_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_status_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -176,20 +176,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/action_contact_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_type_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -199,20 +199,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_plan_uuid",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_plan_uuid",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_plan_uuid_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -225,7 +225,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_act_type_actcategory",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -236,7 +236,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/actcategory",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -245,20 +245,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -270,8 +270,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/address",
-        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "columns": [
         {
@@ -280,20 +280,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_communication",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -303,20 +303,43 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+              "match": "",
+              "isCons": ""
+            }
+          ]
+        },
+        {
+          "column": "ADDRESS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/address_ATTR",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_address_ATTR",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_address_ATTR_VALUE",
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -326,20 +349,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -349,20 +372,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/country_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_country_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_country_code_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -375,7 +398,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_address_person",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -386,7 +409,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/bucket",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -395,20 +418,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/date_created",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_date_created",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_date_created_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -418,20 +441,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -441,20 +464,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paymentdays",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymentdays",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymentdays_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -467,7 +490,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -476,20 +499,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/overdue_capital",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_capital",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_capital_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -499,20 +522,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/segment_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_segment_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_segment_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -522,20 +545,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phase_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -545,20 +568,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/statement_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_balance_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -568,20 +591,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/approved_capital",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approved_capital",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approved_capital_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -591,20 +614,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/overdue_interest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_interest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_interest_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -614,20 +637,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_inst_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_inst_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_inst_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -637,20 +660,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/overdue_expenses",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_expenses",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_expenses_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -660,20 +683,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/portfolio_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -683,20 +706,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/balance_limit",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -706,20 +729,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/current_branch_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -729,20 +752,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contract_no",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_no",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_no_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -752,20 +775,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/expiry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -775,20 +798,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/statement_overdue_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_overdue_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_overdue_amount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -798,20 +821,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/delay_days",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_delay_days",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_delay_days_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -821,20 +844,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_outstanding",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -844,20 +867,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -867,20 +890,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/bank_account_number",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_bank_account_number",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_bank_account_number_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -890,20 +913,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/available_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_available_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_available_balance_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -913,20 +936,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/statement_min_pay",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_min_pay",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_min_pay_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -936,20 +959,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/pay_ref_number",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_ref_number",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_ref_number_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -959,20 +982,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/accountstatus",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_accountstatus",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_accountstatus_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -982,20 +1005,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/restructured",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_restructured",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_restructured_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -1008,7 +1031,7 @@
             "type": "ObjectProperty",
             "ontoEl": "-",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -1019,7 +1042,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_person",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -1028,43 +1051,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
-              "isCons": true,
-              "match": ""
-            }
-          ]
-        },
-        {
-          "column": "INACTIVE",
-          "mappings": [
-            {
-              "type": "Class",
-              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/inactive",
-              "isCons": true,
-              "match": ""
-            },
-            {
-              "type": "ObjectProperty",
-              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_inactive",
-              "isCons": true,
-              "match": ""
-            },
-            {
-              "type": "DataProperty",
-              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_inactive_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1074,20 +1074,43 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/source_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_source_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_source__VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
+            }
+          ]
+        },
+        {
+          "column": "INACTIVE_",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/inactive_",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_inactive_",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_inactive__VALUE",
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -1100,7 +1123,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_person_case_person_type",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -1110,7 +1133,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_person_case",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -1120,7 +1143,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_person_person",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -1131,7 +1154,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_person_type",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -1140,20 +1163,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1163,20 +1186,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_person_type_key",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_person_type_key",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_person_type_key_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -1189,7 +1212,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -1198,20 +1221,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/searchkey",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_searchkey",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_searchkey_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1221,20 +1244,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1244,20 +1267,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentinitamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinitamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinitamount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1267,20 +1290,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/interest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1290,20 +1313,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lastupdate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastupdate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastupdate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1313,20 +1336,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/totpayinterest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayinterest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayinterest_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1336,20 +1359,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentexpenses",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentexpenses",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentexpenses_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1359,20 +1382,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/totpayamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayamount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1382,20 +1405,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_contact_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_contact_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_contact_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1405,20 +1428,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/user_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_updated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1428,20 +1451,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1451,20 +1474,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/base_interest_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_base_interest_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_base_interest_rate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1474,20 +1497,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lastpaydate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpaydate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpaydate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1497,20 +1520,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_type_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1520,20 +1543,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentamount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1543,20 +1566,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_action_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1566,20 +1589,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lastpayamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpayamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpayamount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1589,20 +1612,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentdate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentdate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentdate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1612,20 +1635,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_action",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1635,20 +1658,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentinterest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinterest",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinterest_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1658,20 +1681,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1681,20 +1704,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/totpayexpenses",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayexpenses",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayexpenses_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1704,20 +1727,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_action_user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_user_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1727,20 +1750,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/datecreated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_datecreated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_datecreated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -1753,7 +1776,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_bucket",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -1764,7 +1787,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contact",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -1773,20 +1796,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/entry_user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entry_user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entry_user_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1796,20 +1819,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contactdate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contactdate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contactdate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1819,20 +1842,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/payamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1842,20 +1865,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/cost_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_cost_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_cost__VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1865,20 +1888,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1888,20 +1911,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/entrydate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entrydate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entrydate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1911,20 +1934,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1934,20 +1957,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/receitno",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_receitno",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_receitno_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1957,20 +1980,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dateupdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -1980,20 +2003,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paydate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -2006,7 +2029,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_case",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -2016,7 +2039,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_msettlement_master",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -2026,7 +2049,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_person",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -2036,7 +2059,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_act_type",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -2047,7 +2070,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/email",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -2056,20 +2079,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_communication",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2079,20 +2102,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2102,20 +2125,43 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
+            }
+          ]
+        },
+        {
+          "column": "EMAIL",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/email_ATTR",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_email_ATTR",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_email_ATTR_VALUE",
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -2128,7 +2174,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_email_person",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -2139,7 +2185,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/msettlement_detail",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -2148,20 +2194,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2171,20 +2217,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_created",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_created",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_created_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2194,20 +2240,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paidamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paidamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paidamount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2217,20 +2263,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/promisedamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promisedamount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promisedamount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2240,20 +2286,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/promiseddate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promiseddate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promiseddate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -2266,7 +2312,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_msettlement_detail_msettlement_master",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -2277,7 +2323,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/msettlement_master",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -2286,20 +2332,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2309,20 +2355,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/iswriteoff",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_iswriteoff",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_iswriteoff_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2332,20 +2378,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/final_base_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_final_base_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_final_base_rate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2355,20 +2401,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/utilisation_status_user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_user_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_user_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2378,20 +2424,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/utilisation_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2401,20 +2447,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/utilisation_status_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2424,20 +2470,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_status_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2447,20 +2493,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/related_cases",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_related_cases",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_related_cases_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2470,20 +2516,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_amount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2493,20 +2539,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/acceptance_level",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_acceptance_level",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_acceptance_level_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2516,20 +2562,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/initial_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_amount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2539,20 +2585,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/initial_base_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_base_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_base_rate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -2565,7 +2611,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_msettlement_master_settle_plan",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -2575,7 +2621,7 @@
             "type": "ObjectProperty",
             "ontoEl": "-",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -2585,8 +2631,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/payment",
-        "match": "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "columns": [
         {
@@ -2595,20 +2641,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/sdate",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_sdate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_sdate_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2618,20 +2664,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paymenttype",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionCategory"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymenttype",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/Commons/Classifiers/isClassifiedBy"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymenttype_VALUE",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/Commons/TextDatatype/hasTextValue"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2641,20 +2687,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paydate",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDate"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDate"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate_VALUE",
-              "isCons": false,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2664,20 +2710,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDescription"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2687,20 +2733,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/payamount",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasMonetaryAmount"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2710,20 +2756,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/pay_key",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionIdentifier"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_key",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/Commons/Identifiers/isIdentifiedBy"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_key_VALUE",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/Commons/TextDatatype/hasTextValue"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2733,20 +2779,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency_code",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasCurrency"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasNumericCode"
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -2759,7 +2805,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_payment_case",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -2769,7 +2815,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_payment_contact",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -2779,8 +2825,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/person",
-        "match": "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "columns": [
         {
@@ -2789,20 +2835,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/language_",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/Language"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_language_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_language__VALUE",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/hasEnglishName"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2812,20 +2858,43 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_last_action",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_last_action",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_last_action_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
+            }
+          ]
+        },
+        {
+          "column": "FULL_NAME",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/full_name",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_full_name",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_full_name_VALUE",
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2835,20 +2904,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2858,20 +2927,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/gender",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_gender",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_gender_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasGender"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2881,20 +2950,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/d_created",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_created",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_created_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2904,20 +2973,43 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/search_key",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_search_key",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_search_key_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
+            }
+          ]
+        },
+        {
+          "column": "BIRTHDAY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/birthday",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_birthday",
+              "match": "",
+              "isCons": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_birthday_VALUE",
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2927,20 +3019,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/d_updated",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_updated_VALUE",
-              "isCons": true,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -2952,8 +3044,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/person",
-        "match": "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "columns": [
         {
@@ -2962,20 +3054,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/nationality",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_nationality",
-              "isCons": false,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasCitizenship"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_nationality_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -2985,19 +3077,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_deceased",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_deceased",
-              "isCons": true
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_deceased_VALUE",
-              "isCons": false,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasDateOfDeath"
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3007,20 +3100,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/person_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_person_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_person_status_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3030,20 +3123,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/residence_country",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Country"
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_residence_country",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_residence_country_VALUE",
-              "isCons": true,
-              "match": "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasEnglishFullName"
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -3056,7 +3149,7 @@
             "type": "ObjectProperty",
             "ontoEl": "-",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -3067,7 +3160,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phone",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -3076,20 +3169,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_communication",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3099,20 +3192,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3122,20 +3215,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -3148,7 +3241,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_phone_person",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -3159,7 +3252,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/product",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -3168,20 +3261,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3191,20 +3284,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -3217,7 +3310,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_product_productreportcategory",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -3227,7 +3320,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_product_productcategory",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -3238,7 +3331,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/productcategory",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -3247,20 +3340,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3270,20 +3363,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -3296,7 +3389,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/productreportcategory",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -3305,20 +3398,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -3331,7 +3424,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -3340,20 +3433,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3363,20 +3456,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/worked",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3386,20 +3479,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/exited",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exited",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exited_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3409,20 +3502,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/remaining",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_remaining",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_remaining_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3432,20 +3525,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/order_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_order_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_order_type_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3455,20 +3548,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue_key",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_key",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_key_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3478,20 +3571,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/can_expire",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_can_expire",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_can_expire_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3501,20 +3594,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/exit_action_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exit_action_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exit_action_code_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3524,20 +3617,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_type_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3547,20 +3640,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/owner_user",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_owner_user",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_owner_user_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3570,20 +3663,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3593,20 +3686,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/working_mode",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_working_mode",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_working_mode_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3616,20 +3709,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/worked_action_category",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked_action_category",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked_action_category_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3639,20 +3732,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/caption",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_caption",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_caption_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3662,20 +3755,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/in_strategy",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_in_strategy",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_in_strategy_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -3688,7 +3781,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue_case",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -3697,20 +3790,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/strategy_case_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_case_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_case_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3720,20 +3813,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_entry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3743,20 +3836,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_entry_rule_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_rule_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_rule_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3766,20 +3859,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_order",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_order",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_order_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3789,20 +3882,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_worked",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_worked",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_worked_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -3815,7 +3908,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_queue_case_case",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -3825,7 +3918,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_queue_case_queue",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -3835,7 +3928,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_queue_case_person",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -3846,7 +3939,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/rer_metric",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -3855,20 +3948,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3878,20 +3971,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phase_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3901,20 +3994,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_pay_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_amount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3924,20 +4017,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_in_phase",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_phase",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_phase_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3947,20 +4040,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phase_entry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_entry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_entry_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3970,20 +4063,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_iswriteoff",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_iswriteoff",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_iswriteoff_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -3993,20 +4086,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/times_in_collection",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_times_in_collection",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_times_in_collection_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4016,20 +4109,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/expiry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4039,20 +4132,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/no_valid_phone",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_phone",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_phone_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4062,20 +4155,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4085,20 +4178,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_in_collection",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_collection",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_collection_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4108,20 +4201,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contract_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4131,20 +4224,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_sett_status_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_status_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_status_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4154,20 +4247,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_billing_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_billing_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_billing_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4177,20 +4270,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_in_handling_queue",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_handling_queue",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_handling_queue_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4200,20 +4293,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/past_due_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_past_due_amount",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_past_due_amount_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4223,20 +4316,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/strategy_segment_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_segment_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_segment_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4246,20 +4339,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_type_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4269,20 +4362,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_from_last_pay",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_from_last_pay",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_from_last_pay_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4292,20 +4385,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/portfolio_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4315,20 +4408,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_settle_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_settle_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_settle_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4338,20 +4431,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/balance_limit",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4361,20 +4454,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/current_branch_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4384,20 +4477,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_past_due",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_past_due",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_past_due_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4407,20 +4500,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_outstanding",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4430,20 +4523,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_status",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_status_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4453,20 +4546,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/no_valid_address",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_address",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_address_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4476,20 +4569,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_pay_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_date",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_date_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4499,20 +4592,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_sett_comb_status_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_comb_status_id",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_comb_status_id_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }
@@ -4525,7 +4618,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_case",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -4535,7 +4628,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_person",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -4545,7 +4638,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_bucket",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -4555,7 +4648,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_productreportcategory",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -4565,7 +4658,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_bucket",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -4575,7 +4668,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_product",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         },
         {
@@ -4585,7 +4678,7 @@
             "type": "ObjectProperty",
             "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_productcategory",
             "match": "",
-            "isCons": true
+            "isCons": ""
           }
         }
       ]
@@ -4596,7 +4689,7 @@
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_plan",
         "match": "",
-        "isCons": true
+        "isCons": ""
       },
       "columns": [
         {
@@ -4605,20 +4698,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/approval_method",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approval_method",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approval_method_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4628,20 +4721,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_amount_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_max_accepted_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4651,20 +4744,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settlement_plan_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settlement_plan_type",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settlement_plan_type_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4674,20 +4767,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_first_ptp_dist_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_warning_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4697,20 +4790,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_plan_dur_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_warning_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4720,20 +4813,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/min_ptp_dist_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_warning_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4743,20 +4836,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptps_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_max_accepted_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4766,20 +4859,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dateupdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4789,20 +4882,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_first_ptp_dist_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_accepted_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4812,20 +4905,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_amount_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_warning_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4835,20 +4928,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/userupdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_userupdated",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_userupdated_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4858,20 +4951,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/min_ptp_dist_min_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_min_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_min_accepted_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4881,20 +4974,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4904,20 +4997,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/minimum_interest_rate_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_warning_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4927,20 +5020,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_dist_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_max_accepted_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4950,20 +5043,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_plan_dur_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_max_accepted",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_max_accepted_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4973,20 +5066,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/interest_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest_rate",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest_rate_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -4996,20 +5089,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptps_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_warning_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -5019,20 +5112,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/warn_amount_percentage",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_warn_amount_percentage",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_warn_amount_percentage_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -5042,20 +5135,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/minimum_interest_rate_error",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_error",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_error_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -5065,20 +5158,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_dist_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_warning",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_warning_VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         },
@@ -5088,20 +5181,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/name_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_name_",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_name__VALUE",
-              "isCons": true,
-              "match": ""
+              "match": "",
+              "isCons": ""
             }
           ]
         }

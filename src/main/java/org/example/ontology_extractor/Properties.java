@@ -1,6 +1,6 @@
 package org.example.ontology_extractor;
 
-import org.example.database_connector.RTable.FKpointer;
+import org.example.other.Util;
 
 import java.util.*;
 
@@ -23,19 +23,8 @@ public class Properties{
             this.range.add(range);
             this.extractedField.add(extractedField);
         }
-        public String getObjectPropertyLabel() {return "has_" + normalise(range);}
-        public String getInverse() {return String.format("p_%s_%s", normalise(range), normalise(domain));}
-
-        public static String normalise(String s) {
-            return normalise(new HashSet<>(Collections.singleton(s)));
-        }
-
-        public static String normalise(Set<String> s){
-            return s.toString().replaceAll("[\\[\\],]","")
-                               .replaceAll("_", " ")
-                               .replace("p ", "")
-                               .replace("VALUE", "");
-        }
+        public String getObjectPropertyLabel() {return "has_" + Util.normalise(range);}
+        public String getInverse() {return String.format("p_%s_%s", Util.normalise(range), Util.normalise(domain));}
 
         public Set<String> getExtractedField() {
             return extractedField;
