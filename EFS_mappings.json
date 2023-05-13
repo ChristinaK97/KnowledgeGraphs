@@ -1,0 +1,5112 @@
+{
+  "tables": [
+    {
+      "table": "act_type",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/act_type",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "PHONEBEHAVIOR",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phonebehavior",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phonebehavior",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phonebehavior_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACT_TYPE_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/act_type_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_act_type_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_act_type_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ISADMIN",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/isadmin",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_isadmin",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_isadmin_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TYPE_",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/type_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_type_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_type__VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ALLOWS_BACKDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/allows_backdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_allows_backdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_allows_backdated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACTION_CONTACT_STATUS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/action_contact_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_status_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACTION_CONTACT_TYPE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/action_contact_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_action_contact_type_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SETTLE_PLAN_UUID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_plan_uuid",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_plan_uuid",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_plan_uuid_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "DEF_ACTCATEGORY_ID",
+          "ref": "actcategory.ACTCATEGORY_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_act_type_actcategory",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "actcategory",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/actcategory",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    },
+    {
+      "table": "address",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/address",
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "IS_COMMUNICATION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_communication",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DT_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+            }
+          ]
+        },
+        {
+          "column": "SECONDARY_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "COUNTRY_CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/country_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_country_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_country_code_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "PERSON_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_address_person",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "bucket",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/bucket",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "DATE_CREATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/date_created",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_date_created",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_date_created_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PAYMENTDAYS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paymentdays",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymentdays",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymentdays_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    },
+    {
+      "table": "case_exta",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "OVERDUE_CAPITAL",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/overdue_capital",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_capital",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_capital_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SEGMENT_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/segment_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_segment_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_segment_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PHASE_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phase_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "STATEMENT_BALANCE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/statement_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_balance_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "APPROVED_CAPITAL",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/approved_capital",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approved_capital",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approved_capital_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "OVERDUE_INTEREST",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/overdue_interest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_interest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_interest_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_INST_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_inst_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_inst_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_inst_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "OVERDUE_EXPENSES",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/overdue_expenses",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_expenses",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_overdue_expenses_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PORTFOLIO_CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/portfolio_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "BALANCE_LIMIT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/balance_limit",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CURRENT_BRANCH_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/current_branch_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CONTRACT_NO",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contract_no",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_no",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_no_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "EXPIRY_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/expiry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "STATEMENT_OVERDUE_AMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/statement_overdue_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_overdue_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_overdue_amount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DELAY_DAYS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/delay_days",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_delay_days",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_delay_days_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TOTAL_OUTSTANDING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_outstanding",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TOTAL_BALANCE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "BANK_ACCOUNT_NUMBER",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/bank_account_number",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_bank_account_number",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_bank_account_number_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "AVAILABLE_BALANCE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/available_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_available_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_available_balance_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "STATEMENT_MIN_PAY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/statement_min_pay",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_min_pay",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_statement_min_pay_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PAY_REF_NUMBER",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/pay_ref_number",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_ref_number",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_ref_number_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACCOUNTSTATUS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/accountstatus",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_accountstatus",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_accountstatus_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "RESTRUCTURED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/restructured",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_restructured",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_restructured_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "CASE_ID",
+          "ref": "cases.CASE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "-",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "case_person",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_person",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "DT_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "INACTIVE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/inactive",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_inactive",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_inactive_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SOURCE_",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/source_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_source_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_source__VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "CASE_PERSON_TYPE_ID",
+          "ref": "case_person_type.CASE_PERSON_TYPE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_person_case_person_type",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "CASE_ID",
+          "ref": "cases.CASE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_person_case",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "PERSON_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_person_person",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "case_person_type",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_person_type",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CASE_PERSON_TYPE_KEY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_person_type_key",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_person_type_key",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_person_type_key_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    },
+    {
+      "table": "cases",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "SEARCHKEY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/searchkey",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_searchkey",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_searchkey_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SECONDARY_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LENTINITAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentinitamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinitamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinitamount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "INTEREST",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/interest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LASTUPDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lastupdate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastupdate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastupdate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TOTPAYINTEREST",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/totpayinterest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayinterest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayinterest_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LENTEXPENSES",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentexpenses",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentexpenses",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentexpenses_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TOTPAYAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/totpayamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayamount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_CONTACT_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_contact_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_contact_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_contact_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "USER_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/user_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_updated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CURRENCY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "BASE_INTEREST_RATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/base_interest_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_base_interest_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_base_interest_rate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LASTPAYDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lastpaydate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpaydate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpaydate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CASE_TYPE_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_type_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LENTAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentamount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_ACTION_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_action_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LASTPAYAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lastpayamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpayamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lastpayamount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LENTDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentdate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentdate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentdate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_ACTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_action",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LENTINTEREST",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/lentinterest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinterest",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_lentinterest_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DT_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TOTPAYEXPENSES",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/totpayexpenses",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayexpenses",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_totpayexpenses_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_ACTION_USER_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_action_user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_action_user_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DATECREATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/datecreated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_datecreated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_datecreated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "BUCKET_ID",
+          "ref": "bucket.BUCKET_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_case_bucket",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "contact",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contact",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "ENTRY_USER_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/entry_user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entry_user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entry_user_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CONTACTDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contactdate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contactdate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contactdate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PAYAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/payamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "COST_",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/cost_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_cost_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_cost__VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "USER_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_user_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ENTRYDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/entrydate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entrydate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_entrydate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CURRENCY_CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "RECEITNO",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/receitno",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_receitno",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_receitno_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DATEUPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dateupdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PAYDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paydate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "CASE_ID",
+          "ref": "cases.CASE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_case",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "SETTLEMENT_MASTER_ID",
+          "ref": "msettlement_master.SETTLEMENT_MASTER_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_msettlement_master",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "PERSON_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_person",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "ACTIONCODE_ID",
+          "ref": "act_type.ACTIONCODE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_contact_act_type",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "email",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/email",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "IS_COMMUNICATION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_communication",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DT_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SECONDARY_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "PERSON_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_email_person",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "msettlement_detail",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/msettlement_detail",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "DT_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DT_CREATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_created",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_created",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_created_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PAIDAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paidamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paidamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paidamount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PROMISEDAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/promisedamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promisedamount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promisedamount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PROMISEDDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/promiseddate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promiseddate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_promiseddate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "SETTLEMENT_MASTER_ID",
+          "ref": "msettlement_master.SETTLEMENT_MASTER_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_msettlement_detail_msettlement_master",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "msettlement_master",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/msettlement_master",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "CURRENCY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ISWRITEOFF",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/iswriteoff",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_iswriteoff",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_iswriteoff_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "FINAL_BASE_RATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/final_base_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_final_base_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_final_base_rate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "UTILISATION_STATUS_USER_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/utilisation_status_user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_user_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_user_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "UTILISATION_STATUS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/utilisation_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "UTILISATION_STATUS_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/utilisation_status_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_utilisation_status_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "STATUS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_status_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "RELATED_CASES",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/related_cases",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_related_cases",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_related_cases_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SETTLE_AMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_amount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACCEPTANCE_LEVEL",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/acceptance_level",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_acceptance_level",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_acceptance_level_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "INITIAL_AMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/initial_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_amount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "INITIAL_BASE_RATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/initial_base_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_base_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_initial_base_rate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "SETTLE_PLAN_ID",
+          "ref": "settle_plan.SETTLE_PLAN_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_msettlement_master_settle_plan",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "INITIAL_SETTLEMENT_MASTER_ID",
+          "ref": "msettlement_master.SETTLEMENT_MASTER_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "-",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "payment",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/payment",
+        "match": "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "SDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/sdate",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_sdate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_sdate_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+            }
+          ]
+        },
+        {
+          "column": "PAYMENTTYPE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paymenttype",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionCategory"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymenttype",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/Commons/Classifiers/isClassifiedBy"
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paymenttype_VALUE",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/Commons/TextDatatype/hasTextValue"
+            }
+          ]
+        },
+        {
+          "column": "PAYDATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/paydate",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDate"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDate"
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_paydate_VALUE",
+              "isCons": false,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue"
+            }
+          ]
+        },
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDescription"
+            }
+          ]
+        },
+        {
+          "column": "PAYAMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/payamount",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasMonetaryAmount"
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_payamount_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount"
+            }
+          ]
+        },
+        {
+          "column": "PAY_KEY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/pay_key",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionIdentifier"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_key",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/Commons/Identifiers/isIdentifiedBy"
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_pay_key_VALUE",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/Commons/TextDatatype/hasTextValue"
+            }
+          ]
+        },
+        {
+          "column": "CURRENCY_CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency_code",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasCurrency"
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_code_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasNumericCode"
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "CASE_ID",
+          "ref": "cases.CASE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_payment_case",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "CONTACT_ID",
+          "ref": "contact.CONTACT_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_payment_contact",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "person",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/person",
+        "match": "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "LANGUAGE_",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/language_",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/Language"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_language_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_language__VALUE",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/hasEnglishName"
+            }
+          ]
+        },
+        {
+          "column": "DT_LAST_ACTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_last_action",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_last_action",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_last_action_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SECONDARY_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "GENDER",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/gender",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_gender",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_gender_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasGender"
+            }
+          ]
+        },
+        {
+          "column": "D_CREATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/d_created",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_created",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_created_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+            }
+          ]
+        },
+        {
+          "column": "SEARCH_KEY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/search_key",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_search_key",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_search_key_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "D_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/d_updated",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DateTime"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_d_updated_VALUE",
+              "isCons": true,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue"
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    },
+    {
+      "table": "person_extra",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/person",
+        "match": "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "NATIONALITY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/nationality",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_nationality",
+              "isCons": false,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasCitizenship"
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_nationality_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "IS_DECEASED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_deceased",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_deceased",
+              "isCons": true
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_deceased_VALUE",
+              "isCons": false,
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasDateOfDeath"
+            }
+          ]
+        },
+        {
+          "column": "PERSON_STATUS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/person_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_person_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_person_status_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "RESIDENCE_COUNTRY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/residence_country",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Country"
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_residence_country",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_residence_country_VALUE",
+              "isCons": true,
+              "match": "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasEnglishFullName"
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "PERSON_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "-",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "phone",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phone",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "IS_COMMUNICATION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_communication",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_communication_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DT_UPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dt_updated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SECONDARY_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_secondary_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "PERSON_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_phone_person",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "product",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/product",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "PRODUCTREPORTCATEGORY_ID",
+          "ref": "productreportcategory.PRODUCTREPORTCATEGORY_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_product_productreportcategory",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "PRODUCTCATEGORY_ID",
+          "ref": "productcategory.PRODUCTCATEGORY_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_product_productcategory",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "productcategory",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/productcategory",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_code_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    },
+    {
+      "table": "productreportcategory",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/productreportcategory",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    },
+    {
+      "table": "queue",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "TOTAL",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "WORKED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/worked",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "EXITED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/exited",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exited",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exited_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "REMAINING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/remaining",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_remaining",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_remaining_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ORDER_TYPE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/order_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_order_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_order_type_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "QUEUE_KEY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue_key",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_key",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_key_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CAN_EXPIRE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/can_expire",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_can_expire",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_can_expire_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "EXIT_ACTION_CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/exit_action_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exit_action_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_exit_action_code_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "QUEUE_TYPE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_queue_type_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "OWNER_USER",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/owner_user",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_owner_user",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_owner_user_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "WORKING_MODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/working_mode",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_working_mode",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_working_mode_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "WORKED_ACTION_CATEGORY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/worked_action_category",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked_action_category",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_worked_action_category_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CAPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/caption",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_caption",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_caption_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "IN_STRATEGY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/in_strategy",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_in_strategy",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_in_strategy_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    },
+    {
+      "table": "queue_case",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/queue_case",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "STRATEGY_CASE_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/strategy_case_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_case_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_case_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACCOUNT_ENTRY_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_entry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACCOUNT_ENTRY_RULE_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_entry_rule_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_rule_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_entry_rule_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACCOUNT_ORDER",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_order",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_order",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_order_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "IS_WORKED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/is_worked",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_worked",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_is_worked_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "CASE_ID",
+          "ref": "cases.CASE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_queue_case_case",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "QUEUE_ID",
+          "ref": "queue.QUEUE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_queue_case_queue",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "PERSON_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_queue_case_person",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "rer_metric",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/rer_metric",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "CURRENCY_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/currency_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_currency_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PHASE_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phase_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_PAY_AMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_pay_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_amount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DAYS_IN_PHASE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_in_phase",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_phase",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_phase_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PHASE_ENTRY_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/phase_entry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_entry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_phase_entry_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SETTLE_ISWRITEOFF",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_iswriteoff",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_iswriteoff",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settle_iswriteoff_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TIMES_IN_COLLECTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/times_in_collection",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_times_in_collection",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_times_in_collection_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "EXPIRY_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/expiry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_expiry_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "NO_VALID_PHONE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/no_valid_phone",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_phone",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_phone_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TOTAL_BALANCE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_balance_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DAYS_IN_COLLECTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_in_collection",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_collection",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_collection_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CONTRACT_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/contract_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_contract_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_SETT_STATUS_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_sett_status_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_status_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_status_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_BILLING_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_billing_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_billing_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_billing_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DAYS_IN_HANDLING_QUEUE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_in_handling_queue",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_handling_queue",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_in_handling_queue_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PAST_DUE_AMOUNT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/past_due_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_past_due_amount",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_past_due_amount_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "STRATEGY_SEGMENT_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/strategy_segment_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_segment_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_strategy_segment_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CASE_TYPE_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/case_type_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_case_type_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DAYS_FROM_LAST_PAY",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_from_last_pay",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_from_last_pay",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_from_last_pay_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "PORTFOLIO_CODE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/portfolio_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_portfolio_code_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_SETTLE_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_settle_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_settle_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_settle_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "BALANCE_LIMIT",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/balance_limit",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_balance_limit_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "CURRENT_BRANCH_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/current_branch_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_current_branch_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DAYS_PAST_DUE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/days_past_due",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_past_due",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_days_past_due_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "TOTAL_OUTSTANDING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/total_outstanding",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_total_outstanding_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "ACCOUNT_STATUS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/account_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_status",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_account_status_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "NO_VALID_ADDRESS",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/no_valid_address",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_address",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_no_valid_address_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_PAY_DATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_pay_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_date",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_pay_date_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "LAST_SETT_COMB_STATUS_ID",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/last_sett_comb_status_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_comb_status_id",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_last_sett_comb_status_id_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": [
+        {
+          "fkCol": "CASE_ID",
+          "ref": "cases.CASE_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_case",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "CLIENT_ID",
+          "ref": "person.PERSON_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_person",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "BUCKET_ID",
+          "ref": "bucket.BUCKET_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_bucket",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "PRODUCTREPORTCATEGORY_ID",
+          "ref": "productreportcategory.PRODUCTREPORTCATEGORY_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_productreportcategory",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "BUCKET_ID_PREV",
+          "ref": "bucket.BUCKET_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_bucket",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "PRODUCT_ID",
+          "ref": "product.PRODUCT_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_product",
+            "match": "",
+            "isCons": true
+          }
+        },
+        {
+          "fkCol": "PRODUCTCATEGORY_ID",
+          "ref": "productcategory.PRODUCTCATEGORY_ID",
+          "mapping": {
+            "type": "ObjectProperty",
+            "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/p_rer_metric_productcategory",
+            "match": "",
+            "isCons": true
+          }
+        }
+      ]
+    },
+    {
+      "table": "settle_plan",
+      "mapping": {
+        "type": "Class",
+        "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settle_plan",
+        "match": "",
+        "isCons": true
+      },
+      "columns": [
+        {
+          "column": "APPROVAL_METHOD",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/approval_method",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approval_method",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_approval_method_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PTP_AMOUNT_MAX_ACCEPTED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_amount_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_max_accepted_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "SETTLEMENT_PLAN_TYPE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/settlement_plan_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settlement_plan_type",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_settlement_plan_type_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_FIRST_PTP_DIST_WARNING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_first_ptp_dist_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_warning_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PLAN_DUR_WARNING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_plan_dur_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_warning_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MIN_PTP_DIST_WARNING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/min_ptp_dist_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_warning_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PTPS_MAX_ACCEPTED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptps_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_max_accepted_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DATEUPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/dateupdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_dateupdated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_FIRST_PTP_DIST_ACCEPTED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_first_ptp_dist_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_first_ptp_dist_accepted_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PTP_AMOUNT_WARNING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_amount_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_amount_warning_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "USERUPDATED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/userupdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_userupdated",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_userupdated_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MIN_PTP_DIST_MIN_ACCEPTED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/min_ptp_dist_min_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_min_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_min_ptp_dist_min_accepted_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "DESCRIPTION",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_description_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MINIMUM_INTEREST_RATE_WARNING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/minimum_interest_rate_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_warning_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PTP_DIST_MAX_ACCEPTED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_dist_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_max_accepted_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PLAN_DUR_MAX_ACCEPTED",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_plan_dur_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_max_accepted",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_plan_dur_max_accepted_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "INTEREST_RATE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/interest_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest_rate",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_interest_rate_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PTPS_WARNING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptps_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptps_warning_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "WARN_AMOUNT_PERCENTAGE",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/warn_amount_percentage",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_warn_amount_percentage",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_warn_amount_percentage_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MINIMUM_INTEREST_RATE_ERROR",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/minimum_interest_rate_error",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_error",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_minimum_interest_rate_error_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "MAX_PTP_DIST_WARNING",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/max_ptp_dist_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_warning",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_max_ptp_dist_warning_VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        },
+        {
+          "column": "NAME_",
+          "mappings": [
+            {
+              "type": "Class",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/name_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "ObjectProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_name_",
+              "isCons": true,
+              "match": ""
+            },
+            {
+              "type": "DataProperty",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl#/has_name__VALUE",
+              "isCons": true,
+              "match": ""
+            }
+          ]
+        }
+      ],
+      "FKs": []
+    }
+  ]
+}
