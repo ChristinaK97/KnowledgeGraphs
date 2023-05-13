@@ -908,18 +908,6 @@
                        rdfs:label "has last billing date" .
 
 
-###  http://www.example.net/ontologies/test_efs.owl/has_last_contact_id
-:has_last_contact_id rdf:type owl:ObjectProperty ;
-                     rdfs:subPropertyOf :AttributeProperty ;
-                     rdfs:domain [ rdf:type owl:Class ;
-                                   owl:unionOf ( :case
-                                               )
-                                 ] ;
-                     rdfs:range :last_contact_id ;
-                     rdfs:comment "[dp] from [cases.LAST_CONTACT_ID]" ;
-                     rdfs:label "has last contact id" .
-
-
 ###  http://www.example.net/ontologies/test_efs.owl/has_last_inst_date
 :has_last_inst_date rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :AttributeProperty ;
@@ -2288,7 +2276,7 @@
                                           )
                             ] ;
                 rdfs:range :contact ;
-                rdfs:comment "[r1 inv] from [null]" ;
+                rdfs:comment "[r1 inv, r1] from [null]" ;
                 rdfs:label "has contact" .
 
 
@@ -2301,7 +2289,7 @@
                                           )
                             ] ;
                 rdfs:range :payment ;
-                rdfs:comment "[r1 inv] from [null]" ;
+                rdfs:comment "[r8, r1 inv] from [null]" ;
                 rdfs:label "has payment" .
 
 
@@ -2495,7 +2483,7 @@
                                           )
                             ] ;
                 rdfs:range :case ;
-                rdfs:comment "[r1] from [null]" ;
+                rdfs:comment "[r1 inv, r1] from [null]" ;
                 rdfs:label "has case" .
 
 
@@ -2738,7 +2726,7 @@
                                           )
                             ] ;
                 rdfs:range :case ;
-                rdfs:comment "[r1] from [null]" ;
+                rdfs:comment "[r8, r1] from [null]" ;
                 rdfs:label "has case" .
 
 
@@ -4300,17 +4288,6 @@
                              rdfs:label "has last billing date" .
 
 
-###  http://www.example.net/ontologies/test_efs.owl/has_last_contact_id_VALUE
-:has_last_contact_id_VALUE rdf:type owl:DatatypeProperty ;
-                           rdfs:domain [ rdf:type owl:Class ;
-                                         owl:unionOf ( :last_contact_id
-                                                     )
-                                       ] ;
-                           rdfs:range xsd:integer ;
-                           rdfs:comment "[dp] from [cases.LAST_CONTACT_ID]" ;
-                           rdfs:label "has last contact id" .
-
-
 ###  http://www.example.net/ontologies/test_efs.owl/has_last_inst_date_VALUE
 :has_last_inst_date_VALUE rdf:type owl:DatatypeProperty ;
                           rdfs:domain [ rdf:type owl:Class ;
@@ -5807,10 +5784,6 @@
                         owl:someValuesFrom :last_action_user_id
                       ] ,
                       [ rdf:type owl:Restriction ;
-                        owl:onProperty :has_last_contact_id ;
-                        owl:someValuesFrom :last_contact_id
-                      ] ,
-                      [ rdf:type owl:Restriction ;
                         owl:onProperty :has_last_inst_date ;
                         owl:someValuesFrom :last_inst_date
                       ] ,
@@ -6764,17 +6737,6 @@
                                    ] ;
                    rdfs:comment "Attribute rer_metric.LAST_BILLING_DATE converted to class last_billing_date" ;
                    rdfs:label "last billing date" .
-
-
-###  http://www.example.net/ontologies/test_efs.owl/last_contact_id
-:last_contact_id rdf:type owl:Class ;
-                 rdfs:subClassOf :AttributeClass ,
-                                 [ rdf:type owl:Restriction ;
-                                   owl:onProperty :has_last_contact_id_VALUE ;
-                                   owl:someValuesFrom xsd:integer
-                                 ] ;
-                 rdfs:comment "Attribute cases.LAST_CONTACT_ID converted to class last_contact_id" ;
-                 rdfs:label "last contact id" .
 
 
 ###  http://www.example.net/ontologies/test_efs.owl/last_inst_date
