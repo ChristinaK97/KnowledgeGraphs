@@ -3,7 +3,6 @@ package org.example.ontology_extractor;
 import org.example.database_connector.DBSchema;
 import org.example.database_connector.RTable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DataPropExtractor {
@@ -15,6 +14,8 @@ public class DataPropExtractor {
 
     private HashMap<String, String> attrClasses = new HashMap<>();
     private boolean turnAttrToClasses;
+
+
 
     public DataPropExtractor(DBSchema db, boolean turnAttrToClasses, HashMap<String, String> convertedIntoClass) {
         this.turnAttrToClasses = turnAttrToClasses;
