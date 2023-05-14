@@ -1457,8 +1457,8 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/user_updated",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/LegalAgent",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
@@ -1850,8 +1850,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/contact",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/Notice",
+        "isCons": true
       },
       "columns": [
         {
@@ -1860,8 +1860,8 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/entry_user_id",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/LegalAgent",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
@@ -1883,20 +1883,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/contactdate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Date",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_contactdate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasEventDate",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_contactdate_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "isCons": true
             }
           ]
         },
@@ -1906,20 +1906,23 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/payamount",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_payamount",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/hasPaymentAmount",
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction"
+              ]
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_payamount_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount",
+              "isCons": true
             }
           ]
         },
@@ -1929,20 +1932,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/cost_",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_cost_",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasCost",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_cost__VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount",
+              "isCons": true
             }
           ]
         },
@@ -1952,8 +1955,8 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/user_id",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/LegalAgent",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
@@ -1975,20 +1978,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/entrydate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_entrydate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateAdded",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_entrydate_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "isCons": true
             }
           ]
         },
@@ -2010,8 +2013,13 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_currency_code_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasNumericCode",
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument",
+                "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/isDenominatedIn",
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency"
+              ]
             }
           ]
         },
@@ -2021,20 +2029,23 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/receitno",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrumentIdentifier",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_receitno",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/Identifiers/isIdentifiedBy",
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument"
+              ]
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_receitno_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/TextDatatype/hasTextValue",
+              "isCons": true
             }
           ]
         },
@@ -2044,20 +2055,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dateupdated",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "isCons": true
             }
           ]
         },
@@ -2067,20 +2078,23 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/paydate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_paydate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDate",
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction"
+              ]
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_paydate_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "isCons": false
             }
           ]
         }
@@ -2313,7 +2327,7 @@
               "match": "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/hasPaymentAmount",
               "isCons": false,
               "path": [
-                "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/Payment"
+                "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction"
               ]
             },
             {
@@ -2395,8 +2409,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/msettlement_master",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/MasterAgreement",
+        "isCons": true
       },
       "columns": [
         {
@@ -2405,20 +2419,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/currency",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_currency",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasCurrency",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_currency_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTextualName",
+              "isCons": true
             }
           ]
         },
@@ -2441,7 +2455,11 @@
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_iswriteoff_VALUE",
               "match": "",
-              "isCons": ""
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/isEvidencedBy",
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractDocument"
+              ]
             }
           ]
         },
@@ -2451,20 +2469,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/final_base_rate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/IND/InterestRates/InterestRates/BaseRate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_final_base_rate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/hasInterestRate",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_final_base_rate_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasRateValue",
+              "isCons": true
             }
           ]
         },
@@ -2474,14 +2492,17 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/utilisation_status_user_id",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/LegalAgent",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_user_id",
               "match": "",
-              "isCons": ""
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/ActionStatus"
+              ]
             },
             {
               "type": "DataProperty",
@@ -2497,8 +2518,8 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/utilisation_status",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/ActionStatus",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
@@ -2509,8 +2530,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTag",
+              "isCons": true
             }
           ]
         },
@@ -2520,20 +2541,25 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/utilisation_status_date",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Date",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_date",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasEventDate",
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/ActionStatus",
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasStage",
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStageOccurrence"
+              ]
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_date_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "isCons": true
             }
           ]
         },
@@ -2543,8 +2569,8 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/status",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/ActionStatus",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
@@ -2555,8 +2581,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_status_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTag",
+              "isCons": true
             }
           ]
         },
@@ -2589,20 +2615,24 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/settle_amount",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_settle_amount",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/Settlement/hasSettlementAmount",
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasContractualElement",
+                "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms"
+              ]
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_settle_amount_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount",
+              "isCons": true
             }
           ]
         },
@@ -2635,20 +2665,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/initial_amount",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_initial_amount",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasMonetaryAmount",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_initial_amount_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount",
+              "isCons": true
             }
           ]
         },
@@ -2658,20 +2688,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/initial_base_rate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/IND/InterestRates/InterestRates/BaseRate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_initial_base_rate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/hasInterestRate",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_initial_base_rate_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasRateValue",
+              "isCons": true
             }
           ]
         }
@@ -3512,8 +3542,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/queue",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/RegistrationAuthorities/Registry",
+        "isCons": true
       },
       "columns": [
         {
@@ -3534,8 +3564,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_total_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasCount",
+              "isCons": true
             }
           ]
         },
@@ -3557,8 +3587,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_worked_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasCount",
+              "isCons": true
             }
           ]
         },
@@ -3580,8 +3610,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_exited_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasCount",
+              "isCons": true
             }
           ]
         },
@@ -3603,8 +3633,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_remaining_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasCount",
+              "isCons": true
             }
           ]
         },
@@ -3637,20 +3667,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/queue_key",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/Identifiers/Identifier",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_queue_key",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/Identifiers/isIdentifiedBy",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_queue_key_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/TextDatatype/hasTextValue",
+              "isCons": true
             }
           ]
         },
@@ -3673,7 +3703,11 @@
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_can_expire_VALUE",
               "match": "",
-              "isCons": ""
+              "isCons": false,
+              "path": [
+                "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasExpirationDate",
+                "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Date"
+              ]
             }
           ]
         },
@@ -3683,8 +3717,8 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/exit_action_code",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/Action",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
@@ -3729,7 +3763,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/owner_user",
-              "match": "",
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/LegalAgent",
               "isCons": ""
             },
             {
@@ -3764,8 +3798,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_description_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/Designators/hasDescription",
+              "isCons": true
             }
           ]
         },
@@ -3833,8 +3867,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_caption_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTag",
+              "isCons": true
             }
           ]
         },
@@ -3844,14 +3878,14 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/in_strategy",
-              "match": "",
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Strategy",
               "isCons": ""
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_in_strategy",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasStrategy",
+              "isCons": true
             },
             {
               "type": "DataProperty",
@@ -3869,8 +3903,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/queue_case",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/RegistrationAuthorities/RegistryEntry",
+        "isCons": true
       },
       "columns": [
         {
@@ -3879,14 +3913,14 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/strategy_case_id",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Strategy",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_strategy_case_id",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasStrategy",
+              "isCons": true
             },
             {
               "type": "DataProperty",
@@ -3902,20 +3936,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/account_entry_date",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/CombinedDateTime",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_account_entry_date",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasObservedDateTime",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_account_entry_date_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateTimeValue",
+              "isCons": true
             }
           ]
         },
@@ -4777,8 +4811,8 @@
       "mapping": {
         "type": "Class",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/settle_plan",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms",
+        "isCons": true
       },
       "columns": [
         {
@@ -4810,20 +4844,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/max_ptp_amount_max_accepted",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_max_accepted",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanApplications/hasApprovedAmount",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_max_accepted_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount",
+              "isCons": true
             }
           ]
         },
@@ -4879,20 +4913,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/max_plan_dur_warning",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Duration",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_warning",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDuration",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_warning_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDurationValue",
+              "isCons": true
             }
           ]
         },
@@ -4937,8 +4971,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_ptps_max_accepted_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasAnticipatedNumberOfPayments",
+              "isCons": true
             }
           ]
         },
@@ -4948,20 +4982,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dateupdated",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "isCons": true
             }
           ]
         },
@@ -4994,20 +5028,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/max_ptp_amount_warning",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_warning",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/CreditEvents/hasDefaultThresholdAmount",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_warning_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount",
+              "isCons": true
             }
           ]
         },
@@ -5017,7 +5051,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/userupdated",
-              "match": "",
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/LegalAgent",
               "isCons": ""
             },
             {
@@ -5075,8 +5109,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_description_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/Designators/hasDescription",
+              "isCons": true
             }
           ]
         },
@@ -5086,20 +5120,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/minimum_interest_rate_warning",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/FloatingInterestRate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_warning",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/DER/RateDerivatives/IRSwaps/hasFloatingRateFloor",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_warning_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasRateValue",
+              "isCons": true
             }
           ]
         },
@@ -5132,20 +5166,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/max_plan_dur_max_accepted",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Duration",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_max_accepted",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDuration",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_max_accepted_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDurationValue",
+              "isCons": true
             }
           ]
         },
@@ -5155,20 +5189,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/interest_rate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/InterestRate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_interest_rate",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/hasInterestRate",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_interest_rate_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasRateValue",
+              "isCons": true
             }
           ]
         },
@@ -5190,8 +5224,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_ptps_warning_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasAnticipatedNumberOfPayments",
+              "isCons": true
             }
           ]
         },
@@ -5201,8 +5235,8 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/warn_amount_percentage",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PercentageMonetaryAmount",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
@@ -5213,8 +5247,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_warn_amount_percentage_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Quantities/QuantitiesAndUnits/hasNumericValue",
+              "isCons": true
             }
           ]
         },
@@ -5224,20 +5258,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/minimum_interest_rate_error",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/FloatingInterestRate",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_error",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/DER/RateDerivatives/IRSwaps/hasFloatingRateFloor",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_error_VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasRateValue",
+              "isCons": true
             }
           ]
         },
@@ -5270,20 +5304,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/name_",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/Designators/Name",
+              "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_name_",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/Designators/hasName",
+              "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_name__VALUE",
-              "match": "",
-              "isCons": ""
+              "match": "https://www.omg.org/spec/Commons/TextDatatype/hasTextValue",
+              "isCons": true
             }
           ]
         }
