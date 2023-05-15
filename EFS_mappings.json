@@ -4926,7 +4926,7 @@
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_warning_VALUE",
               "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDurationValue",
-              "isCons": true
+              "isCons": false
             }
           ]
         },
