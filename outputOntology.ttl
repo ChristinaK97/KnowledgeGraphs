@@ -465,6 +465,11 @@
                            owl:someValuesFrom  xsd:decimal
                          ] .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_dt_updated_VALUE ;
+  owl:someValuesFrom  xsd:string
+] .
+
 :has_person_status  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[dp] from [person_extra.PERSON_STATUS]" ;
         rdfs:domain         :person ;
@@ -489,6 +494,15 @@
         rdfs:range          xsd:integer ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasAnticipatedNumberOfPayments> .
 
+:final_base_rate  rdf:type  owl:Class ;
+        rdfs:comment     "Attribute msettlement_master.FINAL_BASE_RATE converted to class final_base_rate" ;
+        rdfs:label       "final base rate" ;
+        rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/IND/InterestRates/InterestRates/BaseRate> , :AttributeClass ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_final_base_rate_VALUE ;
+                           owl:someValuesFrom  xsd:decimal
+                         ] .
+
 :has_promisedamount  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[dp] from [msettlement_detail.PROMISEDAMOUNT]" ;
         rdfs:domain         :msettlement_detail ;
@@ -502,15 +516,6 @@
         rdfs:label          "has owner user" ;
         rdfs:range          :owner_user ;
         rdfs:subPropertyOf  :AttributeProperty .
-
-:final_base_rate  rdf:type  owl:Class ;
-        rdfs:comment     "Attribute msettlement_master.FINAL_BASE_RATE converted to class final_base_rate" ;
-        rdfs:label       "final base rate" ;
-        rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/IND/InterestRates/InterestRates/BaseRate> , :AttributeClass ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_final_base_rate_VALUE ;
-                           owl:someValuesFrom  xsd:decimal
-                         ] .
 
 :has_totpayinterest_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -688,6 +693,11 @@
                            owl:someValuesFrom  xsd:boolean
                          ] .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_max_plan_dur_warning_VALUE ;
+  owl:someValuesFrom  xsd:integer
+] .
+
 :has_max_ptps_max_accepted_VALUE
         rdf:type            owl:DatatypeProperty ;
         rdfs:comment        "[dp] from [settle_plan.MAX_PTPS_MAX_ACCEPTED]" ;
@@ -703,6 +713,11 @@
         rdfs:label          "has exit action code" ;
         rdfs:range          :exit_action_code ;
         rdfs:subPropertyOf  :AttributeProperty .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_lastupdate_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
 
 :max_plan_dur_max_accepted
         rdf:type         owl:Class ;
@@ -760,6 +775,11 @@
         rdfs:label          "has description" ;
         rdfs:range          xsd:string ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDescription> , <https://www.omg.org/spec/Commons/Designators/hasDescription> .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_date_created_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
 
 :has_isadmin_VALUE  rdf:type  owl:DatatypeProperty ;
         rdfs:comment  "[dp] from [act_type.ISADMIN]" ;
@@ -831,6 +851,16 @@
                            owl:someValuesFrom  xsd:string
                          ] .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_expiry_date_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_dt_created_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
 :has_is_communication
         rdf:type            owl:ObjectProperty ;
         rdfs:comment        "[dp] from [email.IS_COMMUNICATION, phone.IS_COMMUNICATION, address.IS_COMMUNICATION]" ;
@@ -898,11 +928,6 @@
         rdfs:range          :minimum_interest_rate_warning ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/DER/RateDerivatives/IRSwaps/hasFloatingRateFloor> , :AttributeProperty .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_lastpaydate_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
 :has_description  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[dp] from [actcategory.DESCRIPTION, productcategory.DESCRIPTION, act_type.DESCRIPTION, bucket.DESCRIPTION, queue.DESCRIPTION, case_person_type.DESCRIPTION, productreportcategory.DESCRIPTION, payment.DESCRIPTION, product.DESCRIPTION, settle_plan.DESCRIPTION]" ;
         rdfs:domain         [ rdf:type     owl:Class ;
@@ -934,6 +959,13 @@
         rdfs:range          :act_type ;
         rdfs:subPropertyOf  :FKProperty .
 
+:has_user_updated  rdf:type  owl:ObjectProperty ;
+        rdfs:comment        "[dp] from [cases.USER_UPDATED]" ;
+        rdfs:domain         :case ;
+        rdfs:label          "has user updated" ;
+        rdfs:range          :user_updated ;
+        rdfs:subPropertyOf  :AttributeProperty .
+
 :interest_rate  rdf:type  owl:Class ;
         rdfs:comment     "Attribute settle_plan.INTEREST_RATE converted to class interest_rate" ;
         rdfs:label       "interest rate" ;
@@ -942,13 +974,6 @@
                            owl:onProperty      :has_interest_rate_VALUE ;
                            owl:someValuesFrom  xsd:decimal
                          ] .
-
-:has_user_updated  rdf:type  owl:ObjectProperty ;
-        rdfs:comment        "[dp] from [cases.USER_UPDATED]" ;
-        rdfs:domain         :case ;
-        rdfs:label          "has user updated" ;
-        rdfs:range          :user_updated ;
-        rdfs:subPropertyOf  :AttributeProperty .
 
 :has_paidamount  rdf:type   owl:ObjectProperty ;
         rdfs:comment        "[dp] from [msettlement_detail.PAIDAMOUNT]" ;
@@ -973,6 +998,11 @@
         rdfs:domain   :no_valid_phone ;
         rdfs:label    "has no valid phone" ;
         rdfs:range    xsd:boolean .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_dt_updated_VALUE ;
+  owl:someValuesFrom  xsd:string
+] .
 
 :has_contract_date_VALUE
         rdf:type      owl:DatatypeProperty ;
@@ -1009,68 +1039,68 @@
         rdfs:label       "msettlement master" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/MasterAgreement> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_utilisation_status ;
-                           owl:someValuesFrom  :utilisation_status
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_utilisation_status_date ;
-                           owl:someValuesFrom  :utilisation_status_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_initial_base_rate ;
                            owl:someValuesFrom  :initial_base_rate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_iswriteoff ;
-                           owl:someValuesFrom  :iswriteoff
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_utilisation_status_user_id ;
-                           owl:someValuesFrom  :utilisation_status_user_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_msettlement_master ;
-                           owl:someValuesFrom  :msettlement_master
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_msettlement_master_settle_plan ;
-                           owl:someValuesFrom  :settle_plan
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_related_cases ;
-                           owl:someValuesFrom  :related_cases
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_status ;
-                           owl:someValuesFrom  :status
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_currency ;
-                           owl:someValuesFrom  :currency
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_initial_amount ;
-                           owl:someValuesFrom  :initial_amount
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_msettlement_master_msettlement_detail ;
                            owl:someValuesFrom  :msettlement_detail
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_final_base_rate ;
-                           owl:someValuesFrom  :final_base_rate
+                           owl:onProperty      :has_iswriteoff ;
+                           owl:someValuesFrom  :iswriteoff
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_utilisation_status_date ;
+                           owl:someValuesFrom  :utilisation_status_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_settle_amount ;
+                           owl:someValuesFrom  :settle_amount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_initial_amount ;
+                           owl:someValuesFrom  :initial_amount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_msettlement_master ;
+                           owl:someValuesFrom  :msettlement_master
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_utilisation_status ;
+                           owl:someValuesFrom  :utilisation_status
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_msettlement_master_contact ;
                            owl:someValuesFrom  :contact
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_status ;
+                           owl:someValuesFrom  :status
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_related_cases ;
+                           owl:someValuesFrom  :related_cases
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_acceptance_level ;
                            owl:someValuesFrom  :acceptance_level
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_settle_amount ;
-                           owl:someValuesFrom  :settle_amount
+                           owl:onProperty      :p_msettlement_master_settle_plan ;
+                           owl:someValuesFrom  :settle_plan
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_utilisation_status_user_id ;
+                           owl:someValuesFrom  :utilisation_status_user_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_currency ;
+                           owl:someValuesFrom  :currency
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_final_base_rate ;
+                           owl:someValuesFrom  :final_base_rate
                          ] .
 
 :has_utilisation_status_user_id
@@ -1125,47 +1155,6 @@
         rdfs:range          :status ;
         rdfs:subPropertyOf  :AttributeProperty .
 
-:payment  rdf:type       owl:Class ;
-        rdfs:comment     "Table payment converted to class payment" ;
-        rdfs:label       "payment" ;
-        rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction> ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_payment_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_pay_key ;
-                           owl:someValuesFrom  :pay_key
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_description ;
-                           owl:someValuesFrom  :description
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_currency_code ;
-                           owl:someValuesFrom  :currency_code
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_paydate ;
-                           owl:someValuesFrom  :paydate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_payamount ;
-                           owl:someValuesFrom  :payamount
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_paymenttype ;
-                           owl:someValuesFrom  :paymenttype
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_payment_case ;
-                           owl:someValuesFrom  :case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_sdate ;
-                           owl:someValuesFrom  :sdate
-                         ] .
-
 :account_entry_rule_id
         rdf:type         owl:Class ;
         rdfs:comment     "Attribute queue_case.ACCOUNT_ENTRY_RULE_ID converted to class account_entry_rule_id" ;
@@ -1198,6 +1187,47 @@
         rdfs:domain   :source_ ;
         rdfs:label    "has source " ;
         rdfs:range    xsd:string .
+
+:payment  rdf:type       owl:Class ;
+        rdfs:comment     "Table payment converted to class payment" ;
+        rdfs:label       "payment" ;
+        rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction> ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_pay_key ;
+                           owl:someValuesFrom  :pay_key
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_currency_code ;
+                           owl:someValuesFrom  :currency_code
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_payamount ;
+                           owl:someValuesFrom  :payamount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_paymenttype ;
+                           owl:someValuesFrom  :paymenttype
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_description ;
+                           owl:someValuesFrom  :description
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_sdate ;
+                           owl:someValuesFrom  :sdate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_payment_contact ;
+                           owl:someValuesFrom  :contact
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_paydate ;
+                           owl:someValuesFrom  :paydate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_payment_case ;
+                           owl:someValuesFrom  :case
+                         ] .
 
 :has_max_plan_dur_max_accepted_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -1314,6 +1344,13 @@
                            owl:someValuesFrom  xsd:decimal
                          ] .
 
+:has_paydate_VALUE  rdf:type  owl:DatatypeProperty ;
+        rdfs:comment        "[dp] from [payment.PAYDATE, contact.PAYDATE]" ;
+        rdfs:domain         :paydate ;
+        rdfs:label          "has paydate" ;
+        rdfs:range          xsd:string ;
+        rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue> .
+
 :p_productreportcategory_productcategory
         rdf:type            owl:ObjectProperty ;
         rdfs:comment        "[r3] from [null]" ;
@@ -1321,13 +1358,6 @@
         rdfs:label          "has productcategory" ;
         rdfs:range          :productcategory ;
         rdfs:subPropertyOf  :FKProperty .
-
-:has_paydate_VALUE  rdf:type  owl:DatatypeProperty ;
-        rdfs:comment        "[dp] from [payment.PAYDATE, contact.PAYDATE]" ;
-        rdfs:domain         :paydate ;
-        rdfs:label          "has paydate" ;
-        rdfs:range          xsd:string ;
-        rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue> .
 
 :has_promisedamount_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -1342,55 +1372,6 @@
         rdfs:comment  "[dp] from [rer_metric.DAYS_FROM_LAST_PAY]" ;
         rdfs:domain   :days_from_last_pay ;
         rdfs:label    "has days from last pay" ;
-        rdfs:range    xsd:integer .
-
-:product  rdf:type       owl:Class ;
-        rdfs:comment     "Table product converted to class product" ;
-        rdfs:label       "product" ;
-        rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/LoanProducts/LoanProduct> , :TableClass ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_product_productcategory ;
-                           owl:someValuesFrom  :productcategory
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_code ;
-                           owl:someValuesFrom  :code
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_product_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_product_bucket ;
-                           owl:someValuesFrom  :bucket
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_description ;
-                           owl:someValuesFrom  :description
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_product_person ;
-                           owl:someValuesFrom  :person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_product_case ;
-                           owl:someValuesFrom  :case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_product_productreportcategory ;
-                           owl:someValuesFrom  :productreportcategory
-                         ] .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_expiry_date_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
-:has_last_sett_status_id_VALUE
-        rdf:type      owl:DatatypeProperty ;
-        rdfs:comment  "[dp] from [rer_metric.LAST_SETT_STATUS_ID]" ;
-        rdfs:domain   :last_sett_status_id ;
-        rdfs:label    "has last sett status id" ;
         rdfs:range    xsd:integer .
 
 :has_pay_key  rdf:type      owl:ObjectProperty ;
@@ -1408,6 +1389,13 @@
         rdfs:subPropertyOf  :FKProperty ;
         owl:inverseOf       :p_person_case .
 
+:has_last_sett_status_id_VALUE
+        rdf:type      owl:DatatypeProperty ;
+        rdfs:comment  "[dp] from [rer_metric.LAST_SETT_STATUS_ID]" ;
+        rdfs:domain   :last_sett_status_id ;
+        rdfs:label    "has last sett status id" ;
+        rdfs:range    xsd:integer .
+
 :has_lentexpenses_VALUE
         rdf:type            owl:DatatypeProperty ;
         rdfs:comment        "[dp] from [cases.LENTEXPENSES]" ;
@@ -1415,6 +1403,43 @@
         rdfs:label          "has lentexpenses" ;
         rdfs:range          xsd:decimal ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount> .
+
+:product  rdf:type       owl:Class ;
+        rdfs:comment     "Table product converted to class product" ;
+        rdfs:label       "product" ;
+        rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/LoanProducts/LoanProduct> , :TableClass ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_product_productreportcategory ;
+                           owl:someValuesFrom  :productreportcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_product_productcategory ;
+                           owl:someValuesFrom  :productcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_code ;
+                           owl:someValuesFrom  :code
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_product_person ;
+                           owl:someValuesFrom  :person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_description ;
+                           owl:someValuesFrom  :description
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_product_case ;
+                           owl:someValuesFrom  :case
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_product_bucket ;
+                           owl:someValuesFrom  :bucket
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_product_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
+                         ] .
 
 :receitno  rdf:type      owl:Class ;
         rdfs:comment     "Attribute contact.RECEITNO converted to class receitno" ;
@@ -1450,6 +1475,13 @@
         rdfs:range          :dt_updated ;
         rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate> , :AttributeProperty .
 
+:has_inactive_  rdf:type    owl:ObjectProperty ;
+        rdfs:comment        "[dp] from [case_person.INACTIVE_]" ;
+        rdfs:domain         :case_person ;
+        rdfs:label          "has inactive " ;
+        rdfs:range          :inactive_ ;
+        rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasStage> , :AttributeProperty .
+
 :settlement_plan_type
         rdf:type         owl:Class ;
         rdfs:comment     "Attribute settle_plan.SETTLEMENT_PLAN_TYPE converted to class settlement_plan_type" ;
@@ -1459,13 +1491,6 @@
                            owl:onProperty      :has_settlement_plan_type_VALUE ;
                            owl:someValuesFrom  xsd:integer
                          ] .
-
-:has_inactive_  rdf:type    owl:ObjectProperty ;
-        rdfs:comment        "[dp] from [case_person.INACTIVE_]" ;
-        rdfs:domain         :case_person ;
-        rdfs:label          "has inactive " ;
-        rdfs:range          :inactive_ ;
-        rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasStage> , :AttributeProperty .
 
 :has_name__VALUE  rdf:type  owl:DatatypeProperty ;
         rdfs:comment        "[dp] from [settle_plan.NAME_]" ;
@@ -1507,11 +1532,6 @@
         rdfs:label          "has lastupdate" ;
         rdfs:range          xsd:string ;
         rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue> .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_promisedamount_VALUE ;
-  owl:someValuesFrom  xsd:decimal
-] .
 
 :contactdate  rdf:type   owl:Class ;
         rdfs:comment     "Attribute contact.CONTACTDATE converted to class contactdate" ;
@@ -1568,11 +1588,6 @@
         rdfs:range          :max_ptp_dist_max_accepted ;
         rdfs:subPropertyOf  :AttributeProperty .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_lastupdate_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
 :p_productreportcategory_person
         rdf:type            owl:ObjectProperty ;
         rdfs:comment        "[r3] from [null]" ;
@@ -1586,20 +1601,8 @@
         rdfs:label       "contact" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/Notice> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_receitno ;
-                           owl:someValuesFrom  :receitno
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_phone ;
-                           owl:someValuesFrom  :phone
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_email ;
-                           owl:someValuesFrom  :email
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_act_type ;
-                           owl:someValuesFrom  :act_type
+                           owl:onProperty      :p_contact_person ;
+                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_entrydate ;
@@ -1610,64 +1613,76 @@
                            owl:someValuesFrom  :cost_
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_contactdate ;
-                           owl:someValuesFrom  :contactdate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_currency_code ;
-                           owl:someValuesFrom  :currency_code
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_user_id ;
-                           owl:someValuesFrom  :user_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_paydate ;
-                           owl:someValuesFrom  :paydate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_person ;
-                           owl:someValuesFrom  :person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_entry_user_id ;
-                           owl:someValuesFrom  :entry_user_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_payment ;
-                           owl:someValuesFrom  :payment
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_msettlement_detail ;
-                           owl:someValuesFrom  :msettlement_detail
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_address ;
-                           owl:someValuesFrom  :address
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_contact_queue_case ;
-                           owl:someValuesFrom  :queue_case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_contact_case ;
                            owl:someValuesFrom  :case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dateupdated ;
-                           owl:someValuesFrom  :dateupdated
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_contact_msettlement_master ;
                            owl:someValuesFrom  :msettlement_master
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_dateupdated ;
+                           owl:someValuesFrom  :dateupdated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_entry_user_id ;
+                           owl:someValuesFrom  :entry_user_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_receitno ;
+                           owl:someValuesFrom  :receitno
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_payment ;
+                           owl:someValuesFrom  :payment
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_email ;
+                           owl:someValuesFrom  :email
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_user_id ;
+                           owl:someValuesFrom  :user_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_msettlement_detail ;
+                           owl:someValuesFrom  :msettlement_detail
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_act_type ;
+                           owl:someValuesFrom  :act_type
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_address ;
+                           owl:someValuesFrom  :address
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_currency_code ;
+                           owl:someValuesFrom  :currency_code
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_queue_case ;
+                           owl:someValuesFrom  :queue_case
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_phone ;
+                           owl:someValuesFrom  :phone
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_payamount ;
                            owl:someValuesFrom  :payamount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_paydate ;
+                           owl:someValuesFrom  :paydate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_contactdate ;
+                           owl:someValuesFrom  :contactdate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_contact_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
                          ] .
 
 :max_ptp_dist_max_accepted
@@ -1744,6 +1759,11 @@
         rdfs:domain   :action_contact_status ;
         rdfs:label    "has action contact status" ;
         rdfs:range    xsd:string .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_dt_updated_VALUE ;
+  owl:someValuesFrom  xsd:string
+] .
 
 :p_contact_payment  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[r8, r1 inv] from [null]" ;
@@ -1977,17 +1997,17 @@
         rdfs:range          xsd:string ;
         rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue> .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_currency_code_VALUE ;
+  owl:someValuesFrom  xsd:string
+] .
+
 :has_isadmin  rdf:type      owl:ObjectProperty ;
         rdfs:comment        "[dp] from [act_type.ISADMIN]" ;
         rdfs:domain         :act_type ;
         rdfs:label          "has isadmin" ;
         rdfs:range          :isadmin ;
         rdfs:subPropertyOf  :AttributeProperty .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dt_updated_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
 
 :p_person_address  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[r1 inv] from [null]" ;
@@ -2017,36 +2037,36 @@
         rdfs:label       "productcategory" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/LoanProducts/LoanProduct> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_code ;
-                           owl:someValuesFrom  :code
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_productcategory_productreportcategory ;
-                           owl:someValuesFrom  :productreportcategory
+                           owl:onProperty      :p_productcategory_person ;
+                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_productcategory_case ;
                            owl:someValuesFrom  :case
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_description ;
-                           owl:someValuesFrom  :description
+                           owl:onProperty      :p_productcategory_product ;
+                           owl:someValuesFrom  :product
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_productcategory_rer_metric ;
                            owl:someValuesFrom  :rer_metric
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_productcategory_product ;
-                           owl:someValuesFrom  :product
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_productcategory_person ;
-                           owl:someValuesFrom  :person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_productcategory_bucket ;
                            owl:someValuesFrom  :bucket
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_productcategory_productreportcategory ;
+                           owl:someValuesFrom  :productreportcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_code ;
+                           owl:someValuesFrom  :code
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_description ;
+                           owl:someValuesFrom  :description
                          ] .
 
 :has_times_in_collection
@@ -2072,14 +2092,6 @@
         rdfs:range          :days_in_phase ;
         rdfs:subPropertyOf  :AttributeProperty .
 
-:has_case_person_type_key_VALUE
-        rdf:type            owl:DatatypeProperty ;
-        rdfs:comment        "[dp] from [case_person_type.CASE_PERSON_TYPE_KEY]" ;
-        rdfs:domain         :case_person_type_key ;
-        rdfs:label          "has case person type key" ;
-        rdfs:range          xsd:integer ;
-        rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/TextDatatype/hasTextValue> .
-
 :has_minimum_interest_rate_error
         rdf:type            owl:ObjectProperty ;
         rdfs:comment        "[dp] from [settle_plan.MINIMUM_INTEREST_RATE_ERROR]" ;
@@ -2087,6 +2099,14 @@
         rdfs:label          "has minimum interest rate error" ;
         rdfs:range          :minimum_interest_rate_error ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/DER/RateDerivatives/IRSwaps/hasFloatingRateFloor> , :AttributeProperty .
+
+:has_case_person_type_key_VALUE
+        rdf:type            owl:DatatypeProperty ;
+        rdfs:comment        "[dp] from [case_person_type.CASE_PERSON_TYPE_KEY]" ;
+        rdfs:domain         :case_person_type_key ;
+        rdfs:label          "has case person type key" ;
+        rdfs:range          xsd:integer ;
+        rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/TextDatatype/hasTextValue> .
 
 :has_totpayexpenses  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[dp] from [cases.TOTPAYEXPENSES]" ;
@@ -2102,6 +2122,16 @@
         rdfs:range          :case_person ;
         rdfs:subPropertyOf  :FKProperty .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_contactdate_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_paydate_VALUE ;
+  owl:someValuesFrom  xsd:string
+] .
+
 :p_bucket_rer_metric  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[r4, r1 inv] from [null]" ;
         rdfs:domain         :bucket ;
@@ -2114,56 +2144,56 @@
         rdfs:label       "queue case" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/RegistrationAuthorities/RegistryEntry> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_account_entry_date ;
-                           owl:someValuesFrom  :account_entry_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_account_entry_rule_id ;
                            owl:someValuesFrom  :account_entry_rule_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_strategy_case_id ;
-                           owl:someValuesFrom  :strategy_case_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case_queue ;
-                           owl:someValuesFrom  :queue
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_account_order ;
-                           owl:someValuesFrom  :account_order
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case_case ;
-                           owl:someValuesFrom  :case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case_phone ;
-                           owl:someValuesFrom  :phone
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case_email ;
-                           owl:someValuesFrom  :email
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case_person ;
-                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_is_worked ;
                            owl:someValuesFrom  :is_worked
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case_queue ;
+                           owl:someValuesFrom  :queue
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case_person ;
+                           owl:someValuesFrom  :person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case_email ;
+                           owl:someValuesFrom  :email
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case_contact ;
+                           owl:someValuesFrom  :contact
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_account_order ;
+                           owl:someValuesFrom  :account_order
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_queue_case_address ;
                            owl:someValuesFrom  :address
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case_phone ;
+                           owl:someValuesFrom  :phone
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_strategy_case_id ;
+                           owl:someValuesFrom  :strategy_case_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_account_entry_date ;
+                           owl:someValuesFrom  :account_entry_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case_case ;
+                           owl:someValuesFrom  :case
                          ] .
 
 :phone  rdf:type         owl:Class ;
@@ -2171,46 +2201,41 @@
         rdfs:label       "phone" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/TelephoneNumber> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_phone_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_phone_queue_case ;
-                           owl:someValuesFrom  :queue_case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dt_updated ;
-                           owl:someValuesFrom  :dt_updated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_phone_email ;
-                           owl:someValuesFrom  :email
+                           owl:onProperty      :p_phone_person ;
+                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_secondary_id ;
                            owl:someValuesFrom  :secondary_id
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_phone_address ;
-                           owl:someValuesFrom  :address
+                           owl:onProperty      :p_phone_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_is_communication ;
                            owl:someValuesFrom  :is_communication
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_phone_person ;
-                           owl:someValuesFrom  :person
+                           owl:onProperty      :p_phone_address ;
+                           owl:someValuesFrom  :address
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_phone_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
+                           owl:onProperty      :has_dt_updated ;
+                           owl:someValuesFrom  :dt_updated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_phone_contact ;
+                           owl:someValuesFrom  :contact
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_phone_email ;
+                           owl:someValuesFrom  :email
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_phone_queue_case ;
+                           owl:someValuesFrom  :queue_case
                          ] .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_lentdate_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
 
 :has_residence_country_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -2227,6 +2252,15 @@
         rdfs:label          "has balance limit" ;
         rdfs:range          xsd:decimal ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount> .
+
+:working_mode  rdf:type  owl:Class ;
+        rdfs:comment     "Attribute queue.WORKING_MODE converted to class working_mode" ;
+        rdfs:label       "working mode" ;
+        rdfs:subClassOf  :AttributeClass ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_working_mode_VALUE ;
+                           owl:someValuesFrom  xsd:integer
+                         ] .
 
 :has_last_sett_status_id
         rdf:type            owl:ObjectProperty ;
@@ -2245,15 +2279,6 @@
                            owl:someValuesFrom  xsd:string
                          ] .
 
-:working_mode  rdf:type  owl:Class ;
-        rdfs:comment     "Attribute queue.WORKING_MODE converted to class working_mode" ;
-        rdfs:label       "working mode" ;
-        rdfs:subClassOf  :AttributeClass ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_working_mode_VALUE ;
-                           owl:someValuesFrom  xsd:integer
-                         ] .
-
 :has_interest_rate  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[dp] from [settle_plan.INTEREST_RATE]" ;
         rdfs:domain         :settle_plan ;
@@ -2266,76 +2291,76 @@
         rdfs:label       "queue" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/RegistrationAuthorities/Registry> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_order_type ;
-                           owl:someValuesFrom  :order_type
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_queue_key ;
-                           owl:someValuesFrom  :queue_key
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_working_mode ;
-                           owl:someValuesFrom  :working_mode
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_in_strategy ;
-                           owl:someValuesFrom  :in_strategy
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_worked ;
-                           owl:someValuesFrom  :worked
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_person ;
-                           owl:someValuesFrom  :person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_remaining ;
                            owl:someValuesFrom  :remaining
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_queue_type ;
-                           owl:someValuesFrom  :queue_type
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_description ;
                            owl:someValuesFrom  :description
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_caption ;
-                           owl:someValuesFrom  :caption
+                           owl:onProperty      :p_queue_person ;
+                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_owner_user ;
-                           owl:someValuesFrom  :owner_user
+                           owl:onProperty      :has_in_strategy ;
+                           owl:someValuesFrom  :in_strategy
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_queue_type ;
+                           owl:someValuesFrom  :queue_type
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_worked_action_category ;
+                           owl:someValuesFrom  :worked_action_category
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_order_type ;
+                           owl:someValuesFrom  :order_type
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_queue_queue_case ;
                            owl:someValuesFrom  :queue_case
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_can_expire ;
-                           owl:someValuesFrom  :can_expire
+                           owl:onProperty      :has_worked ;
+                           owl:someValuesFrom  :worked
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_caption ;
+                           owl:someValuesFrom  :caption
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_exit_action_code ;
                            owl:someValuesFrom  :exit_action_code
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_queue_case ;
-                           owl:someValuesFrom  :case
+                           owl:onProperty      :has_owner_user ;
+                           owl:someValuesFrom  :owner_user
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_total ;
                            owl:someValuesFrom  :total
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_working_mode ;
+                           owl:someValuesFrom  :working_mode
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_can_expire ;
+                           owl:someValuesFrom  :can_expire
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_exited ;
                            owl:someValuesFrom  :exited
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_worked_action_category ;
-                           owl:someValuesFrom  :worked_action_category
+                           owl:onProperty      :has_queue_key ;
+                           owl:someValuesFrom  :queue_key
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_queue_case ;
+                           owl:someValuesFrom  :case
                          ] .
 
 :has_dateupdated  rdf:type  owl:ObjectProperty ;
@@ -2352,28 +2377,24 @@
         rdfs:label       "email" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/ElectronicMailAddress> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_email_ATTR ;
-                           owl:someValuesFrom  :email_ATTR
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_secondary_id ;
-                           owl:someValuesFrom  :secondary_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_email_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
+                           owl:onProperty      :p_email_contact ;
+                           owl:someValuesFrom  :contact
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_is_communication ;
                            owl:someValuesFrom  :is_communication
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dt_updated ;
-                           owl:someValuesFrom  :dt_updated
+                           owl:onProperty      :p_email_person ;
+                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_email_contact ;
-                           owl:someValuesFrom  :contact
+                           owl:onProperty      :p_email_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_email_phone ;
+                           owl:someValuesFrom  :phone
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_email_address ;
@@ -2384,12 +2405,16 @@
                            owl:someValuesFrom  :queue_case
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_email_person ;
-                           owl:someValuesFrom  :person
+                           owl:onProperty      :has_secondary_id ;
+                           owl:someValuesFrom  :secondary_id
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_email_phone ;
-                           owl:someValuesFrom  :phone
+                           owl:onProperty      :has_email_ATTR ;
+                           owl:someValuesFrom  :email_ATTR
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_dt_updated ;
+                           owl:someValuesFrom  :dt_updated
                          ] .
 
 :has_last_action_user_id_VALUE
@@ -2496,11 +2521,6 @@
         rdfs:range          xsd:string ;
         rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue> .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_d_updated_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
 :has_balance_limit  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[dp] from [case_exta.BALANCE_LIMIT, rer_metric.BALANCE_LIMIT]" ;
         rdfs:domain         [ rdf:type     owl:Class ;
@@ -2605,6 +2625,11 @@
         rdfs:range          :case ;
         rdfs:subPropertyOf  :FKProperty .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_paydate_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
 :min_ptp_dist_warning
         rdf:type         owl:Class ;
         rdfs:comment     "Attribute settle_plan.MIN_PTP_DIST_WARNING converted to class min_ptp_dist_warning" ;
@@ -2682,11 +2707,6 @@
                            owl:someValuesFrom  xsd:integer
                          ] .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dt_updated_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
-
 :max_ptp_dist_warning
         rdf:type         owl:Class ;
         rdfs:comment     "Attribute settle_plan.MAX_PTP_DIST_WARNING converted to class max_ptp_dist_warning" ;
@@ -2706,6 +2726,14 @@
                            owl:someValuesFrom  xsd:string
                          ] .
 
+:has_settle_amount_VALUE
+        rdf:type            owl:DatatypeProperty ;
+        rdfs:comment        "[dp] from [msettlement_master.SETTLE_AMOUNT]" ;
+        rdfs:domain         :settle_amount ;
+        rdfs:label          "has settle amount" ;
+        rdfs:range          xsd:decimal ;
+        rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount> .
+
 :paymenttype  rdf:type   owl:Class ;
         rdfs:comment     "Attribute payment.PAYMENTTYPE converted to class paymenttype" ;
         rdfs:label       "paymenttype" ;
@@ -2714,14 +2742,6 @@
                            owl:onProperty      :has_paymenttype_VALUE ;
                            owl:someValuesFrom  xsd:string
                          ] .
-
-:has_settle_amount_VALUE
-        rdf:type            owl:DatatypeProperty ;
-        rdfs:comment        "[dp] from [msettlement_master.SETTLE_AMOUNT]" ;
-        rdfs:domain         :settle_amount ;
-        rdfs:label          "has settle amount" ;
-        rdfs:range          xsd:decimal ;
-        rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount> .
 
 :has_account_entry_date_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -2765,8 +2785,8 @@
         rdfs:range    xsd:integer .
 
 [ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_d_created_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
+  owl:onProperty      :has_dt_updated_VALUE ;
+  owl:someValuesFrom  xsd:string
 ] .
 
 :has_strategy_segment_id
@@ -2790,32 +2810,32 @@
         rdfs:label       "msettlement detail" ;
         rdfs:subClassOf  :TableClass ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_msettlement_detail_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dt_updated ;
-                           owl:someValuesFrom  :dt_updated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_paidamount ;
-                           owl:someValuesFrom  :paidamount
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_dt_created ;
                            owl:someValuesFrom  :dt_created
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_promiseddate ;
-                           owl:someValuesFrom  :promiseddate
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_msettlement_detail_msettlement_master ;
                            owl:someValuesFrom  :msettlement_master
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_promiseddate ;
+                           owl:someValuesFrom  :promiseddate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_promisedamount ;
                            owl:someValuesFrom  :promisedamount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_dt_updated ;
+                           owl:someValuesFrom  :dt_updated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_msettlement_detail_contact ;
+                           owl:someValuesFrom  :contact
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_paidamount ;
+                           owl:someValuesFrom  :paidamount
                          ] .
 
 :productreportcategory
@@ -2828,8 +2848,12 @@
                            owl:someValuesFrom  :case
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_productreportcategory_productcategory ;
-                           owl:someValuesFrom  :productcategory
+                           owl:onProperty      :p_productreportcategory_person ;
+                           owl:someValuesFrom  :person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_productreportcategory_bucket ;
+                           owl:someValuesFrom  :bucket
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_productreportcategory_rer_metric ;
@@ -2840,17 +2864,29 @@
                            owl:someValuesFrom  :description
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_productreportcategory_bucket ;
-                           owl:someValuesFrom  :bucket
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_productreportcategory_person ;
-                           owl:someValuesFrom  :person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_productreportcategory_product ;
                            owl:someValuesFrom  :product
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_productreportcategory_productcategory ;
+                           owl:someValuesFrom  :productcategory
                          ] .
+
+:has_msettlement_master
+        rdf:type            owl:ObjectProperty ;
+        rdfs:comment        "[r7] from [null]" ;
+        rdfs:domain         :msettlement_master ;
+        rdfs:label          "has msettlement master" ;
+        rdfs:range          :msettlement_master ;
+        rdfs:subPropertyOf  :FKProperty .
+
+:p_msettlement_master_settle_plan
+        rdf:type            owl:ObjectProperty ;
+        rdfs:comment        "[r1] from [null]" ;
+        rdfs:domain         :msettlement_master ;
+        rdfs:label          "has settle plan" ;
+        rdfs:range          :settle_plan ;
+        rdfs:subPropertyOf  :FKProperty .
 
 :last_inst_date  rdf:type  owl:Class ;
         rdfs:comment     "Attribute case_exta.LAST_INST_DATE converted to class last_inst_date" ;
@@ -2870,21 +2906,12 @@
                            owl:someValuesFrom  xsd:string
                          ] .
 
-:has_msettlement_master
-        rdf:type            owl:ObjectProperty ;
-        rdfs:comment        "[r7] from [null]" ;
-        rdfs:domain         :msettlement_master ;
-        rdfs:label          "has msettlement master" ;
-        rdfs:range          :msettlement_master ;
-        rdfs:subPropertyOf  :FKProperty .
-
-:p_msettlement_master_settle_plan
-        rdf:type            owl:ObjectProperty ;
-        rdfs:comment        "[r1] from [null]" ;
-        rdfs:domain         :msettlement_master ;
-        rdfs:label          "has settle plan" ;
-        rdfs:range          :settle_plan ;
-        rdfs:subPropertyOf  :FKProperty .
+:has_last_action_VALUE
+        rdf:type      owl:DatatypeProperty ;
+        rdfs:comment  "[dp] from [cases.LAST_ACTION]" ;
+        rdfs:domain   :last_action ;
+        rdfs:label    "has last action" ;
+        rdfs:range    xsd:integer .
 
 :p_rer_metric_phone  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[r8] from [null]" ;
@@ -2892,13 +2919,6 @@
         rdfs:label          "has phone" ;
         rdfs:range          :phone ;
         rdfs:subPropertyOf  :FKProperty .
-
-:has_last_action_VALUE
-        rdf:type      owl:DatatypeProperty ;
-        rdfs:comment  "[dp] from [cases.LAST_ACTION]" ;
-        rdfs:domain   :last_action ;
-        rdfs:label    "has last action" ;
-        rdfs:range    xsd:integer .
 
 :p_contact_case  rdf:type   owl:ObjectProperty ;
         rdfs:comment        "[r1 inv, r1] from [null]" ;
@@ -3018,11 +3038,6 @@
         rdfs:range          :full_name ;
         rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/Designators/hasName> , :AttributeProperty .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_paydate_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
 :has_overdue_capital_VALUE
         rdf:type            owl:DatatypeProperty ;
         rdfs:comment        "[dp] from [case_exta.OVERDUE_CAPITAL]" ;
@@ -3046,11 +3061,6 @@
         rdfs:range          xsd:decimal ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Quantities/QuantitiesAndUnits/hasNumericValue> .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_utilisation_status_date_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
 :has_payamount_VALUE  rdf:type  owl:DatatypeProperty ;
         rdfs:comment        "[dp] from [payment.PAYAMOUNT, contact.PAYAMOUNT]" ;
         rdfs:domain         :payamount ;
@@ -3065,10 +3075,13 @@
         rdfs:range          :case ;
         rdfs:subPropertyOf  :FKProperty .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_birthday_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
+:has_overdue_interest
+        rdf:type            owl:ObjectProperty ;
+        rdfs:comment        "[dp] from [case_exta.OVERDUE_INTEREST]" ;
+        rdfs:domain         :case ;
+        rdfs:label          "has overdue interest" ;
+        rdfs:range          :overdue_interest ;
+        rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/hasOutstandingAmount> , :AttributeProperty .
 
 :totpayexpenses  rdf:type  owl:Class ;
         rdfs:comment     "Attribute cases.TOTPAYEXPENSES converted to class totpayexpenses" ;
@@ -3078,14 +3091,6 @@
                            owl:onProperty      :has_totpayexpenses_VALUE ;
                            owl:someValuesFrom  xsd:decimal
                          ] .
-
-:has_overdue_interest
-        rdf:type            owl:ObjectProperty ;
-        rdfs:comment        "[dp] from [case_exta.OVERDUE_INTEREST]" ;
-        rdfs:domain         :case ;
-        rdfs:label          "has overdue interest" ;
-        rdfs:range          :overdue_interest ;
-        rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/hasOutstandingAmount> , :AttributeProperty .
 
 :p_phone_person  rdf:type   owl:ObjectProperty ;
         rdfs:comment        "[r1] from [null]" ;
@@ -3117,11 +3122,6 @@
                            owl:onProperty      :has_user_id_VALUE ;
                            owl:someValuesFrom  xsd:integer
                          ] .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dt_updated_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
 
 :has_is_deceased_VALUE
         rdf:type      owl:DatatypeProperty ;
@@ -3209,14 +3209,6 @@
         rdfs:range          :account_entry_rule_id ;
         rdfs:subPropertyOf  :AttributeProperty .
 
-:has_worked_action_category
-        rdf:type            owl:ObjectProperty ;
-        rdfs:comment        "[dp] from [queue.WORKED_ACTION_CATEGORY]" ;
-        rdfs:domain         :queue ;
-        rdfs:label          "has worked action category" ;
-        rdfs:range          :worked_action_category ;
-        rdfs:subPropertyOf  :AttributeProperty .
-
 :datecreated  rdf:type   owl:Class ;
         rdfs:comment     "Attribute cases.DATECREATED converted to class datecreated" ;
         rdfs:label       "datecreated" ;
@@ -3225,6 +3217,19 @@
                            owl:onProperty      :has_datecreated_VALUE ;
                            owl:someValuesFrom  xsd:string
                          ] .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_d_created_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
+:has_worked_action_category
+        rdf:type            owl:ObjectProperty ;
+        rdfs:comment        "[dp] from [queue.WORKED_ACTION_CATEGORY]" ;
+        rdfs:domain         :queue ;
+        rdfs:label          "has worked action category" ;
+        rdfs:range          :worked_action_category ;
+        rdfs:subPropertyOf  :AttributeProperty .
 
 :p_queue_case_address
         rdf:type            owl:ObjectProperty ;
@@ -3426,6 +3431,11 @@
                            owl:someValuesFrom  xsd:integer
                          ] .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_dt_updated_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
 :has_max_plan_dur_max_accepted
         rdf:type            owl:ObjectProperty ;
         rdfs:comment        "[dp] from [settle_plan.MAX_PLAN_DUR_MAX_ACCEPTED]" ;
@@ -3474,11 +3484,6 @@
         rdfs:range          :past_due_amount ;
         rdfs:subPropertyOf  :AttributeProperty .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dateupdated_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
 :has_name_  rdf:type        owl:ObjectProperty ;
         rdfs:comment        "[dp] from [settle_plan.NAME_]" ;
         rdfs:domain         :settle_plan ;
@@ -3506,6 +3511,11 @@
                            owl:someValuesFrom  xsd:integer
                          ] .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_dateupdated_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
 :p_msettlement_master_msettlement_detail
         rdf:type            owl:ObjectProperty ;
         rdfs:comment        "[r8, r1 inv] from [null]" ;
@@ -3513,11 +3523,6 @@
         rdfs:label          "has msettlement detail" ;
         rdfs:range          :msettlement_detail ;
         rdfs:subPropertyOf  :FKProperty .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dateupdated_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
 
 :p_case_productreportcategory
         rdf:type            owl:ObjectProperty ;
@@ -3566,11 +3571,6 @@
         rdfs:range          :email ;
         rdfs:subPropertyOf  :FKProperty ;
         owl:inverseOf       :p_email_person .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dt_updated_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
 
 :has_dt_updated_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -3635,36 +3635,8 @@
         rdfs:label       "act type" ;
         rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/Action> , :TableClass ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_action_contact_type ;
-                           owl:someValuesFrom  :action_contact_type
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_act_type_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_isadmin ;
-                           owl:someValuesFrom  :isadmin
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_act_type_actcategory ;
                            owl:someValuesFrom  :actcategory
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_type_ ;
-                           owl:someValuesFrom  :type_
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_phonebehavior ;
-                           owl:someValuesFrom  :phonebehavior
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_act_type_id ;
-                           owl:someValuesFrom  :act_type_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_allows_backdated ;
-                           owl:someValuesFrom  :allows_backdated
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_description ;
@@ -3675,8 +3647,36 @@
                            owl:someValuesFrom  :action_contact_status
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_phonebehavior ;
+                           owl:someValuesFrom  :phonebehavior
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_type_ ;
+                           owl:someValuesFrom  :type_
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_allows_backdated ;
+                           owl:someValuesFrom  :allows_backdated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_act_type_id ;
+                           owl:someValuesFrom  :act_type_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_isadmin ;
+                           owl:someValuesFrom  :isadmin
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_action_contact_type ;
+                           owl:someValuesFrom  :action_contact_type
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_settle_plan_uuid ;
                            owl:someValuesFrom  :settle_plan_uuid
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_act_type_contact ;
+                           owl:someValuesFrom  :contact
                          ] .
 
 :p_msettlement_master_contact
@@ -3701,6 +3701,11 @@
         rdfs:domain   :days_in_phase ;
         rdfs:label    "has days in phase" ;
         rdfs:range    xsd:integer .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_promiseddate_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
 
 :entrydate  rdf:type     owl:Class ;
         rdfs:comment     "Attribute contact.ENTRYDATE converted to class entrydate" ;
@@ -3748,11 +3753,6 @@
         rdfs:label          "has phone" ;
         rdfs:range          :phone ;
         rdfs:subPropertyOf  :FKProperty .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_entrydate_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
 
 :has_initial_base_rate
         rdf:type            owl:ObjectProperty ;
@@ -3895,20 +3895,24 @@
         rdfs:label       "settle plan" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_ptp_amount_max_accepted ;
-                           owl:someValuesFrom  :max_ptp_amount_max_accepted
+                           owl:onProperty      :has_settlement_plan_type ;
+                           owl:someValuesFrom  :settlement_plan_type
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_ptps_max_accepted ;
-                           owl:someValuesFrom  :max_ptps_max_accepted
+                           owl:onProperty      :has_max_first_ptp_dist_warning ;
+                           owl:someValuesFrom  :max_first_ptp_dist_warning
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_ptp_dist_warning ;
-                           owl:someValuesFrom  :max_ptp_dist_warning
+                           owl:onProperty      :has_max_ptp_dist_max_accepted ;
+                           owl:someValuesFrom  :max_ptp_dist_max_accepted
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_plan_dur_warning ;
-                           owl:someValuesFrom  :max_plan_dur_warning
+                           owl:onProperty      :p_settle_plan_msettlement_master ;
+                           owl:someValuesFrom  :msettlement_master
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_warn_amount_percentage ;
+                           owl:someValuesFrom  :warn_amount_percentage
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_userupdated ;
@@ -3923,48 +3927,36 @@
                            owl:someValuesFrom  :max_ptp_amount_warning
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_min_ptp_dist_min_accepted ;
-                           owl:someValuesFrom  :min_ptp_dist_min_accepted
+                           owl:onProperty      :has_max_ptp_amount_max_accepted ;
+                           owl:someValuesFrom  :max_ptp_amount_max_accepted
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_max_ptp_dist_warning ;
+                           owl:someValuesFrom  :max_ptp_dist_warning
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_max_plan_dur_max_accepted ;
                            owl:someValuesFrom  :max_plan_dur_max_accepted
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dateupdated ;
-                           owl:someValuesFrom  :dateupdated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_ptp_dist_max_accepted ;
-                           owl:someValuesFrom  :max_ptp_dist_max_accepted
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_name_ ;
-                           owl:someValuesFrom  :name_
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_interest_rate ;
-                           owl:someValuesFrom  :interest_rate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_approval_method ;
                            owl:someValuesFrom  :approval_method
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_first_ptp_dist_accepted ;
-                           owl:someValuesFrom  :max_first_ptp_dist_accepted
+                           owl:onProperty      :has_max_plan_dur_warning ;
+                           owl:someValuesFrom  :max_plan_dur_warning
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_settle_plan_msettlement_master ;
-                           owl:someValuesFrom  :msettlement_master
+                           owl:onProperty      :has_min_ptp_dist_min_accepted ;
+                           owl:someValuesFrom  :min_ptp_dist_min_accepted
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_settlement_plan_type ;
-                           owl:someValuesFrom  :settlement_plan_type
+                           owl:onProperty      :has_max_ptps_max_accepted ;
+                           owl:someValuesFrom  :max_ptps_max_accepted
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_ptps_warning ;
-                           owl:someValuesFrom  :max_ptps_warning
+                           owl:onProperty      :has_description ;
+                           owl:someValuesFrom  :description
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_min_ptp_dist_warning ;
@@ -3975,16 +3967,24 @@
                            owl:someValuesFrom  :minimum_interest_rate_error
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_description ;
-                           owl:someValuesFrom  :description
+                           owl:onProperty      :has_interest_rate ;
+                           owl:someValuesFrom  :interest_rate
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_max_first_ptp_dist_warning ;
-                           owl:someValuesFrom  :max_first_ptp_dist_warning
+                           owl:onProperty      :has_name_ ;
+                           owl:someValuesFrom  :name_
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_warn_amount_percentage ;
-                           owl:someValuesFrom  :warn_amount_percentage
+                           owl:onProperty      :has_max_first_ptp_dist_accepted ;
+                           owl:someValuesFrom  :max_first_ptp_dist_accepted
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_max_ptps_warning ;
+                           owl:someValuesFrom  :max_ptps_warning
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_dateupdated ;
+                           owl:someValuesFrom  :dateupdated
                          ] .
 
 :strategy_segment_id  rdf:type  owl:Class ;
@@ -3994,6 +3994,15 @@
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_strategy_segment_id_VALUE ;
                            owl:someValuesFrom  xsd:integer
+                         ] .
+
+:interest  rdf:type      owl:Class ;
+        rdfs:comment     "Attribute cases.INTEREST converted to class interest" ;
+        rdfs:label       "interest" ;
+        rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Interest> , :AttributeClass ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_interest_VALUE ;
+                           owl:someValuesFrom  xsd:decimal
                          ] .
 
 :has_settle_iswriteoff
@@ -4020,15 +4029,6 @@
         rdfs:label          "has rer metric" ;
         rdfs:range          :rer_metric ;
         rdfs:subPropertyOf  :FKProperty .
-
-:interest  rdf:type      owl:Class ;
-        rdfs:comment     "Attribute cases.INTEREST converted to class interest" ;
-        rdfs:label       "interest" ;
-        rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Interest> , :AttributeClass ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_interest_VALUE ;
-                           owl:someValuesFrom  xsd:decimal
-                         ] .
 
 :country_code  rdf:type  owl:Class ;
         rdfs:comment     "Attribute address.COUNTRY_CODE converted to class country_code" ;
@@ -4154,7 +4154,7 @@
                          ] .
 
 [ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dt_updated_VALUE ;
+  owl:onProperty      :has_datecreated_VALUE ;
   owl:someValuesFrom  xsd:dateTime
 ] .
 
@@ -4171,6 +4171,11 @@
         rdfs:label    "has searchkey" ;
         rdfs:range    xsd:string .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_lentdate_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
 :contract_no  rdf:type   owl:Class ;
         rdfs:comment     "Attribute case_exta.CONTRACT_NO converted to class contract_no" ;
         rdfs:label       "contract no" ;
@@ -4179,6 +4184,11 @@
                            owl:onProperty      :has_contract_no_VALUE ;
                            owl:someValuesFrom  xsd:integer
                          ] .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_d_updated_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
 
 :has_paidamount_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -4263,64 +4273,36 @@
         rdfs:label       "person" ;
         rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson> , :TableClass ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_person_queue ;
-                           owl:someValuesFrom  :queue
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_person_case_person ;
-                           owl:someValuesFrom  :case_person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_search_key ;
-                           owl:someValuesFrom  :search_key
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_is_deceased ;
-                           owl:someValuesFrom  :is_deceased
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_person_address ;
-                           owl:someValuesFrom  :address
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_person_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_person_bucket ;
                            owl:someValuesFrom  :bucket
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_person_case_person_type ;
-                           owl:someValuesFrom  :case_person_type
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_person_status ;
-                           owl:someValuesFrom  :person_status
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dt_last_action ;
-                           owl:someValuesFrom  :dt_last_action
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_d_created ;
-                           owl:someValuesFrom  :d_created
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_person_email ;
                            owl:someValuesFrom  :email
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_language_ ;
+                           owl:someValuesFrom  :language_
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_person_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_person_productcategory ;
                            owl:someValuesFrom  :productcategory
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_person_contact ;
-                           owl:someValuesFrom  :contact
+                           owl:onProperty      :has_nationality ;
+                           owl:someValuesFrom  :nationality
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_d_updated ;
-                           owl:someValuesFrom  :d_updated
+                           owl:onProperty      :has_full_name ;
+                           owl:someValuesFrom  :full_name
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_residence_country ;
+                           owl:someValuesFrom  :residence_country
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_person_queue_case ;
@@ -4331,44 +4313,72 @@
                            owl:someValuesFrom  :product
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_full_name ;
-                           owl:someValuesFrom  :full_name
+                           owl:onProperty      :p_person_address ;
+                           owl:someValuesFrom  :address
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_d_updated ;
+                           owl:someValuesFrom  :d_updated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_person_status ;
+                           owl:someValuesFrom  :person_status
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_person_case ;
                            owl:someValuesFrom  :case
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_person_productreportcategory ;
-                           owl:someValuesFrom  :productreportcategory
+                           owl:onProperty      :p_person_contact ;
+                           owl:someValuesFrom  :contact
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_gender ;
-                           owl:someValuesFrom  :gender
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_secondary_id ;
-                           owl:someValuesFrom  :secondary_id
+                           owl:onProperty      :has_is_deceased ;
+                           owl:someValuesFrom  :is_deceased
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_person_phone ;
                            owl:someValuesFrom  :phone
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_language_ ;
-                           owl:someValuesFrom  :language_
+                           owl:onProperty      :has_dt_last_action ;
+                           owl:someValuesFrom  :dt_last_action
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_nationality ;
-                           owl:someValuesFrom  :nationality
+                           owl:onProperty      :has_search_key ;
+                           owl:someValuesFrom  :search_key
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_birthday ;
                            owl:someValuesFrom  :birthday
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_residence_country ;
-                           owl:someValuesFrom  :residence_country
+                           owl:onProperty      :p_person_queue ;
+                           owl:someValuesFrom  :queue
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_d_created ;
+                           owl:someValuesFrom  :d_created
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_person_case_person_type ;
+                           owl:someValuesFrom  :case_person_type
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_person_case_person ;
+                           owl:someValuesFrom  :case_person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_person_productreportcategory ;
+                           owl:someValuesFrom  :productreportcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_secondary_id ;
+                           owl:someValuesFrom  :secondary_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_gender ;
+                           owl:someValuesFrom  :gender
                          ] .
 
 :days_in_handling_queue
@@ -4410,16 +4420,16 @@
         rdfs:label       "case person type" ;
         rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyInRole> ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_person_type_person ;
-                           owl:someValuesFrom  :person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_case_person_type_key ;
                            owl:someValuesFrom  :case_person_type_key
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_case_person_type_case ;
                            owl:someValuesFrom  :case
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_person_type_person ;
+                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_description ;
@@ -4470,6 +4480,11 @@
         rdfs:label          "has user id" ;
         rdfs:range          :user_id ;
         rdfs:subPropertyOf  :AttributeProperty .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_lastpaydate_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
 
 :has_email_ATTR  rdf:type   owl:ObjectProperty ;
         rdfs:comment        "[dp] from [email.EMAIL]" ;
@@ -4548,6 +4563,11 @@
         rdfs:range          :case_person ;
         rdfs:subPropertyOf  :FKProperty .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_promisedamount_VALUE ;
+  owl:someValuesFrom  xsd:decimal
+] .
+
 :has_birthday  rdf:type     owl:ObjectProperty ;
         rdfs:comment        "[dp] from [person.BIRTHDAY]" ;
         rdfs:domain         :person ;
@@ -4580,11 +4600,6 @@
         rdfs:range          :working_mode ;
         rdfs:subPropertyOf  :AttributeProperty .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_max_plan_dur_max_accepted_VALUE ;
-  owl:someValuesFrom  xsd:integer
-] .
-
 :has_totpayinterest  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[dp] from [cases.TOTPAYINTEREST]" ;
         rdfs:domain         :case ;
@@ -4611,6 +4626,11 @@
 :TableClass  rdf:type  owl:Class ;
         rdfs:comment  "TableClass" ;
         rdfs:label    "TableClass" .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_birthday_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
 
 :has_max_first_ptp_dist_warning_VALUE
         rdf:type      owl:DatatypeProperty ;
@@ -4666,11 +4686,6 @@
         rdfs:range          :last_inst_date ;
         rdfs:subPropertyOf  :AttributeProperty .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_promiseddate_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
-
 :has_paymenttype_VALUE
         rdf:type            owl:DatatypeProperty ;
         rdfs:comment        "[dp] from [payment.PAYMENTTYPE]" ;
@@ -4701,55 +4716,6 @@
         rdfs:range          :queue_case ;
         rdfs:subPropertyOf  :FKProperty .
 
-:address  rdf:type       owl:Class ;
-        rdfs:comment     "Table address converted to class address" ;
-        rdfs:label       "address" ;
-        rdfs:subClassOf  <https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress> , :TableClass ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_address_queue_case ;
-                           owl:someValuesFrom  :queue_case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_address_person ;
-                           owl:someValuesFrom  :person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_country_code ;
-                           owl:someValuesFrom  :country_code
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_address_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_is_communication ;
-                           owl:someValuesFrom  :is_communication
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dt_updated ;
-                           owl:someValuesFrom  :dt_updated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_secondary_id ;
-                           owl:someValuesFrom  :secondary_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_address_email ;
-                           owl:someValuesFrom  :email
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_address_ATTR ;
-                           owl:someValuesFrom  :address_ATTR
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_address_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_address_phone ;
-                           owl:someValuesFrom  :phone
-                         ] .
-
 :worked_action_category
         rdf:type         owl:Class ;
         rdfs:comment     "Attribute queue.WORKED_ACTION_CATEGORY converted to class worked_action_category" ;
@@ -4758,6 +4724,55 @@
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_worked_action_category_VALUE ;
                            owl:someValuesFrom  xsd:integer
+                         ] .
+
+:address  rdf:type       owl:Class ;
+        rdfs:comment     "Table address converted to class address" ;
+        rdfs:label       "address" ;
+        rdfs:subClassOf  :TableClass , <https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress> ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_address_ATTR ;
+                           owl:someValuesFrom  :address_ATTR
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_address_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_address_queue_case ;
+                           owl:someValuesFrom  :queue_case
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_country_code ;
+                           owl:someValuesFrom  :country_code
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_address_person ;
+                           owl:someValuesFrom  :person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_is_communication ;
+                           owl:someValuesFrom  :is_communication
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_secondary_id ;
+                           owl:someValuesFrom  :secondary_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_address_contact ;
+                           owl:someValuesFrom  :contact
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_dt_updated ;
+                           owl:someValuesFrom  :dt_updated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_address_phone ;
+                           owl:someValuesFrom  :phone
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_address_email ;
+                           owl:someValuesFrom  :email
                          ] .
 
 :has_current_branch_id_VALUE
@@ -4805,11 +4820,6 @@
                            owl:onProperty      :has_case_type_id_VALUE ;
                            owl:someValuesFrom  xsd:integer
                          ] .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_date_created_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
 
 :has_lentamount_VALUE
         rdf:type            owl:DatatypeProperty ;
@@ -4871,11 +4881,6 @@
                            owl:someValuesFrom  xsd:integer
                          ] .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_max_plan_dur_warning_VALUE ;
-  owl:someValuesFrom  xsd:integer
-] .
-
 :has_statement_min_pay_VALUE
         rdf:type            owl:DatatypeProperty ;
         rdfs:comment        "[dp] from [case_exta.STATEMENT_MIN_PAY]" ;
@@ -4927,6 +4932,11 @@
         rdfs:range          xsd:string ;
         rdfs:subPropertyOf  <https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue> .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_utilisation_status_date_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
 :has_dt_last_action_VALUE
         rdf:type      owl:DatatypeProperty ;
         rdfs:comment  "[dp] from [person.DT_LAST_ACTION]" ;
@@ -4939,156 +4949,152 @@
         rdfs:label       "rer metric" ;
         rdfs:subClassOf  :TableClass ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_total_outstanding ;
-                           owl:someValuesFrom  :total_outstanding
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_days_past_due ;
-                           owl:someValuesFrom  :days_past_due
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_times_in_collection ;
-                           owl:someValuesFrom  :times_in_collection
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_no_valid_address ;
-                           owl:someValuesFrom  :no_valid_address
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_total_balance ;
-                           owl:someValuesFrom  :total_balance
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_days_from_last_pay ;
-                           owl:someValuesFrom  :days_from_last_pay
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_expiry_date ;
-                           owl:someValuesFrom  :expiry_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_settle_iswriteoff ;
-                           owl:someValuesFrom  :settle_iswriteoff
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_no_valid_phone ;
-                           owl:someValuesFrom  :no_valid_phone
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_pay_date ;
-                           owl:someValuesFrom  :last_pay_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_email ;
-                           owl:someValuesFrom  :email
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_contract_date ;
-                           owl:someValuesFrom  :contract_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_days_in_collection ;
-                           owl:someValuesFrom  :days_in_collection
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_settle_date ;
-                           owl:someValuesFrom  :last_settle_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_pay_amount ;
-                           owl:someValuesFrom  :last_pay_amount
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_sett_comb_status_id ;
-                           owl:someValuesFrom  :last_sett_comb_status_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_days_in_phase ;
-                           owl:someValuesFrom  :days_in_phase
+                           owl:onProperty      :has_last_sett_status_id ;
+                           owl:someValuesFrom  :last_sett_status_id
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_past_due_amount ;
                            owl:someValuesFrom  :past_due_amount
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_account_status ;
-                           owl:someValuesFrom  :account_status
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_rer_metric_productreportcategory ;
                            owl:someValuesFrom  :productreportcategory
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_person ;
-                           owl:someValuesFrom  :person
+                           owl:onProperty      :has_no_valid_phone ;
+                           owl:someValuesFrom  :no_valid_phone
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_product ;
-                           owl:someValuesFrom  :product
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_case ;
-                           owl:someValuesFrom  :case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_case_type_id ;
-                           owl:someValuesFrom  :case_type_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_phone ;
-                           owl:someValuesFrom  :phone
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_current_branch_id ;
-                           owl:someValuesFrom  :current_branch_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_queue_case ;
-                           owl:someValuesFrom  :queue_case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_balance_limit ;
-                           owl:someValuesFrom  :balance_limit
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_billing_date ;
-                           owl:someValuesFrom  :last_billing_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_bucket ;
-                           owl:someValuesFrom  :bucket
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_address ;
-                           owl:someValuesFrom  :address
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_rer_metric_productcategory ;
-                           owl:someValuesFrom  :productcategory
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_days_in_handling_queue ;
-                           owl:someValuesFrom  :days_in_handling_queue
+                           owl:onProperty      :has_days_in_phase ;
+                           owl:someValuesFrom  :days_in_phase
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_phase_id ;
                            owl:someValuesFrom  :phase_id
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_pay_amount ;
+                           owl:someValuesFrom  :last_pay_amount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_days_in_handling_queue ;
+                           owl:someValuesFrom  :days_in_handling_queue
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_case ;
+                           owl:someValuesFrom  :case
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_product ;
+                           owl:someValuesFrom  :product
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_expiry_date ;
+                           owl:someValuesFrom  :expiry_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_settle_date ;
+                           owl:someValuesFrom  :last_settle_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_queue_case ;
+                           owl:someValuesFrom  :queue_case
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_pay_date ;
+                           owl:someValuesFrom  :last_pay_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_balance_limit ;
+                           owl:someValuesFrom  :balance_limit
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_email ;
+                           owl:someValuesFrom  :email
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_sett_comb_status_id ;
+                           owl:someValuesFrom  :last_sett_comb_status_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_productcategory ;
+                           owl:someValuesFrom  :productcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_portfolio_code ;
                            owl:someValuesFrom  :portfolio_code
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_sett_status_id ;
-                           owl:someValuesFrom  :last_sett_status_id
+                           owl:onProperty      :has_no_valid_address ;
+                           owl:someValuesFrom  :no_valid_address
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_days_past_due ;
+                           owl:someValuesFrom  :days_past_due
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_phone ;
+                           owl:someValuesFrom  :phone
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_billing_date ;
+                           owl:someValuesFrom  :last_billing_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_current_branch_id ;
+                           owl:someValuesFrom  :current_branch_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_times_in_collection ;
+                           owl:someValuesFrom  :times_in_collection
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_days_from_last_pay ;
+                           owl:someValuesFrom  :days_from_last_pay
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_contact ;
+                           owl:someValuesFrom  :contact
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_total_outstanding ;
+                           owl:someValuesFrom  :total_outstanding
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_address ;
+                           owl:someValuesFrom  :address
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_contract_date ;
+                           owl:someValuesFrom  :contract_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_bucket ;
+                           owl:someValuesFrom  :bucket
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_currency_id ;
                            owl:someValuesFrom  :currency_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_account_status ;
+                           owl:someValuesFrom  :account_status
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_total_balance ;
+                           owl:someValuesFrom  :total_balance
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_rer_metric_person ;
+                           owl:someValuesFrom  :person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_case_type_id ;
+                           owl:someValuesFrom  :case_type_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_days_in_collection ;
+                           owl:someValuesFrom  :days_in_collection
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_strategy_segment_id ;
@@ -5097,6 +5103,10 @@
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_phase_entry_date ;
                            owl:someValuesFrom  :phase_entry_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_settle_iswriteoff ;
+                           owl:someValuesFrom  :settle_iswriteoff
                          ] .
 
 :has_max_plan_dur_warning
@@ -5305,6 +5315,11 @@
                            owl:someValuesFrom  xsd:dateTime
                          ] .
 
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_entrydate_VALUE ;
+  owl:someValuesFrom  xsd:dateTime
+] .
+
 :iswriteoff  rdf:type    owl:Class ;
         rdfs:comment     "Attribute msettlement_master.ISWRITEOFF converted to class iswriteoff" ;
         rdfs:label       "iswriteoff" ;
@@ -5329,6 +5344,11 @@
                            owl:onProperty      :has_initial_amount_VALUE ;
                            owl:someValuesFrom  xsd:decimal
                          ] .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_dateupdated_VALUE ;
+  owl:someValuesFrom  xsd:string
+] .
 
 :has_phonebehavior_VALUE
         rdf:type      owl:DatatypeProperty ;
@@ -5360,11 +5380,6 @@
                            owl:onProperty      :has_minimum_interest_rate_warning_VALUE ;
                            owl:someValuesFrom  xsd:decimal
                          ] .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dt_updated_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
 
 :has_acceptance_level_VALUE
         rdf:type      owl:DatatypeProperty ;
@@ -5442,44 +5457,180 @@
         rdfs:label       "case" ;
         rdfs:subClassOf  :TableClass ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_total_outstanding ;
-                           owl:someValuesFrom  :total_outstanding
+                           owl:onProperty      :has_lentinitamount ;
+                           owl:someValuesFrom  :lentinitamount
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_lentexpenses ;
-                           owl:someValuesFrom  :lentexpenses
+                           owl:onProperty      :has_bank_account_number ;
+                           owl:someValuesFrom  :bank_account_number
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_product ;
+                           owl:someValuesFrom  :product
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_contact ;
+                           owl:someValuesFrom  :contact
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_action ;
+                           owl:someValuesFrom  :last_action
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_contract_no ;
+                           owl:someValuesFrom  :contract_no
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_lastupdate ;
+                           owl:someValuesFrom  :lastupdate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_case_type_id ;
+                           owl:someValuesFrom  :case_type_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_interest ;
+                           owl:someValuesFrom  :interest
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_bucket ;
+                           owl:someValuesFrom  :bucket
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_case_person ;
                            owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_productreportcategory ;
-                           owl:someValuesFrom  :productreportcategory
+                           owl:onProperty      :has_portfolio_code ;
+                           owl:someValuesFrom  :portfolio_code
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_queue ;
-                           owl:someValuesFrom  :queue
+                           owl:onProperty      :has_lentexpenses ;
+                           owl:someValuesFrom  :lentexpenses
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_statement_overdue_amount ;
-                           owl:someValuesFrom  :statement_overdue_amount
+                           owl:onProperty      :has_lentamount ;
+                           owl:someValuesFrom  :lentamount
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_secondary_id ;
-                           owl:someValuesFrom  :secondary_id
+                           owl:onProperty      :has_dt_updated ;
+                           owl:someValuesFrom  :dt_updated
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_totpayinterest ;
                            owl:someValuesFrom  :totpayinterest
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_queue_case ;
-                           owl:someValuesFrom  :queue_case
+                           owl:onProperty      :has_available_balance ;
+                           owl:someValuesFrom  :available_balance
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_productreportcategory ;
+                           owl:someValuesFrom  :productreportcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_productcategory ;
+                           owl:someValuesFrom  :productcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_total_balance ;
+                           owl:someValuesFrom  :total_balance
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_lastpayamount ;
                            owl:someValuesFrom  :lastpayamount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_case_person ;
+                           owl:someValuesFrom  :case_person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_delay_days ;
+                           owl:someValuesFrom  :delay_days
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_overdue_expenses ;
+                           owl:someValuesFrom  :overdue_expenses
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_statement_balance ;
+                           owl:someValuesFrom  :statement_balance
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_overdue_capital ;
+                           owl:someValuesFrom  :overdue_capital
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_totpayamount ;
+                           owl:someValuesFrom  :totpayamount
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_datecreated ;
+                           owl:someValuesFrom  :datecreated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_approved_capital ;
+                           owl:someValuesFrom  :approved_capital
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_base_interest_rate ;
+                           owl:someValuesFrom  :base_interest_rate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_currency ;
+                           owl:someValuesFrom  :currency
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_expiry_date ;
+                           owl:someValuesFrom  :expiry_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_lentdate ;
+                           owl:someValuesFrom  :lentdate
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_lentinterest ;
+                           owl:someValuesFrom  :lentinterest
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_overdue_interest ;
+                           owl:someValuesFrom  :overdue_interest
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_action_date ;
+                           owl:someValuesFrom  :last_action_date
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_segment_id ;
+                           owl:someValuesFrom  :segment_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_queue ;
+                           owl:someValuesFrom  :queue
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_total_outstanding ;
+                           owl:someValuesFrom  :total_outstanding
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_totpayexpenses ;
+                           owl:someValuesFrom  :totpayexpenses
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_queue_case ;
+                           owl:someValuesFrom  :queue_case
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_phase_id ;
+                           owl:someValuesFrom  :phase_id
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_last_inst_date ;
+                           owl:someValuesFrom  :last_inst_date
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_case_payment ;
@@ -5490,188 +5641,52 @@
                            owl:someValuesFrom  :last_action_user_id
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dt_updated ;
-                           owl:someValuesFrom  :dt_updated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_balance_limit ;
-                           owl:someValuesFrom  :balance_limit
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_product ;
-                           owl:someValuesFrom  :product
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_total_balance ;
-                           owl:someValuesFrom  :total_balance
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_overdue_expenses ;
-                           owl:someValuesFrom  :overdue_expenses
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_phase_id ;
-                           owl:someValuesFrom  :phase_id
+                           owl:onProperty      :has_restructured ;
+                           owl:someValuesFrom  :restructured
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_pay_ref_number ;
                            owl:someValuesFrom  :pay_ref_number
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_lastupdate ;
-                           owl:someValuesFrom  :lastupdate
+                           owl:onProperty      :has_statement_overdue_amount ;
+                           owl:someValuesFrom  :statement_overdue_amount
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_current_branch_id ;
-                           owl:someValuesFrom  :current_branch_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_case_person_type ;
-                           owl:someValuesFrom  :case_person_type
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_currency ;
-                           owl:someValuesFrom  :currency
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_lentinterest ;
-                           owl:someValuesFrom  :lentinterest
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_totpayexpenses ;
-                           owl:someValuesFrom  :totpayexpenses
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_action ;
-                           owl:someValuesFrom  :last_action
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_available_balance ;
-                           owl:someValuesFrom  :available_balance
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_accountstatus ;
-                           owl:someValuesFrom  :accountstatus
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_datecreated ;
-                           owl:someValuesFrom  :datecreated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_lastpaydate ;
-                           owl:someValuesFrom  :lastpaydate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_overdue_interest ;
-                           owl:someValuesFrom  :overdue_interest
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_expiry_date ;
-                           owl:someValuesFrom  :expiry_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_base_interest_rate ;
-                           owl:someValuesFrom  :base_interest_rate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_segment_id ;
-                           owl:someValuesFrom  :segment_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_statement_min_pay ;
-                           owl:someValuesFrom  :statement_min_pay
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_restructured ;
-                           owl:someValuesFrom  :restructured
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_bank_account_number ;
-                           owl:someValuesFrom  :bank_account_number
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_contact ;
-                           owl:someValuesFrom  :contact
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_case_type_id ;
-                           owl:someValuesFrom  :case_type_id
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_lentinitamount ;
-                           owl:someValuesFrom  :lentinitamount
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_approved_capital ;
-                           owl:someValuesFrom  :approved_capital
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_portfolio_code ;
-                           owl:someValuesFrom  :portfolio_code
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_lentdate ;
-                           owl:someValuesFrom  :lentdate
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_delay_days ;
-                           owl:someValuesFrom  :delay_days
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_case_person ;
-                           owl:someValuesFrom  :case_person
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_interest ;
-                           owl:someValuesFrom  :interest
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_statement_balance ;
-                           owl:someValuesFrom  :statement_balance
+                           owl:onProperty      :has_balance_limit ;
+                           owl:someValuesFrom  :balance_limit
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_searchkey ;
                            owl:someValuesFrom  :searchkey
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_productcategory ;
-                           owl:someValuesFrom  :productcategory
+                           owl:onProperty      :has_secondary_id ;
+                           owl:someValuesFrom  :secondary_id
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_totpayamount ;
-                           owl:someValuesFrom  :totpayamount
+                           owl:onProperty      :has_accountstatus ;
+                           owl:someValuesFrom  :accountstatus
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_bucket ;
-                           owl:someValuesFrom  :bucket
+                           owl:onProperty      :has_lastpaydate ;
+                           owl:someValuesFrom  :lastpaydate
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_action_date ;
-                           owl:someValuesFrom  :last_action_date
+                           owl:onProperty      :has_statement_min_pay ;
+                           owl:someValuesFrom  :statement_min_pay
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_lentamount ;
-                           owl:someValuesFrom  :lentamount
+                           owl:onProperty      :p_case_case_person_type ;
+                           owl:someValuesFrom  :case_person_type
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_current_branch_id ;
+                           owl:someValuesFrom  :current_branch_id
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_user_updated ;
                            owl:someValuesFrom  :user_updated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_last_inst_date ;
-                           owl:someValuesFrom  :last_inst_date
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_contract_no ;
-                           owl:someValuesFrom  :contract_no
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_overdue_capital ;
-                           owl:someValuesFrom  :overdue_capital
                          ] .
 
 :has_restructured_VALUE
@@ -5759,29 +5774,36 @@
         rdfs:label       "case person" ;
         rdfs:subClassOf  :TableClass ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_case_person_case ;
-                           owl:someValuesFrom  :case
+                           owl:onProperty      :has_source_ ;
+                           owl:someValuesFrom  :source_
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_case_person_case_person_type ;
                            owl:someValuesFrom  :case_person_type
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_dt_updated ;
-                           owl:someValuesFrom  :dt_updated
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_inactive_ ;
                            owl:someValuesFrom  :inactive_
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_source_ ;
-                           owl:someValuesFrom  :source_
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_case_person_person ;
                            owl:someValuesFrom  :person
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :has_dt_updated ;
+                           owl:someValuesFrom  :dt_updated
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_case_person_case ;
+                           owl:someValuesFrom  :case
                          ] .
+
+:p_queue_case_email  rdf:type  owl:ObjectProperty ;
+        rdfs:comment        "[r8] from [null]" ;
+        rdfs:domain         :queue_case ;
+        rdfs:label          "has email" ;
+        rdfs:range          :email ;
+        rdfs:subPropertyOf  :FKProperty .
 
 :accountstatus  rdf:type  owl:Class ;
         rdfs:comment     "Attribute case_exta.ACCOUNTSTATUS converted to class accountstatus" ;
@@ -5791,13 +5813,6 @@
                            owl:onProperty      :has_accountstatus_VALUE ;
                            owl:someValuesFrom  xsd:string
                          ] .
-
-:p_queue_case_email  rdf:type  owl:ObjectProperty ;
-        rdfs:comment        "[r8] from [null]" ;
-        rdfs:domain         :queue_case ;
-        rdfs:label          "has email" ;
-        rdfs:range          :email ;
-        rdfs:subPropertyOf  :FKProperty .
 
 :status  rdf:type        owl:Class ;
         rdfs:comment     "Attribute msettlement_master.STATUS converted to class status" ;
@@ -5947,36 +5962,36 @@
                            owl:someValuesFrom  :productreportcategory
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_paymentdays ;
-                           owl:someValuesFrom  :paymentdays
+                           owl:onProperty      :p_bucket_person ;
+                           owl:someValuesFrom  :person
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_bucket_rer_metric ;
-                           owl:someValuesFrom  :rer_metric
+                           owl:onProperty      :has_paymentdays ;
+                           owl:someValuesFrom  :paymentdays
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :has_description ;
                            owl:someValuesFrom  :description
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_bucket_case ;
-                           owl:someValuesFrom  :case
-                         ] ;
-        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_bucket_productcategory ;
                            owl:someValuesFrom  :productcategory
+                         ] ;
+        rdfs:subClassOf  [ rdf:type            owl:Restriction ;
+                           owl:onProperty      :p_bucket_case ;
+                           owl:someValuesFrom  :case
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
                            owl:onProperty      :p_bucket_product ;
                            owl:someValuesFrom  :product
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :has_date_created ;
-                           owl:someValuesFrom  :date_created
+                           owl:onProperty      :p_bucket_rer_metric ;
+                           owl:someValuesFrom  :rer_metric
                          ] ;
         rdfs:subClassOf  [ rdf:type            owl:Restriction ;
-                           owl:onProperty      :p_bucket_person ;
-                           owl:someValuesFrom  :person
+                           owl:onProperty      :has_date_created ;
+                           owl:someValuesFrom  :date_created
                          ] .
 
 :has_last_action  rdf:type  owl:ObjectProperty ;
@@ -6061,8 +6076,8 @@
         rdfs:label    "AttributeClass" .
 
 [ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_datecreated_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
+  owl:onProperty      :has_dt_updated_VALUE ;
+  owl:someValuesFrom  xsd:string
 ] .
 
 :related_cases  rdf:type  owl:Class ;
@@ -6126,6 +6141,11 @@
         rdfs:label          "has remaining" ;
         rdfs:range          xsd:integer ;
         rdfs:subPropertyOf  <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasCount> .
+
+[ rdf:type            owl:Restriction ;
+  owl:onProperty      :has_max_plan_dur_max_accepted_VALUE ;
+  owl:someValuesFrom  xsd:integer
+] .
 
 :p_product_productcategory
         rdf:type            owl:ObjectProperty ;
@@ -6218,11 +6238,6 @@
                            owl:onProperty      :has_days_past_due_VALUE ;
                            owl:someValuesFrom  xsd:integer
                          ] .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_dt_created_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
 
 :p_msettlement_detail_msettlement_master
         rdf:type            owl:ObjectProperty ;
@@ -6345,11 +6360,6 @@
                            owl:someValuesFrom  xsd:string
                          ] .
 
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_currency_code_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
-
 :has_days_in_collection
         rdf:type            owl:ObjectProperty ;
         rdfs:comment        "[dp] from [rer_metric.DAYS_IN_COLLECTION]" ;
@@ -6386,11 +6396,6 @@
         rdfs:label          "has address" ;
         rdfs:range          :address ;
         rdfs:subPropertyOf  :FKProperty .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_paydate_VALUE ;
-  owl:someValuesFrom  xsd:string
-] .
 
 :p_contact_email  rdf:type  owl:ObjectProperty ;
         rdfs:comment        "[r8] from [null]" ;
@@ -6445,11 +6450,6 @@
                            owl:onProperty      :has_dt_created_VALUE ;
                            owl:someValuesFrom  xsd:string
                          ] .
-
-[ rdf:type            owl:Restriction ;
-  owl:onProperty      :has_contactdate_VALUE ;
-  owl:someValuesFrom  xsd:dateTime
-] .
 
 :contract_date  rdf:type  owl:Class ;
         rdfs:comment     "Attribute rer_metric.CONTRACT_DATE converted to class contract_date" ;
