@@ -1,20 +1,24 @@
 package org.example.createKG;
 
 import com.google.gson.Gson;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.ontology.OntProperty;
+import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.util.iterator.ExtendedIterator;
+import org.apache.jena.vocabulary.OWL;
 import org.example.other.JSONFormatClasses;
 import org.example.other.JSONFormatClasses.Column;
 import org.example.other.JSONFormatClasses.Mapping;
 import org.example.other.JSONFormatClasses.Table;
 
 import java.io.*;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -108,8 +112,12 @@ public class CreateOntology {
                     bl.append(getClassNodeString(pathNode));
         }*/
 
-        if(dataMap.hasMatch())
+        if(dataMap.hasMatch()) {
             setSubPropertyOf(dataMap);
+            if(!dataMap.isCons())
+                makeDataPropertyConsistent(dataMap);
+        }
+
 
         /*else if (classMap.hasMatch())
             bl.append(getPropertyNodeString(dataMap.getOntoElResource()));*/
@@ -123,10 +131,17 @@ public class CreateOntology {
 
     }
 
+    private OntClass getOntClass(URI uri) {
+        return pModel.getOntClass(uri.toString());
+    }
+    private OntProperty getOntProperty(URI uri) {
+        return pModel.getOntProperty(uri.toString());
+    }
+
     private void setSubClassOf(Mapping map) {
 
-        OntClass pClass = pModel.getOntClass(map.getOntoElURI().toString());
-        OntClass dClass = pModel.getOntClass(map.getMatchURI().toString());
+        OntClass pClass = getOntClass(map.getOntoElURI());
+        OntClass dClass = getOntClass(map.getMatchURI());
 
         if (pClass != null && dClass != null)
             dClass.addSubClass(pClass);
@@ -134,13 +149,40 @@ public class CreateOntology {
             System.err.println("CLASS NOT FOUND " + map.getOntoElURI().toString() + " " + map.getMatchURI().toString());
     }
     private void setSubPropertyOf(Mapping map) {
-        OntProperty pProp = pModel.getOntProperty(map.getOntoElURI().toString());
-        OntProperty dProp = pModel.getOntProperty(map.getMatchURI().toString());
+        OntProperty pProp = getOntProperty(map.getOntoElURI());
+        OntProperty dProp = getOntProperty(map.getMatchURI());
 
         if (pProp != null && dProp != null)
             dProp.addSubProperty(pProp);
         else
             System.err.println("PROPERTY NOT FOUND " + map.getOntoElURI().toString() + " " + map.getMatchURI().toString());
+    }
+
+    private void makeDataPropertyConsistent(Mapping dataMap) {
+        OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
+        OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
+        onProperty.setRange(newRange);
+
+        OntClass DClass = onProperty.getDomain().asClass();
+        removeRestriction(DClass, onProperty);
+        addRangeRestriction(DClass, onProperty, newRange);
+    }
+
+    private void removeRestriction(OntClass DClass, OntProperty onProperty) {
+        List<Statement> toRemove = new ArrayList<>();
+        StmtIterator it = pModel.listStatements(DClass, null, (RDFNode) null);
+        while (it.hasNext()) {
+            Statement stmt = it.nextStatement();
+            if (stmt.getObject().canAs(Restriction.class))
+                if (stmt.getObject().as(Restriction.class).onProperty(onProperty))
+                    toRemove.add(stmt);
+        }
+        toRemove.forEach(pModel::remove);
+    }
+
+    private void addRangeRestriction(OntClass DClass, OntProperty onProperty, OntResource newRange) {
+        SomeValuesFromRestriction restriction = pModel.createSomeValuesFromRestriction(null, onProperty, newRange);
+        DClass.addSuperClass(restriction.asClass());
     }
 
     //==================================================================================

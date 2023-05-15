@@ -303,20 +303,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -422,7 +422,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/date_created",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
@@ -434,7 +434,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_date_created_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
               "isCons": false
             }
           ]
@@ -802,7 +802,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_expiry_date_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
               "isCons": false
             }
           ]
@@ -1089,20 +1089,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -1354,20 +1354,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/lastupdate",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_lastupdate",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_lastupdate_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -1544,7 +1544,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_lastpaydate_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
               "isCons": false
             }
           ]
@@ -1671,7 +1671,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_lentdate_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
               "isCons": false
             }
           ]
@@ -1731,20 +1731,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -1804,7 +1804,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/datecreated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
@@ -1816,8 +1816,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_datecreated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         }
@@ -1895,8 +1895,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_contactdate_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -1978,7 +1978,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/entrydate",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
@@ -1990,8 +1990,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_entrydate_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -2055,20 +2055,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dateupdated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -2093,7 +2093,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_paydate_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
               "isCons": false
             }
           ]
@@ -2180,20 +2180,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -2272,20 +2272,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -2295,7 +2295,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dt_created",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
@@ -2307,8 +2307,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_created_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -2385,7 +2385,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_promiseddate_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
               "isCons": false
             }
           ]
@@ -2558,8 +2558,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_date_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -2803,7 +2803,7 @@
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_paydate_VALUE",
               "isCons": false,
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue"
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue"
             }
           ]
         },
@@ -3057,7 +3057,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/d_created",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
@@ -3069,8 +3069,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_d_created_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -3115,7 +3115,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_birthday_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
               "isCons": false
             }
           ]
@@ -3126,20 +3126,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/d_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_d_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_d_updated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         }
@@ -3311,20 +3311,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -4913,7 +4913,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/max_plan_dur_warning",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Duration",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/Duration",
               "isCons": true
             },
             {
@@ -4925,7 +4925,7 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_warning_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDurationValue",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDurationValue",
               "isCons": true
             }
           ]
@@ -4982,20 +4982,20 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/dateupdated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasExplicitDate",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate",
               "isCons": true
             },
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_dateupdated_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDateValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue",
+              "isCons": false
             }
           ]
         },
@@ -5166,7 +5166,7 @@
             {
               "type": "Class",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/max_plan_dur_max_accepted",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Duration",
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/Duration",
               "isCons": true
             },
             {
@@ -5178,8 +5178,8 @@
             {
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_max_accepted_VALUE",
-              "match": "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasDurationValue",
-              "isCons": true
+              "match": "https://www.omg.org/spec/Commons/DatesAndTimes/hasDurationValue",
+              "isCons": false
             }
           ]
         },
