@@ -41,6 +41,7 @@
       <version>2.0.7</version>
     </dependency>
 
+    <!-- OWL API -->
     <dependency>
       <groupId>net.sourceforge.owlapi</groupId>
       <artifactId>owlapi-distribution</artifactId>
@@ -56,6 +57,27 @@
       <artifactId>owlapi-impl</artifactId>
       <version>5.5.0</version>
     </dependency>
+    <!--  -->
+
+    <!-- APACHE JENA -->
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-core</artifactId>
+      <version>4.8.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-arq</artifactId>
+      <version>4.8.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>apache-jena-libs</artifactId>
+      <version>4.8.0</version>
+      <type>pom</type>
+    </dependency>
+    <!--  -->
+
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
@@ -72,8 +94,6 @@
       <artifactId>tablesaw-core</artifactId>
       <version>0.43.1</version>
     </dependency>
-
-
 
   </dependencies>
     <build>

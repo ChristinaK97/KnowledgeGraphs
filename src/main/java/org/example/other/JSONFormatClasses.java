@@ -102,9 +102,11 @@ public class JSONFormatClasses {
             this.type = type;
         }
 
-        public URI getOntoEl() {
+        public URI getOntoElURI() {
             return ontoEl;
         }
+
+        public String getOntoElResource() {return getURIResource(ontoEl);}
 
         public void setOntoEl(URI ontoEl) {
             this.ontoEl = ontoEl;
