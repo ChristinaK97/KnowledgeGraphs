@@ -58,8 +58,8 @@ public class OntologyExtractor {
         addObjectProperties(objProperties, newObjProp);
         dataProperties.getProperties().forEach(this::addDatatype);
 
-        new JSONExtractor().createMappingJSON_fromOntology(db, msBbasePrefix,
-                convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
+        //new JSONExtractor().createMappingJSON_fromOntology(db, msBbasePrefix,
+        //        convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
 
     }
 
@@ -136,10 +136,13 @@ public class OntologyExtractor {
         ////////////////////////////////////
         // add domain
         Set<OWLClassExpression> domainClasses = new HashSet<>();
-        for (String className : domRan.domain) {
+        for (String className : domRan.domain)
             domainClasses.add(factory.getOWLClass(className, pm));
-        }
-        OWLObjectUnionOf domainClass = factory.getOWLObjectUnionOf(domainClasses);
+
+        OWLClassExpression domainClass =
+                domainClasses.size() > 1 ?
+                factory.getOWLObjectUnionOf(domainClasses) : factory.getOWLClass(domRan.domain.iterator().next(), pm);
+
         OWLObjectPropertyDomainAxiom domainAxiom = factory.getOWLObjectPropertyDomainAxiom(objproperty, domainClass);
         manager.addAxiom(ontology, domainAxiom);
 
@@ -187,10 +190,13 @@ public class OntologyExtractor {
         OWLDataPropertyExpression man = factory.getOWLDataProperty(propName, pm);
 
         Set<OWLClassExpression> domainClasses = new HashSet<>();
-        for (String className : domRan.domain) {
+        for (String className : domRan.domain)
             domainClasses.add(factory.getOWLClass(className, pm));
-        }
-        OWLObjectUnionOf domainClass = factory.getOWLObjectUnionOf(domainClasses);
+
+        OWLClassExpression domainClass =
+                domainClasses.size() > 1 ?
+                        factory.getOWLObjectUnionOf(domainClasses) : factory.getOWLClass(domRan.domain.iterator().next(), pm);
+
         OWLDataPropertyDomainAxiom domainAxiom = factory.getOWLDataPropertyDomainAxiom(man, domainClass);
         manager.addAxiom(ontology, domainAxiom);
 

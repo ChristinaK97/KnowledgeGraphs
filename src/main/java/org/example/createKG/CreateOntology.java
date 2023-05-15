@@ -1,18 +1,20 @@
 package org.example.createKG;
 
 import com.google.gson.Gson;
-import org.apache.jena.assembler.ImportManager;
-import org.apache.jena.ontology.*;
-import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.ontology.OntClass;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.riot.RDFDataMgr;
 import org.example.other.JSONFormatClasses;
-import org.example.other.JSONFormatClasses.*;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.example.other.JSONFormatClasses.Column;
+import org.example.other.JSONFormatClasses.Mapping;
+import org.example.other.JSONFormatClasses.Table;
 
 import java.io.*;
-import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 
@@ -39,14 +41,14 @@ public class CreateOntology {
     }
 
     private void loadDomainOntoImports() {
-        for (String uri : importURIs) {
+        /*for (String uri : importURIs) {
             OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
             dModel.read(uri);
             pModel.addSubModel(dModel);
-        }
-        /*OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+        }*/
+        OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         RDFDataMgr.read(dModel, "C:\\Users\\karal\\progr\\workspace\\AutoMap4OBDA\\RUN\\FIBOFull.ttl");
-        pModel.addSubModel(dModel);*/
+        pModel.addSubModel(dModel);
         //pModel.listClasses().forEach(System.out::println);
     }
 
@@ -146,59 +148,60 @@ public class CreateOntology {
     private void saveOutputOntology() {
         OutputStream out = null;
         try {
-            out = new FileOutputStream("outputOntologyTemp.ttl");
+            out = new FileOutputStream("outputOntology.ttl");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         pModel.write(out, "TURTLE");
-        addImports();
+        addOntologyMetadata();
     }
 
-    private void addImports() {
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+
+    private void addOntologyMetadata() {
+        String basePrefix = pModel.getNsPrefixURI("");
+        System.out.println(basePrefix);
+
+        String filePath = "outputOntology.ttl";
+
         try {
-            OWLOntology ontology = manager.loadOntologyFromOntologyDocument(new File("outputOntologyTemp.ttl"));
-            for(String uri : importURIs) {
-                OWLImportsDeclaration importDeclaration = manager.getOWLDataFactory().getOWLImportsDeclaration(IRI.create(uri));
-                manager.applyChange(new AddImport(ontology, importDeclaration));
-            }
-            File outputFile = new File("outputOntology.ttl");
-            manager.saveOntology(ontology, IRI.create(outputFile.toURI()));
-            new File("outputOntologyTemp.ttl").delete();
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
 
-        } catch (OWLOntologyCreationException | OWLOntologyStorageException e) {
-            System.err.println("Error ontology: " + e.getMessage());
-        }
-    }
-
-    /*private void addImports() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("outputOntologyTemp.ttl"));
-            BufferedWriter writer = new BufferedWriter(new FileWriter("outputOntology.ttl"));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.matches("<.*>.+rdf:type owl:Ontology .")) {
-                    writer.write(line);
-                    writer.newLine();
-
-                    for (String uri : importURIs) {
-                        writer.write(String.format("<%s> owl:imports <%s> .",
-                                line.substring(line.indexOf("<")+1, line.indexOf(">")), uri));
-                        writer.newLine();
-                    }
-                } else {
-                    writer.write(line);
-                    writer.newLine();
+            // Find the index of the last "@prefix" line
+            int lastIndex = -1;
+            for (int i = lines.size() - 1; i >= 0; i--) {
+                String line = lines.get(i);
+                if (line.startsWith("@prefix")) {
+                    lastIndex = i;
+                    break;
                 }
             }
-            reader.close();
-            writer.close();
-            new File("outputOntologyTemp.ttl").delete();
-        } catch (IOException e) {
+
+            if (lastIndex != -1) {
+                lines.add(lastIndex + 1, String.format("<%s> rdf:type owl:Ontology .", basePrefix));
+
+                for(String uri : importURIs)
+                    lines.add(lastIndex + 1, String.format("<%s> owl:imports <%s> .", basePrefix, uri));
+
+                // Find the index of the first triple pattern and insert a newline before it
+                int firstTripleIndex = -1;
+                for (int i = lastIndex + 1; i < lines.size(); i++) {
+                    String line = lines.get(i);
+                    if (line.matches("^:[^\\s]+.*")) {
+                        firstTripleIndex = i;
+                        break;
+                    }
+                }
+                if (firstTripleIndex != -1)
+                    lines.add(firstTripleIndex, "");
+
+                // Write the modified lines back to the file
+                Files.write(Paths.get(filePath), lines);
+            }
+        }catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
+
+    }
 
     //==================================================================================
 
