@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Util {
+
+    public static final String TABLECLASS = "TableClass";
+
     public static String normalise(String s) {
         return normalise(new HashSet<>(Collections.singleton(s)));
     }

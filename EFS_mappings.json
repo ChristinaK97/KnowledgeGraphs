@@ -2531,7 +2531,7 @@
               "type": "DataProperty",
               "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_VALUE",
               "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTag",
-              "isCons": true
+              "isCons": false
             }
           ]
         },

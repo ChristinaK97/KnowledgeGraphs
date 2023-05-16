@@ -9,6 +9,7 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.OWL;
+import org.apache.jena.vocabulary.RDFS;
 import org.example.other.JSONFormatClasses;
 import org.example.other.JSONFormatClasses.Column;
 import org.example.other.JSONFormatClasses.Mapping;
@@ -22,6 +23,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import org.example.other.Util.*;
+
+import static org.example.other.Util.TABLECLASS;
+
 public class CreateOntology {
 
     private List<Table> tablesMaps;
@@ -34,6 +39,7 @@ public class CreateOntology {
         gatherImports();
         loadDomainOntoImports();
         setHierarchy();
+        restoreConsistency();
         saveOutputOntology();
     }
     //==================================================================================
@@ -67,6 +73,8 @@ public class CreateOntology {
                 setColumnHierarchy(colMaps);
         }
     }
+
+
     private void setColumnHierarchy(Column colMap) {
         Mapping objMap   = colMap.getObjectPropMapping();
         Mapping classMap = colMap.getClassPropMapping();
@@ -88,8 +96,19 @@ public class CreateOntology {
                     bl.append(getClassNodeString(pathNode));
         }*/
 
+        if((dataMap.hasMatch() || dataMap.getPathURIs() != null)
+                && !objMap.hasMatch() && !classMap.hasMatch())
+        {
+            /*deleteClass(classMap.getOntoElURI());
+            colMap.delClassPropMapping();
+
+            deleteProperty(objMap.getOntoElURI());
+            colMap.delObjectPropMapping();*/
+        }
+
         if(objMap.hasMatch())
             setSubPropertyOf(objMap);
+
 
         /*else if (classMap.hasMatch())
             bl.append(getPropertyNodeString(objMap.getOntoElResource()));*/
@@ -112,11 +131,9 @@ public class CreateOntology {
                     bl.append(getClassNodeString(pathNode));
         }*/
 
-        if(dataMap.hasMatch()) {
+        if(dataMap.hasMatch())
             setSubPropertyOf(dataMap);
-            if(!dataMap.isCons())
-                makeDataPropertyConsistent(dataMap);
-        }
+
 
 
         /*else if (classMap.hasMatch())
@@ -130,6 +147,7 @@ public class CreateOntology {
         bl.append(getClassNodeString("VALUE"));*/
 
     }
+
 
     private OntClass getOntClass(URI uri) {
         return pModel.getOntClass(uri.toString());
@@ -158,9 +176,49 @@ public class CreateOntology {
             System.err.println("PROPERTY NOT FOUND " + map.getOntoElURI().toString() + " " + map.getMatchURI().toString());
     }
 
+
+    private void deleteProperty(URI propURI) {
+        OntProperty property = getOntProperty(propURI);
+        if(property != null) {
+            System.out.println("DEL "+ property.getLocalName());
+            pModel.removeAll(property, null, null);
+            pModel.removeAll(null, property, null);
+            pModel.removeAll(null, null, property);
+            property.remove();
+        }
+    }
+    private void deleteClass(URI classURI) {
+        OntClass ontClass = getOntClass(classURI);
+        // if not already deleted
+        if(ontClass != null){
+            System.out.println("DEL " + ontClass.getLocalName());
+            pModel.removeAll(ontClass, null, null);
+            pModel.removeAll(null, null, ontClass);
+            ontClass.remove();
+        }
+    }
+
+    private void restoreConsistency() {
+        for(Table tableMaps : tablesMaps)
+            for(Column colMap : tableMaps.getColumns()) {
+                Mapping objMap   = colMap.getObjectPropMapping();
+                Mapping classMap = colMap.getClassPropMapping();
+                Mapping dataMap  = colMap.getDataPropMapping();
+
+                makeObjPropConsistent(objMap);
+                makeDataPropertyConsistent(dataMap);
+            }
+    }
+
     private void makeDataPropertyConsistent(Mapping dataMap) {
+        correctDomain(dataMap);
+
+        if(!dataMap.hasMatch() || dataMap.isCons())
+            return;
+
         OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
         OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
+
         onProperty.setRange(newRange);
 
         OntClass DClass = onProperty.getDomain().asClass();
@@ -168,21 +226,85 @@ public class CreateOntology {
         addRangeRestriction(DClass, onProperty, newRange);
     }
 
+    private void makeObjPropConsistent(Mapping objMap) {
+        correctDomain(objMap);
+    }
+
+
+    private void correctDomain(Mapping map) {
+
+        try {
+            // domain doesn't need to be corrected
+            if(map.getPathURIs() == null)
+                return;
+
+            OntProperty prop = getOntProperty(map.getOntoElURI());
+            OntResource curDomain = prop.getDomain();
+            OntResource newDomain = getOntClass(getLastNodeFromPath(map.getPathURIs()));
+
+            System.out.println(map.getOntoElResource());
+            System.out.println(curDomain);
+
+            if(curDomain != null) {
+                if (curDomain.canAs(UnionClass.class)) {
+                    List<OntClass> unionDomainClasses = new ArrayList<>();
+                    UnionClass unionClass = curDomain.as(UnionClass.class);
+
+                    for(OntClass operand : unionClass.listOperands().toList()) {
+                        boolean hasSuperClass = false;
+                        System.out.println("Union operand: " + operand.getLocalName());
+
+                        for(OntClass superclass : operand.listSuperClasses().toList())
+                            if (superclass.isURIResource() && !superclass.getLocalName().equals(TABLECLASS)) {
+                                System.out.println(superclass);
+                                hasSuperClass = true;
+                                unionDomainClasses.add(superclass);
+                                removeRestriction(operand, prop);
+                            }
+
+                        if(!hasSuperClass)
+                            unionDomainClasses.add(operand);
+                    }
+                    newDomain = pModel.createUnionClass(null, pModel.createList(unionDomainClasses.iterator()));
+                }else
+                    removeRestriction(curDomain.asClass(), prop);
+            }
+
+            System.out.println("New Domain:");
+            printClass(newDomain);
+
+            prop.setDomain(newDomain);
+            System.out.println();
+
+        }catch (NullPointerException e) {
+            // property was previously deleted
+        }
+    }
+
+
     private void removeRestriction(OntClass DClass, OntProperty onProperty) {
         List<Statement> toRemove = new ArrayList<>();
-        StmtIterator it = pModel.listStatements(DClass, null, (RDFNode) null);
+        StmtIterator it = pModel.listStatements(DClass, RDFS.subClassOf, (RDFNode) null);
         while (it.hasNext()) {
             Statement stmt = it.nextStatement();
             if (stmt.getObject().canAs(Restriction.class))
                 if (stmt.getObject().as(Restriction.class).onProperty(onProperty))
                     toRemove.add(stmt);
         }
+        System.out.println(toRemove);
         toRemove.forEach(pModel::remove);
+        for(Statement stmt : toRemove)
+            pModel.removeAll(stmt.getObject().asResource(), null, null);
+
     }
 
     private void addRangeRestriction(OntClass DClass, OntProperty onProperty, OntResource newRange) {
         SomeValuesFromRestriction restriction = pModel.createSomeValuesFromRestriction(null, onProperty, newRange);
         DClass.addSuperClass(restriction.asClass());
+    }
+
+    private URI getLastNodeFromPath(List<URI> path) {
+        return path.get(path.size() - 1);
     }
 
     //==================================================================================
@@ -277,6 +399,20 @@ public class CreateOntology {
 
     private String extractOntoModule(java.net.URI uri) {
         return uri.toString().substring(0, uri.toString().lastIndexOf("/")) + "/";
+    }
+
+    //==================================================================================
+    private void printClass(OntResource cl) {
+        if (cl.canAs(UnionClass.class)) {
+            UnionClass unionClass = cl.as(UnionClass.class);
+            ExtendedIterator<? extends OntClass> operands = unionClass.listOperands();
+            while (operands.hasNext()) {
+                OntClass operand = operands.next();
+                System.out.println("Union operand: " + operand.getLocalName());
+            }
+        }else {
+            System.out.println(cl.getURI());
+        }
     }
 
     //==================================================================================

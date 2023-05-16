@@ -80,10 +80,20 @@ public class JSONFormatClasses {
         public Mapping getDataPropMapping() {
             return returnMappingPerType(2);
         }
-
         private Mapping returnMappingPerType(int type) {
             return mappings.get(type);
         }
+
+        public void delClassPropMapping() {
+             delMappingPerType(0);
+        }
+        public void delObjectPropMapping() {
+             delMappingPerType(1);
+        }
+        public void delDataPropMapping() {
+             delMappingPerType(2);
+        }
+        private void delMappingPerType(int type) {mappings.set(type, null);}
     }
     //================================================================================
 
