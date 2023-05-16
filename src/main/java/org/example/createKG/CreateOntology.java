@@ -8,7 +8,6 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDFS;
 import org.example.other.JSONFormatClasses;
 import org.example.other.JSONFormatClasses.Column;
@@ -23,9 +22,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.example.other.Util.*;
-
-import static org.example.other.Util.TABLECLASS;
+import static org.example.other.Util.*;
 
 public class CreateOntology {
 
@@ -64,6 +61,7 @@ public class CreateOntology {
 
 
     private void setHierarchy() {
+
         for(Table tableMaps : tablesMaps) {
 
             if(tableMaps.getMapping().hasMatch())
@@ -80,22 +78,6 @@ public class CreateOntology {
         Mapping classMap = colMap.getClassPropMapping();
         Mapping dataMap  = colMap.getDataPropMapping();
 
-        // a resource path has been set for obj prop mapping
-        /*if(objMap.getPathURIs() != null) {
-
-            List<String> path = objMap.getPathResources();
-
-            // first resource on the path is a class
-            if(Character.isUpperCase(path.get(0).charAt(0)))
-                bl.append(getPropertyNodeString(objMap.getOntoElResource()));
-
-            for (String pathNode : path)
-                if (Character.isLowerCase(pathNode.charAt(0)))
-                    bl.append(getPropertyNodeString(pathNode));
-                else
-                    bl.append(getClassNodeString(pathNode));
-        }*/
-
         if((dataMap.hasMatch() || dataMap.getPathURIs() != null)
                 && !objMap.hasMatch() && !classMap.hasMatch())
         {
@@ -109,43 +91,11 @@ public class CreateOntology {
         if(objMap.hasMatch())
             setSubPropertyOf(objMap);
 
-
-        /*else if (classMap.hasMatch())
-            bl.append(getPropertyNodeString(objMap.getOntoElResource()));*/
-
-
         if(classMap.hasMatch())
             setSubClassOf(classMap);
 
-
-        /* if(dataMap.getPathURIs() != null) {
-
-            List<String> path = dataMap.getPathResources();
-            if(Character.isUpperCase(path.get(0).charAt(0)))
-                bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
-
-            for (String pathNode : path)
-                if (Character.isLowerCase(pathNode.charAt(0)))
-                    bl.append(getPropertyNodeString(pathNode));
-                else
-                    bl.append(getClassNodeString(pathNode));
-        }*/
-
         if(dataMap.hasMatch())
             setSubPropertyOf(dataMap);
-
-
-
-        /*else if (classMap.hasMatch())
-            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));*/
-
-
-        /*if(! (objMap.hasMatch() || classMap.hasMatch() || dataMap.hasMatch()))
-            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
-
-
-        bl.append(getClassNodeString("VALUE"));*/
-
     }
 
 
@@ -154,6 +104,17 @@ public class CreateOntology {
     }
     private OntProperty getOntProperty(URI uri) {
         return pModel.getOntProperty(uri.toString());
+    }
+    private OntProperty getOntProperty(String uri) {
+        return pModel.getOntProperty(uri);
+    }
+    private String getLabel(OntResource resource) {
+        String label = resource.getLabel("en");
+        if (label == null)
+            label = resource.getLabel("");
+        if(label == null)
+            label = resource.getLocalName();
+        return label;
     }
 
     private void setSubClassOf(Mapping map) {
@@ -218,11 +179,21 @@ public class CreateOntology {
         for(Table tableMaps : tablesMaps)
             for(Column colMap : tableMaps.getColumns()) {
                 Mapping objMap   = colMap.getObjectPropMapping();
-                Mapping classMap = colMap.getClassPropMapping();
+                // Mapping classMap = colMap.getClassPropMapping();
                 Mapping dataMap  = colMap.getDataPropMapping();
 
-                makeObjPropConsistent(objMap);
+                try {
+                    makeObjPropConsistent(objMap);
+                    handleClassAsFirstPathNode(
+                            tableMaps.getMapping().getOntoElResource(),
+                            tableMaps.getMapping().getOntoElURI(), objMap);
+                }catch (NullPointerException e) {
+                    // property was unnecessary so it was previously deleted
+                }
                 makeDataPropertyConsistent(dataMap);
+                handleClassAsFirstPathNode(
+                        tableMaps.getMapping().getOntoElResource(),
+                        tableMaps.getMapping().getOntoElURI(), dataMap);
             }
     }
 
@@ -234,16 +205,7 @@ public class CreateOntology {
 
         OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
         OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
-
-        System.out.println(dataMap.getOntoElResource());
-        System.out.println(dataMap.getMatchURI());
-        System.out.println(getOntProperty(dataMap.getMatchURI()));
-        System.out.println(newRange);
-        onProperty.setRange(newRange);
-
-        OntClass DClass = onProperty.getDomain().asClass();
-        removeRestriction(DClass, onProperty);
-        addRangeRestriction(DClass, onProperty, newRange);
+        correctRange(onProperty, newRange);
     }
 
     private void makeObjPropConsistent(Mapping objMap) {
@@ -253,56 +215,64 @@ public class CreateOntology {
 
     private void correctDomain(Mapping map) {
 
-        try {
-            // domain doesn't need to be corrected
-            if(map.getPathURIs() == null)
-                return;
+        // domain doesn't need to be corrected. Match is direct, not through a path
+        if(map.getPathURIs() == null)
+            return;
 
-            OntProperty prop = getOntProperty(map.getOntoElURI());
-            OntResource curDomain = prop.getDomain();
-            OntResource newDomain = getOntClass(getLastNodeFromPath(map.getPathURIs()));
+        OntProperty prop = getOntProperty(map.getOntoElURI());
+        OntResource curDomain = prop.getDomain();
+        OntResource newDomain = getOntClass(getLastNodeFromPath(map.getPathURIs()));
 
-            System.out.println(map.getOntoElResource());
-            System.out.println(curDomain);
-
-            if(curDomain != null) {
-                if (curDomain.canAs(UnionClass.class)) {
-                    List<OntClass> unionDomainClasses = new ArrayList<>();
-                    UnionClass unionClass = curDomain.as(UnionClass.class);
-
-                    for(OntClass operand : unionClass.listOperands().toList()) {
-                        boolean hasSuperClass = false;
-                        System.out.println("Union operand: " + operand.getLocalName());
-
-                        for(OntClass superclass : operand.listSuperClasses().toList())
-                            if (superclass.isURIResource() && !superclass.getLocalName().equals(TABLECLASS)) {
-                                System.out.println(superclass);
-                                hasSuperClass = true;
-                                unionDomainClasses.add(superclass);
-                                removeRestriction(operand, prop);
-                            }
-
-                        if(!hasSuperClass)
-                            unionDomainClasses.add(operand);
-                    }
-                    // remove current anonymous union domain node
-                    curDomain.as(UnionClass.class).remove();
-                    newDomain = pModel.createUnionClass(null, pModel.createList(unionDomainClasses.iterator()));
-                }else
-                    removeRestriction(curDomain.asClass(), prop);
-            }
-
-            System.out.println("New Domain:");
-            printClass(newDomain);
-
-            prop.setDomain(newDomain);
-            System.out.println();
-
-        }catch (NullPointerException e) {
-            // property was previously deleted
-        }
+        System.out.println(map.getOntoElResource());
+        correctDomain(prop, curDomain, newDomain);
     }
 
+
+    private void correctDomain(OntProperty prop, OntResource curDomain, OntResource newDomain) {
+        System.out.println(curDomain);
+
+        if(curDomain != null) {
+            if (curDomain.canAs(UnionClass.class)) {
+                List<OntClass> unionDomainClasses = new ArrayList<>();
+                UnionClass unionClass = curDomain.as(UnionClass.class);
+
+                for(OntClass operand : unionClass.listOperands().toList()) {
+                    boolean hasSuperClass = false;
+                    System.out.println("Union operand: " + operand.getLocalName());
+
+                    for(OntClass superclass : operand.listSuperClasses().toList())
+                        if (superclass.isURIResource() && !superclass.getLocalName().equals(TABLECLASS)) {
+                            System.out.println(superclass);
+                            hasSuperClass = true;
+                            unionDomainClasses.add(superclass);
+                            removeRestriction(operand, prop);
+                        }
+
+                    if(!hasSuperClass)
+                        unionDomainClasses.add(operand);
+                }
+                // remove current anonymous union domain node
+                curDomain.as(UnionClass.class).remove();
+                newDomain = pModel.createUnionClass(null, pModel.createList(unionDomainClasses.iterator()));
+            }else
+                removeRestriction(curDomain.asClass(), prop);
+        }
+
+        System.out.println("New Domain:");
+        printClass(newDomain);
+
+        prop.setDomain(newDomain);
+        System.out.println();
+    }
+
+
+    private void correctRange(OntProperty property, OntResource newRange) {
+        property.setRange(newRange);
+
+        OntClass DClass = property.getDomain().asClass();
+        removeRestriction(DClass, property);
+        addRangeRestriction(DClass, property, newRange);
+    }
 
     private void removeRestriction(OntClass DClass, OntProperty onProperty) {
         List<Statement> toRemove = new ArrayList<>();
@@ -325,6 +295,54 @@ public class CreateOntology {
         DClass.addSuperClass(restriction.asClass());
     }
 
+
+    private void handleClassAsFirstPathNode(String tableClassName, URI tableClassURI, Mapping map) {
+        try {
+            System.out.println("First Class");
+
+            OntProperty prop = getOntProperty(map.getOntoElURI());
+            OntClass firstClass = getOntClass(getFirstNodeFromPath(map.getPathURIs()));
+            String firstClassName = firstClass.getLocalName();
+
+            // Create a new property with the specified URI
+            // (tableClass) -[newProperty]-> (dOnto:firstClass)
+
+            // baseURI/tableName_has_firstClassName
+            String newURI = String.format("%s%s_has_%s", pModel.getNsPrefixURI(""), tableClassName, firstClassName);
+
+            if (getOntProperty(newURI) == null) {
+                // property wasn't already created
+                String newLabel = String.format("has %s", normalise(getLabel(firstClass)));
+
+                OntProperty newProp = pModel.createObjectProperty(newURI);
+                newProp.setLabel(newLabel, "en");
+                newProp.setComment(String.format("New prop to connect tableClass \"%s\" with firstPathClass \"%s\"", tableClassName, firstClassName), "en");
+                newProp.addComment(prop.getComment(""), "en");
+                newProp.setSuperProperty(getOntProperty(ATTRIBUTECLASSURI));
+
+                OntClass DtableClass = getOntClass(tableClassURI);
+                newProp.setDomain(DtableClass);
+                newProp.setRange(firstClass);
+                addRangeRestriction(DtableClass, newProp, firstClass);
+
+                // Modify existing property
+                // (dOnto:firstClass) -[ontoEl property]-> (same Range)
+                correctDomain(prop, prop.getDomain(), firstClass);
+            }
+        }catch (NullPointerException e) {
+            //TODO remove print
+            if(map != null && map.getPathURIs() != null && getOntClass(getFirstNodeFromPath(map.getPathURIs())) != null)
+                e.printStackTrace();
+            // Either the map doesn't contain a path and so getPFirstNode throws NPE
+            // or the first node in the path wasn't a class but a property and
+            // so getOntClass returned null. No modifications are needed in this case
+         }
+    }
+
+
+    private URI getFirstNodeFromPath(List<URI> path) {
+        return path.get(0);
+    }
     private URI getLastNodeFromPath(List<URI> path) {
         return path.get(path.size() - 1);
     }
@@ -443,3 +461,79 @@ public class CreateOntology {
     }
 
 }
+
+
+/*
+    private void setColumnHierarchy(Column colMap) {
+        Mapping objMap   = colMap.getObjectPropMapping();
+        Mapping classMap = colMap.getClassPropMapping();
+        Mapping dataMap  = colMap.getDataPropMapping();
+
+        // a resource path has been set for obj prop mapping
+        /*if(objMap.getPathURIs() != null) {
+
+            List<String> path = objMap.getPathResources();
+
+            // first resource on the path is a class
+            if(Character.isUpperCase(path.get(0).charAt(0)))
+                bl.append(getPropertyNodeString(objMap.getOntoElResource()));
+
+            for (String pathNode : path)
+                if (Character.isLowerCase(pathNode.charAt(0)))
+                    bl.append(getPropertyNodeString(pathNode));
+                else
+                    bl.append(getClassNodeString(pathNode));
+        }
+
+        if((dataMap.hasMatch() || dataMap.getPathURIs() != null)
+                && !objMap.hasMatch() && !classMap.hasMatch())
+                {
+                deleteClass(classMap.getOntoElURI());
+                colMap.delClassPropMapping();
+
+                deleteProperty(objMap.getOntoElURI());
+                colMap.delObjectPropMapping();
+                }
+
+                if(objMap.hasMatch())
+                setSubPropertyOf(objMap);
+
+
+        /*else if (classMap.hasMatch())
+            bl.append(getPropertyNodeString(objMap.getOntoElResource()));
+
+
+                if(classMap.hasMatch())
+                setSubClassOf(classMap);
+
+
+        /* if(dataMap.getPathURIs() != null) {
+
+            List<String> path = dataMap.getPathResources();
+            if(Character.isUpperCase(path.get(0).charAt(0)))
+                bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
+
+            for (String pathNode : path)
+                if (Character.isLowerCase(pathNode.charAt(0)))
+                    bl.append(getPropertyNodeString(pathNode));
+                else
+                    bl.append(getClassNodeString(pathNode));
+        }
+
+                if(dataMap.hasMatch())
+                setSubPropertyOf(dataMap);
+
+
+
+        /*else if (classMap.hasMatch())
+            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
+
+
+        /*if(! (objMap.hasMatch() || classMap.hasMatch() || dataMap.hasMatch()))
+            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
+
+
+        bl.append(getClassNodeString("VALUE"));
+
+                }
+ */
