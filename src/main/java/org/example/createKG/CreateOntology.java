@@ -99,11 +99,11 @@ public class CreateOntology {
         if((dataMap.hasMatch() || dataMap.getPathURIs() != null)
                 && !objMap.hasMatch() && !classMap.hasMatch())
         {
-            /*deleteClass(classMap.getOntoElURI());
+            /**/deleteClass(classMap.getOntoElURI());
             colMap.delClassPropMapping();
 
             deleteProperty(objMap.getOntoElURI());
-            colMap.delObjectPropMapping();*/
+            colMap.delObjectPropMapping();
         }
 
         if(objMap.hasMatch())
@@ -177,26 +177,42 @@ public class CreateOntology {
     }
 
 
+    private void deleteClass(URI classURI) {
+        OntClass ontClass = getOntClass(classURI);
+        // if not already deleted
+        if(ontClass != null){
+            System.out.println("DEL " + ontClass.getLocalName());
+            removeRestriction(ontClass, null);
+            pModel.removeAll(ontClass, null, null);
+            pModel.removeAll(null, null, ontClass);
+            ontClass.remove();
+        }
+    }
+
+
     private void deleteProperty(URI propURI) {
         OntProperty property = getOntProperty(propURI);
         if(property != null) {
             System.out.println("DEL "+ property.getLocalName());
+
+            // remove restriction statements and anonymous restriction classes containing the property
+            OntResource domain = property.getDomain();
+            if(domain.canAs(UnionClass.class)) {
+                for (OntClass DClass : domain.as(UnionClass.class).listOperands().toList())
+                    removeRestriction(DClass, property);
+
+                // remove anonymous union domain class
+                domain.as(UnionClass.class).remove();
+            }else
+                removeRestriction(domain.asClass(), property);
+
             pModel.removeAll(property, null, null);
             pModel.removeAll(null, property, null);
             pModel.removeAll(null, null, property);
             property.remove();
         }
     }
-    private void deleteClass(URI classURI) {
-        OntClass ontClass = getOntClass(classURI);
-        // if not already deleted
-        if(ontClass != null){
-            System.out.println("DEL " + ontClass.getLocalName());
-            pModel.removeAll(ontClass, null, null);
-            pModel.removeAll(null, null, ontClass);
-            ontClass.remove();
-        }
-    }
+
 
     private void restoreConsistency() {
         for(Table tableMaps : tablesMaps)
@@ -265,6 +281,8 @@ public class CreateOntology {
                         if(!hasSuperClass)
                             unionDomainClasses.add(operand);
                     }
+                    // remove current anonymous union domain node
+                    curDomain.as(UnionClass.class).remove();
                     newDomain = pModel.createUnionClass(null, pModel.createList(unionDomainClasses.iterator()));
                 }else
                     removeRestriction(curDomain.asClass(), prop);
@@ -288,7 +306,7 @@ public class CreateOntology {
         while (it.hasNext()) {
             Statement stmt = it.nextStatement();
             if (stmt.getObject().canAs(Restriction.class))
-                if (stmt.getObject().as(Restriction.class).onProperty(onProperty))
+                if (onProperty == null || stmt.getObject().as(Restriction.class).onProperty(onProperty))
                     toRemove.add(stmt);
         }
         System.out.println(toRemove);
@@ -341,7 +359,7 @@ public class CreateOntology {
             }
 
             if (lastIndex != -1) {
-                lines.add(lastIndex + 1, String.format("<%s> rdf:type owl:Ontology .", basePrefix));
+                // lines.add(lastIndex + 1, String.format("<%s> rdf:type owl:Ontology .", basePrefix));
 
                 for(String uri : importURIs)
                     lines.add(lastIndex + 1, String.format("<%s> owl:imports <%s> .", basePrefix, uri));
