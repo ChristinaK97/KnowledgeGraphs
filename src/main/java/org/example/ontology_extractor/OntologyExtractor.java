@@ -61,6 +61,7 @@ public class OntologyExtractor {
         //new JSONExtractor().createMappingJSON_fromOntology(db, msBbasePrefix,
         //        convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
 
+        //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, convertedIntoClass, objProperties);
     }
 
 

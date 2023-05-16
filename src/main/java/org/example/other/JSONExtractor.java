@@ -170,8 +170,74 @@ public class JSONExtractor {
         else
             trf.put(elementName, new ArrayList<>(Collections.singleton(new Transformation(ontoElement, type))));
     }
+// ===================================================================================================================
 
+    public void createMappingJSON_forFKobjectProperties(DBSchema db,
+                                                        String msBbasePrefix,
+                                                        HashMap<String, String> tableCls,
+                                                        Properties objProp) {
+        this.msBbasePrefix = msBbasePrefix;
+        JsonObject json = new JsonObject();
+        JsonArray objPropArray = new JsonArray();
 
+        HashMap<String, JsonObject> propertyObject = new HashMap<>();
+        ArrayList<String> sortedProperties = new ArrayList<>(objProp.getProperties().keySet());
+        Collections.sort(sortedProperties);
+
+        for(String objP : sortedProperties) {
+
+            JsonObject objPropObject = new JsonObject();
+            objPropObject.addProperty("objProp", objP);
+
+            JsonObject objPMapping = new JsonObject();
+
+            objPMapping.addProperty("type", "ObjectProperty");
+            objPMapping.addProperty("ontoEl", msBbasePrefix + objP);
+            objPMapping.addProperty("match", "");
+            objPMapping.addProperty("isCons", "");
+
+            objPropObject.add("mapping", objPMapping);
+            propertyObject.put(objP, objPropObject);
+        }
+
+        db.getrTables().forEach((tableName, table) -> {
+            table.getFKs().forEach((fkCol, fkp) -> {
+
+                String sourceClass = tableCls.get(tableName);
+                String targetClass = tableCls.get(fkp.refTable);
+                String objP  = String.format("p_%s_%s", sourceClass, targetClass);
+                String invP  = String.format("p_%s_%s", targetClass, sourceClass);
+                String loopP = String.format("has_%s", sourceClass);
+
+                for (Object[] pair : new Object[][]{{objP, false},{invP, true},{loopP, false}}) {
+                    String p = (String) pair[0];
+                    boolean isInverse = (boolean) pair[1];
+
+                    if (propertyObject.containsKey(p)) {
+                        propertyObject.get(p).addProperty("fKeyColumn", String.format("%s.%s", tableName, fkCol));
+                        propertyObject.get(p).addProperty("references", String.format("%s.%s", fkp.refTable, fkp.refColumn));
+                        propertyObject.get(p).addProperty("isInverseP", isInverse);
+                    }
+                }
+        });});
+
+        for(String objP : sortedProperties)
+            objPropArray.add(propertyObject.get(objP));
+        json.add("objProps", objPropArray);
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String jsonString = gson.toJson(json);
+
+        //System.out.println(jsonString);
+        File file = new File("EFS_mappings_ObjProp.json");
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            writer.write(jsonString);
+            writer.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
