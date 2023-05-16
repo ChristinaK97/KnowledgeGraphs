@@ -235,6 +235,10 @@ public class CreateOntology {
         OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
         OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
 
+        System.out.println(dataMap.getOntoElResource());
+        System.out.println(dataMap.getMatchURI());
+        System.out.println(getOntProperty(dataMap.getMatchURI()));
+        System.out.println(newRange);
         onProperty.setRange(newRange);
 
         OntClass DClass = onProperty.getDomain().asClass();
