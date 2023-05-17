@@ -55,7 +55,9 @@ public class DatabaseConnector {
 
     public String getSchemaName(){return schema;}
 
-
+    public Connection getConnection() {
+        return connection;
+    }
 }
 
 
