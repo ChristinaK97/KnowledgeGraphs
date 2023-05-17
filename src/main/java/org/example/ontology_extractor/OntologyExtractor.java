@@ -2,7 +2,6 @@ package org.example.ontology_extractor;
 
 import org.example.database_connector.DBSchema;
 import org.example.ontology_extractor.Properties.DomRan;
-import org.example.other.JSONExtractor;
 import org.example.other.Util;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
@@ -11,7 +10,9 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class OntologyExtractor {
 

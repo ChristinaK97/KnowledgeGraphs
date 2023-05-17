@@ -17,8 +17,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_act_type_actcategory",
-        "match": "",
-        "isCons": ""
+        "match": "https://www.omg.org/spec/Commons/Classifiers/isClassifiedBy",
+        "isCons": true
       },
       "fKeyColumn": "act_type.DEF_ACTCATEGORY_ID",
       "references": "actcategory.ACTCATEGORY_ID",
@@ -41,8 +41,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_actcategory_act_type",
-        "match": "",
-        "isCons": ""
+        "match": "https://www.omg.org/spec/Commons/Classifiers/classifies",
+        "isCons": true
       },
       "fKeyColumn": "act_type.DEF_ACTCATEGORY_ID",
       "references": "actcategory.ACTCATEGORY_ID",
@@ -54,7 +54,7 @@
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_contact",
         "match": "",
-        "isCons": ""
+        "isCons": false
       }
     },
     {
@@ -63,7 +63,7 @@
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_email",
         "match": "",
-        "isCons": ""
+        "isCons": false
       }
     },
     {
@@ -71,8 +71,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_person",
-        "match": "",
-        "isCons": ""
+        "match": "https://www.omg.org/spec/Commons/Classifiers/characterizes",
+        "isCons": true
       },
       "fKeyColumn": "address.PERSON_ID",
       "references": "person.PERSON_ID",
@@ -84,7 +84,7 @@
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_phone",
         "match": "",
-        "isCons": ""
+        "isCons": false
       }
     },
     {
@@ -93,7 +93,7 @@
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_queue_case",
         "match": "",
-        "isCons": ""
+        "isCons": false
       }
     },
     {
@@ -494,8 +494,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_email_person",
-        "match": "",
-        "isCons": ""
+        "match": "https://www.omg.org/spec/Commons/Classifiers/characterizes",
+        "isCons": true
       },
       "fKeyColumn": "email.PERSON_ID",
       "references": "person.PERSON_ID",
@@ -614,8 +614,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_address",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddress",
+        "isCons": true
       },
       "fKeyColumn": "address.PERSON_ID",
       "references": "person.PERSON_ID",
@@ -677,8 +677,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_email",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/hasElectronicMailAddress",
+        "isCons": true
       },
       "fKeyColumn": "email.PERSON_ID",
       "references": "person.PERSON_ID",
@@ -689,8 +689,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_phone",
-        "match": "",
-        "isCons": ""
+        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/hasTelephoneNumber",
+        "isCons": true
       },
       "fKeyColumn": "phone.PERSON_ID",
       "references": "person.PERSON_ID",
@@ -788,8 +788,8 @@
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_phone_person",
-        "match": "",
-        "isCons": ""
+        "match": "https://www.omg.org/spec/Commons/Classifiers/characterizes",
+        "isCons": true
       },
       "fKeyColumn": "phone.PERSON_ID",
       "references": "person.PERSON_ID",

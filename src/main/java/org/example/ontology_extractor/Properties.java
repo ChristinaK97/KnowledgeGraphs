@@ -24,7 +24,7 @@ public class Properties{
             this.extractedField.add(extractedField);
         }
         public String getObjectPropertyLabel() {return "has_" + Util.normalise(range);}
-        public String getInverse() {return String.format("p_%s_%s", Util.normalise(range), Util.normalise(domain));}
+        public String getInverse() {return String.format("p_%s_%s", Util.normalise(range), Util.normalise(domain)).replace(" ","_");}
 
         public Set<String> getExtractedField() {
             return extractedField;
@@ -56,6 +56,9 @@ public class Properties{
         return properties;
     }
 
+    public DomRan getPropertyDomRan(String propertyName) {
+        return properties.get(propertyName);
+    }
 
     @Override
     public String toString() {

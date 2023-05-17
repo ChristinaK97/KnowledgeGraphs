@@ -33,6 +33,10 @@ public class Util {
     }
 
     public static String getURIResource(URI uri) {
-        return uri.getPath().substring(uri.getPath().lastIndexOf('/') + 1);
+        return getURIResource(uri.getPath());
+
+    }
+    public static String getURIResource(String uri) {
+        return uri.substring(uri.lastIndexOf('/') + 1);
     }
 }
