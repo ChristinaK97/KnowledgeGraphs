@@ -1623,7 +1623,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_actcategory_act_type
 :p_actcategory_act_type rdf:type owl:ObjectProperty ;
                         rdfs:subPropertyOf :FKProperty ;
-                        owl:inverseOf :p_act_type_actcategory ;
                         rdfs:domain :actcategory ;
                         rdfs:range :act_type ;
                         rdfs:comment "[r1 inv] from [null]" ;
@@ -1633,7 +1632,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_address_contact
 :p_address_contact rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf :FKProperty ;
-                   owl:inverseOf :p_contact_address ;
                    rdfs:domain :address ;
                    rdfs:range :contact ;
                    rdfs:comment "[r8] from [null]" ;
@@ -1643,7 +1641,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_address_email
 :p_address_email rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf :FKProperty ;
-                 owl:inverseOf :p_email_address ;
                  rdfs:domain :address ;
                  rdfs:range :email ;
                  rdfs:comment "[r8] from [null]" ;
@@ -1662,7 +1659,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_address_phone
 :p_address_phone rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf :FKProperty ;
-                 owl:inverseOf :p_phone_address ;
                  rdfs:domain :address ;
                  rdfs:range :phone ;
                  rdfs:comment "[r8] from [null]" ;
@@ -1672,7 +1668,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_address_queue_case
 :p_address_queue_case rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :FKProperty ;
-                      owl:inverseOf :p_queue_case_address ;
                       rdfs:domain :address ;
                       rdfs:range :queue_case ;
                       rdfs:comment "[r8] from [null]" ;
@@ -1718,7 +1713,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_bucket_productcategory
 :p_bucket_productcategory rdf:type owl:ObjectProperty ;
                           rdfs:subPropertyOf :FKProperty ;
-                          owl:inverseOf :p_productcategory_bucket ;
                           rdfs:domain :bucket ;
                           rdfs:range :productcategory ;
                           rdfs:comment "[r3] from [null]" ;
@@ -1737,7 +1731,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_bucket_rer_metric
 :p_bucket_rer_metric rdf:type owl:ObjectProperty ;
                      rdfs:subPropertyOf :FKProperty ;
-                     owl:inverseOf :p_rer_metric_bucket ;
                      rdfs:domain :bucket ;
                      rdfs:range :rer_metric ;
                      rdfs:comment "[r4, r1 inv] from [null]" ;
@@ -1747,7 +1740,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_bucket
 :p_case_bucket rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf :FKProperty ;
-               owl:inverseOf :p_bucket_case ;
                rdfs:domain :case ;
                rdfs:range :bucket ;
                rdfs:comment "[r3, r1] from [null]" ;
@@ -1766,7 +1758,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_case_person_type
 :p_case_case_person_type rdf:type owl:ObjectProperty ;
                          rdfs:subPropertyOf :FKProperty ;
-                         owl:inverseOf :p_case_person_type_case ;
                          rdfs:domain :case ;
                          rdfs:range :case_person_type ;
                          rdfs:comment "[r3] from [null]" ;
@@ -1776,7 +1767,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_contact
 :p_case_contact rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :FKProperty ;
-                owl:inverseOf :p_contact_case ;
                 rdfs:domain :case ;
                 rdfs:range :contact ;
                 rdfs:comment "[r1 inv, r1] from [null]" ;
@@ -1786,7 +1776,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_payment
 :p_case_payment rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :FKProperty ;
-                owl:inverseOf :p_payment_case ;
                 rdfs:domain :case ;
                 rdfs:range :payment ;
                 rdfs:comment "[r8, r1 inv] from [null]" ;
@@ -1796,7 +1785,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_person
 :p_case_person rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf :FKProperty ;
-               owl:inverseOf :p_person_case ;
                rdfs:domain :case ;
                rdfs:range :person ;
                rdfs:comment "[r3] from [null]" ;
@@ -1806,7 +1794,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_person_case
 :p_case_person_case rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :FKProperty ;
-                    owl:inverseOf :p_case_case_person ;
                     rdfs:domain :case_person ;
                     rdfs:range :case ;
                     rdfs:comment "[r2] from [null]" ;
@@ -1825,7 +1812,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_person_person
 :p_case_person_person rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :FKProperty ;
-                      owl:inverseOf :p_person_case_person ;
                       rdfs:domain :case_person ;
                       rdfs:range :person ;
                       rdfs:comment "[r2] from [null]" ;
@@ -1844,7 +1830,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_person_type_case_person
 :p_case_person_type_case_person rdf:type owl:ObjectProperty ;
                                 rdfs:subPropertyOf :FKProperty ;
-                                owl:inverseOf :p_case_person_case_person_type ;
                                 rdfs:domain :case_person_type ;
                                 rdfs:range :case_person ;
                                 rdfs:comment "[r4, r1 inv] from [null]" ;
@@ -1854,7 +1839,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_person_type_person
 :p_case_person_type_person rdf:type owl:ObjectProperty ;
                            rdfs:subPropertyOf :FKProperty ;
-                           owl:inverseOf :p_person_case_person_type ;
                            rdfs:domain :case_person_type ;
                            rdfs:range :person ;
                            rdfs:comment "[r3] from [null]" ;
@@ -1873,7 +1857,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_case_productcategory
 :p_case_productcategory rdf:type owl:ObjectProperty ;
                         rdfs:subPropertyOf :FKProperty ;
-                        owl:inverseOf :p_productcategory_case ;
                         rdfs:domain :case ;
                         rdfs:range :productcategory ;
                         rdfs:comment "[r3] from [null]" ;
@@ -1919,7 +1902,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_contact_act_type
 :p_contact_act_type rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :FKProperty ;
-                    owl:inverseOf :p_act_type_contact ;
                     rdfs:domain :contact ;
                     rdfs:range :act_type ;
                     rdfs:comment "[r1] from [null]" ;
@@ -1947,7 +1929,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_contact_email
 :p_contact_email rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf :FKProperty ;
-                 owl:inverseOf :p_email_contact ;
                  rdfs:domain :contact ;
                  rdfs:range :email ;
                  rdfs:comment "[r8] from [null]" ;
@@ -1957,7 +1938,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_contact_msettlement_detail
 :p_contact_msettlement_detail rdf:type owl:ObjectProperty ;
                               rdfs:subPropertyOf :FKProperty ;
-                              owl:inverseOf :p_msettlement_detail_contact ;
                               rdfs:domain :contact ;
                               rdfs:range :msettlement_detail ;
                               rdfs:comment "[r8] from [null]" ;
@@ -1976,7 +1956,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_contact_payment
 :p_contact_payment rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf :FKProperty ;
-                   owl:inverseOf :p_payment_contact ;
                    rdfs:domain :contact ;
                    rdfs:range :payment ;
                    rdfs:comment "[r8, r1 inv] from [null]" ;
@@ -1995,7 +1974,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_contact_phone
 :p_contact_phone rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf :FKProperty ;
-                 owl:inverseOf :p_phone_contact ;
                  rdfs:domain :contact ;
                  rdfs:range :phone ;
                  rdfs:comment "[r8] from [null]" ;
@@ -2005,7 +1983,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_contact_queue_case
 :p_contact_queue_case rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :FKProperty ;
-                      owl:inverseOf :p_queue_case_contact ;
                       rdfs:domain :contact ;
                       rdfs:range :queue_case ;
                       rdfs:comment "[r8] from [null]" ;
@@ -2060,7 +2037,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_email_queue_case
 :p_email_queue_case rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :FKProperty ;
-                    owl:inverseOf :p_queue_case_email ;
                     rdfs:domain :email ;
                     rdfs:range :queue_case ;
                     rdfs:comment "[r8] from [null]" ;
@@ -2097,7 +2073,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_msettlement_master_contact
 :p_msettlement_master_contact rdf:type owl:ObjectProperty ;
                               rdfs:subPropertyOf :FKProperty ;
-                              owl:inverseOf :p_contact_msettlement_master ;
                               rdfs:domain :msettlement_master ;
                               rdfs:range :contact ;
                               rdfs:comment "[r8, r1 inv] from [null]" ;
@@ -2107,7 +2082,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_msettlement_master_msettlement_detail
 :p_msettlement_master_msettlement_detail rdf:type owl:ObjectProperty ;
                                          rdfs:subPropertyOf :FKProperty ;
-                                         owl:inverseOf :p_msettlement_detail_msettlement_master ;
                                          rdfs:domain :msettlement_master ;
                                          rdfs:range :msettlement_detail ;
                                          rdfs:comment "[r8, r1 inv] from [null]" ;
@@ -2117,7 +2091,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_msettlement_master_settle_plan
 :p_msettlement_master_settle_plan rdf:type owl:ObjectProperty ;
                                   rdfs:subPropertyOf :FKProperty ;
-                                  owl:inverseOf :p_settle_plan_msettlement_master ;
                                   rdfs:domain :msettlement_master ;
                                   rdfs:range :settle_plan ;
                                   rdfs:comment "[r1] from [null]" ;
@@ -2145,7 +2118,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_address
 :p_person_address rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf :FKProperty ;
-                  owl:inverseOf :p_address_person ;
                   rdfs:domain :person ;
                   rdfs:range :address ;
                   rdfs:comment "[r1 inv] from [null]" ;
@@ -2155,7 +2127,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_bucket
 :p_person_bucket rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf :FKProperty ;
-                 owl:inverseOf :p_bucket_person ;
                  rdfs:domain :person ;
                  rdfs:range :bucket ;
                  rdfs:comment "[r3] from [null]" ;
@@ -2192,7 +2163,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_contact
 :p_person_contact rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf :FKProperty ;
-                  owl:inverseOf :p_contact_person ;
                   rdfs:domain :person ;
                   rdfs:range :contact ;
                   rdfs:comment "[r1 inv] from [null]" ;
@@ -2202,7 +2172,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_email
 :p_person_email rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :FKProperty ;
-                owl:inverseOf :p_email_person ;
                 rdfs:domain :person ;
                 rdfs:range :email ;
                 rdfs:comment "[r1 inv] from [null]" ;
@@ -2212,7 +2181,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_phone
 :p_person_phone rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :FKProperty ;
-                owl:inverseOf :p_phone_person ;
                 rdfs:domain :person ;
                 rdfs:range :phone ;
                 rdfs:comment "[r1 inv] from [null]" ;
@@ -2222,7 +2190,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_product
 :p_person_product rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf :FKProperty ;
-                  owl:inverseOf :p_product_person ;
                   rdfs:domain :person ;
                   rdfs:range :product ;
                   rdfs:comment "[r3] from [null]" ;
@@ -2241,7 +2208,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_productreportcategory
 :p_person_productreportcategory rdf:type owl:ObjectProperty ;
                                 rdfs:subPropertyOf :FKProperty ;
-                                owl:inverseOf :p_productreportcategory_person ;
                                 rdfs:domain :person ;
                                 rdfs:range :productreportcategory ;
                                 rdfs:comment "[r3] from [null]" ;
@@ -2260,7 +2226,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_person_queue_case
 :p_person_queue_case rdf:type owl:ObjectProperty ;
                      rdfs:subPropertyOf :FKProperty ;
-                     owl:inverseOf :p_queue_case_person ;
                      rdfs:domain :person ;
                      rdfs:range :queue_case ;
                      rdfs:comment "[r4, r1 inv] from [null]" ;
@@ -2297,7 +2262,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_phone_email
 :p_phone_email rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf :FKProperty ;
-               owl:inverseOf :p_email_phone ;
                rdfs:domain :phone ;
                rdfs:range :email ;
                rdfs:comment "[r8] from [null]" ;
@@ -2325,7 +2289,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_phone_rer_metric
 :p_phone_rer_metric rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :FKProperty ;
-                    owl:inverseOf :p_rer_metric_phone ;
                     rdfs:domain :phone ;
                     rdfs:range :rer_metric ;
                     rdfs:comment "[r8] from [null]" ;
@@ -2335,7 +2298,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_product_bucket
 :p_product_bucket rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf :FKProperty ;
-                  owl:inverseOf :p_bucket_product ;
                   rdfs:domain :product ;
                   rdfs:range :bucket ;
                   rdfs:comment "[r3] from [null]" ;
@@ -2345,7 +2307,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_product_case
 :p_product_case rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :FKProperty ;
-                owl:inverseOf :p_case_product ;
                 rdfs:domain :product ;
                 rdfs:range :case ;
                 rdfs:comment "[r3] from [null]" ;
@@ -2382,7 +2343,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_product_rer_metric
 :p_product_rer_metric rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :FKProperty ;
-                      owl:inverseOf :p_rer_metric_product ;
                       rdfs:domain :product ;
                       rdfs:range :rer_metric ;
                       rdfs:comment "[r4, r8, r1 inv] from [null]" ;
@@ -2410,7 +2370,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_productcategory_person
 :p_productcategory_person rdf:type owl:ObjectProperty ;
                           rdfs:subPropertyOf :FKProperty ;
-                          owl:inverseOf :p_person_productcategory ;
                           rdfs:domain :productcategory ;
                           rdfs:range :person ;
                           rdfs:comment "[r3] from [null]" ;
@@ -2420,7 +2379,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_productcategory_product
 :p_productcategory_product rdf:type owl:ObjectProperty ;
                            rdfs:subPropertyOf :FKProperty ;
-                           owl:inverseOf :p_product_productcategory ;
                            rdfs:domain :productcategory ;
                            rdfs:range :product ;
                            rdfs:comment "[r3, r1 inv] from [null]" ;
@@ -2430,7 +2388,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_productcategory_productreportcategory
 :p_productcategory_productreportcategory rdf:type owl:ObjectProperty ;
                                          rdfs:subPropertyOf :FKProperty ;
-                                         owl:inverseOf :p_productreportcategory_productcategory ;
                                          rdfs:domain :productcategory ;
                                          rdfs:range :productreportcategory ;
                                          rdfs:comment "[r3] from [null]" ;
@@ -2449,7 +2406,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_bucket
 :p_productreportcategory_bucket rdf:type owl:ObjectProperty ;
                                 rdfs:subPropertyOf :FKProperty ;
-                                owl:inverseOf :p_bucket_productreportcategory ;
                                 rdfs:domain :productreportcategory ;
                                 rdfs:range :bucket ;
                                 rdfs:comment "[r3] from [null]" ;
@@ -2459,7 +2415,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_case
 :p_productreportcategory_case rdf:type owl:ObjectProperty ;
                               rdfs:subPropertyOf :FKProperty ;
-                              owl:inverseOf :p_case_productreportcategory ;
                               rdfs:domain :productreportcategory ;
                               rdfs:range :case ;
                               rdfs:comment "[r3] from [null]" ;
@@ -2478,7 +2433,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_product
 :p_productreportcategory_product rdf:type owl:ObjectProperty ;
                                  rdfs:subPropertyOf :FKProperty ;
-                                 owl:inverseOf :p_product_productreportcategory ;
                                  rdfs:domain :productreportcategory ;
                                  rdfs:range :product ;
                                  rdfs:comment "[r3, r1 inv] from [null]" ;
@@ -2506,7 +2460,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_queue_case
 :p_queue_case rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf :FKProperty ;
-              owl:inverseOf :p_case_queue ;
               rdfs:domain :queue ;
               rdfs:range :case ;
               rdfs:comment "[r3] from [null]" ;
@@ -2525,7 +2478,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_queue_case_case
 :p_queue_case_case rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf :FKProperty ;
-                   owl:inverseOf :p_case_queue_case ;
                    rdfs:domain :queue_case ;
                    rdfs:range :case ;
                    rdfs:comment "[r2] from [null]" ;
@@ -2562,7 +2514,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_queue_case_phone
 :p_queue_case_phone rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :FKProperty ;
-                    owl:inverseOf :p_phone_queue_case ;
                     rdfs:domain :queue_case ;
                     rdfs:range :phone ;
                     rdfs:comment "[r8] from [null]" ;
@@ -2572,7 +2523,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_queue_case_queue
 :p_queue_case_queue rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :FKProperty ;
-                    owl:inverseOf :p_queue_queue_case ;
                     rdfs:domain :queue_case ;
                     rdfs:range :queue ;
                     rdfs:comment "[r2] from [null]" ;
@@ -2582,7 +2532,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_queue_case_rer_metric
 :p_queue_case_rer_metric rdf:type owl:ObjectProperty ;
                          rdfs:subPropertyOf :FKProperty ;
-                         owl:inverseOf :p_rer_metric_queue_case ;
                          rdfs:domain :queue_case ;
                          rdfs:range :rer_metric ;
                          rdfs:comment "[r8] from [null]" ;
@@ -2592,7 +2541,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_queue_person
 :p_queue_person rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :FKProperty ;
-                owl:inverseOf :p_person_queue ;
                 rdfs:domain :queue ;
                 rdfs:range :person ;
                 rdfs:comment "[r3] from [null]" ;
@@ -2611,7 +2559,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_rer_metric_address
 :p_rer_metric_address rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :FKProperty ;
-                      owl:inverseOf :p_address_rer_metric ;
                       rdfs:domain :rer_metric ;
                       rdfs:range :address ;
                       rdfs:comment "[r8] from [null]" ;
@@ -2630,7 +2577,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_rer_metric_case
 :p_rer_metric_case rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf :FKProperty ;
-                   owl:inverseOf :p_case_rer_metric ;
                    rdfs:domain :rer_metric ;
                    rdfs:range :case ;
                    rdfs:comment "[r8] from [null]" ;
@@ -2640,7 +2586,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_rer_metric_contact
 :p_rer_metric_contact rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :FKProperty ;
-                      owl:inverseOf :p_contact_rer_metric ;
                       rdfs:domain :rer_metric ;
                       rdfs:range :contact ;
                       rdfs:comment "[r8] from [null]" ;
@@ -2650,7 +2595,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_rer_metric_email
 :p_rer_metric_email rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :FKProperty ;
-                    owl:inverseOf :p_email_rer_metric ;
                     rdfs:domain :rer_metric ;
                     rdfs:range :email ;
                     rdfs:comment "[r8] from [null]" ;
@@ -2660,7 +2604,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_rer_metric_person
 :p_rer_metric_person rdf:type owl:ObjectProperty ;
                      rdfs:subPropertyOf :FKProperty ;
-                     owl:inverseOf :p_person_rer_metric ;
                      rdfs:domain :rer_metric ;
                      rdfs:range :person ;
                      rdfs:comment "[r1] from [null]" ;
@@ -2688,7 +2631,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_rer_metric_productcategory
 :p_rer_metric_productcategory rdf:type owl:ObjectProperty ;
                               rdfs:subPropertyOf :FKProperty ;
-                              owl:inverseOf :p_productcategory_rer_metric ;
                               rdfs:domain :rer_metric ;
                               rdfs:range :productcategory ;
                               rdfs:comment "[r1] from [null]" ;
@@ -2698,7 +2640,6 @@
 ###  http://www.example.net/ontologies/test_efs.owl/p_rer_metric_productreportcategory
 :p_rer_metric_productreportcategory rdf:type owl:ObjectProperty ;
                                     rdfs:subPropertyOf :FKProperty ;
-                                    owl:inverseOf :p_productreportcategory_rer_metric ;
                                     rdfs:domain :rer_metric ;
                                     rdfs:range :productreportcategory ;
                                     rdfs:comment "[r1] from [null]" ;

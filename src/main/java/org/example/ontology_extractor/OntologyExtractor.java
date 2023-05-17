@@ -2,6 +2,7 @@ package org.example.ontology_extractor;
 
 import org.example.database_connector.DBSchema;
 import org.example.ontology_extractor.Properties.DomRan;
+import org.example.other.JSONExtractor;
 import org.example.other.Util;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
@@ -16,7 +17,6 @@ import java.util.Set;
 
 public class OntologyExtractor {
 
-
     private DBSchema db;
 
     private String msBbasePrefix;
@@ -24,7 +24,8 @@ public class OntologyExtractor {
     private OWLOntology ontology;
     private OWLDataFactory factory;
     private PrefixManager pm;
-    private boolean turnAttributesToClasses = true;
+    private final boolean turnAttributesToClasses = true;
+    private final boolean includeInverseAxiom = false;
 
     private HashMap<String, OWLObject> baseElements = new HashMap<>(4);
 
@@ -162,12 +163,14 @@ public class OntologyExtractor {
         }
 
         // inverse property
-        OWLObjectProperty inverse = factory.getOWLObjectProperty(domRan.getInverse(), pm);
+        if(includeInverseAxiom) {
+            OWLObjectProperty inverse = factory.getOWLObjectProperty(domRan.getInverse(), pm);
 
-        if(ontology.containsObjectPropertyInSignature(inverse.getIRI()))
-            manager.applyChange(new AddAxiom(ontology,
-                    factory.getOWLInverseObjectPropertiesAxiom(objproperty, inverse)
-            ));
+            if(ontology.containsObjectPropertyInSignature(inverse.getIRI()))
+                manager.applyChange(new AddAxiom(ontology,
+                        factory.getOWLInverseObjectPropertiesAxiom(objproperty, inverse)
+                ));
+        }
 
         // super property
         manager.addAxiom(ontology,

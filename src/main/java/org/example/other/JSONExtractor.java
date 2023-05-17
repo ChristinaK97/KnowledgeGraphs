@@ -188,6 +188,7 @@ public class JSONExtractor {
 
             JsonObject objPropObject = new JsonObject();
             objPropObject.addProperty("objProp", objP);
+            objPropObject.addProperty("isInverseP", objProp.contains(objProp.getPropertyDomRan(objP).getInverse()));
 
             JsonObject objPMapping = new JsonObject();
 
@@ -209,16 +210,11 @@ public class JSONExtractor {
                 String invP  = String.format("p_%s_%s", targetClass, sourceClass);
                 String loopP = String.format("has_%s", sourceClass);
 
-                for (Object[] pair : new Object[][]{{objP, false},{invP, true},{loopP, false}}) {
-                    String p = (String) pair[0];
-                    boolean isInverse = (boolean) pair[1];
-
+                for (String p : new String[]{objP, invP, loopP})
                     if (propertyObject.containsKey(p)) {
                         propertyObject.get(p).addProperty("fKeyColumn", String.format("%s.%s", tableName, fkCol));
                         propertyObject.get(p).addProperty("references", String.format("%s.%s", fkp.refTable, fkp.refColumn));
-                        propertyObject.get(p).addProperty("isInverseP", isInverse);
                     }
-                }
         });});
 
         for(String objP : sortedProperties)

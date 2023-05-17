@@ -2,6 +2,7 @@
   "objProps": [
     {
       "objProp": "has_msettlement_master",
+      "isInverseP": false,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_msettlement_master",
@@ -9,23 +10,23 @@
         "isCons": ""
       },
       "fKeyColumn": "msettlement_master.INITIAL_SETTLEMENT_MASTER_ID",
-      "references": "msettlement_master.SETTLEMENT_MASTER_ID",
-      "isInverseP": false
+      "references": "msettlement_master.SETTLEMENT_MASTER_ID"
     },
     {
       "objProp": "p_act_type_actcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_act_type_actcategory",
-        "match": "https://www.omg.org/spec/Commons/Classifiers/isClassifiedBy",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "act_type.DEF_ACTCATEGORY_ID",
-      "references": "actcategory.ACTCATEGORY_ID",
-      "isInverseP": false
+      "references": "actcategory.ACTCATEGORY_ID"
     },
     {
       "objProp": "p_act_type_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_act_type_contact",
@@ -33,71 +34,75 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.ACTIONCODE_ID",
-      "references": "act_type.ACTIONCODE_ID",
-      "isInverseP": true
+      "references": "act_type.ACTIONCODE_ID"
     },
     {
       "objProp": "p_actcategory_act_type",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_actcategory_act_type",
-        "match": "https://www.omg.org/spec/Commons/Classifiers/classifies",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "act_type.DEF_ACTCATEGORY_ID",
-      "references": "actcategory.ACTCATEGORY_ID",
-      "isInverseP": true
+      "references": "actcategory.ACTCATEGORY_ID"
     },
     {
       "objProp": "p_address_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_contact",
         "match": "",
-        "isCons": false
+        "isCons": ""
       }
     },
     {
       "objProp": "p_address_email",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_email",
         "match": "",
-        "isCons": false
+        "isCons": ""
       }
     },
     {
       "objProp": "p_address_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_person",
-        "match": "https://www.omg.org/spec/Commons/Classifiers/characterizes",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "address.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": false
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_address_phone",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_phone",
         "match": "",
-        "isCons": false
+        "isCons": ""
       }
     },
     {
       "objProp": "p_address_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_queue_case",
         "match": "",
-        "isCons": false
+        "isCons": ""
       }
     },
     {
       "objProp": "p_address_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_address_rer_metric",
@@ -107,6 +112,7 @@
     },
     {
       "objProp": "p_bucket_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_bucket_case",
@@ -114,11 +120,11 @@
         "isCons": ""
       },
       "fKeyColumn": "cases.BUCKET_ID",
-      "references": "bucket.BUCKET_ID",
-      "isInverseP": true
+      "references": "bucket.BUCKET_ID"
     },
     {
       "objProp": "p_bucket_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_bucket_person",
@@ -128,6 +134,7 @@
     },
     {
       "objProp": "p_bucket_product",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_bucket_product",
@@ -137,6 +144,7 @@
     },
     {
       "objProp": "p_bucket_productcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_bucket_productcategory",
@@ -146,6 +154,7 @@
     },
     {
       "objProp": "p_bucket_productreportcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_bucket_productreportcategory",
@@ -155,6 +164,7 @@
     },
     {
       "objProp": "p_bucket_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_bucket_rer_metric",
@@ -162,11 +172,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.BUCKET_ID_PREV",
-      "references": "bucket.BUCKET_ID",
-      "isInverseP": true
+      "references": "bucket.BUCKET_ID"
     },
     {
       "objProp": "p_case_bucket",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_bucket",
@@ -174,11 +184,11 @@
         "isCons": ""
       },
       "fKeyColumn": "cases.BUCKET_ID",
-      "references": "bucket.BUCKET_ID",
-      "isInverseP": false
+      "references": "bucket.BUCKET_ID"
     },
     {
       "objProp": "p_case_case_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_case_person",
@@ -186,11 +196,11 @@
         "isCons": ""
       },
       "fKeyColumn": "case_person.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": true
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_case_case_person_type",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_case_person_type",
@@ -200,6 +210,7 @@
     },
     {
       "objProp": "p_case_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_contact",
@@ -207,11 +218,11 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": true
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_case_payment",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_payment",
@@ -219,11 +230,11 @@
         "isCons": ""
       },
       "fKeyColumn": "payment.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": true
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_case_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_person",
@@ -233,6 +244,7 @@
     },
     {
       "objProp": "p_case_person_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_person_case",
@@ -240,11 +252,11 @@
         "isCons": ""
       },
       "fKeyColumn": "case_person.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": false
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_case_person_case_person_type",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_person_case_person_type",
@@ -252,11 +264,11 @@
         "isCons": ""
       },
       "fKeyColumn": "case_person.CASE_PERSON_TYPE_ID",
-      "references": "case_person_type.CASE_PERSON_TYPE_ID",
-      "isInverseP": false
+      "references": "case_person_type.CASE_PERSON_TYPE_ID"
     },
     {
       "objProp": "p_case_person_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_person_person",
@@ -264,11 +276,11 @@
         "isCons": ""
       },
       "fKeyColumn": "case_person.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": false
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_case_person_type_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_person_type_case",
@@ -278,6 +290,7 @@
     },
     {
       "objProp": "p_case_person_type_case_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_person_type_case_person",
@@ -285,11 +298,11 @@
         "isCons": ""
       },
       "fKeyColumn": "case_person.CASE_PERSON_TYPE_ID",
-      "references": "case_person_type.CASE_PERSON_TYPE_ID",
-      "isInverseP": true
+      "references": "case_person_type.CASE_PERSON_TYPE_ID"
     },
     {
       "objProp": "p_case_person_type_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_person_type_person",
@@ -299,6 +312,7 @@
     },
     {
       "objProp": "p_case_product",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_product",
@@ -308,6 +322,7 @@
     },
     {
       "objProp": "p_case_productcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_productcategory",
@@ -317,6 +332,7 @@
     },
     {
       "objProp": "p_case_productreportcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_productreportcategory",
@@ -326,6 +342,7 @@
     },
     {
       "objProp": "p_case_queue",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_queue",
@@ -335,6 +352,7 @@
     },
     {
       "objProp": "p_case_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_queue_case",
@@ -342,11 +360,11 @@
         "isCons": ""
       },
       "fKeyColumn": "queue_case.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": true
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_case_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_case_rer_metric",
@@ -354,11 +372,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": true
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_contact_act_type",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_act_type",
@@ -366,11 +384,11 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.ACTIONCODE_ID",
-      "references": "act_type.ACTIONCODE_ID",
-      "isInverseP": false
+      "references": "act_type.ACTIONCODE_ID"
     },
     {
       "objProp": "p_contact_address",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_address",
@@ -380,6 +398,7 @@
     },
     {
       "objProp": "p_contact_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_case",
@@ -387,11 +406,11 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": false
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_contact_email",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_email",
@@ -401,6 +420,7 @@
     },
     {
       "objProp": "p_contact_msettlement_detail",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_msettlement_detail",
@@ -410,6 +430,7 @@
     },
     {
       "objProp": "p_contact_msettlement_master",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_msettlement_master",
@@ -417,11 +438,11 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.SETTLEMENT_MASTER_ID",
-      "references": "msettlement_master.SETTLEMENT_MASTER_ID",
-      "isInverseP": false
+      "references": "msettlement_master.SETTLEMENT_MASTER_ID"
     },
     {
       "objProp": "p_contact_payment",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_payment",
@@ -429,11 +450,11 @@
         "isCons": ""
       },
       "fKeyColumn": "payment.CONTACT_ID",
-      "references": "contact.CONTACT_ID",
-      "isInverseP": true
+      "references": "contact.CONTACT_ID"
     },
     {
       "objProp": "p_contact_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_person",
@@ -441,11 +462,11 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": false
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_contact_phone",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_phone",
@@ -455,6 +476,7 @@
     },
     {
       "objProp": "p_contact_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_queue_case",
@@ -464,6 +486,7 @@
     },
     {
       "objProp": "p_contact_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_contact_rer_metric",
@@ -473,6 +496,7 @@
     },
     {
       "objProp": "p_email_address",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_email_address",
@@ -482,6 +506,7 @@
     },
     {
       "objProp": "p_email_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_email_contact",
@@ -491,18 +516,19 @@
     },
     {
       "objProp": "p_email_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_email_person",
-        "match": "https://www.omg.org/spec/Commons/Classifiers/characterizes",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "email.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": false
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_email_phone",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_email_phone",
@@ -512,6 +538,7 @@
     },
     {
       "objProp": "p_email_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_email_queue_case",
@@ -521,6 +548,7 @@
     },
     {
       "objProp": "p_email_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_email_rer_metric",
@@ -530,6 +558,7 @@
     },
     {
       "objProp": "p_msettlement_detail_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_msettlement_detail_contact",
@@ -539,6 +568,7 @@
     },
     {
       "objProp": "p_msettlement_detail_msettlement_master",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_msettlement_detail_msettlement_master",
@@ -546,11 +576,11 @@
         "isCons": ""
       },
       "fKeyColumn": "msettlement_detail.SETTLEMENT_MASTER_ID",
-      "references": "msettlement_master.SETTLEMENT_MASTER_ID",
-      "isInverseP": false
+      "references": "msettlement_master.SETTLEMENT_MASTER_ID"
     },
     {
       "objProp": "p_msettlement_master_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_msettlement_master_contact",
@@ -558,11 +588,11 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.SETTLEMENT_MASTER_ID",
-      "references": "msettlement_master.SETTLEMENT_MASTER_ID",
-      "isInverseP": true
+      "references": "msettlement_master.SETTLEMENT_MASTER_ID"
     },
     {
       "objProp": "p_msettlement_master_msettlement_detail",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_msettlement_master_msettlement_detail",
@@ -570,11 +600,11 @@
         "isCons": ""
       },
       "fKeyColumn": "msettlement_detail.SETTLEMENT_MASTER_ID",
-      "references": "msettlement_master.SETTLEMENT_MASTER_ID",
-      "isInverseP": true
+      "references": "msettlement_master.SETTLEMENT_MASTER_ID"
     },
     {
       "objProp": "p_msettlement_master_settle_plan",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_msettlement_master_settle_plan",
@@ -582,11 +612,11 @@
         "isCons": ""
       },
       "fKeyColumn": "msettlement_master.SETTLE_PLAN_ID",
-      "references": "settle_plan.SETTLE_PLAN_ID",
-      "isInverseP": false
+      "references": "settle_plan.SETTLE_PLAN_ID"
     },
     {
       "objProp": "p_payment_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_payment_case",
@@ -594,11 +624,11 @@
         "isCons": ""
       },
       "fKeyColumn": "payment.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": false
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_payment_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_payment_contact",
@@ -606,23 +636,23 @@
         "isCons": ""
       },
       "fKeyColumn": "payment.CONTACT_ID",
-      "references": "contact.CONTACT_ID",
-      "isInverseP": false
+      "references": "contact.CONTACT_ID"
     },
     {
       "objProp": "p_person_address",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_address",
-        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddress",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "address.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": true
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_person_bucket",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_bucket",
@@ -632,6 +662,7 @@
     },
     {
       "objProp": "p_person_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_case",
@@ -641,6 +672,7 @@
     },
     {
       "objProp": "p_person_case_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_case_person",
@@ -648,11 +680,11 @@
         "isCons": ""
       },
       "fKeyColumn": "case_person.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": true
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_person_case_person_type",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_case_person_type",
@@ -662,6 +694,7 @@
     },
     {
       "objProp": "p_person_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_contact",
@@ -669,35 +702,35 @@
         "isCons": ""
       },
       "fKeyColumn": "contact.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": true
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_person_email",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_email",
-        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/hasElectronicMailAddress",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "email.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": true
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_person_phone",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_phone",
-        "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/hasTelephoneNumber",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "phone.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": true
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_person_product",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_product",
@@ -707,6 +740,7 @@
     },
     {
       "objProp": "p_person_productcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_productcategory",
@@ -716,6 +750,7 @@
     },
     {
       "objProp": "p_person_productreportcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_productreportcategory",
@@ -725,6 +760,7 @@
     },
     {
       "objProp": "p_person_queue",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_queue",
@@ -734,6 +770,7 @@
     },
     {
       "objProp": "p_person_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_queue_case",
@@ -741,11 +778,11 @@
         "isCons": ""
       },
       "fKeyColumn": "queue_case.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": true
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_person_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_person_rer_metric",
@@ -753,11 +790,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.CLIENT_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": true
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_phone_address",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_phone_address",
@@ -767,6 +804,7 @@
     },
     {
       "objProp": "p_phone_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_phone_contact",
@@ -776,6 +814,7 @@
     },
     {
       "objProp": "p_phone_email",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_phone_email",
@@ -785,18 +824,19 @@
     },
     {
       "objProp": "p_phone_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_phone_person",
-        "match": "https://www.omg.org/spec/Commons/Classifiers/characterizes",
-        "isCons": true
+        "match": "",
+        "isCons": ""
       },
       "fKeyColumn": "phone.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": false
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_phone_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_phone_queue_case",
@@ -806,6 +846,7 @@
     },
     {
       "objProp": "p_phone_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_phone_rer_metric",
@@ -815,6 +856,7 @@
     },
     {
       "objProp": "p_product_bucket",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_product_bucket",
@@ -824,6 +866,7 @@
     },
     {
       "objProp": "p_product_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_product_case",
@@ -833,6 +876,7 @@
     },
     {
       "objProp": "p_product_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_product_person",
@@ -842,6 +886,7 @@
     },
     {
       "objProp": "p_product_productcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_product_productcategory",
@@ -849,11 +894,11 @@
         "isCons": ""
       },
       "fKeyColumn": "product.PRODUCTCATEGORY_ID",
-      "references": "productcategory.PRODUCTCATEGORY_ID",
-      "isInverseP": false
+      "references": "productcategory.PRODUCTCATEGORY_ID"
     },
     {
       "objProp": "p_product_productreportcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_product_productreportcategory",
@@ -861,11 +906,11 @@
         "isCons": ""
       },
       "fKeyColumn": "product.PRODUCTREPORTCATEGORY_ID",
-      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID",
-      "isInverseP": false
+      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID"
     },
     {
       "objProp": "p_product_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_product_rer_metric",
@@ -873,11 +918,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.PRODUCT_ID",
-      "references": "product.PRODUCT_ID",
-      "isInverseP": true
+      "references": "product.PRODUCT_ID"
     },
     {
       "objProp": "p_productcategory_bucket",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productcategory_bucket",
@@ -887,6 +932,7 @@
     },
     {
       "objProp": "p_productcategory_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productcategory_case",
@@ -896,6 +942,7 @@
     },
     {
       "objProp": "p_productcategory_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productcategory_person",
@@ -905,6 +952,7 @@
     },
     {
       "objProp": "p_productcategory_product",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productcategory_product",
@@ -912,11 +960,11 @@
         "isCons": ""
       },
       "fKeyColumn": "product.PRODUCTCATEGORY_ID",
-      "references": "productcategory.PRODUCTCATEGORY_ID",
-      "isInverseP": true
+      "references": "productcategory.PRODUCTCATEGORY_ID"
     },
     {
       "objProp": "p_productcategory_productreportcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productcategory_productreportcategory",
@@ -926,6 +974,7 @@
     },
     {
       "objProp": "p_productcategory_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productcategory_rer_metric",
@@ -933,11 +982,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.PRODUCTCATEGORY_ID",
-      "references": "productcategory.PRODUCTCATEGORY_ID",
-      "isInverseP": true
+      "references": "productcategory.PRODUCTCATEGORY_ID"
     },
     {
       "objProp": "p_productreportcategory_bucket",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_bucket",
@@ -947,6 +996,7 @@
     },
     {
       "objProp": "p_productreportcategory_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_case",
@@ -956,6 +1006,7 @@
     },
     {
       "objProp": "p_productreportcategory_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_person",
@@ -965,6 +1016,7 @@
     },
     {
       "objProp": "p_productreportcategory_product",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_product",
@@ -972,11 +1024,11 @@
         "isCons": ""
       },
       "fKeyColumn": "product.PRODUCTREPORTCATEGORY_ID",
-      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID",
-      "isInverseP": true
+      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID"
     },
     {
       "objProp": "p_productreportcategory_productcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_productcategory",
@@ -986,6 +1038,7 @@
     },
     {
       "objProp": "p_productreportcategory_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_productreportcategory_rer_metric",
@@ -993,11 +1046,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.PRODUCTREPORTCATEGORY_ID",
-      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID",
-      "isInverseP": true
+      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID"
     },
     {
       "objProp": "p_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case",
@@ -1007,6 +1060,7 @@
     },
     {
       "objProp": "p_queue_case_address",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_address",
@@ -1016,6 +1070,7 @@
     },
     {
       "objProp": "p_queue_case_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_case",
@@ -1023,11 +1078,11 @@
         "isCons": ""
       },
       "fKeyColumn": "queue_case.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": false
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_queue_case_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_contact",
@@ -1037,6 +1092,7 @@
     },
     {
       "objProp": "p_queue_case_email",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_email",
@@ -1046,6 +1102,7 @@
     },
     {
       "objProp": "p_queue_case_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_person",
@@ -1053,11 +1110,11 @@
         "isCons": ""
       },
       "fKeyColumn": "queue_case.PERSON_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": false
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_queue_case_phone",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_phone",
@@ -1067,6 +1124,7 @@
     },
     {
       "objProp": "p_queue_case_queue",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_queue",
@@ -1074,11 +1132,11 @@
         "isCons": ""
       },
       "fKeyColumn": "queue_case.QUEUE_ID",
-      "references": "queue.QUEUE_ID",
-      "isInverseP": false
+      "references": "queue.QUEUE_ID"
     },
     {
       "objProp": "p_queue_case_rer_metric",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_case_rer_metric",
@@ -1088,6 +1146,7 @@
     },
     {
       "objProp": "p_queue_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_person",
@@ -1097,6 +1156,7 @@
     },
     {
       "objProp": "p_queue_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_queue_queue_case",
@@ -1104,11 +1164,11 @@
         "isCons": ""
       },
       "fKeyColumn": "queue_case.QUEUE_ID",
-      "references": "queue.QUEUE_ID",
-      "isInverseP": true
+      "references": "queue.QUEUE_ID"
     },
     {
       "objProp": "p_rer_metric_address",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_address",
@@ -1118,6 +1178,7 @@
     },
     {
       "objProp": "p_rer_metric_bucket",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_bucket",
@@ -1125,11 +1186,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.BUCKET_ID_PREV",
-      "references": "bucket.BUCKET_ID",
-      "isInverseP": false
+      "references": "bucket.BUCKET_ID"
     },
     {
       "objProp": "p_rer_metric_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_case",
@@ -1137,11 +1198,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.CASE_ID",
-      "references": "cases.CASE_ID",
-      "isInverseP": false
+      "references": "cases.CASE_ID"
     },
     {
       "objProp": "p_rer_metric_contact",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_contact",
@@ -1151,6 +1212,7 @@
     },
     {
       "objProp": "p_rer_metric_email",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_email",
@@ -1160,6 +1222,7 @@
     },
     {
       "objProp": "p_rer_metric_person",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_person",
@@ -1167,11 +1230,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.CLIENT_ID",
-      "references": "person.PERSON_ID",
-      "isInverseP": false
+      "references": "person.PERSON_ID"
     },
     {
       "objProp": "p_rer_metric_phone",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_phone",
@@ -1181,6 +1244,7 @@
     },
     {
       "objProp": "p_rer_metric_product",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_product",
@@ -1188,11 +1252,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.PRODUCT_ID",
-      "references": "product.PRODUCT_ID",
-      "isInverseP": false
+      "references": "product.PRODUCT_ID"
     },
     {
       "objProp": "p_rer_metric_productcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_productcategory",
@@ -1200,11 +1264,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.PRODUCTCATEGORY_ID",
-      "references": "productcategory.PRODUCTCATEGORY_ID",
-      "isInverseP": false
+      "references": "productcategory.PRODUCTCATEGORY_ID"
     },
     {
       "objProp": "p_rer_metric_productreportcategory",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_productreportcategory",
@@ -1212,11 +1276,11 @@
         "isCons": ""
       },
       "fKeyColumn": "rer_metric.PRODUCTREPORTCATEGORY_ID",
-      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID",
-      "isInverseP": false
+      "references": "productreportcategory.PRODUCTREPORTCATEGORY_ID"
     },
     {
       "objProp": "p_rer_metric_queue_case",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_rer_metric_queue_case",
@@ -1226,6 +1290,7 @@
     },
     {
       "objProp": "p_settle_plan_msettlement_master",
+      "isInverseP": true,
       "mapping": {
         "type": "ObjectProperty",
         "ontoEl": "http://www.example.net/ontologies/test_efs.owl/p_settle_plan_msettlement_master",
@@ -1233,8 +1298,7 @@
         "isCons": ""
       },
       "fKeyColumn": "msettlement_master.SETTLE_PLAN_ID",
-      "references": "settle_plan.SETTLE_PLAN_ID",
-      "isInverseP": true
+      "references": "settle_plan.SETTLE_PLAN_ID"
     }
   ]
 }
