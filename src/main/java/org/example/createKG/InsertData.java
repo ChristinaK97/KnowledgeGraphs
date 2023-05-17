@@ -23,8 +23,6 @@ public class InsertData extends JenaOntologyModelHandler {
     private HashMap<String, HashMap<String, ArrayList<OntResource>>> paths;
     // <tableName : table ontClass>
     private HashMap<String, OntClass> tablesClass;
-
-    private HashMap<OntResource, OntResource> cacheSubElements;
     String mBasePrefix;
 
     public InsertData() {
@@ -40,7 +38,6 @@ public class InsertData extends JenaOntologyModelHandler {
 
         tablesClass = new HashMap<>();
         paths = new HashMap<>();
-        cacheSubElements = new HashMap<>();
         extractMappingPaths();
         printPaths();
     }
@@ -120,23 +117,6 @@ public class InsertData extends JenaOntologyModelHandler {
         }
     }
 
-    private OntResource getSubElementOf (OntResource element) {
-        if (element.getNameSpace().equals(mBasePrefix))
-            return element;
-
-        List<? extends OntResource> subElements =
-                (element.canAs(OntClass.class) ?
-                        element.asClass().listSubClasses() :
-                        element.asProperty().listSubProperties())
-                .toList();
-        for(OntResource subElement : subElements)
-            if (subElement.getNameSpace().equals(mBasePrefix)) {
-                cacheSubElements.put();
-                return subElement;
-            }
-
-        return element;
-    }
 
     private void printPaths() {
         tablesClass.forEach((tableName, tableClass) -> {
