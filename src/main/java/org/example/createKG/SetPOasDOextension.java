@@ -24,15 +24,14 @@ import java.util.List;
 
 import static org.example.other.Util.*;
 
-public class CreateOntology {
+public class SetPOasDOextension extends JenaOntologyModelHandler {
 
-    private List<Table> tablesMaps;
-    private OntModel pModel;
+
     private HashSet<String> importURIs = new HashSet<>();
 
-    public CreateOntology() {
-        loadPutativeOntology();
-        readMapJSON();
+    public SetPOasDOextension() {
+        super();
+
         gatherImports();
         loadDomainOntoImports();
         setHierarchy();
@@ -41,11 +40,6 @@ public class CreateOntology {
     }
     //==================================================================================
 
-    private void loadPutativeOntology() {
-        pModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(pModel, "test_efs.ttl");
-        //pModel.listClasses().forEach(cl -> System.out.println(cl));
-    }
 
     private void loadDomainOntoImports() {
         /*for (String uri : importURIs) {
@@ -98,24 +92,6 @@ public class CreateOntology {
             setSubPropertyOf(dataMap);
     }
 
-
-    private OntClass getOntClass(URI uri) {
-        return pModel.getOntClass(uri.toString());
-    }
-    private OntProperty getOntProperty(URI uri) {
-        return pModel.getOntProperty(uri.toString());
-    }
-    private OntProperty getOntProperty(String uri) {
-        return pModel.getOntProperty(uri);
-    }
-    private String getLabel(OntResource resource) {
-        String label = resource.getLabel("en");
-        if (label == null)
-            label = resource.getLabel("");
-        if(label == null)
-            label = resource.getLocalName();
-        return label;
-    }
 
     private void setSubClassOf(Mapping map) {
 
@@ -214,6 +190,9 @@ public class CreateOntology {
 
 
     private void correctDomain(Mapping map) {
+        // (tableClass) - PATH -[property]-> ...
+        // but property curDomain == tableClass
+        // newDomain must be equal to the last class node in the path
 
         // domain doesn't need to be corrected. Match is direct, not through a path
         if(map.getPathURIs() == null)
@@ -340,12 +319,6 @@ public class CreateOntology {
     }
 
 
-    private URI getFirstNodeFromPath(List<URI> path) {
-        return path.get(0);
-    }
-    private URI getLastNodeFromPath(List<URI> path) {
-        return path.get(path.size() - 1);
-    }
 
     //==================================================================================
 
@@ -409,16 +382,6 @@ public class CreateOntology {
 
     //==================================================================================
 
-    private void readMapJSON() {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader("EFS_mappings.json")) {
-            // Convert JSON file to Java object
-            tablesMaps = gson.fromJson(reader, JSONFormatClasses.class).getTables();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     private void gatherImports() {
         for(Table tableMaps : tablesMaps) {
             if(tableMaps.getMapping().hasMatch())
@@ -457,7 +420,7 @@ public class CreateOntology {
 
     //==================================================================================
     public static void main(String[] args) {
-        new CreateOntology();
+        new SetPOasDOextension();
     }
 
 }

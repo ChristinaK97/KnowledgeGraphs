@@ -11,14 +11,14 @@ import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.io.csv.CsvWriteOptions;
 import tech.tablesaw.io.csv.CsvWriter;
 
-public class MapTableExtractor {
+public class TableWithMappingsExtractor {
 
     private List<Table> tablesMaps;
     StringColumn tableCol = StringColumn.create("Table");
     StringColumn columnCol = StringColumn.create("Column");
     StringColumn matchCol = StringColumn.create("Match");
 
-    public MapTableExtractor() {
+    public TableWithMappingsExtractor() {
         readMapJSON();
         parseTables();
     }
@@ -139,6 +139,6 @@ public class MapTableExtractor {
     }
 
     public static void main(String[] args) {
-        new MapTableExtractor();
+        new TableWithMappingsExtractor();
     }
 }
