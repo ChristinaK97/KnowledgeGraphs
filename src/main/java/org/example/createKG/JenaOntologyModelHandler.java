@@ -15,8 +15,8 @@ public class JenaOntologyModelHandler {
     protected OntModel pModel;
     protected List<JSONFormatClasses.Table> tablesMaps;
 
-    public JenaOntologyModelHandler() {
-        loadPutativeOntology();
+    public JenaOntologyModelHandler(String ontologyFile) {
+        loadPutativeOntology(ontologyFile);
         readMapJSON();
     }
 
@@ -30,9 +30,9 @@ public class JenaOntologyModelHandler {
         }
     }
 
-    private void loadPutativeOntology() {
+    private void loadPutativeOntology(String ontologyFile) {
         pModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(pModel, "test_efs.ttl");
+        RDFDataMgr.read(pModel, ontologyFile);
         //pModel.listClasses().forEach(cl -> System.out.println(cl));
     }
 
@@ -45,6 +45,7 @@ public class JenaOntologyModelHandler {
     protected OntProperty getOntProperty(String uri) {
         return pModel.getOntProperty(uri);
     }
+    protected OntResource getOntResource(URI uri) {return pModel.getOntResource(uri.toString());}
 
     protected URI getFirstNodeFromPath(List<URI> path) {
         return path.get(0);
@@ -53,6 +54,13 @@ public class JenaOntologyModelHandler {
         return path.get(path.size() - 1);
     }
 
+    protected String getNewPropertyURI (String tableClassName, String firstClassName) {
+        return String.format("%s%s_has_%s", pModel.getNsPrefixURI(""), tableClassName, firstClassName);
+    }
+
+    protected String getNewPropertyURI (String mBasePrefix, String tableClassName, String firstClassName) {
+        return String.format("%s%s_has_%s", mBasePrefix, tableClassName, firstClassName);
+    }
 
     protected String getLabel(OntResource resource) {
         String label = resource.getLabel("en");

@@ -1,0 +1,1151 @@
+"C:\Program Files\Java\jdk-17.0.5\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3\lib\idea_rt.jar=64767:C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.3\bin" -Dfile.encoding=UTF-8 -classpath C:\Users\karal\progr\onto_workspace\ConvertDatabase\target\classes;C:\Users\karal\.m2\repository\com\mysql\mysql-connector-j\8.0.31\mysql-connector-j-8.0.31.jar;C:\Users\karal\.m2\repository\com\google\protobuf\protobuf-java\3.19.4\protobuf-java-3.19.4.jar;C:\Users\karal\.m2\repository\org\slf4j\slf4j-api\2.0.7\slf4j-api-2.0.7.jar;C:\Users\karal\.m2\repository\org\slf4j\slf4j-simple\2.0.7\slf4j-simple-2.0.7.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-distribution\5.5.0\owlapi-distribution-5.5.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-compatibility\5.5.0\owlapi-compatibility-5.5.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-apibinding\5.5.0\owlapi-apibinding-5.5.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-parsers\5.5.0\owlapi-parsers-5.5.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-oboformat\5.5.0\owlapi-oboformat-5.5.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-tools\5.5.0\owlapi-tools-5.5.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-rio\5.5.0\owlapi-rio-5.5.0.jar;C:\Users\karal\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.14.0-rc2\jackson-core-2.14.0-rc2.jar;C:\Users\karal\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.14.0-rc2\jackson-databind-2.14.0-rc2.jar;C:\Users\karal\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.14.0-rc2\jackson-annotations-2.14.0-rc2.jar;C:\Users\karal\.m2\repository\org\apache\commons\commons-rdf-api\0.5.0\commons-rdf-api-0.5.0.jar;C:\Users\karal\.m2\repository\org\tukaani\xz\1.9\xz-1.9.jar;C:\Users\karal\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-model\4.2.0\rdf4j-model-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-common-exception\4.2.0\rdf4j-common-exception-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-common-text\4.2.0\rdf4j-common-text-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-common-io\4.2.0\rdf4j-common-io-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-common-iterator\4.2.0\rdf4j-common-iterator-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-model-api\4.2.0\rdf4j-model-api-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-common-annotation\4.2.0\rdf4j-common-annotation-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-model-vocabulary\4.2.0\rdf4j-model-vocabulary-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-api\4.2.0\rdf4j-rio-api-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-common-xml\4.2.0\rdf4j-common-xml-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-languages\4.2.0\rdf4j-rio-languages-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-datatypes\4.2.0\rdf4j-rio-datatypes-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-binary\4.2.0\rdf4j-rio-binary-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-n3\4.2.0\rdf4j-rio-n3-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-nquads\4.2.0\rdf4j-rio-nquads-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-ntriples\4.2.0\rdf4j-rio-ntriples-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-rdfjson\4.2.0\rdf4j-rio-rdfjson-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-jsonld\4.2.0\rdf4j-rio-jsonld-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-rdfxml\4.2.0\rdf4j-rio-rdfxml-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-trix\4.2.0\rdf4j-rio-trix-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-turtle\4.2.0\rdf4j-rio-turtle-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-trig\4.2.0\rdf4j-rio-trig-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-rio-hdt\4.2.0\rdf4j-rio-hdt-4.2.0.jar;C:\Users\karal\.m2\repository\org\eclipse\rdf4j\rdf4j-common-util\4.2.0\rdf4j-common-util-4.2.0.jar;C:\Users\karal\.m2\repository\com\github\jsonld-java\jsonld-java\0.13.4\jsonld-java-0.13.4.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\httpclient-osgi\4.5.13\httpclient-osgi-4.5.13.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\httpmime\4.5.13\httpmime-4.5.13.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\fluent-hc\4.5.13\fluent-hc-4.5.13.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\httpcore-osgi\4.4.14\httpcore-osgi-4.4.14.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\httpcore-nio\4.4.14\httpcore-nio-4.4.14.jar;C:\Users\karal\.m2\repository\com\github\vsonnier\hppcrt\0.7.5\hppcrt-0.7.5.jar;C:\Users\karal\.m2\repository\com\github\ben-manes\caffeine\caffeine\3.1.1\caffeine-3.1.1.jar;C:\Users\karal\.m2\repository\org\checkerframework\checker-qual\3.22.0\checker-qual-3.22.0.jar;C:\Users\karal\.m2\repository\com\google\errorprone\error_prone_annotations\2.14.0\error_prone_annotations-2.14.0.jar;C:\Users\karal\.m2\repository\com\google\guava\guava\31.1-jre\guava-31.1-jre.jar;C:\Users\karal\.m2\repository\com\google\guava\failureaccess\1.0.1\failureaccess-1.0.1.jar;C:\Users\karal\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\karal\.m2\repository\com\google\j2objc\j2objc-annotations\1.3\j2objc-annotations-1.3.jar;C:\Users\karal\.m2\repository\com\google\code\findbugs\jsr305\3.0.2\jsr305-3.0.2.jar;C:\Users\karal\.m2\repository\commons-io\commons-io\2.11.0\commons-io-2.11.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-api\5.5.0\owlapi-api-5.5.0.jar;C:\Users\karal\.m2\repository\net\sourceforge\owlapi\owlapi-impl\5.5.0\owlapi-impl-5.5.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-core\4.8.0\jena-core-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-base\4.8.0\jena-base-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-shaded-guava\4.8.0\jena-shaded-guava-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\commons\commons-csv\1.10.0\commons-csv-1.10.0.jar;C:\Users\karal\.m2\repository\commons-codec\commons-codec\1.15\commons-codec-1.15.jar;C:\Users\karal\.m2\repository\org\apache\commons\commons-compress\1.23.0\commons-compress-1.23.0.jar;C:\Users\karal\.m2\repository\com\github\andrewoma\dexx\collection\0.7\collection-0.7.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-iri\4.8.0\jena-iri-4.8.0.jar;C:\Users\karal\.m2\repository\commons-cli\commons-cli\1.5.0\commons-cli-1.5.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-arq\4.8.0\jena-arq-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\httpclient-cache\4.5.14\httpclient-cache-4.5.14.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\httpclient\4.5.14\httpclient-4.5.14.jar;C:\Users\karal\.m2\repository\org\apache\httpcomponents\httpcore\4.4.16\httpcore-4.4.16.jar;C:\Users\karal\.m2\repository\com\apicatalog\titanium-json-ld\1.3.2\titanium-json-ld-1.3.2.jar;C:\Users\karal\.m2\repository\org\glassfish\jakarta.json\2.0.1\jakarta.json-2.0.1.jar;C:\Users\karal\.m2\repository\org\apache\thrift\libthrift\0.18.1\libthrift-0.18.1.jar;C:\Users\karal\.m2\repository\org\apache\commons\commons-lang3\3.12.0\commons-lang3-3.12.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-rdfpatch\4.8.0\jena-rdfpatch-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-shacl\4.8.0\jena-shacl-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-shex\4.8.0\jena-shex-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-tdb\4.8.0\jena-tdb-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-tdb2\4.8.0\jena-tdb2-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-dboe-storage\4.8.0\jena-dboe-storage-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-dboe-trans-data\4.8.0\jena-dboe-trans-data-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-dboe-transaction\4.8.0\jena-dboe-transaction-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-dboe-base\4.8.0\jena-dboe-base-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-dboe-index\4.8.0\jena-dboe-index-4.8.0.jar;C:\Users\karal\.m2\repository\org\apache\jena\jena-rdfconnection\4.8.0\jena-rdfconnection-4.8.0.jar;C:\Users\karal\.m2\repository\javax\inject\javax.inject\1\javax.inject-1.jar;C:\Users\karal\.m2\repository\com\google\code\gson\gson\2.10.1\gson-2.10.1.jar;C:\Users\karal\.m2\repository\tech\tablesaw\tablesaw-core\0.43.1\tablesaw-core-0.43.1.jar;C:\Users\karal\.m2\repository\org\apache\commons\commons-math3\3.6.1\commons-math3-3.6.1.jar;C:\Users\karal\.m2\repository\it\unimi\dsi\fastutil\8.3.0\fastutil-8.3.0.jar;C:\Users\karal\.m2\repository\org\roaringbitmap\RoaringBitmap\0.9.25\RoaringBitmap-0.9.25.jar;C:\Users\karal\.m2\repository\org\roaringbitmap\shims\0.9.25\shims-0.9.25.jar;C:\Users\karal\.m2\repository\com\univocity\univocity-parsers\2.8.4\univocity-parsers-2.8.4.jar;C:\Users\karal\.m2\repository\com\ibm\icu\icu4j\65.1\icu4j-65.1.jar;C:\Users\karal\.m2\repository\io\github\classgraph\classgraph\4.8.60\classgraph-4.8.60.jar org.example.createKG.InsertData
+>> productreportcategory
+Table class : http://www.example.net/ontologies/test_efs.owl/productreportcategory
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+====================
+>> rer_metric
+Table class : http://www.example.net/ontologies/test_efs.owl/rer_metric
+
+Col : CURRENCY_ID
+http://www.example.net/ontologies/test_efs.owl/has_currency_id
+http://www.example.net/ontologies/test_efs.owl/currency_id
+http://www.example.net/ontologies/test_efs.owl/has_currency_id_VALUE
+
+Col : PHASE_ID
+http://www.example.net/ontologies/test_efs.owl/has_phase_id
+http://www.example.net/ontologies/test_efs.owl/phase_id
+http://www.example.net/ontologies/test_efs.owl/has_phase_id_VALUE
+
+
+// HERE
+
+Col : LAST_PAY_AMOUNT
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction <<
+http://www.example.net/ontologies/test_efs.owl/has_last_pay_amount
+http://www.example.net/ontologies/test_efs.owl/last_pay_amount
+http://www.example.net/ontologies/test_efs.owl/has_last_pay_amount_VALUE
+
+Col : DAYS_FROM_LAST_PAY
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction <<
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDate
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDate
+http://www.example.net/ontologies/test_efs.owl/has_days_from_last_pay_VALUE
+
+Col : DAYS_IN_PHASE
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasStage
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanEvents/LoanPhase
+http://www.example.net/ontologies/test_efs.owl/has_days_in_phase_VALUE
+
+Col : PHASE_ENTRY_DATE
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasStage
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanEvents/LoanPhase
+http://www.example.net/ontologies/test_efs.owl/has_phase_entry_date
+http://www.example.net/ontologies/test_efs.owl/phase_entry_date
+http://www.example.net/ontologies/test_efs.owl/has_phase_entry_date_VALUE
+
+Col : SETTLE_ISWRITEOFF
+http://www.example.net/ontologies/test_efs.owl/rer_metric_has_SettlementTerms
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms
+https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isMandatedBy
+https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract
+https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/isEvidencedBy
+https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractDocument
+http://www.example.net/ontologies/test_efs.owl/has_settle_iswriteoff_VALUE
+
+Col : TIMES_IN_COLLECTION
+https://www.omg.org/spec/Commons/Collections/isPartOf
+https://www.omg.org/spec/Commons/Collections/Constituent
+https://www.omg.org/spec/Commons/DatesAndTimes/hasDuration
+https://www.omg.org/spec/Commons/DatesAndTimes/Duration
+http://www.example.net/ontologies/test_efs.owl/has_times_in_collection_VALUE
+
+Col : EXPIRY_DATE
+http://www.example.net/ontologies/test_efs.owl/has_expiry_date
+http://www.example.net/ontologies/test_efs.owl/expiry_date
+http://www.example.net/ontologies/test_efs.owl/has_expiry_date_VALUE
+
+Col : NO_VALID_PHONE
+http://www.example.net/ontologies/test_efs.owl/rer_metric_has_LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/hasTelephoneNumber
+https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/TelephoneNumber
+http://www.example.net/ontologies/test_efs.owl/has_no_valid_phone_VALUE
+
+Col : TOTAL_BALANCE
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/appliesToAccount
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_total_balance
+http://www.example.net/ontologies/test_efs.owl/total_balance
+http://www.example.net/ontologies/test_efs.owl/has_total_balance_VALUE
+
+Col : DAYS_IN_COLLECTION
+https://www.omg.org/spec/Commons/Collections/isPartOf
+https://www.omg.org/spec/Commons/Collections/Constituent
+http://www.example.net/ontologies/test_efs.owl/has_days_in_collection
+http://www.example.net/ontologies/test_efs.owl/days_in_collection
+http://www.example.net/ontologies/test_efs.owl/has_days_in_collection_VALUE
+
+Col : CONTRACT_DATE
+http://www.example.net/ontologies/test_efs.owl/rer_metric_has_Contract
+https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract
+http://www.example.net/ontologies/test_efs.owl/has_contract_date
+http://www.example.net/ontologies/test_efs.owl/contract_date
+http://www.example.net/ontologies/test_efs.owl/has_contract_date_VALUE
+
+Col : LAST_SETT_STATUS_ID
+https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasOccurrence
+https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/Settlement/SettlementEvent
+http://www.example.net/ontologies/test_efs.owl/has_last_sett_status_id_VALUE
+
+Col : LAST_BILLING_DATE
+http://www.example.net/ontologies/test_efs.owl/has_last_billing_date
+http://www.example.net/ontologies/test_efs.owl/last_billing_date
+http://www.example.net/ontologies/test_efs.owl/has_last_billing_date_VALUE
+
+Col : DAYS_IN_HANDLING_QUEUE
+https://www.omg.org/spec/Commons/Collections/isPartOf
+https://www.omg.org/spec/Commons/Collections/Constituent
+http://www.example.net/ontologies/test_efs.owl/has_days_in_handling_queue
+http://www.example.net/ontologies/test_efs.owl/days_in_handling_queue
+http://www.example.net/ontologies/test_efs.owl/has_days_in_handling_queue_VALUE
+
+
+// HERE
+
+Col : PAST_DUE_AMOUNT
+http://www.example.net/ontologies/test_efs.owl/rer_metric_has_LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/hasResponsibility
+https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentObligation <<
+http://www.example.net/ontologies/test_efs.owl/has_past_due_amount
+http://www.example.net/ontologies/test_efs.owl/past_due_amount
+http://www.example.net/ontologies/test_efs.owl/has_past_due_amount_VALUE
+
+Col : DAYS_PAST_DUE
+http://www.example.net/ontologies/test_efs.owl/rer_metric_has_LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/hasResponsibility
+https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentObligation <<
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasPaymentDueDate
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/PaymentDueDate
+http://www.example.net/ontologies/test_efs.owl/has_days_past_due_VALUE
+
+
+Col : STRATEGY_SEGMENT_ID
+https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasStrategy
+https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Strategy
+http://www.example.net/ontologies/test_efs.owl/has_strategy_segment_id
+http://www.example.net/ontologies/test_efs.owl/strategy_segment_id
+http://www.example.net/ontologies/test_efs.owl/has_strategy_segment_id_VALUE
+
+Col : CASE_TYPE_ID
+http://www.example.net/ontologies/test_efs.owl/has_case_type_id
+http://www.example.net/ontologies/test_efs.owl/case_type_id
+http://www.example.net/ontologies/test_efs.owl/has_case_type_id_VALUE
+
+
+Col : PORTFOLIO_CODE
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasRecord
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/Record
+http://www.example.net/ontologies/test_efs.owl/has_portfolio_code
+http://www.example.net/ontologies/test_efs.owl/portfolio_code
+http://www.example.net/ontologies/test_efs.owl/has_portfolio_code_VALUE
+
+Col : LAST_SETTLE_DATE
+https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasOccurrence
+https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/Settlement/SettlementEvent
+http://www.example.net/ontologies/test_efs.owl/has_last_settle_date
+http://www.example.net/ontologies/test_efs.owl/last_settle_date
+http://www.example.net/ontologies/test_efs.owl/has_last_settle_date_VALUE
+
+Col : BALANCE_LIMIT
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/appliesToAccount
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_balance_limit
+http://www.example.net/ontologies/test_efs.owl/balance_limit
+http://www.example.net/ontologies/test_efs.owl/has_balance_limit_VALUE
+
+Col : CURRENT_BRANCH_ID
+http://www.example.net/ontologies/test_efs.owl/has_current_branch_id
+http://www.example.net/ontologies/test_efs.owl/current_branch_id
+http://www.example.net/ontologies/test_efs.owl/has_current_branch_id_VALUE
+
+
+
+Col : TOTAL_OUTSTANDING
+http://www.example.net/ontologies/test_efs.owl/has_total_outstanding
+http://www.example.net/ontologies/test_efs.owl/total_outstanding
+http://www.example.net/ontologies/test_efs.owl/has_total_outstanding_VALUE
+
+Col : ACCOUNT_STATUS
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/appliesToAccount
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_account_status
+http://www.example.net/ontologies/test_efs.owl/account_status
+http://www.example.net/ontologies/test_efs.owl/has_account_status_VALUE
+
+Col : NO_VALID_ADDRESS
+http://www.example.net/ontologies/test_efs.owl/rer_metric_has_LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddress
+https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress
+http://www.example.net/ontologies/test_efs.owl/has_no_valid_address_VALUE
+
+Col : LAST_PAY_DATE
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/has_last_pay_date
+http://www.example.net/ontologies/test_efs.owl/last_pay_date
+http://www.example.net/ontologies/test_efs.owl/has_last_pay_date_VALUE
+
+Col : LAST_SETT_COMB_STATUS_ID
+https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasOccurrence
+https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/Settlement/SettlementEvent
+http://www.example.net/ontologies/test_efs.owl/has_last_sett_comb_status_id_VALUE
+====================
+>> product
+Table class : http://www.example.net/ontologies/test_efs.owl/product
+
+Col : CODE
+http://www.example.net/ontologies/test_efs.owl/has_code
+http://www.example.net/ontologies/test_efs.owl/code
+http://www.example.net/ontologies/test_efs.owl/has_code_VALUE
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+====================
+>> actcategory
+Table class : http://www.example.net/ontologies/test_efs.owl/actcategory
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+====================
+>> address
+Table class : http://www.example.net/ontologies/test_efs.owl/address
+
+Col : IS_COMMUNICATION
+http://www.example.net/ontologies/test_efs.owl/has_is_communication
+http://www.example.net/ontologies/test_efs.owl/is_communication
+http://www.example.net/ontologies/test_efs.owl/has_is_communication_VALUE
+
+Col : DT_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated
+http://www.example.net/ontologies/test_efs.owl/dt_updated
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE
+
+Col : ADDRESS
+http://www.example.net/ontologies/test_efs.owl/has_address_ATTR_VALUE
+
+Col : SECONDARY_ID
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id
+http://www.example.net/ontologies/test_efs.owl/secondary_id
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id_VALUE
+
+Col : COUNTRY_CODE
+https://spec.edmcouncil.org/fibo/ontology/FND/Places/Locations/hasCountry
+https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Country
+http://www.example.net/ontologies/test_efs.owl/has_country_code_VALUE
+====================
+>> cases
+Table class : http://www.example.net/ontologies/test_efs.owl/case
+
+Col : CURRENCY
+http://www.example.net/ontologies/test_efs.owl/has_currency
+http://www.example.net/ontologies/test_efs.owl/currency
+http://www.example.net/ontologies/test_efs.owl/has_currency_VALUE
+
+Col : BASE_INTEREST_RATE
+http://www.example.net/ontologies/test_efs.owl/has_base_interest_rate
+http://www.example.net/ontologies/test_efs.owl/base_interest_rate
+http://www.example.net/ontologies/test_efs.owl/has_base_interest_rate_VALUE
+
+Col : LASTPAYDATE
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/has_lastpaydate
+http://www.example.net/ontologies/test_efs.owl/lastpaydate
+http://www.example.net/ontologies/test_efs.owl/has_lastpaydate_VALUE
+
+Col : CASE_TYPE_ID
+http://www.example.net/ontologies/test_efs.owl/has_case_type_id
+http://www.example.net/ontologies/test_efs.owl/case_type_id
+http://www.example.net/ontologies/test_efs.owl/has_case_type_id_VALUE
+
+Col : LENTAMOUNT
+http://www.example.net/ontologies/test_efs.owl/case_has_Loan
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/Loan
+http://www.example.net/ontologies/test_efs.owl/has_lentamount
+http://www.example.net/ontologies/test_efs.owl/lentamount
+http://www.example.net/ontologies/test_efs.owl/has_lentamount_VALUE
+
+Col : LAST_ACTION_DATE
+http://www.example.net/ontologies/test_efs.owl/has_last_action_date
+http://www.example.net/ontologies/test_efs.owl/last_action_date
+http://www.example.net/ontologies/test_efs.owl/has_last_action_date_VALUE
+
+Col : SECONDARY_ID
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id
+http://www.example.net/ontologies/test_efs.owl/secondary_id
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id_VALUE
+
+Col : LENTINITAMOUNT
+http://www.example.net/ontologies/test_efs.owl/case_has_Loan
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/Loan
+http://www.example.net/ontologies/test_efs.owl/has_lentinitamount
+http://www.example.net/ontologies/test_efs.owl/lentinitamount
+http://www.example.net/ontologies/test_efs.owl/has_lentinitamount_VALUE
+
+Col : SEARCH_KEY
+http://www.example.net/ontologies/test_efs.owl/has_search_key
+http://www.example.net/ontologies/test_efs.owl/search_key
+http://www.example.net/ontologies/test_efs.owl/has_search_key_VALUE
+
+Col : LASTPAYAMOUNT
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/has_lastpayamount
+http://www.example.net/ontologies/test_efs.owl/lastpayamount
+http://www.example.net/ontologies/test_efs.owl/has_lastpayamount_VALUE
+
+Col : LENTDATE
+http://www.example.net/ontologies/test_efs.owl/case_has_Loan
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/Loan
+http://www.example.net/ontologies/test_efs.owl/has_lentdate
+http://www.example.net/ontologies/test_efs.owl/lentdate
+http://www.example.net/ontologies/test_efs.owl/has_lentdate_VALUE
+
+Col : INTEREST
+http://www.example.net/ontologies/test_efs.owl/has_interest
+http://www.example.net/ontologies/test_efs.owl/interest
+http://www.example.net/ontologies/test_efs.owl/has_interest_VALUE
+
+Col : LAST_ACTION
+http://www.example.net/ontologies/test_efs.owl/has_last_action
+http://www.example.net/ontologies/test_efs.owl/last_action
+http://www.example.net/ontologies/test_efs.owl/has_last_action_VALUE
+
+Col : LASTUPDATE
+http://www.example.net/ontologies/test_efs.owl/has_lastupdate
+http://www.example.net/ontologies/test_efs.owl/lastupdate
+http://www.example.net/ontologies/test_efs.owl/has_lastupdate_VALUE
+
+Col : LENTINTEREST
+http://www.example.net/ontologies/test_efs.owl/case_has_Loan
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/Loan
+http://www.example.net/ontologies/test_efs.owl/has_lentinterest
+http://www.example.net/ontologies/test_efs.owl/lentinterest
+http://www.example.net/ontologies/test_efs.owl/has_lentinterest_VALUE
+
+Col : TOTPAYINTEREST
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+http://www.example.net/ontologies/test_efs.owl/has_totpayinterest
+http://www.example.net/ontologies/test_efs.owl/totpayinterest
+http://www.example.net/ontologies/test_efs.owl/has_totpayinterest_VALUE
+
+Col : DT_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated
+http://www.example.net/ontologies/test_efs.owl/dt_updated
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE
+
+Col : LENTEXPENSES
+http://www.example.net/ontologies/test_efs.owl/case_has_Loan
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/Loan
+http://www.example.net/ontologies/test_efs.owl/has_lentexpenses
+http://www.example.net/ontologies/test_efs.owl/lentexpenses
+http://www.example.net/ontologies/test_efs.owl/has_lentexpenses_VALUE
+
+Col : TOTPAYAMOUNT
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+http://www.example.net/ontologies/test_efs.owl/has_totpayamount
+http://www.example.net/ontologies/test_efs.owl/totpayamount
+http://www.example.net/ontologies/test_efs.owl/has_totpayamount_VALUE
+
+Col : TOTPAYEXPENSES
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
+http://www.example.net/ontologies/test_efs.owl/has_totpayexpenses
+http://www.example.net/ontologies/test_efs.owl/totpayexpenses
+http://www.example.net/ontologies/test_efs.owl/has_totpayexpenses_VALUE
+
+Col : USER_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_user_updated
+http://www.example.net/ontologies/test_efs.owl/user_updated
+http://www.example.net/ontologies/test_efs.owl/has_user_updated_VALUE
+
+Col : LAST_ACTION_USER_ID
+http://www.example.net/ontologies/test_efs.owl/has_last_action_user_id
+http://www.example.net/ontologies/test_efs.owl/last_action_user_id
+http://www.example.net/ontologies/test_efs.owl/has_last_action_user_id_VALUE
+
+Col : DATECREATED
+http://www.example.net/ontologies/test_efs.owl/has_datecreated
+http://www.example.net/ontologies/test_efs.owl/datecreated
+http://www.example.net/ontologies/test_efs.owl/has_datecreated_VALUE
+====================
+>> productcategory
+Table class : http://www.example.net/ontologies/test_efs.owl/productcategory
+
+Col : CODE
+http://www.example.net/ontologies/test_efs.owl/has_code
+http://www.example.net/ontologies/test_efs.owl/code
+http://www.example.net/ontologies/test_efs.owl/has_code_VALUE
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+====================
+>> case_person
+Table class : http://www.example.net/ontologies/test_efs.owl/case_person
+
+Col : DT_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated
+http://www.example.net/ontologies/test_efs.owl/dt_updated
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE
+
+Col : SOURCE_
+http://www.example.net/ontologies/test_efs.owl/has_source_
+http://www.example.net/ontologies/test_efs.owl/source_
+http://www.example.net/ontologies/test_efs.owl/has_source__VALUE
+
+Col : INACTIVE_
+http://www.example.net/ontologies/test_efs.owl/has_inactive_
+http://www.example.net/ontologies/test_efs.owl/inactive_
+http://www.example.net/ontologies/test_efs.owl/has_inactive__VALUE
+====================
+>> msettlement_master
+Table class : http://www.example.net/ontologies/test_efs.owl/msettlement_master
+
+Col : CURRENCY
+http://www.example.net/ontologies/test_efs.owl/has_currency
+http://www.example.net/ontologies/test_efs.owl/currency
+http://www.example.net/ontologies/test_efs.owl/has_currency_VALUE
+
+Col : ISWRITEOFF
+https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/isEvidencedBy
+https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractDocument
+http://www.example.net/ontologies/test_efs.owl/has_iswriteoff_VALUE
+
+Col : STATUS
+http://www.example.net/ontologies/test_efs.owl/has_status
+http://www.example.net/ontologies/test_efs.owl/status
+http://www.example.net/ontologies/test_efs.owl/has_status_VALUE
+
+Col : RELATED_CASES
+http://www.example.net/ontologies/test_efs.owl/has_related_cases
+http://www.example.net/ontologies/test_efs.owl/related_cases
+http://www.example.net/ontologies/test_efs.owl/has_related_cases_VALUE
+
+Col : SETTLE_AMOUNT
+https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasContractualElement
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms
+http://www.example.net/ontologies/test_efs.owl/has_settle_amount
+http://www.example.net/ontologies/test_efs.owl/settle_amount
+http://www.example.net/ontologies/test_efs.owl/has_settle_amount_VALUE
+
+Col : FINAL_BASE_RATE
+http://www.example.net/ontologies/test_efs.owl/has_final_base_rate
+http://www.example.net/ontologies/test_efs.owl/final_base_rate
+http://www.example.net/ontologies/test_efs.owl/has_final_base_rate_VALUE
+
+Col : ACCEPTANCE_LEVEL
+http://www.example.net/ontologies/test_efs.owl/has_acceptance_level
+http://www.example.net/ontologies/test_efs.owl/acceptance_level
+http://www.example.net/ontologies/test_efs.owl/has_acceptance_level_VALUE
+
+Col : UTILISATION_STATUS_USER_ID
+http://www.example.net/ontologies/test_efs.owl/msettlement_master_has_ActionStatus
+https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/ActionStatus
+http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_user_id
+http://www.example.net/ontologies/test_efs.owl/utilisation_status_user_id
+http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_user_id_VALUE
+
+Col : INITIAL_AMOUNT
+http://www.example.net/ontologies/test_efs.owl/has_initial_amount
+http://www.example.net/ontologies/test_efs.owl/initial_amount
+http://www.example.net/ontologies/test_efs.owl/has_initial_amount_VALUE
+
+Col : UTILISATION_STATUS
+http://www.example.net/ontologies/test_efs.owl/has_utilisation_status
+http://www.example.net/ontologies/test_efs.owl/utilisation_status
+http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_VALUE
+
+Col : UTILISATION_STATUS_DATE
+http://www.example.net/ontologies/test_efs.owl/msettlement_master_has_ActionStatus
+https://spec.edmcouncil.org/fibo/ontology/CAE/CorporateEvents/CorporateActions/ActionStatus
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasStage
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStageOccurrence
+http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_date
+http://www.example.net/ontologies/test_efs.owl/utilisation_status_date
+http://www.example.net/ontologies/test_efs.owl/has_utilisation_status_date_VALUE
+
+Col : INITIAL_BASE_RATE
+http://www.example.net/ontologies/test_efs.owl/has_initial_base_rate
+http://www.example.net/ontologies/test_efs.owl/initial_base_rate
+http://www.example.net/ontologies/test_efs.owl/has_initial_base_rate_VALUE
+====================
+>> bucket
+Table class : http://www.example.net/ontologies/test_efs.owl/bucket
+
+Col : DATE_CREATED
+http://www.example.net/ontologies/test_efs.owl/has_date_created
+http://www.example.net/ontologies/test_efs.owl/date_created
+http://www.example.net/ontologies/test_efs.owl/has_date_created_VALUE
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+
+Col : PAYMENTDAYS
+https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/hasPaymentSchedule
+https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentSchedule
+https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasOverallPeriod
+https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DatePeriod
+http://www.example.net/ontologies/test_efs.owl/has_paymentdays_VALUE
+====================
+>> phone
+Table class : http://www.example.net/ontologies/test_efs.owl/phone
+
+Col : IS_COMMUNICATION
+http://www.example.net/ontologies/test_efs.owl/has_is_communication
+http://www.example.net/ontologies/test_efs.owl/is_communication
+http://www.example.net/ontologies/test_efs.owl/has_is_communication_VALUE
+
+Col : DT_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated
+http://www.example.net/ontologies/test_efs.owl/dt_updated
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE
+
+Col : SECONDARY_ID
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id
+http://www.example.net/ontologies/test_efs.owl/secondary_id
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id_VALUE
+====================
+>> case_exta
+Table class : http://www.example.net/ontologies/test_efs.owl/case
+
+Col : OVERDUE_CAPITAL
+http://www.example.net/ontologies/test_efs.owl/has_overdue_capital
+http://www.example.net/ontologies/test_efs.owl/overdue_capital
+http://www.example.net/ontologies/test_efs.owl/has_overdue_capital_VALUE
+
+Col : STRATEGY_SEGMENT_ID
+https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasStrategy
+https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/Strategy
+http://www.example.net/ontologies/test_efs.owl/has_strategy_segment_id
+http://www.example.net/ontologies/test_efs.owl/strategy_segment_id
+http://www.example.net/ontologies/test_efs.owl/has_strategy_segment_id_VALUE
+
+Col : PHASE_ID
+http://www.example.net/ontologies/test_efs.owl/has_phase_id
+http://www.example.net/ontologies/test_efs.owl/phase_id
+http://www.example.net/ontologies/test_efs.owl/has_phase_id_VALUE
+
+Col : STATEMENT_BALANCE
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasRecord
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountStatement
+http://www.example.net/ontologies/test_efs.owl/has_statement_balance
+http://www.example.net/ontologies/test_efs.owl/statement_balance
+http://www.example.net/ontologies/test_efs.owl/has_statement_balance_VALUE
+
+Col : APPROVED_CAPITAL
+http://www.example.net/ontologies/test_efs.owl/has_approved_capital
+http://www.example.net/ontologies/test_efs.owl/approved_capital
+http://www.example.net/ontologies/test_efs.owl/has_approved_capital_VALUE
+
+Col : OVERDUE_INTEREST
+http://www.example.net/ontologies/test_efs.owl/has_overdue_interest
+http://www.example.net/ontologies/test_efs.owl/overdue_interest
+http://www.example.net/ontologies/test_efs.owl/has_overdue_interest_VALUE
+
+Col : LAST_INST_DATE
+http://www.example.net/ontologies/test_efs.owl/has_last_inst_date
+http://www.example.net/ontologies/test_efs.owl/last_inst_date
+http://www.example.net/ontologies/test_efs.owl/has_last_inst_date_VALUE
+
+Col : OVERDUE_EXPENSES
+http://www.example.net/ontologies/test_efs.owl/has_overdue_expenses
+http://www.example.net/ontologies/test_efs.owl/overdue_expenses
+http://www.example.net/ontologies/test_efs.owl/has_overdue_expenses_VALUE
+
+Col : PORTFOLIO_CODE
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasRecord
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/Record
+http://www.example.net/ontologies/test_efs.owl/has_portfolio_code
+http://www.example.net/ontologies/test_efs.owl/portfolio_code
+http://www.example.net/ontologies/test_efs.owl/has_portfolio_code_VALUE
+
+Col : BALANCE_LIMIT
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/appliesToAccount
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_balance_limit
+http://www.example.net/ontologies/test_efs.owl/balance_limit
+http://www.example.net/ontologies/test_efs.owl/has_balance_limit_VALUE
+
+Col : CURRENT_BRANCH_ID
+http://www.example.net/ontologies/test_efs.owl/has_current_branch_id
+http://www.example.net/ontologies/test_efs.owl/current_branch_id
+http://www.example.net/ontologies/test_efs.owl/has_current_branch_id_VALUE
+
+Col : CONTRACT_NO
+http://www.example.net/ontologies/test_efs.owl/has_contract_no
+http://www.example.net/ontologies/test_efs.owl/contract_no
+http://www.example.net/ontologies/test_efs.owl/has_contract_no_VALUE
+
+Col : EXPIRY_DATE
+http://www.example.net/ontologies/test_efs.owl/has_expiry_date
+http://www.example.net/ontologies/test_efs.owl/expiry_date
+http://www.example.net/ontologies/test_efs.owl/has_expiry_date_VALUE
+
+Col : STATEMENT_OVERDUE_AMOUNT
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasRecord
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountStatement
+http://www.example.net/ontologies/test_efs.owl/has_statement_overdue_amount
+http://www.example.net/ontologies/test_efs.owl/statement_overdue_amount
+http://www.example.net/ontologies/test_efs.owl/has_statement_overdue_amount_VALUE
+
+Col : DELAY_DAYS
+http://www.example.net/ontologies/test_efs.owl/has_delay_days
+http://www.example.net/ontologies/test_efs.owl/delay_days
+http://www.example.net/ontologies/test_efs.owl/has_delay_days_VALUE
+
+Col : TOTAL_OUTSTANDING
+http://www.example.net/ontologies/test_efs.owl/has_total_outstanding
+http://www.example.net/ontologies/test_efs.owl/total_outstanding
+http://www.example.net/ontologies/test_efs.owl/has_total_outstanding_VALUE
+
+Col : TOTAL_BALANCE
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/appliesToAccount
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_total_balance
+http://www.example.net/ontologies/test_efs.owl/total_balance
+http://www.example.net/ontologies/test_efs.owl/has_total_balance_VALUE
+
+Col : BANK_ACCOUNT_NUMBER
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/appliesToAccount
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_bank_account_number
+http://www.example.net/ontologies/test_efs.owl/bank_account_number
+http://www.example.net/ontologies/test_efs.owl/has_bank_account_number_VALUE
+
+Col : AVAILABLE_BALANCE
+http://www.example.net/ontologies/test_efs.owl/case_has_Account
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_available_balance
+http://www.example.net/ontologies/test_efs.owl/available_balance
+http://www.example.net/ontologies/test_efs.owl/has_available_balance_VALUE
+
+Col : STATEMENT_MIN_PAY
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasRecord
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountStatement
+http://www.example.net/ontologies/test_efs.owl/has_statement_min_pay
+http://www.example.net/ontologies/test_efs.owl/statement_min_pay
+http://www.example.net/ontologies/test_efs.owl/has_statement_min_pay_VALUE
+
+Col : PAY_REF_NUMBER
+http://www.example.net/ontologies/test_efs.owl/has_pay_ref_number
+http://www.example.net/ontologies/test_efs.owl/pay_ref_number
+http://www.example.net/ontologies/test_efs.owl/has_pay_ref_number_VALUE
+
+Col : ACCOUNTSTATUS
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/appliesToAccount
+https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account
+http://www.example.net/ontologies/test_efs.owl/has_accountstatus
+http://www.example.net/ontologies/test_efs.owl/accountstatus
+http://www.example.net/ontologies/test_efs.owl/has_accountstatus_VALUE
+
+Col : RESTRUCTURED
+http://www.example.net/ontologies/test_efs.owl/has_restructured
+http://www.example.net/ontologies/test_efs.owl/restructured
+http://www.example.net/ontologies/test_efs.owl/has_restructured_VALUE
+====================
+>> person
+Table class : http://www.example.net/ontologies/test_efs.owl/person
+
+Col : LANGUAGE_
+http://www.example.net/ontologies/test_efs.owl/has_language_
+http://www.example.net/ontologies/test_efs.owl/language_
+http://www.example.net/ontologies/test_efs.owl/has_language__VALUE
+
+Col : DT_LAST_ACTION
+http://www.example.net/ontologies/test_efs.owl/has_dt_last_action
+http://www.example.net/ontologies/test_efs.owl/dt_last_action
+http://www.example.net/ontologies/test_efs.owl/has_dt_last_action_VALUE
+
+Col : FULL_NAME
+http://www.example.net/ontologies/test_efs.owl/has_full_name
+http://www.example.net/ontologies/test_efs.owl/full_name
+http://www.example.net/ontologies/test_efs.owl/has_full_name_VALUE
+
+Col : SECONDARY_ID
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id
+http://www.example.net/ontologies/test_efs.owl/secondary_id
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id_VALUE
+
+Col : GENDER
+http://www.example.net/ontologies/test_efs.owl/has_gender_VALUE
+
+Col : D_CREATED
+http://www.example.net/ontologies/test_efs.owl/has_d_created
+http://www.example.net/ontologies/test_efs.owl/d_created
+http://www.example.net/ontologies/test_efs.owl/has_d_created_VALUE
+
+Col : SEARCH_KEY
+http://www.example.net/ontologies/test_efs.owl/has_search_key
+http://www.example.net/ontologies/test_efs.owl/search_key
+http://www.example.net/ontologies/test_efs.owl/has_search_key_VALUE
+
+Col : BIRTHDAY
+http://www.example.net/ontologies/test_efs.owl/has_birthday
+http://www.example.net/ontologies/test_efs.owl/birthday
+http://www.example.net/ontologies/test_efs.owl/has_birthday_VALUE
+
+Col : D_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_d_updated
+http://www.example.net/ontologies/test_efs.owl/d_updated
+http://www.example.net/ontologies/test_efs.owl/has_d_updated_VALUE
+====================
+>> contact
+Table class : http://www.example.net/ontologies/test_efs.owl/contact
+
+Col : RECEITNO
+http://www.example.net/ontologies/test_efs.owl/contact_has_FinancialInstrument
+https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument
+http://www.example.net/ontologies/test_efs.owl/has_receitno
+http://www.example.net/ontologies/test_efs.owl/receitno
+http://www.example.net/ontologies/test_efs.owl/has_receitno_VALUE
+
+Col : DATEUPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dateupdated
+http://www.example.net/ontologies/test_efs.owl/dateupdated
+http://www.example.net/ontologies/test_efs.owl/has_dateupdated_VALUE
+
+Col : ENTRY_USER_ID
+http://www.example.net/ontologies/test_efs.owl/has_entry_user_id
+http://www.example.net/ontologies/test_efs.owl/entry_user_id
+http://www.example.net/ontologies/test_efs.owl/has_entry_user_id_VALUE
+
+Col : CONTACTDATE
+http://www.example.net/ontologies/test_efs.owl/has_contactdate
+http://www.example.net/ontologies/test_efs.owl/contactdate
+http://www.example.net/ontologies/test_efs.owl/has_contactdate_VALUE
+
+Col : PAYDATE
+http://www.example.net/ontologies/test_efs.owl/contact_has_IndividualPaymentTransaction
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/has_paydate
+http://www.example.net/ontologies/test_efs.owl/paydate
+http://www.example.net/ontologies/test_efs.owl/has_paydate_VALUE
+
+Col : PAYAMOUNT
+http://www.example.net/ontologies/test_efs.owl/contact_has_IndividualPaymentTransaction
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/has_payamount
+http://www.example.net/ontologies/test_efs.owl/payamount
+http://www.example.net/ontologies/test_efs.owl/has_payamount_VALUE
+
+Col : COST_
+http://www.example.net/ontologies/test_efs.owl/has_cost_
+http://www.example.net/ontologies/test_efs.owl/cost_
+http://www.example.net/ontologies/test_efs.owl/has_cost__VALUE
+
+Col : USER_ID
+http://www.example.net/ontologies/test_efs.owl/has_user_id
+http://www.example.net/ontologies/test_efs.owl/user_id
+http://www.example.net/ontologies/test_efs.owl/has_user_id_VALUE
+
+Col : ENTRYDATE
+http://www.example.net/ontologies/test_efs.owl/has_entrydate
+http://www.example.net/ontologies/test_efs.owl/entrydate
+http://www.example.net/ontologies/test_efs.owl/has_entrydate_VALUE
+
+Col : CURRENCY_CODE
+http://www.example.net/ontologies/test_efs.owl/contact_has_FinancialInstrument
+https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument
+https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/isDenominatedIn
+https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency
+http://www.example.net/ontologies/test_efs.owl/has_currency_code_VALUE
+====================
+>> settle_plan
+Table class : http://www.example.net/ontologies/test_efs.owl/settle_plan
+
+Col : APPROVAL_METHOD
+http://www.example.net/ontologies/test_efs.owl/has_approval_method
+http://www.example.net/ontologies/test_efs.owl/approval_method
+http://www.example.net/ontologies/test_efs.owl/has_approval_method_VALUE
+
+Col : MAX_PTP_AMOUNT_MAX_ACCEPTED
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_max_accepted
+http://www.example.net/ontologies/test_efs.owl/max_ptp_amount_max_accepted
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_max_accepted_VALUE
+
+Col : SETTLEMENT_PLAN_TYPE
+http://www.example.net/ontologies/test_efs.owl/has_settlement_plan_type
+http://www.example.net/ontologies/test_efs.owl/settlement_plan_type
+http://www.example.net/ontologies/test_efs.owl/has_settlement_plan_type_VALUE
+
+Col : MAX_FIRST_PTP_DIST_WARNING
+http://www.example.net/ontologies/test_efs.owl/has_max_first_ptp_dist_warning
+http://www.example.net/ontologies/test_efs.owl/max_first_ptp_dist_warning
+http://www.example.net/ontologies/test_efs.owl/has_max_first_ptp_dist_warning_VALUE
+
+Col : MAX_PLAN_DUR_WARNING
+http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_warning
+http://www.example.net/ontologies/test_efs.owl/max_plan_dur_warning
+http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_warning_VALUE
+
+Col : MIN_PTP_DIST_WARNING
+http://www.example.net/ontologies/test_efs.owl/has_min_ptp_dist_warning
+http://www.example.net/ontologies/test_efs.owl/min_ptp_dist_warning
+http://www.example.net/ontologies/test_efs.owl/has_min_ptp_dist_warning_VALUE
+
+Col : MAX_PTPS_MAX_ACCEPTED
+http://www.example.net/ontologies/test_efs.owl/has_max_ptps_max_accepted_VALUE
+
+Col : DATEUPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dateupdated
+http://www.example.net/ontologies/test_efs.owl/dateupdated
+http://www.example.net/ontologies/test_efs.owl/has_dateupdated_VALUE
+
+Col : MAX_FIRST_PTP_DIST_ACCEPTED
+http://www.example.net/ontologies/test_efs.owl/has_max_first_ptp_dist_accepted
+http://www.example.net/ontologies/test_efs.owl/max_first_ptp_dist_accepted
+http://www.example.net/ontologies/test_efs.owl/has_max_first_ptp_dist_accepted_VALUE
+
+Col : MAX_PTP_AMOUNT_WARNING
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_warning
+http://www.example.net/ontologies/test_efs.owl/max_ptp_amount_warning
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_warning_VALUE
+
+Col : USERUPDATED
+http://www.example.net/ontologies/test_efs.owl/has_userupdated
+http://www.example.net/ontologies/test_efs.owl/userupdated
+http://www.example.net/ontologies/test_efs.owl/has_userupdated_VALUE
+
+Col : MIN_PTP_DIST_MIN_ACCEPTED
+http://www.example.net/ontologies/test_efs.owl/has_min_ptp_dist_min_accepted
+http://www.example.net/ontologies/test_efs.owl/min_ptp_dist_min_accepted
+http://www.example.net/ontologies/test_efs.owl/has_min_ptp_dist_min_accepted_VALUE
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+
+Col : MINIMUM_INTEREST_RATE_WARNING
+http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_warning
+http://www.example.net/ontologies/test_efs.owl/minimum_interest_rate_warning
+http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_warning_VALUE
+
+Col : MAX_PTP_DIST_MAX_ACCEPTED
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_dist_max_accepted
+http://www.example.net/ontologies/test_efs.owl/max_ptp_dist_max_accepted
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_dist_max_accepted_VALUE
+
+Col : MAX_PLAN_DUR_MAX_ACCEPTED
+http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_max_accepted
+http://www.example.net/ontologies/test_efs.owl/max_plan_dur_max_accepted
+http://www.example.net/ontologies/test_efs.owl/has_max_plan_dur_max_accepted_VALUE
+
+Col : INTEREST_RATE
+http://www.example.net/ontologies/test_efs.owl/has_interest_rate
+http://www.example.net/ontologies/test_efs.owl/interest_rate
+http://www.example.net/ontologies/test_efs.owl/has_interest_rate_VALUE
+
+Col : MAX_PTPS_WARNING
+http://www.example.net/ontologies/test_efs.owl/has_max_ptps_warning_VALUE
+
+Col : WARN_AMOUNT_PERCENTAGE
+http://www.example.net/ontologies/test_efs.owl/has_warn_amount_percentage
+http://www.example.net/ontologies/test_efs.owl/warn_amount_percentage
+http://www.example.net/ontologies/test_efs.owl/has_warn_amount_percentage_VALUE
+
+Col : MINIMUM_INTEREST_RATE_ERROR
+http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_error
+http://www.example.net/ontologies/test_efs.owl/minimum_interest_rate_error
+http://www.example.net/ontologies/test_efs.owl/has_minimum_interest_rate_error_VALUE
+
+Col : MAX_PTP_DIST_WARNING
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_dist_warning
+http://www.example.net/ontologies/test_efs.owl/max_ptp_dist_warning
+http://www.example.net/ontologies/test_efs.owl/has_max_ptp_dist_warning_VALUE
+
+Col : NAME_
+http://www.example.net/ontologies/test_efs.owl/has_name_
+http://www.example.net/ontologies/test_efs.owl/name_
+http://www.example.net/ontologies/test_efs.owl/has_name__VALUE
+====================
+>> act_type
+Table class : http://www.example.net/ontologies/test_efs.owl/act_type
+
+Col : PHONEBEHAVIOR
+http://www.example.net/ontologies/test_efs.owl/has_phonebehavior
+http://www.example.net/ontologies/test_efs.owl/phonebehavior
+http://www.example.net/ontologies/test_efs.owl/has_phonebehavior_VALUE
+
+Col : ACT_TYPE_ID
+http://www.example.net/ontologies/test_efs.owl/has_act_type_id
+http://www.example.net/ontologies/test_efs.owl/act_type_id
+http://www.example.net/ontologies/test_efs.owl/has_act_type_id_VALUE
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+
+Col : ISADMIN
+http://www.example.net/ontologies/test_efs.owl/has_isadmin
+http://www.example.net/ontologies/test_efs.owl/isadmin
+http://www.example.net/ontologies/test_efs.owl/has_isadmin_VALUE
+
+Col : TYPE_
+http://www.example.net/ontologies/test_efs.owl/has_type_
+http://www.example.net/ontologies/test_efs.owl/type_
+http://www.example.net/ontologies/test_efs.owl/has_type__VALUE
+
+Col : ALLOWS_BACKDATED
+http://www.example.net/ontologies/test_efs.owl/has_allows_backdated
+http://www.example.net/ontologies/test_efs.owl/allows_backdated
+http://www.example.net/ontologies/test_efs.owl/has_allows_backdated_VALUE
+
+Col : ACTION_CONTACT_STATUS
+http://www.example.net/ontologies/test_efs.owl/has_action_contact_status
+http://www.example.net/ontologies/test_efs.owl/action_contact_status
+http://www.example.net/ontologies/test_efs.owl/has_action_contact_status_VALUE
+
+Col : ACTION_CONTACT_TYPE
+http://www.example.net/ontologies/test_efs.owl/has_action_contact_type
+http://www.example.net/ontologies/test_efs.owl/action_contact_type
+http://www.example.net/ontologies/test_efs.owl/has_action_contact_type_VALUE
+
+Col : SETTLE_PLAN_UUID
+http://www.example.net/ontologies/test_efs.owl/has_settle_plan_uuid
+http://www.example.net/ontologies/test_efs.owl/settle_plan_uuid
+http://www.example.net/ontologies/test_efs.owl/has_settle_plan_uuid_VALUE
+====================
+>> payment
+Table class : http://www.example.net/ontologies/test_efs.owl/payment
+
+Col : SDATE
+http://www.example.net/ontologies/test_efs.owl/has_sdate
+http://www.example.net/ontologies/test_efs.owl/sdate
+http://www.example.net/ontologies/test_efs.owl/has_sdate_VALUE
+
+Col : PAYMENTTYPE
+http://www.example.net/ontologies/test_efs.owl/has_paymenttype
+http://www.example.net/ontologies/test_efs.owl/paymenttype
+http://www.example.net/ontologies/test_efs.owl/has_paymenttype_VALUE
+
+Col : PAYDATE
+http://www.example.net/ontologies/test_efs.owl/has_paydate
+http://www.example.net/ontologies/test_efs.owl/paydate
+http://www.example.net/ontologies/test_efs.owl/has_paydate_VALUE
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+
+Col : PAYAMOUNT
+http://www.example.net/ontologies/test_efs.owl/has_payamount
+http://www.example.net/ontologies/test_efs.owl/payamount
+http://www.example.net/ontologies/test_efs.owl/has_payamount_VALUE
+
+Col : PAY_KEY
+http://www.example.net/ontologies/test_efs.owl/has_pay_key
+http://www.example.net/ontologies/test_efs.owl/pay_key
+http://www.example.net/ontologies/test_efs.owl/has_pay_key_VALUE
+
+Col : CURRENCY_CODE
+http://www.example.net/ontologies/test_efs.owl/has_currency_code_VALUE
+====================
+>> queue_case
+Table class : http://www.example.net/ontologies/test_efs.owl/queue_case
+
+Col : STRATEGY_CASE_ID
+http://www.example.net/ontologies/test_efs.owl/has_strategy_case_id
+http://www.example.net/ontologies/test_efs.owl/strategy_case_id
+http://www.example.net/ontologies/test_efs.owl/has_strategy_case_id_VALUE
+
+Col : ACCOUNT_ENTRY_DATE
+http://www.example.net/ontologies/test_efs.owl/has_account_entry_date
+http://www.example.net/ontologies/test_efs.owl/account_entry_date
+http://www.example.net/ontologies/test_efs.owl/has_account_entry_date_VALUE
+
+Col : ACCOUNT_ENTRY_RULE_ID
+http://www.example.net/ontologies/test_efs.owl/has_account_entry_rule_id
+http://www.example.net/ontologies/test_efs.owl/account_entry_rule_id
+http://www.example.net/ontologies/test_efs.owl/has_account_entry_rule_id_VALUE
+
+Col : ACCOUNT_ORDER
+http://www.example.net/ontologies/test_efs.owl/has_account_order
+http://www.example.net/ontologies/test_efs.owl/account_order
+http://www.example.net/ontologies/test_efs.owl/has_account_order_VALUE
+
+Col : IS_WORKED
+http://www.example.net/ontologies/test_efs.owl/has_is_worked
+http://www.example.net/ontologies/test_efs.owl/is_worked
+http://www.example.net/ontologies/test_efs.owl/has_is_worked_VALUE
+====================
+>> case_person_type
+Table class : http://www.example.net/ontologies/test_efs.owl/case_person_type
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+
+Col : CASE_PERSON_TYPE_KEY
+http://www.example.net/ontologies/test_efs.owl/has_case_person_type_key
+http://www.example.net/ontologies/test_efs.owl/case_person_type_key
+http://www.example.net/ontologies/test_efs.owl/has_case_person_type_key_VALUE
+====================
+>> email
+Table class : http://www.example.net/ontologies/test_efs.owl/email
+
+Col : IS_COMMUNICATION
+http://www.example.net/ontologies/test_efs.owl/has_is_communication
+http://www.example.net/ontologies/test_efs.owl/is_communication
+http://www.example.net/ontologies/test_efs.owl/has_is_communication_VALUE
+
+Col : DT_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated
+http://www.example.net/ontologies/test_efs.owl/dt_updated
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE
+
+Col : SECONDARY_ID
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id
+http://www.example.net/ontologies/test_efs.owl/secondary_id
+http://www.example.net/ontologies/test_efs.owl/has_secondary_id_VALUE
+
+Col : EMAIL
+http://www.example.net/ontologies/test_efs.owl/has_email_ATTR_VALUE
+====================
+>> msettlement_detail
+Table class : http://www.example.net/ontologies/test_efs.owl/msettlement_detail
+
+Col : DT_UPDATED
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated
+http://www.example.net/ontologies/test_efs.owl/dt_updated
+http://www.example.net/ontologies/test_efs.owl/has_dt_updated_VALUE
+
+Col : DT_CREATED
+http://www.example.net/ontologies/test_efs.owl/has_dt_created
+http://www.example.net/ontologies/test_efs.owl/dt_created
+http://www.example.net/ontologies/test_efs.owl/has_dt_created_VALUE
+
+Col : PAIDAMOUNT
+http://www.example.net/ontologies/test_efs.owl/msettlement_detail_has_IndividualPaymentTransaction
+https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/has_paidamount
+http://www.example.net/ontologies/test_efs.owl/paidamount
+http://www.example.net/ontologies/test_efs.owl/has_paidamount_VALUE
+
+Col : PROMISEDAMOUNT
+http://www.example.net/ontologies/test_efs.owl/msettlement_detail_has_PromissoryNote
+https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/PromissoryNote
+http://www.example.net/ontologies/test_efs.owl/has_promisedamount_VALUE
+
+Col : PROMISEDDATE
+http://www.example.net/ontologies/test_efs.owl/msettlement_detail_has_PromissoryNote
+https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/PromissoryNote
+http://www.example.net/ontologies/test_efs.owl/has_promiseddate
+http://www.example.net/ontologies/test_efs.owl/promiseddate
+http://www.example.net/ontologies/test_efs.owl/has_promiseddate_VALUE
+====================
+>> person_extra
+Table class : http://www.example.net/ontologies/test_efs.owl/person
+
+Col : NATIONALITY
+https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasCitizenship
+https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Country
+http://www.example.net/ontologies/test_efs.owl/has_nationality_VALUE
+
+Col : IS_DECEASED
+https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasDateOfDeath
+https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DateOfDeath
+http://www.example.net/ontologies/test_efs.owl/has_is_deceased_VALUE
+
+Col : PERSON_STATUS
+http://www.example.net/ontologies/test_efs.owl/has_person_status
+http://www.example.net/ontologies/test_efs.owl/person_status
+http://www.example.net/ontologies/test_efs.owl/has_person_status_VALUE
+
+Col : RESIDENCE_COUNTRY
+https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasResidence
+https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress
+http://www.example.net/ontologies/test_efs.owl/has_residence_country
+http://www.example.net/ontologies/test_efs.owl/residence_country
+http://www.example.net/ontologies/test_efs.owl/has_residence_country_VALUE
+====================
+>> queue
+Table class : http://www.example.net/ontologies/test_efs.owl/queue
+
+Col : TOTAL
+http://www.example.net/ontologies/test_efs.owl/has_total_VALUE
+
+Col : WORKED
+http://www.example.net/ontologies/test_efs.owl/has_worked_VALUE
+
+Col : EXITED
+http://www.example.net/ontologies/test_efs.owl/has_exited_VALUE
+
+Col : REMAINING
+http://www.example.net/ontologies/test_efs.owl/has_remaining_VALUE
+
+Col : ORDER_TYPE
+http://www.example.net/ontologies/test_efs.owl/has_order_type
+http://www.example.net/ontologies/test_efs.owl/order_type
+http://www.example.net/ontologies/test_efs.owl/has_order_type_VALUE
+
+Col : QUEUE_KEY
+http://www.example.net/ontologies/test_efs.owl/has_queue_key
+http://www.example.net/ontologies/test_efs.owl/queue_key
+http://www.example.net/ontologies/test_efs.owl/has_queue_key_VALUE
+
+Col : CAN_EXPIRE
+https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasExpirationDate
+https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Date
+http://www.example.net/ontologies/test_efs.owl/has_can_expire_VALUE
+
+Col : EXIT_ACTION_CODE
+http://www.example.net/ontologies/test_efs.owl/has_exit_action_code
+http://www.example.net/ontologies/test_efs.owl/exit_action_code
+http://www.example.net/ontologies/test_efs.owl/has_exit_action_code_VALUE
+
+Col : QUEUE_TYPE
+http://www.example.net/ontologies/test_efs.owl/has_queue_type
+http://www.example.net/ontologies/test_efs.owl/queue_type
+http://www.example.net/ontologies/test_efs.owl/has_queue_type_VALUE
+
+Col : OWNER_USER
+http://www.example.net/ontologies/test_efs.owl/has_owner_user
+http://www.example.net/ontologies/test_efs.owl/owner_user
+http://www.example.net/ontologies/test_efs.owl/has_owner_user_VALUE
+
+Col : DESCRIPTION
+http://www.example.net/ontologies/test_efs.owl/has_description_VALUE
+
+Col : WORKING_MODE
+http://www.example.net/ontologies/test_efs.owl/has_working_mode
+http://www.example.net/ontologies/test_efs.owl/working_mode
+http://www.example.net/ontologies/test_efs.owl/has_working_mode_VALUE
+
+Col : WORKED_ACTION_CATEGORY
+http://www.example.net/ontologies/test_efs.owl/has_worked_action_category
+http://www.example.net/ontologies/test_efs.owl/worked_action_category
+http://www.example.net/ontologies/test_efs.owl/has_worked_action_category_VALUE
+
+Col : CAPTION
+http://www.example.net/ontologies/test_efs.owl/has_caption_VALUE
+
+Col : IN_STRATEGY
+http://www.example.net/ontologies/test_efs.owl/has_in_strategy
+http://www.example.net/ontologies/test_efs.owl/in_strategy
+http://www.example.net/ontologies/test_efs.owl/has_in_strategy_VALUE
+====================

@@ -1,6 +1,5 @@
 package org.example.createKG;
 
-import com.google.gson.Gson;
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
@@ -9,12 +8,14 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
-import org.example.other.JSONFormatClasses;
 import org.example.other.JSONFormatClasses.Column;
 import org.example.other.JSONFormatClasses.Mapping;
 import org.example.other.JSONFormatClasses.Table;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,7 +31,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     private HashSet<String> importURIs = new HashSet<>();
 
     public SetPOasDOextension() {
-        super();
+        super("test_efs.ttl");
 
         gatherImports();
         loadDomainOntoImports();
@@ -42,6 +43,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
     private void loadDomainOntoImports() {
+        //TODO replace
         /*for (String uri : importURIs) {
             OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
             dModel.read(uri);
@@ -287,13 +289,13 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             // (tableClass) -[newProperty]-> (dOnto:firstClass)
 
             // baseURI/tableName_has_firstClassName
-            String newURI = String.format("%s%s_has_%s", pModel.getNsPrefixURI(""), tableClassName, firstClassName);
+            String newPropURI = getNewPropertyURI(tableClassName, firstClassName);
 
-            if (getOntProperty(newURI) == null) {
+            if (getOntProperty(newPropURI) == null) {
                 // property wasn't already created
                 String newLabel = String.format("has %s", normalise(getLabel(firstClass)));
 
-                OntProperty newProp = pModel.createObjectProperty(newURI);
+                OntProperty newProp = pModel.createObjectProperty(newPropURI);
                 newProp.setLabel(newLabel, "en");
                 newProp.setComment(String.format("New prop to connect tableClass \"%s\" with firstPathClass \"%s\"", tableClassName, firstClassName), "en");
                 newProp.addComment(prop.getComment(""), "en");
