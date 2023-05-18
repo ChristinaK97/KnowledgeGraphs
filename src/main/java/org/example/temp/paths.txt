@@ -21,7 +21,7 @@ Col : LAST_PAY_AMOUNT
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
-https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/payment
 http://www.example.net/ontologies/test_efs.owl/has_last_pay_amount
 http://www.example.net/ontologies/test_efs.owl/last_pay_amount
 http://www.example.net/ontologies/test_efs.owl/has_last_pay_amount_VALUE
@@ -39,8 +39,8 @@ http://www.example.net/ontologies/test_efs.owl/phase_entry_date
 http://www.example.net/ontologies/test_efs.owl/has_phase_entry_date_VALUE
 
 Col : SETTLE_ISWRITEOFF
-null
-https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms
+http://www.example.net/ontologies/test_efs.owl/p_rer_metric_settle_plan
+http://www.example.net/ontologies/test_efs.owl/settle_plan
 https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isMandatedBy
 https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract
 https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/isEvidencedBy
@@ -60,10 +60,10 @@ http://www.example.net/ontologies/test_efs.owl/expiry_date
 http://www.example.net/ontologies/test_efs.owl/has_expiry_date_VALUE
 
 Col : NO_VALID_PHONE
-null
-https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+http://www.example.net/ontologies/test_efs.owl/p_rer_metric_person
+http://www.example.net/ontologies/test_efs.owl/person
 https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/hasTelephoneNumber
-https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/TelephoneNumber
+http://www.example.net/ontologies/test_efs.owl/phone
 http://www.example.net/ontologies/test_efs.owl/has_no_valid_phone_VALUE
 
 Col : TOTAL_BALANCE
@@ -105,8 +105,8 @@ http://www.example.net/ontologies/test_efs.owl/days_in_handling_queue
 http://www.example.net/ontologies/test_efs.owl/has_days_in_handling_queue_VALUE
 
 Col : PAST_DUE_AMOUNT
-null
-https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+http://www.example.net/ontologies/test_efs.owl/p_rer_metric_person
+http://www.example.net/ontologies/test_efs.owl/person
 https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/hasResponsibility
 https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentObligation
 http://www.example.net/ontologies/test_efs.owl/has_past_due_amount
@@ -129,7 +129,7 @@ Col : DAYS_FROM_LAST_PAY
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
-https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/payment
 https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDate
 https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDate
 http://www.example.net/ontologies/test_efs.owl/has_days_from_last_pay_VALUE
@@ -161,8 +161,8 @@ http://www.example.net/ontologies/test_efs.owl/current_branch_id
 http://www.example.net/ontologies/test_efs.owl/has_current_branch_id_VALUE
 
 Col : DAYS_PAST_DUE
-null
-https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+http://www.example.net/ontologies/test_efs.owl/p_rer_metric_person
+http://www.example.net/ontologies/test_efs.owl/person
 https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/hasResponsibility
 https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentObligation
 https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasPaymentDueDate
@@ -182,17 +182,17 @@ http://www.example.net/ontologies/test_efs.owl/account_status
 http://www.example.net/ontologies/test_efs.owl/has_account_status_VALUE
 
 Col : NO_VALID_ADDRESS
-null
-https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegallyCompetentNaturalPerson
+http://www.example.net/ontologies/test_efs.owl/p_rer_metric_person
+http://www.example.net/ontologies/test_efs.owl/person
 https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddress
-https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress
+http://www.example.net/ontologies/test_efs.owl/address
 http://www.example.net/ontologies/test_efs.owl/has_no_valid_address_VALUE
 
 Col : LAST_PAY_DATE
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
-https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/payment
 http://www.example.net/ontologies/test_efs.owl/has_last_pay_date
 http://www.example.net/ontologies/test_efs.owl/last_pay_date
 http://www.example.net/ontologies/test_efs.owl/has_last_pay_date_VALUE
@@ -262,7 +262,7 @@ Col : LASTPAYDATE
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
-https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/payment
 http://www.example.net/ontologies/test_efs.owl/has_lastpaydate
 http://www.example.net/ontologies/test_efs.owl/lastpaydate
 http://www.example.net/ontologies/test_efs.owl/has_lastpaydate_VALUE
@@ -305,7 +305,7 @@ Col : LASTPAYAMOUNT
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasPaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory
 https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/hasIndividualPayment
-https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/payment
 http://www.example.net/ontologies/test_efs.owl/has_lastpayamount
 http://www.example.net/ontologies/test_efs.owl/lastpayamount
 http://www.example.net/ontologies/test_efs.owl/has_lastpayamount_VALUE
@@ -441,7 +441,7 @@ http://www.example.net/ontologies/test_efs.owl/has_related_cases_VALUE
 
 Col : SETTLE_AMOUNT
 https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasContractualElement
-https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms
+http://www.example.net/ontologies/test_efs.owl/settle_plan
 http://www.example.net/ontologies/test_efs.owl/has_settle_amount
 http://www.example.net/ontologies/test_efs.owl/settle_amount
 http://www.example.net/ontologies/test_efs.owl/has_settle_amount_VALUE
@@ -733,15 +733,15 @@ http://www.example.net/ontologies/test_efs.owl/contactdate
 http://www.example.net/ontologies/test_efs.owl/has_contactdate_VALUE
 
 Col : PAYDATE
-null
-https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/p_contact_payment
+http://www.example.net/ontologies/test_efs.owl/payment
 http://www.example.net/ontologies/test_efs.owl/has_paydate
 http://www.example.net/ontologies/test_efs.owl/paydate
 http://www.example.net/ontologies/test_efs.owl/has_paydate_VALUE
 
 Col : PAYAMOUNT
-null
-https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/IndividualPaymentTransaction
+http://www.example.net/ontologies/test_efs.owl/p_contact_payment
+http://www.example.net/ontologies/test_efs.owl/payment
 http://www.example.net/ontologies/test_efs.owl/has_payamount
 http://www.example.net/ontologies/test_efs.owl/payamount
 http://www.example.net/ontologies/test_efs.owl/has_payamount_VALUE
@@ -822,4 +822,8 @@ http://www.example.net/ontologies/test_efs.owl/has_max_ptp_amount_warning_VALUE
 Col : USERUPDATED
 http://www.example.net/ontologies/test_efs.owl/has_userupdated
 http://www.example.net/ontologies/test_efs.owl/userupdated
-http://www.example.net/ontologies/test_ef
+http://www.example.net/ontologies/test_efs.owl/has_userupdated_VALUE
+
+Col : MIN_PTP_DIST_MIN_ACCEPTED
+http://www.example.net/ontologies/test_efs.owl/has_min_ptp_dist_min_accepted
+http://www.example.net/ontologies/test_efs.owl/min_ptp_dist_min_

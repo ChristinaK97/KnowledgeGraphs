@@ -63,6 +63,7 @@ public class InsertData extends JenaOntologyModelHandler {
                 if (objPropResource != null){
                     onlyDataPropertyWasMaintained = false;
                     // append the path of the object property to the column's path
+                    specialisePathDOclasses(objMap);
                     addPropertyPathToColumnPath(colPath, objMap, true, tableClassName);
                     // append the column object property to the column's path
                     colPath.add(objPropResource);
@@ -84,6 +85,7 @@ public class InsertData extends JenaOntologyModelHandler {
                  * through a new property, as col.objProp and col.class were deleted
                  * (tableClass) -[newProp]-> (firstNode)
                 */
+                specialisePathDOclasses(dataMap);
                 addPropertyPathToColumnPath(colPath, dataMap, onlyDataPropertyWasMaintained, tableClassName);
                 // append data property to the column's path (data properties are never deleted)
                 colPath.add(getOntResource(dataMap.getOntoElURI()));
@@ -102,7 +104,7 @@ public class InsertData extends JenaOntologyModelHandler {
                 OntResource firstNode = getOntResource(getFirstNodeFromPath(propPath));
                 // if first node in the path is a class -> a new property (firstProp) was created
                 if (firstNode.canAs(OntClass.class)) {
-                    String newPropURI = ""; //getNewPropertyURI(mBasePrefix, tableClassName, firstNode.getLocalName());
+                    String newPropURI = getNewPropertyURI(mBasePrefix, firstNode.asClass(), tableClassName);
                     OntProperty firstProp = getOntProperty(newPropURI);
                     colPath.add(firstProp);
                 }

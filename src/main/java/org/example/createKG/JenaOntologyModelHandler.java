@@ -4,16 +4,21 @@ import com.google.gson.Gson;
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.util.iterator.ExtendedIterator;
 import org.example.other.JSONFormatClasses;
 
 import java.io.FileReader;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+
+import static org.example.other.Util.TABLE_CLASS_URI;
 
 public class JenaOntologyModelHandler {
 
     protected OntModel pModel;
     protected List<JSONFormatClasses.Table> tablesMaps;
+    private HashMap<String, URI> cachedSpecializedClasses = new HashMap<>();
 
     public JenaOntologyModelHandler(String ontologyFile) {
         loadPutativeOntology(ontologyFile);
@@ -55,14 +60,49 @@ public class JenaOntologyModelHandler {
     }
 
 
-    protected String getNewPropertyURI(OntClass firstClass, String tableClassName) {
-        String mBasePrefix = pModel.getNsPrefixURI("");
+    protected String getNewPropertyURI(String mBasePrefix, OntClass firstClass, String tableClassName) {
+        mBasePrefix = mBasePrefix == null ? pModel.getNsPrefixURI("") : mBasePrefix;
         String propertyNamePattern = firstClass.getNameSpace().equals(mBasePrefix) ?
 
                 "%sp_%s_%s" :       //baseURI/p_tableClassName_firstclassName
                 "%s%s_has_%s";      // baseURI/tableName_has_firstClassName
 
         return String.format(propertyNamePattern, mBasePrefix, tableClassName, firstClass.getLocalName());
+    }
+
+
+    protected void specialisePathDOclasses (JSONFormatClasses.Mapping map) {
+        // the map has no path attribute, no specialization is needed
+        List<URI> nodes = map.getPathURIs();
+        if(nodes == null)
+            return;
+
+        for(int i=0; i< nodes.size(); ++i) {
+            OntClass nodeClass  = getOntClass(nodes.get(i));
+
+            if(nodeClass != null) { // if node is a class (and not a property instead)
+                String nodeURI = nodeClass.getURI();
+
+                if(cachedSpecializedClasses.containsKey(nodeURI)) {
+                    System.out.println("CACHED REPLACE " + nodes.get(i) + " WITH\n" + cachedSpecializedClasses.get(nodeURI));
+                    nodes.set(i, cachedSpecializedClasses.get(nodeURI));
+                    continue;
+                }
+
+                OntClass tableClass = getOntClass(TABLE_CLASS_URI);
+
+                // replace the class in the path with the specialised PO TableClass subclass
+                for (ExtendedIterator<OntClass> it = nodeClass.listSubClasses(); it.hasNext(); ) {
+                    OntClass subClass = it.next();
+                    if(subClass.hasSuperClass(tableClass)) {
+                        System.out.println("REPLACE " + nodes.get(i) + " WITH\n" + subClass);
+                        URI subClassURI = URI.create(subClass.getURI());
+                        nodes.set(i, subClassURI);
+                        cachedSpecializedClasses.put(nodeURI, subClassURI);
+                        break;
+                    }
+                }
+            }}
     }
 
 
