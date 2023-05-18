@@ -20,6 +20,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
     private HashSet<String> importURIs = new HashSet<>();
+    private HashMap<String, URI> cachedSpecializedClasses = new HashMap<>();
 
     public SetPOasDOextension() {
         super("test_efs.ttl");
@@ -161,6 +163,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 Mapping dataMap  = colMap.getDataPropMapping();
 
                 try {
+                    specialisePathDOclasses(objMap);
                     makeObjPropConsistent(objMap);
                     handleClassAsFirstPathNode(
                             tableMaps.getMapping().getOntoElResource(),
@@ -168,11 +171,46 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 }catch (NullPointerException e) {
                     // property was unnecessary so it was previously deleted
                 }
+                specialisePathDOclasses(dataMap);
                 makeDataPropertyConsistent(dataMap);
                 handleClassAsFirstPathNode(
                         tableMaps.getMapping().getOntoElResource(),
                         tableMaps.getMapping().getOntoElURI(), dataMap);
             }
+    }
+
+    private void specialisePathDOclasses (Mapping map) {
+        // the map has no path attribute, no specialization is needed
+        List<URI> nodes = map.getPathURIs();
+        if(nodes == null)
+            return;
+
+        for(int i=0; i< nodes.size(); ++i) {
+            OntClass nodeClass  = getOntClass(nodes.get(i));
+
+            if(nodeClass != null) { // if node is a class (and not a property instead)
+                String nodeURI = nodeClass.getURI();
+
+                if(cachedSpecializedClasses.containsKey(nodeURI)) {
+                    System.out.println("CACHED REPLACE " + nodes.get(i) + " WITH\n" + cachedSpecializedClasses.get(nodeURI));
+                    nodes.set(i, cachedSpecializedClasses.get(nodeURI));
+                    continue;
+                }
+
+                OntClass tableClass = getOntClass(TABLE_CLASS_URI);
+
+                // replace the class in the path with the specialised PO TableClass subclass
+                for (ExtendedIterator<OntClass> it = nodeClass.listSubClasses(); it.hasNext(); ) {
+                    OntClass subClass = it.next();
+                    if(subClass.hasSuperClass(tableClass)) {
+                        System.out.println("REPLACE " + nodes.get(i) + " WITH\n" + subClass);
+                        URI subClassURI = URI.create(subClass.getURI());
+                        nodes.set(i, subClassURI);
+                        cachedSpecializedClasses.put(nodeURI, subClassURI);
+                        break;
+                    }
+                }
+        }}
     }
 
     private void makeDataPropertyConsistent(Mapping dataMap) {
@@ -222,7 +260,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                     System.out.println("Union operand: " + operand.getLocalName());
 
                     for(OntClass superclass : operand.listSuperClasses().toList())
-                        if (superclass.isURIResource() && !superclass.getLocalName().equals(TABLECLASS)) {
+                        if (superclass.isURIResource() && !superclass.getLocalName().equals(TABLE_CLASS)) {
                             System.out.println(superclass);
                             hasSuperClass = true;
                             unionDomainClasses.add(superclass);
@@ -279,8 +317,6 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     private void handleClassAsFirstPathNode(String tableClassName, URI tableClassURI, Mapping map) {
         try {
-            System.out.println("First Class");
-
             OntProperty prop = getOntProperty(map.getOntoElURI());
             OntClass firstClass = getOntClass(getFirstNodeFromPath(map.getPathURIs()));
             String firstClassName = firstClass.getLocalName();
@@ -288,10 +324,13 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             // Create a new property with the specified URI
             // (tableClass) -[newProperty]-> (dOnto:firstClass)
 
-            // baseURI/tableName_has_firstClassName
-            String newPropURI = getNewPropertyURI(tableClassName, firstClassName);
+            String newPropURI = getNewPropertyURI(firstClass, tableClassName);
 
             if (getOntProperty(newPropURI) == null) {
+
+                System.out.println("FIRST CLASS : " + firstClass);
+                System.out.println("NEW PROP :" + newPropURI);
+
                 // property wasn't already created
                 String newLabel = String.format("has %s", normalise(getLabel(firstClass)));
 
@@ -299,7 +338,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 newProp.setLabel(newLabel, "en");
                 newProp.setComment(String.format("New prop to connect tableClass \"%s\" with firstPathClass \"%s\"", tableClassName, firstClassName), "en");
                 newProp.addComment(prop.getComment(""), "en");
-                newProp.setSuperProperty(getOntProperty(ATTRIBUTECLASSURI));
+                newProp.setSuperProperty(getOntProperty(ATTRIBUTE_PROPERTY_URI));
 
                 OntClass DtableClass = getOntClass(tableClassURI);
                 newProp.setDomain(DtableClass);

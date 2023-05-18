@@ -283,8 +283,8 @@ public class UploadSyntheticDataToDB {
 
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new UploadSyntheticDataToDB();
-    }
+    }*/
 
 }

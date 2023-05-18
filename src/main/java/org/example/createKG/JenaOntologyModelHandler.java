@@ -54,13 +54,17 @@ public class JenaOntologyModelHandler {
         return path.get(path.size() - 1);
     }
 
-    protected String getNewPropertyURI (String tableClassName, String firstClassName) {
-        return String.format("%s%s_has_%s", pModel.getNsPrefixURI(""), tableClassName, firstClassName);
+
+    protected String getNewPropertyURI(OntClass firstClass, String tableClassName) {
+        String mBasePrefix = pModel.getNsPrefixURI("");
+        String propertyNamePattern = firstClass.getNameSpace().equals(mBasePrefix) ?
+
+                "%sp_%s_%s" :       //baseURI/p_tableClassName_firstclassName
+                "%s%s_has_%s";      // baseURI/tableName_has_firstClassName
+
+        return String.format(propertyNamePattern, mBasePrefix, tableClassName, firstClass.getLocalName());
     }
 
-    protected String getNewPropertyURI (String mBasePrefix, String tableClassName, String firstClassName) {
-        return String.format("%s%s_has_%s", mBasePrefix, tableClassName, firstClassName);
-    }
 
     protected String getLabel(OntResource resource) {
         String label = resource.getLabel("en");

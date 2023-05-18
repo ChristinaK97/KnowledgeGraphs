@@ -1,17 +1,14 @@
 package org.example.createKG;
 
-import com.google.gson.Gson;
 import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
-import org.checkerframework.checker.units.qual.A;
-import org.example.other.JSONFormatClasses;
-import org.example.other.JSONFormatClasses.Table;
 import org.example.other.JSONFormatClasses.Column;
 import org.example.other.JSONFormatClasses.Mapping;
+import org.example.other.JSONFormatClasses.Table;
 
-import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +24,13 @@ public class InsertData extends JenaOntologyModelHandler {
 
     public InsertData() {
         //TODO add this:
-        //super("outputOntology.ttl");
-        //pModel.loadImports();
-        //mBasePrefix = pModel.getNsPrefixURI("");
+        super("outputOntology.ttl");
+        pModel.loadImports();
+        mBasePrefix = pModel.getNsPrefixURI("");
 
         //TODO remove this:
-        super("mergedOutputOntology.ttl");
-        mBasePrefix = "http://www.example.net/ontologies/test_efs.owl/";
+        //super("mergedOutputOntology.ttl");
+        //mBasePrefix = "http://www.example.net/ontologies/test_efs.owl/";
 
 
         tablesClass = new HashMap<>();
@@ -105,8 +102,7 @@ public class InsertData extends JenaOntologyModelHandler {
                 OntResource firstNode = getOntResource(getFirstNodeFromPath(propPath));
                 // if first node in the path is a class -> a new property (firstProp) was created
                 if (firstNode.canAs(OntClass.class)) {
-                    //TODO remove mBasePrefix argument
-                    String newPropURI = getNewPropertyURI(mBasePrefix, tableClassName, firstNode.getLocalName());
+                    String newPropURI = ""; //getNewPropertyURI(mBasePrefix, tableClassName, firstNode.getLocalName());
                     OntProperty firstProp = getOntProperty(newPropURI);
                     colPath.add(firstProp);
                 }
@@ -119,17 +115,24 @@ public class InsertData extends JenaOntologyModelHandler {
 
 
     private void printPaths() {
-        tablesClass.forEach((tableName, tableClass) -> {
-            System.out.println(">> " + tableName);
-            System.out.println("Table class : " + tablesClass.get(tableName));
+        try {
+            PrintWriter pw = new PrintWriter("src/main/java/org/example/temp/paths.txt");
+            tablesClass.forEach((tableName, tableClass) -> {
+                pw.println(">> " + tableName);
+                pw.println("Table class : " + tablesClass.get(tableName));
 
-            paths.get(tableName).forEach((colName, colPath) -> {
-                System.out.println("\nCol : " + colName);
-                colPath.forEach(System.out::println);
+                paths.get(tableName).forEach((colName, colPath) -> {
+                    pw.println("\nCol : " + colName);
+                    colPath.forEach(pw::println);
+                });
+                pw.println("====================");
             });
-            System.out.println("====================");
-        });
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
+
 
     public static void main(String[] args) {
         new InsertData();
