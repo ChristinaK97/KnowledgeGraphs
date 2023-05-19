@@ -57,7 +57,7 @@ public class InsertData extends JenaOntologyModelHandler {
         extractMappingPaths();
         addForeignKeysToPaths();
         printPaths();
-        System.out.println(paths.size());
+
 
         //remove fibo individuals before loading data
         pModel.listIndividuals().forEachRemaining(resource -> {
@@ -72,7 +72,6 @@ public class InsertData extends JenaOntologyModelHandler {
 
     private void extractMappingPaths() {
         for(JSONMappingTableConfig.Table tableMaps : tablesMaps) {
-            System.out.println(tableMaps.getTable());
 
             String tableName = tableMaps.getTable();
             String tableClassName = tableMaps.getMapping().getOntoElResource();
@@ -150,14 +149,19 @@ public class InsertData extends JenaOntologyModelHandler {
     private void addForeignKeysToPaths() {
         for(String tableName : paths.keySet()) {
             db.getTable(tableName).getFKs().forEach((fkCol, fkp) -> {
+                String tableClassName = getTClass(tableName).getLocalName();
 
                 String fkPropURI = tableName.equals(fkp.refTable) ? //self ref
-                        String.format("%shas_%s", mBasePrefix, tableName) :
-                        getNewPropertyURI(mBasePrefix, getTClass(fkp.refTable), tableName);
+                        String.format("%shas_%s", mBasePrefix, tableClassName) :
+                        getNewPropertyURI(mBasePrefix, getTClass(fkp.refTable), tableClassName);
 
-                paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(
-                                         getOntProperty(fkPropURI))));
+                OntProperty fkProp = getOntProperty(fkPropURI);
+                if(fkProp != null) {
+                    paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(fkProp)));
+                    //System.out.printf("%s %s %s\n", tableName, fkCol, fkPropURI);
+                }
             });
+            //System.out.println();
         }
     }
 
@@ -187,45 +191,43 @@ public class InsertData extends JenaOntologyModelHandler {
 
     private void mapData() {
 
-        System.out.println();
 
-        /*db.getrTables().forEach((tableName, rTable) -> {
+        db.getrTables().forEach((tableName, rTable) -> {
             Table data = connector.retrieveDataFromTable(tableName);
-            for(Row record : data) {
-                System.out.println(record);
-            }
-        });*/
-        String tableName = "payment";
-        RTable rTable = db.getTable(tableName);
-        System.out.println(getTClass(tableName));
-        ////////////
 
-        Table data = connector.retrieveDataFromTable(tableName);
-        System.out.println(data.first(3));
+            System.out.println(">> TABLE : " + tableName);
+            System.out.println(data.first(3));
+            rTable.getFKs().forEach((t, r) -> System.out.println("FK " + t + " " + r));
 
-        for(Row row : data) {
-            if(!tablesClass.containsKey(tableName))
-                continue; //TODO
+            for(Row row : data) {
 
-            String rowID = rowID(row, rTable);
-            String indivURI = getIndivURI(getTClass(tableName), rowID);
-            Resource indiv = createIndiv(indivURI, getTClass(tableName), tableName);
-
-            paths.get(tableName).forEach((colName, colPath) -> {
-                Object colValue = row.getObject(colName);
-                if(colValue != null && !colValue.equals("")) { // row has value for this column
-
-                    if(rTable.isFK(colName))
-                        createJoin(indiv, colValue.toString(), colPath.get(0).asProperty(),
-                                   rTable.getFKpointer(colName));
-                    else
-                        createColPath(rowID, indiv, row.getObject(colName), colPath,
-                                      String.format("%s.%s", tableName, colName));
+                if(!tablesClass.containsKey(tableName)) { //TODO
+                    System.err.println("Table " + tableName + " is not a class.");
+                    continue;
                 }
 
-            });
-            break;
-        }
+                String rowID = rowID(row, rTable);
+                String coreIndivID = getIndivURI(getTClass(tableName), rowID);
+                Resource indiv = createIndiv(coreIndivID, getTClass(tableName), tableName);
+
+                paths.get(tableName).forEach((colName, colPath) -> {
+                    // System.out.println("T : " + tableName + " C : " + colName);
+                    Object colValue = row.getObject(colName);
+                    if(colValue != null && !colValue.equals("")) { // row has value for this column
+
+                        if(rTable.isFK(colName))
+                            createJoin(indiv, colValue.toString(), colPath.get(0).asProperty(),
+                                    rTable.getFKpointer(colName));
+                        else
+                            createColPath(rowID, indiv, row.getObject(colName), colPath,
+                                    String.format("%s.%s", tableName, colName));
+                    }
+
+                });
+                //break;
+            }
+            System.out.println("\n\n");
+        });
 
     }
 
@@ -234,7 +236,7 @@ public class InsertData extends JenaOntologyModelHandler {
     private Resource createIndiv(String indivURI, OntClass indivType, String comment) {
         Resource indiv = pModel.getOntResource(indivURI);
         if(indiv == null) {
-            System.out.println("create " + indivURI);
+            //System.out.println("create " + indivURI);
             indiv = pModel.createResource(indivURI);
             indiv.addProperty(RDF.type, indivType);
             indiv.addLiteral(RDFS.comment, comment);

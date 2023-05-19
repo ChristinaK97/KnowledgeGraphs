@@ -1266,23 +1266,23 @@
       },
       "columns": [
         {
-          "column": "SEARCH_KEY",
+          "column": "SEARCHKEY",
           "mappings": [
             {
               "type": "Class",
-              "ontoEl": "http://www.example.net/ontologies/test_efs.owl/search_key",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl/searchkey",
               "match": "https://www.omg.org/spec/Commons/Identifiers/Identifier",
               "isCons": true
             },
             {
               "type": "ObjectProperty",
-              "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_search_key",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_searchkey",
               "match": "https://www.omg.org/spec/Commons/Identifiers/isIdentifiedBy",
               "isCons": true
             },
             {
               "type": "DataProperty",
-              "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_search_key_VALUE",
+              "ontoEl": "http://www.example.net/ontologies/test_efs.owl/has_searchkey_VALUE",
               "match": "https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTag",
               "isCons": true
             }
