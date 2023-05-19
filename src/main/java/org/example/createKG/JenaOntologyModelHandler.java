@@ -5,7 +5,7 @@ import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.example.other.JSONFormatClasses;
+import org.example.other.JSONMappingTableConfig;
 
 import java.io.FileReader;
 import java.net.URI;
@@ -17,7 +17,7 @@ import static org.example.other.Util.TABLE_CLASS_URI;
 public class JenaOntologyModelHandler {
 
     protected OntModel pModel;
-    protected List<JSONFormatClasses.Table> tablesMaps;
+    protected List<JSONMappingTableConfig.Table> tablesMaps;
     private HashMap<String, URI> cachedSpecializedClasses = new HashMap<>();
 
     public JenaOntologyModelHandler(String ontologyFile) {
@@ -29,7 +29,7 @@ public class JenaOntologyModelHandler {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader("EFS_mappings.json")) {
             // Convert JSON file to Java object
-            tablesMaps = gson.fromJson(reader, JSONFormatClasses.class).getTables();
+            tablesMaps = gson.fromJson(reader, JSONMappingTableConfig.class).getTables();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -61,6 +61,7 @@ public class JenaOntologyModelHandler {
 
 
     protected String getNewPropertyURI(String mBasePrefix, OntClass firstClass, String tableClassName) {
+        /* tableClass -[p]-> firstClass */
         mBasePrefix = mBasePrefix == null ? pModel.getNsPrefixURI("") : mBasePrefix;
         String propertyNamePattern = firstClass.getNameSpace().equals(mBasePrefix) ?
 
@@ -71,7 +72,7 @@ public class JenaOntologyModelHandler {
     }
 
 
-    protected void specialisePathDOclasses (JSONFormatClasses.Mapping map) {
+    protected void specialisePathDOclasses (JSONMappingTableConfig.Mapping map) {
         // the map has no path attribute, no specialization is needed
         List<URI> nodes = map.getPathURIs();
         if(nodes == null)

@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import static org.example.other.Util.getURIResource;
 
-public class JSONFormatClasses {
+public class JSONMappingTableConfig {
 
     private List<Table> tables;
 

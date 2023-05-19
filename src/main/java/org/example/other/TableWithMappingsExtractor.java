@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.util.List;
-import org.example.other.JSONFormatClasses.Table;
-import org.example.other.JSONFormatClasses.Column;
-import org.example.other.JSONFormatClasses.Mapping;
+import org.example.other.JSONMappingTableConfig.Table;
+import org.example.other.JSONMappingTableConfig.Column;
+import org.example.other.JSONMappingTableConfig.Mapping;
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.io.csv.CsvWriteOptions;
 import tech.tablesaw.io.csv.CsvWriter;
@@ -27,7 +27,7 @@ public class TableWithMappingsExtractor {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader("EFS_mappings.json")) {
             // Convert JSON file to Java object
-            tablesMaps = gson.fromJson(reader, JSONFormatClasses.class).getTables();
+            tablesMaps = gson.fromJson(reader, JSONMappingTableConfig.class).getTables();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

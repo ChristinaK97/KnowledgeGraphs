@@ -8,12 +8,16 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
+import org.apache.jena.vocabulary.XSD;
+import org.eclipse.rdf4j.model.base.CoreDatatype;
 import org.example.database_connector.DBSchema;
 import org.example.database_connector.DatabaseConnector;
 import org.example.database_connector.RTable;
-import org.example.other.JSONFormatClasses;
-import org.example.other.JSONFormatClasses.Column;
-import org.example.other.JSONFormatClasses.Mapping;
+import org.example.database_connector.RTable.FKpointer;
+import org.example.other.JSONMappingTableConfig;
+import org.example.other.JSONMappingTableConfig.Column;
+import org.example.other.JSONMappingTableConfig.Mapping;
 import tech.tablesaw.api.Row;
 import tech.tablesaw.api.Table;
 
@@ -22,16 +26,20 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 public class InsertData extends JenaOntologyModelHandler {
 
-    // <tableName : <columnName : path of resources>>
-    private HashMap<String, HashMap<String, ArrayList<OntResource>>> paths;
     // <tableName : table ontClass>
     private HashMap<String, OntClass> tablesClass;
+    // <tableName : <columnName : path of resources>>
+    private HashMap<String, HashMap<String, ArrayList<OntResource>>> paths;
     String mBasePrefix;
+
+    DBSchema db = new DBSchema();
+    DatabaseConnector connector = new DatabaseConnector();
 
     public InsertData() {
         //TODO add this:
@@ -47,13 +55,14 @@ public class InsertData extends JenaOntologyModelHandler {
         tablesClass = new HashMap<>();
         paths = new HashMap<>();
         extractMappingPaths();
+        addForeignKeysToPaths();
         printPaths();
         System.out.println(paths.size());
 
         //remove fibo individuals before loading data
-        /*pModel.listIndividuals().forEachRemaining(resource -> {
+        pModel.listIndividuals().forEachRemaining(resource -> {
             pModel.removeAll(resource, null, null);
-        });*/
+        });
 
         mapData();
         saveIndivs();
@@ -62,7 +71,7 @@ public class InsertData extends JenaOntologyModelHandler {
 
 
     private void extractMappingPaths() {
-        for(JSONFormatClasses.Table tableMaps : tablesMaps) {
+        for(JSONMappingTableConfig.Table tableMaps : tablesMaps) {
             System.out.println(tableMaps.getTable());
 
             String tableName = tableMaps.getTable();
@@ -138,6 +147,20 @@ public class InsertData extends JenaOntologyModelHandler {
     }
 
 
+    private void addForeignKeysToPaths() {
+        for(String tableName : paths.keySet()) {
+            db.getTable(tableName).getFKs().forEach((fkCol, fkp) -> {
+
+                String fkPropURI = tableName.equals(fkp.refTable) ? //self ref
+                        String.format("%shas_%s", mBasePrefix, tableName) :
+                        getNewPropertyURI(mBasePrefix, getTClass(fkp.refTable), tableName);
+
+                paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(
+                                         getOntProperty(fkPropURI))));
+            });
+        }
+    }
+
     private void printPaths() {
         try {
             PrintWriter pw = new PrintWriter("src/main/java/org/example/temp/paths.txt");
@@ -160,8 +183,7 @@ public class InsertData extends JenaOntologyModelHandler {
 
     //==================================================================================================================
 
-    DBSchema db = new DBSchema();
-    DatabaseConnector connector = new DatabaseConnector();
+
 
     private void mapData() {
 
@@ -186,14 +208,19 @@ public class InsertData extends JenaOntologyModelHandler {
                 continue; //TODO
 
             String rowID = rowID(row, rTable);
-            String indivURI = getTClass(tableName) + rowID;
-            Resource indiv = createIndiv(indivURI, getTClass(tableName));
+            String indivURI = getIndivURI(getTClass(tableName), rowID);
+            Resource indiv = createIndiv(indivURI, getTClass(tableName), tableName);
 
             paths.get(tableName).forEach((colName, colPath) -> {
                 Object colValue = row.getObject(colName);
                 if(colValue != null && !colValue.equals("")) { // row has value for this column
-                    System.out.println(colName + " " + colValue);
-                    createColPath(rowID, indiv, rTable, colName, row.getObject(colName), colPath);
+
+                    if(rTable.isFK(colName))
+                        createJoin(indiv, colValue.toString(), colPath.get(0).asProperty(),
+                                   rTable.getFKpointer(colName));
+                    else
+                        createColPath(rowID, indiv, row.getObject(colName), colPath,
+                                      String.format("%s.%s", tableName, colName));
                 }
 
             });
@@ -204,12 +231,13 @@ public class InsertData extends JenaOntologyModelHandler {
 
 
 
-    private Resource createIndiv(String indivURI, OntClass indivType) {
+    private Resource createIndiv(String indivURI, OntClass indivType, String comment) {
         Resource indiv = pModel.getOntResource(indivURI);
         if(indiv == null) {
             System.out.println("create " + indivURI);
             indiv = pModel.createResource(indivURI);
             indiv.addProperty(RDF.type, indivType);
+            indiv.addLiteral(RDFS.comment, comment);
         }
         return indiv;
     }
@@ -218,15 +246,16 @@ public class InsertData extends JenaOntologyModelHandler {
         return tablesClass.get(tableName);
     }
 
+
     private void createColPath(String rowID,
                                Resource coreIndiv,
-                               RTable rTable,
-                               String colName,
                                Object colValue,
-                               ArrayList<OntResource> cp) {
+                               ArrayList<OntResource> cp,
+                               String comment) {
+
         Resource prevNode = coreIndiv;
         for (int i = 0; i < cp.size() - 2; i+=2) {
-            Resource nextNode = createIndiv(generateIndivURI(rowID, cp.get(i+1)), cp.get(i+1).asClass());
+            Resource nextNode = createIndiv(generateAttrIndivURI(rowID, cp.get(i+1)), cp.get(i+1).asClass(), comment);
             prevNode.addProperty(cp.get(i).asProperty(), nextNode);
             prevNode = nextNode;
         }
@@ -235,7 +264,17 @@ public class InsertData extends JenaOntologyModelHandler {
     }
 
 
+    private void createJoin(Resource src, String trgID, OntProperty fkProp, FKpointer fkp) {
+        OntClass trgClass = getTClass(fkp.refTable);
+        Resource trg = createIndiv(getIndivURI(trgClass, trgID), trgClass, fkp.refTable);
+        src.addProperty(fkProp, trg);
+    }
 
+
+
+    private String getIndivURI(OntClass indivType, String rowID) {
+        return indivType + rowID;
+    }
 
     private String rowID(Row row, RTable rTable) {
         StringBuilder rowID = new StringBuilder();
@@ -243,7 +282,7 @@ public class InsertData extends JenaOntologyModelHandler {
         return rowID.toString();
     }
 
-    private String generateIndivURI(String rowID, OntResource resType) {
+    private String generateAttrIndivURI(String rowID, OntResource resType) {
         return resType.getURI() + rowID;
     }
 
@@ -273,6 +312,8 @@ public class InsertData extends JenaOntologyModelHandler {
         // Create a new Model to store the individuals
         Model individualsModel = ModelFactory.createDefaultModel();
         individualsModel.setNsPrefix("", mBasePrefix);
+        individualsModel.setNsPrefix("xsd", XSD.NS);
+        individualsModel.setNsPrefix("rdfs", RDFS.getURI());
 
         // Iterate over the individuals and add them to the individualsModel
         ExtendedIterator<? extends Resource> individuals = pModel.listIndividuals();

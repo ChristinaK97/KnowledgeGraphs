@@ -8,9 +8,9 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
-import org.example.other.JSONFormatClasses.Column;
-import org.example.other.JSONFormatClasses.Mapping;
-import org.example.other.JSONFormatClasses.Table;
+import org.example.other.JSONMappingTableConfig.Column;
+import org.example.other.JSONMappingTableConfig.Mapping;
+import org.example.other.JSONMappingTableConfig.Table;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,7 +20,6 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 

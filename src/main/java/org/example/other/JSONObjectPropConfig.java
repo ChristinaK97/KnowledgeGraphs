@@ -1,0 +1,69 @@
+package org.example.other;
+
+
+import java.util.List;
+import org.example.other.JSONMappingTableConfig.Mapping;
+
+public class JSONObjectPropConfig {
+    private List<ObjProperty> objProps;
+
+    public List<ObjProperty> getObjProps() {
+        return objProps;
+    }
+
+    public void setObjProps(List<ObjProperty> objProps) {
+        this.objProps = objProps;
+    }
+
+
+    public static class ObjProperty {
+        private String objProp;
+        private boolean isInverseP;
+        private Mapping mapping;
+        private String fKeyColumn;
+        private String references;
+
+        public String getObjProp() {
+            return objProp;
+        }
+
+        public void setObjProp(String objProp) {
+            this.objProp = objProp;
+        }
+
+        public boolean isInverseP() {
+            return isInverseP;
+        }
+
+        public void setInverseP(boolean inverseP) {
+            isInverseP = inverseP;
+        }
+
+        public Mapping getMapping() {
+            return mapping;
+        }
+
+        public void setMapping(Mapping mapping) {
+            this.mapping = mapping;
+        }
+
+        public String getfKeyColumn() {
+            return fKeyColumn;
+        }
+
+        public void setfKeyColumn(String fKeyColumn) {
+            this.fKeyColumn = fKeyColumn;
+        }
+
+        public String getReferences() {
+            return references;
+        }
+
+        public void setReferences(String references) {
+            this.references = references;
+        }
+    }
+
+}
+
+
