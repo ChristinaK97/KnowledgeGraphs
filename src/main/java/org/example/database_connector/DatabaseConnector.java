@@ -71,10 +71,16 @@ public class DatabaseConnector {
         return connection;
     }
 
+
     public Table retrieveDataFromTable(String tableName) {
+        return runQuery("SELECT * FROM " + tableName + ";");
+    }
+
+
+    public Table runQuery(String query) {
         Table table;
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName)) {
+            try (ResultSet resultSet = statement.executeQuery(query)) {
                 table = Table.create();
                 ResultSetMetaData metaData = resultSet.getMetaData();
                 int columnCount = metaData.getColumnCount();

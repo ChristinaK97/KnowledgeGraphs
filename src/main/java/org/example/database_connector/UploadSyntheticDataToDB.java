@@ -17,10 +17,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.example.other.Util.SQL_DDL;
+import static org.example.other.Util.simulatedDataFull;
+
 public class UploadSyntheticDataToDB {
 
-    String folderPath = "././src/main/resources/simulated_data_v2/";
-    String ddl = "C:\\Users\\karal\\progr\\onto_workspace\\alignment_tools\\EFS_SQL_DDL_MySQL.sql";
+    String folderPath = simulatedDataFull;
+    String ddl = SQL_DDL;
+
     DatabaseConnector connector;
     String schema;
     List<String> tableOrder;

@@ -50,7 +50,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             pModel.addSubModel(dModel);
         }*/
         OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(dModel, "C:\\Users\\karal\\progr\\workspace\\AutoMap4OBDA\\RUN\\FIBOFull.ttl");
+        RDFDataMgr.read(dModel, DOontology);
         pModel.addSubModel(dModel);
         //pModel.listClasses().forEach(System.out::println);
     }
@@ -331,7 +331,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     private void saveOutputOntology() {
         OutputStream out = null;
         try {
-            out = new FileOutputStream("outputOntology.ttl");
+            out = new FileOutputStream(outputOntology);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -344,7 +344,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         String basePrefix = pModel.getNsPrefixURI("");
         System.out.println(basePrefix);
 
-        String filePath = "outputOntology.ttl";
+        String filePath = outputOntology;
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));

@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.example.other.Util.POontology;
+
 public class OntologyExtractor {
 
     private DBSchema db;
@@ -33,7 +35,7 @@ public class OntologyExtractor {
         this.db = db;
         createOntology();
         applyRules();
-        saveOntology(db.getSchemaName() + ".ttl");
+        saveOntology(POontology);
     }
 
     private void applyRules() {

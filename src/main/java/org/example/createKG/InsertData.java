@@ -23,12 +23,12 @@ import tech.tablesaw.api.Table;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+
+import static org.example.other.Util.*;
 
 public class InsertData extends JenaOntologyModelHandler {
 
@@ -48,7 +48,7 @@ public class InsertData extends JenaOntologyModelHandler {
         mBasePrefix = pModel.getNsPrefixURI("");*/
 
         //TODO remove this:
-        super("mergedOutputOntology.ttl");
+        super(mergedOutputOntology);
         mBasePrefix = "http://www.example.net/ontologies/test_efs.owl/";
 
 
@@ -58,14 +58,22 @@ public class InsertData extends JenaOntologyModelHandler {
         addForeignKeysToPaths();
         printPaths();
 
-
         //remove fibo individuals before loading data
-        pModel.listIndividuals().forEachRemaining(resource -> {
+        /*pModel.listIndividuals().forEachRemaining(resource -> {
             pModel.removeAll(resource, null, null);
         });
 
         mapData();
         saveIndivs();
+
+        OutputStream out = null;
+        try {
+            out = new FileOutputStream("smallGraph.ttl");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        pModel.setNsPrefix("", mBasePrefix);
+        pModel.write(out, "TURTLE");*/
     }
 
 
@@ -167,7 +175,7 @@ public class InsertData extends JenaOntologyModelHandler {
 
     private void printPaths() {
         try {
-            PrintWriter pw = new PrintWriter("src/main/java/org/example/temp/paths.txt");
+            PrintWriter pw = new PrintWriter(pathsTXT);
             tablesClass.forEach((tableName, tableClass) -> {
                 pw.println(">> " + tableName);
                 pw.println("Table class : " + tablesClass.get(tableName));
@@ -188,21 +196,20 @@ public class InsertData extends JenaOntologyModelHandler {
     //==================================================================================================================
 
 
-
     private void mapData() {
-
 
         db.getrTables().forEach((tableName, rTable) -> {
             Table data = connector.retrieveDataFromTable(tableName);
 
-            System.out.println(">> TABLE : " + tableName);
-            System.out.println(data.first(3));
-            rTable.getFKs().forEach((t, r) -> System.out.println("FK " + t + " " + r));
+            /*p*/System.out.println(">> TABLE : " + tableName);
+            /*p*/System.out.println(data.first(3));
+            /*p*/rTable.getFKs().forEach((t, r) -> System.out.println("FK " + t + " " + r));
 
+            // for each record in the table
             for(Row row : data) {
 
                 if(!tablesClass.containsKey(tableName)) { //TODO
-                    System.err.println("Table " + tableName + " is not a class.");
+                    /*p*/System.err.println("Table " + tableName + " is not a class.");
                     continue;
                 }
 
@@ -211,7 +218,7 @@ public class InsertData extends JenaOntologyModelHandler {
                 Resource indiv = createIndiv(coreIndivID, getTClass(tableName), tableName);
 
                 paths.get(tableName).forEach((colName, colPath) -> {
-                    // System.out.println("T : " + tableName + " C : " + colName);
+                    // /*p*/System.out.println("T : " + tableName + " C : " + colName);
                     Object colValue = row.getObject(colName);
                     if(colValue != null && !colValue.equals("")) { // row has value for this column
 
@@ -224,9 +231,8 @@ public class InsertData extends JenaOntologyModelHandler {
                     }
 
                 });
-                //break;
             }
-            System.out.println("\n\n");
+            /*p*/System.out.println("\n\n");
         });
 
     }
@@ -257,7 +263,9 @@ public class InsertData extends JenaOntologyModelHandler {
 
         Resource prevNode = coreIndiv;
         for (int i = 0; i < cp.size() - 2; i+=2) {
-            Resource nextNode = createIndiv(generateAttrIndivURI(rowID, cp.get(i+1)), cp.get(i+1).asClass(), comment);
+            Resource nextNode = createIndiv(generateAttrIndivURI(rowID, cp.get(i+1)),
+                                            cp.get(i+1).asClass(),
+                                            comment);
             prevNode.addProperty(cp.get(i).asProperty(), nextNode);
             prevNode = nextNode;
         }
@@ -288,19 +296,7 @@ public class InsertData extends JenaOntologyModelHandler {
         return resType.getURI() + rowID;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // ========================================================================================================
 
 
 
@@ -325,7 +321,7 @@ public class InsertData extends JenaOntologyModelHandler {
         }
 
         // Save the individualsModel to a TTL file
-        String outputFile = "individuals.ttl";
+        String outputFile = individualsTTL;
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             individualsModel.write(fos, "TURTLE");
             System.out.println("Individuals saved to: " + outputFile);

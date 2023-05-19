@@ -11,6 +11,9 @@ import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.io.csv.CsvWriteOptions;
 import tech.tablesaw.io.csv.CsvWriter;
 
+import static org.example.other.Util.EFS_mappings;
+import static org.example.other.Util.TableWithMappings;
+
 public class TableWithMappingsExtractor {
 
     private List<Table> tablesMaps;
@@ -25,7 +28,7 @@ public class TableWithMappingsExtractor {
 
     private void readMapJSON() {
         Gson gson = new Gson();
-        try (FileReader reader = new FileReader("EFS_mappings.json")) {
+        try (FileReader reader = new FileReader(EFS_mappings)) {
             // Convert JSON file to Java object
             tablesMaps = gson.fromJson(reader, JSONMappingTableConfig.class).getTables();
         } catch (Exception ex) {
@@ -60,7 +63,7 @@ public class TableWithMappingsExtractor {
             matchCol.append("");
         }
         tech.tablesaw.api.Table df = tech.tablesaw.api.Table.create("MyDataFrame", tableCol, columnCol, matchCol);
-        CsvWriteOptions options = CsvWriteOptions.builder("TableWithMappings.csv")
+        CsvWriteOptions options = CsvWriteOptions.builder(TableWithMappings)
                 .header(true)
                 .build();
         new CsvWriter().write(df, options);

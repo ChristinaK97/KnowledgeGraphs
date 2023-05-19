@@ -12,6 +12,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.example.other.Util.EFS_mappings;
 import static org.example.other.Util.TABLE_CLASS_URI;
 
 public class JenaOntologyModelHandler {
@@ -27,7 +28,7 @@ public class JenaOntologyModelHandler {
 
     private void readMapJSON() {
         Gson gson = new Gson();
-        try (FileReader reader = new FileReader("EFS_mappings.json")) {
+        try (FileReader reader = new FileReader(EFS_mappings)) {
             // Convert JSON file to Java object
             tablesMaps = gson.fromJson(reader, JSONMappingTableConfig.class).getTables();
         } catch (Exception ex) {

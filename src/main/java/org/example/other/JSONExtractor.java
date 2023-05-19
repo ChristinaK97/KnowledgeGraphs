@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static org.example.other.Util.EFS_mappings;
+import static org.example.other.Util.EFS_mappings_ObjProp;
+
 public class JSONExtractor {
 
     class Transformation {
@@ -142,7 +145,7 @@ public class JSONExtractor {
         String jsonString = gson.toJson(json);
 
         //System.out.println(jsonString);
-        File file = new File("EFS_mappings.json");
+        File file = new File(EFS_mappings);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(jsonString);
@@ -225,7 +228,7 @@ public class JSONExtractor {
         String jsonString = gson.toJson(json);
 
         //System.out.println(jsonString);
-        File file = new File("EFS_mappings_ObjProp.json");
+        File file = new File(EFS_mappings_ObjProp);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(jsonString);
@@ -281,7 +284,7 @@ public class JSONExtractor {
         String jsonString = gson.toJson(json);
 
         System.out.println(jsonString);
-        File file = new File("EFS_mappings.json");
+        File file = new File(EFS_mappings);
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(jsonString);
         writer.close();
