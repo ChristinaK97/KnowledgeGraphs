@@ -3,11 +3,22 @@ package org.example.createKG;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.util.iterator.ExtendedIterator;
+import org.apache.jena.vocabulary.RDF;
+import org.example.database_connector.DBSchema;
+import org.example.database_connector.DatabaseConnector;
+import org.example.database_connector.RTable;
+import org.example.other.JSONFormatClasses;
 import org.example.other.JSONFormatClasses.Column;
 import org.example.other.JSONFormatClasses.Mapping;
-import org.example.other.JSONFormatClasses.Table;
+import tech.tablesaw.api.Row;
+import tech.tablesaw.api.Table;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
@@ -24,24 +35,35 @@ public class InsertData extends JenaOntologyModelHandler {
 
     public InsertData() {
         //TODO add this:
-        super("outputOntology.ttl");
+        /*super("outputOntology.ttl");
         pModel.loadImports();
-        mBasePrefix = pModel.getNsPrefixURI("");
+        mBasePrefix = pModel.getNsPrefixURI("");*/
 
         //TODO remove this:
-        //super("mergedOutputOntology.ttl");
-        //mBasePrefix = "http://www.example.net/ontologies/test_efs.owl/";
+        super("mergedOutputOntology.ttl");
+        mBasePrefix = "http://www.example.net/ontologies/test_efs.owl/";
 
 
         tablesClass = new HashMap<>();
         paths = new HashMap<>();
         extractMappingPaths();
         printPaths();
+        System.out.println(paths.size());
+
+        //remove fibo individuals before loading data
+        /*pModel.listIndividuals().forEachRemaining(resource -> {
+            pModel.removeAll(resource, null, null);
+        });*/
+
+        mapData();
+        saveIndivs();
     }
 
 
+
     private void extractMappingPaths() {
-        for(Table tableMaps : tablesMaps) {
+        for(JSONFormatClasses.Table tableMaps : tablesMaps) {
+            System.out.println(tableMaps.getTable());
 
             String tableName = tableMaps.getTable();
             String tableClassName = tableMaps.getMapping().getOntoElResource();
@@ -129,12 +151,148 @@ public class InsertData extends JenaOntologyModelHandler {
                 });
                 pw.println("====================");
             });
+            pw.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
     }
 
+    //==================================================================================================================
+
+    DBSchema db = new DBSchema();
+    DatabaseConnector connector = new DatabaseConnector();
+
+    private void mapData() {
+
+        System.out.println();
+
+        /*db.getrTables().forEach((tableName, rTable) -> {
+            Table data = connector.retrieveDataFromTable(tableName);
+            for(Row record : data) {
+                System.out.println(record);
+            }
+        });*/
+        String tableName = "payment";
+        RTable rTable = db.getTable(tableName);
+        System.out.println(getTClass(tableName));
+        ////////////
+
+        Table data = connector.retrieveDataFromTable(tableName);
+        System.out.println(data.first(3));
+
+        for(Row row : data) {
+            if(!tablesClass.containsKey(tableName))
+                continue; //TODO
+
+            String rowID = rowID(row, rTable);
+            String indivURI = getTClass(tableName) + rowID;
+            Resource indiv = createIndiv(indivURI, getTClass(tableName));
+
+            paths.get(tableName).forEach((colName, colPath) -> {
+                Object colValue = row.getObject(colName);
+                if(colValue != null && !colValue.equals("")) { // row has value for this column
+                    System.out.println(colName + " " + colValue);
+                    createColPath(rowID, indiv, rTable, colName, row.getObject(colName), colPath);
+                }
+
+            });
+            break;
+        }
+
+    }
+
+
+
+    private Resource createIndiv(String indivURI, OntClass indivType) {
+        Resource indiv = pModel.getOntResource(indivURI);
+        if(indiv == null) {
+            System.out.println("create " + indivURI);
+            indiv = pModel.createResource(indivURI);
+            indiv.addProperty(RDF.type, indivType);
+        }
+        return indiv;
+    }
+
+    private OntClass getTClass(String tableName) {
+        return tablesClass.get(tableName);
+    }
+
+    private void createColPath(String rowID,
+                               Resource coreIndiv,
+                               RTable rTable,
+                               String colName,
+                               Object colValue,
+                               ArrayList<OntResource> cp) {
+        Resource prevNode = coreIndiv;
+        for (int i = 0; i < cp.size() - 2; i+=2) {
+            Resource nextNode = createIndiv(generateIndivURI(rowID, cp.get(i+1)), cp.get(i+1).asClass());
+            prevNode.addProperty(cp.get(i).asProperty(), nextNode);
+            prevNode = nextNode;
+        }
+        prevNode.addLiteral(cp.get(cp.size()-1).asProperty(), pModel.createTypedLiteral(colValue));
+
+    }
+
+
+
+
+    private String rowID(Row row, RTable rTable) {
+        StringBuilder rowID = new StringBuilder();
+        rTable.getPKs().forEach(pkCol -> rowID.append(row.getObject(pkCol)));
+        return rowID.toString();
+    }
+
+    private String generateIndivURI(String rowID, OntResource resType) {
+        return resType.getURI() + rowID;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void printIndivs(OntClass ontClass) {
+        System.out.println("INDIVS OF " + ontClass.getLocalName());
+        ontClass.listInstances().forEach(System.out::println);
+        System.out.println("------");
+    }
+    private void saveIndivs() {
+
+        // Create a new Model to store the individuals
+        Model individualsModel = ModelFactory.createDefaultModel();
+        individualsModel.setNsPrefix("", mBasePrefix);
+
+        // Iterate over the individuals and add them to the individualsModel
+        ExtendedIterator<? extends Resource> individuals = pModel.listIndividuals();
+        while (individuals.hasNext()) {
+            Resource individual = individuals.next();
+            individualsModel.add(individual.listProperties());
+        }
+
+        // Save the individualsModel to a TTL file
+        String outputFile = "individuals.ttl";
+        try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+            individualsModel.write(fos, "TURTLE");
+            System.out.println("Individuals saved to: " + outputFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    //==================================================================================================================
 
     public static void main(String[] args) {
         new InsertData();
@@ -143,17 +301,47 @@ public class InsertData extends JenaOntologyModelHandler {
 
 
 
+/*private void addDataValue(Resource lastNode, OntProperty dataProp, Object colValue) {
+        String datatype = dataProp.getRange().getLocalName();
+        String value = colValue.toString();
 
+        switch (datatype) {
+            case "string":
+                lastNode.addLiteral(dataProp, value);
+                break;
+            case "boolean":
+                lastNode.addLiteral(dataProp, Boolean.parseBoolean(value));
+                break;
+            case "decimal":
+            case "float":
+            case "double":
+                lastNode.addLiteral(dataProp, Double.parseDouble(value));
+                break;
+            case "integer":
+            case "int":
+                lastNode.addLiteral(dataProp, Integer.parseInt(value));
+                break;
+            case "date":
+                LocalDate date = LocalDate.parse(value);
+                XSDDateTime xsdDate = new XSDDateTime(date.toString(), XSDDatatype.XSDdate);
+                lastNode.addLiteral(dataProp, xsdDate);
+                break;
+            case "time":
+                LocalTime time = LocalTime.parse(value);
+                XSDDateTime xsdTime = new XSDDateTime(time.toString(), XSDDatatype.XSDtime);
+                lastNode.addLiteral(dataProp, xsdTime);
+                break;
+            case "dateTime":
+                LocalDateTime dateTime = LocalDateTime.parse(value);
+                XSDDateTime xsdDateTime = new XSDDateTime(dateTime.toString(), XSDDatatype.XSDdateTime);
+                lastNode.addLiteral(dataProp, xsdDateTime);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported datatype: " + datatype);
+        }*/
 
-
-
-
-
-
-
-
-
-
+//System.out.println("create " + cp.get(i+1).getLocalName());
+//System.out.println(prevNode + " -[" + cp.get(i).getLocalName() + "]-> " + cp.get(i+1).getLocalName());
 
 
 

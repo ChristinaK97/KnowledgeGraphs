@@ -44,11 +44,11 @@ public class DataPropExtractor {
                 if(turnAttrToClasses) {
                     attrClasses.put(extractedField, colName);
                     newObjProp.addProperty("dp", tClass,"has_"+colName,  colName, extractedField);
-                    dataProp.addProperty("dp", colName,"has_"+colName+"_VALUE",  convertToXSD(datatype), extractedField);
+                    dataProp.addProperty("dp", colName,"has_"+colName+"_VALUE",  SQL2XSD(datatype), extractedField);
 
                 }else
                     // Don't turn attributes to classes
-                    dataProp.addProperty("dp", tClass,"has_"+colName,  convertToXSD(datatype), extractedField);
+                    dataProp.addProperty("dp", tClass,"has_"+colName,  SQL2XSD(datatype), extractedField);
         }});
     }
 
@@ -57,7 +57,7 @@ public class DataPropExtractor {
     public Properties getDataProp() {return dataProp;}
 
 
-    private String convertToXSD(String sqlType) {
+    private String SQL2XSD(String sqlType) {
         switch (sqlType.toLowerCase()) {
             case "int":
             case "integer":
@@ -101,6 +101,8 @@ public class DataPropExtractor {
                 return "unknown";
             }
     }
+
+
 
 
 }

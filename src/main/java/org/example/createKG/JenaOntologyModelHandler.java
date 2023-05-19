@@ -84,7 +84,7 @@ public class JenaOntologyModelHandler {
                 String nodeURI = nodeClass.getURI();
 
                 if(cachedSpecializedClasses.containsKey(nodeURI)) {
-                    System.out.println("CACHED REPLACE " + nodes.get(i) + " WITH\n" + cachedSpecializedClasses.get(nodeURI));
+                    //System.out.println("CACHED REPLACE " + nodes.get(i) + " WITH\n" + cachedSpecializedClasses.get(nodeURI));
                     nodes.set(i, cachedSpecializedClasses.get(nodeURI));
                     continue;
                 }
@@ -95,7 +95,7 @@ public class JenaOntologyModelHandler {
                 for (ExtendedIterator<OntClass> it = nodeClass.listSubClasses(); it.hasNext(); ) {
                     OntClass subClass = it.next();
                     if(subClass.hasSuperClass(tableClass)) {
-                        System.out.println("REPLACE " + nodes.get(i) + " WITH\n" + subClass);
+                        //System.out.println("REPLACE " + nodes.get(i) + " WITH\n" + subClass);
                         URI subClassURI = URI.create(subClass.getURI());
                         nodes.set(i, subClassURI);
                         cachedSpecializedClasses.put(nodeURI, subClassURI);
