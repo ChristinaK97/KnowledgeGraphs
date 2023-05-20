@@ -17,12 +17,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.other.Util.SQL_DDL;
-import static org.example.other.Util.simulatedDataFull;
+import static org.example.other.Util.*;
 
 public class UploadSyntheticDataToDB {
 
-    String folderPath = simulatedDataFull;
+    String folderPath = simulatedDataSample;
     String ddl = SQL_DDL;
 
     DatabaseConnector connector;
@@ -187,9 +186,12 @@ public class UploadSyntheticDataToDB {
                 statement.setFloat(i, value);
             } catch (NumberFormatException | SQLException e2) {
                 try { // date
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date dateValue = new Date(dateFormat.parse(columnValue).getTime());
+
+                    SimpleDateFormat inputDateFormat = new SimpleDateFormat(
+                            columnValue.contains("/") ?  "dd/MM/yyyy" : "yyyy-MM-dd") ;
+                    Date dateValue = new Date(inputDateFormat.parse(columnValue).getTime());
                     statement.setDate(i, dateValue);
+
                 } catch (ParseException | SQLException e3) {
                     try { // string
                         statement.setString(i, columnValue);
@@ -287,8 +289,8 @@ public class UploadSyntheticDataToDB {
 
 
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         new UploadSyntheticDataToDB();
-    }*/
+    }
 
 }

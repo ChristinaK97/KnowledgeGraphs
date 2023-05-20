@@ -1,15 +1,19 @@
 package org.example.createKG;
 
 import com.google.gson.Gson;
+import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.example.other.JSONMappingTableConfig;
 
 import java.io.FileReader;
 import java.net.URI;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.example.other.Util.EFS_mappings;
@@ -116,4 +120,21 @@ public class JenaOntologyModelHandler {
             label = resource.getLocalName();
         return label;
     }
+
 }
+
+
+
+    /*public static HashSet<String> XSDDateTypes = dateTypesSet();
+    private static HashSet<String> dateTypesSet() {
+        return new HashSet<>(
+                List.of(new String[]{XSDDatatype.XSDdate.getURI(),
+                                     XSDDatatype.XSDdateTime.getURI(),
+                                     XSDDatatype.XSDtime.getURI()})
+        );
+    }
+
+    public boolean isDateType (Resource range) {
+        return XSDDateTypes.contains(range.getURI());
+    }*/
+
