@@ -82,46 +82,47 @@ public class TableWithMappingsExtractor {
 
             List<String> path = objMap.getPathResources();
             if(Character.isUpperCase(path.get(0).charAt(0)))
-                bl.append(getPropertyNodeString(objMap.getOntoElResource()));
+                bl.append(getPropertyNodeString("efs:has" + objMap.getPathResources().get(0)));
+
 
             for (String pathNode : path)
                 if (Character.isLowerCase(pathNode.charAt(0)))
-                    bl.append(getPropertyNodeString(pathNode));
+                    bl.append(getPropertyNodeString("fibo:" + pathNode));
                 else
-                    bl.append(getClassNodeString(pathNode));
+                    bl.append(getClassNodeString("fibo:" + pathNode));
         }
 
         if(objMap.hasMatch())
-            bl.append(getPropertyNodeString(objMap.getMatchResource()));
+            bl.append(getPropertyNodeString("fibo:" + objMap.getMatchResource()));
         else if (classMap.hasMatch())
-            bl.append(getPropertyNodeString(objMap.getOntoElResource()));
+            bl.append(getPropertyNodeString("efs:" + objMap.getOntoElResource()));
 
 
         if(classMap.hasMatch())
-            bl.append(getClassNodeString(classMap.getMatchResource()));
+            bl.append(getClassNodeString("fibo:" + classMap.getMatchResource()));
 
 
         if(dataMap.getPathURIs() != null) {
 
             List<String> path = dataMap.getPathResources();
             if(Character.isUpperCase(path.get(0).charAt(0)))
-                bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
+                bl.append(getPropertyNodeString("efs:has" + dataMap.getPathResources().get(0)));
 
             for (String pathNode : path)
                 if (Character.isLowerCase(pathNode.charAt(0)))
-                    bl.append(getPropertyNodeString(pathNode));
+                    bl.append(getPropertyNodeString("fibo:" + pathNode));
                 else
-                    bl.append(getClassNodeString(pathNode));
+                    bl.append(getClassNodeString("fibo:" + pathNode));
         }
 
         if(dataMap.hasMatch())
-            bl.append(getPropertyNodeString(dataMap.getMatchResource()));
+            bl.append(getPropertyNodeString("fibo:" + dataMap.getMatchResource()));
         else if (classMap.hasMatch())
-            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
+            bl.append(getPropertyNodeString("efs:" + dataMap.getOntoElResource()));
 
 
         if(! (objMap.hasMatch() || classMap.hasMatch() || dataMap.hasMatch()))
-            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
+            bl.append(getPropertyNodeString("efs:" + dataMap.getOntoElResource()));
 
 
         bl.append(getClassNodeString("VALUE"));
@@ -131,10 +132,10 @@ public class TableWithMappingsExtractor {
     }
 
     private String getPropertyNodeString(String nodeString) {
-        return String.format(" -(%s)-> ", nodeString);
+        return String.format(" -[%s]-> ", nodeString);
     }
     private String getClassNodeString(String nodeString) {
-        return String.format("[%s]", nodeString);
+        return String.format("(%s)", nodeString);
     }
 
     private void p(Object o) {
