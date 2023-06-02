@@ -14,6 +14,9 @@ import tech.tablesaw.io.csv.CsvWriter;
 import static org.example.other.Util.EFS_mappings;
 import static org.example.other.Util.TableWithMappings;
 
+/**
+ * Generate a csv file from the mappings json file
+ */
 public class TableWithMappingsExtractor {
 
     private List<Table> tablesMaps;

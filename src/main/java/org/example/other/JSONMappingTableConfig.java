@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import static org.example.other.Util.getURIResource;
 
+/**
+ * JSON reader adapter classes
+ */
 public class JSONMappingTableConfig {
 
     private List<Table> tables;
