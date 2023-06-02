@@ -39,7 +39,33 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         restoreConsistency();
         saveOutputOntology();
     }
-    //==================================================================================
+
+
+//======================================================================================================================
+// 1. LOAD PUTATIVE AND DOMAIN ONTOLOGIES
+//======================================================================================================================
+
+    private void gatherImports() {
+        for(Table tableMaps : tablesMaps) {
+            if(tableMaps.getMapping().hasMatch())
+                importURIs.add(extractOntoModule(tableMaps.getMapping().getMatchURI()));
+
+            for(Column colMaps : tableMaps.getColumns())
+                for(Mapping map : colMaps.getMappings()) {
+                    if(map.hasMatch())
+                        importURIs.add(extractOntoModule(map.getMatchURI()));
+
+                    if(map.getPathURIs() != null)
+                        for(java.net.URI pURI : map.getPathURIs())
+                            importURIs.add(extractOntoModule(pURI));
+                }
+        }
+        System.out.println(importURIs);
+    }
+
+    private String extractOntoModule(java.net.URI uri) {
+        return uri.toString().substring(0, uri.toString().lastIndexOf("/")) + "/";
+    }
 
 
     private void loadDomainOntoImports() {
@@ -55,6 +81,11 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         //pModel.listClasses().forEach(System.out::println);
     }
 
+
+
+//======================================================================================================================
+// 2. DEFINE THE PUTATIVE ONTOLOGY AS EXTENSION OF THE DOMAIN ONTOLOGY
+//======================================================================================================================
 
     private void setHierarchy() {
 
@@ -196,6 +227,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         }
     }
 
+//======================================================================================================================
+// 3. RESTORE THE CONSISTENCY OF THE RESULTING ONTOLOGY
+//======================================================================================================================
 
     private void restoreConsistency() {
         /*
@@ -211,8 +245,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         for(Table tableMaps : tablesMaps)
             for(Column colMap : tableMaps.getColumns()) {               //1
                 System.out.println("MAKE CONS : " + tableMaps.getTable() + "." + colMap.getColumn());
+
                 Mapping objMap   = colMap.getObjectPropMapping();       //2
-                // Mapping classMap = colMap.getClassPropMapping();
                 Mapping dataMap  = colMap.getDataPropMapping();
 
                 try {
@@ -235,6 +269,12 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     }
 
 
+    private void makeObjPropConsistent(Mapping objMap, String tableClass) {
+        System.out.println("MAKE OBJ PROP CONS " + objMap.getOntoElResource());
+        correctDomain(objMap, tableClass);
+    }
+
+
     private void makeDataPropertyConsistent(Mapping dataMap, String tableClass) {
         correctDomain(dataMap, tableClass);
 
@@ -246,11 +286,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         correctRange(onProperty, newRange);
     }
 
-    private void makeObjPropConsistent(Mapping objMap, String tableClass) {
-        System.out.println("MAKE OBJ PROP CONS " + objMap.getOntoElResource());
-        correctDomain(objMap, tableClass);
-    }
-
+//  DOMAIN =============================================================================================================
 
     private void correctDomain(Mapping map, String tableClass) {
         // Mapping pattern (the match has been performed through a path of DO elements):
@@ -272,12 +308,17 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
     /**
+     * prop current domain contains table class. The table class must be replaced by the new domain class
+     * since (tableClass) -[...]-> (lastClass on path aka newDomain) -[prop]-> (...)
+     * / The connection of prop with table class is not direct but through a path.
      * @param prop The property whose domain must be corrected
      * @param curDomain The current domain of the property
+     * @param tableClass the class of the table that will be replaced in the domain of the property by the new domain
      * @param newDomain The new domain of the property
      */
     private void correctDomain(OntProperty prop, OntResource curDomain, String tableClass, OntResource newDomain) {
-        /*
+        /* 0. curDomain of a PO data property can be null if only the dp was matched and maintained and the PO class
+         *    (and PO objProp) were previously deleted
          * 1. If the current domain is a union of classes:
          *      2. For each class (operand) in the union:
          *              3. If the operand is the table class that should be replaced:
@@ -292,9 +333,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          */
         System.out.println("PROP : " + prop.getLocalName() + " CURDOM: " + curDomain + " NEWDOM: " + newDomain);
 
-        //curDomain of a PO data property can be null if only the dp was matched and maintained but the PO class
-        // (and PO objProp) were previously deleted
-        if(curDomain != null) {
+        if(curDomain != null) {                                                                                    //0
             if (curDomain.canAs(UnionClass.class)) {                                                               //1
                 HashSet<OntClass> unionDomainClasses = new HashSet<>();
                 UnionClass unionClass = curDomain.as(UnionClass.class);
@@ -324,13 +363,22 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     }
 
 
+//  RANGE ==============================================================================================================
     private void correctRange(OntProperty property, OntResource newRange) {
+        /* 1. Set the new range of the property
+         * 2. Go to the property's domain class DClass
+         * 3. Remove restriction "property some oldRange" on DClass
+         * 4. Add restriction    "property some newRange" on DClass
+         */
         property.setRange(newRange);
 
         OntClass DClass = property.getDomain().asClass();
         removeRestriction(DClass, property);
         addRangeRestriction(DClass, property, newRange);
     }
+
+
+//  RESTRICTIONS =======================================================================================================
 
     /**
      * Removes a restriction statement
@@ -387,6 +435,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     }
 
 
+//  FIRST CLASS ON PATH ================================================================================================
+
     private void handleClassAsFirstPathNode(String tableClassName, URI tableClassURI, Mapping map) {
         try {
             OntProperty prop = getOntProperty(map.getOntoElURI());
@@ -428,10 +478,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          }
     }
 
-
-
-    //==================================================================================
-
+//======================================================================================================================
+// 4. SAVE THE RESULTING ONTOLOGY TO outputOntology.ttl
+//======================================================================================================================
     private void saveOutputOntology() {
         OutputStream out = null;
         try {
@@ -490,29 +539,6 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     }
 
-    //==================================================================================
-
-    private void gatherImports() {
-        for(Table tableMaps : tablesMaps) {
-            if(tableMaps.getMapping().hasMatch())
-                importURIs.add(extractOntoModule(tableMaps.getMapping().getMatchURI()));
-
-            for(Column colMaps : tableMaps.getColumns())
-                for(Mapping map : colMaps.getMappings()) {
-                    if(map.hasMatch())
-                        importURIs.add(extractOntoModule(map.getMatchURI()));
-
-                    if(map.getPathURIs() != null)
-                        for(java.net.URI pURI : map.getPathURIs())
-                            importURIs.add(extractOntoModule(pURI));
-                }
-        }
-        System.out.println(importURIs);
-    }
-
-    private String extractOntoModule(java.net.URI uri) {
-        return uri.toString().substring(0, uri.toString().lastIndexOf("/")) + "/";
-    }
 
     //==================================================================================
     private void printClass(OntResource cl) {
@@ -535,78 +561,3 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 }
 
-
-/*
-    private void setColumnHierarchy(Column colMap) {
-        Mapping objMap   = colMap.getObjectPropMapping();
-        Mapping classMap = colMap.getClassPropMapping();
-        Mapping dataMap  = colMap.getDataPropMapping();
-
-        // a resource path has been set for obj prop mapping
-        /*if(objMap.getPathURIs() != null) {
-
-            List<String> path = objMap.getPathResources();
-
-            // first resource on the path is a class
-            if(Character.isUpperCase(path.get(0).charAt(0)))
-                bl.append(getPropertyNodeString(objMap.getOntoElResource()));
-
-            for (String pathNode : path)
-                if (Character.isLowerCase(pathNode.charAt(0)))
-                    bl.append(getPropertyNodeString(pathNode));
-                else
-                    bl.append(getClassNodeString(pathNode));
-        }
-
-        if((dataMap.hasMatch() || dataMap.getPathURIs() != null)
-                && !objMap.hasMatch() && !classMap.hasMatch())
-                {
-                deleteClass(classMap.getOntoElURI());
-                colMap.delClassPropMapping();
-
-                deleteProperty(objMap.getOntoElURI());
-                colMap.delObjectPropMapping();
-                }
-
-                if(objMap.hasMatch())
-                setSubPropertyOf(objMap);
-
-
-        /*else if (classMap.hasMatch())
-            bl.append(getPropertyNodeString(objMap.getOntoElResource()));
-
-
-                if(classMap.hasMatch())
-                setSubClassOf(classMap);
-
-
-        /* if(dataMap.getPathURIs() != null) {
-
-            List<String> path = dataMap.getPathResources();
-            if(Character.isUpperCase(path.get(0).charAt(0)))
-                bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
-
-            for (String pathNode : path)
-                if (Character.isLowerCase(pathNode.charAt(0)))
-                    bl.append(getPropertyNodeString(pathNode));
-                else
-                    bl.append(getClassNodeString(pathNode));
-        }
-
-                if(dataMap.hasMatch())
-                setSubPropertyOf(dataMap);
-
-
-
-        /*else if (classMap.hasMatch())
-            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
-
-
-        /*if(! (objMap.hasMatch() || classMap.hasMatch() || dataMap.hasMatch()))
-            bl.append(getPropertyNodeString(dataMap.getOntoElResource()));
-
-
-        bl.append(getClassNodeString("VALUE"));
-
-                }
- */
