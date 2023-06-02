@@ -58,23 +58,43 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     private void setHierarchy() {
 
-        for(Table tableMaps : tablesMaps) {
+        /* 1. For each table in the db :
+         *      2. If the table class has been matched with a DO class:
+         *         3. Set the table class as a subclass of the DO class
+         *      4. For each column in the table:
+         *         5. Define hierarchical relationship for the column's matches
+         */
+        for(Table tableMaps : tablesMaps) {                //1
 
-            if(tableMaps.getMapping().hasMatch())
-                setSubClassOf(tableMaps.getMapping());
+            if(tableMaps.getMapping().hasMatch())          //2
+                setSubClassOf(tableMaps.getMapping());     //3
 
-            for(Column colMaps : tableMaps.getColumns())
-                setColumnHierarchy(colMaps);
+            for(Column colMaps : tableMaps.getColumns())   //4
+                setColumnHierarchy(colMaps);               //5
         }
     }
 
 
     private void setColumnHierarchy(Column colMap) {
-        Mapping objMap   = colMap.getObjectPropMapping();
-        Mapping classMap = colMap.getClassPropMapping();
-        Mapping dataMap  = colMap.getDataPropMapping();
+        /* Defines the PO elements that express the column as
+         * sub-elements of the matched DO elements.
+         * A column can be expressed by:
+         *  - an object property //1
+         *  - a class            //2
+         *  - a data property    //3
+         * some of these elements might have been matched with DO elements.
+         *
+         * 4. If only the data PO property has been matched, the column expresses
+         *    a pure data attribute. The PO object property and class are unnecessary,
+         *    so they are deleted from the ontology model.
+         * 5. For each PO element that has been matched, set hierarchical relationships with the DO
+         *
+         */
+        Mapping objMap   = colMap.getObjectPropMapping(); //1
+        Mapping classMap = colMap.getClassPropMapping();  //2
+        Mapping dataMap  = colMap.getDataPropMapping();   //3
 
-        if((dataMap.hasMatch() || dataMap.getPathURIs() != null)
+        if((dataMap.hasMatch() || dataMap.getPathURIs() != null)  //4
                 && !objMap.hasMatch() && !classMap.hasMatch())
         {
             /**/deleteClass(classMap.getOntoElURI());
@@ -83,7 +103,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             deleteProperty(objMap.getOntoElURI());
             colMap.delObjectPropMapping();
         }
-
+        //5
         if(objMap.hasMatch())
             setSubPropertyOf(objMap);
 
@@ -96,16 +116,28 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
     private void setSubClassOf(Mapping map) {
+        /* Map contains the URIs of the PO class and the matched DO class
+         * 1. Retrieve the PO class from the ontology
+         * 2. Retrieve the DO class from the ontology
+         * 3. If both classes have been defined in the ontology model :
+         *      4. Set the PO class as a subclass of the DO class
+         */
+        OntClass pClass = getOntClass(map.getOntoElURI());      //1
+        OntClass dClass = getOntClass(map.getMatchURI());       //2
 
-        OntClass pClass = getOntClass(map.getOntoElURI());
-        OntClass dClass = getOntClass(map.getMatchURI());
-
-        if (pClass != null && dClass != null)
-            dClass.addSubClass(pClass);
+        if (pClass != null && dClass != null)                   //3
+            dClass.addSubClass(pClass);                         //4
         else
             System.err.println("CLASS NOT FOUND " + map.getOntoElURI().toString() + " " + map.getMatchURI().toString());
     }
+
     private void setSubPropertyOf(Mapping map) {
+        /* Map contains the URIs of the PO property and the matched DO property
+         * 1. Retrieve the PO property from the ontology
+         * 2. Retrieve the DO property from the ontology
+         * 3. If both properties have been defined in the ontology model :
+         *      4. Set the PO property as a sub-property of the DO property
+         */
         OntProperty pProp = getOntProperty(map.getOntoElURI());
         OntProperty dProp = getOntProperty(map.getMatchURI());
 
@@ -117,69 +149,94 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
     private void deleteClass(URI classURI) {
-        OntClass ontClass = getOntClass(classURI);
-        // if not already deleted
+        /*
+         * 1. Retrieve the class (PO) with the given classURI and if it hasn't already been deleted:
+         *      2. Remove all anonymous restriction nodes of the class from the ontology model
+         *      3. Remove all triples that contain this class as subject or object
+         *      4. Delete the class from the ontology
+         */
+        OntClass ontClass = getOntClass(classURI);                          // 1
         if(ontClass != null){
             System.out.println("DEL " + ontClass.getLocalName());
-            removeRestriction(ontClass, null);
-            pModel.removeAll(ontClass, null, null);
+            removeRestriction(ontClass, null);                    //2
+            pModel.removeAll(ontClass, null, null);                   //3
             pModel.removeAll(null, null, ontClass);
-            ontClass.remove();
+            ontClass.remove();                                             //4
         }
     }
 
 
     private void deleteProperty(URI propURI) {
-        OntProperty property = getOntProperty(propURI);
+        /* 1. Retrieve the property (PO) from the ontology model and if it hasn't already been deleted:
+         *      2. For each class in the domain of the property (union of classes -2.1- or single class -2.2-):
+         *          3. Delete the restriction statements that connects the domain class with this property (and del the anonymous node)
+         *      4. Remove all triples that contain this property
+         *      5. Delete the property form the ontology model
+         */
+        OntProperty property = getOntProperty(propURI);     // 1
         if(property != null) {
             System.out.println("DEL "+ property.getLocalName());
 
             // remove restriction statements and anonymous restriction classes containing the property
             OntResource domain = property.getDomain();
-            if(domain.canAs(UnionClass.class)) {
+            if(domain.canAs(UnionClass.class)) {                //2.1
                 for (OntClass DClass : domain.as(UnionClass.class).listOperands().toList())
                     removeRestriction(DClass, property);
 
                 // remove anonymous union domain class
                 domain.as(UnionClass.class).remove();
-            }else
+            }else   //2.2
                 removeRestriction(domain.asClass(), property);
 
+            //4
             pModel.removeAll(property, null, null);
             pModel.removeAll(null, property, null);
             pModel.removeAll(null, null, property);
-            property.remove();
+            property.remove();  //5
         }
     }
 
 
     private void restoreConsistency() {
+        /*
+         * After defining the PO as an extension of the DO some steps need to be performed to restore
+         * the consistency of the ontology.
+         * 1. For each table in the database, and for each column on this table:
+         *      2. For the object PO property and the data PO property that express the column:
+         *              3. Specialize the paths: Replace each DO class in the path with the specialized PO TableClass subclass
+         *                  (if such TableClass exists)
+         *              4. Correct the domain (and the range) of the PO property
+         *              5. Handle the case where the first element in the mapping path is a DO class
+         */
         for(Table tableMaps : tablesMaps)
-            for(Column colMap : tableMaps.getColumns()) {
-                Mapping objMap   = colMap.getObjectPropMapping();
+            for(Column colMap : tableMaps.getColumns()) {               //1
+                System.out.println("MAKE CONS : " + tableMaps.getTable() + "." + colMap.getColumn());
+                Mapping objMap   = colMap.getObjectPropMapping();       //2
                 // Mapping classMap = colMap.getClassPropMapping();
                 Mapping dataMap  = colMap.getDataPropMapping();
 
                 try {
-                    specialisePathDOclasses(objMap);
-                    makeObjPropConsistent(objMap);
-                    handleClassAsFirstPathNode(
+                    specialisePathDOclasses(objMap);                    //3
+                    makeObjPropConsistent(objMap, tableMaps.getMapping().getOntoElResource());                      //4
+                    handleClassAsFirstPathNode(                         //5
                             tableMaps.getMapping().getOntoElResource(),
                             tableMaps.getMapping().getOntoElURI(), objMap);
                 }catch (NullPointerException e) {
                     // property was unnecessary so it was previously deleted
                 }
-                specialisePathDOclasses(dataMap);
-                makeDataPropertyConsistent(dataMap);
-                handleClassAsFirstPathNode(
+                specialisePathDOclasses(dataMap);                       //3
+                makeDataPropertyConsistent(dataMap, tableMaps.getMapping().getOntoElResource());                    //4
+                handleClassAsFirstPathNode(                             //5
                         tableMaps.getMapping().getOntoElResource(),
                         tableMaps.getMapping().getOntoElURI(), dataMap);
+
+                System.out.println("-------");
             }
     }
 
 
-    private void makeDataPropertyConsistent(Mapping dataMap) {
-        correctDomain(dataMap);
+    private void makeDataPropertyConsistent(Mapping dataMap, String tableClass) {
+        correctDomain(dataMap, tableClass);
 
         if(!dataMap.hasMatch() || dataMap.isCons())
             return;
@@ -189,14 +246,16 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         correctRange(onProperty, newRange);
     }
 
-    private void makeObjPropConsistent(Mapping objMap) {
-        correctDomain(objMap);
+    private void makeObjPropConsistent(Mapping objMap, String tableClass) {
+        System.out.println("MAKE OBJ PROP CONS " + objMap.getOntoElResource());
+        correctDomain(objMap, tableClass);
     }
 
 
-    private void correctDomain(Mapping map) {
+    private void correctDomain(Mapping map, String tableClass) {
+        // Mapping pattern (the match has been performed through a path of DO elements):
         // (tableClass) - PATH -[property]-> ...
-        // but property curDomain == tableClass
+        // but the property's current domain (curDomain) == tableClass
         // newDomain must be equal to the last class node in the path
 
         // domain doesn't need to be corrected. Match is direct, not through a path
@@ -207,45 +266,60 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         OntResource curDomain = prop.getDomain();
         OntResource newDomain = getOntClass(getLastNodeFromPath(map.getPathURIs()));
 
-        System.out.println(map.getOntoElResource());
-        correctDomain(prop, curDomain, newDomain);
+        System.out.println("PATH IS NOT NULL. DOMAIN WILL BE CORRECTED. PATH = " + map.getPathResources());
+        correctDomain(prop, curDomain, tableClass, newDomain);
     }
 
 
-    private void correctDomain(OntProperty prop, OntResource curDomain, OntResource newDomain) {
-        System.out.println(curDomain);
+    /**
+     * @param prop The property whose domain must be corrected
+     * @param curDomain The current domain of the property
+     * @param newDomain The new domain of the property
+     */
+    private void correctDomain(OntProperty prop, OntResource curDomain, String tableClass, OntResource newDomain) {
+        /*
+         * 1. If the current domain is a union of classes:
+         *      2. For each class (operand) in the union:
+         *              3. If the operand is the table class that should be replaced:
+         *                      4. The new domain class will replace the operand in the union domain of the property
+         *                      5. Go to the operand class and remove the restriction "prop some range"
+         *              6. Keep all other operand in the union the same
+         *              7. Remove the anonymous union class of the previous domain classes
+         *              8. Create the new union domain
+         * 9. Else, if the current domain is a single class
+         *      10. Go to this class and remove the restriction "prop some range"
+         * 11. Set newDomain as the domain of the prop
+         */
+        System.out.println("PROP : " + prop.getLocalName() + " CURDOM: " + curDomain + " NEWDOM: " + newDomain);
 
+        //curDomain of a PO data property can be null if only the dp was matched and maintained but the PO class
+        // (and PO objProp) were previously deleted
         if(curDomain != null) {
-            if (curDomain.canAs(UnionClass.class)) {
-                List<OntClass> unionDomainClasses = new ArrayList<>();
+            if (curDomain.canAs(UnionClass.class)) {                                                               //1
+                HashSet<OntClass> unionDomainClasses = new HashSet<>();
                 UnionClass unionClass = curDomain.as(UnionClass.class);
 
-                for(OntClass operand : unionClass.listOperands().toList()) {
-                    boolean hasSuperClass = false;
-                    System.out.println("Union operand: " + operand.getLocalName());
+                for(OntClass operand : unionClass.listOperands().toList()) {                                       //2
+                    System.out.println("Cur Union operand: " + operand.getLocalName());
 
-                    for(OntClass superclass : operand.listSuperClasses().toList())
-                        if (superclass.isURIResource() && !superclass.getLocalName().equals(TABLE_CLASS)) {
-                            System.out.println(superclass);
-                            hasSuperClass = true;
-                            unionDomainClasses.add(superclass);
-                            removeRestriction(operand, prop);
-                        }
-
-                    if(!hasSuperClass)
-                        unionDomainClasses.add(operand);
+                    if(operand.getLocalName().equals(tableClass)) {                                                //3
+                        unionDomainClasses.add(newDomain.asClass());                                               //4
+                        removeRestriction(operand, prop);                                                          //5
+                    }else
+                        unionDomainClasses.add(operand);                                                           //6
                 }
-                // remove current anonymous union domain node
-                curDomain.as(UnionClass.class).remove();
-                newDomain = pModel.createUnionClass(null, pModel.createList(unionDomainClasses.iterator()));
-            }else
-                removeRestriction(curDomain.asClass(), prop);
+                curDomain.as(UnionClass.class).remove();                                                            //7
+                newDomain = unionDomainClasses.size() > 1 ?                                                         //8
+                            pModel.createUnionClass(null, pModel.createList(unionDomainClasses.iterator())) :   // multiple classes as union
+                            unionDomainClasses.iterator().next();                                                   // a single class
+            }else                                                                                                   //9
+                removeRestriction(curDomain.asClass(), prop);                                                       //10
         }
 
         System.out.println("New Domain:");
         printClass(newDomain);
 
-        prop.setDomain(newDomain);
+        prop.setDomain(newDomain);                                                                                  //11
         System.out.println();
     }
 
@@ -258,22 +332,55 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         addRangeRestriction(DClass, property, newRange);
     }
 
+    /**
+     * Removes a restriction statement
+     *      DClass subClassOf [
+     *          a owl:Restriction ;
+     *          owl:onProperty onProperty ;
+     *          ...
+     *      ]
+     * for the class DClass (Domain Class), and deletes the anonymous restriction node from the model
+     * @param DClass the class that has the restriction
+     * @param onProperty the property of the restriction. To remove all property restrictions from a
+     *                   DClass set this argument to null.
+     */
     private void removeRestriction(OntClass DClass, OntProperty onProperty) {
-        List<Statement> toRemove = new ArrayList<>();
-        StmtIterator it = pModel.listStatements(DClass, RDFS.subClassOf, (RDFNode) null);
-        while (it.hasNext()) {
+        /* 1. list that will gather the restriction statements that will be deleted
+         * 2. Retrieve all the statements <DClass, subClassOf, _>
+         * 3. For each such statement, if it is a restriction:
+         *      4. If the restrictions of all properties should be removed from the class or
+         *         if the restriction is about the given property:
+         *              5. Add the statement to toRemove list
+         * 6. Delete every restriction statement <DClass, subClassOf, an anonymous restriction node>
+         * 7. Delete the anonymous restriction node from the model
+         */
+        List<Statement> toRemove = new ArrayList<>(); //1
+        StmtIterator it = pModel.listStatements(DClass, RDFS.subClassOf, (RDFNode) null);  //2
+        while (it.hasNext()) {  //3
             Statement stmt = it.nextStatement();
             if (stmt.getObject().canAs(Restriction.class))
-                if (onProperty == null || stmt.getObject().as(Restriction.class).onProperty(onProperty))
-                    toRemove.add(stmt);
+                if (onProperty == null || stmt.getObject().as(Restriction.class).onProperty(onProperty))  //4
+                    toRemove.add(stmt);  //5
         }
         System.out.println(toRemove);
-        toRemove.forEach(pModel::remove);
-        for(Statement stmt : toRemove)
+        toRemove.forEach(pModel::remove);  //6
+        for(Statement stmt : toRemove)     //7
             pModel.removeAll(stmt.getObject().asResource(), null, null);
 
     }
 
+    /**
+     * Defines a restriction
+     * DClass subClassOf [
+     *      a owl:Restriction ;
+     *      owl:onProperty onProperty ;
+     *      owl:someValuesFrom newRange
+     * ]
+     * or DClass subClassOf (onProperty some newRange)
+     * @param DClass the domain class
+     * @param onProperty the property of the restriction
+     * @param newRange the range of values of the property for this class
+     */
     private void addRangeRestriction(OntClass DClass, OntProperty onProperty, OntResource newRange) {
         SomeValuesFromRestriction restriction = pModel.createSomeValuesFromRestriction(null, onProperty, newRange);
         DClass.addSuperClass(restriction.asClass());
@@ -291,12 +398,12 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
             String newPropURI = getNewPropertyURI(null, firstClass, tableClassName);
 
+            // property wasn't already created
             if (getOntProperty(newPropURI) == null) {
 
                 System.out.println("FIRST CLASS : " + firstClass);
                 System.out.println("NEW PROP :" + newPropURI);
 
-                // property wasn't already created
                 String newLabel = String.format("has %s", normalise(getLabel(firstClass)));
 
                 OntProperty newProp = pModel.createObjectProperty(newPropURI);
@@ -310,9 +417,6 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 newProp.setRange(firstClass);
                 addRangeRestriction(DtableClass, newProp, firstClass);
 
-                // Modify existing property
-                // (dOnto:firstClass) -[ontoEl property]-> (same Range)
-                correctDomain(prop, prop.getDomain(), firstClass);
             }
         }catch (NullPointerException e) {
             //TODO remove print
