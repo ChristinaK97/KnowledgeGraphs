@@ -1,4 +1,4 @@
-package org.example.database_connector;
+package org.example.InputPoint;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;

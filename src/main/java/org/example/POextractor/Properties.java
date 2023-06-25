@@ -1,4 +1,4 @@
-package org.example.ontology_extractor;
+package org.example.POextractor;
 
 import org.example.other.Util;
 
@@ -64,8 +64,8 @@ public class Properties{
     public String toString() {
         StringBuilder bd = new StringBuilder();
         properties.forEach((propName, domRan) -> {
-            bd.append(String.format("(%s, %s, %s) %s\n", domRan.domain,
-                    propName, domRan.range, domRan.rule));
+            bd.append(String.format("(%s, %s, %s) %s\t%s\n", domRan.domain,
+                    propName, domRan.range, domRan.rule, domRan.extractedField));
         });
         return bd.toString();
     }

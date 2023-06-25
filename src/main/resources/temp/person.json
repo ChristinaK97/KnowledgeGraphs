@@ -1,0 +1,28 @@
+{
+  "person": {
+    "name": "John Doe",
+    "age": 30,
+    "city": "New York",
+    "languages": ["English", "Spanish", "French"],
+    "address": {
+      "street": "123 Main St",
+      "city": "New York",
+      "state": "NY"
+    },
+    "friends": [
+      {
+        "name": "Jane Smith",
+        "age": 28,
+        "city": "Los Angeles"
+      },
+      {
+        "name": "Bob Johnson",
+        "age": 32,
+        "city": "Chicago"
+      }
+    ],
+    "status": "active",
+    "registered": true,
+    "lastLogin": null
+  }
+}

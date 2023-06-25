@@ -1,8 +1,7 @@
-package org.example.ontology_extractor;
+package org.example.POextractor;
 
-import org.example.database_connector.DBSchema;
-import org.example.ontology_extractor.Properties.DomRan;
-import org.example.other.JSONExtractor;
+import org.example.InputPoint.DBSchema;
+import org.example.POextractor.Properties.DomRan;
 import org.example.other.Util;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
@@ -11,15 +10,16 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.example.other.Util.POontology;
 
-public class OntologyExtractor {
+public class POntologyExtractor {
 
-    private DBSchema db;
+    private RulesetApplication rs;
 
     private String msBbasePrefix;
     private OWLOntologyManager manager;
@@ -31,48 +31,21 @@ public class OntologyExtractor {
 
     private HashMap<String, OWLObject> baseElements = new HashMap<>(4);
 
-    public OntologyExtractor(DBSchema db) {
-        this.db = db;
+    public POntologyExtractor(Object dataSource, String ontologyName) {
+        rs = new RulesetApplication(turnAttributesToClasses);
+        rs.applyRules(dataSource);
+        msBbasePrefix = "http://www.example.net/ontologies/" + ontologyName + ".owl/";
         createOntology();
-        applyRules();
         saveOntology(POontology);
-    }
-
-    private void applyRules() {
-        // table classes
-        HashMap<String, String> convertedIntoClass = new ClassExtractor(db).getConvertedIntoClass();
-        // object properties connecting table classes
-        Properties objProperties = new ObjectPropExtractor(db, convertedIntoClass).getObjProperties();
-
-        System.out.println(objProperties);
-        DataPropExtractor dpExtr = new DataPropExtractor(db,turnAttributesToClasses, convertedIntoClass);
-        // data properties
-        Properties dataProperties = dpExtr.getDataProp();
-        // object properties connecting table classes with attribute classes. if !turnAttrToClasses :empty
-        Properties newObjProp = dpExtr.getNewObjProp();
-
-
-        // attribute classes
-        HashMap<String, String> attrClasses = dpExtr.getAttrClasses();
-
-        // add elements to the ontology
-        createBaseElements();
-        addClasses(convertedIntoClass, "Table");
-        addClasses(attrClasses, "Attribute");
-        addObjectProperties(objProperties, newObjProp);
-        dataProperties.getProperties().forEach(this::addDatatype);
 
         //new JSONExtractor().createMappingJSON_fromOntology(db, msBbasePrefix,
         //        convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
 
         //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, convertedIntoClass, objProperties);
+
     }
 
-
-    //===============================================================================================================
-    // methods for creating ontology:
     public void createOntology(){
-        msBbasePrefix = "http://www.example.net/ontologies/" + db.getSchemaName() + ".owl/";
         IRI ontologyIRI = IRI.create(msBbasePrefix);
         manager = OWLManager.createOWLOntologyManager();
         factory = manager.getOWLDataFactory();
@@ -80,10 +53,17 @@ public class OntologyExtractor {
         try {
             ontology = manager.createOntology(ontologyIRI);
 
+            // add elements to the ontology
+            createBaseElements();
+            addClasses();
+            addObjectProperties();
+            rs.dataProperties.getProperties().forEach(this::addDatatype);
+
         } catch (OWLOntologyCreationException e) {
             e.printStackTrace();
         }
     }
+
 
     private void createBaseElements() {
         baseElements.put("TableClass", addClass("TableClass", "TableClass", null));
@@ -98,16 +78,16 @@ public class OntologyExtractor {
     }
 
     // CLASSES
-    private void addClasses(HashMap<String, String> classes, String type) {
-        classes.forEach((elementName, elementClass) -> {
-            String sDescription = String.format("%s %s converted to class %s", type, elementName, elementClass);
-            addClass(elementClass, sDescription, type);
+    private void addClasses() {
+        rs.classes.forEach((type, classes) -> {
+            classes.forEach((elementName, elementClass) -> {
+                String sDescription = String.format("%s %s converted to class %s", type, elementName, elementClass);
+                addClass(elementClass, sDescription, type);
+            });
         });
-
     }
 
     public OWLClass addClass(String className, String sDescription, String type) {
-
         OWLClass sClass = factory.getOWLClass(className, pm);
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(sClass));
         addDescriptions(sClass.getIRI(), className, sDescription);
@@ -122,9 +102,11 @@ public class OntologyExtractor {
 
 
     // OBJECT PROPERTIES
-    private void addObjectProperties(Properties objProp, Properties newObjProp) {
-        objProp.getProperties().forEach((propName, domRan) -> addObjectproperty(propName, domRan, "FK"));
-        newObjProp.getProperties().forEach((propName, domRan) -> addObjectproperty(propName, domRan, "Attribute"));
+    private void addObjectProperties() {
+        rs.objProperties.forEach((type, objProps) -> {
+            objProps.getProperties().forEach((propName, domRan) ->
+                    addObjectproperty(propName, domRan, type));
+        });
     }
 
     public void addObjectproperty(String propName, DomRan domRan, String type) {
@@ -254,7 +236,10 @@ public class OntologyExtractor {
 
 
     public static void main(String[] args) {
-        new OntologyExtractor(new DBSchema());
+        //DBSchema db = new DBSchema();
+        //new POntologyExtractor(db, db.getSchemaName());
+
+        new POntologyExtractor(new ArrayList<String>(), "json");
     }
 
 }

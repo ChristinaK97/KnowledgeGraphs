@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.example.database_connector.DBSchema;
-import org.example.database_connector.RTable;
-import org.example.ontology_extractor.Properties;
-import org.example.ontology_extractor.Properties.DomRan;
+import org.example.InputPoint.DBSchema;
+import org.example.InputPoint.RTable;
+import org.example.POextractor.Properties;
+import org.example.POextractor.Properties.DomRan;
 
 import java.io.BufferedWriter;
 import java.io.File;

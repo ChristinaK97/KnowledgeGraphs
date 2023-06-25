@@ -1,15 +1,13 @@
-package org.example.database_connector;
+package org.example.InputPoint;
 
 import com.github.jsonldjava.shaded.com.google.common.collect.ImmutableMap;
 import tech.tablesaw.api.ColumnType;
 import tech.tablesaw.api.Table;
 import tech.tablesaw.columns.Column;
-import tech.tablesaw.io.jdbc.SqlResultSetReader;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.Map;
 
 public class DatabaseConnector {
 

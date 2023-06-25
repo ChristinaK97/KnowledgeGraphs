@@ -1,7 +1,8 @@
-package org.example.ontology_extractor;
+package org.example.POextractor.RDB2OWL;
 
-import org.example.database_connector.DBSchema;
-import org.example.database_connector.RTable;
+import org.example.InputPoint.DBSchema;
+import org.example.InputPoint.RTable;
+import org.example.POextractor.Properties;
 
 import java.util.HashMap;
 

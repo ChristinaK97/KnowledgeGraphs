@@ -1,14 +1,15 @@
-package org.example.ontology_extractor;
+package org.example.POextractor.RDB2OWL;
 
-import org.example.database_connector.DBSchema;
-import org.example.database_connector.RTable.FKpointer;
-import org.example.database_connector.RTable;
+import org.example.InputPoint.DBSchema;
+import org.example.InputPoint.RTable.FKpointer;
+import org.example.InputPoint.RTable;
+import org.example.POextractor.Properties;
 
 import java.util.*;
 
 public class ObjectPropExtractor {
 
-    private Properties objProperties = new Properties();
+    private org.example.POextractor.Properties objProperties = new org.example.POextractor.Properties();
     private HashMap<String, String> convertedIntoClass;
     private String tableName;
     private RTable table;

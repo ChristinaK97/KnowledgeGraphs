@@ -1,4 +1,4 @@
-package org.example.database_connector;
+package org.example.InputPoint;
 
 import java.util.*;
 

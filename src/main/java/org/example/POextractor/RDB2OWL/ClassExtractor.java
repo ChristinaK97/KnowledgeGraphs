@@ -1,7 +1,7 @@
-package org.example.ontology_extractor;
+package org.example.POextractor.RDB2OWL;
 
-import org.example.database_connector.DBSchema;
-import org.example.database_connector.RTable.FKpointer;
+import org.example.InputPoint.DBSchema;
+import org.example.InputPoint.RTable.FKpointer;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
