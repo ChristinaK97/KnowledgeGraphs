@@ -1,19 +1,15 @@
-package org.example.createKG;
+package org.example.CreateKG;
 
 import com.google.gson.Gson;
-import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.example.other.JSONMappingTableConfig;
+import org.example.mappingsFiles.MappingsFileTemplate;
 
 import java.io.FileReader;
 import java.net.URI;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.example.other.Util.EFS_mappings;
@@ -22,7 +18,7 @@ import static org.example.other.Util.TABLE_CLASS_URI;
 public class JenaOntologyModelHandler {
 
     protected OntModel pModel;
-    protected List<JSONMappingTableConfig.Table> tablesMaps;
+    protected List<MappingsFileTemplate.Table> tablesMaps;
     private HashMap<String, URI> cachedSpecializedClasses = new HashMap<>();
 
     public JenaOntologyModelHandler(String ontologyFile) {
@@ -34,7 +30,7 @@ public class JenaOntologyModelHandler {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(EFS_mappings)) {
             // Convert JSON file to Java object
-            tablesMaps = gson.fromJson(reader, JSONMappingTableConfig.class).getTables();
+            tablesMaps = gson.fromJson(reader, MappingsFileTemplate.class).getTables();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -77,7 +73,7 @@ public class JenaOntologyModelHandler {
     }
 
 
-    protected void specialisePathDOclasses (JSONMappingTableConfig.Mapping map) {
+    protected void specialisePathDOclasses (MappingsFileTemplate.Mapping map) {
         // the map has no path attribute, no specialization is needed
         List<URI> nodes = map.getPathURIs();
         if(nodes == null)

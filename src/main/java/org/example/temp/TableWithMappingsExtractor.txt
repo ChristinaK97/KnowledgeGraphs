@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 
 import java.io.FileReader;
 import java.util.List;
-import org.example.other.JSONMappingTableConfig.Table;
-import org.example.other.JSONMappingTableConfig.Column;
-import org.example.other.JSONMappingTableConfig.Mapping;
+
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.io.csv.CsvWriteOptions;
 import tech.tablesaw.io.csv.CsvWriter;

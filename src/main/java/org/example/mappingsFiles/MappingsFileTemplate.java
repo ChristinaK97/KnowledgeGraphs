@@ -1,15 +1,19 @@
-package org.example.other;
+package org.example.mappingsFiles;
+
+import org.example.other.Util;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.example.other.Util.getURIResource;
 
-/**
- * JSON reader adapter classes
- */
-public class JSONMappingTableConfig {
+public class MappingsFileTemplate {
+
+    public MappingsFileTemplate() {
+        this.tables = new ArrayList<>();
+    }
 
     private List<Table> tables;
 
@@ -20,13 +24,24 @@ public class JSONMappingTableConfig {
     public void setTables(List<Table> tables) {
         this.tables = tables;
     }
+    public void addTable(Table table) {
+        tables.add(table);
+    }
 
     //================================================================================
 
+    /**
+     * Such as a relation table
+     */
     public static class Table {
         private String table;
         private Mapping mapping;
         private List<Column> columns;
+
+        public Table(String element) {
+            this.table = element;
+            this.columns = new ArrayList<>();
+        }
 
         public String getTable() {
             return table;
@@ -48,16 +63,28 @@ public class JSONMappingTableConfig {
             return columns;
         }
 
+        public void addColumn(Column column) {
+            columns.add(column);
+        }
+
         public void setColumns(List<Column> columns) {
             this.columns = columns;
         }
     }
-
     //================================================================================
 
+    /**
+     * Such as a column in a relational table or csv file
+     * or a JSON attribute
+     */
     public static class Column {
         private String column;
         private List<Mapping> mappings;
+
+        public Column(String field) {
+            this.column = field;
+            this.mappings = new ArrayList<>();
+        }
 
         public String getColumn() {
             return column;
@@ -65,6 +92,10 @@ public class JSONMappingTableConfig {
 
         public void setColumn(String column) {
             this.column = column;
+        }
+
+        public void addMapping(Mapping mapping) {
+            this.mappings.add(mapping);
         }
 
         public void setMappings(List<Mapping> mappings) {
@@ -88,16 +119,17 @@ public class JSONMappingTableConfig {
         }
 
         public void delClassPropMapping() {
-             delMappingPerType(0);
+            delMappingPerType(0);
         }
         public void delObjectPropMapping() {
-             delMappingPerType(1);
+            delMappingPerType(1);
         }
         public void delDataPropMapping() {
-             delMappingPerType(2);
+            delMappingPerType(2);
         }
         private void delMappingPerType(int type) {mappings.set(type, null);}
     }
+
     //================================================================================
 
     public static class Mapping {
@@ -106,6 +138,15 @@ public class JSONMappingTableConfig {
         private URI match;
         private boolean isCons;
         private List<URI> path;
+
+        public Mapping(String type, String ontoEl, String match, boolean isCons, List<URI> path) {
+            this.type = type;
+            this.ontoEl = URI.create(ontoEl);
+            this.match = URI.create(match);
+            if(path != null)
+                this.path = path;
+            this.isCons = isCons;
+        }
 
         public String getType() {
             return type;
@@ -165,4 +206,3 @@ public class JSONMappingTableConfig {
     //================================================================================
 
 }
-

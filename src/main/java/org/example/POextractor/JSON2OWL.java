@@ -86,7 +86,9 @@ public class JSON2OWL {
     public void applyRules(String file) {
         JsonElement json = readJSON(file);
         String root = findRoot(json);
-        parseJson(root, null, json, "");
+        parseJson(root, null, json,
+                root.equals(ROOTCLASS) ? "/" + root : ""
+        );
 
     }
 

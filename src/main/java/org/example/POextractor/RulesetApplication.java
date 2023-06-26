@@ -62,4 +62,20 @@ public class RulesetApplication {
             }
         }
     }
+
+
+    public HashMap<String, HashMap<String, String>> getClasses() {
+        return classes;
+    }
+
+    public Properties getFKObjProperties() {
+        return objProperties.get("FK");
+    }
+    public Properties getAttrObjProp() {
+        return objProperties.get("Attribute");
+    }
+
+    public Properties getDataProperties() {
+        return dataProperties;
+    }
 }

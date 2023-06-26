@@ -1,4 +1,4 @@
-package org.example.createKG;
+package org.example.CreateKG;
 
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -8,9 +8,10 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
-import org.example.other.JSONMappingTableConfig.Column;
-import org.example.other.JSONMappingTableConfig.Mapping;
-import org.example.other.JSONMappingTableConfig.Table;
+
+import org.example.mappingsFiles.MappingsFileTemplate.Table;
+import org.example.mappingsFiles.MappingsFileTemplate.Column;
+import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

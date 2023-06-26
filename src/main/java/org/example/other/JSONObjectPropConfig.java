@@ -2,7 +2,7 @@ package org.example.other;
 
 
 import java.util.List;
-import org.example.other.JSONMappingTableConfig.Mapping;
+import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
 
 /**
  * JSON reader FK file adapter classes

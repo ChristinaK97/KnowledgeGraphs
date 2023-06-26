@@ -1,4 +1,4 @@
-package org.example.createKG;
+package org.example.CreateKG;
 
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
@@ -15,11 +15,10 @@ import org.example.InputPoint.DBSchema;
 import org.example.InputPoint.DatabaseConnector;
 import org.example.InputPoint.RTable;
 import org.example.InputPoint.RTable.FKpointer;
-import org.example.other.JSONMappingTableConfig;
-import org.example.other.JSONMappingTableConfig.Column;
-import org.example.other.JSONMappingTableConfig.Mapping;
+import org.example.mappingsFiles.MappingsFileTemplate.Table;
+import org.example.mappingsFiles.MappingsFileTemplate.Column;
+import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
 import tech.tablesaw.api.Row;
-import tech.tablesaw.api.Table;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -82,7 +81,7 @@ public class InsertData extends JenaOntologyModelHandler {
 
 
     private void extractMappingPaths() {
-        for(JSONMappingTableConfig.Table tableMaps : tablesMaps) {
+        for(Table tableMaps : tablesMaps) {
 
             String tableName = tableMaps.getTable();
             String tableClassName = tableMaps.getMapping().getOntoElResource();
@@ -201,7 +200,7 @@ public class InsertData extends JenaOntologyModelHandler {
 
     private void mapData() {
         db.getrTables().forEach((tableName, rTable) -> {
-            Table data = connector.retrieveDataFromTable(tableName);
+            tech.tablesaw.api.Table data = connector.retrieveDataFromTable(tableName);
 
             /*p*/System.out.println(">> TABLE : " + tableName);
             /*p*/System.out.println(data.first(3));
