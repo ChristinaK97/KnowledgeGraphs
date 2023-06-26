@@ -1,6 +1,5 @@
 package org.example.POextractor;
 
-import org.example.InputPoint.DBSchema;
 import org.example.POextractor.Properties.DomRan;
 import org.example.other.Util;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -21,7 +20,7 @@ public class POntologyExtractor {
 
     private RulesetApplication rs;
 
-    private String msBbasePrefix;
+    private String msBasePrefix;
     private OWLOntologyManager manager;
     private OWLOntology ontology;
     private OWLDataFactory factory;
@@ -34,7 +33,7 @@ public class POntologyExtractor {
     public POntologyExtractor(Object dataSource, String ontologyName) {
         rs = new RulesetApplication(turnAttributesToClasses);
         rs.applyRules(dataSource);
-        msBbasePrefix = "http://www.example.net/ontologies/" + ontologyName + ".owl/";
+        msBasePrefix = "http://www.example.net/ontologies/" + ontologyName + ".owl/";
         createOntology();
         saveOntology(POontology);
 
@@ -46,7 +45,7 @@ public class POntologyExtractor {
     }
 
     public void createOntology(){
-        IRI ontologyIRI = IRI.create(msBbasePrefix);
+        IRI ontologyIRI = IRI.create(msBasePrefix);
         manager = OWLManager.createOWLOntologyManager();
         factory = manager.getOWLDataFactory();
         pm = new DefaultPrefixManager(ontologyIRI.getIRIString());

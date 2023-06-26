@@ -6,9 +6,7 @@ import org.example.POextractor.Properties;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -67,7 +65,7 @@ import java.util.regex.Pattern;
  */
 public class JSON2OWL {
 
-    boolean print = true;
+    boolean print = false;
 
     protected HashMap<String, String> convertedIntoClass = new HashMap<>();
     protected Properties objProperties = new Properties();
@@ -75,6 +73,7 @@ public class JSON2OWL {
 
     protected HashMap<String, String> attrClasses = new HashMap<>();
     protected Properties newObjectProperties = new Properties();
+    private ArrayList<Properties.DomRan> nullValuedProperties = new ArrayList<>();
 
     private boolean turnAttrToClasses;
 
@@ -87,20 +86,8 @@ public class JSON2OWL {
     public void applyRules(String file) {
         JsonElement json = readJSON(file);
         String root = findRoot(json);
-
         parseJson(root, null, json, "");
 
-        if(print) {
-            System.out.println(">> CLASSES");
-            System.out.println(convertedIntoClass);
-            System.out.println(attrClasses);
-            System.out.println(">> OBJ PROP");
-            System.out.println(objProperties);
-            System.out.println(">> NEW OBJ PROP");
-            System.out.println(newObjectProperties);
-            System.out.println(">> DATA PROP");
-            System.out.println(dataProperties);
-        }
     }
 
     private JsonElement readJSON(String file) {
@@ -183,8 +170,10 @@ public class JSON2OWL {
             addDataProperty(prev, key, extractedField, value.getAsJsonPrimitive());
         }
         else if(value.isJsonNull()) {
+            // if an attribute exists for a record, but it has null value, then should search other records with the
+            // attribute to determine the property's range
             if(print) System.out.println("prev= " + prev + "\tkey= " + key + "\tprimitive= " + value+ "\tpath= " + extractedField);
-            addDataProperty(prev, key, extractedField, new JsonPrimitive("string"));
+            addDataProperty(prev, key, extractedField, null);
         }
         else if(value.isJsonObject())
             parseJsonObject(prev, key, value.getAsJsonObject(), extractedField);
@@ -193,13 +182,6 @@ public class JSON2OWL {
 
     }
 
-    /*private void handleJsonNull(String key) {
-        JSONArray values = JsonPath.read(jsonString, "$..[?(@." + key + ")]");
-
-        for (Object value : values) {
-            System.out.println(value);
-        }
-    }*/
 
     private void parseJsonObject(String prev, String key, JsonObject valueObj, String extractedField) {
         if(print) System.out.println("JObject");
@@ -264,6 +246,7 @@ public class JSON2OWL {
         //if(print) System.out.println("ADD OP: " + String.format("p_%s_%s", domain, newClass) + " " + rule);
     }
 
+    // domain ( -[has_range]-> range )* -[has_range_VALUE]-> type(value)
     private void addDataProperty(String domain, String range, String extractedField, JsonPrimitive value) {
         if(isInvalidProperty(domain, range, extractedField))
             return;
@@ -280,13 +263,17 @@ public class JSON2OWL {
                     extractedField
             );
         }
+        String dtPropName = "has_"+range+"_VALUE";
+        String xsdDatatype = JSON2XSD(value);
         dataProperties.addProperty(
                 "dp",
                 domainClass,
-                "has_"+range+"_VALUE",
-                JSON2XSD(value),
+                dtPropName,
+                xsdDatatype,
                 extractedField
         );
+        if(xsdDatatype == null)
+            nullValuedProperties.add(dataProperties.getPropertyDomRan(dtPropName));
     }
 
     private boolean[] arrayType(JsonArray array) {
@@ -305,6 +292,8 @@ public class JSON2OWL {
 
 
     private String JSON2XSD(JsonPrimitive value) {
+        if (value == null)
+            return null;
         try {
             value.getAsInt();
             return "xsd:integer";
@@ -319,13 +308,37 @@ public class JSON2OWL {
                 }catch (NumberFormatException ignored) {
                     if(value.isBoolean())
                         return "xsd:boolean";
-                    else
+                    else if (value.isString())
                         return "xsd:string";
                 }
             }
         }
+        return null;
     }
 
+    public void removeNullRanges() {
+        if(nullValuedProperties.size() > 0) {
+            for(Properties.DomRan domRan : nullValuedProperties) {
+                // remove the null range and, if another type wasn't found set it to the most
+                // general datatype i.e., string
+                domRan.range.remove(null);
+                if (domRan.range.size() == 0)
+                    domRan.range.add("xsd:string");
+            }
+        }
+    }
+
+    public void print() {
+        System.out.println(">> CLASSES");
+        System.out.println(convertedIntoClass.values());
+        System.out.println(attrClasses.values());
+        System.out.println(">> OBJ PROP");
+        System.out.println(objProperties);
+        System.out.println(">> NEW OBJ PROP");
+        System.out.println(newObjectProperties);
+        System.out.println(">> DATA PROP");
+        System.out.println(dataProperties);
+    }
 
 
 }
