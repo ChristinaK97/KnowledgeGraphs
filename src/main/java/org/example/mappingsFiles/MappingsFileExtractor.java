@@ -32,14 +32,14 @@ public class MappingsFileExtractor {
         gatherTrfs(rs);
 
         if (isRDB)
-            parseDB((DBSchema) dataSource);
+            createJSON((DBSchema) dataSource);
         else {
             addProperties(rs.getFKObjProperties().getProperties(), "ObjectProperty");
-            parseFileSchema();
+            createJSON(rs.getRootElementName());
         }
-
-        saveToJSON();
+        saveToJSONFile();
     }
+
 
 // =====================================================================================================
     class Transformation {
@@ -56,9 +56,9 @@ public class MappingsFileExtractor {
     }
 
     private void gatherTrfs(RulesetApplication rs) {
-        rs.getClasses().forEach((type, classes) -> {
+        rs.getClasses().forEach((_type, classes) -> {
             classes.forEach((elName, elClass) -> {
-                addTrf(elName, elClass, type);
+                addTrf(elName, elClass, "Class");
         });});
         addProperties(rs.getAttrObjProp().getProperties(), "ObjectProperty");
         addProperties(rs.getDataProperties().getProperties(), "DataProperty");
@@ -85,7 +85,7 @@ public class MappingsFileExtractor {
 
 // =====================================================================================================
 
-    private void parseDB(DBSchema db) {
+    private void createJSON(DBSchema db) {
 
         ArrayList<String> tables = new ArrayList<>(db.getrTables().keySet());
         Collections.sort(tables);
@@ -122,12 +122,21 @@ public class MappingsFileExtractor {
 
 // =====================================================================================================
 
-    private void parseFileSchema() {
-        Table root = new Table("");
+    private void createJSON(String rootElementName) {
+        Table root = new Table(rootElementName);
+        Mapping rootMapping = new Mapping(
+                trf.get(rootElementName).get(0).type,
+                trf.get(rootElementName).get(0).ontoElement,
+                "", true, null);
+        root.setMapping(rootMapping);
+
         ArrayList<String> fieldsNames = new ArrayList<>(trf.keySet());
         Collections.sort(fieldsNames);
 
         for(String elName : fieldsNames) {
+            if(elName.equals(rootElementName))
+                continue;
+
             Column field = new Column(elName);
             for (Transformation t : trf.get(elName))
                 field.addMapping(new Mapping(
@@ -141,7 +150,7 @@ public class MappingsFileExtractor {
 
 // =====================================================================================================
 
-    private void saveToJSON() {
+    private void saveToJSONFile() {
         File file = new File(EFS_mappings);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));

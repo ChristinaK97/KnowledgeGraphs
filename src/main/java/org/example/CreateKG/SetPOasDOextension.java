@@ -126,6 +126,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         Mapping classMap = colMap.getClassPropMapping();  //2
         Mapping dataMap  = colMap.getDataPropMapping();   //3
 
+        // TODO dataMap.hasDataProperty() fix missing domain
         if((dataMap.hasMatch() || dataMap.getPathURIs() != null)  //4
                 && !objMap.hasMatch() && !classMap.hasMatch())
         {
@@ -211,15 +212,16 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
             // remove restriction statements and anonymous restriction classes containing the property
             OntResource domain = property.getDomain();
-            if(domain.canAs(UnionClass.class)) {                //2.1
-                for (OntClass DClass : domain.as(UnionClass.class).listOperands().toList())
-                    removeRestriction(DClass, property);
+            if(domain != null) {
+                if(domain.canAs(UnionClass.class)) {                //2.1
+                    for (OntClass DClass : domain.as(UnionClass.class).listOperands().toList())
+                        removeRestriction(DClass, property);
 
-                // remove anonymous union domain class
-                domain.as(UnionClass.class).remove();
-            }else   //2.2
-                removeRestriction(domain.asClass(), property);
-
+                    // remove anonymous union domain class
+                    domain.as(UnionClass.class).remove();
+                }else   //2.2
+                    removeRestriction(domain.asClass(), property);
+            }
             //4
             pModel.removeAll(property, null, null);
             pModel.removeAll(null, property, null);

@@ -77,6 +77,7 @@ public class JSON2OWL {
 
     private boolean turnAttrToClasses;
 
+    private String root;
     private String ROOTCLASS = "record";
 
     public JSON2OWL(boolean turnAttrToClasses) {
@@ -85,7 +86,7 @@ public class JSON2OWL {
 
     public void applyRules(String file) {
         JsonElement json = readJSON(file);
-        String root = findRoot(json);
+        findRoot(json);
         parseJson(root, null, json,
                 root.equals(ROOTCLASS) ? "/" + root : ""
         );
@@ -131,8 +132,7 @@ public class JSON2OWL {
     }
 
 
-    private String findRoot(JsonElement json) {
-        String root;
+    private void findRoot(JsonElement json) {
 
         // ROOT PATTERN 1: Outer element is an array [{},...]
         if (json.isJsonArray()) {
@@ -158,7 +158,6 @@ public class JSON2OWL {
             root = "?";
         }
         convertedIntoClass.put(root, root);
-        return root;
     }
 
     /**
@@ -328,6 +327,10 @@ public class JSON2OWL {
                     domRan.range.add("xsd:string");
             }
         }
+    }
+
+    public String getRoot() {
+        return root;
     }
 
     public void print() {

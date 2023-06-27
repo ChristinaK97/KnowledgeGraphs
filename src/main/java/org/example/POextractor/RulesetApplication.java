@@ -14,6 +14,7 @@ public class RulesetApplication {
     HashMap<String, HashMap<String, String>> classes = new HashMap<>(2);
     HashMap<String, Properties> objProperties = new HashMap<>(2);
     Properties dataProperties;
+    private String rootElementName = null;
 
     public RulesetApplication(boolean turnAttributesToClasses) {
         this.turnAttributesToClasses = turnAttributesToClasses;
@@ -51,6 +52,7 @@ public class RulesetApplication {
             JSON2OWL json2owl = new JSON2OWL(turnAttributesToClasses);
             files.forEach(json2owl::applyRules);
             json2owl.removeNullRanges();
+            rootElementName = json2owl.getRoot();
             json2owl.print();
 
             classes.put("Table", json2owl.convertedIntoClass);
@@ -77,5 +79,9 @@ public class RulesetApplication {
 
     public Properties getDataProperties() {
         return dataProperties;
+    }
+
+    public String getRootElementName() {
+        return rootElementName;
     }
 }

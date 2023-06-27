@@ -115,7 +115,11 @@ public class MappingsFileTemplate {
             return returnMappingPerType(2);
         }
         private Mapping returnMappingPerType(int type) {
-            return mappings.get(type);
+            try {
+                return mappings.get(type);
+            }catch (IndexOutOfBoundsException e) {
+                return new Mapping(null,"","", false, null);
+            }
         }
 
         public void delClassPropMapping() {
@@ -201,6 +205,10 @@ public class MappingsFileTemplate {
 
         public boolean hasMatch() {
             return !"".equals(match.toString());
+        }
+
+        public boolean hasDataProperty() {
+            return type != null;
         }
     }
     //================================================================================
