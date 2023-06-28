@@ -1,4 +1,4 @@
-package org.example.InputPoint;
+package org.example.InputPoint.SQLdb;
 
 import java.util.*;
 

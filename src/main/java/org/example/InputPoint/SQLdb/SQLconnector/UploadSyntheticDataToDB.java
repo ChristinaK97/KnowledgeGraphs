@@ -1,8 +1,9 @@
-package org.example.InputPoint;
+package org.example.InputPoint.SQLdb.SQLconnector;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.InputPoint.SQLdb.DBSchema;
 
 import java.io.*;
 import java.sql.PreparedStatement;

@@ -1,6 +1,5 @@
 package org.example.POextractor;
 
-import org.example.InputPoint.DBSchema;
 import org.example.POextractor.Properties.DomRan;
 import org.example.mappingsFiles.MappingsFileExtractor;
 import org.example.other.Util;

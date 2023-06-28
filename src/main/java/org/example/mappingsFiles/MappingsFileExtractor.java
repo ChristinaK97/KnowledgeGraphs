@@ -1,7 +1,7 @@
 package org.example.mappingsFiles;
 
 import com.google.gson.GsonBuilder;
-import org.example.InputPoint.DBSchema;
+import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties;
 import org.example.POextractor.RulesetApplication;
 import org.example.mappingsFiles.MappingsFileTemplate.Table;

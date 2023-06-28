@@ -4,7 +4,7 @@ import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
-import org.example.InputPoint.DBSchema;
+import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties;
 import org.example.POextractor.RDB2OWL.ClassExtractor;
 import org.example.POextractor.RDB2OWL.DataPropExtractor;

@@ -1,4 +1,6 @@
-package org.example.InputPoint;
+package org.example.InputPoint.SQLdb;
+
+import org.example.InputPoint.SQLdb.SQLconnector.DatabaseConnector;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

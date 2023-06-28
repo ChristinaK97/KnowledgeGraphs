@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.example.InputPoint.DBSchema;
-import org.example.InputPoint.RTable;
+import org.example.InputPoint.SQLdb.DBSchema;
+import org.example.InputPoint.SQLdb.RTable;
 import org.example.POextractor.Properties;
 import org.example.POextractor.Properties.DomRan;
 

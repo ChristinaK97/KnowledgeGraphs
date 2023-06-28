@@ -1,6 +1,6 @@
 package org.example.POextractor;
 
-import org.example.InputPoint.DBSchema;
+import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.RDB2OWL.ClassExtractor;
 import org.example.POextractor.RDB2OWL.DataPropExtractor;
 import org.example.POextractor.RDB2OWL.ObjectPropExtractor;

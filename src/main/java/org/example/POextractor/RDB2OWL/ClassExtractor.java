@@ -1,7 +1,7 @@
 package org.example.POextractor.RDB2OWL;
 
-import org.example.InputPoint.DBSchema;
-import org.example.InputPoint.RTable.FKpointer;
+import org.example.InputPoint.SQLdb.DBSchema;
+import org.example.InputPoint.SQLdb.RTable.FKpointer;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,6 +1,7 @@
-package org.example.InputPoint;
+package org.example.InputPoint.SQLdb.SQLconnector;
 
 import com.github.jsonldjava.shaded.com.google.common.collect.ImmutableMap;
+import org.example.InputPoint.SQLdb.SQLconnector.Credentials;
 import tech.tablesaw.api.ColumnType;
 import tech.tablesaw.api.Table;
 import tech.tablesaw.columns.Column;
