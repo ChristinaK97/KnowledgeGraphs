@@ -31,7 +31,7 @@ public class MappingsFileTemplate {
     //================================================================================
 
     /**
-     * Such as a relation table
+     * Such as a relation table or a whole CSV file
      */
     public static class Table {
         private String table;

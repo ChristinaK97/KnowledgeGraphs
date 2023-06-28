@@ -116,7 +116,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *  - a data property    //3
          * some of these elements might have been matched with DO elements.
          *
-         * 4. If only the data PO property has been matched, the column expresses
+         * 4. If only the PO data  property is needed, the column expresses
          *    a pure data attribute. The PO object property and class are unnecessary,
          *    so they are deleted from the ontology model.
          * 5. For each PO element that has been matched, set hierarchical relationships with the DO
@@ -126,11 +126,21 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         Mapping classMap = colMap.getClassPropMapping();  //2
         Mapping dataMap  = colMap.getDataPropMapping();   //3
 
-        // TODO dataMap.hasDataProperty() fix missing domain
-        if((dataMap.hasMatch() || dataMap.getPathURIs() != null)  //4
-                && !objMap.hasMatch() && !classMap.hasMatch())
-        {
-            /**/deleteClass(classMap.getOntoElURI());
+        //4
+        if(dataMap.hasDataProperty()
+                && !objMap.hasMatch() && !classMap.hasMatch()
+                && objMap.getPathURIs() == null && dataMap.getPathURIs() == null
+        ){
+            // Connect the domain of the PO objProp (that will be del) with the dataProp (that will remain)
+            // before: tableClass -[objProp]-> Class -[dataProp]-> value
+            // after:  tableClass -[dataProp]-> value
+            OntResource tableClass = getOntProperty(objMap.getOntoElURI()).getDomain();
+            DatatypeProperty dataProp = getOntProperty(dataMap.getOntoElURI()).asDatatypeProperty();
+            addRangeRestriction(tableClass, dataProp, dataProp.getRange());
+            dataProp.setDomain(tableClass);
+
+            // Delete PO class and ObjProp
+            deleteClass(classMap.getOntoElURI());
             colMap.delClassPropMapping();
 
             deleteProperty(objMap.getOntoElURI());
@@ -212,16 +222,15 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
             // remove restriction statements and anonymous restriction classes containing the property
             OntResource domain = property.getDomain();
-            if(domain != null) {
-                if(domain.canAs(UnionClass.class)) {                //2.1
-                    for (OntClass DClass : domain.as(UnionClass.class).listOperands().toList())
-                        removeRestriction(DClass, property);
+            if(domain.canAs(UnionClass.class)) {                //2.1
+                for (OntClass DClass : domain.as(UnionClass.class).listOperands().toList())
+                    removeRestriction(DClass, property);
 
-                    // remove anonymous union domain class
-                    domain.as(UnionClass.class).remove();
-                }else   //2.2
-                    removeRestriction(domain.asClass(), property);
-            }
+                // remove anonymous union domain class
+                domain.as(UnionClass.class).remove();
+            }else   //2.2
+                removeRestriction(domain.asClass(), property);
+
             //4
             pModel.removeAll(property, null, null);
             pModel.removeAll(null, property, null);
@@ -418,6 +427,18 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         for(Statement stmt : toRemove)     //7
             pModel.removeAll(stmt.getObject().asResource(), null, null);
 
+    }
+
+    private void addRangeRestriction(OntResource DClassExpression, OntProperty onProperty, OntResource newRange) {
+        System.out.println("Add new range restriction");
+        if (DClassExpression.canAs(UnionClass.class)) {
+            for (OntClass operand : DClassExpression.as(UnionClass.class).listOperands().toList()) {
+                System.out.printf("Is Union SET %s sCo %s some %s\n", operand.getLocalName(), onProperty.getLocalName(), newRange.getLocalName());
+                addRangeRestriction(operand, onProperty, newRange);                                                        //6
+        }}else {
+            System.out.printf("Is class SET %s sCo %s some %s\n", DClassExpression.getLocalName(), onProperty.getLocalName(), newRange.getLocalName());
+            addRangeRestriction(DClassExpression.asClass(), onProperty, newRange);
+        }
     }
 
     /**
