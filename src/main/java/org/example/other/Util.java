@@ -17,7 +17,7 @@ public class Util {
     public static final String POontology = resourcePath + "test_efs.ttl";
 
     public static final String TableWithMappings = resourcePath + "TableWithMappings.csv";
-    public static final String EFS_mappings = resourcePath + "EFS_mappings.json";
+    public static final String EFS_mappings = resourcePath + "saved/EFS_mappings.json";
     public static final String EFS_mappings_ObjProp = resourcePath + "EFS_mappings_ObjProp.json";
 
 
