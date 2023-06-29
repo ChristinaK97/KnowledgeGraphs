@@ -1,10 +1,7 @@
 package org.example.CreateKG;
 
 import org.apache.jena.ontology.*;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Statement;
-import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
@@ -31,8 +28,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     private HashSet<String> importURIs = new HashSet<>();
 
-    public SetPOasDOextension() {
-        super(POontology);
+    public SetPOasDOextension(String ontologyName) {
+        super(POontology, ontologyName);
 
         gatherImports();
         loadDomainOntoImports();
@@ -126,18 +123,26 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         Mapping classMap = colMap.getClassPropMapping();  //2
         Mapping dataMap  = colMap.getDataPropMapping();   //3
 
-        //4
+        //4. DEL  PO ObjProp AND Class ?
         if(dataMap.hasDataProperty()
                 && !objMap.hasMatch() && !classMap.hasMatch()
                 && objMap.getPathURIs() == null && dataMap.getPathURIs() == null
         ){
+
             // Connect the domain of the PO objProp (that will be del) with the dataProp (that will remain)
             // before: tableClass -[objProp]-> Class -[dataProp]-> value
             // after:  tableClass -[dataProp]-> value
-            OntResource tableClass = getOntProperty(objMap.getOntoElURI()).getDomain();
-            DatatypeProperty dataProp = getOntProperty(dataMap.getOntoElURI()).asDatatypeProperty();
-            addRangeRestriction(tableClass, dataProp, dataProp.getRange());
-            dataProp.setDomain(tableClass);
+            try {
+                OntResource tableClass = getOntProperty(objMap.getOntoElURI()).getDomain();
+                DatatypeProperty dataProp = getOntProperty(dataMap.getOntoElURI()).asDatatypeProperty();
+                // if domain is an anonymous class like a union node, it will be deleted when deleting the
+                // property, so the generation of a copy is needed
+                dataProp.setDomain(getClassCopy(tableClass));
+                if(tableClass.isClass())
+                    addRangeRestriction(tableClass, dataProp, dataProp.getRange());
+            }catch (NullPointerException e) {
+                // already deleted
+            }
 
             // Delete PO class and ObjProp
             deleteClass(classMap.getOntoElURI());
@@ -146,7 +151,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             deleteProperty(objMap.getOntoElURI());
             colMap.delObjectPropMapping();
         }
-        //5
+        //5. SET HIERARCHY
         if(objMap.hasMatch())
             setSubPropertyOf(objMap);
 
@@ -484,7 +489,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 newProp.setLabel(newLabel, "en");
                 newProp.setComment(String.format("New prop to connect tableClass \"%s\" with firstPathClass \"%s\"", tableClassName, firstClassName), "en");
                 newProp.addComment(prop.getComment(""), "en");
-                newProp.setSuperProperty(getOntProperty(ATTRIBUTE_PROPERTY_URI));
+                newProp.setSuperProperty(getOntProperty(get_ATTRIBUTE_PROPERTY_URI(ontologyName)));
 
                 OntClass DtableClass = getOntClass(tableClassURI);
                 newProp.setDomain(DtableClass);
@@ -563,6 +568,19 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     }
 
+// UTIL ================================================================================================================
+
+    private Resource getClassCopy(Resource cl) {
+        if (cl.canAs(UnionClass.class)) {
+            UnionClass unionClass = cl.as(UnionClass.class);
+            ExtendedIterator<? extends OntClass> operands = unionClass.listOperands();
+            RDFList members = pModel.createList(operands);
+            operands.close();
+            return pModel.createUnionClass(null, members);
+        }
+        return cl;
+    }
+
 
     //==================================================================================
     private void printClass(OntResource cl) {
@@ -573,6 +591,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 OntClass operand = operands.next();
                 System.out.println("Union operand: " + operand.getLocalName());
             }
+            operands.close();
         }else {
             System.out.println(cl.getURI());
         }
@@ -580,7 +599,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     //==================================================================================
     public static void main(String[] args) {
-        new SetPOasDOextension();
+        new SetPOasDOextension("json");
     }
 
 }

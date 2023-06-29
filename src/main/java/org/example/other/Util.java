@@ -17,7 +17,7 @@ public class Util {
     public static final String POontology = resourcePath + "test_efs.ttl";
 
     public static final String TableWithMappings = resourcePath + "TableWithMappings.csv";
-    public static final String EFS_mappings = resourcePath + "saved/EFS_mappings.json";
+    public static final String EFS_mappings = resourcePath + "EFS_mappings.json";
     public static final String EFS_mappings_ObjProp = resourcePath + "EFS_mappings_ObjProp.json";
 
 
@@ -31,8 +31,17 @@ public class Util {
 
 
     public static final String TABLE_CLASS = "TableClass";
-    public static final URI ATTRIBUTE_PROPERTY_URI = URI.create("http://www.example.net/ontologies/test_efs.owl/AttributeProperty");
-    public static final URI TABLE_CLASS_URI = URI.create("http://www.example.net/ontologies/test_efs.owl/TableClass");;
+
+    public static URI get_TABLE_CLASS_URI(String ontologyName) {
+        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/TableClass");
+    }
+    public static URI get_ATTRIBUTE_PROPERTY_URI(String ontologyName) {
+        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/AttributeProperty");
+    }
+    public static URI get_FK_PROPERTY_URI(String ontologyName) {
+        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/FKProperty");
+    }
+
 
     public static String normalise(String s) {
         return normalise(new HashSet<>(Collections.singleton(s)));

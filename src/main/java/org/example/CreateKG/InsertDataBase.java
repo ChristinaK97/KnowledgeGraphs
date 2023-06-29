@@ -11,7 +11,10 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
-import org.example.mappingsFiles.MappingsFileTemplate;
+
+import org.example.mappingsFiles.MappingsFileTemplate.Table;
+import org.example.mappingsFiles.MappingsFileTemplate.Column;
+import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -33,16 +36,19 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     String mBasePrefix;
 
 
-    public InsertDataBase () {
+    public InsertDataBase (String ontologyName) {
         //TODO add this:
         /*super("outputOntology.ttl");
         pModel.loadImports();
         mBasePrefix = pModel.getNsPrefixURI("");*/
 
         //TODO remove this:
-        super(mergedOutputOntology);
-        mBasePrefix = "http://www.example.net/ontologies/test_efs.owl/";
+        super(outputOntology, ontologyName);
+        mBasePrefix = "http://www.example.net/ontologies/json.owl/";
 
+    }
+
+    protected void run() {
         //remove DO individuals before loading data
         pModel.listIndividuals().forEachRemaining(resource -> {
             pModel.removeAll(resource, null, null);
@@ -63,7 +69,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
 
     private void extractMappingPaths() {
-        for(MappingsFileTemplate.Table tableMaps : tablesMaps) {
+        for(Table tableMaps : tablesMaps) {
 
             String tableName = tableMaps.getTable();
             String tableClassName = tableMaps.getMapping().getOntoElResource();
@@ -71,12 +77,13 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
             tablesClass.put(tableName, getOntClass(tableMaps.getMapping().getOntoElURI()));
             paths.put(tableName, new HashMap<>());
 
-            for(MappingsFileTemplate.Column col : tableMaps.getColumns()) {
+            for(Column col : tableMaps.getColumns()) {
 
                 ArrayList<OntResource> colPath = new ArrayList<>();
-                MappingsFileTemplate.Mapping objMap   = col.getObjectPropMapping();
-                MappingsFileTemplate.Mapping classMap = col.getClassPropMapping();
-                MappingsFileTemplate.Mapping dataMap  = col.getDataPropMapping();
+                Mapping objMap   = col.getObjectPropMapping();
+                Mapping classMap = col.getClassPropMapping();
+                Mapping dataMap  = col.getDataPropMapping();
+
                 boolean onlyDataPropertyWasMaintained = true;
 
                 // COLUMN OBJECT PROPERTY ==============================================================================
@@ -118,7 +125,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         }
     }
 
-    private void addPropertyPathToColumnPath(ArrayList<OntResource> colPath, MappingsFileTemplate.Mapping map, boolean checkFirstNode, String tableClassName) {
+    private void addPropertyPathToColumnPath(ArrayList<OntResource> colPath, Mapping map, boolean checkFirstNode, String tableClassName) {
         if(map.getPathURIs() != null) {
             List<URI> propPath = map.getPathURIs();
             System.out.println(propPath);
@@ -191,8 +198,10 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     protected void setDataPropertyValue(Resource prevNode, OntProperty dataProp, Object colValue) {
         // to resolve WARN inventing a datatype for class java.time.Instant
         // cast the datatype according to the range of the data property
+        System.out.println(dataProp);
+        System.out.println(dataProp.getRange().getURI());
         Literal dataValue = pModel.createTypedLiteral(colValue, dataProp.getRange().getURI());
-        prevNode.addLiteral(dataProp, dataValue);
+        prevNode.addProperty(dataProp, dataValue);
     }
 
 

@@ -78,7 +78,7 @@ public class JSON2OWL {
     private boolean turnAttrToClasses;
 
     private String root;
-    private String ROOTCLASS = "record";
+    public static String ROOTCLASS = "record";
 
     public JSON2OWL(boolean turnAttrToClasses) {
         this.turnAttrToClasses = turnAttrToClasses;
@@ -93,7 +93,7 @@ public class JSON2OWL {
 
     }
 
-    private JsonElement readJSON(String file) {
+    public static JsonElement readJSON(String file) {
         JsonElement json = null;
         try {
             // check if json is valid
@@ -115,7 +115,7 @@ public class JSON2OWL {
     }
 
 
-    private String fixJSON(String jsonContent) {
+    private static String fixJSON(String jsonContent) {
         String pattern = "\\}[\\r\\n]+";
         Pattern regex = Pattern.compile(pattern);
         Matcher matcher = regex.matcher(jsonContent);
@@ -157,7 +157,7 @@ public class JSON2OWL {
             System.err.println("Invalid JSON");
             root = "?";
         }
-        convertedIntoClass.put(root, root);
+        convertedIntoClass.put("/" + root, root);
     }
 
     /**
@@ -190,7 +190,7 @@ public class JSON2OWL {
             key = prev;
         else {
             String newClass = key;
-            convertedIntoClass.put(key, newClass);
+            convertedIntoClass.put(extractedField, newClass);
             addObjectProperty(prev, key, extractedField, "jsonObj");
         }
 
@@ -213,7 +213,7 @@ public class JSON2OWL {
                 key = prev;
             else {
                 String newClass = key;
-                convertedIntoClass.put(key, newClass);
+                convertedIntoClass.put(extractedField, newClass);
                 addObjectProperty(prev, key, extractedField, "jsonArray");
             }
         }
@@ -236,7 +236,7 @@ public class JSON2OWL {
             return;
 
         String newClass = range;
-        domain = convertedIntoClass.get(domain);
+        //domain = convertedIntoClass.get(domain);
         objProperties.addProperty(
                 rule,
                 domain,
@@ -252,13 +252,13 @@ public class JSON2OWL {
         if(isInvalidProperty(domain, range, extractedField))
             return;
 
-        String domainClass = convertedIntoClass.get(domain);
+        String domainClass = domain; //convertedIntoClass.get(domain);
         if (turnAttrToClasses) {
             String attrClass = range;
             domainClass = attrClass;
-            attrClasses.put(range, attrClass);
+            attrClasses.put(extractedField, attrClass);
             newObjectProperties.addProperty("dp",
-                    convertedIntoClass.get(domain),
+                    domain,
                     "has_"+attrClass,
                     attrClass,
                     extractedField
@@ -277,10 +277,14 @@ public class JSON2OWL {
             nullValuedProperties.add(dataProperties.getPropertyDomRan(dtPropName));
     }
 
-    private boolean[] arrayType(JsonArray array) {
-        //isPrimitive : type[0]
-        //isNonPrimitive : type[1]
-        //isMixed : type[0] && type[1]
+    /**
+     * @param array: A JsonArray
+     * @return
+     * isPrimitive : type[0] <br>
+     * isNonPrimitive : type[1] <br>
+     * isMixed : type[0] && type[1] <br>
+     */
+    public static boolean[] arrayType(JsonArray array) {
         boolean[] type = new boolean[2];
         for(JsonElement element : array)
             if(element.isJsonPrimitive())

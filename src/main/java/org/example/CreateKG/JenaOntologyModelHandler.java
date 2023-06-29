@@ -12,16 +12,17 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.other.Util.EFS_mappings;
-import static org.example.other.Util.TABLE_CLASS_URI;
+import static org.example.other.Util.*;
 
 public class JenaOntologyModelHandler {
 
     protected OntModel pModel;
+    protected String ontologyName;
     protected List<MappingsFileTemplate.Table> tablesMaps;
     private HashMap<String, URI> cachedSpecializedClasses = new HashMap<>();
 
-    public JenaOntologyModelHandler(String ontologyFile) {
+    public JenaOntologyModelHandler(String ontologyFile, String ontologyName) {
+        this.ontologyName = ontologyName;
         loadPutativeOntology(ontologyFile);
         readMapJSON();
     }
@@ -91,7 +92,7 @@ public class JenaOntologyModelHandler {
                     continue;
                 }
 
-                OntClass tableClass = getOntClass(TABLE_CLASS_URI);
+                OntClass tableClass = getOntClass(get_TABLE_CLASS_URI(ontologyName));
 
                 // replace the class in the path with the specialised PO TableClass subclass
                 for (ExtendedIterator<OntClass> it = nodeClass.listSubClasses(); it.hasNext(); ) {

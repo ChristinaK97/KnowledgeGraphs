@@ -60,15 +60,19 @@ public class MappingsFileExtractor {
             classes.forEach((elName, elClass) -> {
                 addTrf(elName, elClass, "Class");
         });});
-        addProperties(rs.getAttrObjProp().getProperties(), "ObjectProperty");
+        try{
+            addProperties(rs.getAttrObjProp().getProperties(), "ObjectProperty");
+        }catch (NullPointerException e) {
+            // turnAttrToClasses was false
+        }
         addProperties(rs.getDataProperties().getProperties(), "DataProperty");
     }
 
     private void addProperties(HashMap<String, Properties.DomRan> prop, String type) {
         prop.forEach((propName, domRan) -> {
             for(String field : domRan.getExtractedField()) {
-                if(!isRDB)
-                    field = field.substring(field.lastIndexOf('/') + 1);
+                /*if(!isRDB)
+                    field = field.substring(field.lastIndexOf('/') + 1);*/
                 addTrf(field, propName, type);
             }
         });
@@ -123,6 +127,7 @@ public class MappingsFileExtractor {
 // =====================================================================================================
 
     private void createJSON(String rootElementName) {
+        rootElementName = "/" + rootElementName;
         Table root = new Table(rootElementName);
         Mapping rootMapping = new Mapping(
                 trf.get(rootElementName).get(0).type,

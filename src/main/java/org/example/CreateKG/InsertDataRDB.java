@@ -22,10 +22,13 @@ public class InsertDataRDB extends InsertDataBase {
     DBSchema db = new DBSchema();
     DatabaseConnector connector = new DatabaseConnector();
 
-    public InsertDataRDB() {
-        super();
+    public InsertDataRDB(String ontologyName) {
+        super(ontologyName);
+        run();
     }
 
+
+    @Override
     protected void addAdditionalPaths() {
         addForeignKeysToPaths();
     }
@@ -52,7 +55,7 @@ public class InsertDataRDB extends InsertDataBase {
 
 // INSERT DATA =====================================================================================================
 
-
+    @Override
     protected void mapData() {
         db.getrTables().forEach((tableName, rTable) -> {
             tech.tablesaw.api.Table data = connector.retrieveDataFromTable(tableName);
@@ -217,7 +220,7 @@ public class InsertDataRDB extends InsertDataBase {
 
 
     public static void main(String[] args) {
-        new InsertDataRDB();
+        new InsertDataRDB("test_efs");
     }
 }
 
