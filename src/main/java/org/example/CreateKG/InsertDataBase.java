@@ -43,7 +43,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         mBasePrefix = pModel.getNsPrefixURI("");*/
 
         //TODO remove this:
-        super(outputOntology, ontologyName);
+        super(POontology, ontologyName);
         mBasePrefix = "http://www.example.net/ontologies/json.owl/";
 
     }
@@ -115,10 +115,11 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                  * (tableClass) -[newProp]-> (firstNode)
                  */
                 specialisePathDOclasses(dataMap);
-                addPropertyPathToColumnPath(colPath, dataMap, onlyDataPropertyWasMaintained, tableClassName);
-                // append data property to the column's path (data properties are never deleted)
-                colPath.add(getOntResource(dataMap.getOntoElURI()));
-
+                if(dataMap.hasDataProperty()) {
+                    addPropertyPathToColumnPath(colPath, dataMap, onlyDataPropertyWasMaintained, tableClassName);
+                    // append data property to the column's path (data properties are never deleted)
+                    colPath.add(getOntResource(dataMap.getOntoElURI()));
+                }
                 //======================================================================================================
                 paths.get(tableName).put(col.getColumn(), colPath);
             }

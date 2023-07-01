@@ -35,7 +35,7 @@ public class MappingsFileExtractor {
             createJSON((DBSchema) dataSource);
         else {
             addProperties(rs.getFKObjProperties().getProperties(), "ObjectProperty");
-            createJSON(rs.getRootElementName());
+            createJSON(rs.getRootElementName(), rs.getClasses().get("Table"));
         }
         saveToJSONFile();
     }
@@ -126,14 +126,21 @@ public class MappingsFileExtractor {
 
 // =====================================================================================================
 
-    private void createJSON(String rootElementName) {
+    private void createJSON(String rootElementName, HashMap<String, String> tableClasses) {
         rootElementName = "/" + rootElementName;
-        Table root = new Table(rootElementName);
-        Mapping rootMapping = new Mapping(
-                trf.get(rootElementName).get(0).type,
-                trf.get(rootElementName).get(0).ontoElement,
-                "", true, null);
-        root.setMapping(rootMapping);
+        HashMap<String, Table> tableClassesTable = new HashMap<>();
+        for(String classField: tableClasses.keySet()) {
+            Table table = new Table(classField);
+            Mapping tableMapping = new Mapping(
+                    trf.get(classField).get(0).type,
+                    trf.get(classField).get(0).ontoElement,
+                    "", true, null);
+            table.setMapping(tableMapping);
+            tableClassesTable.put(classField, table);
+            fileTemplate.addTable(table);
+        }
+
+        System.out.println(tableClassesTable.keySet());
 
         ArrayList<String> fieldsNames = new ArrayList<>(trf.keySet());
         Collections.sort(fieldsNames);
@@ -147,9 +154,9 @@ public class MappingsFileExtractor {
                 field.addMapping(new Mapping(
                         t.type, t.ontoElement, "", true, null)
                 );
-            root.addColumn(field);
+            String fieldTable = elName.substring(0, elName.lastIndexOf("/"));
+            tableClassesTable.get(fieldTable).addColumn(field);
         }
-        fileTemplate.addTable(root);
     }
 
 
