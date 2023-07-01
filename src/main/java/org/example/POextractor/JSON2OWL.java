@@ -89,24 +89,33 @@ public class JSON2OWL {
 
 
     private void findRoot(JsonElement json) {
-
-        // ROOT PATTERN 1: Outer element is an array [{},...]
-        if (json.isJsonArray()) {
+        /* Root patterns:
+         *-------------------
+         * 1. Outer element is an array [{},...]
+         *    -> Create a custom "record" class for root
+         *
+         * 2. Outer element is a dictionary
+         *
+         *    2.1. Outer element is a dictionary with a single attribute
+         *         {"root" : [] or {} }
+         *         -> Use the existing element as root
+         *
+         *    2.2. Outer element is a dictionary with multiple attributes
+         *         {"a" : ., "b"}
+         *         -> Create a custom "record" class for root
+         */
+        if (json.isJsonArray()) {                               //1
             if(print) System.out.println("array");
             root = JsonUtil.ROOTCLASS;
         }
-        // ROOT PATTERN 2: Outer element is a dictionary
-        else if (json.isJsonObject()) {
+
+        else if (json.isJsonObject()) {                         //2
             if(print) System.out.println("object");
             JsonObject jsonObj = json.getAsJsonObject();
 
-            if (jsonObj.keySet().size() == 1)
-                // ROOT PATTERN 2.1: Outer element is a dictionary with a single attribute
-                // {"root" : [] or {} }
+            if (jsonObj.keySet().size() == 1)                       //2.1
                 root = jsonObj.keySet().iterator().next();
-            else
-                // ROOT PATTERN 2.2: Outer element is a dictionary with multiple attributes
-                // {"a" : ., "b"}
+            else                                                    //2.2
                 root = JsonUtil.ROOTCLASS;
 
         } else {
