@@ -1,14 +1,9 @@
 package org.example.POextractor;
 
 import com.google.gson.*;
-import org.example.POextractor.Properties;
+import org.example.other.JsonUtil;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Full Example:
@@ -78,57 +73,18 @@ public class JSON2OWL {
     private boolean turnAttrToClasses;
 
     private String root;
-    public static String ROOTCLASS = "record";
 
     public JSON2OWL(boolean turnAttrToClasses) {
         this.turnAttrToClasses = turnAttrToClasses;
     }
 
     public void applyRules(String file) {
-        JsonElement json = readJSON(file);
+        JsonElement json = JsonUtil.readJSON(file);
         findRoot(json);
         parseJson(root, null, json,
-                root.equals(ROOTCLASS) ? "/" + root : ""
+                root.equals(JsonUtil.ROOTCLASS) ? "/" + root : ""
         );
 
-    }
-
-    public static JsonElement readJSON(String file) {
-        JsonElement json = null;
-        try {
-            // check if json is valid
-            String jsonContent =  new String(Files.readAllBytes(Paths.get(file)));
-
-            try {
-                JsonParser.parseString(jsonContent);
-            } catch (JsonSyntaxException e) {
-                System.err.println("INVALID");
-                jsonContent = fixJSON(jsonContent);
-            }
-            // create JsonElement object
-            json = new Gson().fromJson(jsonContent, JsonElement.class);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return json;
-    }
-
-
-    private static String fixJSON(String jsonContent) {
-        String pattern = "\\}[\\r\\n]+";
-        Pattern regex = Pattern.compile(pattern);
-        Matcher matcher = regex.matcher(jsonContent);
-
-        // Insert commas after closing braces
-        StringBuffer sb = new StringBuffer("[\n");
-        while (matcher.find()) {
-            matcher.appendReplacement(sb, "},");
-        }
-        matcher.appendTail(sb);
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append("]");
-        return sb.toString();
     }
 
 
@@ -137,7 +93,7 @@ public class JSON2OWL {
         // ROOT PATTERN 1: Outer element is an array [{},...]
         if (json.isJsonArray()) {
             if(print) System.out.println("array");
-            root = ROOTCLASS;
+            root = JsonUtil.ROOTCLASS;
         }
         // ROOT PATTERN 2: Outer element is a dictionary
         else if (json.isJsonObject()) {
@@ -151,7 +107,7 @@ public class JSON2OWL {
             else
                 // ROOT PATTERN 2.2: Outer element is a dictionary with multiple attributes
                 // {"a" : ., "b"}
-                root = ROOTCLASS;
+                root = JsonUtil.ROOTCLASS;
 
         } else {
             System.err.println("Invalid JSON");
@@ -159,6 +115,9 @@ public class JSON2OWL {
         }
         convertedIntoClass.put("/" + root, root);
     }
+
+
+// =====================================================================================================================
 
     /**
      * Recursively read all json nested elements
@@ -203,7 +162,7 @@ public class JSON2OWL {
 
     private void parseJsonArray(String prev, String key, JsonArray valueArray, String extractedField) {
         if(print) System.out.println("JArray");
-        boolean[] type = arrayType(valueArray);
+        boolean[] type = JsonUtil.arrayType(valueArray);
 
         if(type[0] && type[1]) //mixed
             addDataProperty(prev, key, extractedField, new JsonPrimitive("string"));
@@ -223,16 +182,11 @@ public class JSON2OWL {
         }
     }
 
-    private boolean isInvalidProperty(String domain, String range, String extractedField){
-        HashSet<String> invalid = new HashSet<>(Set.of("None", "null", "", " "));
-        return  domain == null || range == null ||
-                invalid.contains(domain) || invalid.contains(range) ||
-                (domain.equals(range) && extractedField.equals("/"+domain));
 
-    }
+// =====================================================================================================================
 
     private void addObjectProperty(String domain, String range, String extractedField, String rule) {
-        if(isInvalidProperty(domain, range, extractedField))
+        if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
         String newClass = range;
@@ -249,7 +203,7 @@ public class JSON2OWL {
 
     // domain ( -[has_range]-> range )* -[has_range_VALUE]-> type(value)
     private void addDataProperty(String domain, String range, String extractedField, JsonPrimitive value) {
-        if(isInvalidProperty(domain, range, extractedField))
+        if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
         String domainClass = domain; //convertedIntoClass.get(domain);
@@ -265,7 +219,7 @@ public class JSON2OWL {
             );
         }
         String dtPropName = "has_"+range+"_VALUE";
-        String xsdDatatype = JSON2XSD(value);
+        String xsdDatatype = JsonUtil.JSON2XSD(value);
         dataProperties.addProperty(
                 "dp",
                 domainClass,
@@ -277,49 +231,6 @@ public class JSON2OWL {
             nullValuedProperties.add(dataProperties.getPropertyDomRan(dtPropName));
     }
 
-    /**
-     * @param array: A JsonArray
-     * @return
-     * isPrimitive : type[0] <br>
-     * isNonPrimitive : type[1] <br>
-     * isMixed : type[0] && type[1] <br>
-     */
-    public static boolean[] arrayType(JsonArray array) {
-        boolean[] type = new boolean[2];
-        for(JsonElement element : array)
-            if(element.isJsonPrimitive())
-               type[0] = true;
-            else
-                type[1] = true;
-        return type;
-    }
-
-
-
-    private String JSON2XSD(JsonPrimitive value) {
-        if (value == null)
-            return null;
-        try {
-            value.getAsInt();
-            return "xsd:integer";
-        }catch (NumberFormatException e1) {
-            try {
-                value.getAsFloat();
-                return "xsd:decimal";
-            }catch (NumberFormatException e2) {
-                try {
-                    value.getAsDouble();
-                    return "xsd:decimal";
-                }catch (NumberFormatException ignored) {
-                    if(value.isBoolean())
-                        return "xsd:boolean";
-                    else if (value.isString())
-                        return "xsd:string";
-                }
-            }
-        }
-        return null;
-    }
 
     public void removeNullRanges() {
         if(nullValuedProperties.size() > 0) {

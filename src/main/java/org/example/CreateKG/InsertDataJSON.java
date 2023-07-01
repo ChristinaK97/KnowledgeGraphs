@@ -3,14 +3,12 @@ package org.example.CreateKG;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.example.POextractor.JSON2OWL;
+import org.example.other.JsonUtil;
 
 import java.util.*;
 
@@ -41,11 +39,11 @@ public class InsertDataJSON  extends InsertDataBase {
     @Override
     protected void mapData() {
         for (String file : files) {
-            JsonElement json = JSON2OWL.readJSON(file);
+            JsonElement json = JsonUtil.readJSON(file);
             findRoot();
             System.out.println(root);
             parseJson(root, null, null, json,
-                    root.equals(JSON2OWL.ROOTCLASS) ? root : ""
+                    root.equals(JsonUtil.ROOTCLASS) ? root : ""
             );
         }
     }
@@ -59,13 +57,78 @@ public class InsertDataJSON  extends InsertDataBase {
         }
     }
 
-    private String getFieldTableClass(String extractedField) {
-        return extractedField.equals(root)? extractedField
-                : extractedField.substring(0, extractedField.lastIndexOf("/"));
+// =====================================================================================================================
+
+    private void parseJson(String prev, Resource prevIndiv, String key, JsonElement value, String extractedField) {
+        System.out.println();
+        System.out.println("REC prev= " + prev +  " prevInd= " + (prevIndiv!=null?prevIndiv.getLocalName():"")
+                +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:""));
+
+        if(prev.equals(root) && key == null) { //new row
+            classCounter = new HashMap<>();
+            prevIndiv = createIndiv(getTClass(root), true, root);
+        }
+
+        if(value.isJsonPrimitive() && JsonUtil.isValid(prev, key, value, extractedField)) {
+            createColPath(prevIndiv,
+                    JsonUtil.parseJSONvalue(value.getAsJsonPrimitive()),
+                    getColPath(extractedField),
+                    extractedField);
+        }
+        else if(value.isJsonObject())
+            parseJsonObject(prev, prevIndiv, key, value.getAsJsonObject(), extractedField);
+        else if(value.isJsonArray())
+            parseJsonArray(prev, prevIndiv, key, value.getAsJsonArray(), extractedField);
     }
 
+
+    private void parseJsonObject(String prev, Resource prevIndiv, String key, JsonObject valueObj, String extractedField) {
+        System.out.println("JObject");
+
+        if(key == null) {
+            System.out.println("Null key");
+            key = prev;
+        } else {
+            prevIndiv = createColPath(prevIndiv, null,
+                    getColPath(extractedField), extractedField);
+            System.out.printf("144 %s %s\n", extractedField, prevIndiv.getLocalName());
+        }
+
+        for(String nestedKey : valueObj.keySet()) {
+            parseJson(key, prevIndiv, nestedKey, valueObj.get(nestedKey),
+                    String.format("%s/%s", extractedField, nestedKey));
+        }
+    }
+
+
+    private void parseJsonArray(String prev, Resource prevIndiv, String key, JsonArray valueArray, String extractedField) {
+        System.out.println("JArray");
+        boolean[] type = JsonUtil.arrayType(valueArray);
+
+        if(type[0] && type[1]){ //mixed
+            //TODO
+        }
+        else {
+            if(type[0]) //primitive
+                for(JsonElement arrayElement : valueArray)
+                    createColPath(prevIndiv, JsonUtil.parseJSONvalue(arrayElement.getAsJsonPrimitive()),
+                            getColPath(extractedField), extractedField);
+            else // non primitive
+                for(JsonElement arrayElement : valueArray)
+                    parseJson(prev, prevIndiv, key, arrayElement,
+                            String.format("%s", extractedField));
+        }
+
+    }
+
+// =====================================================================================================================
+
+
     private ArrayList<OntResource> getColPath(String extractedField){
-        ArrayList<OntResource> cp = paths.get(getFieldTableClass(extractedField)).get(extractedField);
+        String fieldTableClassJPath = extractedField.equals(root)? extractedField
+                : extractedField.substring(0, extractedField.lastIndexOf("/"));
+
+        ArrayList<OntResource> cp = paths.get(fieldTableClassJPath).get(extractedField);
         return cp != null ? cp : new ArrayList<>();
     }
 
@@ -99,78 +162,6 @@ public class InsertDataJSON  extends InsertDataBase {
 
 
 
-
-    private void parseJson(String prev, Resource prevIndiv, String key, JsonElement value, String extractedField) {
-        System.out.println();
-        System.out.println("REC prev= " + prev +  " prevInd= " + (prevIndiv!=null?prevIndiv.getLocalName():"")
-                +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:""));
-
-        if(prev.equals(root) && key == null) { //new row
-            classCounter = new HashMap<>();
-            prevIndiv = createIndiv(getTClass(root), true, root);
-        }
-
-        if(value.isJsonPrimitive() && isValid(prev, key, value, extractedField)) {
-            createColPath(prevIndiv,
-                    parseJSONvalue(value.getAsJsonPrimitive()),
-                    getColPath(extractedField),
-                    extractedField);
-        }
-        else if(value.isJsonObject())
-            parseJsonObject(prev, prevIndiv, key, value.getAsJsonObject(), extractedField);
-        else if(value.isJsonArray())
-            parseJsonArray(prev, prevIndiv, key, value.getAsJsonArray(), extractedField);
-    }
-
-
-    private boolean isValid(String prev, String key, JsonElement value, String extractedField) {
-        HashSet<String> invalid = new HashSet<>(Set.of("None", "null", "", " "));
-        return !(prev == null || key == null || invalid.contains(value.getAsString()) ||
-                invalid.contains(prev) || invalid.contains(key) ||
-                (prev.equals(key) && extractedField.equals("/"+prev))
-        );
-    }
-
-
-    private void parseJsonObject(String prev, Resource prevIndiv, String key, JsonObject valueObj, String extractedField) {
-        System.out.println("JObject");
-
-        if(key == null) {
-            System.out.println("Null key");
-            key = prev;
-        } else {
-            prevIndiv = createColPath(prevIndiv, null,
-                                      getColPath(extractedField), extractedField);
-            System.out.printf("144 %s %s\n", extractedField, prevIndiv.getLocalName());
-        }
-
-        for(String nestedKey : valueObj.keySet()) {
-            parseJson(key, prevIndiv, nestedKey, valueObj.get(nestedKey),
-                    String.format("%s/%s", extractedField, nestedKey));
-        }
-    }
-
-
-    private void parseJsonArray(String prev, Resource prevIndiv, String key, JsonArray valueArray, String extractedField) {
-        System.out.println("JArray");
-        boolean[] type = JSON2OWL.arrayType(valueArray);
-
-        if(type[0] && type[1]){ //mixed
-            //TODO
-        }
-        else {
-            for(JsonElement arrayElement : valueArray)
-                if(type[0])  //primitive
-                    createColPath(prevIndiv, parseJSONvalue(arrayElement.getAsJsonPrimitive()),
-                            getColPath(extractedField), extractedField);
-                else  // non primitive
-                    parseJson(prev, prevIndiv, key, arrayElement,
-                            String.format("%s", extractedField));
-        }
-
-    }
-
-
     private Resource createColPath(Resource prevIndiv,
                                Object colValue,
                                ArrayList<OntResource> cp,
@@ -198,30 +189,6 @@ public class InsertDataJSON  extends InsertDataBase {
             setDataPropertyValue(prevNode, cp.get(cp.size()-1).asProperty(), colValue);
         }
         return prevNode;
-    }
-
-
-
-    private Object parseJSONvalue(JsonPrimitive value) {
-        if (value == null)
-            return null;
-        try {
-            return value.getAsInt();
-        }catch (NumberFormatException e1) {
-            try {
-                return value.getAsFloat();
-            }catch (NumberFormatException e2) {
-                try {
-                    return value.getAsDouble();
-                }catch (NumberFormatException ignored) {
-                    if(value.isBoolean())
-                        return value.getAsBoolean();
-                    else if (value.isString())
-                        return value.getAsString();
-                }
-            }
-        }
-        return null;
     }
 
 
