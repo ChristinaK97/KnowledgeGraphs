@@ -10,13 +10,16 @@
   <name>ConvertDatabase</name>
   <url>http://maven.apache.org</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
 
   <dependencies>
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -99,6 +102,50 @@
       <artifactId>commons-csv</artifactId>
       <version>1.10.0</version>
     </dependency>
+
+    <!-- DICOM reader. Install:
+      mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertDatabase\lib\pixelmed.jar" -DgroupId="pixelmed" -DartifactId="pixelmed" -Dversion="1.0.0" -Dpackaging=jar
+
+    <dependency>
+      <groupId>pixelmed</groupId>
+      <artifactId>pixelmed</artifactId>
+      <version>1.0.0</version>
+    </dependency> -->
+
+    <!--
+mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertDatabase\lib\dcm4che-core-5.30.0.jar" -DgroupId="org.dcm4che" -DartifactId="dcm4che-core" -Dversion="5.30.0" -Dpackaging=jar
+mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertDatabase\lib\dcm4che-image-5.30.0.jar" -DgroupId="org.dcm4che" -DartifactId="dcm4che-image" -Dversion="5.30.0" -Dpackaging=jar
+mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertDatabase\lib\dcm4che-imageio-5.30.0.jar" -DgroupId="org.dcm4che" -DartifactId="dcm4che-imageio" -Dversion="5.30.0" -Dpackaging=jar
+mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertDatabase\lib\dcm4che-tool-common-5.30.0.jar" -DgroupId="org.dcm4che" -DartifactId="dcm4che-tool-commons" -Dversion="5.30.0" -Dpackaging=jar
+    -->
+    <!-- dcm4che-core library -->
+    <dependency>
+      <groupId>org.dcm4che</groupId>
+      <artifactId>dcm4che-core</artifactId>
+      <version>5.30.0</version>
+    </dependency>
+
+    <!-- dcm4che-image library -->
+    <dependency>
+      <groupId>org.dcm4che</groupId>
+      <artifactId>dcm4che-image</artifactId>
+      <version>5.30.0</version>
+    </dependency>
+
+    <!-- dcm4che-tool-commons library -->
+    <dependency>
+      <groupId>org.dcm4che</groupId>
+      <artifactId>dcm4che-tool-commons</artifactId>
+      <version>5.30.0</version>
+    </dependency>
+
+    <!-- dcm4che-imageio library -->
+    <dependency>
+      <groupId>org.dcm4che</groupId>
+      <artifactId>dcm4che-imageio</artifactId>
+      <version>5.30.0</version>
+    </dependency>
+
 
   </dependencies>
     <build>
