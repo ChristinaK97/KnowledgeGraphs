@@ -12,6 +12,7 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
 
+import org.example.POextractor.Properties;
 import org.example.mappingsFiles.MappingsFileTemplate.Table;
 import org.example.mappingsFiles.MappingsFileTemplate.Column;
 import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
@@ -38,13 +39,13 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     public InsertDataBase (String ontologyName) {
         //TODO add this:
-        /*super("outputOntology.ttl");
+        super(outputOntology, ontologyName);
         pModel.loadImports();
-        mBasePrefix = pModel.getNsPrefixURI("");*/
+        mBasePrefix = pModel.getNsPrefixURI("");
 
         //TODO remove this:
-        super(POontology, ontologyName);
-        mBasePrefix = "http://www.example.net/ontologies/json.owl/";
+        /*super(outputOntology, ontologyName);
+        mBasePrefix = "http://www.example.net/ontologies/json.owl/";*/
 
     }
 
@@ -58,6 +59,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         tablesClass = new HashMap<>();
         paths = new HashMap<>();
         extractMappingPaths();
+        System.out.println(paths);
         addAdditionalPaths();
         printPaths();
 
@@ -210,6 +212,11 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     //          + elements needed to create the ids and the path
 
 
+    public OntProperty getInverse(OntProperty property) {
+        String inverse = mBasePrefix + Properties.DomRan.getInverse(property.getLocalName());
+        return getOntProperty(inverse);
+    }
+
 //==================================================================================================================
 
     protected void printPaths() {
@@ -265,7 +272,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     protected void saveFullKG() {
         OutputStream out = null;
-        String filePath = sampleGraph;
+        String filePath = fullGraph; // sampleGraph;
         try {
             out = new FileOutputStream(filePath);
         } catch (FileNotFoundException e) {

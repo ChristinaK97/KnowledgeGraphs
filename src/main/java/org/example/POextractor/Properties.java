@@ -26,6 +26,11 @@ public class Properties{
         public String getObjectPropertyLabel() {return "has_" + Util.normalise(range);}
         public String getInverse() {return String.format("p_%s_%s", Util.normalise(range), Util.normalise(domain)).replace(" ","_");}
 
+        public static String getInverse(String propName) {
+            String[] parts = propName.split("_");
+            return parts[0] + "_" + parts[2] + "_" + parts[1];
+        }
+
         public Set<String> getExtractedField() {
             return extractedField;
         }

@@ -126,7 +126,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         //4. DEL  PO ObjProp AND Class ?
         if(dataMap.hasDataProperty()
                 && !objMap.hasMatch() && !classMap.hasMatch()
-                && objMap.getPathURIs() == null && dataMap.getPathURIs() == null
+                && objMap.getPathURIs() == null //&& dataMap.getPathURIs() == null
         ){
 
             // Connect the domain of the PO objProp (that will be del) with the dataProp (that will remain)
@@ -599,7 +599,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     //==================================================================================
     public static void main(String[] args) {
-        new SetPOasDOextension("json");
+        new SetPOasDOextension("test_efs");
     }
 
 }

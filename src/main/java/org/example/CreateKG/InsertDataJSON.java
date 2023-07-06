@@ -22,7 +22,6 @@ public class InsertDataJSON  extends InsertDataBase {
         super(ontologyName);
         this.files = files;
         currRowID = 0;
-        findRoot();
         run();
     }
 
@@ -33,11 +32,12 @@ public class InsertDataJSON  extends InsertDataBase {
 
     @Override
     protected void mapData() {
+        findRoot();
         for (String file : files) {
             JsonElement json = JsonUtil.readJSON(file);
             System.out.println(root);
             parseJson(root, null, null, json,
-                    root.equals(JsonUtil.ROOTCLASS) ? root : ""
+                    root.equals("/" + JsonUtil.ROOTCLASS) ? root : ""
             );
         }
     }
@@ -80,7 +80,7 @@ public class InsertDataJSON  extends InsertDataBase {
          */
         System.out.println();
         System.out.println("REC prev= " + prev +  " prevInd= " + (prevIndiv!=null?prevIndiv.getLocalName():"")
-                +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:""));
+                +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:"") + " " + extractedField);
 
         if(prev.equals(root) && key == null) {                                                                      //1
             classCounter = new HashMap<>();                                                                         //2
@@ -189,6 +189,9 @@ public class InsertDataJSON  extends InsertDataBase {
     private ArrayList<OntResource> getColPath(String extractedField) {
         String fieldTableClassJPath = extractedField.equals(root)? extractedField
                 : extractedField.substring(0, extractedField.lastIndexOf("/"));
+
+        System.out.println(extractedField + " : " + fieldTableClassJPath);
+        System.out.println(paths);
 
         ArrayList<OntResource> cp = paths.get(fieldTableClassJPath).get(extractedField);
         return cp != null ? cp : new ArrayList<>();
@@ -322,7 +325,7 @@ public class InsertDataJSON  extends InsertDataBase {
 
 
     public static void main(String[] args) {
-        ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/temp/person.json"));
+        ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/json/PT1H.json"));
         new InsertDataJSON("json", files);
     }
 }

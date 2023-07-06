@@ -22,7 +22,7 @@ import static org.example.other.Util.*;
 
 public class UploadSyntheticDataToDB {
 
-    String folderPath = simulatedDataSample;
+    String folderPath = simulatedDataFull; //simulatedDataSample;
     String ddl = SQL_DDL;
 
     DatabaseConnector connector;

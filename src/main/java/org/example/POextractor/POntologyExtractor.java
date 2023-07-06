@@ -1,5 +1,6 @@
 package org.example.POextractor;
 
+import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties.DomRan;
 import org.example.mappingsFiles.MappingsFileExtractor;
 import org.example.other.Util;
@@ -38,7 +39,7 @@ public class POntologyExtractor {
         createOntology();
         saveOntology(POontology);
 
-        new MappingsFileExtractor(dataSource, msBasePrefix, rs);
+        // new MappingsFileExtractor(dataSource, msBasePrefix, rs);
 
 
         //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, convertedIntoClass, objProperties);
@@ -236,10 +237,10 @@ public class POntologyExtractor {
 
 
     public static void main(String[] args) {
-        //DBSchema db = new DBSchema();
-        //new POntologyExtractor(db, db.getSchemaName());
+        DBSchema db = new DBSchema();
+        new POntologyExtractor(db, db.getSchemaName());
 
-        new POntologyExtractor(new ArrayList<String>(), "json");
+        //new POntologyExtractor(new ArrayList<String>(), "json");
     }
 
 }

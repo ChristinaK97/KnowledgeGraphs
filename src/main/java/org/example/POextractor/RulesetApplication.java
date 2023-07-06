@@ -47,7 +47,7 @@ public class RulesetApplication {
     }
 
     public void applyRules(ArrayList<String> files) {
-        files.add("src/main/resources/temp/PT1H.json");
+        files.add("src/main/resources/json/PT1H.json");
         if(files.get(0).endsWith(".json")){
             JSON2OWL json2owl = new JSON2OWL(turnAttributesToClasses);
             files.forEach(json2owl::applyRules);

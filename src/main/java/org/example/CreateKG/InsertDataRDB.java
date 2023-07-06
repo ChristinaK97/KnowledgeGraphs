@@ -170,6 +170,10 @@ public class InsertDataRDB extends InsertDataBase {
         OntClass trgClass = getTClass(fkp.refTable);
         Resource trg = createIndiv(getIndivURI(trgClass, trgID), trgClass, fkp.refTable);
         src.addProperty(fkProp, trg);
+
+        OntProperty inverse = getInverse(fkProp);
+        if(inverse != null)
+            trg.addProperty(inverse, src);
     }
 
 
