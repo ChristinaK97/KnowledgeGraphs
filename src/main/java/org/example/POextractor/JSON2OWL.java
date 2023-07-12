@@ -1,7 +1,7 @@
 package org.example.POextractor;
 
 import com.google.gson.*;
-import org.example.other.JsonUtil;
+import org.example.util.JsonUtil;
 
 import java.util.*;
 

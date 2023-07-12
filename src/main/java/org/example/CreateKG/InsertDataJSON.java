@@ -8,7 +8,7 @@ import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.example.other.JsonUtil;
+import org.example.util.JsonUtil;
 
 import java.util.*;
 

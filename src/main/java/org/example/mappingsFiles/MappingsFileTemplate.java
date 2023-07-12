@@ -1,13 +1,13 @@
 package org.example.mappingsFiles;
 
-import org.example.other.Util;
+import org.example.util.Util;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.example.other.Util.getURIResource;
+import static org.example.util.Util.getURIResource;
 
 public class MappingsFileTemplate {
 

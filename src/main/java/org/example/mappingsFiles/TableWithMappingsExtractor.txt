@@ -1,4 +1,4 @@
-package org.example.other;
+package org.example.util;
 
 import com.google.gson.Gson;
 
@@ -9,8 +9,8 @@ import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.io.csv.CsvWriteOptions;
 import tech.tablesaw.io.csv.CsvWriter;
 
-import static org.example.other.Util.EFS_mappings;
-import static org.example.other.Util.TableWithMappings;
+import static org.example.util.Util.EFS_mappings;
+import static org.example.util.Util.TableWithMappings;
 
 /**
  * Generate a csv file from the mappings json file

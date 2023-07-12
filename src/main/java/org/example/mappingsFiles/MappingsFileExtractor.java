@@ -6,13 +6,13 @@ import org.example.POextractor.RulesetApplication;
 import org.example.mappingsFiles.MappingsFileTemplate.Table;
 import org.example.mappingsFiles.MappingsFileTemplate.Column;
 import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
-import org.example.other.JsonUtil;
+import org.example.util.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.example.other.Util.EFS_mappings;
+import static org.example.util.Util.EFS_mappings;
 
 public class MappingsFileExtractor {
 

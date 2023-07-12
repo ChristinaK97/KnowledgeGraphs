@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.other.Util.*;
+import static org.example.util.Util.*;
 
 public class UploadSyntheticDataToDB {
 

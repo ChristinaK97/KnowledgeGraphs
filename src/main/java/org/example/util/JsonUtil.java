@@ -1,4 +1,4 @@
-package org.example.other;
+package org.example.util;
 
 import com.google.gson.*;
 

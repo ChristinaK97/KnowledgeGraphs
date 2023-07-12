@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.example.other.Util.EFS_mappings;
-import static org.example.other.Util.EFS_mappings_ObjProp;
+import static org.example.util.Util.EFS_mappings;
+import static org.example.util.Util.EFS_mappings_ObjProp;
 
 /**
  * Creates the mapping json files

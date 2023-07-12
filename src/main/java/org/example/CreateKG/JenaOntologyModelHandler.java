@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.other.Util.*;
+import static org.example.util.Util.*;
 
 public class JenaOntologyModelHandler {
 

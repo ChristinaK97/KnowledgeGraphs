@@ -6,16 +6,22 @@ import com.google.gson.JsonObject;
 import org.dcm4che3.data.*;
 import org.dcm4che3.io.DicomInputStream;
 import org.dcm4che3.util.TagUtils;
-import org.example.other.JsonUtil;
+import org.example.util.JsonUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static org.example.util.DICOMUtil.parseForTime;
+
 public class DICOM2JSON {
 
     private TagDictionary tagDictionary = new TagDictionary();
 
+    /**
+     * Transform the input dicom files' metadata/tags to json files
+     * @param dicomFilePaths A list of dicom files
+     */
     public DICOM2JSON (ArrayList<String> dicomFilePaths) {
 
         for (String dicomFilePath : dicomFilePaths) {                                                                   //System.out.println(dicomFilePath);
@@ -34,29 +40,41 @@ public class DICOM2JSON {
         }
     }
 
+    /**
+     * Recursive method that reads the attribute list of a dicom file.
+     * 1. For each tag in the file's attributes :
+     *      2. Retrieve its code (GGGG,AAAA), its string name and its Value Representation
+     *      3. Unknown/Private Tags don't have a name
+     *      4. If the tag is a sequence -> turn the sequence to a nested json element -> valueElement
+     *          5. If the sequence contains a single item, the nested element will be a dictionary whose tags will be
+     *             the nested tags sqItem
+     *          6. Else if the sequence contains multiple nested items, the nested element will be a json array
+     * @param prevElem : The previous json element where the current element is nested inside
+     * @param attributes : The attributes list of the current element
+     */
     private void readAttributes(JsonElement prevElem, Attributes attributes){                                           // , boolean isSQ, String prev) {
         int[] tags = attributes.tags();                                                                                 //if(isSQ) System.out.println("\t>> Item");
 
-        for (int tag : tags) {
-            String tagCode = TagUtils.toString(tag);
+        for (int tag : tags) {   //1
+            String tagCode = TagUtils.toString(tag);  // 2
             String tagName = ElementDictionary.keywordOf(tag, null);
             VR vr = attributes.getVR(tag);
 
             tagDictionary.put(tagCode, tagName, vr);
 
-            if ("".equals(tagName))
+            if ("".equals(tagName))  // 3
                 tagName = tagCode;
                                                                                                                          //System.out.println((isSQ ? "\t " : "") + tagCode + "\t" + tagName + "\t" + vr + (isSQ ? "\t" + attributes.getString(tag) : "") + "\tprev = " + prev + "\ttype = " + (prevElem instanceof JsonArray ? "Array" : "Dictionary"));
-            if(vr == VR.SQ) {
+            if(vr == VR.SQ) {   // 4
                 Sequence sq = attributes.getSequence(tag);                                                              //System.out.println("\t# items = " + sq.size() + " [");
 
                 JsonElement valueElement;
-                if (sq.size() == 1) {
+                if (sq.size() == 1) {   // 5
                     valueElement = new JsonObject();
                     for(Attributes sqItem : sq)
                         readAttributes(valueElement, sqItem);                                                           // , true, tagName);
 
-                }else {
+                }else {  // 6
                     valueElement = new JsonArray();
                     for(Attributes sqItem : sq) {
                         JsonObject nestedObj = new JsonObject();
@@ -66,10 +84,9 @@ public class DICOM2JSON {
                 }
                 prevElem.getAsJsonObject().add(tagName, valueElement);                                                  //System.out.println("]");
             }else {
-                String value = attributes.getString(tag);
+                String value = parseForTime(attributes.getString(tag), vr);
                 prevElem.getAsJsonObject().addProperty(tagName, value);
             }
-
         }
     }
 

@@ -9,7 +9,7 @@ import org.example.POextractor.Properties;
 import org.example.POextractor.RDB2OWL.ClassExtractor;
 import org.example.POextractor.RDB2OWL.DataPropExtractor;
 import org.example.POextractor.RDB2OWL.ObjectPropExtractor;
-import org.example.other.Util;
+import org.example.util.Util;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.example.other.Util.POontology;
+import static org.example.util.Util.POontology;
 
 public class OntologyExtractorJena {
 

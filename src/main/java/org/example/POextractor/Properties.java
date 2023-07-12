@@ -1,6 +1,6 @@
 package org.example.POextractor;
 
-import org.example.other.Util;
+import org.example.util.Util;
 
 import java.util.*;
 

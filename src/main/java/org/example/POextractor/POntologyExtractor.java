@@ -2,8 +2,7 @@ package org.example.POextractor;
 
 import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties.DomRan;
-import org.example.mappingsFiles.MappingsFileExtractor;
-import org.example.other.Util;
+import org.example.util.Util;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.*;
@@ -11,12 +10,11 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.example.other.Util.POontology;
+import static org.example.util.Util.POontology;
 
 public class POntologyExtractor {
 
