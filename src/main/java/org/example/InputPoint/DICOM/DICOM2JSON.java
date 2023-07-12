@@ -14,7 +14,10 @@ import java.util.ArrayList;
 
 public class DICOM2JSON {
 
+    private TagDictionary tagDictionary = new TagDictionary();
+
     public DICOM2JSON (ArrayList<String> dicomFilePaths) {
+
         for (String dicomFilePath : dicomFilePaths) {                                                                   //System.out.println(dicomFilePath);
             try (DicomInputStream dis = new DicomInputStream(new File(dicomFilePath))) {
                 JsonObject dicom2json = new JsonObject();
@@ -37,20 +40,22 @@ public class DICOM2JSON {
         for (int tag : tags) {
             String tagCode = TagUtils.toString(tag);
             String tagName = ElementDictionary.keywordOf(tag, null);
+            VR vr = attributes.getVR(tag);
+
+            tagDictionary.put(tagCode, tagName, vr);
+
             if ("".equals(tagName))
                 tagName = tagCode;
-
-            VR vr = attributes.getVR(tag);                                                                              //System.out.println((isSQ ? "\t " : "") + tagCode + "\t" + tagName + "\t" + vr + (isSQ ? "\t" + attributes.getString(tag) : "") + "\tprev = " + prev + "\ttype = " + (prevElem instanceof JsonArray ? "Array" : "Dictionary"));
-
+                                                                                                                         //System.out.println((isSQ ? "\t " : "") + tagCode + "\t" + tagName + "\t" + vr + (isSQ ? "\t" + attributes.getString(tag) : "") + "\tprev = " + prev + "\ttype = " + (prevElem instanceof JsonArray ? "Array" : "Dictionary"));
             if(vr == VR.SQ) {
                 Sequence sq = attributes.getSequence(tag);                                                              //System.out.println("\t# items = " + sq.size() + " [");
 
                 JsonElement valueElement;
                 if (sq.size() == 1) {
                     valueElement = new JsonObject();
-                    for(Attributes sqItem : sq) {
+                    for(Attributes sqItem : sq)
                         readAttributes(valueElement, sqItem);                                                           // , true, tagName);
-                    }
+
                 }else {
                     valueElement = new JsonArray();
                     for(Attributes sqItem : sq) {
@@ -68,12 +73,6 @@ public class DICOM2JSON {
         }
     }
 
-    private String getTabs(int nestLevel) {
-        StringBuilder tabs = new StringBuilder();
-        for(int i=0; i<nestLevel; ++i)
-            tabs.append("\t");
-        return tabs.toString();
-    }
 
 
     public static void main(String[] args) {
