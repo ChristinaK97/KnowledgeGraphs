@@ -1,17 +1,13 @@
 package org.example.mappingsFiles;
 
-import com.google.gson.GsonBuilder;
 import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties;
 import org.example.POextractor.RulesetApplication;
 import org.example.mappingsFiles.MappingsFileTemplate.Table;
 import org.example.mappingsFiles.MappingsFileTemplate.Column;
 import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.other.JsonUtil;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,7 +33,7 @@ public class MappingsFileExtractor {
             addProperties(rs.getFKObjProperties().getProperties(), "ObjectProperty");
             createJSON(rs.getRootElementName(), rs.getClasses().get("Table"));
         }
-        saveToJSONFile();
+        JsonUtil.saveToJSONFile(EFS_mappings, fileTemplate);
     }
 
 
@@ -160,17 +156,6 @@ public class MappingsFileExtractor {
     }
 
 
-// =====================================================================================================
 
-    private void saveToJSONFile() {
-        File file = new File(EFS_mappings);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            String json = new GsonBuilder().setPrettyPrinting().create().toJson(fileTemplate);
-            writer.write(json);
-            writer.close();
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 }

@@ -2,6 +2,9 @@ package org.example.other;
 
 import com.google.gson.*;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -138,5 +141,18 @@ public class JsonUtil {
         return null;
     }
 
+// =====================================================================================================
 
+    public static void saveToJSONFile(String fileName, Object content) {
+        File file = new File(fileName);
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+            String json = gson.toJson(content);
+            writer.write(json);
+            writer.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
