@@ -230,8 +230,6 @@ public class POntologyExtractor {
         }
 
         //Add description =======================================================================
-        //if(rs.isDson())
-        //    description = DICOMUtil.replaceTagsWithNames(description, rs.getTagDictionary());
 
         OWLAnnotation sDescription = factory.getOWLAnnotation(
                 factory.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getIRI()),

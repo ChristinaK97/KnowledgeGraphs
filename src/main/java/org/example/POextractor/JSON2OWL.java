@@ -64,7 +64,7 @@ import static org.example.util.DICOMUtil.replaceTagsWithNames;
  */
 public class JSON2OWL {
 
-    boolean print = true;
+    boolean print = false;
 
     protected HashMap<String, String> convertedIntoClass = new HashMap<>();
     protected Properties objProperties = new Properties();
@@ -157,8 +157,7 @@ public class JSON2OWL {
             parseJsonObject(prev, key, value.getAsJsonObject(), extractedField);
         else if(value.isJsonArray())
             parseJsonArray(prev, key, value.getAsJsonArray(), extractedField);
-
-        if(print) System.out.println();
+                                                                                                                        if(print) System.out.println();
     }
 
 
@@ -207,8 +206,6 @@ public class JSON2OWL {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
-        // String comment = isDson() ? replaceTagsWithNames(extractedField, tagDictionary) : extractedField;
-
         String newClass = range;
         //domain = convertedIntoClass.get(domain);
         objProperties.addProperty(
@@ -225,8 +222,6 @@ public class JSON2OWL {
     private void addDataProperty(String domain, String range, String extractedField, JsonPrimitive value) {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
-
-        // String comment = isDson() ? replaceTagsWithNames(extractedField, tagDictionary) : extractedField;
 
         String domainClass = domain; //convertedIntoClass.get(domain);
         if (turnAttrToClasses) {
