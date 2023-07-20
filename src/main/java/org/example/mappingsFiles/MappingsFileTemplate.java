@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.example.util.Util.getURIResource;
+import static org.example.util.Util.getLocalName;
 
 public class MappingsFileTemplate {
 
@@ -164,7 +164,7 @@ public class MappingsFileTemplate {
             return ontoEl;
         }
 
-        public String getOntoElResource() {return getURIResource(ontoEl);}
+        public String getOntoElResource() {return Util.getLocalName(ontoEl);}
 
         public void setOntoEl(URI ontoEl) {
             this.ontoEl = ontoEl;
@@ -174,7 +174,7 @@ public class MappingsFileTemplate {
             return match;
         }
         public String getMatchResource() {
-            return getURIResource(match);
+            return Util.getLocalName(match);
         }
 
         public void setMatch(URI match) {
@@ -195,7 +195,7 @@ public class MappingsFileTemplate {
 
         public List<String> getPathResources() {
             return path.stream()
-                    .map(Util::getURIResource)
+                    .map(Util::getLocalName)
                     .collect(Collectors.toList());
         }
 

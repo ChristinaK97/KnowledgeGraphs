@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.example.util.Util.EFS_mappings;
-import static org.example.util.Util.EFS_mappings_ObjProp;
+import static org.example.util.Util.PO2DO_Mappings;
+import static org.example.util.Util.PO2DO_Mappings_ObjProp;
 
 /**
  * Creates the mapping json files
@@ -148,7 +148,7 @@ public class JSONExtractor {
         String jsonString = gson.toJson(json);
 
         //System.out.println(jsonString);
-        File file = new File(EFS_mappings);
+        File file = new File(PO2DO_Mappings);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(jsonString);
@@ -231,7 +231,7 @@ public class JSONExtractor {
         String jsonString = gson.toJson(json);
 
         //System.out.println(jsonString);
-        File file = new File(EFS_mappings_ObjProp);
+        File file = new File(PO2DO_Mappings_ObjProp);
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(jsonString);
@@ -287,7 +287,7 @@ public class JSONExtractor {
         String jsonString = gson.toJson(json);
 
         System.out.println(jsonString);
-        File file = new File(EFS_mappings);
+        File file = new File(PO2DO_Mappings);
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         writer.write(jsonString);
         writer.close();

@@ -11,18 +11,20 @@ import org.example.util.JsonUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.example.util.DICOMUtil.parseForTime;
 
 public class DICOM2JSON {
 
+    private HashMap<String, JsonObject> dson = new HashMap<>();
     private TagDictionary tagDictionary = new TagDictionary();
 
     /**
      * Transform the input dicom files' metadata/tags to json files
      * @param dicomFilePaths A list of dicom files
      */
-    public DICOM2JSON (ArrayList<String> dicomFilePaths) {
+    public DICOM2JSON (ArrayList<String> dicomFilePaths, boolean saveDsonFiles) {
 
         for (String dicomFilePath : dicomFilePaths) {                                                                   //System.out.println(dicomFilePath);
             try (DicomInputStream dis = new DicomInputStream(new File(dicomFilePath))) {
@@ -32,12 +34,26 @@ public class DICOM2JSON {
                 readAttributes(dicom2json, attributes);                                                                 // , false, "root");                                        //System.out.println(attributes);
 
                 String jsonPath = dicomFilePath.substring(0, dicomFilePath.lastIndexOf(".")) + ".json";
-                JsonUtil.saveToJSONFile(jsonPath, dicom2json);
+                if(saveDsonFiles)
+                    JsonUtil.saveToJSONFile(jsonPath, dicom2json);
+                dson.put(dicomFilePath.substring(dicomFilePath.lastIndexOf("/")+1), dicom2json);
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public HashMap<String, JsonObject> getDson () {
+        return dson;
+    }
+
+    public ArrayList<JsonObject> getDsonAsList() {
+        return new ArrayList<>(dson.values());
+    }
+
+    public TagDictionary getTagDictionary() {
+        return tagDictionary;
     }
 
     /**
@@ -60,10 +76,10 @@ public class DICOM2JSON {
             String tagName = ElementDictionary.keywordOf(tag, null);
             VR vr = attributes.getVR(tag);
 
-            tagDictionary.put(tagCode, tagName, vr);
-
             if ("".equals(tagName))  // 3
-                tagName = tagCode;
+                tagName = "Unknown Tag and Data";
+
+            tagDictionary.put(tagCode, tagName, vr);
                                                                                                                          //System.out.println((isSQ ? "\t " : "") + tagCode + "\t" + tagName + "\t" + vr + (isSQ ? "\t" + attributes.getString(tag) : "") + "\tprev = " + prev + "\ttype = " + (prevElem instanceof JsonArray ? "Array" : "Dictionary"));
             if(vr == VR.SQ) {   // 4
                 Sequence sq = attributes.getSequence(tag);                                                              //System.out.println("\t# items = " + sq.size() + " [");
@@ -82,10 +98,10 @@ public class DICOM2JSON {
                         valueElement.getAsJsonArray().add(nestedObj);
                     }
                 }
-                prevElem.getAsJsonObject().add(tagName, valueElement);                                                  //System.out.println("]");
+                prevElem.getAsJsonObject().add(tagCode, valueElement);                                                  //System.out.println("]");
             }else {
                 String value = parseForTime(attributes.getString(tag), vr);
-                prevElem.getAsJsonObject().addProperty(tagName, value);
+                prevElem.getAsJsonObject().addProperty(tagCode, value);
             }
         }
     }
@@ -95,9 +111,9 @@ public class DICOM2JSON {
     public static void main(String[] args) {
         ArrayList<String> dicomFilePaths = new ArrayList<>();
         // complex file
-        dicomFilePaths.add("src/main/resources/dicom/IM-0002-0006-0001.dcm");
+        dicomFilePaths.add("src/main/resources/dicom/complex");
         // simple file
-        dicomFilePaths.add("src/main/resources/dicom/IM-0012-0030-0001.dcm");
-        new DICOM2JSON(dicomFilePaths);
+        dicomFilePaths.add("src/main/resources/dicom/simple.dcm");
+        new DICOM2JSON(dicomFilePaths, true);
     }
 }

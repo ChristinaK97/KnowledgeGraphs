@@ -29,7 +29,7 @@ public class JenaOntologyModelHandler {
 
     private void readMapJSON() {
         Gson gson = new Gson();
-        try (FileReader reader = new FileReader(EFS_mappings)) {
+        try (FileReader reader = new FileReader(PO2DO_Mappings)) {
             // Convert JSON file to Java object
             tablesMaps = gson.fromJson(reader, MappingsFileTemplate.class).getTables();
         } catch (Exception ex) {

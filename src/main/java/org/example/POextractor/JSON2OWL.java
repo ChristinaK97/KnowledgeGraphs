@@ -1,9 +1,13 @@
 package org.example.POextractor;
 
 import com.google.gson.*;
+import org.example.InputPoint.DICOM.TagDictionary;
+import org.example.util.DICOMUtil;
 import org.example.util.JsonUtil;
 
 import java.util.*;
+
+import static org.example.util.DICOMUtil.replaceTagsWithNames;
 
 /**
  * Full Example:
@@ -60,7 +64,7 @@ import java.util.*;
  */
 public class JSON2OWL {
 
-    boolean print = false;
+    boolean print = true;
 
     protected HashMap<String, String> convertedIntoClass = new HashMap<>();
     protected Properties objProperties = new Properties();
@@ -72,19 +76,29 @@ public class JSON2OWL {
 
     private boolean turnAttrToClasses;
 
+    // if not null it's dson not simple json
+    private TagDictionary tagDictionary = null;
+
     private String root;
 
     public JSON2OWL(boolean turnAttrToClasses) {
         this.turnAttrToClasses = turnAttrToClasses;
     }
+    public JSON2OWL(boolean turnAttrToClasses, TagDictionary tagDictionary) {
+        this.turnAttrToClasses = turnAttrToClasses;
+        this.tagDictionary = tagDictionary;
+    }
 
     public void applyRules(String file) {
         JsonElement json = JsonUtil.readJSON(file);
+        applyRules(json);
+    }
+
+    public void applyRules(JsonElement json) {
         findRoot(json);
         parseJson(root, null, json,
                 root.equals(JsonUtil.ROOTCLASS) ? "/" + root : ""
         );
-
     }
 
 
@@ -105,13 +119,11 @@ public class JSON2OWL {
          *         -> Create a custom "record" class for root
          */
         if (json.isJsonArray()) {                               //1
-            if(print) System.out.println("array");
-            root = JsonUtil.ROOTCLASS;
+            root = JsonUtil.ROOTCLASS;                                                                                  if(print) System.out.println("array");
         }
 
         else if (json.isJsonObject()) {                         //2
-            if(print) System.out.println("object");
-            JsonObject jsonObj = json.getAsJsonObject();
+            JsonObject jsonObj = json.getAsJsonObject();                                                                if(print) System.out.println("object");
 
             if (jsonObj.keySet().size() == 1)                       //2.1
                 root = jsonObj.keySet().iterator().next();
@@ -132,16 +144,13 @@ public class JSON2OWL {
      * Recursively read all json nested elements
      */
     private void parseJson(String prev, String key, JsonElement value, String extractedField) {
-        if(print) System.out.println("REC prev= " + prev + "\tkey= "+ key + "\tvalue= "+ value);
-
-        if(value.isJsonPrimitive()) {
-            if(print) System.out.println("prev= " + prev + "\tkey= " + key + "\tprimitive= " + value+ "\tpath= " + extractedField);
+                                                                                                                        if(print) System.out.println("REC prev= " + prev + "\tkey= "+ key + "\tvalue= "+ value);
+        if(value.isJsonPrimitive()) {                                                                                   if(print) System.out.println("prev= " + prev + "\tkey= " + key + "\tprimitive= " + value+ "\tpath= " + extractedField);
             addDataProperty(prev, key, extractedField, value.getAsJsonPrimitive());
         }
-        else if(value.isJsonNull()) {
+        else if(value.isJsonNull()) {                                                                                   if(print) System.out.println("prev= " + prev + "\tkey= " + key + "\tprimitive= " + value+ "\tpath= " + extractedField);
             // if an attribute exists for a record, but it has null value, then should search other records with the
             // attribute to determine the property's range
-            if(print) System.out.println("prev= " + prev + "\tkey= " + key + "\tprimitive= " + value+ "\tpath= " + extractedField);
             addDataProperty(prev, key, extractedField, null);
         }
         else if(value.isJsonObject())
@@ -149,11 +158,12 @@ public class JSON2OWL {
         else if(value.isJsonArray())
             parseJsonArray(prev, key, value.getAsJsonArray(), extractedField);
 
+        if(print) System.out.println();
     }
 
 
     private void parseJsonObject(String prev, String key, JsonObject valueObj, String extractedField) {
-        if(print) System.out.println("JObject");
+                                                                                                                        if(print) System.out.println("JObject");
         if(key == null)
             key = prev;
         else {
@@ -170,7 +180,7 @@ public class JSON2OWL {
 
 
     private void parseJsonArray(String prev, String key, JsonArray valueArray, String extractedField) {
-        if(print) System.out.println("JArray");
+                                                                                                                        if(print) System.out.println("JArray");
         boolean[] type = JsonUtil.arrayType(valueArray);
 
         if(type[0] && type[1]) //mixed
@@ -186,8 +196,7 @@ public class JSON2OWL {
             }
         }
         for(JsonElement arrayElement : valueArray) {
-            parseJson(prev, key, arrayElement,
-                    String.format("%s", extractedField));
+            parseJson(prev, key, arrayElement, extractedField);
         }
     }
 
@@ -198,6 +207,8 @@ public class JSON2OWL {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
+        // String comment = isDson() ? replaceTagsWithNames(extractedField, tagDictionary) : extractedField;
+
         String newClass = range;
         //domain = convertedIntoClass.get(domain);
         objProperties.addProperty(
@@ -207,7 +218,7 @@ public class JSON2OWL {
                 newClass,
                 extractedField
         );
-        //if(print) System.out.println("ADD OP: " + String.format("p_%s_%s", domain, newClass) + " " + rule);
+                                                                                                                        if(print) System.out.println("\tADD OP: " + String.format("p_%s_%s", domain, newClass) + "\t\t" + rule);
     }
 
     // domain ( -[has_range]-> range )* -[has_range_VALUE]-> type(value)
@@ -215,9 +226,11 @@ public class JSON2OWL {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
+        // String comment = isDson() ? replaceTagsWithNames(extractedField, tagDictionary) : extractedField;
+
         String domainClass = domain; //convertedIntoClass.get(domain);
         if (turnAttrToClasses) {
-            String attrClass = range;
+            String attrClass = range;                                                                                   if(print) System.out.println("\tADD ATCL " + attrClass + "\t\t" + extractedField);
             domainClass = attrClass;
             attrClasses.put(extractedField, attrClass);
             newObjectProperties.addProperty("dp",
@@ -225,17 +238,17 @@ public class JSON2OWL {
                     "has_"+attrClass,
                     attrClass,
                     extractedField
-            );
+            );                                                                                                          if(print) System.out.println("\tADD NEW OP: " + String.format("p_%s_%s", domain, attrClass) + " \t\t" + extractedField);
         }
         String dtPropName = "has_"+range+"_VALUE";
-        String xsdDatatype = JsonUtil.JSON2XSD(value);
+        String xsdDatatype = isDson() ? tagDictionary.getXsd_datatype(range) : JsonUtil.JSON2XSD(value);
         dataProperties.addProperty(
                 "dp",
                 domainClass,
                 dtPropName,
                 xsdDatatype,
                 extractedField
-        );
+        );                                                                                                              if(print) System.out.println("\tADD DP: " + dtPropName + " \t\t" + extractedField);
         if(xsdDatatype == null)
             nullValuedProperties.add(dataProperties.getPropertyDomRan(dtPropName));
     }
@@ -255,6 +268,10 @@ public class JSON2OWL {
 
     public String getRoot() {
         return root;
+    }
+
+    public boolean isDson() {
+        return tagDictionary != null;
     }
 
     public void print() {

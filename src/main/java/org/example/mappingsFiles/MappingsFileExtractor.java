@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.example.util.Util.EFS_mappings;
+import static org.example.util.Util.PO2DO_Mappings;
 
 public class MappingsFileExtractor {
 
@@ -33,7 +33,7 @@ public class MappingsFileExtractor {
             addProperties(rs.getFKObjProperties().getProperties(), "ObjectProperty");
             createJSON(rs.getRootElementName(), rs.getClasses().get("Table"));
         }
-        JsonUtil.saveToJSONFile(EFS_mappings, fileTemplate);
+        JsonUtil.saveToJSONFile(PO2DO_Mappings, fileTemplate);
     }
 
 
@@ -151,6 +151,7 @@ public class MappingsFileExtractor {
                         t.type, t.ontoElement, "", true, null)
                 );
             String fieldTable = elName.substring(0, elName.lastIndexOf("/"));
+            System.out.println(elName + " " + fieldTable);
             tableClassesTable.get(fieldTable).addColumn(field);
         }
     }

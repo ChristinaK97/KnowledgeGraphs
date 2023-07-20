@@ -23,7 +23,8 @@ public class Properties{
             this.range.add(range);
             this.extractedField.add(extractedField);
         }
-        public String getObjectPropertyLabel() {return "has_" + Util.normalise(range);}
+        public String getObjectPropertyRawLabel() {return "has_" + range;}
+
         public String getInverse() {return String.format("p_%s_%s", Util.normalise(range), Util.normalise(domain)).replace(" ","_");}
 
         public static String getInverse(String propName) {

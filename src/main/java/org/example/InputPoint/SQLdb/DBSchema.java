@@ -1,5 +1,6 @@
 package org.example.InputPoint.SQLdb;
 
+import org.example.InputPoint.InputDataSource;
 import org.example.InputPoint.SQLdb.SQLconnector.DatabaseConnector;
 
 import java.sql.ResultSet;
@@ -7,7 +8,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class DBSchema implements Iterable<RTable> {
+public class DBSchema extends InputDataSource implements Iterable<RTable> {
     private HashMap<String, RTable> rTables = new HashMap<>();
     private DatabaseConnector connector;
     private String schema;

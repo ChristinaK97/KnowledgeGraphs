@@ -3,6 +3,7 @@ package org.example.InputPoint.SQLdb.SQLconnector;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.InputPoint.InputDataSource;
 import org.example.InputPoint.SQLdb.DBSchema;
 
 import java.io.*;
@@ -18,12 +19,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.util.Util.*;
-
 public class UploadSyntheticDataToDB {
 
-    String folderPath = simulatedDataFull; //simulatedDataSample;
-    String ddl = SQL_DDL;
+    String folderPath = InputDataSource.simulatedDataFull; //simulatedDataSample;
+    String ddl = InputDataSource.SQL_DDL;
 
     DatabaseConnector connector;
     String schema;

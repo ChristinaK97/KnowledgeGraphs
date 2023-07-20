@@ -1,7 +1,9 @@
 package org.example.POextractor;
 
-import org.example.InputPoint.SQLdb.DBSchema;
+import org.example.InputPoint.InputDataSource;
 import org.example.POextractor.Properties.DomRan;
+import org.example.mappingsFiles.MappingsFileExtractor;
+import org.example.util.DICOMUtil;
 import org.example.util.Util;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
@@ -15,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.example.util.Util.POontology;
+import static org.example.util.Util.skosIRI;
 
 public class POntologyExtractor {
 
@@ -25,6 +28,7 @@ public class POntologyExtractor {
     private OWLOntology ontology;
     private OWLDataFactory factory;
     private PrefixManager pm;
+
     private final boolean turnAttributesToClasses = true;
     private final boolean includeInverseAxiom = false;
 
@@ -37,9 +41,7 @@ public class POntologyExtractor {
         createOntology();
         saveOntology(POontology);
 
-        // new MappingsFileExtractor(dataSource, msBasePrefix, rs);
-
-
+        new MappingsFileExtractor(dataSource, msBasePrefix, rs);
         //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, convertedIntoClass, objProperties);
 
     }
@@ -51,6 +53,12 @@ public class POntologyExtractor {
         pm = new DefaultPrefixManager(ontologyIRI.getIRIString());
         try {
             ontology = manager.createOntology(ontologyIRI);
+
+            // Import SKOS vocabulary for altLabel
+            if(rs.isDson()) {
+                OWLImportsDeclaration skosImport = factory.getOWLImportsDeclaration(skosIRI);
+                manager.applyChange(new AddImport(ontology, skosImport));
+            }
 
             // add elements to the ontology
             createBaseElements();
@@ -73,7 +81,6 @@ public class POntologyExtractor {
             baseElements.put(propName, objproperty);
             manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(objproperty));
         }
-
     }
 
     // CLASSES
@@ -89,7 +96,7 @@ public class POntologyExtractor {
     public OWLClass addClass(String className, String sDescription, String type) {
         OWLClass sClass = factory.getOWLClass(className, pm);
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(sClass));
-        addDescriptions(sClass.getIRI(), className, sDescription);
+        addAnnotations(sClass.getIRI(), className, sDescription);
 
         if(type != null)
             manager.applyChange(new AddAxiom(ontology,
@@ -116,8 +123,11 @@ public class POntologyExtractor {
 
         //Add object property
         manager.addAxiom(ontology, declaration);
-        addDescriptions(objproperty.getIRI(), domRan.getObjectPropertyLabel(),
-                String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
+        addAnnotations(
+                objproperty.getIRI(),
+                domRan.getObjectPropertyRawLabel(),
+                String.format("%s from %s", domRan.rule.toString(),
+                domRan.extractedField));
 
         ////////////////////////////////////
         // add domain
@@ -170,7 +180,7 @@ public class POntologyExtractor {
         OWLDataProperty datatype = factory.getOWLDataProperty(propName, pm);
 
         OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(datatype);
-        addDescriptions(datatype.getIRI(), propName,
+        addAnnotations(datatype.getIRI(), propName,
                         String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
 
         // Add datatype
@@ -201,20 +211,53 @@ public class POntologyExtractor {
     }
 
 
-    private void addDescriptions(IRI iri, String resourceName, String description) {
-        //Add label
-        String label = Util.normalise(resourceName);
-        OWLAnnotation sLabel = factory.getOWLAnnotation(
-                factory.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI()),
-                factory.getOWLLiteral(label));
+    private void addAnnotations(IRI iri, String rawLabel, String description) {
+        //Add labels =======================================================================
 
-        manager.applyChange(new AddAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(iri, sLabel)));
-        //Add description
+        boolean isMainProperty = true;
+        for(String label : getNormalizedLabelSet(rawLabel)) {
+            IRI annotationProperty =  IRI.create(skosIRI + "altLabel");;
+            if(isMainProperty) {
+                annotationProperty = OWLRDFVocabulary.RDFS_LABEL.getIRI();
+                isMainProperty = false;
+            }
+
+            OWLAnnotation sLabel = factory.getOWLAnnotation(
+                    factory.getOWLAnnotationProperty(annotationProperty),
+                    factory.getOWLLiteral(label));
+
+            manager.applyChange(new AddAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(iri, sLabel)));
+        }
+
+        //Add description =======================================================================
+        //if(rs.isDson())
+        //    description = DICOMUtil.replaceTagsWithNames(description, rs.getTagDictionary());
+
         OWLAnnotation sDescription = factory.getOWLAnnotation(
                 factory.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_COMMENT.getIRI()),
                 factory.getOWLLiteral(description));
 
         manager.applyChange(new AddAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(iri, sDescription)));
+    }
+
+
+    public String[] getNormalizedLabelSet(String rawLabel) {
+
+        boolean isDICOMtag = rs.isDson();
+        if (isDICOMtag) {
+            try {
+                String tagCodeLabel = DICOMUtil.normalise(rawLabel);
+                String tagName = rs.getTagDictionary().getTagName(tagCodeLabel);
+                return new String[] {tagCodeLabel, tagName};
+            }catch (NullPointerException e) {
+                isDICOMtag = false;
+            }
+        }
+        if(!isDICOMtag)
+            return new String[] {Util.normalise(rawLabel)};
+
+        // unreachable
+        return null;
     }
 
 
@@ -235,10 +278,8 @@ public class POntologyExtractor {
 
 
     public static void main(String[] args) {
-        DBSchema db = new DBSchema();
-        new POntologyExtractor(db, db.getSchemaName());
-
-        //new POntologyExtractor(new ArrayList<String>(), "json");
+        InputDataSource dataSource = new InputDataSource();
+        new POntologyExtractor(dataSource.getDataSource(), dataSource.getSchemaName());
     }
 
 }

@@ -1,12 +1,31 @@
 package org.example.util;
 
 import org.dcm4che3.data.VR;
+import org.example.InputPoint.DICOM.TagDictionary;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DICOMUtil {
+
+    public static String normalise(String s) {
+        return normalise(new HashSet<>(Collections.singleton(s)));
+    }
+    public static String normalise(Set<String> s){
+        return s.toString()
+                .replaceAll("[\\[\\]]","")
+                .replaceAll("_", " ")
+                .replace("p ", "")
+                .replace(" VALUE", "")
+                .replace(" ATTR", "")
+                .replaceFirst("has ", "");
+    }
 
     public static String DICOM2XSD(VR vr) {
         if (vr == null)
@@ -51,11 +70,11 @@ public class DICOMUtil {
                 return "xsd:unsignedShort";
 
             case DA:    // Date
-                return "xs:date";
+                return "xsd:date";
             case DT:    // Date Time
                 return "xsd:dateTime";
             case TM:    // Time
-                return "xs:time";
+                return "xsd:time";
             default:
                 return "xsd:string";
         }
@@ -113,5 +132,20 @@ public class DICOMUtil {
 
         // Format as HH:MM:SS
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public static String replaceTagsWithNames(String input, TagDictionary tagDictionary) {
+        Pattern pattern = Pattern.compile("\\(.*?\\)");
+        Matcher matcher = pattern.matcher(input);
+
+        StringBuffer result = new StringBuffer();
+        while (matcher.find()) {
+            String tagCode = matcher.group();
+            String tagName = tagDictionary.getTagName(tagCode);
+            matcher.appendReplacement(result, Matcher.quoteReplacement(tagName != null ? tagName : tagCode));
+        }
+        matcher.appendTail(result);
+
+        return result.toString();
     }
 }
