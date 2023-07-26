@@ -1,28 +1,34 @@
-package org.example.mappingsFiles;
+package org.example.MappingsFiles;
 
+import com.google.gson.Gson;
 import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties;
 import org.example.POextractor.RulesetApplication;
-import org.example.mappingsFiles.MappingsFileTemplate.Table;
-import org.example.mappingsFiles.MappingsFileTemplate.Column;
-import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.MappingsFiles.MappingsFileTemplate.Table;
+import org.example.MappingsFiles.MappingsFileTemplate.Column;
+import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 import org.example.util.JsonUtil;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.example.util.Util.PO2DO_Mappings;
 
-public class MappingsFileExtractor {
+public class MappingsFile {
 
     private HashMap<String, ArrayList<Transformation>> trf = new HashMap<>();
     private MappingsFileTemplate fileTemplate;
     private String msBasePrefix;
     private boolean isRDB;
 
-    public MappingsFileExtractor(Object dataSource, String msBasePrefix, RulesetApplication rs) {
+    public MappingsFile() {
         fileTemplate = new MappingsFileTemplate();
+    }
+
+    public void extractMappingsFile(Object dataSource, String msBasePrefix, RulesetApplication rs) {
         this.msBasePrefix = msBasePrefix;
         this.isRDB = dataSource instanceof DBSchema;
         gatherTrfs(rs);
@@ -33,11 +39,31 @@ public class MappingsFileExtractor {
             addProperties(rs.getFKObjProperties().getProperties(), "ObjectProperty");
             createJSON(rs.getRootElementName(), rs.getClasses().get("Table"));
         }
+        saveMappingsFile();
+    }
+
+    public static List<Table> readMapJSON() {
+        Gson gson = new Gson();
+        try (FileReader reader = new FileReader(PO2DO_Mappings)) {
+            // Convert JSON file to Java object
+            return gson.fromJson(reader, MappingsFileTemplate.class).getTables();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public void saveMappingsFile(List<Table> tablesList) {
+        fileTemplate.setTables(tablesList);
+        saveMappingsFile();
+    }
+    public void saveMappingsFile() {
         JsonUtil.saveToJSONFile(PO2DO_Mappings, fileTemplate);
     }
 
 
-// =====================================================================================================
+    // =====================================================================================================
     class Transformation {
         String ontoElement;
         String type;
@@ -156,6 +182,7 @@ public class MappingsFileExtractor {
         }
     }
 
+// =====================================================================================================
 
 
 

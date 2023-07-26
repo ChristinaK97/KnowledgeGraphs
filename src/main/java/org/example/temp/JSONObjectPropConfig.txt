@@ -1,8 +1,8 @@
-package org.example.mappingsFiles;
+package org.example.MappingsFiles;
 
 
 import java.util.List;
-import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 
 /**
  * JSON reader FK file adapter classes

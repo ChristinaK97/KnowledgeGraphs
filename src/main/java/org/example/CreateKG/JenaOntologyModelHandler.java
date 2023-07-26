@@ -1,13 +1,12 @@
 package org.example.CreateKG;
 
-import com.google.gson.Gson;
 import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.example.mappingsFiles.MappingsFileTemplate;
+import org.example.MappingsFiles.MappingsFile;
+import org.example.MappingsFiles.MappingsFileTemplate;
 
-import java.io.FileReader;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
@@ -24,17 +23,7 @@ public class JenaOntologyModelHandler {
     public JenaOntologyModelHandler(String ontologyFile, String ontologyName) {
         this.ontologyName = ontologyName;
         loadPutativeOntology(ontologyFile);
-        readMapJSON();
-    }
-
-    private void readMapJSON() {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader(PO2DO_Mappings)) {
-            // Convert JSON file to Java object
-            tablesMaps = gson.fromJson(reader, MappingsFileTemplate.class).getTables();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        tablesMaps = MappingsFile.readMapJSON();
     }
 
     private void loadPutativeOntology(String ontologyFile) {

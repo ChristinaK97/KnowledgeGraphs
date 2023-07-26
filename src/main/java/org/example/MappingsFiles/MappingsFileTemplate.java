@@ -1,4 +1,4 @@
-package org.example.mappingsFiles;
+package org.example.MappingsFiles;
 
 import org.example.util.Util;
 

@@ -1,4 +1,4 @@
-package org.example.mappingsFiles;
+package org.example.MappingsFiles;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

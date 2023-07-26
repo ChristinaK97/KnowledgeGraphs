@@ -6,9 +6,9 @@ import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
 
-import org.example.mappingsFiles.MappingsFileTemplate.Table;
-import org.example.mappingsFiles.MappingsFileTemplate.Column;
-import org.example.mappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.MappingsFiles.MappingsFileTemplate.Table;
+import org.example.MappingsFiles.MappingsFileTemplate.Column;
+import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
