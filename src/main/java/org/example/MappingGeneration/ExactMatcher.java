@@ -2,6 +2,7 @@ package org.example.MappingGeneration;
 
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.util.iterator.ExtendedIterator;
+import org.example.MappingGeneration.FormatSpecific.DICOMrules;
 import org.example.MappingsFiles.SaveMappings;
 
 import java.util.ArrayList;
@@ -26,7 +27,9 @@ public class ExactMatcher {
         for(int ONTELEMENT : ONTELEMENTS)
             match(ONTELEMENT);
         System.out.println("# total matches = " + matches.size());
+        new DICOMrules().addAdditionalMatches(srcOnto, trgOnto, matches);
         new SaveMappings(matches);
+        srcOnto.close();
     }
 
     public void match(int ONTELEMENT) {

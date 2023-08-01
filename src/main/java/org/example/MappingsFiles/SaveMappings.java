@@ -36,7 +36,9 @@ public class SaveMappings {
     }
 
     private void setMatch(Mapping map) {
-        map.setMatch(matches.getMatchURI(map.getOntoElURI()));
+        String ontoEl = map.getOntoElURI().toString();
+        map.setMatch(matches.getMatchURI(ontoEl));
+        map.setPath(matches.getPath(ontoEl));
     }
 
 }

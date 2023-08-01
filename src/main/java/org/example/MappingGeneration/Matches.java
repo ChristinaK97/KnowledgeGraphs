@@ -3,16 +3,24 @@ package org.example.MappingGeneration;
 import org.example.util.Util;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Matches {
     public static class Match {
         String match;
+        ArrayList<String> path = null;
         double score;
 
         public Match(String match, double score) {
             this.match = match;
             this.score = score;
+        }
+        public Match(ArrayList<String> path) {
+            match = "";
+            this.path = path;
+            score = 0;
         }
     }
 
@@ -41,6 +49,24 @@ public class Matches {
         if(matches.containsKey(ontoEl))
             return URI.create(matches.get(ontoEl).match);
         return URI.create("");
+    }
+
+    public void setPath(String ontoEl, ArrayList<String> path) {
+        try {
+            matches.get(ontoEl).path = path;
+        }catch (NullPointerException e) {
+            matches.put(ontoEl, new Match(path));
+        }
+    }
+    public List<URI> getPath(String ontoEl) {
+        if(matches.containsKey(ontoEl) && matches.get(ontoEl).path != null) {
+            List<URI> pathURIs = new ArrayList<>();
+            matches.get(ontoEl).path.forEach(pathString -> {
+                pathURIs.add(URI.create(pathString));
+            });
+            return pathURIs;
+        }else
+            return null;
     }
 
     @Override

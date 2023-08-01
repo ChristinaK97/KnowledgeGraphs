@@ -85,19 +85,14 @@ public class DICOM2JSON {
                 Sequence sq = attributes.getSequence(tag);                                                              //System.out.println("\t# items = " + sq.size() + " [");
 
                 JsonElement valueElement;
-                if (sq.size() == 1) {   // 5
-                    valueElement = new JsonObject();
-                    for(Attributes sqItem : sq)
-                        readAttributes(valueElement, sqItem);                                                           // , true, tagName);
 
-                }else {  // 6
-                    valueElement = new JsonArray();
-                    for(Attributes sqItem : sq) {
-                        JsonObject nestedObj = new JsonObject();
-                        readAttributes(nestedObj, sqItem);                                                              //, true, tagName);
-                        valueElement.getAsJsonArray().add(nestedObj);
-                    }
+                valueElement = new JsonArray();
+                for(Attributes sqItem : sq) {
+                    JsonObject nestedObj = new JsonObject();
+                    readAttributes(nestedObj, sqItem);                                                              //, true, tagName);
+                    valueElement.getAsJsonArray().add(nestedObj);
                 }
+
                 prevElem.getAsJsonObject().add(tagCode, valueElement);                                                  //System.out.println("]");
             }else {
                 String value = parseForTime(attributes.getString(tag), vr);
@@ -110,10 +105,10 @@ public class DICOM2JSON {
 
     /* public static void main(String[] args) {
         ArrayList<String> dicomFilePaths = new ArrayList<>();
-        // complex.dcm file
-        dicomFilePaths.add("src/main/resources/dicom/complex.dcm");
-        // simple file
-        dicomFilePaths.add("src/main/resources/dicom/simple");
+        // complex file
+        dicomFilePaths.add("src/main/resources/dicom/complex");
+        // simple.dcm file
+        dicomFilePaths.add("src/main/resources/dicom/simple.dcm");
         new DICOM2JSON(dicomFilePaths, true);
     }*/
 }
