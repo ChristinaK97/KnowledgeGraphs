@@ -323,7 +323,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 try {
                     OntProperty prop = getOntProperty(map.getOntoElURI());
                     OntResource newDomain = getOntClass(tablePath.get(tablePath.size()-1));
-                    correctDomain(prop, prop.getDomain(), tableMapping.getOntoElResource(), newDomain);
+                    correctDomain(prop, prop.getDomain(), getLocalName(tableMapping.getOntoElResource()), newDomain);
                 }catch (NullPointerException e) {
                     // obj property was unnecessary so it was previously deleted
                 }
@@ -401,7 +401,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *      10. Go to this class and remove the restriction "prop some range"
          * 11. Set newDomain as the domain of the prop
          */
-        System.out.println("PROP : " + prop.getLocalName() + " CURDOM: " + curDomain + " NEWDOM: " + newDomain);
+        System.out.println("CORRECT DOMAIN\nPROP : " + getLocalName(prop.getURI()) + " CURDOM: " + curDomain + " NEWDOM: " + newDomain);
 
         if(curDomain != null) {                                                                                    //0
             if (curDomain.canAs(UnionClass.class)) {                                                               //1
@@ -409,9 +409,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 UnionClass unionClass = curDomain.as(UnionClass.class);
 
                 for(OntClass operand : unionClass.listOperands().toList()) {                                       //2
-                    System.out.println("Cur Union operand: " + operand.getLocalName());
+                    System.out.println("Cur Union operand: " + operand);
 
-                    if(operand.getLocalName().equals(tableClass)) {                                                //3
+                    if(operand.getLocalName().equals(tableClass) || getLocalName(operand.getURI()).equals(tableClass)) {   //3
                         unionDomainClasses.add(newDomain.asClass());                                               //4
                         removeRestriction(operand, prop);                                                          //5
                     }else
@@ -494,10 +494,10 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         System.out.println("Add new range restriction");
         if (DClassExpression.canAs(UnionClass.class)) {
             for (OntClass operand : DClassExpression.as(UnionClass.class).listOperands().toList()) {
-                System.out.printf("Is Union SET %s sCo %s some %s\n", operand.getLocalName(), onProperty.getLocalName(), newRange.getLocalName());
+                System.out.printf("Is Union SET %s sCo %s some %s\n", getLocalName(operand.getURI()), getLocalName(onProperty.getURI()), newRange.getLocalName());
                 addRangeRestriction(operand, onProperty, newRange);                                                        //6
         }}else {
-            System.out.printf("Is class SET %s sCo %s some %s\n", DClassExpression.getLocalName(), onProperty.getLocalName(), newRange.getLocalName());
+            System.out.printf("Is class SET %s sCo %s some %s\n", getLocalName(DClassExpression.getURI()), getLocalName(onProperty.getURI()), newRange.getLocalName());
             addRangeRestriction(DClassExpression.asClass(), onProperty, newRange);
         }
     }
