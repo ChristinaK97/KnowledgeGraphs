@@ -30,16 +30,13 @@ public class Matches {
         return matches.size();
     }
 
-    public boolean addMatch(String ontoEl, String match, double score) {
-        if(!matches.containsKey(ontoEl)) {
-            matches.put(ontoEl, new Match(match, score));
-            return true;
-        }
-        else if (matches.get(ontoEl).score < score) {
-            matches.replace(ontoEl, new Match(match, score));
-            return true;
-        }
-        return false;
+    public void addMatch(String ontoEl, String match, double score) {
+        matches.put(ontoEl, new Match(match, score));
+    }
+
+    public double getScore(String ontoEl) {
+        return matches.containsKey(ontoEl) ?
+                matches.get(ontoEl).score : 0;
     }
 
     public URI getMatchURI(URI ontoEl) {

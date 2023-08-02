@@ -228,6 +228,10 @@ public class Ontology {
         }
     }
 
+    public boolean hasDomRan(OntProperty property) {
+        return property.getDomain() != null && property.getRange() != null;
+    }
+
     public void close() {
         // DON'T FORGET TO CALL TO SAVE CHANGES!
         if(newElementsAdded)

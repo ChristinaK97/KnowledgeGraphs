@@ -6,6 +6,7 @@ import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
 
+import org.example.InputPoint.InputDataSource;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
@@ -303,6 +304,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     private void handleTableWithPath(Table tableMaps) {
 
         Mapping tableMapping = tableMaps.getMapping();
+        List<URI> tablePath = tableMapping.getPathURIs();
+
         for (Column colMap : tableMaps.getColumns()) {
             System.out.println("MAKE CONS W PATH: " + tableMaps.getTable() + "." + colMap.getColumn());
 
@@ -310,8 +313,19 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             Mapping dataMap = colMap.getDataPropMapping();
 
             for(Mapping map : new Mapping[]{objMap, dataMap}) {
-                OntProperty prop = getOntProperty(map.getOntoElURI());
-
+                try {
+                    OntProperty prop = getOntProperty(map.getOntoElURI());
+                    OntResource newDomain = getOntClass(tablePath.get(tablePath.size()-1));
+                    correctDomain(prop, prop.getDomain(), tableMapping.getOntoElResource(), newDomain);
+                }catch (NullPointerException e) {
+                    // obj property was unnecessary so it was previously deleted
+                }
+            }
+            if(dataMap.hasMatch()) {
+                System.out.println("RANGE. MATCHING DO DATAPROP: " + dataMap.getMatchURI());
+                OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
+                OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
+                correctRange(onProperty, newRange);
             }
         }
     }
@@ -420,6 +434,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          * 3. Remove restriction "property some oldRange" on DClass
          * 4. Add restriction    "property some newRange" on DClass
          */
+        if(newRange == null) //Range of DO data property is not specified
+            return;
+        System.out.println("CORRECT RANGE OF " + property + " TO " + newRange);
         property.setRange(newRange);
 
         OntClass DClass = property.getDomain().asClass();
@@ -632,7 +649,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     //==================================================================================
     public static void main(String[] args) {
-        new SetPOasDOextension("test_efs");
+        new SetPOasDOextension(InputDataSource.ontologyName);
     }
 
 }

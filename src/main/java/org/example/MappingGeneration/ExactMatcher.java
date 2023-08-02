@@ -7,10 +7,13 @@ import org.example.MappingGeneration.FormatSpecific.DICOMspecificRules;
 import org.example.MappingGeneration.FormatSpecific.FormatSpecificRules;
 import org.example.MappingsFiles.SetMappingsFile;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static org.example.MappingGeneration.Ontology.DATAPROPS;
 import static org.example.MappingGeneration.Ontology.ONTELEMENTS;
 
 public class ExactMatcher {
@@ -20,9 +23,10 @@ public class ExactMatcher {
     private Ontology trgOnto;
     private Matches matches = new Matches();
     private boolean removePunct = true;
+    PrintWriter wr = new PrintWriter("out.txt");
 
 
-    public ExactMatcher(String srcOntoPath, String trgOntoPath, ArrayList<String> annotationPropertiesIRIs) {
+    public ExactMatcher(String srcOntoPath, String trgOntoPath, ArrayList<String> annotationPropertiesIRIs) throws FileNotFoundException {
 
         srcOnto = new Ontology(srcOntoPath, annotationPropertiesIRIs, removePunct);
         trgOnto = new Ontology(trgOntoPath, annotationPropertiesIRIs, removePunct);
@@ -53,7 +57,7 @@ public class ExactMatcher {
             srcSize.incrementAndGet();
             ArrayList<String> srcAnnots = srcOnto.getResourceAnnotations(srcR);
             for(OntResource trgR : trgRs) {
-                if (isExactMatch(srcR, srcAnnots, trgR))
+                if (isExactMatch(srcR, srcAnnots, trgR, ONTELEMENT))
                     break;
             }
         });
@@ -67,21 +71,28 @@ public class ExactMatcher {
 
     }
 
-    private boolean isExactMatch(OntResource srcR, ArrayList<String> srcAnnots, OntResource trgR) {
+    private boolean isExactMatch(OntResource srcR, ArrayList<String> srcAnnots, OntResource trgR, int ONTELEMENT) {
         ArrayList<String> trgAnnots = srcOnto.getResourceAnnotations(trgR);
-
+        double score = 0;
         for(String srcAnnot : srcAnnots) {
             for(String trgAnnot : trgAnnots) {
+                wr.println(srcR + ": \n\t" + srcAnnot + " - " + trgAnnot + " ");
                 if(srcAnnot.equals(trgAnnot)) {
-                    matches.addMatch(srcR.getURI(), trgR.getURI(), 1);
-                    return true;
+                    score = 1;
+                    if(ONTELEMENT == DATAPROPS && ! trgOnto.hasDomRan(trgR.asProperty()))
+                        score = 0.5;
+                    wr.println(score + "\n\n\n");
+                    if(matches.getScore(srcR.getURI()) < score)
+                        matches.addMatch(srcR.getURI(), trgR.getURI(), score);
+                    return score == 1;
                 }
-        }}
-        return false;
+
+        }wr.println("\n\n\n");}
+        return score == 1;
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         new ExactMatcher("src/main/resources/POntology.ttl",
             "C:\\Users\\karal\\OneDrive\\Documents\\Σχολείο\\Σχολή\\Μεταπτυχιακό\\Project\\10. Health\\ontologies\\dicomOnto.ttl",
             null);

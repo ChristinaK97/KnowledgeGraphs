@@ -12,7 +12,7 @@ public class Util {
     public static final String resourcePath = "src/main/resources/";
 
     // do and po ontologies
-    public static final String DOontology = resourcePath + "FIBOFull.ttl";
+    public static final String DOontology = resourcePath + "dicom.owl";
     public static final String POontology = resourcePath + "POntology.ttl";
 
     // po to do mappings
