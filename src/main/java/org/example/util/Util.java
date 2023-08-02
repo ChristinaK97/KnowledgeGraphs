@@ -13,6 +13,7 @@ public class Util {
 
     // do and po ontologies
     public static final String DOontology = resourcePath + "dicom.owl";
+    public static final boolean offlineDOontology = true;
     public static final String POontology = resourcePath + "POntology.ttl";
 
     // po to do mappings

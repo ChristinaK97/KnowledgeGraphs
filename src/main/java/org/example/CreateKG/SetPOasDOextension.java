@@ -46,6 +46,13 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 //======================================================================================================================
 
     private void gatherImports() {
+        if(offlineDOontology){
+            importURIs.add(
+                    SetPOasDOextension.class.getClassLoader().getResource(getLocalName(DOontology)).getPath()
+            );
+            return;
+        }
+        // online domain ontology
         for(Table tableMaps : tablesMaps) {
             if(tableMaps.getMapping().hasMatch())
                 importURIs.add(extractOntoModule(tableMaps.getMapping().getMatchURI()));
@@ -322,7 +329,6 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 }
             }
             if(dataMap.hasMatch()) {
-                System.out.println("RANGE. MATCHING DO DATAPROP: " + dataMap.getMatchURI());
                 OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
                 OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
                 correctRange(onProperty, newRange);
@@ -436,7 +442,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          */
         if(newRange == null) //Range of DO data property is not specified
             return;
-        System.out.println("CORRECT RANGE OF " + property + " TO " + newRange);
+        System.out.println("CORRECT RANGE OF " + property + " TO " + newRange + "\n");
         property.setRange(newRange);
 
         OntClass DClass = property.getDomain().asClass();
@@ -578,6 +584,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
         String filePath = outputOntology;
 
+        String format = offlineDOontology ? "<%s> owl:imports <file:%s> ." : "<%s> owl:imports <%s> .";
+
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
 
@@ -595,7 +603,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 // lines.add(lastIndex + 1, String.format("<%s> rdf:type owl:Ontology .", basePrefix));
 
                 for(String uri : importURIs)
-                    lines.add(lastIndex + 1, String.format("<%s> owl:imports <%s> .", basePrefix, uri));
+                    lines.add(lastIndex + 1, String.format(format, basePrefix, uri));
 
                 // Find the index of the first triple pattern and insert a newline before it
                 int firstTripleIndex = -1;
