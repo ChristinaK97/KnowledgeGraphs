@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import static org.example.util.Util.*;
 
@@ -252,6 +253,19 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         /*
          * After defining the PO as an extension of the DO some steps need to be performed to restore
          * the consistency of the ontology.
+         */
+        for(Table tableMaps : tablesMaps)
+            if(tableMaps.getMapping().getPathURIs() == null)
+                handleTableWithoutPath(tableMaps);
+            else
+                handleTableWithPath(tableMaps);
+    }
+
+
+    private void handleTableWithoutPath(Table tableMaps) {
+        /*
+         * After defining the PO as an extension of the DO some steps need to be performed to restore
+         * the consistency of the ontology.
          * 1. For each table in the database, and for each column on this table:
          *      2. For the object PO property and the data PO property that express the column:
          *              3. Specialize the paths: Replace each DO class in the path with the specialized PO TableClass subclass
@@ -259,31 +273,50 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *              4. Correct the domain (and the range) of the PO property
          *              5. Handle the case where the first element in the mapping path is a DO class
          */
-        for(Table tableMaps : tablesMaps)
-            for(Column colMap : tableMaps.getColumns()) {               //1
-                System.out.println("MAKE CONS : " + tableMaps.getTable() + "." + colMap.getColumn());
+        Mapping tableMapping = tableMaps.getMapping();
+        for (Column colMap : tableMaps.getColumns()) {               //1
+            System.out.println("MAKE CONS W/ PATH : " + tableMaps.getTable() + "." + colMap.getColumn());
 
-                Mapping objMap   = colMap.getObjectPropMapping();       //2
-                Mapping dataMap  = colMap.getDataPropMapping();
+            Mapping objMap = colMap.getObjectPropMapping();       //2
+            Mapping dataMap = colMap.getDataPropMapping();
 
-                try {
-                    specialisePathDOclasses(objMap);                    //3
-                    makeObjPropConsistent(objMap, tableMaps.getMapping().getOntoElResource());                      //4
-                    handleClassAsFirstPathNode(                         //5
-                            tableMaps.getMapping().getOntoElResource(),
-                            tableMaps.getMapping().getOntoElURI(), objMap);
-                }catch (NullPointerException e) {
-                    // property was unnecessary so it was previously deleted
-                }
-                specialisePathDOclasses(dataMap);                       //3
-                makeDataPropertyConsistent(dataMap, tableMaps.getMapping().getOntoElResource());                    //4
-                handleClassAsFirstPathNode(                             //5
-                        tableMaps.getMapping().getOntoElResource(),
-                        tableMaps.getMapping().getOntoElURI(), dataMap);
-
-                System.out.println("-------");
+            try {
+                specialisePathDOclasses(objMap);                    //3
+                makeObjPropConsistent(objMap, tableMapping.getOntoElResource());                      //4
+                handleClassAsFirstPathNode(                         //5
+                        tableMapping.getOntoElResource(),
+                        tableMapping.getOntoElURI(), objMap);
+            } catch (NullPointerException e) {
+                // property was unnecessary so it was previously deleted
             }
+            specialisePathDOclasses(dataMap);                       //3
+            makeDataPropertyConsistent(dataMap, tableMapping.getOntoElResource());                    //4
+            handleClassAsFirstPathNode(                             //5
+                    tableMapping.getOntoElResource(),
+                    tableMapping.getOntoElURI(), dataMap);
+
+            System.out.println("-------");
+        }
     }
+
+
+    private void handleTableWithPath(Table tableMaps) {
+
+        Mapping tableMapping = tableMaps.getMapping();
+        for (Column colMap : tableMaps.getColumns()) {
+            System.out.println("MAKE CONS W PATH: " + tableMaps.getTable() + "." + colMap.getColumn());
+
+            Mapping objMap = colMap.getObjectPropMapping();
+            Mapping dataMap = colMap.getDataPropMapping();
+
+            for(Mapping map : new Mapping[]{objMap, dataMap}) {
+                OntProperty prop = getOntProperty(map.getOntoElURI());
+
+            }
+        }
+    }
+
+
 
 
     private void makeObjPropConsistent(Mapping objMap, String tableClass) {
