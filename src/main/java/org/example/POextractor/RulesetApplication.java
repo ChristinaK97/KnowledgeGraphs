@@ -8,6 +8,8 @@ import org.example.POextractor.RDB2OWL.ClassExtractor;
 import org.example.POextractor.RDB2OWL.DataPropExtractor;
 import org.example.POextractor.RDB2OWL.ObjectPropExtractor;
 
+import org.example.InputPoint.InputDataSource;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -58,11 +60,13 @@ public class RulesetApplication {
     // JSON-LIKE FILE TYPES RULES
     public void applyRules(ArrayList<String> files) {
         JSON2OWL json2owl;
-        fileExtension = files.get(0).substring(files.get(0).lastIndexOf(".")+1);
-        if("json".equals(fileExtension))
+
+        if(InputDataSource.isJSON())
             json2owl = applyRulesToJson(files);
-        else if ("dcm".equals(fileExtension))
+
+        else if (InputDataSource.isDSON())
             json2owl = applyRulesToDson(files);
+
         else {
             throw new UnsupportedOperationException("Unsupported file format " + fileExtension);
         }

@@ -1,32 +1,18 @@
 package org.example.MappingsFiles;
 
-import com.google.gson.Gson;
 import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties;
 import org.example.POextractor.RulesetApplication;
-import org.example.MappingsFiles.MappingsFileTemplate.Table;
-import org.example.MappingsFiles.MappingsFileTemplate.Column;
-import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
-import org.example.util.JsonUtil;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
-import static org.example.util.Util.PO2DO_Mappings;
-
-public class MappingsFile {
+public class CreateMappingsFile extends ManageMappingsFile {
 
     private HashMap<String, ArrayList<Transformation>> trf = new HashMap<>();
-    private MappingsFileTemplate fileTemplate;
     private String msBasePrefix;
     private boolean isRDB;
-
-    public MappingsFile() {
-        fileTemplate = new MappingsFileTemplate();
-    }
 
     public void extractMappingsFile(Object dataSource, String msBasePrefix, RulesetApplication rs) {
         this.msBasePrefix = msBasePrefix;
@@ -41,27 +27,6 @@ public class MappingsFile {
         }
         saveMappingsFile();
     }
-
-    public static List<Table> readMapJSON() {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader(PO2DO_Mappings)) {
-            // Convert JSON file to Java object
-            return gson.fromJson(reader, MappingsFileTemplate.class).getTables();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-
-    public void saveMappingsFile(List<Table> tablesList) {
-        fileTemplate.setTables(tablesList);
-        saveMappingsFile();
-    }
-    public void saveMappingsFile() {
-        JsonUtil.saveToJSONFile(PO2DO_Mappings, fileTemplate);
-    }
-
 
     // =====================================================================================================
     class Transformation {
@@ -81,7 +46,7 @@ public class MappingsFile {
         rs.getClasses().forEach((_type, classes) -> {
             classes.forEach((elName, elClass) -> {
                 addTrf(elName, elClass, "Class");
-        });});
+            });});
         try{
             addProperties(rs.getAttrObjProp().getProperties(), "ObjectProperty");
         }catch (NullPointerException e) {
@@ -119,9 +84,9 @@ public class MappingsFile {
         for(String tableName : tables) {
 
             if (trf.containsKey(tableName)) {
-                Table table = new Table(tableName);
+                MappingsFileTemplate.Table table = new MappingsFileTemplate.Table(tableName);
 
-                Mapping tableMapping = new Mapping(
+                MappingsFileTemplate.Mapping tableMapping = new MappingsFileTemplate.Mapping(
                         trf.get(tableName).get(0).type,
                         trf.get(tableName).get(0).ontoElement,
                         "", true, null);
@@ -132,10 +97,10 @@ public class MappingsFile {
                     String t_c = String.format("%s.%s", tableName, columnName);
 
                     if (trf.containsKey(t_c)) {
-                        Column column = new Column(columnName);
+                        MappingsFileTemplate.Column column = new MappingsFileTemplate.Column(columnName);
 
                         for (Transformation t : trf.get(t_c))
-                            column.addMapping(new Mapping(
+                            column.addMapping(new MappingsFileTemplate.Mapping(
                                     t.type, t.ontoElement, "", true, null)
                             );
                         table.addColumn(column);
@@ -150,10 +115,10 @@ public class MappingsFile {
 
     private void createJSON(String rootElementName, HashMap<String, String> tableClasses) {
         rootElementName = "/" + rootElementName;
-        HashMap<String, Table> tableClassesTable = new HashMap<>();
+        HashMap<String, MappingsFileTemplate.Table> tableClassesTable = new HashMap<>();
         for(String classField: tableClasses.keySet()) {
-            Table table = new Table(classField);
-            Mapping tableMapping = new Mapping(
+            MappingsFileTemplate.Table table = new MappingsFileTemplate.Table(classField);
+            MappingsFileTemplate.Mapping tableMapping = new MappingsFileTemplate.Mapping(
                     trf.get(classField).get(0).type,
                     trf.get(classField).get(0).ontoElement,
                     "", true, null);
@@ -171,9 +136,9 @@ public class MappingsFile {
             if(elName.equals(rootElementName))
                 continue;
 
-            Column field = new Column(elName);
+            MappingsFileTemplate.Column field = new MappingsFileTemplate.Column(elName);
             for (Transformation t : trf.get(elName))
-                field.addMapping(new Mapping(
+                field.addMapping(new MappingsFileTemplate.Mapping(
                         t.type, t.ontoElement, "", true, null)
                 );
             String fieldTable = elName.substring(0, elName.lastIndexOf("/"));

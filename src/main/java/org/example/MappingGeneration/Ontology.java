@@ -16,7 +16,6 @@ import java.net.URI;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import static org.example.util.Util.outputOntology;
 
 public class Ontology {
 
@@ -80,7 +79,7 @@ public class Ontology {
     public OntResource getOntResource(URI uri) {return pModel.getOntResource(uri.toString());}
 
 
-    public void createProperty(String propertyURI, String label, String description, int TYPE) {
+    public OntProperty createProperty(String propertyURI, String label, String description, int TYPE) {
         // Create the property with the given URI
         OntProperty newProperty;
         switch (TYPE) {
@@ -94,10 +93,12 @@ public class Ontology {
                 throw new UnsupportedOperationException("Use OBJPROPS or DATAPROPS constants instead.");
         }
         addAnnotations(newProperty, label, description);
+        return newProperty;
     }
-    public void createClass(String classURI, String label, String description) {
+    public OntClass createClass(String classURI, String label, String description) {
         OntClass newClass = pModel.createClass(classURI);
         addAnnotations(newClass, label, description);
+        return newClass;
     }
 
     private void addAnnotations(Resource newResource, String label, String description) {

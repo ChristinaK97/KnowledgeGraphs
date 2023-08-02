@@ -2,8 +2,10 @@ package org.example.MappingGeneration;
 
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.example.MappingGeneration.FormatSpecific.DICOMrules;
-import org.example.MappingsFiles.SaveMappings;
+import org.example.InputPoint.InputDataSource;
+import org.example.MappingGeneration.FormatSpecific.DICOMspecificRules;
+import org.example.MappingGeneration.FormatSpecific.FormatSpecificRules;
+import org.example.MappingsFiles.SetMappingsFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +23,23 @@ public class ExactMatcher {
 
 
     public ExactMatcher(String srcOntoPath, String trgOntoPath, ArrayList<String> annotationPropertiesIRIs) {
+
         srcOnto = new Ontology(srcOntoPath, annotationPropertiesIRIs, removePunct);
         trgOnto = new Ontology(trgOntoPath, annotationPropertiesIRIs, removePunct);
 
         for(int ONTELEMENT : ONTELEMENTS)
             match(ONTELEMENT);
         System.out.println("# total matches = " + matches.size());
-        new DICOMrules().addAdditionalMatches(srcOnto, trgOnto, matches);
-        new SaveMappings(matches);
+
+        FormatSpecificRules spRules;
+        if(InputDataSource.isDSON())
+            spRules = new DICOMspecificRules();
+        else
+            spRules = null; //TODO add other types if this matches is used for input data except dicom files
+
+        spRules.addAdditionalMatches(srcOnto, trgOnto, matches);
+        new SetMappingsFile(matches, spRules);
+
         srcOnto.close();
     }
 

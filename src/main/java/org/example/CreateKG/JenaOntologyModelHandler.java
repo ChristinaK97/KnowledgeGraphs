@@ -4,7 +4,7 @@ import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.example.MappingsFiles.MappingsFile;
+import org.example.MappingsFiles.ManageMappingsFile;
 import org.example.MappingsFiles.MappingsFileTemplate;
 
 import java.net.URI;
@@ -23,7 +23,7 @@ public class JenaOntologyModelHandler {
     public JenaOntologyModelHandler(String ontologyFile, String ontologyName) {
         this.ontologyName = ontologyName;
         loadPutativeOntology(ontologyFile);
-        tablesMaps = MappingsFile.readMapJSON();
+        tablesMaps = ManageMappingsFile.readMapJSON();
     }
 
     private void loadPutativeOntology(String ontologyFile) {

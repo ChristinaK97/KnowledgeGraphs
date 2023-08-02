@@ -1,8 +1,8 @@
 package org.example.POextractor;
 
 import org.example.InputPoint.InputDataSource;
+import org.example.MappingsFiles.CreateMappingsFile;
 import org.example.POextractor.Properties.DomRan;
-import org.example.MappingsFiles.MappingsFile;
 import org.example.util.DICOMUtil;
 import org.example.util.Util;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -41,7 +41,7 @@ public class POntologyExtractor {
         createOntology();
         saveOntology(POontology);
 
-        new MappingsFile().extractMappingsFile(dataSource, msBasePrefix, rs);
+        new CreateMappingsFile().extractMappingsFile(dataSource, msBasePrefix, rs);
         //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, convertedIntoClass, objProperties);
 
     }

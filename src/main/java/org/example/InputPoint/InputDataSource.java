@@ -45,4 +45,11 @@ public class InputDataSource {
         return ontologyName;
     }
 
+    public static boolean isJSON() {
+        return "json".equals(fileExtension);
+    }
+    public static boolean isDSON() {
+        return "dcm".equals(fileExtension);
+    }
+
 }
