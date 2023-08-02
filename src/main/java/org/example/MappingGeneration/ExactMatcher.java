@@ -23,7 +23,6 @@ public class ExactMatcher {
     private Ontology trgOnto;
     private Matches matches = new Matches();
     private boolean removePunct = true;
-    PrintWriter wr = new PrintWriter("out.txt");
 
 
     public ExactMatcher(String srcOntoPath, String trgOntoPath, ArrayList<String> annotationPropertiesIRIs) throws FileNotFoundException {
@@ -76,18 +75,16 @@ public class ExactMatcher {
         double score = 0;
         for(String srcAnnot : srcAnnots) {
             for(String trgAnnot : trgAnnots) {
-                wr.println(srcR + ": \n\t" + srcAnnot + " - " + trgAnnot + " ");
+
                 if(srcAnnot.equals(trgAnnot)) {
                     score = 1;
                     if(ONTELEMENT == DATAPROPS && ! trgOnto.hasDomRan(trgR.asProperty()))
                         score = 0.5;
-                    wr.println(score + "\n\n\n");
                     if(matches.getScore(srcR.getURI()) < score)
                         matches.addMatch(srcR.getURI(), trgR.getURI(), score);
                     return score == 1;
                 }
-
-        }wr.println("\n\n\n");}
+        }}
         return score == 1;
     }
 
