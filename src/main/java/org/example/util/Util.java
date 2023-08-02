@@ -1,5 +1,6 @@
 package org.example.util;
 
+import org.apache.jena.rdf.model.Resource;
 import org.semanticweb.owlapi.model.IRI;
 
 import java.net.URI;
@@ -70,5 +71,13 @@ public class Util {
     }
     public static String getLocalName(String uri) {
         return uri.substring(uri.lastIndexOf('/') + 1);
+    }
+
+    public static String getLocalName(Resource resource) {
+        String localName = resource.getLocalName();
+        if(localName.isEmpty())
+            localName = getLocalName(resource.getURI());
+        System.out.println("LOCAL NAME " + localName);
+        return localName;
     }
 }

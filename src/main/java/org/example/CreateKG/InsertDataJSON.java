@@ -8,9 +8,12 @@ import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.example.InputPoint.InputDataSource;
 import org.example.util.JsonUtil;
 
 import java.util.*;
+
+import static org.example.util.Util.getLocalName;
 
 public class InsertDataJSON  extends InsertDataBase {
     private ArrayList<String> files;
@@ -79,7 +82,7 @@ public class InsertDataJSON  extends InsertDataBase {
          *    (these functions contain the recursive call)
          */
         System.out.println();
-        System.out.println("REC prev= " + prev +  " prevInd= " + (prevIndiv!=null?prevIndiv.getLocalName():"")
+        System.out.println("REC prev= " + prev +  " prevInd= " + (prevIndiv!=null? getLocalName(prevIndiv):"")
                 +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:"") + " " + extractedField);
 
         if(prev.equals(root) && key == null) {                                                                      //1
@@ -132,7 +135,7 @@ public class InsertDataJSON  extends InsertDataBase {
         } else {                                                                                                     //2
             prevIndiv = createColPath(prevIndiv, null,                                                       //3
                                       getColPath(extractedField), extractedField);
-            System.out.printf("144 %s %s\n", extractedField, prevIndiv.getLocalName());
+            System.out.printf("144 %s %s\n", extractedField, getLocalName(prevIndiv));
         }
 
         for(String nestedKey : valueObj.keySet()) {                                                                  //4
@@ -238,7 +241,7 @@ public class InsertDataJSON  extends InsertDataBase {
          *    Increment the appropriate counter for the next new individual of the same class
          *    (and same record if not isRoot)
          */
-        String className = indivType.getLocalName();
+        String className = getLocalName(indivType);
         String indivURI = mBasePrefix + (isRoot ?                                                   //1
                 className + currRowID :
                 String.format("%s%d.%d", className, currRowID-1, getClassCounter(className)));
@@ -310,7 +313,7 @@ public class InsertDataJSON  extends InsertDataBase {
         for (int i = 0; i < upperBound; i+=2) {
 
             // 3
-            Resource nextNode = createIndiv(cp.get(i+1).asClass(), cp.get(i+1).getLocalName().equals(root), comment);
+            Resource nextNode = createIndiv(cp.get(i+1).asClass(), getLocalName(cp.get(i+1)).equals(root), comment);
             System.out.println(nextNode);
 
             // 4
@@ -325,7 +328,8 @@ public class InsertDataJSON  extends InsertDataBase {
 
 
     public static void main(String[] args) {
-        ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/json/PT1H.json"));
-        new InsertDataJSON("json", files);
+        ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/dicom/simple.json"));
+        System.out.println(files);
+        new InsertDataJSON(InputDataSource.ontologyName, files);
     }
 }

@@ -88,6 +88,10 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
                 boolean onlyDataPropertyWasMaintained = true;
 
+                if(tableMaps.getMapping().getPathURIs() != null)
+                    for(URI tablePathEl : tableMaps.getMapping().getPathURIs())
+                        colPath.add(getOntResource(tablePathEl));
+
                 // COLUMN OBJECT PROPERTY ==============================================================================
                 // if object property wasn't deleted, add it to the column's path
                 OntResource objPropResource = getOntResource(objMap.getOntoElURI());

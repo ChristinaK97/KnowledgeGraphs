@@ -411,7 +411,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 for(OntClass operand : unionClass.listOperands().toList()) {                                       //2
                     System.out.println("Cur Union operand: " + operand);
 
-                    if(operand.getLocalName().equals(tableClass) || getLocalName(operand.getURI()).equals(tableClass)) {   //3
+                    if(getLocalName(operand).equals(tableClass)) {   //3
                         unionDomainClasses.add(newDomain.asClass());                                               //4
                         removeRestriction(operand, prop);                                                          //5
                     }else
