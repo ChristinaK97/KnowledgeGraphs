@@ -8,6 +8,7 @@ import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.InputPoint.SQLdb.RTable;
 import org.example.InputPoint.SQLdb.RTable.FKpointer;
 import org.example.InputPoint.SQLdb.SQLconnector.DatabaseConnector;
+import org.example.util.HelperClasses.Pair;
 import tech.tablesaw.api.Row;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class InsertDataRDB extends InsertDataBase {
 
                 OntProperty fkProp = getOntProperty(fkPropURI);
                 if(fkProp != null) {
-                    paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(fkProp)));
+                    paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(new Pair(fkProp,true))));
                     //System.out.printf("%s %s %s\n", tableName, fkCol, fkPropURI);
                 }
             });
@@ -84,7 +85,7 @@ public class InsertDataRDB extends InsertDataBase {
                     if(isNotNull(colValue)) { // row has value for this column
 
                         if(rTable.isFK(colName))
-                            createJoin(indiv, colValue.toString(), colPath.get(0).asProperty(),
+                            createJoin(indiv, colValue.toString(), colPath.get(0).pathElement().asProperty(),
                                        rTable.getFKpointer(colName));
                         else
                             createColPath(rowID, indiv, row.getObject(colName),
@@ -190,7 +191,7 @@ public class InsertDataRDB extends InsertDataBase {
     private void createColPath(String rowID,
                                Resource coreIndiv,
                                Object colValue,
-                               ArrayList<OntResource> cp,
+                               ArrayList<Pair<OntResource,Boolean>> cp,
                                RTable rTable,
                                Row row,
                                String comment) {
@@ -202,18 +203,18 @@ public class InsertDataRDB extends InsertDataBase {
         Resource prevNode = coreIndiv;
         for (int i = 0; i < cp.size() - 2; i+=2) {
             // generate the uri of next node (i+1)
-            String iplus1NodeID = generateAttrIndivURI(rowID, cp.get(i+1).getURI(), rTable, row);  //2nd:class URI of the new indiv
+            String iplus1NodeID = generateAttrIndivURI(rowID, cp.get(i+1).pathElement().getURI(), rTable, row);  //2nd:class URI of the new indiv
 
             // create the next node entity
             Resource nextNode = createIndiv(iplus1NodeID,
-                                            cp.get(i+1).asClass(),
+                                            cp.get(i+1).pathElement().asClass(),
                                             comment);
             // connect the prevNode (i-1) with the next (i+1) using the objProp (i)
-            prevNode.addProperty(cp.get(i).asProperty(), nextNode);
+            prevNode.addProperty(cp.get(i).pathElement().asProperty(), nextNode);
             prevNode = nextNode;
         }
         // set the data value to the last node using the data property in the final pos of the path (size-1)
-        setDataPropertyValue(prevNode, cp.get(cp.size()-1).asProperty(), colValue);
+        setDataPropertyValue(prevNode, cp.get(cp.size()-1).pathElement().asProperty(), colValue);
     }
 
     // SuperClass methods:
