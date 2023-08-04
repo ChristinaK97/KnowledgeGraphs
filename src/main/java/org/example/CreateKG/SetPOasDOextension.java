@@ -62,7 +62,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                     if(map.hasMatch())
                         importURIs.add(extractOntoModule(map.getMatchURI()));
 
-                    if(map.getPathURIs() != null)
+                    if(map.hasPath())
                         for(java.net.URI pURI : map.getPathURIs())
                             importURIs.add(extractOntoModule(pURI));
                 }
@@ -555,7 +555,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             }
         }catch (NullPointerException e) {
             //TODO remove print
-            if(map != null && map.getPathURIs() != null && getOntClass(getFirstNodeFromPath(map.getPathURIs())) != null)
+            if(map != null && map.hasPath() && getOntClass(getFirstNodeFromPath(map.getPathURIs())) != null)
                 e.printStackTrace();
             // Either the map doesn't contain a path and so getPFirstNode throws NPE
             // or the first node in the path wasn't a class but a property and

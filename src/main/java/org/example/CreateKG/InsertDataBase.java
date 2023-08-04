@@ -16,6 +16,7 @@ import org.example.POextractor.Properties;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.util.HelperClasses.Pair;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -24,6 +25,7 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.example.util.Util.*;
@@ -31,10 +33,14 @@ import static org.example.util.Util.*;
 public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     // <tableName : table ontClass>
-    protected HashMap<String, OntClass> tablesClass;
+    protected HashMap<String, Pair<OntClass,Boolean>> tablesClass;
     // <tableName : <columnName : path of resources>>
-    protected HashMap<String, HashMap<String, ArrayList<OntResource>>> paths;
+    protected HashMap<String, HashMap<String, ArrayList<Pair<OntResource,Boolean>>>> paths;
     String mBasePrefix;
+
+
+    private HashSet<String> pathElementsFound;
+    private ArrayList<Pair<OntResource,Boolean>> colPath;
 
 
     public InsertDataBase (String ontologyName) {
@@ -75,23 +81,29 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         for(Table tableMaps : tablesMaps) {
 
             String tableName = tableMaps.getTable();
-            String tableClassName = tableMaps.getMapping().getOntoElResource();
+            Mapping tableMapping = tableMaps.getMapping();
+            String tableClassName = tableMapping.getOntoElResource();
 
-            tablesClass.put(tableName, getOntClass(tableMaps.getMapping().getOntoElURI()));
+            tablesClass.put(tableName, new Pair<>(
+                                    getOntClass(tableMapping.getOntoElURI()),
+                                    tableMapping.hasPath())
+            );
             paths.put(tableName, new HashMap<>());
+            pathElementsFound = new HashSet<>();
 
             for(Column col : tableMaps.getColumns()) {
 
-                ArrayList<OntResource> colPath = new ArrayList<>();
+                colPath = new ArrayList<>();
                 Mapping objMap   = col.getObjectPropMapping();
                 Mapping classMap = col.getClassPropMapping();
                 Mapping dataMap  = col.getDataPropMapping();
 
                 boolean onlyDataPropertyWasMaintained = true;
 
-                if(tableMaps.getMapping().getPathURIs() != null)
-                    for(URI tablePathEl : tableMaps.getMapping().getPathURIs())
-                        colPath.add(getOntResource(tablePathEl));
+                if(tableMapping.hasPath())
+                    for(URI tablePathEl : tableMapping.getPathURIs())
+                        addColumnPathElement(getOntResource(tablePathEl));
+
 
                 // COLUMN OBJECT PROPERTY ==============================================================================
                 // if object property wasn't deleted, add it to the column's path
@@ -100,9 +112,9 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                     onlyDataPropertyWasMaintained = false;
                     // append the path of the object property to the column's path
                     specialisePathDOclasses(objMap);
-                    addPropertyPathToColumnPath(colPath, objMap, true, tableClassName);
+                    addPropertyPathToColumnPath(objMap, true, tableClassName);
                     // append the column object property to the column's path
-                    colPath.add(objPropResource);
+                    addColumnPathElement(objPropResource);
                 }
 
                 //======================================================================================================
@@ -111,7 +123,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                 OntResource classResource = getOntResource(classMap.getOntoElURI());
                 if (classResource != null) {
                     onlyDataPropertyWasMaintained = false;
-                    colPath.add(classResource);
+                    addColumnPathElement(classResource);
                 }
 
                 //======================================================================================================
@@ -123,9 +135,9 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                  */
                 specialisePathDOclasses(dataMap);
                 if(dataMap.hasDataProperty()) {
-                    addPropertyPathToColumnPath(colPath, dataMap, onlyDataPropertyWasMaintained, tableClassName);
+                    addPropertyPathToColumnPath(dataMap, onlyDataPropertyWasMaintained, tableClassName);
                     // append data property to the column's path (data properties are never deleted)
-                    colPath.add(getOntResource(dataMap.getOntoElURI()));
+                    addColumnPathElement(getOntResource(dataMap.getOntoElURI()));
                 }
                 //======================================================================================================
                 paths.get(tableName).put(col.getColumn(), colPath);
@@ -133,8 +145,16 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         }
     }
 
-    private void addPropertyPathToColumnPath(ArrayList<OntResource> colPath, Mapping map, boolean checkFirstNode, String tableClassName) {
-        if(map.getPathURIs() != null) {
+    private void addColumnPathElement(OntResource pathElement){
+        colPath.add(new Pair<>(
+                pathElement,
+                !pathElementsFound.contains(pathElement.toString())
+        ));
+        pathElementsFound.add(pathElement.toString());
+    }
+
+    private void addPropertyPathToColumnPath(Mapping map, boolean checkFirstNode, String tableClassName) {
+        if(map.hasPath()) {
             List<URI> propPath = map.getPathURIs();
             System.out.println(propPath);
 
@@ -144,19 +164,19 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                 if (firstNode.canAs(OntClass.class)) {
                     String newPropURI = getNewPropertyURI(mBasePrefix, firstNode.asClass(), tableClassName);
                     OntProperty firstProp = getOntProperty(newPropURI);
-                    colPath.add(firstProp);
+                    addColumnPathElement(firstProp);
                 }
             }
             // append the path elements to the column's list
             for(URI pathElement : propPath)
-                colPath.add(getOntResource(pathElement));
+                addColumnPathElement(getOntResource(pathElement));
         }
     }
 
     protected abstract void addAdditionalPaths();
 
     protected OntClass getTClass(String tableName) {
-        return tablesClass.get(tableName);
+        return tablesClass.get(tableName).tableClass();
     }
 
     protected boolean isNotNull(Object colValue) {

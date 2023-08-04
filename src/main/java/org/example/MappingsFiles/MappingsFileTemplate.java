@@ -210,6 +210,10 @@ public class MappingsFileTemplate {
         public boolean hasDataProperty() {
             return type != null;
         }
+
+        public boolean hasPath() {
+            return path != null;
+        }
     }
     //================================================================================
 

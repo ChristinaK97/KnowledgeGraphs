@@ -79,7 +79,7 @@ public class TableWithMappingsExtractor {
 
         StringBuilder bl = new StringBuilder();
 
-        if(objMap.getPathURIs() != null) {
+        if(objMap.hasPath()) {
 
             List<String> path = objMap.getPathResources();
             if(Character.isUpperCase(path.get(0).charAt(0)))
@@ -103,7 +103,7 @@ public class TableWithMappingsExtractor {
             bl.append(getClassNodeString("fibo:" + classMap.getMatchResource()));
 
 
-        if(dataMap.getPathURIs() != null) {
+        if(dataMap.hasPath()) {
 
             List<String> path = dataMap.getPathResources();
             if(Character.isUpperCase(path.get(0).charAt(0)))

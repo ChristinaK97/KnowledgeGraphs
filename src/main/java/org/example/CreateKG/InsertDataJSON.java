@@ -9,11 +9,14 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.example.InputPoint.InputDataSource;
+import org.example.util.HelperClasses.Pair;
 import org.example.util.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.example.util.Util.getLocalName;
 
@@ -89,14 +92,13 @@ public class InsertDataJSON  extends InsertDataBase {
 
         if(prev.equals(root) && key == null) {                                                                      //1
             classCounter = new HashMap<>();                                                                         //2
-            prevIndiv = createIndiv(getTClass(root), extractedField, prevIndiv, true, root);                                             //3
+            setCounter(root);
+            prevIndiv = createIndiv(getTClass(root), extractedField, prevIndiv, true, true);                                             //3
         }
 
         if(value.isJsonPrimitive() && JsonUtil.isValid(prev, key, value, extractedField)) {                         //4
             createColPath(prevIndiv, extractedField,                                                                               //5
-                    JsonUtil.parseJSONvalue(value.getAsJsonPrimitive()),
-                    getColPath(extractedField),                                                                     //6
-                    extractedField);
+                    JsonUtil.parseJSONvalue(value.getAsJsonPrimitive()));
         }
         else if(value.isJsonObject())                                                                               //7
             parseJsonObject(prev, prevIndiv, key, value.getAsJsonObject(), extractedField);
@@ -136,9 +138,9 @@ public class InsertDataJSON  extends InsertDataBase {
             key = prev;
         } else {                                                                                                     //2
             System.out.printf("\t%s %s\n", extractedField, getLocalName(prevIndiv));
-            resetCounter(extractedField);
-            prevIndiv = createColPath(prevIndiv, extractedField, null,                                                       //3
-                                      getColPath(extractedField), extractedField);
+            setCounter(extractedField);
+            prevIndiv = createColPath(prevIndiv, extractedField, null);                                                     //3
+
         }
 
         for(String nestedKey : valueObj.keySet()) {                                                                  //4
@@ -173,8 +175,7 @@ public class InsertDataJSON  extends InsertDataBase {
         }
         else if(type[0])        //3
             for(JsonElement arrayElement : valueArray)
-                createColPath(prevIndiv, extractedField, JsonUtil.parseJSONvalue(arrayElement.getAsJsonPrimitive()),
-                              getColPath(extractedField), extractedField);
+                createColPath(prevIndiv, extractedField, JsonUtil.parseJSONvalue(arrayElement.getAsJsonPrimitive()));
         else  //4
             for(JsonElement arrayElement : valueArray)
                 parseJson(prev, prevIndiv, key, arrayElement,
@@ -192,13 +193,13 @@ public class InsertDataJSON  extends InsertDataBase {
      * @return a list of the resources (properties and classes) that define the extractedField's path
      *         if no such path was defined, return an empty list
      */
-    private ArrayList<OntResource> getColPath(String extractedField) {
+    private ArrayList<Pair<OntResource,Boolean>> getColPath(String extractedField) {
         String tableClassPath = extractedField.equals(root)? extractedField
                 : extractedField.substring(0, extractedField.lastIndexOf("/"));
 
         System.out.println("Get Path for " + extractedField + " : " + tableClassPath);
 
-        ArrayList<OntResource> cp = paths.get(tableClassPath).get(extractedField);
+        ArrayList<Pair<OntResource,Boolean>> cp = paths.get(tableClassPath).get(extractedField);
         return cp != null ? cp : new ArrayList<>();
     }
 
@@ -215,28 +216,29 @@ public class InsertDataJSON  extends InsertDataBase {
      */
     protected long getClassCounter(String tableClassPath, String className) {
         System.out.println("Get counter " + tableClassPath + " " + className);
+        System.out.println(classCounter);
         if(!classCounter.get(tableClassPath).containsKey(className))
             classCounter.get(tableClassPath).put(className, 0L);
         return classCounter.get(tableClassPath).get(className);
     }
 
-    private void resetCounter(String tableClassPath) {
-        System.out.println("Reset counter for " + tableClassPath);
-        classCounter.put(tableClassPath, new HashMap<>());
+    private void setCounter(String extractedField) {
+        System.out.println("Reset counter for " + extractedField);
+        if(!classCounter.containsKey(extractedField))
+            classCounter.put(extractedField, new HashMap<>());
     }
 
     /**
      * Create an individual if it doesn't exist
      * @param indivType : The class of the individual (rdf:type)
      * @param isRoot : Is the new root individual created? (e.g., a new record or a new person)
-     * @param comment : rdf:comment value
      * @return The resource that was created (or existed with this URI in the pModel)
      */
     protected Resource createIndiv(OntClass indivType,
                                    String extractedField,
                                    Resource prevIndiv,
                                    boolean isRoot,
-                                   String comment
+                                   boolean createNewIndiv
     ){
         /* 1. Create the URI of the individual. Its id will be the prefix + the name of its class + its id
          *    - The id for a root individual is a single incremental integer (currRowID)
@@ -255,8 +257,50 @@ public class InsertDataJSON  extends InsertDataBase {
          *    (and same record if not isRoot)
          */
 
-        long classCounterValue = -1; // unused value
+        String className, tableClassPath="", indivURI;
+        long classCounterValue=-1;
+
+        if(isRoot) {
+            className = root.substring(1);
+            indivURI = String.format("%s%s%d", mBasePrefix, className, currRowID);
+        }else {
+            className = getLocalName(indivType);
+            tableClassPath = extractedField.substring(0, extractedField.lastIndexOf("/"));
+            boolean isTableClassWithPath = tablesClass.containsKey(extractedField) && tablesClass.get(extractedField).hasPath();
+            if(isTableClassWithPath) {
+                Matcher match = Pattern.compile("\\d+$").matcher(prevIndiv.toString());
+                match.find();
+                String prevIndivId = match.group();
+                indivURI = String.format("%s_%s%s", prevIndiv, className, prevIndivId);
+            }else{
+                classCounterValue = getClassCounter(tableClassPath, className) ;
+                indivURI = String.format("%s_%s%d", prevIndiv, className, classCounterValue - (createNewIndiv ? 0 : 1));
+            }
+        }
+        System.out.println("Try Indiv = "+ indivURI+ " create new ? " + createNewIndiv);
+        System.out.println(classCounter);
+
+        Resource indiv = pModel.getOntResource(indivURI);
+        assert !(indiv == null && !createNewIndiv);
+        if(indiv == null) {     //2
+            System.out.println("\tcreate " + indivURI);
+            indiv = pModel.createResource(indivURI);
+            indiv.addProperty(RDF.type, indivType);
+            indiv.addLiteral(RDFS.comment, extractedField);
+
+            if(isRoot)
+                ++currRowID;
+            else
+                classCounter.get(tableClassPath).replace(className, classCounterValue + 1);
+        }
+        else{
+            System.out.println("\tindiv exists " + indivURI);
+        }
+
+        /*long classCounterValue = -1; // unused value
         String className, tableClassPath=null, indivURI;
+        boolean isElementOnTablePath = false;
+        boolean isTableClassWithPath = false;
 
         if(isRoot) {
             className = root.substring(1);
@@ -264,25 +308,31 @@ public class InsertDataJSON  extends InsertDataBase {
         }else {
             className = getLocalName(indivType);
             tableClassPath = extractedField.substring(0,extractedField.lastIndexOf("/"));
-            classCounterValue = getClassCounter(tableClassPath, className);
-            indivURI = String.format("%s_%s%d", prevIndiv, className, classCounterValue);
+
+            if(tablesClass.containsKey(extractedField))
+                isTableClassWithPath = tablesClass.get(extractedField).hasPath();
+            if(!isTableClassWithPath)
+                isTableClassWithPath = tablesClass.containsKey(tableClassPath) && tablesClass.get(tableClassPath).hasPath();
+
+            System.out.println("isTableClassWithPath = " + isTableClassWithPath);
+
+            if(isTableClassWithPath) {
+                // sq table individual
+                if(paths.get(tableClassPath).containsKey(extractedField)) {
+                    Matcher match = Pattern.compile("\\d+$").matcher(prevIndiv.toString());
+                    match.find();
+                    String prevIndivId = match.group();
+                    indivURI = String.format("%s_%s%s", prevIndiv, className, prevIndivId);
+                }else{ //sq item individual
+                    isElementOnTablePath = true;
+                    classCounterValue = getClassCounter(tableClassPath, className);
+                    indivURI = String.format("%s_%s%d", prevIndiv, className, classCounterValue);
+                }
+            }else {
+                classCounterValue = getClassCounter(tableClassPath, className);
+                indivURI = String.format("%s_%s%d", prevIndiv, className, classCounterValue);
+            }
         }
-
-        /*if(isRoot || prevIndiv == null) {
-            className = root.substring(1);
-            newIndivId = String.format("%d", currRowID);
-        }else {
-            className = getLocalName(indivType);
-            tableClassPath = extractedField.substring(0,extractedField.lastIndexOf("/"));
-
-            Matcher matcher = Pattern.compile("(\\d\\.?)+").matcher(prevIndiv.toString());
-            matcher.find();
-            classCounterValue = getClassCounter(tableClassPath, className);
-            newIndivId = String.format("%s.%d", matcher.group(), classCounterValue);
-
-            System.out.println(prevIndiv + "/" + className + classCounterValue);
-        }
-        String indivURI = String.format("%s%s%s", mBasePrefix, className, newIndivId);*/
 
         Resource indiv = pModel.getOntResource(indivURI);
         if(indiv == null) {     //2
@@ -293,12 +343,12 @@ public class InsertDataJSON  extends InsertDataBase {
 
             if(isRoot)
                 ++currRowID;
-            else
+            else if(!isElementOnTablePath && !isTableClassWithPath)
                 classCounter.get(tableClassPath).replace(className, classCounterValue + 1);
         }
         else{
             System.out.println("indiv exists " + indivURI);
-        }
+        }*/
         return indiv;
     }
 
@@ -306,7 +356,7 @@ public class InsertDataJSON  extends InsertDataBase {
 
     /**
      * @param prevIndiv The individual that will be the first node of the path (the 1st subject)
-     * @param cp : A path of properties and classes that express the column/attribute
+     * cp : A path of properties and classes that express the column/attribute
      * @param colValue
      *          - The primitive value of a json attribute e.g., year:2005
      *            when the attribute has a path that concludes with a data property (:has_year_VALUE)
@@ -324,9 +374,8 @@ public class InsertDataJSON  extends InsertDataBase {
      */
     private Resource createColPath(Resource prevIndiv,
                                String extractedField,
-                               Object colValue,
-                               ArrayList<OntResource> cp,
-                               String comment) {
+                               Object colValue) {
+
 
         /* 1. The path starts with the input/argument individual
          * 2. Upper bound to iterate the path:
@@ -349,26 +398,30 @@ public class InsertDataJSON  extends InsertDataBase {
          * 5. set the data value to the last node using the data property in the final pos of the path (size-1)
          *    prevNode (size-2) -[dp (size-1)]-> colValue
          */
-        System.out.println("Create col path " + comment + " " + cp);
+        ArrayList<Pair<OntResource,Boolean>> cp = getColPath(extractedField);
+        System.out.println("Create col path " + extractedField + " " + cp);
         Resource prevNode = prevIndiv;                                          //1
         int upperBound = colValue == null ? cp.size() : cp.size() - 2;          //2
         for (int i = 0; i < upperBound; i+=2) {
 
             // 3
-            Resource nextNode = createIndiv(cp.get(i+1).asClass(), extractedField, prevIndiv, getLocalName(cp.get(i+1)).equals(root), comment);
+            Resource nextNode = createIndiv(cp.get(i+1).pathElement().asClass(),
+                                            extractedField, prevIndiv,
+                                            getLocalName(cp.get(i+1).pathElement()).equals(root),
+                                            cp.get(i+1).createNewIndiv());
             // 4
-            prevNode.addProperty(cp.get(i).asProperty(), nextNode);
+            prevNode.addProperty(cp.get(i).pathElement().asProperty(), nextNode);
             prevNode = nextNode;
         }
         if(colValue != null)  //5
-            setDataPropertyValue(prevNode, cp.get(cp.size()-1).asProperty(), colValue);
+            setDataPropertyValue(prevNode, cp.get(cp.size()-1).pathElement().asProperty(), colValue);
 
         return prevNode;
     }
 
 
     public static void main(String[] args) {
-        ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/dicom/simple.json"));
+        ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/json/PT1H.json"));
         System.out.println(files);
         new InsertDataJSON(InputDataSource.ontologyName, files);
     }
