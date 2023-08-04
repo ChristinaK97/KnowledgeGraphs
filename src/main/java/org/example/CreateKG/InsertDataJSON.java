@@ -11,7 +11,9 @@ import org.apache.jena.vocabulary.RDFS;
 import org.example.InputPoint.InputDataSource;
 import org.example.util.JsonUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 import static org.example.util.Util.getLocalName;
 
@@ -19,7 +21,7 @@ public class InsertDataJSON  extends InsertDataBase {
     private ArrayList<String> files;
     private String root;
     private long currRowID;
-    private HashMap<String, Long> classCounter;
+    private HashMap<String, HashMap<String, Long>> classCounter;
 
     public InsertDataJSON(String ontologyName, ArrayList<String> files) {
         super(ontologyName);
@@ -38,7 +40,7 @@ public class InsertDataJSON  extends InsertDataBase {
         findRoot();
         for (String file : files) {
             JsonElement json = JsonUtil.readJSON(file);
-            System.out.println(root);
+            System.out.println("Root " + root);
             parseJson(root, null, null, json,
                     root.equals("/" + JsonUtil.ROOTCLASS) ? root : ""
             );
@@ -82,16 +84,16 @@ public class InsertDataJSON  extends InsertDataBase {
          *    (these functions contain the recursive call)
          */
         System.out.println();
-        System.out.println("REC prev= " + prev +  " prevInd= " + (prevIndiv!=null? getLocalName(prevIndiv):"")
-                +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:"") + " " + extractedField);
+        System.out.println("REC prev= " + prev +  "\tprevInd= " + (prevIndiv!=null? getLocalName(prevIndiv):null) + "\textr = " + extractedField
+                +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:""));
 
         if(prev.equals(root) && key == null) {                                                                      //1
             classCounter = new HashMap<>();                                                                         //2
-            prevIndiv = createIndiv(getTClass(root), true, root);                                             //3
+            prevIndiv = createIndiv(getTClass(root), extractedField, prevIndiv, true, root);                                             //3
         }
 
         if(value.isJsonPrimitive() && JsonUtil.isValid(prev, key, value, extractedField)) {                         //4
-            createColPath(prevIndiv,                                                                                //5
+            createColPath(prevIndiv, extractedField,                                                                               //5
                     JsonUtil.parseJSONvalue(value.getAsJsonPrimitive()),
                     getColPath(extractedField),                                                                     //6
                     extractedField);
@@ -127,15 +129,16 @@ public class InsertDataJSON  extends InsertDataBase {
          *     e.g., key = properties value = {p1:v1, p2:v2}  nestedKey=[p1,p2]
          *           call(key= properties, pI= properties1, nestedKey= p1, value= v1, eF= "/record/properties/p1 and same for p2
          */
-        System.out.println("JObject");
+        System.out.println("JObject :");
 
         if(key == null) {                                                                                            //1
             System.out.println("Null key");
             key = prev;
         } else {                                                                                                     //2
-            prevIndiv = createColPath(prevIndiv, null,                                                       //3
+            System.out.printf("\t%s %s\n", extractedField, getLocalName(prevIndiv));
+            resetCounter(extractedField);
+            prevIndiv = createColPath(prevIndiv, extractedField, null,                                                       //3
                                       getColPath(extractedField), extractedField);
-            System.out.printf("144 %s %s\n", extractedField, getLocalName(prevIndiv));
         }
 
         for(String nestedKey : valueObj.keySet()) {                                                                  //4
@@ -166,11 +169,11 @@ public class InsertDataJSON  extends InsertDataBase {
         boolean[] type = JsonUtil.arrayType(valueArray);   //1
 
         if(type[0] && type[1]){  //2
-            //TODO
+            //TODO handle mixed arrays (primitive values and json elements)
         }
         else if(type[0])        //3
             for(JsonElement arrayElement : valueArray)
-                createColPath(prevIndiv, JsonUtil.parseJSONvalue(arrayElement.getAsJsonPrimitive()),
+                createColPath(prevIndiv, extractedField, JsonUtil.parseJSONvalue(arrayElement.getAsJsonPrimitive()),
                               getColPath(extractedField), extractedField);
         else  //4
             for(JsonElement arrayElement : valueArray)
@@ -190,13 +193,12 @@ public class InsertDataJSON  extends InsertDataBase {
      *         if no such path was defined, return an empty list
      */
     private ArrayList<OntResource> getColPath(String extractedField) {
-        String fieldTableClassJPath = extractedField.equals(root)? extractedField
+        String tableClassPath = extractedField.equals(root)? extractedField
                 : extractedField.substring(0, extractedField.lastIndexOf("/"));
 
-        System.out.println(extractedField + " : " + fieldTableClassJPath);
-        System.out.println(paths);
+        System.out.println("Get Path for " + extractedField + " : " + tableClassPath);
 
-        ArrayList<OntResource> cp = paths.get(fieldTableClassJPath).get(extractedField);
+        ArrayList<OntResource> cp = paths.get(tableClassPath).get(extractedField);
         return cp != null ? cp : new ArrayList<>();
     }
 
@@ -211,10 +213,16 @@ public class InsertDataJSON  extends InsertDataBase {
      * person : person1
      *          language : language1.0, language1.1
      */
-    protected long getClassCounter(String className) {
-        if(!classCounter.containsKey(className))
-            classCounter.put(className, 0L);
-        return classCounter.get(className);
+    protected long getClassCounter(String tableClassPath, String className) {
+        System.out.println("Get counter " + tableClassPath + " " + className);
+        if(!classCounter.get(tableClassPath).containsKey(className))
+            classCounter.get(tableClassPath).put(className, 0L);
+        return classCounter.get(tableClassPath).get(className);
+    }
+
+    private void resetCounter(String tableClassPath) {
+        System.out.println("Reset counter for " + tableClassPath);
+        classCounter.put(tableClassPath, new HashMap<>());
     }
 
     /**
@@ -224,7 +232,12 @@ public class InsertDataJSON  extends InsertDataBase {
      * @param comment : rdf:comment value
      * @return The resource that was created (or existed with this URI in the pModel)
      */
-    protected Resource createIndiv(OntClass indivType, boolean isRoot, String comment) {
+    protected Resource createIndiv(OntClass indivType,
+                                   String extractedField,
+                                   Resource prevIndiv,
+                                   boolean isRoot,
+                                   String comment
+    ){
         /* 1. Create the URI of the individual. Its id will be the prefix + the name of its class + its id
          *    - The id for a root individual is a single incremental integer (currRowID)
          *    - The id for an element that is nested/connected to the root individual is
@@ -241,10 +254,35 @@ public class InsertDataJSON  extends InsertDataBase {
          *    Increment the appropriate counter for the next new individual of the same class
          *    (and same record if not isRoot)
          */
-        String className = getLocalName(indivType);
-        String indivURI = mBasePrefix + (isRoot ?                                                   //1
-                className + currRowID :
-                String.format("%s%d.%d", className, currRowID-1, getClassCounter(className)));
+
+        long classCounterValue = -1; // unused value
+        String className, tableClassPath=null, indivURI;
+
+        if(isRoot) {
+            className = root.substring(1);
+            indivURI = String.format("%s%s%d", mBasePrefix, className, currRowID);
+        }else {
+            className = getLocalName(indivType);
+            tableClassPath = extractedField.substring(0,extractedField.lastIndexOf("/"));
+            classCounterValue = getClassCounter(tableClassPath, className);
+            indivURI = String.format("%s_%s%d", prevIndiv, className, classCounterValue);
+        }
+
+        /*if(isRoot || prevIndiv == null) {
+            className = root.substring(1);
+            newIndivId = String.format("%d", currRowID);
+        }else {
+            className = getLocalName(indivType);
+            tableClassPath = extractedField.substring(0,extractedField.lastIndexOf("/"));
+
+            Matcher matcher = Pattern.compile("(\\d\\.?)+").matcher(prevIndiv.toString());
+            matcher.find();
+            classCounterValue = getClassCounter(tableClassPath, className);
+            newIndivId = String.format("%s.%d", matcher.group(), classCounterValue);
+
+            System.out.println(prevIndiv + "/" + className + classCounterValue);
+        }
+        String indivURI = String.format("%s%s%s", mBasePrefix, className, newIndivId);*/
 
         Resource indiv = pModel.getOntResource(indivURI);
         if(indiv == null) {     //2
@@ -256,7 +294,10 @@ public class InsertDataJSON  extends InsertDataBase {
             if(isRoot)
                 ++currRowID;
             else
-                classCounter.replace(className, getClassCounter(className) + 1);
+                classCounter.get(tableClassPath).replace(className, classCounterValue + 1);
+        }
+        else{
+            System.out.println("indiv exists " + indivURI);
         }
         return indiv;
     }
@@ -282,6 +323,7 @@ public class InsertDataJSON  extends InsertDataBase {
      *    prevNode (i-1)   -[i]-> nextNode (i+1)
      */
     private Resource createColPath(Resource prevIndiv,
+                               String extractedField,
                                Object colValue,
                                ArrayList<OntResource> cp,
                                String comment) {
@@ -313,9 +355,7 @@ public class InsertDataJSON  extends InsertDataBase {
         for (int i = 0; i < upperBound; i+=2) {
 
             // 3
-            Resource nextNode = createIndiv(cp.get(i+1).asClass(), getLocalName(cp.get(i+1)).equals(root), comment);
-            System.out.println(nextNode);
-
+            Resource nextNode = createIndiv(cp.get(i+1).asClass(), extractedField, prevIndiv, getLocalName(cp.get(i+1)).equals(root), comment);
             // 4
             prevNode.addProperty(cp.get(i).asProperty(), nextNode);
             prevNode = nextNode;

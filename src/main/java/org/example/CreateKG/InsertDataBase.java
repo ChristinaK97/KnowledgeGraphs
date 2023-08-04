@@ -42,6 +42,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         super(outputOntology, ontologyName);
         pModel.loadImports();
         mBasePrefix = pModel.getNsPrefixURI("");
+        System.out.println(mBasePrefix);
 
         //TODO remove this:
         /*super(outputOntology, ontologyName);

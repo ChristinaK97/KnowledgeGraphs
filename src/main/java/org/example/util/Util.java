@@ -77,7 +77,6 @@ public class Util {
         String localName = resource.getLocalName();
         if(localName.isEmpty())
             localName = getLocalName(resource.getURI());
-        System.out.println("LOCAL NAME " + localName);
         return localName;
     }
 }
