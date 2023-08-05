@@ -206,7 +206,7 @@ public class InsertDataJSON  extends InsertDataBase {
      * person : person1
      *          language : person1_language0, person1_language1
      */
-    protected long getClassCounter(String tableClassPath, String className) {                                           System.out.println("Get counter " + tableClassPath + " " + className + "\n" + classCounter);
+    protected long getClassCounter(String tableClassPath, String className) {                                           System.out.println("Get counter " + tableClassPath + " " + className);
         if(!classCounter.get(tableClassPath).containsKey(className))
             classCounter.get(tableClassPath).put(className, 0L);
         return classCounter.get(tableClassPath).get(className);
@@ -279,6 +279,7 @@ public class InsertDataJSON  extends InsertDataBase {
          */
         String className, tableClassPath="", indivURI;  //1
         long classCounterValue=-1;
+        boolean isTableClassWithPath = false;
 
         if(isRoot) {  //2
             className = root.substring(1);
@@ -286,7 +287,7 @@ public class InsertDataJSON  extends InsertDataBase {
         }else {      //3
             className = getLocalName(indivType);
             tableClassPath = extractedField.substring(0, extractedField.lastIndexOf("/"));
-            boolean isTableClassWithPath = tablesClass.containsKey(extractedField) && tablesClass.get(extractedField).hasPath();  //4
+            isTableClassWithPath = tablesClass.containsKey(extractedField) && tablesClass.get(extractedField).hasPath();  //4
             if(isTableClassWithPath) {
                 Matcher match = Pattern.compile("\\d+$").matcher(prevIndiv.toString());
                 match.find();
@@ -297,7 +298,7 @@ public class InsertDataJSON  extends InsertDataBase {
                 indivURI = String.format("%s_%s%d", prevIndiv, className, classCounterValue - (createNewIndiv ? 0 : 1));
             }
         }
-                                                                                                                        System.out.println("Try Indiv = "+ indivURI+ " create new ? " + createNewIndiv );
+                                                                                                                        System.out.println("Try Indiv = "+ indivURI+ " create new ? " + createNewIndiv + "\n\t counter = " + classCounter);
         Resource indiv = pModel.getOntResource(indivURI);
         assert !(indiv == null && !createNewIndiv); //6
         if(indiv == null) {                                                                                             System.out.println("\tcreate " + indivURI);
@@ -310,7 +311,8 @@ public class InsertDataJSON  extends InsertDataBase {
             else
                 classCounter.get(tableClassPath).replace(className, classCounterValue + 1);
         }
-                                                                                                                        else System.out.println("\tindiv exists " + indivURI);
+        else System.out.println("\tindiv exists " + indivURI);
+
         return indiv;
     }
 
