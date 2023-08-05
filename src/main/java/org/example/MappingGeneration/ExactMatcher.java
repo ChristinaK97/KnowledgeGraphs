@@ -6,12 +6,13 @@ import org.example.InputPoint.InputDataSource;
 import org.example.MappingGeneration.FormatSpecific.DICOMspecificRules;
 import org.example.MappingGeneration.FormatSpecific.FormatSpecificRules;
 import org.example.MappingsFiles.SetMappingsFile;
+import tech.tablesaw.api.Table;
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.HashSet;
 
 import static org.example.MappingGeneration.Ontology.DATAPROPS;
 import static org.example.MappingGeneration.Ontology.ONTELEMENTS;
@@ -38,10 +39,10 @@ public class ExactMatcher {
         if(InputDataSource.isDSON())
             spRules = new DICOMspecificRules();
         else
-            spRules = null; //TODO add other types if this matches is used for input data except dicom files
+            spRules = null; //TODO add other types if this matcher is used for input data except dicom files
 
         spRules.addAdditionalMatches(srcOnto, trgOnto, matches);
-        new SetMappingsFile(matches, spRules);
+        new SetMappingsFile(matches, spRules, getTableOntoEl());
 
         srcOnto.close();
     }
@@ -86,6 +87,19 @@ public class ExactMatcher {
                 }
         }}
         return score == 1;
+    }
+
+    private HashSet<String> getTableOntoEl() {
+        HashSet<String> tableClassesURIs = new HashSet<>();
+        String prefix = srcOnto.getBasePrefix();
+        String queryString = Ontology.swPrefixes()
+                + "SELECT ?tableURI WHERE {\n"
+                + "     ?tableURI a owl:Class ; \n"
+                + "               rdfs:subClassOf <" + prefix + "TableClass> . \n"
+                + "}";
+        Table table = srcOnto.runQuery(queryString, new String[]{"tableURI"});
+        table.forEach(row -> tableClassesURIs.add(row.getString("tableURI")));
+        return tableClassesURIs;
     }
 
 
