@@ -32,15 +32,20 @@ import static org.example.util.Util.*;
 
 public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
-    // <tableName : table ontClass>
-    protected HashMap<String, Pair<OntClass,Boolean>> tablesClass;
+    // <tableName : table ontClass, hasPath> where hasPath is whether the table mapping has path or not
+    protected HashMap<String, Pair<OntClass, Boolean>> tablesClass;
     // <tableName : <columnName : path of resources>>
     protected HashMap<String, HashMap<String, ArrayList<Pair<OntResource,Boolean>>>> paths;
     String mBasePrefix;
 
 
+    // The elements -classes/properties- in the path of the current column + should create new individual? for each element
+    private ArrayList<Pair<OntResource, Boolean>> colPath;
+    // The set of elements found in the paths of each column in the current table
+    // If an element was found in the paths of multiple columns, an individual will be created only the first time/first
+    // column that contain the element and will be reused for the paths of other columns in the same table
     private HashSet<String> pathElementsFound;
-    private ArrayList<Pair<OntResource,Boolean>> colPath;
+
 
 
     public InsertDataBase (String ontologyName) {
@@ -57,7 +62,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     }
 
     protected void run() {
-        //remove DO individuals before loading data
+        // remove DO individuals before loading data
         pModel.listIndividuals().forEachRemaining(resource -> {
             pModel.removeAll(resource, null, null);
         });
@@ -66,9 +71,8 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         tablesClass = new HashMap<>();
         paths = new HashMap<>();
         extractMappingPaths();
-        System.out.println(paths);
         addAdditionalPaths();
-        printPaths();
+        writePaths();
 
         // insert data and save kg
         mapData();
@@ -100,6 +104,8 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
                 boolean onlyDataPropertyWasMaintained = true;
 
+                // Add the path of the table to each column's path
+                // tableClass -> tablePath -> column path
                 if(tableMapping.hasPath())
                     for(URI tablePathEl : tableMapping.getPathURIs())
                         addColumnPathElement(getOntResource(tablePathEl));
@@ -148,6 +154,10 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     private void addColumnPathElement(OntResource pathElement){
         colPath.add(new Pair<>(
                 pathElement,
+                // if the element wasn't previously found on another columns path, an individual of this pathElement
+                // (if it's a class) will be created when the current column is reached and this new individual will
+                // be reused for other columns that contain this path element on their path
+                // (i.e., additional attributes will be added to the existing individual)
                 !pathElementsFound.contains(pathElement.toString())
         ));
         pathElementsFound.add(pathElement.toString());
@@ -244,7 +254,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
 //==================================================================================================================
 
-    protected void printPaths() {
+    protected void writePaths() {
         try {
             PrintWriter pw = new PrintWriter(pathsTXT);
             tablesClass.forEach((tableName, tableClass) -> {
