@@ -13,6 +13,7 @@ import tech.tablesaw.api.Row;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class InsertDataRDB extends InsertDataBase {
 
@@ -45,7 +46,7 @@ public class InsertDataRDB extends InsertDataBase {
 
                 OntProperty fkProp = getOntProperty(fkPropURI);
                 if(fkProp != null) {
-                    paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(new Pair(fkProp,true))));
+                    paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(new Pair<>(fkProp, true))));
                     //System.out.printf("%s %s %s\n", tableName, fkCol, fkPropURI);
                 }
             });

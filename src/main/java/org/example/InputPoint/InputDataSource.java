@@ -13,9 +13,9 @@ import org.example.util.Util;
 public class InputDataSource {
 
     // input data source
-    public static final String inputDataSource = Util.resourcePath + "json";
+    public static final String inputDataSource = Util.resourcePath + "dicom";
     public static final String SQL = "SQL";
-    public static final String fileExtension = "json";
+    public static final String fileExtension = "dcm";
     public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
     // sql database sample data

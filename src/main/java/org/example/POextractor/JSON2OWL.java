@@ -48,7 +48,7 @@ import static org.example.util.DICOMUtil.replaceTagsWithNames;
  * person -[has_name]-> xsd:string  (John Doe)
  * person -[has_status]-> xsd:string  (active) etc
  *
- * value is a list of simple.dcm elements
+ * value is a list of simple elements
  * person -[has_languages]-> xsd:string (English)
  * person -[has_languages]-> xsd:string (Spanish) etc
  *
@@ -56,7 +56,7 @@ import static org.example.util.DICOMUtil.replaceTagsWithNames;
  * person -[has_friends]-> friends -[has_name]-> Jane and other properties for Jane
  * person -[has_friends]-> friends -[has_name]-> Bob and other properties for Bob
  *
- * value is a dictionary with simple.dcm values
+ * value is a dictionary with simple values
  * person -[has_address]-> address
  * address -[has_street]-> xsd:string (123 Main St)
  * address -[has_city]-> xsd:string (New York) etc
@@ -76,7 +76,7 @@ public class JSON2OWL {
 
     private boolean turnAttrToClasses;
 
-    // if not null it's dson not simple.dcm json
+    // if not null it's dson not simple json
     private TagDictionary tagDictionary = null;
 
     private String root;
