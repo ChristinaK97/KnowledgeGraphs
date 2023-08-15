@@ -825,7 +825,6 @@
   "Ax": [
     "axillary"
   ],
-  # HERE
   "B/O": [
     "because of"
   ],
@@ -836,10 +835,13 @@
     "Bipolar affective disorder"
   ],
   "BADLs": [
-    "Basic ADLs basic activities of daily living"
+    "Basic ADLs",
+    "basic activities of daily living"
   ],
   "BAL": [
-    "bronchoalveolar lavage British anti-Lewisite blood alcohol level"
+    "bronchoalveolar lavage",
+    "British anti-Lewisite",
+    "blood alcohol level"
   ],
   "BAO": [
     "basic acid output"
@@ -863,7 +865,7 @@
     "right bundle branch block"
   ],
   "BBMF": [
-    "\"bone break, me fix\" (orthopedic consent form)"
+    "bone break, me fix"
   ],
   "BBPS": [
     "Boston Bowel Preparation Scale"
@@ -872,22 +874,32 @@
     "basal body temperature"
   ],
   "BC": [
-    "bone conduction blood culture Board certified"
+    "bone conduction",
+    "blood culture",
+    "Board certified"
   ],
   "BCC": [
-    "basal cell carcinoma blind carbon copy"
+    "basal cell carcinoma",
+    "blind carbon copy"
   ],
   "BCG": [
-    "bacille Calmette–Guérin (a tuberculosis vaccination)"
+    "bacille Calmette–Guérin",
+    "tuberculosis vaccination"
   ],
   "BCP": [
-    "blood chemistry profile"
+    "blood chemistry profile",
+    "birth control pill"
   ],
-  "BCX BCx": [
+  "BCX": [
+    "blood culture"
+  ],
+  "BCx": [
     "blood culture"
   ],
   "BD": [
-    "bipolar disorder twice a day (from Latin bis in die)"
+    "bipolar disorder",
+    "twice a day",
+    "bis in die"
   ],
   "BDD": [
     "body dysmorphic disorder"
@@ -899,13 +911,15 @@
     "Background Diabetic Retinopathy"
   ],
   "BDS": [
-    "two times a day (from Latin bis die sumendus)"
+    "two times a day",
+    "bis die sumendus"
   ],
   "BE": [
-    "barium enema base excess"
+    "barium enema",
+    "base excess"
   ],
   "BEAM": [
-    "A type of high-dose chemotherapy used to treat lymphoma prior to a stem cell transplant"
+    "high-dose chemotherapy for lymphoma prior to stem cell transplant"
   ],
   "BEP": [
     "bleomycin, etoposide, and cisplatin (chemotherapy regimen)"
@@ -920,7 +934,7 @@
     "blood glucose"
   ],
   "BGAT": [
-    "blood glucose awareness training (to help patients with diabetic hypoglycemia)"
+    "blood glucose awareness training"
   ],
   "BGL": [
     "blood glucose level"
@@ -931,8 +945,17 @@
   "BIBA": [
     "brought in by ambulance"
   ],
-  "BID bid b.i.d.": [
-    "twice a day (from Latin bis in die)"
+  "BID": [
+    "twice a day",
+    "bis in die"
+  ],
+  "bid": [
+    "twice a day",
+    "bis in die"
+  ],
+  "b.i.d.": [
+    "twice a day",
+    "bis in die"
   ],
   "BIS": [
     "Bispectral index"
@@ -944,16 +967,19 @@
     "below-the-knee amputation"
   ],
   "BL": [
-    "Burkitt\u0027s lymphoma"
+    "Burkitt's lymphoma"
   ],
   "BLE": [
-    "Bilateral Lower Extremity (in/on both legs)."
+    "Bilateral Lower Extremity"
   ],
   "BLS": [
     "basic life support"
   ],
   "BM": [
-    "bone marrow bowel movement breast milk Capillary blood glucose (British medical colloquialism originating from Boehringer Mannheim, a manufacturer of early glucose meters, today a part of Boehringer Ingelheim.)"
+    "bone marrow",
+    "bowel movement",
+    "breast milk",
+    "Capillary blood glucose"
   ],
   "BMBx": [
     "Bone marrow biopsy"
@@ -962,7 +988,8 @@
     "bone mineral content"
   ],
   "BMD": [
-    "bone mineral density (also termed bone mass measurement)"
+    "bone mineral density",
+    "bone mass measurement"
   ],
   "BMI": [
     "body mass index"
@@ -992,7 +1019,7 @@
     "born out of asepsis"
   ],
   "BOI": [
-    "born on island (i.e. a local patient)"
+    "born on island"
   ],
   "BOLT": [
     "Bilateral Orthotopic Lung Transplant"
@@ -1004,7 +1031,8 @@
     "bronchiolitis obliterans organizing pneumonia"
   ],
   "BP": [
-    "blood pressure British Pharmacopoeia"
+    "blood pressure",
+    "British Pharmacopoeia"
   ],
   "BPAD": [
     "bipolar affective disorder"
@@ -1013,10 +1041,13 @@
     "best pharmaceuticals for children act"
   ],
   "BPD": [
-    "biparietal diameter borderline personality disorder bronchopulmonary dysplasia"
+    "biparietal diameter",
+    "borderline personality disorder",
+    "bronchopulmonary dysplasia"
   ],
   "BPH": [
-    "benign prostatic hyperplasia/benign prostatic hypertrophy"
+    "benign prostatic hyperplasia",
+    "benign prostatic hypertrophy"
   ],
   "BPM": [
     "beats per minute"
@@ -1031,28 +1062,29 @@
     "Behavioural and Psychological Symptoms of Dementia"
   ],
   "BR": [
-    "bedrest bathroom"
+    "bedrest",
+    "bathroom"
   ],
   "BRA": [
     "bilateral renal agenesis"
   ],
   "BRAT": [
-    "The BRAT diet: bananas, rice, applesauce, toast (helps digestion in some GI disorders)"
+    "The BRAT diet: bananas, rice, applesauce, toast"
   ],
   "BRATY": [
-    "another version of the BRAT diet: bananas, rice, applesauce, toast, yogurt (helps digestion in some GI disorders)"
+    "The BRAT diet: bananas, rice, applesauce, toast, yogurt"
   ],
   "BRB": [
-    "bright red blood (color is important as an indicator of source, for example in gastrointestinal bleeding)"
+    "bright red blood"
   ],
   "BRBPR": [
     "bright red blood per rectum"
   ],
-  "BRCA1 (gene) BRCA1 (protein)": [
-    "breast cancer 1 (a human gene and its protein)"
+  "BRCA1": [
+    "breast cancer 1"
   ],
-  "BRCA2 (gene) BRCA2 (protein)": [
-    "breast cancer 2 (a human gene and its protein)"
+  "BRCA2": [
+    "breast cancer 2"
   ],
   "BRP": [
     "bathroom privileges"
@@ -1064,19 +1096,26 @@
     "Branch retinal vein occlusion"
   ],
   "BS": [
-    "Barium Swallow breath breath sound bowel sounds (on auscultation using a stethoscope) blood sugar body secretions"
+    "Barium Swallow",
+    "breath",
+    "breath sound",
+    "bowel sounds",
+    "blood sugar",
+    "body secretions"
   ],
   "BS x 4 quads": [
-    "bowel signs in all 4 quadrants (also sometimes \"BS + all 4 quads\")"
+    "bowel signs in all 4 quadrants"
   ],
   "BSA": [
-    "body surface area bovine serum albumin"
+    "body surface area",
+    "bovine serum albumin"
   ],
   "BSC": [
     "bedside commode"
   ],
   "BSE": [
-    "bovine spongiform encephalopathy breast self-examination"
+    "bovine spongiform encephalopathy",
+    "breast self-examination"
   ],
   "BSL": [
     "blood sugar level"
@@ -1088,13 +1127,14 @@
     "bromsulphthalein"
   ],
   "BSU": [
-    "Bartholin, Skene and urethra (glands)"
+    "Bartholin, Skene and urethra glands"
   ],
   "BSx": [
     "B-symptoms"
   ],
   "BT": [
-    "bleeding time brachytherapy"
+    "bleeding time",
+    "brachytherapy"
   ],
   "BTB": [
     "breakthrough bleeding of menstrual period"
@@ -1115,13 +1155,16 @@
     "bacterial vaginosis"
   ],
   "BVM": [
-    "bag valve mask (Ambu bag)"
+    "bag valve mask"
   ],
   "BVP": [
-    "biventricular pacing (see artificial pacemaker) bleomycin, vincristine, and cisplatin (chemotherapy regimen)"
+    "biventricular pacing",
+    "bleomycin, vincristine, and cisplatin"
   ],
   "BW": [
-    "blood work (blood tests) birth weight"
+    "blood work",
+    "blood tests",
+    "birth weight"
   ],
   "BZDs": [
     "benzodiazepines"
@@ -1133,7 +1176,7 @@
     "bilevel positive airway pressure"
   ],
   "BiVAD": [
-    "bilateral ventricular assist device (left and right)"
+    "bilateral ventricular assist device"
   ],
   "Bilat eq": [
     "bilaterally equal"
@@ -1144,7 +1187,8 @@
   "C": [
     "cytosine cervical vertebrae"
   ],
-  "C\u0026S": [
+  "C&S": [
+    "antibiogram",
     "culture and sensitivity (antibiogram)"
   ],
   "C-SSRS": [
@@ -1163,19 +1207,24 @@
     "Caesarean section"
   ],
   "C1": [
-    "atlas – first cervical vertebra of the spine"
+    "atlas",
+    "first cervical vertebra of the spine"
   ],
   "C2": [
-    "axis – second cervical vertebra of the spine"
+    "axis",
+    "second cervical vertebra of the spine"
   ],
   "CA": [
-    "carcinoma cancer"
+    "calcium",
+    "carcinoma",
+    "cancer"
   ],
   "CAA": [
     "coronary artery aneurysm"
   ],
   "CABG": [
-    "coronary artery bypass graft (pronounced \"cabbage\")"
+    "coronary artery bypass graft",
+    "cabbage"
   ],
   "CABP": [
     "coronary artery bypass procedure"
@@ -1187,16 +1236,19 @@
     "cerebral autosomal dominant arteriopathy with subcortical infarcts and leukoencephalopathy"
   ],
   "CAG": [
-    "coronary artery graft coronary angiography"
+    "coronary artery graft",
+    "coronary angiography"
   ],
   "CAGE": [
-    "cut down, annoyed, guilty, eye opener (screening for alcoholism)"
+    "cut down, annoyed, guilty, eye opener",
+    "screening for alcoholism"
   ],
   "CAGS": [
     "coronary artery graft surgery"
   ],
   "CAH": [
-    "chronic active hepatitis congenital adrenal hyperplasia"
+    "chronic active hepatitis",
+    "congenital adrenal hyperplasia"
   ],
   "CALLA": [
     "common acute lymphocytic leukemia antigen"
@@ -1205,13 +1257,15 @@
     "café au lait macules"
   ],
   "CAM": [
-    "cell adhesion molecule complementary and alternative medicine"
+    "cell adhesion molecule",
+    "complementary and alternative medicine"
   ],
   "CAMP": [
     "cyclic adenosine monophosphate"
   ],
   "CAO": [
-    "conscious, alert, and oriented (no altered level of consciousness)"
+    "conscious, alert, and oriented",
+    "no altered level of consciousness"
   ],
   "CAP": [
     "community-acquired pneumonia"
@@ -1220,7 +1274,8 @@
     "continuous ambulatory peritoneal dialysis"
   ],
   "CAT / CT": [
-    "computed axial tomography / computed tomography"
+    "computed axial tomography",
+    "computed tomography"
   ],
   "CAUTI": [
     "Catheter-associated urinary tract infection"
@@ -1241,13 +1296,24 @@
     "cerebral blood flow"
   ],
   "CBI": [
-    "continuous bladder irrigation, as in Hematuria (Acute clot retention)"
+    "continuous bladder irrigation",
+    "Hematuria",
+    "Acute clot retention)"
   ],
   "CBS": [
     "chronic brain syndrome"
   ],
-  "CC cc": [
-    "cubic centimeter (use ml instead—see the list of abbreviations used in prescriptions) chief complaint cardiac catheter carbon copy"
+  "CC": [
+    "cubic centimeter",
+    "chief complaint",
+    "cardiac catheter",
+    "carbon copy"
+  ],
+  "cc": [
+    "cubic centimeter",
+    "chief complaint",
+    "cardiac catheter",
+    "carbon copy"
   ],
   "CCA": [
     "clear cell adenocarcinoma"
@@ -1259,7 +1325,8 @@
     "critical coronary care unit"
   ],
   "CCE C/C/E": [
-    "clubbing, cyanosis, and edema (general signs of cardiovascular disease)"
+    "clubbing, cyanosis, and edema",
+    "signs of cardiovascular disease"
   ],
   "CCF": [
     "congestive cardiac failure"
@@ -1274,13 +1341,15 @@
     "cholecystokinin-pancreozymin"
   ],
   "CCNS": [
-    "cell cycle–nonspecific [drug] (a type of drug used in chemotherapy)"
+    "cell cycle–nonspecific",
+    "drug used in chemotherapy"
   ],
   "CCOC": [
     "clear cell odontogenic carcinoma"
   ],
   "CCOT": [
-    "calcifying cystic odontogenic tumor (formerly called calcifying odontogenic cyst)"
+    "calcifying cystic odontogenic tumor",
+    "calcifying odontogenic cyst"
   ],
   "CCP": [
     "cyclic citrullinated peptide"
@@ -1289,10 +1358,15 @@
     "cardiocerebral resuscitation"
   ],
   "CCU": [
-    "coronary care unit critical care unit"
+    "coronary care unit",
+    "critical care unit"
   ],
   "CD": [
-    "Celiac disease Crohn\u0027s disease chemical dependency cluster of differentiation controlled delivery"
+    "Celiac disease",
+    "Crohn's disease",
+    "chemical dependency",
+    "cluster of differentiation",
+    "controlled delivery"
   ],
   "CDAD": [
     "Clostridium difficile–associated diarrhoea"
@@ -1304,7 +1378,9 @@
     "congenital dislocated hip"
   ],
   "CDI": [
-    "central diabetes insipidus Clostridium difficile infection cool, dry, intact (when referring to incision/surgical sites)"
+    "central diabetes insipidus",
+    "Clostridium difficile infection",
+    "cool, dry, intact (incision/surgical sites)"
   ],
   "CDMR": [
     "caesarean delivery on maternal request"
@@ -1316,7 +1392,9 @@
     "cutaneous drug reaction"
   ],
   "CEA": [
-    "carcinoembryonic antigen carotid endarterectomy cost-effectiveness analysis"
+    "carcinoembryonic antigen",
+    "carotid endarterectomy",
+    "cost-effectiveness analysis"
   ],
   "CEIOL": [
     "cataract extraction with intraocular lens placement"
@@ -1325,7 +1403,8 @@
     "cystic fibrosis"
   ],
   "CFA": [
-    "complement-fixing antibody colonization factor antigen"
+    "complement-fixing antibody",
+    "colonization factor antigen"
   ],
   "CFIDS": [
     "chronic fatigue immune dysfunction syndrome"
@@ -1337,7 +1416,8 @@
     "chronic fatigue syndrome"
   ],
   "CFT": [
-    "complement fixation test capillary filling time"
+    "complement fixation test",
+    "capillary filling time"
   ],
   "CFTR": [
     "cystic fibrosis transmembrane conductance regulator"
@@ -1349,7 +1429,7 @@
     "chronic granulomatous disease"
   ],
   "CGI": [
-    "Clinical Global Impression (including subscales such as CGI-BP, CGI-C, CGI-E, CGI-I, CGI-S)"
+    "Clinical Global Impression"
   ],
   "CGN": [
     "chronic glomerulonephritis"
@@ -1361,25 +1441,30 @@
     "combined hormonal contraceptive"
   ],
   "CHD": [
-    "chronic heart disease congenital heart defect coronary heart disease"
+    "chronic heart disease",
+    "congenital heart defect",
+    "coronary heart disease"
   ],
   "CHE": [
     "cholinesterase"
   ],
   "CHEM-20": [
-    "a group of blood tests (albumin, alkaline phosphatase, alanine transaminase, aspartate aminotransferase, blood urea nitrogen, calcium – serum, serum chloride, carbon dioxide, creatinine, direct bilirubin, gamma-glutamyl transpeptidase, glucose test, lactate dehydrogenase, phosphorus – serum, potassium test, serum sodium, total bilirubin, total cholesterol, total protein, uric acid)"
+    "blood tests (albumin, alkaline phosphatase, alanine transaminase, aspartate aminotransferase, blood urea nitrogen, calcium – serum, serum chloride, carbon dioxide, creatinine, direct bilirubin, gamma-glutamyl transpeptidase, glucose test, lactate dehydrogenase, phosphorus – serum, potassium test, serum sodium, total bilirubin, total cholesterol, total protein, uric acid)"
   ],
   "CHEM-7": [
-    "a group of blood tests, commonly called a basic metabolic panel (blood urea nitrogen, carbon dioxide, creatinine, glucose, serum chloride, serum potassium, serum sodium)"
+    "blood tests, commonly called a basic metabolic panel (blood urea nitrogen, carbon dioxide, creatinine, glucose, serum chloride, serum potassium, serum sodium)",
+    "basic metabolic panel"
   ],
   "CHF": [
-    "congestive heart failure continuous hemofiltration"
+    "congestive heart failure",
+    "continuous hemofiltration"
   ],
   "CHO": [
     "carbohydrate"
   ],
   "CHOP": [
-    "cyclophosphamide, doxorubicin (a.k.a. hydroxydaunorubicin), vincristine(a.k.a. Oncovin), prednisone (chemotherapy regimen)"
+    "cyclophosphamide, doxorubicin, vincristine, prednisone",
+    "cyclophosphamide, hydroxydaunorubicin, Oncovin, prednisone"
   ],
   "CHS": [
     "cannulated hip screw"
@@ -1388,10 +1473,13 @@
     "congenital hypothyroidism"
   ],
   "CI": [
-    "confidence interval cardiac index"
+    "confidence interval",
+    "cardiac index",
+    "chlorine",
+    "clearance"
   ],
   "CIB": [
-    "cibus (food)"
+    "cibus"
   ],
   "CICU": [
     "cardiac intensive care unit"
@@ -1403,7 +1491,8 @@
     "chronic idiopathic myelofibrosis"
   ],
   "CIN": [
-    "cervical intraepithelial neoplasia, contrast-induced nephropathy"
+    "cervical intraepithelial neoplasia",
+    "contrast-induced nephropathy"
   ],
   "CINV": [
     "Chemotherapy-induced nausea and vomiting"
@@ -1421,7 +1510,7 @@
     "Creutzfeldt–Jakob disease"
   ],
   "CK": [
-    "creatine kinase (formerly CPK)"
+    "creatine kinase"
   ],
   "CKD": [
     "chronic kidney disease"
@@ -1439,7 +1528,8 @@
     "cervical lymph node"
   ],
   "CLND": [
-    "cervical lymph node dissection complete lymph node dissection"
+    "cervical lymph node dissection",
+    "complete lymph node dissection"
   ],
   "CLP": [
     "cleft lip and palate"
@@ -1448,7 +1538,10 @@
     "capillary leak syndrome"
   ],
   "CM": [
-    "Chirurgiae Magister, Master of Surgery (British and Commonwealth countries medical degree) Caucasian male cardiomyopathy"
+    "Chirurgiae Magister",
+    "Master of Surgery",
+    "Caucasian male",
+    "cardiomyopathy"
   ],
   "CMD": [
     "cystic medial degeneration"
@@ -1457,22 +1550,28 @@
     "continuing medical education"
   ],
   "CML": [
-    "chronic myelogenous leukemia, also called chronic myeloid leukaemia"
+    "chronic myelogenous leukemia",
+    "chronic myeloid leukaemia"
   ],
   "CMML": [
     "chronic myelomonocytic leukemia"
   ],
   "CMO": [
-    "comfort measures only (palliative care or hospice)"
+    "comfort measures only",
+    "palliative care",
+    "hospice"
   ],
   "CMP": [
-    "complete metabolic profile (a blood panel) cytosine monophosphate"
+    "complete metabolic profile",
+    "cytosine monophosphate"
   ],
   "CMS": [
-    "Centers for Medicare and Medicaid Services chronic mountain sickness"
+    "Centers for Medicare and Medicaid Services",
+    "chronic mountain sickness"
   ],
   "CMT": [
-    "cervical motion tenderness Charcot–Marie–Tooth disease"
+    "cervical motion tenderness",
+    "Charcot–Marie–Tooth disease"
   ],
   "CMV": [
     "cytomegalovirus"
@@ -1481,13 +1580,17 @@
     "cranial nerves"
   ],
   "CNS": [
-    "central nervous system Clinical nurse specialist Crigler-Najjar syndrome"
+    "central nervous system",
+    "Clinical nurse specialist",
+    "Crigler-Najjar syndrome"
   ],
   "CNVM": [
     "Choroidal Neovascular Membranes"
   ],
   "CO": [
-    "cardiac output carbon monoxide complains of..."
+    "cardiac output",
+    "carbon monoxide",
+    "complains of"
   ],
   "CO2": [
     "carbon dioxide"
@@ -1523,7 +1626,9 @@
     "cyclooxygenase 3"
   ],
   "CP": [
-    "cerebral palsy chest pain constrictive pericarditis"
+    "cerebral palsy",
+    "chest pain",
+    "constrictive pericarditis"
   ],
   "CPAP": [
     "continuous positive airway pressure"
@@ -1532,13 +1637,16 @@
     "clinical–pathological conference"
   ],
   "CPCR": [
-    "cardiopulmonary-cerebral resuscitation, a version of CPR"
+    "cardiopulmonary-cerebral resuscitation",
+    "CPR"
   ],
   "CPD": [
     "cephalopelvic disproportion"
   ],
   "CPE": [
-    "Clostridium perfringens enterotoxin cardiogenic pulmonary edema Carbapenemase producing Enterobacteriaceae"
+    "Clostridium perfringens enterotoxin",
+    "cardiogenic pulmonary edema",
+    "Carbapenemase producing Enterobacteriaceae"
   ],
   "CPG": [
     "clinical practice guideline"
@@ -1553,7 +1661,9 @@
     "cerebral perfusion pressure"
   ],
   "CPPD": [
-    "calcium pyrophosphate cyclic perimenstrual pain and discomfort[1] (premenstrual syndrome)"
+    "calcium pyrophosphate",
+    "cyclic perimenstrual pain and discomfort",
+    "premenstrual syndrome"
   ],
   "CPR": [
     "cardiopulmonary resuscitation"
@@ -1562,13 +1672,16 @@
     "Current Procedural Terminology"
   ],
   "CR": [
-    "complete remission (complete response) controlled release"
+    "complete remission",
+    "complete response",
+    "controlled release"
   ],
   "CRC": [
     "colorectal cancer"
   ],
   "CRD": [
-    "chronic renal disease circadian rhythm disorder"
+    "chronic renal disease",
+    "circadian rhythm disorder"
   ],
   "CRE": [
     "carbapenem-resistant Enterobacteriaceae"
@@ -1577,7 +1690,8 @@
     "calcinosis, Raynaud esophagus, sclerosis, teleangiectasiae"
   ],
   "CRF": [
-    "chronic renal failure corticotropin-releasing factor"
+    "chronic renal failure",
+    "corticotropin-releasing factor"
   ],
   "CRH": [
     "corticotropin-releasing hormone"
@@ -1616,13 +1730,22 @@
     "circadian rhythm sleep disorder"
   ],
   "CRT": [
-    "cardiac resynchronization therapy (artificial pacemaker) chemoradiotherapy conformal radiotherapy (irradiated zone conforms to boundaries) cathode ray tube capillary refill time central retinal thickness Certified Respiratory Therapist"
+    "cardiac resynchronization therapy",
+    "chemoradiotherapy",
+    "conformal radiotherapy",
+    "cathode ray tube",
+    "capillary refill time",
+    "central retinal thickness",
+    "Certified Respiratory Therapist"
   ],
   "CRTx": [
     "chemoradiotherapy"
   ],
   "CS": [
-    "caesarean section compartment syndrome culture sensitivity Churg–Strauss syndrome"
+    "caesarean section",
+    "compartment syndrome",
+    "culture sensitivity",
+    "Churg–Strauss syndrome"
   ],
   "CSA": [
     "Controlled Substances Act"
@@ -1649,7 +1772,8 @@
     "catheter specimen of urine"
   ],
   "CT": [
-    "computed tomography cervicothoracic"
+    "computed tomography",
+    "cervicothoracic"
   ],
   "CT c/a/p": [
     "CT scan of chest, abdomen, and pelvis"
@@ -1658,7 +1782,10 @@
     "clear to auscultation computed tomography angiography"
   ],
   "CTAB": [
-    "clear to auscultation bilaterally; also written CTA B"
+    "clear to auscultation bilaterally"
+  ],
+  "CTA B": [
+    "clear to auscultation bilaterally"
   ],
   "CTAP": [
     "CT during arterial portography"
@@ -1676,10 +1803,14 @@
     "Chronic thromboembolic pulmonary hypertension"
   ],
   "CTO": [
-    "chronic total occlusion Community Treatment Order (psychiatric term for forced drugging outside hospital context)"
+    "chronic total occlusion",
+    "Community Treatment Order"
   ],
   "CTP": [
-    "cytosine triphosphate cytidine triphosphate Child-Turcotte-Pugh score clear to percussion"
+    "cytosine triphosphate",
+    "cytidine triphosphate",
+    "Child-Turcotte-Pugh score",
+    "clear to percussion"
   ],
   "CTPA": [
     "computed tomographic pulmonary angiography"
@@ -1691,13 +1822,16 @@
     "carpal tunnel release"
   ],
   "CTS": [
-    "computed tomography scan Carpal Tunnel Syndrome"
+    "computed tomography scan",
+    "Carpal Tunnel Syndrome"
   ],
   "CTU": [
     "cancer treatment unit"
   ],
   "CTX": [
-    "ceftriaxone (a third-generation cephalosporin antibiotic) contractions chemotherapy"
+    "ceftriaxone",
+    "third-generation cephalosporin antibiotic",
+    "contractions chemotherapy"
   ],
   "CTZ": [
     "Chemoreceptor trigger zone"
@@ -1712,7 +1846,8 @@
     "cardiovascular"
   ],
   "CVA": [
-    "cerebrovascular accident costovertebral angle"
+    "cerebrovascular accident",
+    "costovertebral angle"
   ],
   "CVAD": [
     "central venous access device"
@@ -1721,7 +1856,8 @@
     "costovertebral angle tenderness"
   ],
   "CVC": [
-    "central venous catheter chronic venous congestion"
+    "central venous catheter",
+    "chronic venous congestion"
   ],
   "CVD": [
     "cardiovascular disease"
@@ -1739,13 +1875,16 @@
     "central venous pressure"
   ],
   "CVS": [
-    "chorionic villus sampling cardiovascular system Cerebrovascular stroke"
+    "chorionic villus sampling",
+    "cardiovascular system",
+    "Cerebrovascular stroke"
   ],
   "CVT": [
     "cerebral venous thrombosis"
   ],
   "CVVH": [
-    "continuous veno-venous hemofiltration, a short-term alternative to Hemodialysis"
+    "continuous veno-venous hemofiltration",
+    "Hemodialysis"
   ],
   "CWP": [
     "coal worker\u0027s pneumoconiosis"
@@ -1772,7 +1911,8 @@
     "cholesterol"
   ],
   "Circ": [
-    "circumcision circulation"
+    "circumcision",
+    "circulation"
   ],
   "Cl": [
     "chlorine clearance"
@@ -1790,7 +1930,7 @@
     "creatinine"
   ],
   "CrCl": [
-    "creatinine clearance (Note: Looks similar to, but does not mean, the chromium chlorides—CrCl2, CrCl3, CrCl4)"
+    "creatinine clearance"
   ],
   "CrGN": [
     "crescentic glomerulonephritis"
@@ -1810,7 +1950,7 @@
   "Cx": [
     "cervix"
   ],
-  "D\u0026C": [
+  "D&C": [
     "dilatation and curettage"
   ],
   "D\u0026E": [
@@ -1862,7 +2002,8 @@
     "diastolic blood pressure"
   ],
   "DBS": [
-    "deep brain stimulation dried blood spots"
+    "deep brain stimulation",
+    "dried blood spots"
   ],
   "DCBE": [
     "double contrast barium enema"
@@ -1886,7 +2027,8 @@
     "Dynamic compression plate"
   ],
   "DD": [
-    "differential diagnosis Diastolic Dysfunction"
+    "differential diagnosis",
+    "Diastolic Dysfunction"
   ],
   "DDAVP": [
     "desmopressin acetate"
@@ -1895,7 +2037,8 @@
     "zalcitabine"
   ],
   "DDD": [
-    "daily defined doses Degenerative disk disease"
+    "daily defined doses",
+    "Degenerative disk disease"
   ],
   "DDH": [
     "developmental hip dysplasia"
@@ -1907,13 +2050,15 @@
     "differential diagnosis"
   ],
   "DES": [
-    "diethylstilbestrol Drug-eluting stent"
+    "diethylstilbestrol",
+    "Drug-eluting stent"
   ],
   "DEXA": [
     "Dual energy X-ray absorptiometry"
   ],
   "DH": [
-    "developmental history Department of Health (United Kingdom), a branch of government"
+    "developmental history",
+    "Department of Health"
   ],
   "DHE": [
     "dihydroergotamine"
@@ -1934,7 +2079,8 @@
     "diabetes insipidus"
   ],
   "DIB": [
-    "dead in bed difficulty in breathing"
+    "dead in bed",
+    "difficulty in breathing"
   ],
   "DIC": [
     "disseminated intravascular coagulation"
@@ -1967,25 +2113,30 @@
     "diffusing capacity of the lung for carbon monoxide"
   ],
   "DLE": [
-    "disseminated lupus erythematosus (systemic lupus erythematosus)"
+    "disseminated lupus erythematosus",
+    "systemic lupus erythematosus"
   ],
   "DLI": [
     "donor lymphocyte infusion"
   ],
   "DLP": [
-    "dyslipoproteinemia [1]"
+    "dyslipoproteinemia"
   ],
   "DM": [
-    "diabetes mellitus, Dermatomyositis"
+    "diabetes mellitus",
+    "Dermatomyositis"
   ],
   "DM2": [
-    "Type 2 diabetes, formerly known as Non-Insulin Dependent Diabetes Mellitus (NIDDM)."
+    "Type 2 diabetes",
+    "Non-Insulin Dependent Diabetes Mellitus"
   ],
   "DMARD": [
     "disease-modifying antirheumatic drug"
   ],
   "DMD": [
-    "Duchenne muscular dystrophy; Dentariae Medicinae Doctor, that is, Doctor of Dental Medicine"
+    "Duchenne muscular dystrophy",
+    "Dentariae Medicinae Doctor",
+    "Doctor of Dental Medicine"
   ],
   "DME": [
     "durable medical equipment"
@@ -2018,7 +2169,8 @@
     "Doctor of Osteopathic Medicine"
   ],
   "DOA": [
-    "dead on arrival drugs of abuse"
+    "dead on arrival",
+    "drugs of abuse"
   ],
   "DOB": [
     "Date of birth"
@@ -2036,7 +2188,8 @@
     "date of service"
   ],
   "DOSS": [
-    "docusate sodium; from the chemical name dioctyl sodium sulfosuccinate"
+    "docusate sodium",
+    "dioctyl sodium sulfosuccinate"
   ],
   "DP": [
     "dorsalis pedis"
@@ -2054,10 +2207,12 @@
     "Doctor of Podiatric Medicine"
   ],
   "DPT": [
-    "diphtheria-pertussis-tetanus (DPT vaccine)"
+    "diphtheria-pertussis-tetanus",
+    "DPT vaccine"
   ],
   "DRE": [
-    "Digital Rectal ExaminationDilated Retinal Exam"
+    "Digital Rectal Examination",
+    "Dilated Retinal Exam"
   ],
   "DRPLA": [
     "Dentatorubral-Pallidoluysian Atrophy"
@@ -2066,37 +2221,43 @@
     "dead right there"
   ],
   "DS": [
-    "disease Down syndrome (trisomy 21) diopters sphere"
+    "disease",
+    "Down syndrome",
+    "diopters sphere"
   ],
   "DSA": [
-    "digital subtraction angiography Donor specific antibody"
+    "digital subtraction angiography",
+    "Donor specific antibody"
   ],
   "DSD": [
-    "differences of sex development dry sterile dressing"
+    "differences of sex development",
+    "dry sterile dressing"
   ],
   "DSM": [
     "Diagnostic and Statistical Manual of Mental Disorders"
   ],
   "DT": [
-    "diphtheria-tetanus (combined vaccination) delirium tremens"
+    "diphtheria-tetanus combined vaccination",
+    "delirium tremens"
   ],
   "DTA": [
     "descending thoracic aorta"
   ],
   "DTP": [
-    "diphtheria-tetanus-pertussis (combined vaccination)"
+    "diphtheria-tetanus-pertussis combined vaccination"
   ],
   "DTR": [
     "deep tendon reflex"
   ],
   "DTaP": [
-    "diphtheria–tetanus–acellular pertussis (combined vaccination)"
+    "diphtheria–tetanus–acellular pertussis combined vaccination"
   ],
   "DTs": [
     "delirium tremens"
   ],
   "DU": [
-    "duodenal ulcer (see peptic ulcer)"
+    "duodenal ulcer",
+    "peptic ulcer"
   ],
   "DUB": [
     "dysfunctional uterine bleeding"
@@ -2120,10 +2281,10 @@
     "dichromatic diamnionic twins"
   ],
   "DiPerTe": [
-    "diphtheria-pertussis-tetanus (combined vaccination)"
+    "diphtheria-pertussis-tetanus combined vaccination"
   ],
   "DiTe": [
-    "diphtheria-tetanus (combined vaccination)"
+    "diphtheria-tetanus combined vaccination"
   ],
   "Dis": [
     "dislocation"
@@ -2135,7 +2296,12 @@
     "dressing"
   ],
   "E": [
-    "ecstasy electrolytes Enterococcus epinephrine estradiol estrogen"
+    "ecstasy",
+    "electrolytes",
+    "Enterococcus",
+    "epinephrine",
+    "estradiol",
+    "estrogen"
   ],
   "E1": [
     "estrone"
@@ -2159,10 +2325,12 @@
     "external auditory meatus"
   ],
   "EBL": [
-    "estimated blood loss (see bleeding)"
+    "estimated blood loss",
+    "bleeding"
   ],
   "EBM": [
-    "evidence-based medicine expressed breast milk"
+    "evidence-based medicine",
+    "expressed breast milk"
   ],
   "EBRT": [
     "external beam radiation therapy"
@@ -2183,7 +2351,8 @@
     "endocardial cushion defect"
   ],
   "ECF": [
-    "extracellular fluid enteric cytopathic human orphan"
+    "extracellular fluid",
+    "enteric cytopathic human orphan"
   ],
   "ECG": [
     "electrocardiogram"
@@ -2192,7 +2361,11 @@
     "enteric cytopathic human orphan virus"
   ],
   "ECI": [
-    "febris e causa ignota (normally written as febris E.C.I.) fever of unknown origin"
+    "febris e causa ignota",
+    "fever of unknown origin"
+  ],
+  "Febris E.C.T": [
+    "febris e causa ignota"
   ],
   "ECLS": [
     "extracorporeal life support"
@@ -2213,16 +2386,26 @@
     "endoscopic carpal tunnel release"
   ],
   "ED": [
-    "eating disorder emergency department erectile dysfunction ectodermal dysplasia effective dose emotional distress"
+    "eating disorder",
+    "emergency department",
+    "erectile dysfunction",
+    "ectodermal dysplasia",
+    "effective dose",
+    "emotional distress"
   ],
   "EDC": [
+    "estimated date of confinement",
     "estimated date of confinement (at 40/40 weeks of pregnancy)"
   ],
   "EDD": [
-    "estimated date of delivery (at 40/40 weeks of pregnancy); expected date of delivery estimated date of discharge"
+    "estimated date of delivery (at 40/40 weeks of pregnancy)",
+    "estimated date of delivery",
+    "expected date of delivery",
+    "estimated date of discharge"
   ],
   "EDF": [
-    "end diastolic flow (describing the flow of blood through the umbilical artery)"
+    "end diastolic flow",
+    "blood flow through the umbilical artery"
   ],
   "EDH": [
     "epidural hematoma"
@@ -2231,7 +2414,8 @@
     "esophageal Doppler monitor"
   ],
   "EDRF": [
-    "endothelium-derived relaxing factor aka nitric oxide"
+    "endothelium-derived relaxing factor",
+    "nitric oxide"
   ],
   "EDS": [
     "Ehlers-Danlos syndrome"
@@ -2249,7 +2433,8 @@
     "electroencephalogram"
   ],
   "EENT": [
-    "ears, eyes, nose, throat (see otolaryngology)"
+    "ears, eyes, nose, throat",
+    "otolaryngology"
   ],
   "EEX": [
     "electrodiagnosis"
@@ -2258,7 +2443,9 @@
     "ejection fraction"
   ],
   "EFM": [
-    "electronic fetal monitoring, aka external fetal monitoring (cardiotocograph)"
+    "electronic fetal monitoring",
+    "external fetal monitoring",
+    "fetal cardiotocograph"
   ],
   "EFS": [
     "event-free survival"
@@ -2267,7 +2454,7 @@
     "estimated fetal weight"
   ],
   "EGBUS": [
-    "external genitalia, Bartholin\u0027s glands, urethra \u0026 Skene\u0027s glands"
+    "external genitalia, Bartholin's glands, urethra and Skene's glands"
   ],
   "EGD": [
     "esophagogastroduodenoscopy"
@@ -2276,13 +2463,15 @@
     "epidermal growth factor"
   ],
   "EGPA": [
-    "eosinophilic granulomatosis with polyangiitis (formerly known as Churg–Strauss syndrome)"
+    "eosinophilic granulomatosis with polyangiitis",
+    "Churg–Strauss syndrome"
   ],
   "EHEC": [
     "enterohemorrhagic Escherichia coli"
   ],
   "EIA": [
-    "external iliac artery External iliac artery"
+    "external iliac artery",
+    "External iliac artery"
   ],
   "EIB": [
     "Exercise Induced Bronchospasm"
@@ -2291,7 +2480,8 @@
     "enteroinvasive Escherichia coli"
   ],
   "EJ": [
-    "elbow jerk (triceps reflex)"
+    "elbow jerk",
+    "triceps reflex"
   ],
   "EKG": [
     "electrocardiogram"
@@ -2306,13 +2496,16 @@
     "erythema multiforme"
   ],
   "EMB": [
-    "ethambutol endometrial biopsy or endomyocardial biopsy"
+    "ethambutol",
+    "endometrial biopsy",
+    "endomyocardial biopsy"
   ],
   "EMC": [
     "encephalomyocarditis"
   ],
   "EMD": [
-    "early morning discovery electromechanical dissociation"
+    "early morning discovery",
+    "electromechanical dissociation"
   ],
   "EMDEX": [
     "essential medicines index"
@@ -2327,13 +2520,15 @@
     "emergency lower segment Caesarean section"
   ],
   "EMS": [
-    "Emergency Medical Service(s)"
+    "Emergency Medical Services"
   ],
   "EMU": [
-    "early morning urine sample (being the most concentrated, generally used for pregnancy testing)"
+    "early morning urine sample",
+    "early morning urine sample for pregnancy testing"
   ],
   "ENT": [
-    "ear, nose, and throat (see otolaryngology)"
+    "ear, nose, and throat",
+    "otolaryngology"
   ],
   "EOB": [
     "edge of bed"
@@ -2342,7 +2537,8 @@
     "extraocular muscles"
   ],
   "EOMI": [
-    "extraocular movements intact (see eye movement)"
+    "extraocular movements intact",
+    "eye movement"
   ],
   "EPCT": [
     "estrogen-progesterone challenge test"
@@ -2378,16 +2574,20 @@
     "erythropoiesis-stimulating agent"
   ],
   "ESBL": [
-    "extended spectrum beta-lactamase (see also gram-negative bacteria)"
+    "extended spectrum beta-lactamase",
+    "gram-negative bacteria"
   ],
   "ESHAP": [
-    "etoposide, cisplatin, cytarabine, methylprednisolone (chemotherapy regimen for relapsed Non-Hodgkin lymphoma)"
+    "etoposide, cisplatin, cytarabine, methylprednisolone",
+    "chemotherapy regimen for relapsed Non-Hodgkin lymphoma"
   ],
   "ESI": [
     "epidural steroid injection"
   ],
   "ESL": [
-    "extracorporeal shockwave lithotripsy (also ESWL) (see lithotriptor); English as a second language (affects provider–patient communication)"
+    "lithotriptor",
+    "extracorporeal shockwave lithotripsy",
+    "English as a second language"
   ],
   "ESM": [
     "ejection systolic murmur"
@@ -2411,16 +2611,21 @@
     "end-systolic volume"
   ],
   "ESWL": [
-    "extracorporeal shockwave lithotripsy (also ESL) (see lithotriptor)"
+    "extracorporeal shockwave lithotripsy",
+    "lithotriptor"
   ],
   "ET": [
-    "endothelin endotracheal embryo transfer Essential thrombocythemia"
+    "endothelin",
+    "endotracheal",
+    "embryo transfer",
+    "Essential thrombocythemia"
   ],
   "ETEC": [
     "enterotoxigenic Escherichia coli"
   ],
   "ETOH": [
-    "ethanol (ethyl alcohol)"
+    "ethanol",
+    "ethyl alcohol"
   ],
   "ETS": [
     "endoscopic thoracic sympathectomy"
@@ -2441,7 +2646,8 @@
     "endovascular aneurysm repair"
   ],
   "EVF": [
-    "erythrocyte volume fraction (see hematocrit)"
+    "erythrocyte volume fraction",
+    "hematocrit"
   ],
   "EmBx": [
     "endometrial biopsy"
@@ -2450,7 +2656,7 @@
     "emulsion"
   ],
   "EoL": [
-    "End-of-life (adjective)"
+    "End-of-life"
   ],
   "EoLC": [
     "End-of-life care"
@@ -2462,10 +2668,10 @@
     "etiology"
   ],
   "Ex-n": [
-    "previously; used for premature infants that have been born (ex-28 \u003d born at 28 weeks gestation)"
+    "premature infants"
   ],
   "Exam": [
-    "examination (for example, physical examination)"
+    "examination"
   ],
   "Exp Lap": [
     "exploratory laparotomy"
@@ -2501,7 +2707,8 @@
     "foreign body"
   ],
   "FBC": [
-    "Family Birth Center full blood count"
+    "Family Birth Center",
+    "full blood count"
   ],
   "FBE": [
     "full blood exam"
@@ -2510,13 +2717,15 @@
     "fasting blood glucose"
   ],
   "FBS": [
-    "Failed back syndrome fasting blood sugar"
+    "Failed back syndrome",
+    "fasting blood sugar"
   ],
   "FCS": [
     "Faciocutaneoskeletal syndrome"
   ],
   "FDC": [
-    "follicular dendritic cells fixed dose combination"
+    "follicular dendritic cells",
+    "fixed dose combination"
   ],
   "FDG": [
     "fluordeoxyglucose"
@@ -2525,7 +2734,8 @@
     "fetal demise in utero"
   ],
   "FDP": [
-    "fibrin degradation product Flexor digitorum profundus"
+    "fibrin degradation product",
+    "Flexor digitorum profundus"
   ],
   "FDS": [
     "Flexor digitorum superficialis"
@@ -2537,7 +2747,8 @@
     "Fluids, Electrolytes, Nutrition"
   ],
   "FEP": [
-    "free erythrocyte protoporphyrin fibroepithelial polyp"
+    "free erythrocyte protoporphyrin",
+    "fibroepithelial polyp"
   ],
   "FESS": [
     "functional endoscopic sinus surgery"
@@ -2549,7 +2760,8 @@
     "forced expiratory volume in 1 second"
   ],
   "FF": [
-    "free fluids (non-thickened fluids)"
+    "free fluids",
+    "non-thickened fluids"
   ],
   "FFA": [
     "free fatty acids"
@@ -2567,7 +2779,7 @@
     "fetal heart tones"
   ],
   "FHx": [
-    "family history (in medicine, meaning specifically the medical histories of family members and ancestors)"
+    "family history"
   ],
   "FIBD": [
     "found in bed dead"
@@ -2582,7 +2794,8 @@
     "fluid attenuated inversion recovery"
   ],
   "FLK": [
-    "funny-looking kid (slang reference to dysmorphic features)"
+    "funny-looking kid",
+    "dysmorphic features"
   ],
   "FM": [
     "fetal movement"
@@ -2591,7 +2804,8 @@
     "fetal movements felt"
   ],
   "FMP": [
-    "first menstrual period (that is, menarche)"
+    "first menstrual period",
+    "menarche"
   ],
   "FMPP": [
     "Familial male precocious puberty"
@@ -2618,13 +2832,16 @@
     "focal nodular hyperplasia"
   ],
   "FOB": [
-    "Foot of Bed, father of baby, Fiberoptic Bronchoscopy"
+    "Foot of Bed",
+    "father of baby",
+    "Fiberoptic Bronchoscopy"
   ],
   "FOBT": [
     "fecal occult blood test"
   ],
   "FOF": [
-    "found on floor (patient fell out of bed) FOP Fibrousdysplasia ossificans progressiva"
+    "found on floor",
+    "patient fell out of bed"
   ],
   "FOOSH": [
     "fall on outstretched hand"
@@ -2639,13 +2856,14 @@
     "fasting plasma glucose"
   ],
   "FRDA": [
-    "Friedreich\u0027s ataxia"
+    "Friedreich's ataxia"
   ],
   "FROM": [
     "full range of motion"
   ],
   "FSBS": [
-    "finger-stick blood sugar (one method of blood glucose monitoring)"
+    "finger-stick blood sugar",
+    "blood glucose monitoring"
   ],
   "FSE": [
     "fetal scalp electrode"
@@ -2657,10 +2875,12 @@
     "follicle-stimulating hormone"
   ],
   "FTA": [
-    "fluorescent treponemal antibody (see syphilis)"
+    "fluorescent treponemal antibody",
+    "syphilis"
   ],
   "FTA-ABS": [
-    "fluorescent treponemal antibody absorption (see syphilis)"
+    "fluorescent treponemal antibody absorption",
+    "syphilis"
   ],
   "FTT": [
     "failure to thrive"
@@ -2675,28 +2895,35 @@
     "Follicular Unit Transplantation"
   ],
   "FVC": [
-    "forced vital capacity (spirometry test value used in assessment of chronic obstructive pulmonary disease)"
+    "forced vital capacity",
+    "spirometry test assessing chronic obstructive pulmonary disease"
   ],
   "FWB": [
-    "full weight bearing, fetal wellbeing"
+    "full weight bearing",
+    "fetal wellbeing"
   ],
   "FWD": [
-    "full ward diet; forward"
+    "full ward diet",
+    "forward"
   ],
   "Fe": [
     "iron"
   ],
   "FtM": [
-    "Female to Male transgender person (Trans Man)"
+    "Female to Male transgender person",
+    "Trans Man"
   ],
   "Fx": [
-    "fracture; fraction"
+    "fracture",
+    "fraction"
   ],
   "F→N": [
-    "finger-to-nose test (one simple clinical test of motor coordination)"
+    "finger-to-nose test"
   ],
   "G": [
-    "gravidity (total number of pregnancies, successful or not) guanosine"
+    "gravidity",
+    "total number of pregnancies, successful or not",
+    "guanosine"
   ],
   "G-CSF": [
     "granulocyte colony-stimulating factor"
@@ -2705,7 +2932,8 @@
     "glucose-6-phosphate-dehydrogenase"
   ],
   "GA": [
-    "general anaesthesia gestational age"
+    "general anaesthesia",
+    "gestational age"
   ],
   "GABA": [
     "gamma-aminobutyric acid"
@@ -2723,7 +2951,10 @@
     "Guidelines for Adolescent Preventative Services"
   ],
   "GAS": [
-    "Group A Streptococcal General Adaptation Syndrome Gender Affirming Surgery Global Assessment Scale"
+    "Group A Streptococcal",
+    "General Adaptation Syndrome",
+    "Gender Affirming Surgery",
+    "Global Assessment Scale"
   ],
   "GAVE": [
     "Gastric antral vascular ectasia"
@@ -2735,22 +2966,29 @@
     "gallbladder carcinoma"
   ],
   "GBM": [
-    "glioblastoma multiforme glomerular basement membrane"
+    "glioblastoma multiforme",
+    "glomerular basement membrane"
   ],
   "GBS": [
-    "group B Strep. Guillain–Barré syndrome"
+    "group B Strep",
+    "Guillain–Barré syndrome"
   ],
   "GC": [
-    "general condition gonococcus"
+    "general condition",
+    "gonococcus"
   ],
   "GCA": [
     "giant-cell arteritis"
   ],
   "GCS": [
-    "Glasgow Coma Scale Complete Blood Count Graduated compression stockings"
+    "Glasgow Coma Scale",
+    "Complete Blood Count",
+    "Graduated compression stockings"
   ],
   "GCT": [
-    "germ cell tumor glucose challenge test Giant cell tumor"
+    "germ cell tumor",
+    "glucose challenge test",
+    "Giant cell tumor"
   ],
   "GD": [
     "gender dysphoria"
@@ -2795,10 +3033,12 @@
     "growth hormone releasing hormone"
   ],
   "GI": [
-    "gastrointestinal; gastrointestinal tract"
+    "gastrointestinal",
+    "gastrointestinal tract"
   ],
   "GIA": [
-    "A model of surgical staple (GI: Gastro-Intestinal)"
+    "surgical staple",
+    "Gastro-Intestinal)"
   ],
   "GIB": [
     "gastrointestinal bleed"
@@ -2828,7 +3068,7 @@
     "granulocyte macrophage colony-stimulating factor"
   ],
   "GMC": [
-    "general medical condition (e.g., 0 GMC)"
+    "general medical condition"
   ],
   "GMP": [
     "guanosine monophosphate"
@@ -2858,7 +3098,8 @@
     "glutamic-oxalacetic transaminase"
   ],
   "GP": [
-    "general practitioner Goodpasture\u0027s syndrome"
+    "general practitioner",
+    "Goodpasture's syndrome"
   ],
   "GPA": [
     "granulomatosis with polyangiitis"
@@ -2870,22 +3111,26 @@
     "glutamic-pyruvic transaminase"
   ],
   "GRAV I": [
-    "gravidity \u003d 1 (indicating a woman during her first pregnancy)"
+    "gravidity 1",
+    "first pregnancy"
   ],
   "GSW": [
     "gunshot wound"
   ],
   "GTN": [
-    "glyceryl trinitrate gestational trophoblastic neoplasia"
+    "glyceryl trinitrate",
+    "gestational trophoblastic neoplasia"
   ],
   "GTT": [
-    "glucose tolerance test gestational trophoblastic tumor"
+    "glucose tolerance test",
+    "gestational trophoblastic tumor"
   ],
   "GU": [
-    "genitourinary gastric ulcer"
+    "genitourinary",
+    "gastric ulcer"
   ],
   "GUM": [
-    "genitourinary medicine (often used more restrictively as alternative to sexually transmitted disease clinic)"
+    "genitourinary medicine"
   ],
   "GXT": [
     "graded exercise test"
@@ -2897,7 +3142,7 @@
     "grain"
   ],
   "Gtts": [
-    "guttae (drops)"
+    "guttae"
   ],
   "GvH": [
     "graft-versus-host"
@@ -2906,16 +3151,18 @@
     "graft-versus-host disease"
   ],
   "H": [
-    "histamine or its receptors (if with subscripts) hemagglutinin"
+    "histamine",
+    "hemagglutinin"
   ],
-  "H\u0026E": [
-    "hematoxylin and eosin, a standard tissue stain"
+  "H&E": [
+    "hematoxylin and eosin",
+    "standard tissue stain"
   ],
-  "H\u0026M": [
+  "H&M": [
     "hematemesis and melena"
   ],
-  "H\u0026P": [
-    "history and physical examination (which very often are considered as a pair)"
+  "H&P": [
+    "history and physical examination"
   ],
   "H-mole": [
     "hydatidiform mole"
@@ -2923,17 +3170,23 @@
   "H/A": [
     "headache"
   ],
-  "H/H or H\u0026H": [
+  "H/H": [
+    "hemoglobin and hematocrit"
+  ],
+  "H&H": [
     "hemoglobin and hematocrit"
   ],
   "H/O": [
-    "history of ..."
+    "history of"
   ],
   "HA": [
-    "hypertonia arterialis headache calcium hydroxyapatite"
+    "hypertonia arterialis",
+    "headache calcium",
+    "hydroxyapatite"
   ],
   "HAA": [
-    "hepatitis-associated antigen or #History As Above"
+    "hepatitis-associated antigen",
+    "History As Above"
   ],
   "HAART": [
     "highly active antiretroviral therapy"
@@ -2945,7 +3198,7 @@
     "High-altitude cerebral edema"
   ],
   "HACEK": [
-    "acronym for a group of bacteria that are a frequent cause of endocarditis in children"
+    "bacteria that cause endocarditis in children"
   ],
   "HAD": [
     "HIV-associated dementia"
@@ -2957,7 +3210,8 @@
     "hereditary angioedema"
   ],
   "HAI": [
-    "healthcare-associated infection or hospital-acquired infection"
+    "healthcare-associated infection",
+    "hospital-acquired infection"
   ],
   "HALE": [
     "health-adjusted life expectancy"
@@ -2978,19 +3232,23 @@
     "hyperbaric oxygen"
   ],
   "HBP": [
-    "high blood pressure, that is, hypertension"
+    "high blood pressure",
+    "hypertension"
   ],
   "HBV": [
     "hepatitis B virus"
   ],
   "HC": [
-    "head circumference hemorrhagic colitis homocysteine"
+    "head circumference",
+    "hemorrhagic colitis",
+    "homocysteine"
   ],
   "HCA": [
     "Healthcare Associated, as in HCA-CDI"
   ],
   "HCAP": [
-    "health care-associated (or acquired) pneumonia"
+    "health care-associated pneumonia",
+    "health care-acquired pneumonia"
   ],
   "HCC": [
     "hepatocellular carcinoma"
@@ -2999,13 +3257,14 @@
     "Healthcare Facility"
   ],
   "HCFA": [
-    "Healthcare Facility Associated, as in HCFA-CDI"
+    "Healthcare Facility Associated"
   ],
   "HCL": [
     "hairy cell leukemia"
   ],
   "HCM": [
-    "hypertrophic cardiomyopathy healthcare maintenance"
+    "hypertrophic cardiomyopathy",
+    "healthcare maintenance"
   ],
   "HCO3": [
     "bicarbonate"
@@ -3023,7 +3282,9 @@
     "hepatitis C virus"
   ],
   "HD": [
-    "Hodgkin disease Hemodialysis Huntington\u0027s disease"
+    "Hodgkin disease",
+    "Hemodialysis",
+    "Huntington's disease"
   ],
   "HDL": [
     "high-density lipoprotein"
@@ -3032,10 +3293,11 @@
     "high-density lipoprotein-cholesterol"
   ],
   "HDN": [
-    "hemolytic disease of the newborn"
+    "hemolytic disease of newborn"
   ],
   "HDS": [
-    "hemodynamically stable (i.e., not bleeding)"
+    "hemodynamically stable",
+    "not bleeding"
   ],
   "HDU": [
     "high dependency unit"
@@ -3055,11 +3317,19 @@
   "HEENT": [
     "head, eyes, ears, nose, throat"
   ],
-  "HELP HELLP": [
-    "HELLP syndrome (Hemolysis, elevated liver enzymes, low platelets in pregnancy)"
+  "HELP": [
+    "HELLP syndrome",
+    "Hemolysis elevated liver enzymes",
+    "low platelets in pregnancy"
+  ],
+  "HELLP": [
+    "HELLP syndrome",
+    "Hemolysis elevated liver enzymes",
+    "low platelets in pregnancy"
   ],
   "HEMA": [
-    "hydroxy ethyl methacrylate, a material in soft contact lenses"
+    "hydroxy ethyl methacrylate",
+    "material in soft contact lenses"
   ],
   "HES": [
     "hydroxyethyl starch"
@@ -3113,7 +3383,7 @@
     "hereditary hemorrhagic telangiectisia"
   ],
   "HHV": [
-    "human herpesvirus (including numerous subtypes such as HHV8)"
+    "human herpesvirus"
   ],
   "HI": [
     "homicidal ideation"
@@ -3125,7 +3395,8 @@
     "hyper-IgD (and periodic fever) syndrome"
   ],
   "HIE": [
-    "hypoxic ischemic encephalopathy (cerebral hypoxia)"
+    "hypoxic ischemic encephalopathy",
+    "cerebral hypoxia"
   ],
   "HIT": [
     "heparin-induced thrombocytopenia"
@@ -3134,7 +3405,9 @@
     "human immunodeficiency virus"
   ],
   "HL": [
-    "hepatic lipase Hodgkin\u0027s lymphoma hearing level"
+    "hepatic lipase",
+    "Hodgkin's lymphoma",
+    "hearing level"
   ],
   "HLA": [
     "human leukocyte antigen"
@@ -3170,7 +3443,9 @@
     "hemolytic disease of the newborn"
   ],
   "HNP": [
-    "spinal disk herniation or herniated disk, that is, herniated nucleus pulposus"
+    "spinal disk herniation",
+    "herniated disk",
+    "herniated nucleus pulposus"
   ],
   "HNPCC": [
     "hereditary nonpolyposis colorectal cancer"
@@ -3179,7 +3454,7 @@
     "hereditary neuropathy with liability to pressure palsy"
   ],
   "HOB": [
-    "head of bed (usually followed by number of degrees of elevation, e.g., HOB 10°)"
+    "head of bed"
   ],
   "HOCM": [
     "hypertrophic obstructive cardiomyopathy"
@@ -3197,13 +3472,14 @@
     "hydroxyeicosatetraenoic acid"
   ],
   "HPF": [
-    "high-power field (microscopy)"
+    "high-power field",
+    "microscopy"
   ],
   "HPI H/oPI": [
     "history of the present illness"
   ],
   "HPOA": [
-    "hypertrophic pulmonary osteoarthropathy (clubbing)"
+    "hypertrophic pulmonary osteoarthropathy"
   ],
   "HPP": [
     "hypokalemic periodic paralysis"
@@ -3230,7 +3506,8 @@
     "hormone replacement therapy"
   ],
   "HSC": [
-    "human chorionic somatomammotropin (same as human placental lactogen)"
+    "human chorionic somatomammotropin",
+    "human placental lactogen"
   ],
   "HSCT": [
     "Hematopoietic stem cell transplantation"
@@ -3272,7 +3549,8 @@
     "homovanillic acid"
   ],
   "HVLT": [
-    "high-velocity lead therapy (facetious term for gunshot wound)"
+    "high-velocity lead therapy",
+    "gunshot wound therapy"
   ],
   "Hb": [
     "hemoglobin"
@@ -3281,10 +3559,10 @@
     "hemoglobin concentration in gram per deciliter"
   ],
   "HbA": [
-    "hemoglobin A (commonest type of hemoglobin)"
+    "hemoglobin A"
   ],
   "HbA1c": [
-    "glycated hemoglobin (used as a measure of diabetes control)"
+    "glycated hemoglobin"
   ],
   "HbF": [
     "fetal hemoglobin"
@@ -3296,7 +3574,8 @@
     "hematocrit"
   ],
   "Hema": [
-    "hematest – e.g. hema (-) – fecal occult blood"
+    "hematest",
+    "fecal occult blood"
   ],
   "Hib": [
     "haemophilus influenzae B"
@@ -3305,13 +3584,14 @@
     "height"
   ],
   "Hx": [
-    "history (of)"
+    "history of"
   ],
   "H→S": [
     "heel-to-shin test"
   ],
+  # here
   "I\u0026D": [
-    "incision and drainage (how to treat an abscess)"
+    "incision and drainage"
   ],
   "I\u0026O": [
     "inputs and outputs intake and outputs"
