@@ -50,7 +50,7 @@ public class InputDataSource {
     }
 
     public static boolean isJSON() {
-        return "json".equals(fileExtension);
+        return "json_data".equals(fileExtension);
     }
     public static boolean isDSON() {
         return "dcm".equals(fileExtension);

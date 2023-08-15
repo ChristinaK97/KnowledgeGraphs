@@ -147,6 +147,15 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
     </dependency>
 
 
+    <!-- jsoup -->
+    <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.16.1</version>
+    </dependency>
+
+
+
   </dependencies>
     <build>
         <plugins>
