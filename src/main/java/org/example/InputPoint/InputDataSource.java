@@ -13,13 +13,17 @@ import org.example.util.Util;
 public class InputDataSource {
 
     // input data source
-    public static final String inputDataSource = Util.resourcePath + "dicom";
+
     public static final String SQL = "SQL";
-    public static final String fileExtension = "dcm";
-    public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
+    public static final String inputDataSource = SQL;
+    public static final String ontologyName = "epibank";
+
+    // public static final String inputDataSource = Util.resourcePath + "dicom";
+    public static final String fileExtension = null; //"dcm"; //"json";
+    // public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
     // sql database sample data
-    public static final String SQL_DDL = Util.resourcePath + "EFS_SQL_DDL_MySQL.sql";
+    public static final String SQL_DDL = Util.resourcePath + "EPIBANK_SQL_DDL_MySQL.sql";
     public static final String simulatedDataFull = Util.resourcePath + "simulated_data_v2/";
     public static final String simulatedDataSample = Util.resourcePath + "simulated_data_v2 - sample/";
 

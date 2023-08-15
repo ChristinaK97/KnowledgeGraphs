@@ -1,0 +1,207 @@
+package org.example.temp;
+
+import org.apache.jena.ontology.*;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
+import org.example.InputPoint.SQLdb.DBSchema;
+import org.example.POextractor.Properties;
+import org.example.POextractor.RDB2OWL.ClassExtractor;
+import org.example.POextractor.RDB2OWL.DataPropExtractor;
+import org.example.POextractor.RDB2OWL.ObjectPropExtractor;
+import org.example.util.Util;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.example.util.Util.POontology;
+
+public class OntologyExtractorJena {
+
+    private DBSchema db;
+
+    private String msBasePrefix;
+    private OntModel pModel;
+
+    private final boolean turnAttributesToClasses = true;
+    private final boolean includeInverseAxiom = false;
+
+
+    public OntologyExtractorJena(DBSchema db) {
+        this.db = db;
+        createOntology();
+        applyRules();
+        saveOntology(POontology);
+    }
+
+    private void applyRules() {
+        // table classes
+        HashMap<String, String> convertedIntoClass = new ClassExtractor(db).getConvertedIntoClass();
+        // object properties connecting table classes
+        Properties objProperties = new ObjectPropExtractor(db, convertedIntoClass).getObjProperties();
+
+        System.out.println(objProperties);
+        DataPropExtractor dpExtr = new DataPropExtractor(db,turnAttributesToClasses, convertedIntoClass);
+        // data properties
+        Properties dataProperties = dpExtr.getDataProp();
+        // object properties connecting table classes with attribute classes. if !turnAttrToClasses :empty
+        Properties newObjProp = dpExtr.getNewObjProp();
+
+
+        // attribute classes
+        HashMap<String, String> attrClasses = dpExtr.getAttrClasses();
+
+        // add elements to the ontology
+        addClasses(convertedIntoClass, "TableClass");
+        addClasses(attrClasses, "AttributeClass");
+        addObjectProperties(objProperties, newObjProp);
+        dataProperties.getProperties().forEach(this::addDatatype);
+
+        //new JSONExtractor().createMappingJSON_fromOntology(db, msBbasePrefix,
+        //        convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
+
+        //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, convertedIntoClass, objProperties);
+    }
+
+
+    //===============================================================================================================
+    // methods for creating ontology:
+
+    public void createOntology(){
+        pModel = ModelFactory.createOntologyModel();
+        msBasePrefix = "http://www.example.net/ontologies/" + db.getSchemaName() + ".owl/";
+        pModel.setNsPrefix(db.getSchemaName(), msBasePrefix);
+
+        // create base elements
+        for(String className : new String[]{"TableClass", "AttributeClass"})
+            addClass(className, className, null);
+
+        for(String propName : new String[]{"FKProperty", "AttributeProperty"}) {
+            ObjectProperty baseProp = pModel.createObjectProperty(msBasePrefix + propName);
+            addDescriptions(baseProp, propName);
+        }
+    }
+
+
+    // CLASSES
+    private void addClasses(HashMap<String, String> classes, String type) {
+        classes.forEach((elementName, elementClass) -> {
+            String sDescription = String.format("%s %s converted to class %s", type, elementName, elementClass);
+            addClass(elementClass, sDescription, type);
+        });
+
+    }
+
+    public void addClass(String className, String sDescription, String type) {
+        System.out.println(className);
+        OntClass ontClass = pModel.createClass(msBasePrefix + className);
+        System.out.println(ontClass);
+        addDescriptions(ontClass, sDescription);
+
+        if (type != null)
+            ontClass.setSuperClass(pModel.getOntClass(msBasePrefix + type));
+
+    }
+
+
+    // OBJECT PROPERTIES
+    private void addObjectProperties(Properties objProp, Properties newObjProp) {
+        objProp.getProperties().forEach((propName, domRan) -> addObjectproperty(propName, domRan, "FK"));
+        newObjProp.getProperties().forEach((propName, domRan) -> addObjectproperty(propName, domRan, "Attribute"));
+    }
+
+    public void addObjectproperty(String propName, Properties.DomRan domRan, String type) {
+
+        ObjectProperty objProperty = pModel.createObjectProperty(msBasePrefix + propName);
+        addDescriptions(objProperty, String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
+        configProperty(objProperty, domRan, type);
+
+        // inverse property
+        if(includeInverseAxiom) {
+            ObjectProperty inverse = pModel.getObjectProperty(msBasePrefix + domRan.getInverse());
+            if(inverse != null)
+                inverse.setInverseOf(objProperty);
+        }
+
+
+    }
+    // DATA PROPERTIES
+    public void addDatatype(String propName, Properties.DomRan domRan) {
+        DatatypeProperty dataProperty = pModel.createDatatypeProperty(msBasePrefix + propName);
+        addDescriptions(dataProperty, String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
+        configProperty(dataProperty, domRan, null);
+    }
+
+
+    private void configProperty(OntProperty prop, Properties.DomRan domRan, String type) {
+
+        // add range
+        Resource rangeClass;
+        if(prop.canAs(ObjectProperty.class)) {
+            Iterator<OntClass> rangeClasses = domRan.range.stream()
+                    .map(className -> pModel.getOntClass(msBasePrefix + className))
+                    .collect(Collectors.toSet()).iterator();
+
+            rangeClass =
+                    domRan.range.size() > 1 ?
+                            pModel.createUnionClass(null, pModel.createList(rangeClasses)) :
+                            rangeClasses.next().as(OntResource.class);
+
+        }else
+            rangeClass = ResourceFactory.createResource(domRan.range.iterator().next());
+
+        prop.setRange(rangeClass);
+
+        // add domain
+        SomeValuesFromRestriction restriction = pModel.createSomeValuesFromRestriction(null, prop, rangeClass);
+        Set<OntClass> domainClasses = new HashSet<>();
+        for(String className : domRan.domain) {
+            OntClass dClass = pModel.getOntClass(msBasePrefix + className);
+            domainClasses.add(dClass);
+            // add "domain subclassof prop some range" restriction
+            dClass.addSuperClass(restriction.asClass());
+        }
+        OntResource domainClass =
+                domainClasses.size() > 1 ?
+                        pModel.createUnionClass(null, pModel.createList(domainClasses.iterator())) :
+                        domainClasses.iterator().next().as(OntResource.class);
+        prop.setDomain(domainClass);
+
+        // super property
+        if(type != null)
+            prop.setSuperProperty(pModel.getOntProperty(msBasePrefix + type + "Property"));
+    }
+
+
+
+
+    private void addDescriptions(OntResource resource, String description) {
+        String label = Util.normalise(resource.getLocalName());
+        resource.addLabel(label, null);
+        resource.addComment(description, null);
+    }
+
+
+    // SAVE TO TURTLE
+    public void saveOntology(String sPath){
+
+        OutputStream out = null;
+        try {
+            out = new FileOutputStream(sPath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        pModel.write(out, "TURTLE");
+    }
+
+    public static void main(String[] args) {
+        new OntologyExtractorJena(new DBSchema());
+    }
+
+}

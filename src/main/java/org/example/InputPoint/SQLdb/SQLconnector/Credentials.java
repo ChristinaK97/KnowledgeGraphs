@@ -1,7 +1,7 @@
 package org.example.InputPoint.SQLdb.SQLconnector;
 
 public class Credentials {
-    private String url = "jdbc:mysql://localhost:3306/test_efs";
+    private String url = "jdbc:mysql://localhost:3306/epibank";
     private String user = "root";
     private String password = "admin";
 
