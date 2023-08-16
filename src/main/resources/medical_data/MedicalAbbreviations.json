@@ -1,13 +1,86 @@
 {
+  "#": [
+    "pound",
+    "number"
+  ],
+  "%": [
+    "percent"
+  ],
+  "&": [
+    "and"
+  ],
+  "* up": [
+    "check up"
+  ],
+  "+": [
+    "plus",
+    "positive"
+  ],
+  "-": [
+    "without"
+  ],
+  ".": [
+    "half"
+  ],
+  "..": [
+    "two"
+  ],
+  "/": [
+    "per"
+  ],
+  "0;?": [
+    "no",
+    "absent"
+  ],
+  "0?": [
+    "male"
+  ],
+  "1/12": [
+    "1 month"
+  ],
+  "109/L": [
+    "times ten to the power nine per litre"
+  ],
   "131I": [
     "iodine-131",
     "radioactive iodine",
     "radioiodine"
   ],
-  "I131": [
-    "iodine-131",
-    "radioactive iodine",
-    "radioiodine"
+  "1:1": [
+    "between",
+    "equal parts",
+    "one to one solution"
+  ],
+  "1o": [
+    "primary"
+  ],
+  "2o": [
+    "secondary to",
+    "due to"
+  ],
+  "5HT": [
+    "5-hydroxytryptamine"
+  ],
+  ":": [
+    "ration"
+  ],
+  "<=": [
+    "less than or equal to"
+  ],
+  "=": [
+    "equal"
+  ],
+  ">=": [
+    "greater than or equal to"
+  ],
+  "?": [
+    "therefore"
+  ],
+  "@": [
+    "at"
+  ],
+  "_": [
+    "before"
   ],
   "A": [
     "assessment"
@@ -15,14 +88,17 @@
   "A&O": [
     "aware and oriented or alert and oriented"
   ],
-  "A/O": [
-    "aware and oriented or alert and oriented"
+  "A&O(x3)": [
+    "alert and oriented",
+    "alert and oriented to person, place and time"
   ],
   "A&Ox3": [
-    "alert and oriented, times 3 (to person, place, and time"
+    "alert and oriented, times 3",
+    "alert and oriented, times 3 to person, place, and time"
   ],
   "A&Ox4": [
-    "alert and oriented, times 4 (to person, place, time, and circumstances"
+    "alert and oriented, times 4",
+    "alert and oriented, times 4 to person, place, time, and circumstances"
   ],
   "A&P": [
     "auscultation and percussion",
@@ -33,16 +109,34 @@
     "associated with",
     "admitted with"
   ],
-  "A/W": [
-    "alive and well",
-    "associated with",
-    "admitted with"
-  ],
   "A+E": [
     "Accident and Emergency"
   ],
   "A-T": [
     "ataxia-telangiectasia"
+  ],
+  "a.a.": [
+    "of each",
+    "ana ana",
+    "amino acids"
+  ],
+  "a.c. AC": [
+    "before a meal",
+    "ante cibum"
+  ],
+  "A.D.": [
+    "as directed"
+  ],
+  "a.h.": [
+    "every other hour",
+    "alternis horis"
+  ],
+  "a.p.": [
+    "before a meal",
+    "ante prandium"
+  ],
+  "A.S.H.E.": [
+    "A Safe Home for Everyone"
   ],
   "A/B": [
     "acid-base ratio"
@@ -50,16 +144,42 @@
   "A/E": [
     "Air entry"
   ],
+  "A/L": [
+    "anterior lateral"
+  ],
+  "A/O": [
+    "aware and oriented",
+    "alert and oriented"
+  ],
   "A/P": [
     "anatomy and physiology",
     "assessment and plan"
+  ],
+  "a/v": [
+    "atrial-ventricular"
+  ],
+  "A/W": [
+    "alive and well",
+    "associated with",
+    "admitted with"
   ],
   "A1C": [
     "glycated hemoglobin",
     "hemoglobin A1c"
   ],
+  "Aa": [
+    "arteria",
+    "Artery"
+  ],
+  "Aa.": [
+    "arteria",
+    "Artery"
+  ],
   "AAD": [
     "antibiotic-associated diarrhea"
+  ],
+  "Aag": [
+    "abdominal aortic aneurysm"
   ],
   "AAI": [
     "acute arterial insufficiency"
@@ -67,25 +187,38 @@
   "AAL": [
     "anterior axillary line"
   ],
+  "aao": [
+    "awake/alert/oriented"
+  ],
   "AAOx3": [
     "awake, alert, and oriented, times 3",
-    "awake, alert, and oriented, times 3 (i.e., to person, place, and time"
+    "awake, alert, and oriented, times 3 to person, place, and time"
   ],
   "AAOx4": [
     "awake, alert, and oriented, times 4",
-    "awake, alert, and oriented, times 4 (i.e., to person, place, time, and event"
+    "awake, alert, and oriented, times 4 to person, place, time, and event"
   ],
   "AAPMC": [
     "antibiotic-associated pseudomembranous colitis"
+  ],
+  "aarom": [
+    "active assistive range of motion"
+  ],
+  "AAS": [
+    "Ashe Alternative School"
   ],
   "AAT": [
     "activity as tolerated",
     "atypical antibody test"
   ],
   "AB": [
+    "abdomen",
+    "abdominal",
     "abortion",
-    "AB blood type",
-    "apex beat"
+    "miscarriage"
+  ],
+  "abbr": [
+    "abbreviations"
   ],
   "ABC": [
     "airway, breathing, circulation",
@@ -96,17 +229,20 @@
     "asymmetry, borders, color, diameter",
     "ABCD rating for prostate cancer"
   ],
-  "ABCs": [
+  "ABCDEs": [
     "airway, breathing, circulation, etc."
   ],
   "ABCDs": [
     "airway, breathing, circulation, etc."
   ],
-  "ABCDEs": [
+  "ABCs": [
     "airway, breathing, circulation, etc."
   ],
   "ABD": [
-    "abdominal"
+    "abdomen"
+  ],
+  "abdu": [
+    "abduction"
   ],
   "ABE": [
     "acute bacterial endocarditis"
@@ -125,6 +261,9 @@
   "ABMT": [
     "autologous bone marrow transplantation"
   ],
+  "Abn": [
+    "abnormal"
+  ],
   "ABO": [
     "Landsteiner's blood grouping system"
   ],
@@ -133,6 +272,9 @@
   ],
   "ABPI": [
     "ankle brachial pressure index"
+  ],
+  "ABS": [
+    "antibody screen"
   ],
   "ABT": [
     "antibiotic therapy"
@@ -145,12 +287,7 @@
     "antibiotics"
   ],
   "AC": [
-    "abdominal circumference",
-    "assisted controlled ventilation",
-    "acromioclavicular joint",
-    "antecubital fossa",
-    "before a meal",
-    "ante cibum"
+    "before meals"
   ],
   "AC&BC": [
     "air conduction and bone conduction",
@@ -161,8 +298,14 @@
     "Affordable Care Act",
     "Anterior cerebral artery"
   ],
+  "ACAS": [
+    "Asymptomatic Carotid Artery Stenosis Study"
+  ],
   "ACB": [
     "aortocoronary bypass"
+  ],
+  "Acc": [
+    "American College of Cardiology"
   ],
   "ACCU": [
     "acute coronary care unit"
@@ -174,11 +317,22 @@
     "anterior cervical discectomy and fusion"
   ],
   "ACE": [
-    "angiotensin-converting enzyme",
-    "angiotensin-converting enzyme (ACE) inhibitors"
+    "acetone"
   ],
   "ACEI": [
     "angiotensin-converting enzyme inhibitor"
+  ],
+  "ACh": [
+    "acetylcholine"
+  ],
+  "ACHD": [
+    "Ashe County Health Department"
+  ],
+  "AChE": [
+    "acetylcholine esterase"
+  ],
+  "ACHS": [
+    "Ashe County High School"
   ],
   "ACL": [
     "anterior cruciate ligament"
@@ -186,12 +340,24 @@
   "ACLS": [
     "advanced cardiac life support"
   ],
+  "ACM": [
+    "Arrhythmogenic cardiomyopathy"
+  ],
+  "ACMS": [
+    "Ashe County Middle School"
+  ],
   "ACP": [
     "Advance care planning",
     "Advanced Clinical Practitioner"
   ],
+  "ACPC": [
+    "Ashe County Partnership for Children"
+  ],
   "ACPO": [
     "acute colonic pseudo-obstruction"
+  ],
+  "ACRRC": [
+    "Ashe County Resource & Referral Center"
   ],
   "ACS": [
     "altered conscious state",
@@ -199,17 +365,14 @@
     "acute chest syndrome",
     "American Cancer Society"
   ],
+  "ACTA": [
+    "Ashe County Transportation Authority"
+  ],
   "ACTH": [
     "adrenocorticotropic hormone"
   ],
   "ACU": [
     "ambulatory care unit"
-  ],
-  "ACh": [
-    "acetylcholine"
-  ],
-  "AChE": [
-    "acetylcholine esterase"
   ],
   "AD": [
     "Alzheimer's disease",
@@ -217,6 +380,19 @@
     "Aortic dissection",
     "right ear",
     "as directed"
+  ],
+  "ad lib": [
+    "as desired",
+    "ad libitum",
+    "freely"
+  ],
+  "ad part. dolent": [
+    "to the painful parts",
+    "ad partes dolentes"
+  ],
+  "ad.": [
+    "right ear",
+    "auris dexter"
   ],
   "ADA": [
     "adenosine deaminase",
@@ -231,7 +407,10 @@
     "antibody-dependent cell-mediated cytotoxicity"
   ],
   "ADD": [
-    "attention deficit disorder"
+    "adduction"
+  ],
+  "ADDS": [
+    "Ashe Developmental Day School"
   ],
   "ADE": [
     "adverse drug event"
@@ -249,14 +428,32 @@
   "ADHR": [
     "autosomal dominant hypophosphatemic rickets"
   ],
+  "ADL": [
+    "activities of daily living"
+  ],
   "ADLs": [
     "activities of daily living"
+  ],
+  "adm": [
+    "admission",
+    "admit"
+  ],
+  "admin": [
+    "administration"
+  ],
+  "Adn": [
+    "adnexa"
   ],
   "ADP": [
     "adenosine diphosphate"
   ],
   "ADR": [
     "adverse drug reaction"
+  ],
+  "adv": [
+    "advisory",
+    "advise",
+    "advised"
   ],
   "ADW": [
     "Ain't Doin' Well"
@@ -282,8 +479,14 @@
   "AFB": [
     "acid-fast bacilli"
   ],
+  "AFDC": [
+    "Aid for Families with Dependent Children"
+  ],
   "AFI": [
     "amniotic fluid index"
+  ],
+  "AFib": [
+    "atrial fibrillation"
   ],
   "AFL": [
     "atrial flutter"
@@ -301,8 +504,11 @@
   "AFSOF": [
     "anterior fontanelle soft, open, flat"
   ],
-  "AFib": [
-    "atrial fibrillation"
+  "AFV": [
+    "amniotic fluid volume"
+  ],
+  "Ag": [
+    "antigen"
   ],
   "AGA": [
     "anti-gliadin antibodies",
@@ -311,14 +517,23 @@
   "AGC": [
     "atypical glandular cells"
   ],
+  "AGE": [
+    "acute gastro enteritis"
+  ],
   "AGES criteria": [
     "age, grade, extent, size (tumors"
   ],
   "AGN": [
     "acute glomerulonephritis"
   ],
+  "AGUS": [
+    "atypical glandular cells of undetermined significance"
+  ],
   "AH": [
     "auditory hallucinations"
+  ],
+  "AHA": [
+    "American Heart Association"
   ],
   "AHD": [
     "arteriosclerotic heart disease"
@@ -337,6 +552,9 @@
   ],
   "AHR": [
     "airway hyper-reactivity"
+  ],
+  "AHS": [
+    "Alleghany High School"
   ],
   "AHT": [
     "antihyaluronic acid test"
@@ -384,21 +602,37 @@
     "adenocarcinoma in situ",
     "androgen insensitivity syndrome"
   ],
+  "AJ": [
+    "ankle jerk"
+  ],
   "AJCC": [
     "American Joint Committee on Cancer"
+  ],
+  "AjD": [
+    "Adjustment Disorder"
   ],
   "AK": [
     "acanthamoeba keratitis"
   ],
   "AKA": [
-    "above-knee amputation also known as"
+    "also known as",
+    "above knee amputation"
   ],
   "AKI": [
     "acute kidney injury",
     "Acute Renal Failure"
   ],
+  "AL": [
+    "amyloidosis"
+  ],
   "ALA": [
     "aminolevulinic acid"
+  ],
+  "Alb": [
+    "albumin"
+  ],
+  "Alc": [
+    "alco123"
   ],
   "ALCAPA": [
     "anomalous left coronary artery from the pulmonary artery"
@@ -412,8 +646,14 @@
   "ALI": [
     "acute limb injury acute lung injury"
   ],
+  "Alk phos": [
+    "alkaline phosphatase"
+  ],
   "ALL": [
     "acute lymphoblastic leukemia allergies"
+  ],
+  "AlMH": [
+    "Alleghany Memorial Hospital"
   ],
   "ALP": [
     "alkaline phosphatase"
@@ -429,8 +669,17 @@
     "advanced life support"
   ],
   "ALT": [
-    "alanine transaminase",
-    "alanine aminotransferase"
+    "alternate"
+  ],
+  "altern. d.": [
+    "every other day",
+    "alterno die"
+  ],
+  "am": [
+    "morning"
+  ],
+  "AM Assoc.": [
+    "Ashe Medical Associates"
   ],
   "AMA": [
     "advanced maternal age",
@@ -438,8 +687,18 @@
     "antimitochondrial antibody",
     "American Medical Association"
   ],
+  "AMAP": [
+    "as much as possible"
+  ],
+  "Amb": [
+    "ambulatory",
+    "ambulation"
+  ],
   "AMC": [
     "arthrogryposis multiplex congenita"
+  ],
+  "AMH": [
+    "Ashe Memorial Hospital"
   ],
   "AMI": [
     "acute mesenteric ischemia",
@@ -448,11 +707,15 @@
   "AML": [
     "acute myeloid leukemia"
   ],
+  "amnio": [
+    "amniocentesis"
+  ],
   "AMO": [
     "advanced medical optics"
   ],
   "AMP": [
-    "adenosine monophosphate"
+    "ampule",
+    "ampere"
   ],
   "AMPA receptor": [
     "alpha-amino-3-hydroxy-5-methyl-4-isoxazolepropionic acid",
@@ -462,6 +725,9 @@
     "acute mountain sickness",
     "atypical measles syndrome",
     "altered mental status"
+  ],
+  "Amt": [
+    "amount"
   ],
   "ANA": [
     "antinuclear antibody",
@@ -483,13 +749,25 @@
     "atrial natriuretic peptide"
   ],
   "ANS": [
-    "autonomic nervous system"
+    "answer"
+  ],
+  "ans.mach": [
+    "answering machine"
+  ],
+  "Ant": [
+    "anterior"
+  ],
+  "Anti-": [
+    "antibody of antigen"
   ],
   "ANTR": [
     "asymmetrical tonic neck reflex"
   ],
   "ANUG": [
     "acute necrotizing ulcerative gingivitis"
+  ],
+  "AO": [
+    "Aorta"
   ],
   "AODM": [
     "adult-onset diabetes mellitus",
@@ -502,13 +780,7 @@
     "acute otitis media"
   ],
   "AP": [
-    "action potential",
-    "alkaline phosphatase",
-    "angina pectoris",
-    "anteroposterior",
-    "apical",
-    "area postrema",
-    "antero-posterior"
+    "apical pulse"
   ],
   "APACHE II": [
     "Acute Physiology and Chronic Health Evaluation II"
@@ -524,6 +796,9 @@
     "antigen-presenting cell",
     "activated protein C",
     "argon plasma coagulation"
+  ],
+  "APCC": [
+    "Ashe Pregnancy Care Center"
   ],
   "APD": [
     "adult polycystic disease",
@@ -549,13 +824,24 @@
     "acute posterior multifocal placoid pigment epitheliopathy"
   ],
   "APP": [
-    "as per protocol",
-    "as per institutional clinical protocol",
-    "as per scientific protocol",
-    "alternating pressure pad"
+    "applicator",
+    "application"
+  ],
+  "applic.": [
+    "applicandus",
+    "to be applied"
+  ],
+  "approx": [
+    "approximately"
+  ],
+  "appt": [
+    "appointment"
+  ],
+  "appy": [
+    "appendectomy"
   ],
   "APR": [
-    "abdominoperineal resection"
+    "April"
   ],
   "APS": [
     "autoimmune polyendocrine/polyglandular syndrome",
@@ -563,6 +849,36 @@
   ],
   "APSAC": [
     "anisoylated plasminogen streptokinase activator complex"
+  ],
+  "Apt": [
+    "apartment"
+  ],
+  "aPTT": [
+    "Activated Partial Thromboplastin Time"
+  ],
+  "Aq": [
+    "H2O",
+    "water"
+  ],
+  "aq.": [
+    "water",
+    "aqua"
+  ],
+  "aq. bull.": [
+    "boiling water",
+    "aqua bulliens"
+  ],
+  "aq. calid.": [
+    "warm or hot water",
+    "aqua calida"
+  ],
+  "aq. dist.": [
+    "distilled water",
+    "aqua distillata"
+  ],
+  "aq. gel.": [
+    "cold water",
+    "aqua gelida"
   ],
   "AR": [
     "aortic regurgitation",
@@ -573,6 +889,9 @@
   ],
   "ARBI": [
     "alcohol-related brain injury"
+  ],
+  "ARBs": [
+    "angiotensin II receptor blockers"
   ],
   "ARC": [
     "AIDS-related complex"
@@ -586,6 +905,9 @@
   ],
   "ARF": [
     "acute renal failure"
+  ],
+  "Arg": [
+    "arginine"
   ],
   "ARM": [
     "artificial rupture of membranes",
@@ -602,11 +924,17 @@
     "active range of motion artificial rupture of membranes",
     "artificial ruptured membranes"
   ],
+  "ARP": [
+    "absolute refractory period"
+  ],
   "ART": [
     "antiretroviral therapy assuming room temperature",
     "patient has died",
     "assisted reproductive technology",
     "antidromic reentrant tachycardia"
+  ],
+  "artic": [
+    "articulate"
   ],
   "ARVC": [
     "arrhythmogenic right ventricular cardiomyopathy"
@@ -619,10 +947,16 @@
     "atherosclerosis",
     "ankylosing spondylitis"
   ],
+  "as tol": [
+    "as tolerated"
+  ],
   "ASA": [
     "acetylsalicylic acid",
     "aspirin",
     "American Society of Anesthesiologists"
+  ],
+  "ASAP": [
+    "as soon as possible"
   ],
   "ASB": [
     "asymptomatic bacteriuria"
@@ -640,6 +974,9 @@
   "ASCAD": [
     "arteriosclerotic coronary artery disease"
   ],
+  "ASCUS": [
+    "atypical squamous cells of undetermined significance"
+  ],
   "ASCUS ASC-US": [
     "atypical squamous cells of undetermined significance"
   ],
@@ -651,6 +988,9 @@
   "ASD": [
     "atrial septal defect",
     "autism spectrum disorder"
+  ],
+  "ASDs": [
+    "atrial septal defects"
   ],
   "ASGUS": [
     "atypical squamous glandular cells of undetermined significance"
@@ -677,8 +1017,17 @@
     "Alberta Stroke Program Early CT Score",
     "ASPECT Score"
   ],
+  "ASQ": [
+    "Ages and Stages Questionnaire"
+  ],
+  "Ass": [
+    "assessment"
+  ],
   "AST": [
     "aspartate transaminase"
+  ],
+  "ASU": [
+    "Appalachian District Health Department"
   ],
   "ASX": [
     "asymptomatic"
@@ -694,7 +1043,10 @@
     "antitransglutaminase antibodies"
   ],
   "ATB": [
-    "antibiotic"
+    "antibiotics"
+  ],
+  "ATC": [
+    "around the clock"
   ],
   "ATCC": [
     "ATCC (company",
@@ -716,9 +1068,7 @@
     "asymmetrical tonic neck reflex"
   ],
   "ATP": [
-    "acute thrombocytopenic purpura",
-    "adenosine triphosphate",
-    "antitachycardia pacing"
+    "atypical"
   ],
   "ATRA": [
     "all-trans retinoic acid"
@@ -734,16 +1084,41 @@
   "AUC": [
     "area under the curve"
   ],
+  "Aug": [
+    "August"
+  ],
+  "aur.": [
+    "ear",
+    "auris"
+  ],
+  "aur. dextro.": [
+    "to right ear",
+    "auris dextrae"
+  ],
+  "aur. laev": [
+    "to left ear",
+    "auris laevae"
+  ],
+  "aurist.": [
+    "ear drops",
+    "auristillae"
+  ],
   "AUS": [
     "Artificial urinary sphincter"
+  ],
+  "auth": [
+    "authority",
+    "authorize"
   ],
   "AV": [
     "arteriovenous",
     "atrioventricular"
   ],
   "AVF": [
-    "arteriovenous fistula",
-    "augmented voltage foot"
+    "augmented voltage left foot"
+  ],
+  "aVL": [
+    "augmented voltage left arm"
   ],
   "AVM": [
     "arteriovenous malformation"
@@ -752,9 +1127,17 @@
     "avascular necrosis",
     "atrioventricular node"
   ],
+  "AVNRTs": [
+    "atrioventricular nodal reentrant tachycardias"
+  ],
+  "AVP": [
+    "arginine vasopressin"
+  ],
   "AVR": [
-    "aortic valve replacement",
     "augmented voltage right arm"
+  ],
+  "AVRTs": [
+    "atrioventricular reentrant tachycardias"
   ],
   "AVSD": [
     "atrioventricular septal defect"
@@ -763,95 +1146,58 @@
     "Afebrile",
     "vital signs stable"
   ],
+  "Ax": [
+    "axillary"
+  ],
   "AXR": [
     "abdominal x-ray"
   ],
   "AYA": [
     "adolescents and young adults"
   ],
+  "Azith": [
+    "Azithromycin"
+  ],
   "AZT": [
     "azidothymidine"
   ],
-  "Aa.": [
-    "arteria",
-    "Artery"
+  "b.i.d.": [
+    "twice a day",
+    "bis in die"
   ],
-  "Aa": [
-    "arteria",
-    "Artery"
+  "b/b": [
+    "bowel and bladder"
   ],
-  "Aag": [
-    "abdominal aortic aneurysm"
+  "b/c": [
+    "because"
   ],
-  "Triple-A": [
-    "abdominal aortic aneurysm"
+  "B/F": [
+    "black female"
   ],
-  "Ab": [
-    "antibody"
+  "b/l": [
+    "bilateral"
   ],
-  "Abd": [
-    "abdomen",
-    "abdominal",
-    "abduction"
-  ],
-  "Abn": [
-    "abnormal"
-  ],
-  "Acc": [
-    "accommodation (eye"
-  ],
-  "Ace": [
-    "acetone"
-  ],
-  "Adn": [
-    "adnexa"
-  ],
-  "Ag": [
-    "antigen"
-  ],
-  "AjD": [
-    "Adjustment Disorder"
-  ],
-  "Alc": [
-    "alco123"
-  ],
-  "Alk phos": [
-    "alkaline phosphatase"
-  ],
-  "Amb": [
-    "ambulate"
-  ],
-  "Amp": [
-    "ampule",
-    "ampere"
-  ],
-  "Amt": [
-    "amount"
-  ],
-  "Ant": [
-    "anterior"
-  ],
-  "Anti-": [
-    "antibody of antigen"
-  ],
-  "Arg": [
-    "arginine"
-  ],
-  "Ass": [
-    "assessment"
-  ],
-  "Atp": [
-    "atypical"
-  ],
-  "Ax": [
-    "axillary"
+  "B/M": [
+    "black male"
   ],
   "B/O": [
     "because of"
   ],
+  "b/s": [
+    "blood sugar"
+  ],
+  "b/w. bet": [
+    "between"
+  ],
+  "Ba": [
+    "Brachial Artery"
+  ],
   "BAC": [
     "blood alcohol content",
     "Braxton Hicks contractions"
+  ],
+  "Bact.": [
+    "Bacteria"
   ],
   "BAD": [
     "Bipolar affective disorder"
@@ -874,6 +1220,10 @@
   ],
   "BAV": [
     "bicuspid aortic valve"
+  ],
+  "BB": [
+    "bed bath",
+    "blanket bath"
   ],
   "BBA": [
     "bilateral breast augmentation"
@@ -907,6 +1257,9 @@
     "basal cell carcinoma",
     "blind carbon copy"
   ],
+  "BCCCP": [
+    "breast and cervical cancer program"
+  ],
   "BCG": [
     "bacille Calmette–Guérin",
     "tuberculosis vaccination"
@@ -918,13 +1271,8 @@
   "BCX": [
     "blood culture"
   ],
-  "BCx": [
-    "blood culture"
-  ],
   "BD": [
-    "bipolar disorder",
-    "twice a day",
-    "bis in die"
+    "board"
   ],
   "BDD": [
     "body dysmorphic disorder"
@@ -965,48 +1313,71 @@
   "BGL": [
     "blood glucose level"
   ],
+  "BH": [
+    "Braxton Hicks"
+  ],
   "BIB": [
     "brought in by"
   ],
   "BIBA": [
     "brought in by ambulance"
   ],
+  "bic": [
+    "biceps"
+  ],
   "BID": [
     "twice a day",
     "bis in die"
   ],
-  "bid": [
-    "twice a day",
-    "bis in die"
+  "bil": [
+    "bilateral"
   ],
-  "b.i.d.": [
-    "twice a day",
-    "bis in die"
+  "Bilat eq": [
+    "bilaterally equal"
+  ],
+  "BiPAP": [
+    "bilevel positive airway pressure"
   ],
   "BIS": [
     "Bispectral index"
   ],
+  "BiVAD": [
+    "bilateral ventricular assist device"
+  ],
   "BK": [
-    "bradykinin"
+    "black"
   ],
   "BKA": [
-    "below-the-knee amputation"
+    "below knee amputation"
+  ],
+  "bkf": [
+    "breakfast"
   ],
   "BL": [
-    "Burkitt's lymphoma"
+    "blood"
+  ],
+  "bl.cult": [
+    "blood culture"
+  ],
+  "bld": [
+    "blood"
+  ],
+  "bldg": [
+    "bleeding",
+    "building"
   ],
   "BLE": [
     "Bilateral Lower Extremity",
     "bilateral lower extremity"
   ],
+  "BLL": [
+    "bilateral lower lobes"
+  ],
   "BLS": [
     "basic life support"
   ],
   "BM": [
-    "bone marrow",
-    "bowel movement",
-    "breast milk",
-    "Capillary blood glucose"
+    "bowel movement"
   ],
   "BMBx": [
     "Bone marrow biopsy"
@@ -1059,6 +1430,9 @@
   "BOOP": [
     "bronchiolitis obliterans organizing pneumonia"
   ],
+  "BOW": [
+    "bag of waters"
+  ],
   "BP": [
     "blood pressure",
     "British Pharmacopoeia"
@@ -1093,7 +1467,6 @@
     "Behavioural and Psychological Symptoms of Dementia"
   ],
   "BR": [
-    "bedrest",
     "bathroom"
   ],
   "BRA": [
@@ -1156,6 +1529,9 @@
     "bilateral salpingo-oophorectomy",
     "bilateral salpingo oophorectomy"
   ],
+  "BSOM": [
+    "bilateral serous otitis media"
+  ],
   "BSP": [
     "bromsulphthalein"
   ],
@@ -1182,11 +1558,20 @@
   "BTT": [
     "bridge to transplantation"
   ],
+  "BUE": [
+    "bilateral upper extremities"
+  ],
   "BUN": [
     "blood urea nitrogen"
   ],
+  "BUQ": [
+    "bilateral upper quadrant"
+  ],
   "BV": [
     "bacterial vaginosis"
+  ],
+  "BVH": [
+    "biventricular hypertrophy"
   ],
   "BVM": [
     "bag valve mask"
@@ -1200,23 +1585,14 @@
     "blood tests",
     "birth weight"
   ],
-  "BZDs": [
-    "benzodiazepines"
-  ],
-  "Ba": [
-    "barium"
-  ],
-  "BiPAP": [
-    "bilevel positive airway pressure"
-  ],
-  "BiVAD": [
-    "bilateral ventricular assist device"
-  ],
-  "Bilat eq": [
-    "bilaterally equal"
+  "BWt": [
+    "birth weight"
   ],
   "Bx": [
     "biopsy"
+  ],
+  "BZDs": [
+    "benzodiazepines"
   ],
   "C": [
     "cytosine cervical vertebrae"
@@ -1225,20 +1601,41 @@
     "antibiogram",
     "culture and sensitivity (antibiogram"
   ],
-  "C-SSRS": [
-    "Columbia Suicide Severity Rating Scale"
+  "C-Sec": [
+    "Cesarean Section"
   ],
   "C-section": [
-    "cesarean section"
+    "Cesarean Section"
   ],
   "C-spine": [
     "cervical spine"
+  ],
+  "C-SSRS": [
+    "Columbia Suicide Severity Rating Scale"
+  ],
+  "c.": [
+    "cup"
+  ],
+  "c/b": [
+    "complicated by"
+  ],
+  "c/c": [
+    "colony count"
+  ],
+  "c/o": [
+    "complains of"
   ],
   "C/O or c/o": [
     "complains of..."
   ],
   "C/S": [
     "Caesarean section"
+  ],
+  "c/w": [
+    "consistent with"
+  ],
+  "C02": [
+    "carbon dioxide"
   ],
   "C1": [
     "atlas",
@@ -1251,10 +1648,10 @@
     "second cervical spine"
   ],
   "CA": [
-    "calcium",
-    "carcinoma",
-    "cancer",
-    "Coronary Artery"
+    "cancer"
+  ],
+  "Ca+": [
+    "calcium"
   ],
   "CAA": [
     "coronary artery aneurysm"
@@ -1272,6 +1669,9 @@
   "CADASIL": [
     "cerebral autosomal dominant arteriopathy with subcortical infarcts and leukoencephalopathy"
   ],
+  "CADs": [
+    "cardiovascular diseases"
+  ],
   "CAG": [
     "coronary artery graft",
     "coronary angiography"
@@ -1286,6 +1686,9 @@
   "CAH": [
     "chronic active hepatitis",
     "congenital adrenal hyperplasia"
+  ],
+  "cal": [
+    "calorie"
   ],
   "CALLA": [
     "common acute lymphocytic leukemia antigen"
@@ -1304,21 +1707,50 @@
     "conscious, alert, and oriented",
     "no altered level of consciousness"
   ],
+  "CaOx": [
+    "calcium oxalate"
+  ],
   "CAP": [
     "community-acquired pneumonia"
   ],
   "CAPD": [
     "continuous ambulatory peritoneal dialysis"
   ],
+  "Caps": [
+    "capsule"
+  ],
+  "CARDIA": [
+    "Coronary Artery Risk Development in Young Adults"
+  ],
+  "CAS": [
+    "Carotid Artery Stenting"
+  ],
+  "CAT": [
+    "coaxial",
+    "computerised axial tomography",
+    "Computerized Tomography",
+    "Computerized Axial Tomography"
+  ],
   "CAT / CT": [
     "computed axial tomography",
     "computed tomography"
   ],
+  "Cath": [
+    "catheter",
+    "catheriterized"
+  ],
   "CAUTI": [
     "Catheter-associated urinary tract infection"
   ],
+  "CB": [
+    "child birth",
+    "carotid bifurcation"
+  ],
   "CBA": [
     "cost–benefit analysis (of treatment methods"
+  ],
+  "CBC": [
+    "complete blood count"
   ],
   "CBC/DIFF": [
     "complete blood count/differential"
@@ -1339,6 +1771,9 @@
     "Hematuria",
     "Acute clot retention"
   ],
+  "cbr": [
+    "complete bedrest"
+  ],
   "CBS": [
     "chronic brain syndrome"
   ],
@@ -1348,18 +1783,21 @@
     "cardiac catheter",
     "carbon copy"
   ],
-  "cc": [
-    "cubic centimeter",
-    "chief complaint",
-    "cardiac catheter",
-    "carbon copy"
+  "CC4C": [
+    "Care Coordination For Children"
   ],
   "CCA": [
     "clear cell adenocarcinoma",
     "common carotid artery"
   ],
+  "CCAIMT": [
+    "Common Carotid Artery Intima-Media Thickness"
+  ],
   "CCB": [
     "calcium channel blocker"
+  ],
+  "CCBs": [
+    "calcium channel blockers"
   ],
   "CCCU": [
     "critical coronary care unit"
@@ -1396,6 +1834,9 @@
   ],
   "CCR": [
     "cardiocerebral resuscitation"
+  ],
+  "CCR&R": [
+    "Child Care Resource & Referral"
   ],
   "CCU": [
     "coronary care unit",
@@ -1444,6 +1885,9 @@
   "CEIOL": [
     "cataract extraction with intraocular lens placement"
   ],
+  "cert": [
+    "certification"
+  ],
   "CF": [
     "cystic fibrosis"
   ],
@@ -1470,17 +1914,26 @@
   "CFU": [
     "colony-forming unit"
   ],
+  "cg": [
+    "caregiver"
+  ],
   "CGD": [
     "chronic granulomatous disease"
   ],
   "CGI": [
     "Clinical Global Impression"
   ],
+  "cGMP": [
+    "cyclic guanosine monophosphate"
+  ],
   "CGN": [
     "chronic glomerulonephritis"
   ],
   "CH": [
     "congenital hypothyroidism"
+  ],
+  "CHB": [
+    "complete heart block"
   ],
   "CHC": [
     "combined hormonal contraceptive"
@@ -1501,13 +1954,26 @@
     "blood tests, commonly called a basic metabolic panel (blood urea nitrogen, carbon dioxide, creatinine, glucose, serum chloride, serum potassium, serum sodium",
     "basic metabolic panel"
   ],
+  "chemo": [
+    "chemotherapy"
+  ],
   "CHF": [
     "congestive heart failure",
     "continuous hemofiltration",
     "chronic heart failure"
   ],
+  "CHI": [
+    "closed head injury"
+  ],
+  "Chl": [
+    "chloride",
+    "chlamydia"
+  ],
   "CHO": [
     "carbohydrate"
+  ],
+  "Chol": [
+    "cholesterol"
   ],
   "CHOP": [
     "cyclophosphamide, doxorubicin, vincristine, prednisone",
@@ -1528,11 +1994,17 @@
   "CIB": [
     "cibus"
   ],
+  "CICR": [
+    "calcium-induced calcium release"
+  ],
   "CICU": [
     "cardiac intensive care unit"
   ],
   "CIDP": [
     "chronic inflammatory demyelinating polyneuropathy"
+  ],
+  "cig": [
+    "cigarette"
   ],
   "CIMF": [
     "chronic idiopathic myelofibrosis"
@@ -1543,6 +2015,9 @@
   ],
   "CINV": [
     "Chemotherapy-induced nausea and vomiting"
+  ],
+  "Circ": [
+    "circumcision"
   ],
   "CIS": [
     "carcinoma in situ"
@@ -1565,6 +2040,10 @@
   "CKMB": [
     "MB isoenzyme of creatine kinase"
   ],
+  "Cl": [
+    "chlorine clearance",
+    "clinic"
+  ],
   "CLARE": [
     "contact lens acute red eye"
   ],
@@ -1585,10 +2064,7 @@
     "capillary leak syndrome"
   ],
   "CM": [
-    "Chirurgiae Magister",
-    "Master of Surgery",
-    "Caucasian male",
-    "cardiomyopathy"
+    "centimeter"
   ],
   "CMD": [
     "cystic medial degeneration"
@@ -1612,6 +2088,9 @@
     "complete metabolic profile",
     "cytosine monophosphate"
   ],
+  "CMR": [
+    "cardiovascular magnetic resonance (CMR) imaging"
+  ],
   "CMS": [
     "Centers for Medicare and Medicaid Services",
     "chronic mountain sickness"
@@ -1626,10 +2105,16 @@
   "CN": [
     "cranial nerves"
   ],
+  "CNA": [
+    "certified nurse assistant"
+  ],
   "CNS": [
     "central nervous system",
     "Clinical nurse specialist",
     "Crigler-Najjar syndrome"
+  ],
+  "cnt": [
+    "could not test"
   ],
   "CNVM": [
     "Choroidal Neovascular Membranes"
@@ -1642,6 +2127,9 @@
   "CO2": [
     "carbon dioxide"
   ],
+  "COA": [
+    "coarctation of the aorta"
+  ],
   "COAD": [
     "chronic obstructive airways disease"
   ],
@@ -1651,8 +2139,46 @@
   "COH": [
     "controlled ovarian hyperstimulation"
   ],
+  "col": [
+    "colony",
+    "colonies"
+  ],
   "COLD": [
     "chronic obstructive lung disease"
+  ],
+  "colpo": [
+    "colposcopy"
+  ],
+  "Comp": [
+    "complications"
+  ],
+  "compl": [
+    "complete"
+  ],
+  "cond.": [
+    "condition"
+  ],
+  "conf": [
+    "conference"
+  ],
+  "Conj": [
+    "conjunctiva"
+  ],
+  "CoNS": [
+    "coagulase-negative staphylcocci"
+  ],
+  "const": [
+    "constipation"
+  ],
+  "cont": [
+    "continuous",
+    "continue"
+  ],
+  "contx": [
+    "contractions"
+  ],
+  "coord": [
+    "coordinate"
   ],
   "COP": [
     "cryptogenic organizing pneumonitis",
@@ -1661,8 +2187,15 @@
   "COPD": [
     "chronic obstructive pulmonary disease"
   ],
+  "COR": [
+    "heart",
+    "coronary"
+  ],
   "COVID": [
     "coronavirus disease"
+  ],
+  "COW": [
+    "Circle of Willis"
   ],
   "COX-1": [
     "cyclooxygenase 1"
@@ -1674,9 +2207,11 @@
     "cyclooxygenase 3"
   ],
   "CP": [
-    "cerebral palsy",
     "chest pain",
-    "constrictive pericarditis"
+    "care plan"
+  ],
+  "CPA": [
+    "conventional peripheral angiography"
   ],
   "CPAP": [
     "continuous positive airway pressure"
@@ -1717,16 +2252,23 @@
   "CPR": [
     "cardiopulmonary resuscitation"
   ],
+  "CPS": [
+    "Child Protective Services"
+  ],
   "CPT": [
     "Current Procedural Terminology"
   ],
+  "CPVT": [
+    "catecholaminergic polymorphic ventricular tachycardia"
+  ],
   "CR": [
-    "complete remission",
-    "complete response",
-    "controlled release"
+    "creatinine"
   ],
   "CRC": [
     "colorectal cancer"
+  ],
+  "CrCl": [
+    "creatinine clearance"
   ],
   "CRD": [
     "chronic renal disease",
@@ -1735,6 +2277,12 @@
   "CRE": [
     "carbapenem-resistant Enterobacteriaceae"
   ],
+  "Creat": [
+    "creatinine"
+  ],
+  "Creat. cl": [
+    "creatine clearance"
+  ],
   "CREST": [
     "calcinosis, Raynaud esophagus, sclerosis, teleangiectasiae"
   ],
@@ -1742,14 +2290,23 @@
     "chronic renal failure",
     "corticotropin-releasing factor"
   ],
+  "CrGN": [
+    "crescentic glomerulonephritis"
+  ],
   "CRH": [
     "corticotropin-releasing hormone"
   ],
   "CRI": [
     "chronic renal insufficiency"
   ],
+  "Crike": [
+    "Cricothyrotomy"
+  ],
   "CRISPR": [
     "clustered regularly interspaced short palindromic repeats"
+  ],
+  "Crit": [
+    "hematocrit"
   ],
   "CRL": [
     "crown-rump length"
@@ -1790,6 +2347,9 @@
   "CRTx": [
     "chemoradiotherapy"
   ],
+  "cryo": [
+    "cryosurgery"
+  ],
   "CS": [
     "caesarean section",
     "compartment syndrome",
@@ -1797,10 +2357,16 @@
     "Churg–Strauss syndrome"
   ],
   "CSA": [
-    "Controlled Substances Act"
+    "cyclosporin A"
+  ],
+  "CSC": [
+    "Child Service Coordination"
   ],
   "CSF": [
-    "cerebrospinal fluid colony-stimulating factor"
+    "cerebral spinal fluid"
+  ],
+  "CSHS": [
+    "Children’s Special Health Services"
   ],
   "CSME": [
     "clinically significant macular edema"
@@ -1833,10 +2399,10 @@
     "clear to auscultation",
     "computed tomography angiography"
   ],
-  "CTAB": [
+  "CTA B": [
     "clear to auscultation bilaterally"
   ],
-  "CTA B": [
+  "CTAB": [
     "clear to auscultation bilaterally"
   ],
   "CTAP": [
@@ -1881,21 +2447,16 @@
     "cancer treatment unit"
   ],
   "CTX": [
-    "ceftriaxone",
-    "third-generation cephalosporin antibiotic",
-    "contractions chemotherapy"
+    "chemotherapy"
   ],
   "CTZ": [
     "Chemoreceptor trigger zone"
-  ],
-  "CTx": [
-    "chemotherapy"
   ],
   "CUC": [
     "chronic ulcerative colitis"
   ],
   "CV": [
-    "cardiovascular"
+    "clinic visit"
   ],
   "CVA": [
     "cerebrovascular accident",
@@ -1916,6 +2477,13 @@
     "cardiovascular disease",
     "cardiovascular disorder",
     "Carotid Vascular Disease"
+  ],
+  "CVDs": [
+    "chronic venous disorders"
+  ],
+  "CVHD": [
+    "cardiovascular heart disease",
+    "cardiovascular heart disorder"
   ],
   "CVI": [
     "cerebrovascular incident",
@@ -1947,72 +2515,19 @@
   "CWP": [
     "coal worker's pneumoconiosis"
   ],
+  "Cx": [
+    "circumflex artery"
+  ],
   "CXR": [
     "chest x-ray chest radiograph",
     "chest X-ray",
     "chest x ray"
   ],
-  "Ca": [
-    "calcium",
-    "carcinoma",
-    "cancer"
+  "c̅": [
+    "means with"
   ],
-  "CaOx": [
-    "calcium oxalate"
-  ],
-  "Caps": [
-    "capsule"
-  ],
-  "Cath": [
-    "catheter"
-  ],
-  "ChE": [
-    "cholinesterase"
-  ],
-  "Chol": [
-    "cholesterol"
-  ],
-  "Circ": [
-    "circumcision",
-    "circulation"
-  ],
-  "Cl": [
-    "chlorine clearance",
-    "clinic"
-  ],
-  "CoNS": [
-    "coagulase-negative staphylcocci"
-  ],
-  "Comp": [
-    "compound"
-  ],
-  "Conj": [
-    "conjunctiva"
-  ],
-  "Cr": [
-    "creatinine"
-  ],
-  "CrCl": [
-    "creatinine clearance"
-  ],
-  "CrGN": [
-    "crescentic glomerulonephritis"
-  ],
-  "Creat": [
-    "creatinine"
-  ],
-  "Crike": [
-    "Cricothyrotomy"
-  ],
-  "Crit": [
-    "hematocrit"
-  ],
-  "CsA": [
-    "cyclosporin A"
-  ],
-  "Cx": [
-    "cervix",
-    "circumflex (branch)"
+  "d": [
+    "days"
   ],
   "D&C": [
     "dilatation and curettage",
@@ -2021,14 +2536,21 @@
   "D&E": [
     "dilatation and evacuation"
   ],
+  "D&V": [
+    "diarrhoea and vomiting"
+  ],
   "D/C": [
-    "discharge discontinue"
+    "discharge",
+    "discontinue"
   ],
   "D/O": [
     "died of, disorder"
   ],
   "D/T": [
     "due to"
+  ],
+  "D/V": [
+    "diarrhea / vomiting"
   ],
   "D25": [
     "25% dextrose injections"
@@ -2043,7 +2565,10 @@
     "5% dextrose in water"
   ],
   "DA": [
-    "dopamine"
+    "day"
+  ],
+  "DADs": [
+    "delayed afterdepolarizations"
   ],
   "DAEC": [
     "diffusely adherent Escherichia coli"
@@ -2069,6 +2594,10 @@
   "DBS": [
     "deep brain stimulation",
     "dried blood spots"
+  ],
+  "DC": [
+    "discharge",
+    "discontinue"
   ],
   "DCBE": [
     "double contrast barium enema"
@@ -2111,15 +2640,59 @@
   "DDI": [
     "didanosine"
   ],
+  "DDS": [
+    "dentist"
+  ],
+  "DDST": [
+    "Denver Developmental Screening Test"
+  ],
+  "DDSTII": [
+    "Denver Developmental Screening Test"
+  ],
   "DDx": [
     "differential diagnosis"
+  ],
+  "Dec": [
+    "decreased"
+  ],
+  "decub.": [
+    "lying down"
+  ],
+  "del": [
+    "delivered",
+    "delivery"
+  ],
+  "delt;D": [
+    "deltoid"
+  ],
+  "demo": [
+    "demonstrate"
+  ],
+  "dep": [
+    "dependent"
+  ],
+  "Depo": [
+    "Depo Provera injection"
+  ],
+  "Dept": [
+    "Department"
   ],
   "DES": [
     "diethylstilbestrol",
     "Drug-eluting stent"
   ],
+  "DESs": [
+    "drug-eluting stents"
+  ],
+  "dev": [
+    "develop",
+    "developmental"
+  ],
   "DEXA": [
     "Dual energy X-ray absorptiometry"
+  ],
+  "df": [
+    "dorsiflexion"
   ],
   "DH": [
     "developmental history",
@@ -2134,6 +2707,12 @@
   "DHF": [
     "decompensated heart failure"
   ],
+  "DHHS": [
+    "Department of Health & Human Services"
+  ],
+  "DHPs": [
+    "dihydropyridines"
+  ],
   "DHR": [
     "dihydrorhodamine"
   ],
@@ -2142,6 +2721,9 @@
   ],
   "DI": [
     "diabetes insipidus"
+  ],
+  "Di-Di": [
+    "dichromatic diamnionic twins"
   ],
   "DIB": [
     "dead in bed",
@@ -2153,14 +2735,37 @@
   "DICVP": [
     "Diplomate, International College of Veterinary Pharmacy"
   ],
+  "diff": [
+    "differential",
+    "different"
+  ],
   "DIL": [
-    "drug-induced lupus"
+    "dilation",
+    "dialation"
   ],
   "DILI": [
     "drug-induced liver injury"
   ],
   "DIP": [
     "distal interphalangeal joint or Diffuse Interstitial Pneumonitis"
+  ],
+  "DiPerTe": [
+    "diphtheria-pertussis-tetanus combined vaccination"
+  ],
+  "dir": [
+    "Director"
+  ],
+  "Dis": [
+    "disorder"
+  ],
+  "disc": [
+    "discontinue"
+  ],
+  "Disch": [
+    "discharge"
+  ],
+  "DiTe": [
+    "diphtheria-tetanus combined vaccination"
   ],
   "DIU": [
     "death in utero (stillbirth"
@@ -2171,6 +2776,9 @@
   ],
   "DKA": [
     "diabetic ketoacidosis"
+  ],
+  "dL": [
+    "deciliter"
   ],
   "DLB": [
     "dementia with Lewy bodies"
@@ -2207,6 +2815,9 @@
   "DME": [
     "durable medical equipment"
   ],
+  "dmg": [
+    "drainage"
+  ],
   "DMPA": [
     "depot medroxyprogesterone acetate"
   ],
@@ -2229,8 +2840,14 @@
   "DNI": [
     "do not intubate"
   ],
+  "DNKA": [
+    "did not keep appointment"
+  ],
   "DNR": [
     "do not resuscitate"
+  ],
+  "DNT": [
+    "did not test"
   ],
   "DO": [
     "Doctor of Osteopathic Medicine"
@@ -2250,6 +2867,9 @@
   ],
   "DOL": [
     "day of life"
+  ],
+  "DORV": [
+    "double outlet right ventricle"
   ],
   "DOS": [
     "date of service"
@@ -2278,12 +2898,18 @@
     "diphtheria-pertussis-tetanus",
     "DPT vaccine"
   ],
+  "Dr": [
+    "drain"
+  ],
   "DRE": [
     "Digital Rectal Examination",
     "Dilated Retinal Exam"
   ],
   "DRPLA": [
     "Dentatorubral-Pallidoluysian Atrophy"
+  ],
+  "drsg": [
+    "dressing"
   ],
   "DRT": [
     "dead right there"
@@ -2302,8 +2928,17 @@
     "differences of sex development",
     "dry sterile dressing"
   ],
+  "Dsg": [
+    "dressing"
+  ],
   "DSM": [
     "Diagnostic and Statistical Manual of Mental Disorders"
+  ],
+  "dsRNA": [
+    "double-stranded RNA"
+  ],
+  "DSS": [
+    "Department of Social Services"
   ],
   "DT": [
     "diphtheria - tetanus combined vaccination",
@@ -2313,6 +2948,9 @@
   "DTA": [
     "descending thoracic aorta"
   ],
+  "DTaP": [
+    "Diphtheria, Tetanus, Acellular Pertussis"
+  ],
   "DTP": [
     "diphtheria-tetanus-pertussis combined vaccination",
     "Diphtheria, Tetanus, Pertussis"
@@ -2320,10 +2958,10 @@
   "DTR": [
     "deep tendon reflex"
   ],
-  "DTaP": [
-    "diphtheria–tetanus–acellular pertussis combined vaccination"
-  ],
   "DTs": [
+    "delirium tremens"
+  ],
+  "DT’s": [
     "delirium tremens"
   ],
   "DU": [
@@ -2339,6 +2977,9 @@
   "DW": [
     "dextrose in water"
   ],
+  "Dx": [
+    "diagnosis"
+  ],
   "DX Dx dx": [
     "diagnosis"
   ],
@@ -2348,24 +2989,6 @@
   "DZ": [
     "disease"
   ],
-  "Di-Di": [
-    "dichromatic diamnionic twins"
-  ],
-  "DiPerTe": [
-    "diphtheria-pertussis-tetanus combined vaccination"
-  ],
-  "DiTe": [
-    "diphtheria-tetanus combined vaccination"
-  ],
-  "Dis": [
-    "dislocation"
-  ],
-  "Disch": [
-    "discharge"
-  ],
-  "Dsg": [
-    "dressing"
-  ],
   "E": [
     "ecstasy",
     "electrolytes",
@@ -2374,11 +2997,17 @@
     "estradiol",
     "estrogen"
   ],
+  "E-coli": [
+    "Escherichia Coli"
+  ],
   "E1": [
     "estrone"
   ],
   "E2": [
     "estradiol"
+  ],
+  "EA": [
+    "energy assistance"
   ],
   "EAC": [
     "external acoustic meatus"
@@ -2413,7 +3042,13 @@
     "Epstein–Barr virus"
   ],
   "EC": [
-    "enteric coating"
+    "empty calorie"
+  ],
+  "ECA": [
+    "External Carotid Artery"
+  ],
+  "ECAS": [
+    "Extracranial Carotid Artery Stenosis"
   ],
   "ECC": [
     "endocervical curettage"
@@ -2438,9 +3073,6 @@
     "febris e causa ignota",
     "fever of unknown origin"
   ],
-  "Febris E.C.T": [
-    "febris e causa ignota"
-  ],
   "ECLS": [
     "extracorporeal life support"
   ],
@@ -2459,13 +3091,12 @@
   "ECTR": [
     "endoscopic carpal tunnel release"
   ],
+  "ECV": [
+    "External cephalic version"
+  ],
   "ED": [
-    "eating disorder",
-    "emergency department",
-    "erectile dysfunction",
-    "ectodermal dysplasia",
-    "effective dose",
-    "emotional distress"
+    "educate",
+    "education"
   ],
   "EDC": [
     "estimated date of confinement",
@@ -2489,6 +3120,9 @@
     "esophageal Doppler monitor",
     "early diastolic murmur"
   ],
+  "EDP": [
+    "end-diastolic pressure"
+  ],
   "EDRF": [
     "endothelium-derived relaxing factor",
     "nitric oxide"
@@ -2498,6 +3132,14 @@
   ],
   "EDTA": [
     "ethylene-diamine-tetraacetic acid"
+  ],
+  "edu": [
+    "educate",
+    "education"
+  ],
+  "educ": [
+    "educate",
+    "education"
   ],
   "EDV": [
     "end-diastolic volume"
@@ -2528,6 +3170,9 @@
   ],
   "EFW": [
     "estimated fetal weight"
+  ],
+  "EGA": [
+    "estimated gestational age"
   ],
   "EGBUS": [
     "external genitalia, Bartholin's glands, urethra and Skene's glands"
@@ -2562,8 +3207,14 @@
   "EKG": [
     "electrocardiogram"
   ],
+  "elem": [
+    "elementary"
+  ],
   "ELISA": [
     "enzyme-linked immunosorbent assay"
+  ],
+  "elix": [
+    "elixir"
   ],
   "ELLSCS": [
     "elective lower segment caesarean section"
@@ -2577,6 +3228,9 @@
     "endometrial biopsy",
     "endomyocardial biopsy"
   ],
+  "EmBx": [
+    "endometrial biopsy"
+  ],
   "EMC": [
     "encephalomyocarditis"
   ],
@@ -2586,6 +3240,9 @@
   ],
   "EMDEX": [
     "essential medicines index"
+  ],
+  "emer": [
+    "emergency"
   ],
   "EMF": [
     "endomyocardial fibrosis"
@@ -2603,12 +3260,24 @@
     "early morning urine sample",
     "early morning urine sample for pregnancy testing"
   ],
+  "Emul": [
+    "emulsion"
+  ],
+  "enc": [
+    "encouraged"
+  ],
   "ENT": [
     "ear, nose, and throat",
     "otolaryngology"
   ],
   "EOB": [
     "edge of bed"
+  ],
+  "EoL": [
+    "End-of-life"
+  ],
+  "EoLC": [
+    "End-of-life care"
   ],
   "EOM": [
     "extraocular muscles"
@@ -2626,6 +3295,9 @@
   ],
   "EPH": [
     "edema, proteinuria, hypertension"
+  ],
+  "Epi": [
+    "epinephrine"
   ],
   "EPO": [
     "erythropoietin"
@@ -2646,6 +3318,9 @@
   "ERMS": [
     "embryonal rhabdomyosarcoma"
   ],
+  "ERP": [
+    "effective refractory period"
+  ],
   "ERT": [
     "enzyme replacement therapy"
   ],
@@ -2655,6 +3330,10 @@
   "ESBL": [
     "extended spectrum beta-lactamase",
     "gram-negative bacteria"
+  ],
+  "ESC": [
+    "Employment Security Commission",
+    "European Society of Cardiology"
   ],
   "ESHAP": [
     "etoposide, cisplatin, cytarabine, methylprednisolone",
@@ -2700,13 +3379,22 @@
     "embryo transfer",
     "Essential thrombocythemia"
   ],
+  "et. al.": [
+    "and others"
+  ],
   "ETEC": [
     "enterotoxigenic Escherichia coli"
+  ],
+  "Etiol": [
+    "etiology"
   ],
   "ETOH": [
     "ethanol",
     "ethyl alcohol",
     "alcohol"
+  ],
+  "ETOHism": [
+    "alcoholism"
   ],
   "ETS": [
     "endoscopic thoracic sympathectomy"
@@ -2723,6 +3411,9 @@
   "EUS": [
     "endoscopic ultrasonography"
   ],
+  "eval": [
+    "evaluation"
+  ],
   "EVAR": [
     "endovascular aneurysm repair"
   ],
@@ -2730,35 +3421,30 @@
     "erythrocyte volume fraction",
     "hematocrit"
   ],
-  "EmBx": [
-    "endometrial biopsy"
-  ],
-  "Emul": [
-    "emulsion"
-  ],
-  "EoL": [
-    "End-of-life"
-  ],
-  "EoLC": [
-    "End-of-life care"
-  ],
-  "Epi": [
-    "epinephrine"
-  ],
-  "Etiol": [
-    "etiology"
+  "ex": [
+    "exercise"
   ],
   "Ex-n": [
     "premature infants"
   ],
   "Exam": [
+    "examine",
     "examination"
+  ],
+  "exer": [
+    "exercise"
   ],
   "Exp Lap": [
     "exploratory laparotomy"
   ],
   "Ext": [
-    "extremities"
+    "extension"
+  ],
+  "ext rot": [
+    "external rotation"
+  ],
+  "F&C": [
+    "foam & condom"
   ],
   "F/C": [
     "fevers and/or chills"
@@ -2774,6 +3460,9 @@
     "folic acid",
     "facial artery",
     "Femoral Artery"
+  ],
+  "fam": [
+    "family"
   ],
   "FAMMM syndrome": [
     "familial atypical multiple mole melanoma syndrome"
@@ -2794,6 +3483,9 @@
     "Family Birth Center",
     "full blood count"
   ],
+  "FBD": [
+    "fibrocystic breast disease"
+  ],
   "FBE": [
     "full blood exam"
   ],
@@ -2807,12 +3499,15 @@
   "FCS": [
     "Faciocutaneoskeletal syndrome"
   ],
+  "FD": [
+    "fetal distress"
+  ],
   "FDC": [
     "follicular dendritic cells",
     "fixed dose combination"
   ],
   "FDG": [
-    "fluordeoxyglucose"
+    "feedings"
   ],
   "FDIU": [
     "fetal demise in utero"
@@ -2824,8 +3519,20 @@
   "FDS": [
     "Flexor digitorum superficialis"
   ],
+  "Fe": [
+    "iron"
+  ],
+  "Feb": [
+    "February"
+  ],
+  "Febris E.C.T": [
+    "febris e causa ignota"
+  ],
   "FEF25–75": [
     "forced expiratory flow at 25–75% of forced vital capacity"
+  ],
+  "fem": [
+    "female femoral"
   ],
   "FEN": [
     "Fluids, Electrolytes, Nutrition"
@@ -2833,6 +3540,9 @@
   "FEP": [
     "free erythrocyte protoporphyrin",
     "fibroepithelial polyp"
+  ],
+  "FeSo4": [
+    "Iron Sulfate"
   ],
   "FESS": [
     "functional endoscopic sinus surgery"
@@ -2854,6 +3564,13 @@
   "FFP": [
     "fresh frozen plasma"
   ],
+  "FH": [
+    "fetal heart",
+    "fundal height"
+  ],
+  "FHH": [
+    "fetal heart heard"
+  ],
   "FHR": [
     "fetal heart rate"
   ],
@@ -2866,6 +3583,9 @@
   "FHx": [
     "family history"
   ],
+  "fib": [
+    "fibrillation"
+  ],
   "FIBD": [
     "found in bed dead"
   ],
@@ -2873,10 +3593,19 @@
     "fluorescence in situ hybridization"
   ],
   "FL": [
-    "femur length"
+    "flouride"
+  ],
+  "fl.oz.": [
+    "fluid ounce"
   ],
   "FLAIR": [
     "fluid attenuated inversion recovery"
+  ],
+  "fld": [
+    "fluid"
+  ],
+  "flex": [
+    "flexion"
   ],
   "FLK": [
     "funny-looking kid",
@@ -2888,12 +3617,18 @@
   "FMF": [
     "fetal movements felt"
   ],
+  "FMH": [
+    "Forsythe Memorial Hospital"
+  ],
   "FMP": [
     "first menstrual period",
     "menarche"
   ],
   "FMPP": [
     "Familial male precocious puberty"
+  ],
+  "fMRI": [
+    "functional magnetic resonance imaging"
   ],
   "FMS": [
     "Fibromyalgia Syndrome"
@@ -2916,6 +3651,9 @@
   "FNH": [
     "focal nodular hyperplasia"
   ],
+  "FNP": [
+    "Family Nurse Practitioner"
+  ],
   "FOB": [
     "Foot of Bed",
     "father of baby",
@@ -2925,9 +3663,15 @@
   "FOBT": [
     "fecal occult blood test"
   ],
+  "FOCUS": [
+    "find, organize, clarify, understand, select"
+  ],
   "FOF": [
     "found on floor",
     "patient fell out of bed"
+  ],
+  "foley": [
+    "foley catheter"
   ],
   "FOOSH": [
     "fall on outstretched hand"
@@ -2935,14 +3679,43 @@
   "FOS": [
     "full of stool"
   ],
+  "FP": [
+    "family planning"
+  ],
   "FPG": [
     "fasting plasma glucose"
+  ],
+  "FPNS": [
+    "family planning nurse screening"
+  ],
+  "Fr": [
+    "French (catheter size)"
+  ],
+  "fr/jce": [
+    "fruit juice"
   ],
   "FRDA": [
     "Friedreich's ataxia"
   ],
+  "freq": [
+    "frequency"
+  ],
+  "Fri": [
+    "Friday"
+  ],
   "FROM": [
     "full range of motion"
+  ],
+  "FRS": [
+    "Family Resource Center"
+  ],
+  "FS": [
+    "food stamps"
+  ],
+  "FSBS": [
+    "finger stick blood sugar",
+    "finger-stick blood sugar",
+    "blood glucose monitoring"
   ],
   "FSE": [
     "fetal scalp electrode"
@@ -2953,6 +3726,9 @@
   "FSH": [
     "follicle-stimulating hormone"
   ],
+  "ft": [
+    "finger tip"
+  ],
   "FTA": [
     "fluorescent treponemal antibody",
     "syphilis"
@@ -2961,8 +3737,24 @@
     "fluorescent treponemal antibody absorption",
     "syphilis"
   ],
+  "FtM": [
+    "Female to Male transgender person",
+    "Trans Man"
+  ],
+  "FTND": [
+    "full term normal delivery"
+  ],
+  "FTP": [
+    "failure to progress"
+  ],
+  "FTT": [
+    "failure to thrive"
+  ],
   "FUE": [
     "Follicular Unit Extraction"
+  ],
+  "FUO": [
+    "fever of unknown origin"
   ],
   "FUT": [
     "Follicular Unit Transplantation"
@@ -2971,16 +3763,20 @@
     "forced vital capacity",
     "spirometry test assessing chronic obstructive pulmonary disease"
   ],
+  "FWB": [
+    "full weight bearing",
+    "fetal well being"
+  ],
   "FWD": [
     "full ward diet",
     "forward"
   ],
-  "Fe": [
-    "iron"
+  "Fx": [
+    "fracture",
+    "fraction"
   ],
-  "FtM": [
-    "Female to Male transgender person",
-    "Trans Man"
+  "fxn": [
+    "function"
   ],
   "F→N": [
     "finger-to-nose test"
@@ -2993,8 +3789,15 @@
   "G-CSF": [
     "granulocyte colony-stimulating factor"
   ],
+  "G-tube": [
+    "gastrostomy tube"
+  ],
   "G6PD": [
     "glucose-6-phosphate-dehydrogenase"
+  ],
+  "ga": [
+    "gestational age",
+    "general anaesthesia"
   ],
   "GABA": [
     "gamma-aminobutyric acid"
@@ -3008,6 +3811,9 @@
   "GAF": [
     "Global Assessment of Functioning"
   ],
+  "gal": [
+    "gallon"
+  ],
   "GAPS": [
     "Guidelines for Adolescent Preventative Services"
   ],
@@ -3020,12 +3826,24 @@
   "GAVE": [
     "Gastric antral vascular ectasia"
   ],
+  "GB": [
+    "gallbladder"
+  ],
   "GBC": [
     "gallbladder carcinoma"
   ],
   "GBM": [
     "glioblastoma multiforme",
     "glomerular basement membrane"
+  ],
+  "GBS": [
+    "Group B Strep",
+    "Guillain–Barré syndrome"
+  ],
+  "GC": [
+    "gonorrhea culture",
+    "general condition",
+    "gonococcus"
   ],
   "GCA": [
     "giant-cell arteritis"
@@ -3039,6 +3857,9 @@
     "germ cell tumor",
     "glucose challenge test",
     "Giant cell tumor"
+  ],
+  "GD": [
+    "gestational diabetes"
   ],
   "GDA": [
     "gastroduodenal artery"
@@ -3058,6 +3879,20 @@
   "GDS": [
     "Geriatric Depression Scale"
   ],
+  "GED": [
+    "General Education Diploma",
+    "General Equivalency Diploma"
+  ],
+  "gen": [
+    "general"
+  ],
+  "GERD": [
+    "gastro esophageal reflux disease",
+    "gastroesophageal reflux disease"
+  ],
+  "gest": [
+    "gestation"
+  ],
   "GFR": [
     "glomerular filtration rate"
   ],
@@ -3075,6 +3910,10 @@
   ],
   "GHRH": [
     "growth hormone releasing hormone"
+  ],
+  "GI": [
+    "gastrointestinal",
+    "gastrointestinal tract"
   ],
   "GIA": [
     "surgical staple",
@@ -3104,6 +3943,12 @@
   "GLF": [
     "ground level fall"
   ],
+  "gluc;glu": [
+    "glucose"
+  ],
+  "gm": [
+    "gram"
+  ],
   "GM-CSF": [
     "granulocyte macrophage colony-stimulating factor"
   ],
@@ -3117,7 +3962,7 @@
     "glomerulonephritis"
   ],
   "GNRH": [
-    "gonadotropin-releasing hormone"
+    "gonadotrophin-releasing hormone"
   ],
   "GOAT": [
     "Galveston Orientation and Amnesia Test"
@@ -3147,35 +3992,47 @@
   "GPCL": [
     "gas permeable contact lens"
   ],
+  "GPI": [
+    "general paralysis of the insane"
+  ],
   "GPT": [
     "glutamic-pyruvic transaminase"
+  ],
+  "Gr": [
+    "grain"
   ],
   "GRAV I": [
     "gravidity 1",
     "first pregnancy"
+  ],
+  "GS": [
+    "glucose screen"
+  ],
+  "GSV": [
+    "great saphenous vein"
+  ],
+  "GSW": [
+    "gunshot wound"
+  ],
+  "gt": [
+    "gait"
   ],
   "GTN": [
     "glyceryl trinitrate",
     "gestational trophoblastic neoplasia"
   ],
   "GTT": [
-    "glucose tolerance test",
-    "gestational trophoblastic tumor"
-  ],
-  "GUM": [
-    "genitourinary medicine"
-  ],
-  "GXT": [
-    "graded exercise test"
-  ],
-  "GYN": [
-    "gynecology"
-  ],
-  "Gr": [
-    "grain"
+    "drops"
   ],
   "Gtts": [
     "guttae"
+  ],
+  "GU": [
+    "genitourinary",
+    "gastric ulcer"
+  ],
+  "GUM": [
+    "genitourinary medicine"
   ],
   "GvH": [
     "graft-versus-host"
@@ -3183,19 +4040,46 @@
   "GvHD, GVHD": [
     "graft-versus-host disease"
   ],
+  "GXT": [
+    "graded exercise test"
+  ],
+  "GYN": [
+    "gyncological"
+  ],
+  "Gyn.": [
+    "gynaecology"
+  ],
   "H": [
-    "histamine",
-    "hemagglutinin"
+    "hr",
+    "hours"
+  ],
+  "H Ed": [
+    "health educator",
+    "health education"
   ],
   "H&E": [
     "hematoxylin and eosin",
     "standard tissue stain"
   ],
+  "H&H": [
+    "hemoglobin and hematocrit"
+  ],
   "H&M": [
     "hematemesis and melena"
   ],
+  "H&P": [
+    "history and physicial",
+    "history and physical examination"
+  ],
   "H-mole": [
     "hydatidiform mole"
+  ],
+  "h.s.": [
+    "at bedtime",
+    "hora somni"
+  ],
+  "H.Sch": [
+    "high school"
   ],
   "H/A": [
     "headache"
@@ -3203,8 +4087,24 @@
   "H/H": [
     "hemoglobin and hematocrit"
   ],
-  "H&H": [
-    "hemoglobin and hematocrit"
+  "H/O": [
+    "handout",
+    "history of"
+  ],
+  "H2O": [
+    "water"
+  ],
+  "H2O2": [
+    "hydrogen perxoide"
+  ],
+  "H;Hosp": [
+    "Hospice"
+  ],
+  "HA": [
+    "headache",
+    "hypertonia arterialis",
+    "headache calcium",
+    "hydroxyapatite"
   ],
   "HAA": [
     "hepatitis-associated antigen",
@@ -3245,10 +4145,22 @@
     "hepatitis A virus"
   ],
   "HB": [
-    "heart block"
+    "hemoglobin"
+  ],
+  "Hb%": [
+    "hemoglobin concentration in gram per deciliter"
+  ],
+  "HbA": [
+    "hemoglobin A"
+  ],
+  "HbA1c": [
+    "glycated hemoglobin"
   ],
   "HBD": [
     "has been drinking"
+  ],
+  "HbF": [
+    "fetal hemoglobin"
   ],
   "HBO": [
     "hyperbaric oxygen"
@@ -3257,8 +4169,18 @@
     "high blood pressure",
     "hypertension"
   ],
+  "HbsAg": [
+    "Hepatitis B surface antigen"
+  ],
   "HBV": [
-    "hepatitis B virus"
+    "high biological value"
+  ],
+  "HC": [
+    "Hunger Coalition",
+    "Health Check",
+    "head circumference",
+    "hemorrhagic colitis",
+    "homocysteine"
   ],
   "HCA": [
     "Healthcare Associated, as in HCA-CDI"
@@ -3267,11 +4189,24 @@
     "health care-associated pneumonia",
     "health care-acquired pneumonia"
   ],
+  "HCC": [
+    "Health Check Coordinator",
+    "hepatocellular carcinoma"
+  ],
   "HCF": [
     "Healthcare Facility"
   ],
   "HCFA": [
     "Healthcare Facility Associated"
+  ],
+  "HCFM": [
+    "High Country Family Medicine"
+  ],
+  "hCG": [
+    "human chorionic gonadotropin"
+  ],
+  "HCHC": [
+    "High Country Health Care"
   ],
   "HCL": [
     "hairy cell leukemia"
@@ -3280,20 +4215,32 @@
     "hypertrophic cardiomyopathy",
     "healthcare maintenance"
   ],
+  "HCMH": [
+    "Hugh Chatham Memorial Hospital"
+  ],
   "HCO3": [
     "bicarbonate"
+  ],
+  "HCPC": [
+    "Hope Crisis Pregnancy Center"
   ],
   "HCRP": [
     "Hospital Cornea Retrieval Programme"
   ],
   "HCT": [
-    "hematocrit hematopoietic cell transplantation"
+    "hematocrit"
   ],
   "HCTZ": [
     "hydrochlorothiazide"
   ],
   "HCV": [
     "hepatitis C virus"
+  ],
+  "HD": [
+    "Health Department",
+    "Hodgkin disease",
+    "Hemodialysis",
+    "Huntington's disease"
   ],
   "HDL": [
     "high-density lipoprotein"
@@ -3323,19 +4270,34 @@
   "HEC": [
     "High emetogenic chemotherapy"
   ],
-  "HELP": [
-    "HELLP syndrome",
-    "Hemolysis elevated liver enzymes",
-    "low platelets in pregnancy"
+  "HEENT": [
+    "head, eyes, ears, nose, throat"
   ],
   "HELLP": [
     "HELLP syndrome",
     "Hemolysis elevated liver enzymes",
     "low platelets in pregnancy"
   ],
+  "HELP": [
+    "HELLP syndrome",
+    "Hemolysis elevated liver enzymes",
+    "low platelets in pregnancy"
+  ],
   "HEMA": [
-    "hydroxy ethyl methacrylate",
-    "material in soft contact lenses"
+    "hematest",
+    "fecal occult blood"
+  ],
+  "hemi": [
+    "hemiplegia"
+  ],
+  "Hep A": [
+    "Hepatitis A vaccine"
+  ],
+  "Hep B": [
+    "Hepatitis B vaccine"
+  ],
+  "Heplock": [
+    "Heparin lock"
   ],
   "HES": [
     "hydroxyethyl starch"
@@ -3358,14 +4320,14 @@
   "HFNC": [
     "high flow Nasal cannula"
   ],
-  "HFRS": [
-    "hemorrhagic fever with renal syndrome"
-  ],
   "HFpEF": [
     "heart failure with preserved ejection fraction"
   ],
   "HFrEF": [
     "heart failure with reduced ejection fraction"
+  ],
+  "HFRS": [
+    "hemorrhagic fever with renal syndrome"
   ],
   "HGB": [
     "hemoglobin"
@@ -3373,8 +4335,19 @@
   "HGPRTase": [
     "hypoxanthine-guanine phosphoribosyl transferase"
   ],
+  "HGSIL": [
+    "high grade squamous intraepithelial lesion",
+    "high-grade squamous intraepithelial lesion"
+  ],
   "HGV": [
     "hepatitis G virus"
+  ],
+  "HH": [
+    "home health",
+    "Hitting Head"
+  ],
+  "HHA": [
+    "Home Health Agency"
   ],
   "HHS": [
     "Hyperosmolar hyperglycemic state"
@@ -3385,8 +4358,15 @@
   "HHV": [
     "human herpesvirus"
   ],
+  "HHV-8": [
+    "human herpes virus 8"
+  ],
   "HI": [
     "homicidal ideation"
+  ],
+  "Hib": [
+    "Hemophilus influenza b conjugate vaccine",
+    "haemophilus influenzae B"
   ],
   "HIDA": [
     "hepatobiliary iminodiacetic acid"
@@ -3401,6 +4381,12 @@
   "HIT": [
     "heparin-induced thrombocytopenia"
   ],
+  "HITS": [
+    "High-Intensity Transient Signals"
+  ],
+  "HIV": [
+    "Human Immunodeficiency Virus"
+  ],
   "HL": [
     "hepatic lipase",
     "Hodgkin's lymphoma",
@@ -3414,6 +4400,9 @@
   ],
   "HLHS": [
     "hypoplastic left heart syndrome"
+  ],
+  "hlth": [
+    "health"
   ],
   "HMD": [
     "hyaline membrane disease"
@@ -3462,6 +4451,9 @@
   "HOPI": [
     "History of present illness"
   ],
+  "hosp": [
+    "hospital"
+  ],
   "HPA": [
     "hypothalamic-pituitary-adrenal axis"
   ],
@@ -3475,6 +4467,10 @@
   "HPI H/oPI": [
     "history of the present illness"
   ],
+  "hPL": [
+    "human placental lactogen",
+    "human chorionic somatomammotropin"
+  ],
   "HPOA": [
     "hypertrophic pulmonary osteoarthropathy"
   ],
@@ -3483,6 +4479,14 @@
   ],
   "HPS": [
     "hantavirus pulmonary syndrome"
+  ],
+  "HPV": [
+    "human papilloma virus",
+    "human papillomavirus"
+  ],
+  "hr": [
+    "High Risk",
+    "heart rate"
   ],
   "HRAS": [
     "Harvey rat sarcoma viral oncogene homolog"
@@ -3496,6 +4500,11 @@
   "HRT": [
     "hormone replacement therapy"
   ],
+  "hs": [
+    "hour of sleep",
+    "high school",
+    "nigh"
+  ],
   "HSC": [
     "human chorionic somatomammotropin",
     "human placental lactogen"
@@ -3503,11 +4512,17 @@
   "HSCT": [
     "Hematopoietic stem cell transplantation"
   ],
+  "HSD": [
+    "high school diploma"
+  ],
   "HSG": [
     "hysterosalpingogram"
   ],
   "HSIL": [
     "high-grade squamous intraepithelial lesion"
+  ],
+  "HSM": [
+    "hepatosplenomegaly"
   ],
   "HSP": [
     "Henoch–Schönlein purpura"
@@ -3516,16 +4531,28 @@
     "herpes simplex virus"
   ],
   "HT": [
-    "hypertension"
+    "height"
   ],
   "HTLV": [
     "human T-lymphotropic virus"
+  ],
+  "HTN": [
+    "hypertension"
   ],
   "HTPA": [
     "hypothalamic-pituitary-adrenal axis"
   ],
   "HTVD": [
     "hypertensive vascular disease"
+  ],
+  "HUD": [
+    "Housing and Urban Development"
+  ],
+  "HUS": [
+    "hemolytic uremic syndrome"
+  ],
+  "HV": [
+    "home visit"
   ],
   "HVA": [
     "homovanillic acid"
@@ -3534,33 +4561,38 @@
     "high-velocity lead therapy",
     "gunshot wound therapy"
   ],
-  "Hb": [
-    "hemoglobin"
+  "HVS": [
+    "high vaginal swab"
   ],
-  "Hb%": [
-    "hemoglobin concentration in gram per deciliter"
+  "Hx": [
+    "history"
   ],
-  "HbA": [
-    "hemoglobin A"
+  "hyper": [
+    "in excess"
   ],
-  "HbA1c": [
-    "glycated hemoglobin"
-  ],
-  "HbF": [
-    "fetal hemoglobin"
-  ],
-  "HbsAg": [
-    "Hepatitis B surface antigen"
-  ],
-  "Hema": [
-    "hematest",
-    "fecal occult blood"
-  ],
-  "Ht": [
-    "height"
+  "hypo": [
+    "less than"
   ],
   "H→S": [
     "heel-to-shin test"
+  ],
+  "I&D": [
+    "incision and drainage"
+  ],
+  "I&O": [
+    "inputs and outputs",
+    "intake and outputs"
+  ],
+  "i.e.": [
+    "for example"
+  ],
+  "i.v.": [
+    "intravenous"
+  ],
+  "I131": [
+    "iodine-131",
+    "radioactive iodine",
+    "radioiodine"
   ],
   "IA": [
     "intra-arterial",
@@ -3578,8 +4610,36 @@
   "IBC": [
     "inflammatory breast cancer"
   ],
+  "IBCLC": [
+    "International Board Certified Lactation Consultant"
+  ],
   "IBD": [
     "inflammatory bowel disease"
+  ],
+  "IBS": [
+    "irritable bowel syndrome"
+  ],
+  "IBW": [
+    "ideal body weight"
+  ],
+  "IC": [
+    "infection control",
+    "ileocecal",
+    "immunocompromised",
+    "informed consent",
+    "intensive care",
+    "interstitial cystitis",
+    "immune complex",
+    "intracardiac"
+  ],
+  "ICA": [
+    "internal carotid artery"
+  ],
+  "ICAE": [
+    "Internal Carotid Artery Endarterectomy"
+  ],
+  "ICAO": [
+    "Internal Carotid Artery Occlusion"
   ],
   "ICCU": [
     "intensive cardiac care unit"
@@ -3594,6 +4654,10 @@
   ],
   "ICDS": [
     "Integrated Child Development Services Program"
+  ],
+  "ICF": [
+    "intermediate care facility",
+    "intracellular fluid"
   ],
   "ICG": [
     "impedance cardiography"
@@ -3621,6 +4685,11 @@
   "ICU": [
     "intensive care unit"
   ],
+  "ID": [
+    "identify",
+    "identification",
+    "infectious dose infectious disease identifying data"
+  ],
   "IDA": [
     "iron deficiency anemia"
   ],
@@ -3628,6 +4697,10 @@
     "idiopathic dilated cardiomyopathy",
     "indwelling catheter",
     "infiltrating ductal carcinoma"
+  ],
+  "IDDM": [
+    "insulin dependent diabetes mellitus",
+    "mellitus type 1"
   ],
   "IDL": [
     "intermediate-density lipoprotein"
@@ -3641,11 +4714,49 @@
   "IF": [
     "immunofluorescence"
   ],
+  "IFC": [
+    "infant feeding"
+  ],
   "IFG": [
     "impaired fasting glycaemia"
   ],
+  "Ig": [
+    "immunoglobulin",
+    "immune globulin"
+  ],
+  "IgA": [
+    "immunoglobulin A"
+  ],
+  "IgAV": [
+    "IgA vasculitis",
+    "Henoch–Schönlein purpura"
+  ],
+  "IgD": [
+    "immunoglobulin D"
+  ],
+  "IgE": [
+    "immunoglobulin E"
+  ],
   "IGF": [
     "insulin-like growth factor"
+  ],
+  "IgG": [
+    "immunoglobulin G"
+  ],
+  "IgG4-RD": [
+    "IgG4-related disease"
+  ],
+  "IgG4-RKD": [
+    "IgG4-related kidney disease"
+  ],
+  "IgG4-ROD": [
+    "IgG4-related ophthalmic disease"
+  ],
+  "IgG4-TIN": [
+    "IgG4-related tubulointerstitial nephritis"
+  ],
+  "IgM": [
+    "immunoglobulin M"
   ],
   "IGT": [
     "impaired glucose tolerance"
@@ -3673,6 +4784,9 @@
   "ILI": [
     "Influenza-like illness"
   ],
+  "IM": [
+    "intramuscular"
+  ],
   "IMA": [
     "inferior mesenteric artery"
   ],
@@ -3684,11 +4798,17 @@
     "intramuscular injection"
   ],
   "IMM": [
-    "intramyometrial"
+    "immunization"
+  ],
+  "immun": [
+    "immunization"
   ],
   "IMN": [
     "infectious mononucleosis",
     "intramedullary nail"
+  ],
+  "imp": [
+    "improved"
   ],
   "IMRT": [
     "intensity-modulated radiotherapy"
@@ -3700,8 +4820,27 @@
     "intermittent mandatory ventilation",
     "mechanical ventilation"
   ],
+  "in": [
+    "inch"
+  ],
+  "inappr": [
+    "inappropriate"
+  ],
+  "Inc": [
+    "incorporated",
+    "incomplete"
+  ],
+  "ind": [
+    "induction"
+  ],
   "INF(-α/-β/-γ": [
     "interferons -α/-β/-γ"
+  ],
+  "info": [
+    "information"
+  ],
+  "infusn": [
+    "infusion"
   ],
   "INFX": [
     "infection"
@@ -3710,8 +4849,22 @@
     "inhaled",
     "Isoniazid"
   ],
+  "Inj": [
+    "injection"
+  ],
   "INR": [
     "international normalized ratio"
+  ],
+  "ins": [
+    "insulin",
+    "insurance"
+  ],
+  "Int": [
+    "IV lock",
+    "intermittent needle therapy"
+  ],
+  "int rot": [
+    "internal rotation"
   ],
   "IO": [
     "intraosseous infusion"
@@ -3745,12 +4898,19 @@
   "IPMN": [
     "Intraductal papillary mucinous neoplasm"
   ],
+  "IPPB": [
+    "intermittent positive pressure breathing",
+    "mechanical ventilation"
+  ],
   "IPPV": [
     "intermittent positive pressure ventilation",
     "mechanical ventilation"
   ],
   "IPS": [
     "intraperitoneal sounds"
+  ],
+  "IPV": [
+    "injectable polio vaccine"
   ],
   "IQ": [
     "intelligence quotient"
@@ -3767,6 +4927,9 @@
   "IRIS": [
     "Immune reconstitution inflammatory syndrome"
   ],
+  "irr": [
+    "irregular"
+  ],
   "IS": [
     "Incentive Spirometry"
   ],
@@ -3781,6 +4944,12 @@
   ],
   "ISMN": [
     "isosorbide mononitrate"
+  ],
+  "isol": [
+    "isolation"
+  ],
+  "isom": [
+    "isometric"
   ],
   "ISQ": [
     "no change",
@@ -3805,11 +4974,22 @@
   "IUCD": [
     "intrauterine contraceptive device"
   ],
+  "IUD": [
+    "Intrauterine Device",
+    "intrauterine death"
+  ],
   "IUFD": [
     "intrauterine foetal demise"
   ],
+  "IUGR": [
+    "intrauterine growth retardation",
+    "intrauterine growth restriction"
+  ],
   "IUI": [
     "intrauterine insemination"
+  ],
+  "IUP": [
+    "intrauterine pregnancy"
   ],
   "IUPC": [
     "intrauterine pressure catheter"
@@ -3819,6 +4999,9 @@
   ],
   "IUT": [
     "intrauterine transfusion"
+  ],
+  "IV": [
+    "intravenous"
   ],
   "IV-DSA": [
     "intravenous digital subtraction angiography"
@@ -3842,6 +5025,10 @@
   "IVIG": [
     "intravenous immunoglobulin"
   ],
+  "IVP": [
+    "intravenous pylogram",
+    "intravenous pyelogram"
+  ],
   "IVPB": [
     "intravenous piggyback",
     "i.v.",
@@ -3849,6 +5036,9 @@
   ],
   "IVPG": [
     "Intravenous pyogenic granuloma"
+  ],
+  "IVS": [
+    "interventricular septum"
   ],
   "IVSS": [
     "Intravenous Soluset"
@@ -3859,52 +5049,20 @@
   "IVUS": [
     "intravascular ultrasound"
   ],
-  "Ig": [
-    "immunoglobulin",
-    "immune globulin"
-  ],
-  "IgA": [
-    "immunoglobulin A"
-  ],
-  "IgAV": [
-    "IgA vasculitis",
-    "Henoch–Schönlein purpura"
-  ],
-  "IgD": [
-    "immunoglobulin D"
-  ],
-  "IgE": [
-    "immunoglobulin E"
-  ],
-  "IgG": [
-    "immunoglobulin G"
-  ],
-  "IgG4-RD": [
-    "IgG4-related disease"
-  ],
-  "IgG4-RKD": [
-    "IgG4-related kidney disease"
-  ],
-  "IgG4-ROD": [
-    "IgG4-related ophthalmic disease"
-  ],
-  "IgG4-TIN": [
-    "IgG4-related tubulointerstitial nephritis"
-  ],
-  "IgM": [
-    "immunoglobulin M"
-  ],
-  "Inj": [
-    "injection"
-  ],
-  "Int": [
-    "internal"
-  ],
   "Ix": [
     "Investigation"
   ],
+  "J-tube": [
+    "Jejunostomy tube"
+  ],
+  "Jan": [
+    "January"
+  ],
   "JCV": [
     "JC virus"
+  ],
+  "JET": [
+    "junctional ectopic tachycardia"
   ],
   "JEV": [
     "Japanese encephalitis virus"
@@ -3925,6 +5083,14 @@
     "juvenile rheumatoid arthritis",
     "juvenile idiopathic arthritis"
   ],
+  "jt": [
+    "joint"
+  ],
+  "JVD": [
+    "juglar venous distention",
+    "jugular venous distension",
+    "jugular vein distention"
+  ],
   "JVP": [
     "jugular venous pressure"
   ],
@@ -3932,8 +5098,15 @@
     "potassium",
     "kalium"
   ],
+  "K+": [
+    "Potassium"
+  ],
   "KA": [
     "ketoacidosis"
+  ],
+  "Kcal": [
+    "kilocalorie",
+    "calorie"
   ],
   "KCCT": [
     "kaolin cephalin clotting time",
@@ -3942,26 +5115,43 @@
   "KELS": [
     "Kohlman Evaluation of Living Skills"
   ],
+  "kg": [
+    "kilogram",
+    "kilogram (1000 grams)"
+  ],
+  "kid": [
+    "kidney"
+  ],
   "KIV": [
     "keep in view"
   ],
   "KLS": [
     "kidney, liver, spleen"
   ],
+  "Km": [
+    "Michaelis constant"
+  ],
   "KOH": [
     "potassium hydroxide"
   ],
   "KS": [
-    "Kaposi's sarcoma", "Kartagener syndrome"
+    "Kaposi's sarcoma",
+    "Kartagener syndrome"
   ],
   "KSHV": [
     "Kaposi's sarcoma-associated herpesvirus"
   ],
+  "KUB": [
+    "kidney, ureter, bladder",
+    "kidneys, ureters, and bladder"
+  ],
   "KVO": [
     "keep vein open"
   ],
-  "Km": [
-    "Michaelis constant"
+  "L": [
+    "left",
+    "leukocytes",
+    "lumbar vertebrae"
   ],
   "L&D": [
     "labor and delivery"
@@ -3969,8 +5159,20 @@
   "L-DOPA": [
     "levo-dihydroxyphenylalanine"
   ],
+  "L/D": [
+    "labor /delivery"
+  ],
+  "L/L": [
+    "litres per litre"
+  ],
   "L/S": [
     "lecithin-to-sphingomyelin ratio"
+  ],
+  "L/T/C": [
+    "long, thick, closed"
+  ],
+  "L1-L5": [
+    "lumbar 1-5"
   ],
   "LA": [
     "left atrium",
@@ -3978,14 +5180,24 @@
     "local anesthetic",
     "lingual artery"
   ],
+  "LAA": [
+    "left atrial appendage"
+  ],
   "LAAM": [
     "L-alpha-acetylmethadol"
+  ],
+  "Lab": [
+    "laboratory results or interpretation"
   ],
   "LABA": [
     "long-acting beta agonist"
   ],
   "LABBB": [
     "left anterior bundle branch block"
+  ],
+  "Lac": [
+    "laceration",
+    "lactate"
   ],
   "LAD": [
     "left anterior descending",
@@ -4003,12 +5215,20 @@
   "LAHB": [
     "left anterior hemiblock"
   ],
+  "Lam": [
+    "laminectomy"
+  ],
   "LAN": [
     "lymphadenopathy"
   ],
+  "lang": [
+    "language"
+  ],
   "LAP": [
-    "leukocyte alkaline phosphatase",
-    "left atrial pressure"
+    "laparotomy"
+  ],
+  "Lap appy": [
+    "laparoscopic appendectomy"
   ],
   "LAR": [
     "low anterior resection"
@@ -4019,11 +5239,25 @@
   "LAS": [
     "lymphadenopathy syndrome"
   ],
+  "Lat": [
+    "left anterior thigh"
+  ],
+  "lax": [
+    "laxative"
+  ],
+  "LB": [
+    "pound",
+    "pounds"
+  ],
   "LBBB": [
     "left bundle branch block"
   ],
   "LBO": [
     "large bowel obstruction"
+  ],
+  "LBP": [
+    "lowback pain",
+    "low back pain"
   ],
   "LBW": [
     "low birth weight"
@@ -4049,11 +5283,17 @@
   "LCPD": [
     "Legg–Calvé–Perthes disease"
   ],
+  "LCSW": [
+    "Licensed Clinical Social Worker"
+  ],
   "LCV": [
     "leukocytoclastic vasculitis"
   ],
   "LCX": [
     "left circumflex artery"
+  ],
+  "LD": [
+    "learning disability"
   ],
   "LDH": [
     "lactate dehydrogenase",
@@ -4065,21 +5305,52 @@
   "LDL-C": [
     "low-density lipoprotein cholesterol"
   ],
+  "LDN": [
+    "licensed dietitian nutritionist"
+  ],
+  "LE": [
+    "lower extremities",
+    "lupus erythematosus",
+    "lower extremity"
+  ],
   "LEC": [
     "lupus erythematosus cell"
+  ],
+  "LEEP": [
+    "Loop electrosurgical excision procedure",
+    "loop electrical excision procedure"
   ],
   "LES": [
     "lower esophageal sphincter",
     "lupus erythematosus systemicus"
   ],
+  "leu": [
+    "leukocytes"
+  ],
+  "leuk.": [
+    "leukocytes"
+  ],
+  "LFA": [
+    "left forearm"
+  ],
   "LFT": [
     "liver function test"
+  ],
+  "lg": [
+    "large"
+  ],
+  "LGA": [
+    "large for gestational age"
   ],
   "LGL": [
     "Lown–Ganong–Levine syndrome"
   ],
   "LGM": [
     "lymphogranulomatosis maligna"
+  ],
+  "LGSIL": [
+    "low grade squamous intrapithelial lesion",
+    "low-grade squamous intraepithelial lesion"
   ],
   "LGV": [
     "lymphogranuloma venereum"
@@ -4094,14 +5365,38 @@
   "LHRH": [
     "luteinizing hormone – releasing hormone"
   ],
+  "LIF": [
+    "left iliac fossa"
+  ],
+  "Lig": [
+    "ligament"
+  ],
   "LIH": [
     "left inguinal hernia"
+  ],
+  "liq": [
+    "liquid"
+  ],
+  "lit": [
+    "literature"
+  ],
+  "LKS": [
+    "liver, kidney and spleen"
   ],
   "LLD": [
     "leg length discrepancy"
   ],
+  "LLE": [
+    "left lower extremity"
+  ],
   "LLETZ": [
     "large loop excision of the transformation zone"
+  ],
+  "LLL": [
+    "left lower lobe"
+  ],
+  "LLQ": [
+    "left lower quadrant"
   ],
   "LM": [
     "left main",
@@ -4117,8 +5412,16 @@
   "LMD": [
     "local medical doctor"
   ],
+  "LMP": [
+    "last menstrual period",
+    "first day of the menstrual period",
+    "low malignant potential"
+  ],
   "LMWH": [
     "low-molecular-weight heparin"
+  ],
+  "LMWHs": [
+    "low molecular weight heparins"
   ],
   "LN": [
     "lymph node",
@@ -4133,12 +5436,19 @@
   "LNI": [
     "lymph node involvement"
   ],
+  "LNMP": [
+    "last normal menstrual period"
+  ],
   "LOA": [
     "left occipitoanterior",
     "level of activity",
     "lysis of adhesions",
     "Loss of Appetite",
     "left occipito-anterior position of fetus"
+  ],
+  "LOC": [
+    "level of consciousness",
+    "loss of consciousness"
   ],
   "LOF": [
     "leakage of fluid"
@@ -4153,17 +5463,24 @@
     "little old lady",
     "lymph-obligatory load"
   ],
+  "LOM": [
+    "left otitis media",
+    "limitation of motion"
+  ],
   "LOP": [
     "left occiput posterior"
   ],
   "LORTA": [
     "loss of resistance to air"
   ],
+  "LOS": [
+    "length of stay"
+  ],
   "LOT": [
-    "left occiput transverse"
+    "lotion"
   ],
   "LP": [
-    "lumbar puncture"
+    "lipoprotein"
   ],
   "LPH": [
     "left posterior hemiblock",
@@ -4171,6 +5488,9 @@
   ],
   "LPL": [
     "lipoprotein lipase"
+  ],
+  "LPN": [
+    "Licensed Practical Nurse"
   ],
   "LPP": [
     "lichen planopilaris"
@@ -4181,11 +5501,19 @@
   "LR": [
     "lactated Ringer's solution"
   ],
+  "LRI": [
+    "lower respiratory infection"
+  ],
   "LRINEC": [
     "Laboratory Risk Indicator for Necrotizing Soft Tissue Infections Score"
   ],
   "LRTI": [
     "lower respiratory tract infection"
+  ],
+  "LS": [
+    "lumbosacral",
+    "lichen sclerosus",
+    "Lynch syndrome"
   ],
   "LSA": [
     "lichen sclerosis et atrophicus"
@@ -4202,11 +5530,34 @@
   "LSIL": [
     "low-grade squamous intraepithelial lesion"
   ],
+  "LSOM": [
+    "left serous otitis media"
+  ],
   "LST": [
     "laterally spreading tumor"
   ],
+  "lt": [
+    "left thigh",
+    "heat-labile enterotoxin"
+  ],
   "LTAC": [
     "long-term acute care"
+  ],
+  "LTCS": [
+    "low transverse Caesarean section"
+  ],
+  "LTRI": [
+    "lower respiratory tract infection"
+  ],
+  "LUE": [
+    "left upper extremity"
+  ],
+  "LUL": [
+    "left upper lobe",
+    "left upper lobe of lung"
+  ],
+  "LUOQ": [
+    "left upper outer quadrant"
   ],
   "LUQ": [
     "left upper quadrant of abdomen",
@@ -4224,6 +5575,9 @@
   "LVAD": [
     "left ventricular assist device"
   ],
+  "LVD": [
+    "left ventricular dysfunction"
+  ],
   "LVEDP": [
     "left ventricular end diastolic pressure",
     "left ventricular end-diastolic pressure"
@@ -4231,11 +5585,17 @@
   "LVEF": [
     "left ventricular ejection fraction"
   ],
+  "LVES": [
+    "left ventricular end-systolic"
+  ],
   "LVF": [
     "left ventricular failure"
   ],
   "LVH": [
     "left ventricular hypertrophy"
+  ],
+  "LVL": [
+    "left vastus lateralis"
   ],
   "LVNC": [
     "left ventricular noncompaction",
@@ -4250,50 +5610,32 @@
   "LWBS": [
     "left without being seen"
   ],
-  "Lab": [
-    "laboratory",
-    "clinical laboratory"
-  ],
-  "Lac": [
-    "laceration",
-    "lactate"
-  ],
-  "Lam": [
-    "laminectomy"
-  ],
-  "Lap": [
-    "laparotomy"
-  ],
-  "Lap appy": [
-    "laparoscopic appendectomy"
-  ],
-  "Lat": [
-    "lateral"
-  ],
-  "Lig": [
-    "ligament"
-  ],
-  "Lot": [
-    "lotion"
-  ],
-  "Lp": [
-    "lipoprotein"
-  ],
   "Lx of ch": [
     "laxative of choice"
   ],
   "Ly": [
     "lymphocytes"
   ],
+  "lytes": [
+    "electrolytes"
+  ],
   "M": [
-    "murmur",
-    "heart murmur"
+    "murmur"
   ],
   "M&M": [
     "morbidity and mortality"
   ],
   "M/E": [
     "microscopic examination"
+  ],
+  "M/F": [
+    "male / female"
+  ],
+  "M/N": [
+    "midnight"
+  ],
+  "M/W/S": [
+    "married / widow(er) / single"
   ],
   "MAC": [
     "Mycobacterium avium complex"
@@ -4323,7 +5665,7 @@
     "mean arterial pressure"
   ],
   "MAR": [
-    "Medication Administration Record"
+    "March"
   ],
   "MARSA": [
     "methicillin- and aminoglycoside-resistant Staphylococcus aureus"
@@ -4335,9 +5677,10 @@
     "Michigan alcohol screening test"
   ],
   "MAT": [
-    "multifocal atrial tachycardia",
-    "microscopic agglutination test",
-    "medication-assisted treatment"
+    "maternity"
+  ],
+  "max": [
+    "maximum"
   ],
   "MBSS": [
     "modified barium swallow study"
@@ -4364,6 +5707,9 @@
   "MCD": [
     "minimal change disease"
   ],
+  "mcg": [
+    "microgram"
+  ],
   "MCH": [
     "mean cell hemoglobin",
     "mean corpuscular hemoglobin",
@@ -4381,6 +5727,9 @@
   "MCV": [
     "mean corpuscular volume"
   ],
+  "MD": [
+    "medical doctor"
+  ],
   "MDCT": [
     "multidetector row computerized tomography"
   ],
@@ -4393,11 +5742,11 @@
   "MDI": [
     "metered dose inhaler"
   ],
-  "MDS": [
-    "myelodysplastic syndrome"
-  ],
   "MDip": [
     "Master Diploma"
+  ],
+  "MDS": [
+    "myelodysplastic syndrome"
   ],
   "ME": [
     "Myalgic Encephalopathy",
@@ -4405,6 +5754,9 @@
   ],
   "MEC": [
     "Moderate emetic chemotherapy"
+  ],
+  "med": [
+    "medication"
   ],
   "MEDLINE": [
     "Medical Literature Analysis and Retrieval System Online"
@@ -4415,14 +5767,26 @@
   "MEN": [
     "multiple endocrine neoplasia"
   ],
+  "MeSH": [
+    "Medical Subject Headings"
+  ],
+  "mess": [
+    "message"
+  ],
   "MET": [
-    "metabolic equivalent"
+    "metastasis"
   ],
   "MFM": [
     "maternal and fetal medicine"
   ],
   "MG": [
-    "myasthenia gravis"
+    "milligram"
+  ],
+  "MGF": [
+    "maternal grandfather"
+  ],
+  "MGM": [
+    "maternal grandmother"
   ],
   "MGN": [
     "membranous glomerulonephritis"
@@ -4430,10 +5794,18 @@
   "MGPE": [
     "milligrams of phenytoin equivalents"
   ],
+  "MgSO4": [
+    "magnesium sulfate"
+  ],
   "MGUS": [
     "monoclonal gammopathy of undetermined significance",
     "monoclonal gammopathy of unknown significance",
     "monoclonal gammopathy of uncertain significance"
+  ],
+  "MH": [
+    "Maternal health",
+    "Mountain Hearts",
+    "mobile home"
   ],
   "MHA-TP": [
     "microhemagglutination assay for T. pallidum"
@@ -4454,12 +5826,19 @@
     "mental illness and chemical abuse",
     "mentally ill chemical abuser"
   ],
+  "micro": [
+    "microscopic"
+  ],
   "MICU": [
     "mobile intensive care unit",
     "medical intensive care unit"
   ],
   "MIF": [
     "Müllerian inhibitory factor"
+  ],
+  "min": [
+    "minimum",
+    "minute"
   ],
   "MIP": [
     "Maximum intensity projection"
@@ -4468,6 +5847,12 @@
     "Minimally Invasive Surgery",
     "Müllerian Inhibiting Substance"
   ],
+  "MJFM": [
+    "Mount Jefferson Family Medicine"
+  ],
+  "ml": [
+    "millilitre"
+  ],
   "MLC": [
     "mixed lymphocyte culture"
   ],
@@ -4475,12 +5860,13 @@
     "midline episiotomy"
   ],
   "MM": [
-    "myeloid metaplasia",
-    "middle meningeal",
-    "multiple myeloma"
+    "millimeter"
   ],
   "MMFR": [
     "midmaximal flow rate"
+  ],
+  "MMGM": [
+    "mammogram"
   ],
   "MMI": [
     "maximum medical improvement"
@@ -4508,12 +5894,18 @@
   "MMR-D": [
     "mismatch repair deficiency syndrome"
   ],
+  "MMRV": [
+    "Measles, Mumps, Rubella, Varicella vaccine"
+  ],
   "MMSE": [
     "mini-mental state examination"
   ],
   "MMT": [
     "malignant mesenchymal tumor",
     "Mixed Mullerian Tumor"
+  ],
+  "MMVD": [
+    "mixed mitral valve disease"
   ],
   "MN": [
     "membranous nephropathy"
@@ -4524,17 +5916,48 @@
     "Lou Gehrig's disease",
     "Charcot disease"
   ],
+  "MNT": [
+    "medical nutrition therapy"
+  ],
+  "Mo": [
+    "month"
+  ],
+  "MOA": [
+    "medical office assistant"
+  ],
   "MOB": [
     "mother of baby"
+  ],
+  "mod": [
+    "moderate",
+    "modified"
   ],
   "MODY": [
     "maturity onset diabetes of the young"
   ],
   "MOM": [
-    "milk of magnesia"
+    "multiples of the median"
+  ],
+  "Mon": [
+    "Monday"
+  ],
+  "mono": [
+    "mononucleosis"
+  ],
+  "Mono-Di": [
+    "monochorionic-diamniotic twins"
+  ],
+  "Mono-Mono": [
+    "monochorionic-monoamniotic twins"
   ],
   "MOPP": [
     "mechlorethamine, vincristine, procarbazine, and prednisone in combination"
+  ],
+  "MOPS": [
+    "mothers of preschoolers"
+  ],
+  "MOW": [
+    "Maternal Outreach Worker"
   ],
   "MPA": [
     "medroxyprogesterone acetate"
@@ -4558,6 +5981,9 @@
   ],
   "MPV": [
     "mean platelet volume"
+  ],
+  "MPW": [
+    "Medicaid for Pregnant Women"
   ],
   "MR": [
     "medical representative",
@@ -4593,6 +6019,9 @@
   "MS-AFP": [
     "maternal serum alpha-fetoprotein"
   ],
+  "MSAFP": [
+    "maternal serum alpha fetoprotein"
+  ],
   "MSDU": [
     "medical surgical day unit"
   ],
@@ -4621,6 +6050,9 @@
   "MSSA": [
     "methicillin-sensitive Staphylococcus aureus"
   ],
+  "MSSU": [
+    "mid-stream specimen of urine"
+  ],
   "MSU": [
     "midstream urine sample",
     "monosodium urate"
@@ -4628,11 +6060,18 @@
   "MSUD": [
     "maple syrup urine disease"
   ],
+  "MSW": [
+    "Masters in Social Work"
+  ],
   "MT": [
     "metatarsal bone"
   ],
   "MTBI": [
     "mild traumatic brain injury"
+  ],
+  "MtF": [
+    "Male to Female transgender person",
+    "trans woman"
   ],
   "MTP": [
     "metatarsalphalangeal"
@@ -4643,8 +6082,14 @@
   "MUGA": [
     "Multiple gated acquisition scan"
   ],
+  "mus": [
+    "muscle"
+  ],
   "MUSE": [
     "medicated urethral system for erections"
+  ],
+  "MV": [
+    "mitral valve"
   ],
   "MVA": [
     "motor vehicle accident"
@@ -4655,6 +6100,9 @@
   "MVI": [
     "Multivitamin"
   ],
+  "MVo2": [
+    "mixed venous oxygen concentration"
+  ],
   "MVP": [
     "mitral valve prolapse"
   ],
@@ -4664,53 +6112,62 @@
   "MVR": [
     "mitral valve replacement"
   ],
-  "MVo2": [
-    "mixed venous oxygen concentration"
+  "mvt": [
+    "movement"
   ],
-  "MeSH": [
-    "Medical Subject Headings"
+  "MYBPC3C": [
+    "myosin-binding protein C"
   ],
-  "Mg": [
-    "magnesium"
-  ],
-  "MgSO4": [
-    "magnesium sulfate"
-  ],
-  "Mo": [
-    "monocytes"
-  ],
-  "MoM": [
-    "multiples of the median"
-  ],
-  "Mono-Di": [
-    "monochorionic-diamniotic twins"
-  ],
-  "Mono-Mono": [
-    "monochorionic-monoamniotic twins"
-  ],
-  "MtF": [
-    "Male to Female transgender person",
-    "trans woman"
+  "MYH7": [
+    "myosin heavy chain 7"
   ],
   "Mφ": [
     "macrophage"
   ],
+  "M’aid": [
+    "Medicaid"
+  ],
+  "M’Care": [
+    "Medicare"
+  ],
   "N&V": [
     "nausea and vomiting"
+  ],
+  "n.s.": [
+    "not significant"
+  ],
+  "N/C V": [
+    "no charge visit"
+  ],
+  "N/G": [
+    "nasogastric"
+  ],
+  "N/S": [
+    "normal saline"
+  ],
+  "n/t": [
+    "numbness and tingling"
   ],
   "n/v": [
     "nausea and vomiting"
   ],
   "NA": [
-    "negative appendectomy",
-    "not applicable",
-    "not assessed"
+    "sodium",
+    "natrium"
+  ],
+  "Na+": [
+    "Sodium"
   ],
   "NABS": [
     "normoactive bowel sounds"
   ],
   "NAC": [
     "n-acetyl cysteine"
+  ],
+  "NaCl": [
+    "sodium chloride",
+    "saline",
+    "salt"
   ],
   "NAD": [
     "no abnormality detected",
@@ -4726,6 +6183,9 @@
   ],
   "NAS": [
     "no added salt"
+  ],
+  "NASCET": [
+    "North American Symptomatic Carotid Endarterectomy Trial"
   ],
   "NASH": [
     "Non-alcoholic steatohepatitis"
@@ -4751,17 +6211,24 @@
     "nerve action potential",
     "nasal cannula"
   ],
-  "NCAT": [
-    "Normocephalic, atraumatic", "also written NC/AT"
-  ],
   "NC/AT": [
     "Normocephalic, atraumatic"
+  ],
+  "NCAT": [
+    "Normocephalic, atraumatic",
+    "also written NC/AT"
+  ],
+  "NCBH": [
+    "North Carolina Baptist Hospital"
   ],
   "NCC": [
     "noncompaction cardiomyopathy"
   ],
   "NCEP": [
     "National Cholesterol Education Program"
+  ],
+  "NCIR": [
+    "North Carolina Immunization Registry"
   ],
   "NCS": [
     "nerve conduction study"
@@ -4774,10 +6241,19 @@
     "nerve conduction velocity",
     "nerve conduction study"
   ],
+  "NCX": [
+    "sodium-calcium exchanger"
+  ],
   "ND": [
     "examination not done",
     "not done",
     "normal delivery"
+  ],
+  "NDF": [
+    "net driving force"
+  ],
+  "NDHPs": [
+    "non-dihydropyridines"
   ],
   "NDI": [
     "nephrogenic diabetes insipidus"
@@ -4786,7 +6262,7 @@
     "National Decision Support Company"
   ],
   "NE": [
-    "norepinephrine"
+    "neutrophil granulocytes"
   ],
   "NEAD": [
     "Non-epileptic attack disorder"
@@ -4801,8 +6277,17 @@
   "NED": [
     "No evidence of disease"
   ],
+  "Neg": [
+    "negative"
+  ],
+  "Neo": [
+    "neoplasm"
+  ],
   "NES": [
     "not elsewhere specified"
+  ],
+  "neuro": [
+    "neurological"
   ],
   "NFR": [
     "not for resuscitation"
@@ -4828,6 +6313,9 @@
   ],
   "NHW": [
     "non-healing wound"
+  ],
+  "NIA": [
+    "no irregular antibodies"
   ],
   "NICMP NICM": [
     "non-ischemic cardiomyopathy"
@@ -4873,6 +6361,9 @@
   "NMR": [
     "nuclear magnetic resonance"
   ],
+  "NND": [
+    "neo-natal death"
+  ],
   "NNH": [
     "number needed to harm"
   ],
@@ -4882,6 +6373,9 @@
   "NO": [
     "nitric oxide"
   ],
+  "No.": [
+    "number"
+  ],
   "NOF": [
     "neck of femur fracture",
     "hip fracture"
@@ -4889,8 +6383,15 @@
   "NOMI": [
     "nonocclusive mesenteric ischemia"
   ],
+  "Non rep.": [
+    "do not repeat"
+  ],
   "NOS": [
-    "nitric oxide synthase", "not otherwise specified"
+    "nitric oxide synthase",
+    "not otherwise specified"
+  ],
+  "Nov": [
+    "November"
   ],
   "NP": [
     "Nurse Practitioner",
@@ -4909,6 +6410,9 @@
   "NPH": [
     "normal pressure hydrocephalus"
   ],
+  "Npl": [
+    "neoplasm"
+  ],
   "NPO": [
     "nil per os",
     "nothing by mouth"
@@ -4922,14 +6426,27 @@
   "NPTAC": [
     "no previous tracing available for comparison"
   ],
+  "NPU": [
+    "not passed urine"
+  ],
   "NPV": [
     "negative predictive value"
+  ],
+  "NPY": [
+    "neuropeptide Y"
+  ],
+  "NR": [
+    "no reaction",
+    "non reactive"
   ],
   "NRB": [
     "non-rebreather mask"
   ],
   "NRBC": [
     "nucleated red blood cells"
+  ],
+  "NRBHC": [
+    "New River Behavioral Health Care"
   ],
   "NREM": [
     "non–rapid eye movement"
@@ -4947,6 +6464,9 @@
   "NSAID": [
     "nonsteroidal antiinflammatory drug"
   ],
+  "NSAIDs": [
+    "nonsteroidal anti-inflammatory drugs"
+  ],
   "NSBB": [
     "Non-selective beta blocker"
   ],
@@ -4962,6 +6482,9 @@
   ],
   "NSE": [
     "neurospecific enolase"
+  ],
+  "nsg": [
+    "nurse"
   ],
   "NSIP": [
     "Non-specific interstitial pneumonia"
@@ -5009,6 +6532,12 @@
   "NTX": [
     "N-telopeptide"
   ],
+  "nu": [
+    "in each nostril"
+  ],
+  "Nutr": [
+    "Nutritionist"
+  ],
   "NVD": [
     "normal vaginal delivery",
     "childbirth",
@@ -5033,38 +6562,18 @@
   "NYHA": [
     "New York Heart Association"
   ],
-  "Na": [
-    "sodium",
-    "natrium"
-  ],
-  "NaCl": [
-    "sodium chloride",
-    "saline",
-    "salt"
-  ],
-  "Ne": [
-    "neutrophil granulocytes"
-  ],
-  "Neg": [
-    "negative"
-  ],
-  "Neo": [
-    "neoplasm"
-  ],
-  "No.": [
-    "number"
-  ],
-  "Non rep.": [
-    "do not repeat"
-  ],
-  "Npl": [
-    "neoplasm"
-  ],
   "Nφ": [
     "Neutrophil"
   ],
+  "o": [
+    "Nothing",
+    "hour"
+  ],
   "O&P": [
     "ova and parasites"
+  ],
+  "o.d.": [
+    "daily"
   ],
   "O/E": [
     "on examination"
@@ -5085,6 +6594,9 @@
   "OAF": [
     "osteoclast activating factor"
   ],
+  "OASIS": [
+    "Opposing Abuse with Services, Information and Shelter"
+  ],
   "OB": [
     "Occult blood",
     "obstetrics and gynecology",
@@ -5097,8 +6609,26 @@
   "ob-gyne": [
     "obstetrics and gynecology"
   ],
+  "OBCM": [
+    "Obstetric Care Manager"
+  ],
+  "Obl": [
+    "oblique"
+  ],
   "OBS": [
     "organic brain syndrome"
+  ],
+  "Obs.": [
+    "obstetrics"
+  ],
+  "obst": [
+    "obstruction"
+  ],
+  "OC": [
+    "oral contraceptive"
+  ],
+  "Occ": [
+    "occasional"
   ],
   "OCD": [
     "obsessive-compulsive disorder"
@@ -5113,16 +6643,11 @@
     "oral contraceptive pill"
   ],
   "OCT": [
-    "optical coherence tomography",
-    "oxytocin challenge test"
+    "October"
   ],
   "OD": [
-    "once daily",
-    "omne in die",
-    "right eye",
-    "oculus dexter",
-    "overdose",
-    "occupational disease"
+    "every day",
+    "omni die"
   ],
   "ODC": [
     "ornithine decarboxylase"
@@ -5130,8 +6655,11 @@
   "OE": [
     "otitis externa"
   ],
+  "oed.": [
+    "oedema"
+  ],
   "OFC": [
-    "orbitofrontal cortex"
+    "office"
   ],
   "OGTT": [
     "oral glucose tolerance test"
@@ -5145,8 +6673,15 @@
   "OHT": [
     "Orthotopic heart transplantation"
   ],
+  "Oint": [
+    "ointment"
+  ],
+  "OJ": [
+    "orange juice"
+  ],
   "OM": [
-    "otitis media"
+    "every morning",
+    "omni mane"
   ],
   "OME": [
     "otitis media with effusion"
@@ -5154,8 +6689,14 @@
   "OMS": [
     "Opsoclonus-myoclonus syndrome"
   ],
+  "on": [
+    "Ortho Novum"
+  ],
   "OOB": [
     "out of bed"
+  ],
+  "OOH": [
+    "out of hours"
   ],
   "OP": [
     "outpatient department",
@@ -5191,11 +6732,7 @@
     "orthodromic reentrant tachycardia"
   ],
   "OS": [
-    "left eye",
-    "oculus sinister",
-    "orthopedic surgery",
-    "overall survival",
-    "O’Sullivan Screen"
+    "left eye"
   ],
   "OSA": [
     "obstructive sleep apnea"
@@ -5203,11 +6740,16 @@
   "OSH": [
     "outside hospital"
   ],
+  "Osm": [
+    "osmolarity"
+  ],
+  "Osteo": [
+    "osteomyelitis"
+  ],
   "OT": [
     "occupational therapy"
   ],
   "OTC": [
-    "over-the-counter drug",
     "over the counter",
     "ortho tricyclen"
   ],
@@ -5229,20 +6771,8 @@
     "office visit",
     "ambulatory care"
   ],
-  "Obl": [
-    "oblique"
-  ],
-  "Occ": [
-    "occasional"
-  ],
-  "Oint": [
-    "ointment"
-  ],
-  "Osm": [
-    "osmolarity"
-  ],
-  "Osteo": [
-    "osteomyelitis"
+  "oz": [
+    "ounce"
   ],
   "P": [
     "parturition",
@@ -5255,8 +6785,33 @@
     "percussion and auscultation",
     "phenol and alcohol matrixectomy"
   ],
+  "P&V": [
+    "prenatal vitamins"
+  ],
   "P-Y": [
     "Pack-year"
+  ],
+  "p.c.": [
+    "after food",
+    "post cibum",
+    "after meals"
+  ],
+  "p.o.": [
+    "by mouth"
+  ],
+  "p.r.": [
+    "per rectum",
+    "rectal examination"
+  ],
+  "p.r.n.": [
+    "as required"
+  ],
+  "p.v.": [
+    "per vagina",
+    "vaginal examination"
+  ],
+  "P/P/D": [
+    "pack per day"
   ],
   "PA": [
     "posterior–anterior",
@@ -5272,6 +6827,12 @@
     "premature atrial contraction",
     "pulmonary artery catheter",
     "pulmonary artery catheterisation"
+  ],
+  "PACs": [
+    "premature atrial contractions"
+  ],
+  "PACT": [
+    "Parents and Teachers together"
   ],
   "PACU": [
     "Post-anesthesia care unit"
@@ -5310,14 +6871,17 @@
     "peripheral artery occlusive disease"
   ],
   "PAP": [
-    "Papanicolaou stain",
-    "positive airway pressure",
-    "pulmonary artery pressure",
-    "pulmonary hypertension",
-    "pulmonary alveolar proteinosis"
+    "Papanicolaou test",
+    "pap smear"
+  ],
+  "Pap Test": [
+    "papanicolaou test"
   ],
   "PAPP-A": [
     "pregnancy-associated plasma protein A"
+  ],
+  "para": [
+    "paraplegic"
   ],
   "PARA I": [
     "woman with one child"
@@ -5331,6 +6895,9 @@
   "PASP": [
     "Pulmonary artery systolic pressure"
   ],
+  "pass": [
+    "passive"
+  ],
   "PAT": [
     "paroxysmal atrial tachycardia"
   ],
@@ -5340,18 +6907,34 @@
   "PBF": [
     "peripheral blood film"
   ],
+  "pbj": [
+    "peanut butter and jelly"
+  ],
   "PBSO": [
     "partial small bowel obstruction"
   ],
   "PBX": [
     "probiotics"
   ],
+  "pc": [
+    "Primary Care"
+  ],
   "PCA": [
-    "patient-controlled analgesia"
+    "prostate cancer"
+  ],
+  "PCC": [
+    "Patient Care Coordinator",
+    "Coordination"
   ],
   "PCD": [
     "postconcussional disorder",
     "primary ciliary dyskinesia"
+  ],
+  "Pcele": [
+    "Pseudomeningocele"
+  ],
+  "PCG": [
+    "Patient Care Giver"
   ],
   "PCI": [
     "percutaneous coronary intervention"
@@ -5361,6 +6944,9 @@
   ],
   "PCL": [
     "posterior cruciate ligament"
+  ],
+  "PCMH": [
+    "Primary Care Medical Home"
   ],
   "PCN": [
     "penicillin"
@@ -5404,9 +6990,6 @@
   "PCWP": [
     "pulmonary capillary wedge pressure"
   ],
-  "PCa": [
-    "prostate cancer"
-  ],
   "PD": [
     "Parkinson's disease",
     "peritoneal dialysis",
@@ -5420,19 +7003,14 @@
     "posterior interventricular artery",
     "patent ductus arteriosus"
   ],
-  "PIV": [
-    "posterior descending artery",
-    "posterior interventricular artery"
-  ],
-  "PIVA": [
-    "posterior descending artery",
-    "posterior interventricular artery"
-  ],
   "PDD": [
     "premenstrual dysphoric disorder"
   ],
   "PDE": [
     "phosphodiesterase"
+  ],
+  "PDE-3": [
+    "phosphodiesterase isozyme 3"
   ],
   "PDGF": [
     "platelet-derived growth factor"
@@ -5462,6 +7040,9 @@
     "cisplatin, etoposide, and bleomycin",
     "chemotherapy regimen"
   ],
+  "peds": [
+    "pediatrics"
+  ],
   "PEEP": [
     "positive end-expiratory pressure"
   ],
@@ -5478,8 +7059,14 @@
     "protein / energy malnutrition",
     "Kwashiorkor"
   ],
+  "pen": [
+    "penicillin"
+  ],
   "PEP": [
     "Post-exposure prophylaxis"
+  ],
+  "Per Vag": [
+    "per vagina"
   ],
   "PERLA": [
     "pupils equal and reactive to light and accommodation"
@@ -5500,6 +7087,12 @@
     "cerebral metabolic scan",
     "pre-eclamptic toxaemia"
   ],
+  "PETN": [
+    "pentaerythritol tetranitrate"
+  ],
+  "PFC": [
+    "Partnership for Children"
+  ],
   "PFO": [
     "patent foramen ovale"
   ],
@@ -5510,10 +7103,14 @@
   "PGCS": [
     "Paediatric Glasgow Coma Scale"
   ],
+  "PGF": [
+    "paternal Grandfather"
+  ],
+  "PGM": [
+    "paternal Grandmother"
+  ],
   "PH": [
-    "Pulmonary hypertension",
-    "Past history",
-    "medical history"
+    "measure of alkalinity"
   ],
   "PHG": [
     "Portal hypertensive gastropathy"
@@ -5535,6 +7132,9 @@
     "past history",
     "medical history"
   ],
+  "phys": [
+    "physician"
+  ],
   "PI": [
     "present illness"
   ],
@@ -5555,6 +7155,14 @@
   "PIP": [
     "proximal interphalangeal joint"
   ],
+  "PIV": [
+    "posterior descending artery",
+    "posterior interventricular artery"
+  ],
+  "PIVA": [
+    "posterior descending artery",
+    "posterior interventricular artery"
+  ],
   "PJS": [
     "Peutz-Jeghers syndrome"
   ],
@@ -5567,8 +7175,14 @@
   "PKD": [
     "polycystic kidney disease"
   ],
+  "pkg": [
+    "package"
+  ],
   "PKP": [
     "penetrating keratoplasty"
+  ],
+  "pkt": [
+    "packet"
   ],
   "PKU": [
     "phenylketonuria"
@@ -5583,9 +7197,7 @@
     "platelets"
   ],
   "PM": [
-    "post meridiem",
-    "in the afternoon",
-    "postmortem"
+    "afternoon"
   ],
   "PM&R": [
     "physical medicine and rehabilitation"
@@ -5634,6 +7246,9 @@
   "PNA": [
     "postnatal age"
   ],
+  "PNC": [
+    "pre-natal client"
+  ],
   "PND": [
     "paroxysmal nocturnal dyspnea",
     "postnasal drip",
@@ -5654,8 +7269,7 @@
   ],
   "PO": [
     "by mouth",
-    "orally",
-    "per os"
+    "per os (per mouth)"
   ],
   "POA": [
     "Power of Attorney"
@@ -5674,6 +7288,10 @@
   "POLST": [
     "Physician Orders for Life-Sustaining Treatment"
   ],
+  "poly": [
+    "polymorphonuclear cells",
+    "neutrophils"
+  ],
   "PONV": [
     "postoperative nausea and vomiting"
   ],
@@ -5683,8 +7301,17 @@
     "Pelvic Organ Prolapse",
     "Progestin Only Pills"
   ],
+  "pos": [
+    "positive"
+  ],
   "POSM": [
     "plasma osmolality"
+  ],
+  "Post": [
+    "posterior"
+  ],
+  "post-op": [
+    "postoperative"
   ],
   "POT": [
     "plan of treatment"
@@ -5700,14 +7327,14 @@
     "postnatal postprandial",
     "postpartum"
   ],
+  "PPBS": [
+    "2 hour post prandial blood sugar"
+  ],
   "PPCS": [
     "prolonged post-concussion syndrome"
   ],
   "PPD": [
-    "cigarette packs per day",
-    "postpartum depression",
-    "postnatal depression",
-    "purified protein derivative"
+    "pack per day"
   ],
   "PPE": [
     "personal protective equipment"
@@ -5731,6 +7358,9 @@
   ],
   "PPS": [
     "post-polio syndrome"
+  ],
+  "Ppt": [
+    "precipitate precipitating"
   ],
   "PPTCT": [
     "prevention of parent-to-child HIV transmission"
@@ -5756,11 +7386,31 @@
   "PRBC PRBCs": [
     "packed red blood cells"
   ],
+  "pre-op": [
+    "preoperative"
+  ],
   "PREA": [
     "Pediatric Research Equity Act"
   ],
+  "prec": [
+    "precautions"
+  ],
+  "preg": [
+    "pregnancy"
+  ],
+  "Preme": [
+    "premature infant",
+    "premature birth"
+  ],
+  "Prep": [
+    "preparation",
+    "prepare"
+  ],
   "PRES": [
-    "Posterior reversible encephalopathy syndrome"
+    "prescription"
+  ],
+  "prev": [
+    "previous"
   ],
   "PRIND": [
     "prolonged reversible ischemic neurologic deficit"
@@ -5768,9 +7418,37 @@
   "PRL": [
     "prolactin"
   ],
+  "prn": [
+    "as necessary",
+    "pro re nata"
+  ],
+  "pro": [
+    "productive"
+  ],
+  "pro T": [
+    "protime"
+  ],
+  "prob": [
+    "problem"
+  ],
+  "prod": [
+    "productive"
+  ],
+  "Prog": [
+    "progress"
+  ],
   "PROM": [
     "prelabor rupture of membranespartial range of motion",
     "premature rupture of membranes"
+  ],
+  "pron": [
+    "pronate"
+  ],
+  "pros": [
+    "prosthesis"
+  ],
+  "prot": [
+    "protein"
   ],
   "PRP": [
     "panretinal photocoagulation",
@@ -5780,9 +7458,15 @@
   "PRRE": [
     "purine-rich response element"
   ],
+  "PRU": [
+    "peripheral resistance unit"
+  ],
   "PRV": [
     "polycythemia rubra vera",
     "polycythemia vera"
+  ],
+  "PS": [
+    "pulmonary stenosis"
   ],
   "PSA": [
     "prostate-specific antigen",
@@ -5814,13 +7498,18 @@
     "progressive systemic sclerosis",
     "scleroderma"
   ],
+  "PSV": [
+    "peak systolic velocity"
+  ],
   "PSVT": [
     "paroxysmal supraventricular tachycardia"
   ],
   "PT": [
-    "prothrombin time",
-    "physical therapy",
-    "physiotherapy"
+    "preterm",
+    "premature"
+  ],
+  "Pt.": [
+    "patient"
   ],
   "PTA": [
     "percutaneous transluminal angioplasty",
@@ -5850,6 +7539,9 @@
   "PTL": [
     "preterm labor"
   ],
+  "PTRA": [
+    "percutaneous transluminal renal angioplasty"
+  ],
   "PTSD": [
     "post traumatic stress disorder"
   ],
@@ -5876,6 +7568,9 @@
   "PUD": [
     "peptic ulcer disease"
   ],
+  "pulm": [
+    "pulmonary"
+  ],
   "PUO": [
     "pyrexia of unknown origin",
     "pyrexia of uncertain origin"
@@ -5890,11 +7585,14 @@
   "PVC": [
     "premature ventricular contraction"
   ],
-  "VPC": [
-    "premature ventricular contraction"
+  "PVCs": [
+    "premature ventricular contractions"
   ],
   "PVD": [
     "peripheral vascular disease"
+  ],
+  "PVE": [
+    "prosthetic valve endocarditis"
   ],
   "PVFS": [
     "post-viral fatigue syndrome"
@@ -5919,75 +7617,159 @@
     "Paroxysmal ventricular tachycardia"
   ],
   "PWD": [
-    "Pink, warm, and dry",
-    "skin assessment"
+    "powder"
   ],
   "PWP": [
     "pulmonary wedge pressure"
-  ],
-  "PZA": [
-    "pyrazinamide"
-  ],
-  "Pap": [
-    "Papanicolaou test",
-    "pap smear"
-  ],
-  "Pcele": [
-    "Pseudomeningocele"
-  ],
-  "Per Vag": [
-    "per vagina"
-  ],
-  "Post": [
-    "posterior"
-  ],
-  "Ppt": [
-    "precipitate precipitating"
-  ],
-  "Preme": [
-    "premature infant",
-    "premature birth"
-  ],
-  "Prep": [
-    "preparation",
-    "pre-exposure",
-    "prophylaxis"
-  ],
-  "PrEP": [
-    "preparation",
-    "pre-exposure",
-    "prophylaxis"
-  ],
-  "Prog": [
-    "prognosis"
-  ],
-  "Pt.": [
-    "patient"
   ],
   "Px": [
     "physical examination",
     "prognosis",
     "patient"
   ],
-  "px": [
-    "physical examination",
-    "prognosis",
-    "patient"
+  "PZA": [
+    "pyrazinamide"
   ],
-  "QALY": [
-    "quality-adjusted life year"
+  "p̄": [
+    "after",
+    "post"
   ],
-  "QIDS": [
-    "Quick Inventory of Depressive Symptoms"
+  "q": [
+    "each",
+    "every",
+    "quaque"
   ],
-  "QNS": [
-    "quantity not sufficient"
+  "q am": [
+    "every morning"
+  ],
+  "q hs": [
+    "every night"
+  ],
+  "q mo": [
+    "every month"
+  ],
+  "q.a.d.": [
+    "every other day",
+    "quaque altera die"
+  ],
+  "q.AM": [
+    "every day before noon",
+    "quaque die ante meridiem"
+  ],
+  "q.d.": [
+    "every day",
+    "quaque die"
+  ],
+  "q.d.s.": [
+    "four times each day",
+    "quater die sumendus"
+  ],
+  "q.h.": [
+    "each hour",
+    "quaque hora"
+  ],
+  "q.h.s.": [
+    "every bedtime",
+    "quaque hora somni"
+  ],
+  "q.i.d.": [
+    "four times each day",
+    "quater in die"
+  ],
+  "q.l.": [
+    "as much as you like",
+    "quantum libet"
+  ],
+  "q.m.t.": [
+    "every month"
+  ],
+  "q.n.": [
+    "every night"
   ],
   "q.n.s.": [
     "quantity not sufficient"
   ],
+  "q.o.d.": [
+    "every other day",
+    "quaque altera die"
+  ],
+  "q.o.h.": [
+    "every other hour"
+  ],
+  "q.s.": [
+    "as much as suffices",
+    "quantum satis",
+    "quantum sufficit"
+  ],
+  "q.v.": [
+    "which see",
+    "quod vide",
+    "quantum vis"
+  ],
+  "q.wk. also qw": [
+    "weekly",
+    "once a week"
+  ],
+  "q15": [
+    "every 15 minutes"
+  ],
+  "q2wk": [
+    "once every 2 weeks"
+  ],
+  "q6h": [
+    "once every 6 hours"
+  ],
+  "q6h q6°": [
+    "once every 6 hours"
+  ],
+  "qAc": [
+    "Before every meal",
+    "quaque ante cibum"
+  ],
+  "QALY": [
+    "quality-adjusted life year"
+  ],
+  "qd": [
+    "every day"
+  ],
+  "qh": [
+    "every hour"
+  ],
+  "QI": [
+    "Quality Improvement"
+  ],
+  "qid": [
+    "four times a day"
+  ],
+  "QIDS": [
+    "Quick Inventory of Depressive Symptoms"
+  ],
+  "qm": [
+    "every month"
+  ],
+  "QNS": [
+    "quantity not sufficient"
+  ],
+  "qod": [
+    "every other day"
+  ],
   "QOF": [
     "Quality and Outcomes Framework"
+  ],
+  "qomo": [
+    "every other month"
+  ],
+  "qowk": [
+    "every other week"
+  ],
+  "qt": [
+    "quart"
+  ],
+  "qtly": [
+    "quarterly"
+  ],
+  "quad": [
+    "quadriplegic"
   ],
   "R": [
     "respiration",
@@ -5997,8 +7779,19 @@
     "Routine + microscopic",
     "General analysis of urine"
   ],
+  "r/g/m": [
+    "rubs/gallops/murmurs",
+    "heart sounds"
+  ],
   "R/O": [
     "rule out"
+  ],
+  "r/r/w": [
+    "rales, rhonchi, wheezes",
+    "lung sounds"
+  ],
+  "R/S": [
+    "reschedule"
   ],
   "R/t": [
     "related to"
@@ -6010,12 +7803,14 @@
     "room air",
     "Renal Artery"
   ],
+  "RAAS": [
+    "renin-angiotensin-aldosterone system"
+  ],
   "RAD": [
-    "reflex anal dilatation",
-    "right axis deviation",
-    "reactive airway disease",
-    "radiation absorbed dose",
-    "reactive attachment disorder"
+    "radiation"
+  ],
+  "Rad hys": [
+    "radical hysterectomy"
   ],
   "RAE": [
     "right atrial enlargement"
@@ -6031,6 +7826,9 @@
   ],
   "RAS": [
     "renal artery stenosis"
+  ],
+  "RAT": [
+    "right anterior thigh"
   ],
   "RATLH": [
     "Robotic assisted total laparoscopic hysterectomy"
@@ -6051,6 +7849,9 @@
   ],
   "RBLM": [
     "recurrent benign lymphocytic meningitis"
+  ],
+  "RC": [
+    "recertification"
   ],
   "RCA": [
     "right coronary artery"
@@ -6080,12 +7881,57 @@
   "RDW": [
     "red cell distribution width"
   ],
+  "re": [
+    "regarding"
+  ],
+  "re-eval": [
+    "re-evaluate"
+  ],
+  "recd": [
+    "record"
+  ],
+  "recert": [
+    "recertification"
+  ],
+  "rec’d": [
+    "received"
+  ],
+  "ref": [
+    "referred",
+    "referral",
+    "refill"
+  ],
+  "reg": [
+    "regular"
+  ],
+  "reg.": [
+    "regular"
+  ],
+  "rehab pot": [
+    "rehabilitation potential"
+  ],
   "REI": [
     "Reproductive Endocrinology and Infertility"
   ],
   "REM": [
     "rapid eye movement",
     "roentgen equivalent man"
+  ],
+  "REP": [
+    "redness, edema, pain"
+  ],
+  "reps": [
+    "repetitions"
+  ],
+  "req": [
+    "require",
+    "required"
+  ],
+  "resp": [
+    "respirations"
+  ],
+  "retic.ct": [
+    "reticulocyte count"
   ],
   "RF": [
     "rheumatoid factor",
@@ -6104,11 +7950,26 @@
   "RFT": [
     "renal function test"
   ],
+  "Rh": [
+    "rhesus factor"
+  ],
+  "RH ED": [
+    "Registered Health Educator"
+  ],
+  "Rhabdo": [
+    "Rhabdomyolysis"
+  ],
   "RHC": [
     "right heart catheterization"
   ],
   "RHD": [
     "Rheumatic heart disease"
+  ],
+  "RhF": [
+    "rheumatoid factor"
+  ],
+  "RI": [
+    "respiratory infection"
   ],
   "RIA": [
     "radioimmunoassay"
@@ -6122,6 +7983,9 @@
   ],
   "RIF": [
     "rifampin"
+  ],
+  "RIH": [
+    "right inguinal hernia"
   ],
   "RIMA": [
     "reversible inhibitor of monoamine oxidase A"
@@ -6157,6 +8021,9 @@
   "RMSF": [
     "rocky mountain spotted fever"
   ],
+  "RN": [
+    "Registered Nurse"
+  ],
   "RNA": [
     "ribonucleic acid"
   ],
@@ -6174,6 +8041,9 @@
   ],
   "ROH": [
     "removal of hardware"
+  ],
+  "ROI": [
+    "release of information"
   ],
   "ROM": [
     "range of motion",
@@ -6193,11 +8063,17 @@
   "ROW": [
     "Rest of the Week"
   ],
+  "RP": [
+    "radial pulse"
+  ],
   "RPGN": [
     "rapidly progressing glomerulonephritis"
   ],
   "RPLND": [
     "retroperitoneal lymph node dissection"
+  ],
+  "RPLS": [
+    "reversible posterior leukoencephalopathy syndrome"
   ],
   "RPR": [
     "rapid plasma reagin test"
@@ -6220,6 +8096,9 @@
     "regular pulse",
     "regular, rate, rhythm"
   ],
+  "RRW": [
+    "rales, rhonchi, wheezes"
+  ],
   "RS cell": [
     "Reed–Sternberg cell"
   ],
@@ -6228,6 +8107,10 @@
   ],
   "RSI": [
     "rapid sequence induction"
+  ],
+  "RSOM": [
+    "right serous otitis media",
+    "spontaneous ruptured membranes"
   ],
   "RSV": [
     "respiratory syncytial virus"
@@ -6247,6 +8130,12 @@
   "RTC": [
     "return to clinic"
   ],
+  "RTI": [
+    "respiratory tract infection"
+  ],
+  "RTO": [
+    "return to office"
+  ],
   "RTS": [
     "Revised Trauma Score"
   ],
@@ -6259,6 +8148,9 @@
   "RUL": [
     "right upper lobe of lung",
     "right upper lobe"
+  ],
+  "RUOQ": [
+    "right upper outer quadrant"
   ],
   "RUQ": [
     "right upper quadrant of abdomen",
@@ -6282,6 +8174,9 @@
   "RVH": [
     "right ventricular hypertrophy"
   ],
+  "RVOT": [
+    "right ventricular outflow tract"
+  ],
   "RVR": [
     "rapid ventricular rate",
     "tachycardia"
@@ -6295,51 +8190,56 @@
   "RW": [
     "rolling walker"
   ],
-  "RXN": [
-    "reaction"
-  ],
-  "Rad hys": [
-    "radical hysterectomy"
-  ],
-  "Rh": [
-    "rhesus factor"
-  ],
-  "RhF": [
-    "rheumatoid factor"
-  ],
-  "Rhabdo": [
-    "Rhabdomyolysis"
-  ],
   "Rx": [
-    "medical prescription",
-    "prescription drug",
-    "remedy",
     "prescription",
     "drug renewal or decision"
   ],
-  "℞": [
-    "medical prescription",
-    "prescription drug",
-    "remedy"
+  "RXN": [
+    "reaction"
   ],
   "S": [
-    "sacrum",
-    "subjective"
+    "without"
+  ],
+  "S&H": [
+    "speech & hearing"
   ],
   "S&O": [
     "salpingo-oophorectomy"
   ],
+  "s.c.": [
+    "subcutaneous"
+  ],
   "S.D.": [
     "subdermal"
   ],
+  "S/E": [
+    "side effects"
+  ],
+  "S/L": [
+    "speech/language"
+  ],
+  "s/o": [
+    "symptoms of"
+  ],
+  "s/p": [
+    "status post",
+    "condition after",
+    "same phone"
+  ],
   "S/S": [
-    "signs and symptoms"
+    "signs, symptoms"
   ],
   "S/Sx": [
     "signs and symptoms"
   ],
   "S1": [
     "first heart sound"
+  ],
+  "S1,etc": [
+    "sacral"
+  ],
+  "S1S2": [
+    "heart sounds"
   ],
   "S2": [
     "second heart sound"
@@ -6350,6 +8250,9 @@
   "S4": [
     "fourth heart sound"
   ],
+  "SA": [
+    "sinoatrial"
+  ],
   "SAAG": [
     "serum–ascites albumin gradient"
   ],
@@ -6357,6 +8260,9 @@
     "staphylococcal bacteremia",
     "spontaneous abortion",
     "miscarriage"
+  ],
+  "SACT": [
+    "sinoatrial conduction time"
   ],
   "SAD": [
     "seasonal affective disorder",
@@ -6374,22 +8280,33 @@
   "SAN": [
     "sinoatrial node"
   ],
+  "SaO2": [
+    "arterial oxygen saturation"
+  ],
   "SAPS II": [
     "simplified acute physiology score"
   ],
   "SAPS III": [
     "simplified acute physiology score"
   ],
+  "SAQ": [
+    "short arc quad"
+  ],
   "SAR": [
     "seasonal allergic rhinitis",
     "sub-acute rehabilitation facility"
   ],
+  "Sarc": [
+    "sarcoidosis"
+  ],
   "SARS": [
     "severe acute respiratory syndrome"
   ],
+  "sat": [
+    "Saturday"
+  ],
   "SB": [
-    "small bowel",
-    "small intestine"
+    "Scholar batch"
   ],
   "SBE": [
     "subacute bacterial endocarditis",
@@ -6398,6 +8315,9 @@
   ],
   "SBFT": [
     "small bowel follow through"
+  ],
+  "SBHC": [
+    "School Based Health Center"
   ],
   "SBMA": [
     "spinal and bulbar muscular atrophy"
@@ -6435,6 +8355,9 @@
     "sickle-cell disease",
     "sudden cardiac death"
   ],
+  "sch": [
+    "scheduled, school"
+  ],
   "SCI": [
     "spinal cord injury"
   ],
@@ -6447,6 +8370,13 @@
   "SCLC": [
     "small cell lung cancer"
   ],
+  "scope": [
+    "microscope",
+    "endoscope"
+  ],
+  "script": [
+    "prescription"
+  ],
   "SCT": [
     "sacrococcygeal tumor"
   ],
@@ -6454,9 +8384,6 @@
     "schizophrenia"
   ],
   "SD": [
-    "standard deviation"
-  ],
-  "σ": [
     "standard deviation"
   ],
   "SDH": [
@@ -6468,19 +8395,41 @@
   "SE": [
     "standard error side effect"
   ],
+  "sec": [
+    "secretary"
+  ],
+  "Sed": [
+    "sedimentation rate",
+    "erythrocyte sedimentation rate"
+  ],
+  "sed rate": [
+    "sedimentation rate"
+  ],
   "SEE": [
     "syphilis elimination effort"
+  ],
+  "Segs": [
+    "segmented cells"
   ],
   "SEM": [
     "standard error of the mean",
     "systolic ejection murmur",
     "heart murmur"
   ],
+  "Sept": [
+    "September"
+  ],
+  "SERCA": [
+    "sarcoplasmic reticulum Ca2+-ATPase"
+  ],
   "SERM": [
     "selective estrogen receptor modulator"
   ],
   "SERT": [
     "serotonin transporter"
+  ],
+  "serv": [
+    "serving"
   ],
   "SFA": [
     "superficial femoral artery",
@@ -6512,6 +8461,13 @@
   "SHBG": [
     "sex hormone-binding globulin"
   ],
+  "shdr": [
+    "shoulder"
+  ],
+  "shob": [
+    "shortness of breath",
+    "dyspnea"
+  ],
   "SHPT": [
     "secondary hyperparathyroidism"
   ],
@@ -6523,6 +8479,10 @@
     "suicidal ideation",
     "seriously ill",
     "sacroiliac"
+  ],
+  "si op. sit": [
+    "if needed",
+    "si opus sit"
   ],
   "SIADH": [
     "syndrome of inappropriate antidiuretic hormone"
@@ -6539,6 +8499,9 @@
   ],
   "SIDS": [
     "sudden infant death syndrome"
+  ],
+  "sig": [
+    "write, let it be written"
   ],
   "SIL": [
     "squamous intra epithelial lesion"
@@ -6557,6 +8520,13 @@
   ],
   "SK": [
     "streptokinase"
+  ],
+  "SKB": [
+    "Smith Kline Beecham"
+  ],
+  "sl": [
+    "sublingual",
+    "slight"
   ],
   "SLE": [
     "systemic lupus erythematosus"
@@ -6583,11 +8553,7 @@
     "Lasègue's sign"
   ],
   "SM": [
-    "multiple sclerosis",
-    "sclerosis multiplex",
-    "submucosal",
-    "Skeletal Muscle",
-    "systolic murmur"
+    "small"
   ],
   "SMA": [
     "sequential multiple analysis",
@@ -6599,6 +8565,9 @@
   ],
   "SMA-7": [
     "serum metabolic assay"
+  ],
+  "smkg": [
+    "smoking"
   ],
   "SMN": [
     "statement of medical necessity"
@@ -6634,6 +8603,9 @@
   "SNRI": [
     "serotonin–norepinephrine reuptake inhibitor"
   ],
+  "SNS": [
+    "sympathetic nervous system"
+  ],
   "SNV": [
     "sin nombre virus",
     "hantavirus",
@@ -6656,8 +8628,17 @@
   "SOBOE": [
     "shortness of breath on exertion"
   ],
+  "SOC": [
+    "start of care"
+  ],
   "SOL": [
-    "space-occupying lesion"
+    "solution"
+  ],
+  "som": [
+    "serous otitis media"
+  ],
+  "sono": [
+    "sonogram"
   ],
   "SOOB": [
     "send out of bed",
@@ -6673,17 +8654,23 @@
     "emergency"
   ],
   "SP": [
-    "status post",
-    "condition after",
-    "systolic pressure"
+    "speech"
   ],
-  "s/p": [
-    "status post",
-    "condition after",
-    "same phone"
+  "Sp. fl.": [
+    "spinal fluid",
+    "cerebrospinal fluid"
+  ],
+  "Sp. gr.": [
+    "specific gravity"
+  ],
+  "SPab": [
+    "status post abortion"
   ],
   "SPE": [
     "streptococcal pyrogenic exotoxin"
+  ],
+  "Spec": [
+    "specimen"
   ],
   "SPECT": [
     "single-photon emission computed tomography"
@@ -6694,14 +8681,17 @@
   "SPET": [
     "single-photon emission tomography"
   ],
+  "SpO2": [
+    "peripheral capillary oxygen saturation"
+  ],
+  "spp.": [
+    "species"
+  ],
   "SPS": [
     "single point stick",
     "single point walking stick"
   ],
   "SQ": [
-    "subcutaneous"
-  ],
-  "sq": [
     "subcutaneous"
   ],
   "SR": [
@@ -6720,11 +8710,8 @@
     "shock resuscitation unit"
   ],
   "SS": [
-    "hemoglobin SS (HbSS)",
-    "subserosal",
-    "Sjogren's Syndrome",
-    "Social Security",
-    "Smart Start"
+    "one-half",
+    "semis"
   ],
   "SSC": [
     "secondary sex characteristics",
@@ -6744,11 +8731,17 @@
   "SSKI": [
     "potassium iodide solution"
   ],
+  "SSN": [
+    "Social security number"
+  ],
   "SSPE": [
     "subacute sclerosing panencephalitis"
   ],
   "SSRI": [
     "selective serotonin reuptake inhibitor"
+  ],
+  "ssRNA": [
+    "single-stranded RNA"
   ],
   "SSS": [
     "sick sinus syndrome"
@@ -6764,11 +8757,30 @@
   "ST": [
     "sore throat speech therapy"
   ],
+  "STA": [
+    "superior thyroid artery"
+  ],
   "STAC": [
     "Scaffolding theory of cognitive aging"
   ],
+  "Staph.": [
+    "Staphylococcus"
+  ],
+  "stat": [
+    "immediately",
+    "statim"
+  ],
+  "stat.": [
+    "immediately (Latin)"
+  ],
   "STD": [
     "sexually transmitted disease"
+  ],
+  "STD’s": [
+    "sexually transmitted disease"
+  ],
+  "STE": [
+    "self testicle exam"
   ],
   "STEC": [
     "Shiga toxin–producing Escherichia coli",
@@ -6796,9 +8808,27 @@
     "surgical termination of pregnancy",
     "suction termination of pregnancy"
   ],
+  "Strep": [
+    "Streptococcus A test"
+  ],
+  "Strep.": [
+    "Streptococcus"
+  ],
+  "Strepto.": [
+    "Streptococcus"
+  ],
   "STS": [
     "serological test for syphilis",
     "soft tissue sarcoma"
+  ],
+  "subl": [
+    "sublingual"
+  ],
+  "sublux": [
+    "subluxation"
+  ],
+  "Subq": [
+    "subcutaneous"
   ],
   "SUD": [
     "substance use disorder"
@@ -6806,8 +8836,31 @@
   "SUI": [
     "stress urinary incontinence"
   ],
+  "Sun": [
+    "Sunday"
+  ],
+  "sup": [
+    "supine"
+  ],
+  "supin": [
+    "supination",
+    "supinate"
+  ],
+  "Supp": [
+    "suppository"
+  ],
+  "supv": [
+    "supervisor"
+  ],
+  "surg": [
+    "surgery"
+  ],
   "SUV": [
     "standardized uptake value"
+  ],
+  "Sux": [
+    "Suxamethonium chloride",
+    "Succinylcholine"
   ],
   "SV": [
     "seminal vesicle",
@@ -6827,6 +8880,9 @@
   "SVG": [
     "Saphenous vein graft"
   ],
+  "svgs": [
+    "servings"
+  ],
   "SVI": [
     "systemic viral infection"
   ],
@@ -6839,8 +8895,17 @@
   "SVT": [
     "supraventricular tachycardia"
   ],
+  "SVTs": [
+    "supraventricular tachycardias"
+  ],
   "SW": [
     "Sturge–Weber syndrome"
+  ],
+  "SWD": [
+    "short wave diathermy"
+  ],
+  "Sx": [
+    "symptoms"
   ],
   "SXA": [
     "single-energy X-ray absorptiometer"
@@ -6848,62 +8913,15 @@
   "SXR": [
     "skull x-ray"
   ],
-  "SaO2": [
-    "arterial oxygen saturation"
-  ],
-  "Sarc": [
-    "sarcoidosis"
-  ],
-  "Sb": [
-    "Scholar batch"
-  ],
-  "Sed": [
-    "sedimentation rate",
-    "erythrocyte sedimentation rate"
-  ],
-  "Segs": [
-    "segmented cells"
-  ],
-  "Sol": [
-    "solution"
-  ],
-  "Sp. fl.": [
-    "spinal fluid",
-    "cerebrospinal fluid"
-  ],
-  "Sp. gr.": [
-    "specific gravity"
-  ],
-  "SpO2": [
-    "peripheral capillary oxygen saturation"
-  ],
-  "Spec": [
-    "specimen"
-  ],
-  "Staph.": [
-    "Staphylococcus"
-  ],
-  "Strep.": [
-    "Streptococcus"
-  ],
-  "Strepto.": [
-    "Streptococcus"
-  ],
-  "Subq": [
-    "subcutaneous"
-  ],
-  "Supp": [
-    "suppository"
-  ],
-  "Sux": [
-    "Suxamethonium chloride",
-    "Succinylcholine"
-  ],
-  "Sx": [
-    "symptoms"
+  "Symbol": [
+    "Definition"
   ],
   "Sz": [
     "seizure"
+  ],
+  "s̅": [
+    "without",
+    "sine"
   ],
   "T": [
     "thoracic vertebrae",
@@ -6935,14 +8953,19 @@
   "T2RF": [
     "type 2 respiratory failure"
   ],
+  "T3": [
+    "tri-iodothyronine"
+  ],
   "TA": [
     "temporal arteritis",
     "tricuspid atresia",
     "Tibial Artery"
   ],
   "TAB": [
-    "therapeutic abortion",
-    "threatened abortion"
+    "tablet"
+  ],
+  "tabs": [
+    "tablets"
   ],
   "TAH": [
     "total abdominal hysterectomy"
@@ -6953,8 +8976,14 @@
   "TAP": [
     "trypsinogen activation peptide"
   ],
+  "TAPVC": [
+    "total anomalous pulmonary venous connection"
+  ],
   "TAPVR": [
     "total anomalous pulmonary venous return"
+  ],
+  "TAPVR/D": [
+    "total anomalous pulmonary venous return/drainage"
   ],
   "TAT": [
     "thematic apperception test"
@@ -6972,6 +9001,9 @@
     "tuberculosis",
     "total body crunch"
   ],
+  "TbEC": [
+    "Enteric coated tablet"
+  ],
   "TBG": [
     "thyroid-binding globulin"
   ],
@@ -6985,6 +9017,9 @@
   ],
   "TBSA": [
     "Total body surface area"
+  ],
+  "tbsp": [
+    "tablespoon"
   ],
   "TBW": [
     "Tension band wiring",
@@ -7014,21 +9049,31 @@
   "TCP": [
     "Thrombocytopenia"
   ],
+  "TCPC": [
+    "total cavopulmonary connection"
+  ],
   "TCT": [
     "thrombin clotting time"
   ],
   "TD": [
-    "Tardive dyskinesia"
+    "tetanus and diphtheria combined vaccination",
+    "adult tetanus diptheria"
+  ],
+  "TDaP": [
+    "Tetanus, diptheria, acceular pertussis"
   ],
   "TDD": [
     "Total daily dose"
+  ],
+  "TdP": [
+    "Torsades de pointes"
   ],
   "TDS": [
     "three times a day",
     "ter die sumendus"
   ],
-  "TDaP": [
-    "tetanus, diphtheria, and acellular pertussis combined vaccine"
+  "TdT": [
+    "terminal deoxynucleotidyl transferase"
   ],
   "TE": [
     "tracheoesophageal",
@@ -7051,11 +9096,17 @@
   "TEM": [
     "transmission electron microscopy"
   ],
+  "Temp": [
+    "temperature"
+  ],
   "TEN": [
     "toxic epidermal necrolysis"
   ],
   "TENS": [
     "transcutaneous electrical nerve stimulator"
+  ],
+  "TEN’s": [
+    "transcutaneous electrical nerve stimulation"
   ],
   "TF": [
     "transfer"
@@ -7063,10 +9114,14 @@
   "TFR": [
     "tumor volume to fetal weight ratio"
   ],
+  "TFT": [
+    "Thyroid function test"
+  ],
   "TFTs": [
     "thyroid function tests"
   ],
   "TG": [
+    "thyroglobulin",
     "triglycerides"
   ],
   "TGA": [
@@ -7081,8 +9136,17 @@
   "TGV": [
     "transposition of the great vessels"
   ],
+  "th": [
+    "thigh"
+  ],
+  "ThC": [
+    "Throat culture"
+  ],
   "THR": [
     "total hip replacement"
+  ],
+  "Thurs": [
+    "Thursday"
   ],
   "TI": [
     "terminal ileum",
@@ -7091,15 +9155,23 @@
   "TIA": [
     "transient ischemic attack"
   ],
+  "Tib-Fib": [
+    "tibia and fibula"
+  ],
   "TIBC": [
     "total iron-binding capacity"
   ],
   "TID": [
-    "three times a day",
-    "ter in die"
+    "three times a day"
+  ],
+  "TIMI": [
+    "Thrombolysis in Myocardial Infarction"
   ],
   "TIN": [
     "tubulointerstitial nephritis"
+  ],
+  "tinct": [
+    "tincture"
   ],
   "TIPS": [
     "transjugular intrahepatic portosystemic shunt"
@@ -7116,6 +9188,9 @@
   ],
   "TKVO": [
     "to keep vein open"
+  ],
+  "TL": [
+    "tubal ligation"
   ],
   "TLA": [
     "three letter acronym"
@@ -7150,17 +9225,32 @@
     "temporomandibular joint",
     "temporo-mandibular  joint"
   ],
+  "TnC": [
+    "troponin C"
+  ],
   "TNF": [
     "tumor necrosis factor"
   ],
   "TNG": [
     "trinitroglycerin"
   ],
+  "TnI": [
+    "troponin I"
+  ],
   "TNM": [
     "tumor-nodes-metastases"
   ],
+  "TNNT2": [
+    "cardiac troponin T"
+  ],
+  "TnT": [
+    "troponin T"
+  ],
   "TNTC": [
     "too numerous to count"
+  ],
+  "TO": [
+    "telephone order"
   ],
   "TOA": [
     "tuboovarian abscess"
@@ -7178,6 +9268,9 @@
   "TOF": [
     "tetralogy of Fallot"
   ],
+  "tol": [
+    "tolerant"
+  ],
   "TOP": [
     "termination of pregnancy"
   ],
@@ -7187,6 +9280,9 @@
   "TP": [
     "total protein"
   ],
+  "TPa": [
+    "tissue plasminogen activator"
+  ],
   "TPN": [
     "total parenteral nutrition"
   ],
@@ -7194,14 +9290,18 @@
     "total peripheral resistance",
     "temperature, pulse, respiration"
   ],
-  "TPa": [
-    "tissue plasminogen activator"
-  ],
   "TR": [
-    "tricuspid regurgitation"
+    "trace"
+  ],
+  "trach": [
+    "trachea",
+    "tracheotomy"
   ],
   "TRAM": [
     "transverse rectus abdominis myocutaneous flap"
+  ],
+  "transp": [
+    "transportation"
   ],
   "TRAP": [
     "tartrate-resistant acid phosphatase"
@@ -7215,12 +9315,24 @@
   "TRH": [
     "thyrotropin-releasing hormone"
   ],
+  "Trich": [
+    "Trichomonas"
+  ],
+  "Trig": [
+    "triglycerides"
+  ],
+  "Triple-A": [
+    "abdominal aortic aneurysm"
+  ],
   "TRT": [
     "testosterone replacement therapy"
   ],
   "TRUSP": [
     "Transrectal Ultrasonography of the Prostate",
     "Transrectal Ultrasound of the Prostate"
+  ],
+  "TRUST": [
+    "Test for Syphilis"
   ],
   "TS": [
     "tricuspid stenosis"
@@ -7235,6 +9347,13 @@
   ],
   "TSI": [
     "Thyroid Stimulating Immunoglobulin"
+  ],
+  "Tsp": [
+    "teaspoon",
+    "dram"
+  ],
+  "TST": [
+    "Tuberculin Skin Test"
   ],
   "TT": [
     "thrombin time"
@@ -7265,8 +9384,14 @@
   "TTTS": [
     "twin-to-twin transfusion syndrome"
   ],
+  "Tu": [
+    "tumor"
+  ],
   "TUBA": [
     "Trans-umbilical breast augmentation"
+  ],
+  "Tues": [
+    "Tuesday"
   ],
   "TUIP": [
     "Transurethral incision of the prostate"
@@ -7300,64 +9425,44 @@
   "TVT": [
     "tension-free vaginal tape"
   ],
+  "TWB": [
+    "tap water enema"
+  ],
   "TWOC": [
     "Trial without catheter"
-  ],
-  "TXA": [
-    "Tranexamic acid"
-  ],
-  "TZD": [
-    "Thiazolidinediones"
-  ],
-  "Tab": [
-    "Tablet"
-  ],
-  "TbEC": [
-    "Enteric coated tablet"
-  ],
-  "Td": [
-    "tetanus and diphtheria combined vaccination",
-    "adult tetanus diptheria"
-  ],
-  "TdP": [
-    "Torsades de pointes"
-  ],
-  "TdT": [
-    "terminal deoxynucleotidyl transferase"
-  ],
-  "Temp": [
-    "temperature"
-  ],
-  "Tg": [
-    "thyroglobulin",
-    "triglycerides"
-  ],
-  "Tib-Fib": [
-    "tibia and fibula"
-  ],
-  "Tr": [
-    "tincture"
-  ],
-  "Tsp": [
-    "teaspoon",
-    "5 mL"
-  ],
-  "Tu": [
-    "tumor"
   ],
   "Tx": [
     "therapy",
     "transplant",
     "treatment"
   ],
+  "TXA": [
+    "Tranexamic acid"
+  ],
+  "TXA2": [
+    "thromboxane"
+  ],
   "Txp": [
     "transport"
+  ],
+  "TZD": [
+    "Thiazolidinediones"
   ],
   "U&E": [
     "urea and electrolytes"
   ],
   "U/A": [
     "upon arrival"
+  ],
+  "U/C": [
+    "urine culture",
+    "uterine contractions"
+  ],
+  "U/L": [
+    "units per litre"
+  ],
+  "U/O": [
+    "urinary output"
   ],
   "UA": [
     "urinalysis",
@@ -7374,6 +9479,9 @@
   "UC": [
     "ulcerative colitis",
     "uterine contraction"
+  ],
+  "UCG": [
+    "pregnancy test"
   ],
   "UCHD": [
     "usual childhood diseases"
@@ -7403,6 +9511,9 @@
   "UFE": [
     "Uterine Fibroid Embolization"
   ],
+  "UFH": [
+    "unfractionated heparin"
+  ],
   "UGI": [
     "upper gastrointestinal"
   ],
@@ -7412,16 +9523,23 @@
   "ULN": [
     "upper limit of normal"
   ],
+  "UMN": [
+    "upper motor neurone"
+  ],
+  "Ung": [
+    "ointment",
+    "unguentum"
+  ],
+  "Unk": [
+    "unknown"
+  ],
   "UNOS": [
     "United Network for Organ Sharing"
-  ],
-  "UOP": [
-    "urinary output"
   ],
   "UO": [
     "urinary output"
   ],
-  "U/O": [
+  "UOP": [
     "urinary output"
   ],
   "UOSM": [
@@ -7474,6 +9592,12 @@
   "USS": [
     "ultrasound scan"
   ],
+  "UTA": [
+    "unable to access"
+  ],
+  "UTD": [
+    "up to date"
+  ],
   "UTI": [
     "urinary tract infection"
   ],
@@ -7483,28 +9607,36 @@
   "UVAL": [
     "ultraviolet argon laser"
   ],
-  "Ung": [
-    "ointment",
-    "unguentum"
-  ],
-  "Unk": [
-    "unknown"
-  ],
   "V": [
     "ventilation"
   ],
+  "V tach": [
+    "ventricular tachycardia"
+  ],
+  "V-fib": [
+    "ventricular fibrillation"
+  ],
   "V/Q": [
     "ventilation / perfusion scan"
+  ],
+  "V1A": [
+    "vasopressin type 1A (V1A) receptor"
+  ],
+  "V2": [
+    "vasopressin type 2 (V2) receptor"
   ],
   "VA": [
     "visual acuity",
     "Veteran’s Hospital"
   ],
   "VAC": [
-    "vincristine, actinomycin D, and cyclophosphamide"
+    "vaccine"
   ],
   "VAD": [
     "ventricular assist device vincristine, adriblastine, dexamethasone"
+  ],
+  "Vag": [
+    "vaginal"
   ],
   "VAI": [
     "vincristine, actinomycin D, and ifosfamide"
@@ -7513,9 +9645,14 @@
     "vesicle-associated membrane protein",
     "vincristine, adriblastine, methylprednisone"
   ],
+  "VAR": [
+    "Varicella"
+  ],
   "VAS": [
-    "vibroacoustic stimulation",
-    "visual analog scale"
+    "vasectomy"
+  ],
+  "VB": [
+    "vaginal bleeding"
   ],
   "VBAC": [
     "vaginal birth after caesarean",
@@ -7527,6 +9664,12 @@
   "VC": [
     "vital capacity",
     "verbal cue"
+  ],
+  "VCF": [
+    "vaginal contraceptive film"
+  ],
+  "vCJD": [
+    "variant Creutzfeldt–Jakob disease"
   ],
   "VCTC": [
     "voluntary counselling and testing centers"
@@ -7558,10 +9701,19 @@
   "VEE": [
     "Venezuelan equine encephalitis"
   ],
+  "veg": [
+    "vegetables"
+  ],
+  "veggies": [
+    "vegetables"
+  ],
+  "vent": [
+    "ventolater"
+  ],
   "VF": [
     "ventricular fibrillation"
   ],
-  "V-fib": [
+  "VFib or VF": [
     "ventricular fibrillation"
   ],
   "VFSS": [
@@ -7583,8 +9735,14 @@
   "VIR": [
     "Vascular Interventional Radiology"
   ],
+  "Vit": [
+    "vitamin"
+  ],
   "VLDL": [
     "very-low-density lipoprotein"
+  ],
+  "VM": [
+    "voice mail"
   ],
   "VMA": [
     "vanillylmandelic acid",
@@ -7602,6 +9760,13 @@
   "VOD": [
     "volume of distribution"
   ],
+  "vol": [
+    "volume"
+  ],
+  "VP": [
+    "venous pressure",
+    "venipuncture"
+  ],
   "VPA": [
     "valproic acid"
   ],
@@ -7610,6 +9775,9 @@
   ],
   "VPB": [
     "ventricular premature beats",
+    "premature ventricular contraction"
+  ],
+  "VPC": [
     "premature ventricular contraction"
   ],
   "VPC ": [
@@ -7629,8 +9797,14 @@
     "versus",
     "visual snow"
   ],
+  "vs/vst": [
+    "visit"
+  ],
   "VSD": [
     "ventricular septal defect"
+  ],
+  "VSDs": [
+    "ventricular septal defects"
   ],
   "VSR": [
     "ventricular septal rupture",
@@ -7651,15 +9825,21 @@
     "verotoxin-producing Escherichia coli",
     "enterohaemorrhagic E. coli"
   ],
+  "vtx": [
+    "vertex"
+  ],
   "VUR": [
     "vesicoureteral reflux"
+  ],
+  "VVs": [
+    "varicose veins"
   ],
   "VWD": [
     "ventral wall defect",
     "Von Willebrand disease"
   ],
   "VWF": [
-    "Von Willebrand factor"
+    "von Willebrand factor"
   ],
   "VZIG": [
     "varicella zoster immune globulin"
@@ -7667,17 +9847,30 @@
   "VZV": [
     "varicella zoster virus"
   ],
-  "Vag": [
-    "vaginal"
+  "W.S.": [
+    "Winston-Salem",
+    "workshop"
   ],
   "W/C": [
     "wheelchair"
   ],
+  "W/D": [
+    "well developed"
+  ],
+  "W/F": [
+    "white female"
+  ],
+  "W/M": [
+    "white male"
+  ],
+  "W/N": [
+    "well nourished"
+  ],
   "W/O": [
     "without"
   ],
-  "w/o": [
-    "without"
+  "w/u": [
+    "Workup"
   ],
   "WAIS(-R": [
     "Wechsler Adult Intelligence Scale (Revised"
@@ -7713,6 +9906,9 @@
     "white cells",
     "wheelchair"
   ],
+  "WCHD": [
+    "Watauga County Health Department"
+  ],
   "WD": [
     "well developed"
   ],
@@ -7722,8 +9918,14 @@
   "WDWN": [
     "well developed and well nourished"
   ],
+  "Wed": [
+    "Wednesday"
+  ],
   "WEE": [
     "Western equine encephalitis virus"
+  ],
+  "WFUBMC": [
+    "Wake Forest University Baptist Medical Center"
   ],
   "WG": [
     "Wegener's granulomatosis",
@@ -7734,8 +9936,17 @@
     "not dehydrated",
     "hyperhydrated"
   ],
+  "WHS": [
+    "Watauga High School"
+  ],
+  "WIC": [
+    "Women, Infants & Children nutrition program"
+  ],
   "WISC-R": [
     "Wechsler intelligence scale for children revised"
+  ],
+  "wk": [
+    "week"
   ],
   "WLE": [
     "Wide local excision"
@@ -7748,6 +9959,9 @@
   ],
   "WMA": [
     "wall motion abnormality"
+  ],
+  "WMC": [
+    "Watauga Medical Center"
   ],
   "WN": [
     "well nourished"
@@ -7762,8 +9976,14 @@
   "WOI": [
     "without incident"
   ],
+  "WPH": [
+    "Women’s Preventive Health"
+  ],
   "WPW": [
     "Wolff–Parkinson–White syndrome"
+  ],
+  "wrd": [
+    "ward"
   ],
   "WS": [
     "Waardenburg syndrome",
@@ -7780,6 +10000,18 @@
   "WSW": [
     "women who have sex with women"
   ],
+  "wt": [
+    "weight"
+  ],
+  "WTDD": [
+    "wet to dry dressings"
+  ],
+  "WWC": [
+    "Watauga Women’s Center"
+  ],
+  "x": [
+    "times"
+  ],
   "X-AFP": [
     "extended alpha-fetoprotein"
   ],
@@ -7790,17 +10022,30 @@
   "XRT": [
     "radiotherapy used in cancer treatment"
   ],
-  "YO": [
-    "years old"
+  "x̄": [
+    " except"
   ],
-  "yo": [
-    "years old"
+  "y": [
+    "yes"
   ],
   "y/o": [
     "years old"
   ],
+  "yel": [
+    "yellow"
+  ],
+  "YM": [
+    "young mothers"
+  ],
+  "YO": [
+    "years old"
+  ],
   "YPLL": [
     "years of potential life lost"
+  ],
+  "yr": [
+    "year",
+    "years"
   ],
   "YST": [
     "yolk sac tumor"
@@ -7823,403 +10068,8 @@
   "Zn": [
     "zinc"
   ],
-  "a.a.": [
-    "of each",
-    "ana ana",
-    "amino acids"
-  ],
-  "a.c. AC": [
-    "before a meal",
-    "ante cibum"
-  ],
-  "a.h.": [
-    "every other hour",
-    "alternis horis"
-  ],
-  "a.p.": [
-    "before a meal",
-    "ante prandium"
-  ],
-  "aPTT": [
-    "activated partial thromboplastin time"
-  ],
-  "ab": [
-    "abdomen",
-    "abdominal",
-    "abortion",
-    "miscarriage"
-  ],
-  "ad lib": [
-    "as desired",
-    "ad libitum",
-    "freely"
-  ],
-  "ad part. dolent": [
-    "to the painful parts",
-    "ad partes dolentes"
-  ],
-  "ad.": [
-    "right ear",
-    "auris dexter"
-  ],
-  "adm": [
-    "admission",
-    "admit"
-  ],
-  "aka": [
-    "also known as",
-    "above knee amputation"
-  ],
-  "altern. d.": [
-    "every other day",
-    "alterno die"
-  ],
-  "applic.": [
-    "applicandus",
-    "to be applied"
-  ],
-  "appy": [
-    "appendectomy"
-  ],
-  "aq.": [
-    "water",
-    "aqua"
-  ],
-  "aq. bull.": [
-    "boiling water",
-    "aqua bulliens"
-  ],
-  "aq. calid.": [
-    "warm or hot water",
-    "aqua calida"
-  ],
-  "aq. dist.": [
-    "distilled water",
-    "aqua distillata"
-  ],
-  "aq. gel.": [
-    "cold water",
-    "aqua gelida"
-  ],
-  "aur.": [
-    "ear",
-    "auris"
-  ],
-  "aur. dextro.": [
-    "to right ear",
-    "auris dextrae"
-  ],
-  "aur. laev": [
-    "to left ear",
-    "auris laevae"
-  ],
-  "aurist.": [
-    "ear drops",
-    "auristillae"
-  ],
-  "b/l": [
-    "bilateral"
-  ],
-  "bl.cult": [
-    "blood culture"
-  ],
-  "bld": [
-    "blood"
-  ],
-  "c/b": [
-    "complicated by"
-  ],
-  "c/w": [
-    "consistent with"
-  ],
-  "cAMP": [
-    "cyclic adenosine monophosphate"
-  ],
-  "cGMP": [
-    "cyclic guanosine monophosphate"
-  ],
-  "c̅": [
-    "means with"
-  ],
-  "d": [
-    "days"
-  ],
-  "dL": [
-    "deciliter"
-  ],
-  "dl": [
-    "deciliter"
-  ],
-  "dsRNA": [
-    "double-stranded RNA"
-  ],
-  "fMRI": [
-    "functional magnetic resonance imaging"
-  ],
-  "fem": [
-    "female femoral"
-  ],
-  "fl.oz.": [
-    "fluid ounce"
-  ],
-  "fxn": [
-    "function"
-  ],
-  "h": [
-    "hr",
-    "hours"
-  ],
-  "h.s.": [
-    "at bedtime",
-    "hora somni"
-  ],
-  "hCG": [
-    "human chorionic gonadotropin"
-  ],
-  "hPL": [
-    "human placental lactogen",
-    "human chorionic somatomammotropin"
-  ],
-  "hr": [
-    "hour",
-    "hours"
-  ],
-  "hs": [
-    "hours of sleep"
-  ],
-  "kg": [
-    "kilogram",
-    "kilogram (1000 grams)"
-  ],
-  "LB": [
-    "pound",
-    "pounds"
-  ],
-  "lb": [
-    "pound",
-    "pounds"
-  ],
-  "leu": [
-    "leukocytes"
-  ],
-  "lytes": [
-    "electrolytes"
-  ],
-  "met": [
-    "metastasis"
-  ],
-  "mod": [
-    "moderate",
-    "modified"
-  ],
-  "n.s.": [
-    "not significant"
-  ],
-  "n/t": [
-    "numbness and tingling"
-  ],
-  "nu": [
-    "in each nostril"
-  ],
-  "o": [
-    "Nothing",
-    "hour"
-  ],
-  "od": [
-    "every day",
-    "omni die"
-  ],
-  "om": [
-    "every morning",
-    "omni mane"
-  ],
-  "on": [
-    "every night",
-    "omni nocte"
-  ],
-  "oz": [
-    "ounce"
-  ],
-  "p.c.": [
-    "after food",
-    "post cibum",
-    "after meals"
-  ],
-  "p.r.": [
-    "per rectum",
-    "rectal examination"
-  ],
-  "p.v.": [
-    "per vagina",
-    "vaginal examination"
-  ],
-  "pen": [
-    "penicillin"
-  ],
-  "poly": [
-    "polymorphonuclear cells",
-    "neutrophils"
-  ],
-  "prn": [
-    "as necessary",
-    "pro re nata",
-    "whenever necessary"
-  ],
-  "PRN": [
-    "as necessary",
-    "pro re nata"
-  ],
-  "p̄": [
-    "after",
-    "post"
-  ],
-  "q": [
-    "each",
-    "every",
-    "quaque"
-  ],
-  "q.AM": [
-    "every day before noon",
-    "quaque die ante meridiem"
-  ],
-  "q.a.d.": [
-    "every other day",
-    "quaque altera die"
-  ],
-  "q.d.": [
-    "every day",
-    "quaque die"
-  ],
-  "q.d.s.": [
-    "four times each day",
-    "quater die sumendus"
-  ],
-  "q.h.": [
-    "each hour",
-    "quaque hora"
-  ],
-  "q.h.s.": [
-    "every bedtime",
-    "quaque hora somni"
-  ],
-  "q.i.d.": [
-    "four times each day",
-    "quater in die"
-  ],
-  "q.l.": [
-    "as much as you like",
-    "quantum libet"
-  ],
-  "q.m.t.": [
-    "every month"
-  ],
-  "qm": [
-    "every month"
-  ],
-  "q.n.": [
-    "every night"
-  ],
-  "q.o.d.": [
-    "every other day",
-    "quaque altera die"
-  ],
-  "q.o.h.": [
-    "every other hour"
-  ],
-  "q.s.": [
-    "as much as suffices",
-    "quantum satis",
-    "quantum sufficit"
-  ],
-  "q.v.": [
-    "which see",
-    "quod vide",
-    "quantum vis"
-  ],
-  "q.wk. also qw": [
-    "weekly",
-    "once a week"
-  ],
-  "q15": [
-    "every 15 minutes"
-  ],
-  "q2wk": [
-    "once every 2 weeks"
-  ],
-  "q6h": [
-    "once every 6 hours"
-  ],
-  "q6h q6°": [
-    "once every 6 hours"
-  ],
-  "qAc": [
-    "Before every meal",
-    "quaque ante cibum"
-  ],
-  "qt": [
-    "quart"
-  ],
-  "r/g/m": [
-    "rubs/gallops/murmurs",
-    "heart sounds"
-  ],
-  "r/r/w": [
-    "rales, rhonchi, wheezes",
-    "lung sounds"
-  ],
-  "scope": [
-    "microscope",
-    "endoscope"
-  ],
-  "shob": [
-    "shortness of breath",
-    "dyspnea"
-  ],
-  "si op. sit": [
-    "if needed",
-    "si opus sit"
-  ],
-  "sl": [
-    "sublingual",
-    "slight"
-  ],
-  "spp.": [
-    "species"
-  ],
-  "ss": [
-    "one-half",
-    "semis"
-  ],
-  "ssRNA": [
-    "single-stranded RNA"
-  ],
-  "stat": [
-    "immediately",
-    "statim"
-  ],
-  "s̅": [
-    "without",
-    "sine"
-  ],
-  "vCJD": [
-    "variant Creutzfeldt–Jakob disease"
-  ],
-  "w/u": [
-    "Workup"
-  ],
-  "wt": [
-    "weight"
-  ],
-  "x̄": [
-    " except"
-  ],
-  "y": [
-    "year",
-    "years"
-  ],
-  "yr": [
-    "year",
-    "years"
+  "~": [
+    "approximately"
   ],
   "ā": [
     "before"
@@ -8227,2554 +10077,20 @@
   "μmol/L": [
     "micromols per litre"
   ],
-  "1/12": [
-    "1 month"
-  ],
-  "109/L": [
-    "times ten to the power nine per litre"
-  ],
-  "AJ": [
-    "ankle jerk"
-  ],
-  "BB": [
-    "bed bath",
-    "blanket bath"
-  ],
-  "BWt": [
-    "birth weight"
-  ],
-  "c/o": [
-    "complains of"
-  ],
-  "CAT": [
-    "coaxial",
-    "computerised axial tomography",
-    "Computerized Tomography",
-    "Computerized Axial Tomography"
-  ],
-  "D&V": [
-    "diarrhoea and vomiting"
-  ],
-  "decub.": [
-    "lying down"
-  ],
-  "Dx": [
-    "diagnosis"
-  ],
-  "FH": [
-    "fetal heart",
-    "fundal height"
-  ],
-  "FHH": [
-    "fetal heart heard"
-  ],
-  "fl": [
-    "femtolitre"
-  ],
-  "fL": [
-    "femtolitre"
-  ],
-  "FTND": [
-    "full term normal delivery"
-  ],
-  "GnRH": [
-    "gonadotrophin-releasing hormone"
-  ],
-  "GPI": [
-    "general paralysis of the insane"
-  ],
-  "Gyn.": [
-    "gynaecology"
-  ],
-  "HHV-8": [
-    "human herpes virus 8"
-  ],
-  "HVS": [
-    "high vaginal swab"
-  ],
-  "infusn": [
-    "infusion"
-  ],
-  "i.v.": [
-    "intravenous"
-  ],
-  "L/L": [
-    "litres per litre"
-  ],
-  "LIF": [
-    "left iliac fossa"
-  ],
-  "LKS": [
-    "liver, kidney and spleen"
-  ],
-  "LVD": [
-    "left ventricular dysfunction"
-  ],
-  "M/F": [
-    "male / female"
-  ],
-  "M/W/S": [
-    "married / widow(er) / single"
-  ],
-  "mcg": [
-    "microgram"
-  ],
-  "mg": [
-    "milligram"
-  ],
-  "ml": [
-    "millilitre"
-  ],
-  "MSSU": [
-    "mid-stream specimen of urine"
-  ],
-  "NND": [
-    "neo-natal death"
-  ],
-  "NPU": [
-    "not passed urine"
-  ],
-  "o.d.": [
-    "daily"
-  ],
-  "Obs.": [
-    "obstetrics"
-  ],
-  "oed.": [
-    "oedema"
-  ],
-  "OOH": [
-    "out of hours"
-  ],
-  "p.o.": [
-    "by mouth"
-  ],
-  "p.r.n.": [
-    "as required"
-  ],
-  "reg.": [
-    "regular"
-  ],
-  "RI": [
-    "respiratory infection"
-  ],
-  "RIH": [
-    "right inguinal hernia"
-  ],
-  "RTI": [
-    "respiratory tract infection"
-  ],
-  "s.c.": [
-    "subcutaneous"
-  ],
-  "stat.": [
-    "immediately (Latin)"
-  ],
-  "SWD": [
-    "short wave diathermy"
-  ],
-  "T3": [
-    "tri-iodothyronine"
-  ],
-  "tabs": [
-    "tablets"
-  ],
-  "U/L": [
-    "units per litre"
-  ],
-  "UMN": [
-    "upper motor neurone"
-  ],
-  "VP": [
-    "venous pressure",
-    "venipuncture"
-  ],
-  "A&O(x3)": [
-    "alert and oriented (x3=person, place and time)"
-  ],
-  "A.D.": [
-    "as directed"
-  ],
-  "A.S.H.E.": [
-    "A Safe Home for Everyone"
-  ],
-  "A/L": [
-    "anterior lateral"
-  ],
-  "a/v": [
-    "atrial-ventricular"
-  ],
-  "aao": [
-    "awake/alert/oriented"
-  ],
-  "aarom": [
-    "active assistive range of motion"
-  ],
-  "AAS": [
-    "Ashe Alternative School"
-  ],
-  "abbr": [
-    "abbreviations"
-  ],
-  "abd": [
-    "abdomen"
-  ],
-  "abdu": [
-    "abduction"
-  ],
-  "ABS": [
-    "antibody screen"
-  ],
-  "abx": [
-    "antibiotics"
-  ],
-  "atb": [
-    "antibiotics"
-  ],
-  "ac": [
-    "before meals"
-  ],
-  "ACHD": [
-    "Ashe County Health Department"
-  ],
-  "ACHS": [
-    "Ashe County High School"
-  ],
-  "ACMS": [
-    "Ashe County Middle School"
-  ],
-  "ACM": [
-    "Arrhythmogenic cardiomyopathy"
-  ],
-  "ACPC": [
-    "Ashe County Partnership for Children"
-  ],
-  "ACRRC": [
-    "Ashe County Resource & Referral Center"
-  ],
-  "ACTA": [
-    "Ashe County Transportation Authority"
-  ],
-  "add": [
-    "adduction"
-  ],
-  "ADDS": [
-    "Ashe Developmental Day School"
-  ],
-  "ADL": [
-    "activities of daily living"
-  ],
-  "admin": [
-    "administration"
-  ],
-  "adv": [
-    "advisory",
-    "advise",
-    "advised"
-  ],
-  "AFDC": [
-    "Aid for Families with Dependent Children"
-  ],
-  "AFV": [
-    "amniotic fluid volume"
-  ],
-  "AGE": [
-    "acute gastro enteritis"
-  ],
-  "AGUS": [
-    "atypical glandular cells of undetermined significance"
-  ],
-  "AHS": [
-    "Alleghany High School"
-  ],
-  "Alb": [
-    "albumin"
-  ],
-  "AlMH": [
-    "Alleghany Memorial Hospital"
-  ],
-  "alt": [
-    "alternate"
-  ],
-  "am": [
-    "morning"
-  ],
-  "AM Assoc.": [
-    "Ashe Medical Associates"
-  ],
-  "AMAP": [
-    "as much as possible"
-  ],
-  "amb": [
-    "ambulatory",
-    "ambulation"
-  ],
-  "AMH": [
-    "Ashe Memorial Hospital"
-  ],
-  "amnio": [
-    "amniocentesis"
-  ],
-  "amt": [
-    "amount"
-  ],
-  "ans": [
-    "answer"
-  ],
-  "ans.mach": [
-    "answering machine"
-  ],
-  "ant": [
-    "anterior"
-  ],
-  "ap": [
-    "apical pulse"
-  ],
-  "APCC": [
-    "Ashe Pregnancy Care Center"
-  ],
-  "app": [
-    "applicator",
-    "application"
-  ],
-  "approx": [
-    "approximately"
-  ],
-  "appt": [
-    "appointment"
-  ],
-  "Apr": [
-    "April"
-  ],
-  "Apt": [
-    "apartment"
-  ],
-  "Aq": [
-    "H2O",
-    "water"
-  ],
-  "artic": [
-    "articulate"
-  ],
-  "as tol": [
-    "as tolerated"
-  ],
-  "ASAP": [
-    "as soon as possible"
-  ],
-  "ASCUS": [
-    "atypical squamous cells of undetermined significance"
-  ],
-  "ASQ": [
-    "Ages and Stages Questionnaire"
-  ],
-  "ASU": [
-    "Appalachian District Health Department"
-  ],
-  "ATC": [
-    "around the clock"
-  ],
-  "Aug": [
-    "August"
-  ],
-  "auth": [
-    "authority",
-    "authorize"
-  ],
-  "ax": [
-    "axillary"
-  ],
-  "Azith": [
-    "Azithromycin"
-  ],
-  "b/b": [
-    "bowel and bladder"
-  ],
-  "b/c": [
-    "because"
-  ],
-  "B/F": [
-    "black female"
-  ],
-  "B/M": [
-    "black male"
-  ],
-  "b/w. bet": [
-    "between"
-  ],
-  "Bact.": [
-    "Bacteria"
-  ],
-  "BCCCP": [
-    "breast and cervical cancer program"
-  ],
-  "bd": [
-    "board"
-  ],
-  "BH": [
-    "Braxton Hicks"
-  ],
-  "bic": [
-    "biceps"
-  ],
-  "bil": [
-    "bilateral"
-  ],
-  "bk": [
-    "black"
-  ],
-  "bka": [
-    "below knee amputation"
-  ],
-  "bkf": [
-    "breakfast"
-  ],
-  "bl": [
-    "blood"
-  ],
-  "bldg": [
-    "bleeding",
-    "building"
-  ],
-  "BLL": [
-    "bilateral lower lobes"
-  ],
-  "b/s": [
-    "blood sugar"
-  ],
-  "bm": [
-    "bowel movement"
-  ],
-  "BOW": [
-    "bag of waters"
-  ],
-  "Br": [
-    "bathroom"
-  ],
-  "brp": [
-    "bathroom privileges"
-  ],
-  "bsc": [
-    "bedside commode"
-  ],
-  "BSOM": [
-    "bilateral serous otitis media"
-  ],
-  "BUE": [
-    "bilateral upper extremities"
-  ],
-  "BUQ": [
-    "bilateral upper quadrant"
-  ],
-  "bx": [
-    "biopsy"
-  ],
-  "c.": [
-    "cup"
-  ],
-  "c/c": [
-    "colony count"
-  ],
-  "ca": [
-    "cancer"
-  ],
-  "Ca+": [
-    "calcium"
-  ],
-  "cal": [
-    "calorie"
-  ],
-  "caps": [
-    "capsule"
-  ],
-  "cath": ["catheter",
-    "catheriterized"
-  ],
-  "CB": [
-    "child birth",
-    "carotid bifurcation"
-  ],
-  "CBC": [
-    "complete blood count"
-  ],
-  "cbr": [
-    "complete bedrest"
-  ],
-  "CC4C": [
-    "Care Coordination For Children"
-  ],
-  "CCR&R": [
-    "Child Care Resource & Referral"
-  ],
-  "cert": [
-    "certification"
-  ],
-  "cg": [
-    "caregiver"
-  ],
-  "CHB": [
-    "complete heart block"
-  ],
-  "chemo": [
-    "chemotherapy"
-  ],
-  "CHI": [
-    "closed head injury"
-  ],
-  "Chl": [
-    "chloride",
-    "chlamydia"
-  ],
-  "chol": [
-    "cholesterol"
-  ],
-  "cig": [
-    "cigarette"
-  ],
-  "circ": [
-    "circumcision"
-  ],
-  "cm": [
-    "centimeter"
-  ],
-  "CNA": [
-    "certified nurse assistant"
-  ],
-  "cnt": [
-    "could not test"
-  ],
-  "C02": [
-    "carbon dioxide"
-  ],
-  "COA": [
-    "Council on Aging"
-  ],
-  "col": [
-    "colony",
-    "colonies"
-  ],
-  "colpo": [
-    "colposcopy"
-  ],
-  "comp": [
-    "complications"
-  ],
-  "compl": [
-    "complete"
-  ],
-  "cond.": [
-    "condition"
-  ],
-  "conf": [
-    "conference"
-  ],
-  "const": [
-    "constipation"
-  ],
-  "cont": [
-    "continuous",
-    "continue"
-  ],
-  "contx": [
-    "contractions"
-  ],
-  "coord": [
-    "coordinate"
-  ],
-  "COR": [
-    "heart",
-    "coronary"
-  ],
-  "cp": [
-    "chest pain",
-    "care plan"
-  ],
-  "CPS": [
-    "Child Protective Services"
-  ],
-  "Creat. cl": [
-    "creatine clearance"
-  ],
-  "cryo": [
-    "cryosurgery"
-  ],
-  "CSC": [
-    "Child Service Coordination"
-  ],
-  "C-Section": [
-    "Cesarean Section"
-  ],
-  "C-Sec": [
-    "Cesarean Section"
-  ],
-  "csf": [
-    "cerebral spinal fluid"
-  ],
-  "CSHS": [
-    "Children’s Special Health Services"
-  ],
-  "cv": [
-    "clinic visit"
-  ],
-  "CVHD": [
-    "cardiovascular heart disease",
-    "cardiovascular heart disorder"
-  ],
-  "cx": [
-    "cervix"
-  ],
-  "CX": [
-    "circumflex artery"
-  ],
-  "* up": [
-    "check up"
-  ],
-  "d/c": [
-    "discharge",
-    "discontinue"
-  ],
-  "d/t": [
-    "due to"
-  ],
-  "D/V": [
-    "diarrhea / vomiting"
-  ],
-  "da": [
-    "day"
-  ],
-  "DC": [
-    "discharge",
-    "discontinue"
-  ],
-  "DDS": [
-    "dentist"
-  ],
-  "DDST": [
-    "Denver Developmental Screening Test"
-  ],
-  "DDSTII": [
-    "Denver Developmental Screening Test"
-  ],
-  "Dec": [
-    "December"
-  ],
-  "dec": [
-    "decreased"
-  ],
-  "del": [
-    "delivered",
-    "delivery"
-  ],
-  "delt;D": [
-    "deltoid"
-  ],
-  "demo": [
-    "demonstrate"
-  ],
-  "dep": [
-    "dependent"
-  ],
-  "Depo": [
-    "Depo Provera injection"
-  ],
-  "Dept": [
-    "Department"
-  ],
-  "dev": [
-    "develop",
-    "developmental"
-  ],
-  "df": [
-    "dorsiflexion"
-  ],
-  "DHHS": [
-    "Department of Health & Human Services"
-  ],
-  "diff": [
-    "differential",
-    "different"
-  ],
-  "dil": [
-    "dilation",
-    "dialation"
-  ],
-  "dir": [
-    "direction"
-  ],
-  "Dir": [
-    "Director"
-  ],
-  "dis": [
-    "disorder"
-  ],
-  "disc": [
-    "discontinue"
-  ],
-  "DNKA": [
-    "did not keep appointment"
-  ],
-  "DNT": [
-    "did not test"
-  ],
-  "Dr": [
-    "doctor"
-  ],
-  "dr": [
-    "drain"
-  ],
-  "dmg": [
-    "drainage"
-  ],
-  "drsg": [
-    "dressing"
-  ],
-  "DSS": [
-    "Department of Social Services"
-  ],
-  "DTAP": [
-    "Diphtheria, Tetanus, Acellular Pertussis"
-  ],
-  "DT’s": [
-    "delirium tremens"
-  ],
-  "dx": [
-    "diagnosis"
-  ],
-  "dz": [
-    "disease"
-  ],
-  "EA": [
-    "energy assistance"
-  ],
-  "ec": [
-    "empty calorie"
-  ],
-  "E-coli": [
-    "Escherichia Coli"
-  ],
-  "ECV": [
-    "External cephalic version"
-  ],
-  "ed": [
-    "educate",
-    "education"
-  ],
-  "Ed": [
-    "educate",
-    "education"
-  ],
-  "edu": [
-    "educate",
-    "education"
-  ],
-  "educ": [
-    "educate",
-    "education"
-  ],
-  "EGA": [
-    "estimated gestational age"
-  ],
-  "elem": [
-    "elementary"
-  ],
-  "elix": [
-    "elixir"
-  ],
-  "emer": [
-    "emergency"
-  ],
-  "enc": [
-    "encouraged"
-  ],
-  "ESC": [
-    "Employment Security Commission",
-    "European Society of Cardiology"
-  ],
-  "et. al.": [
-    "and others"
-  ],
-  "ETOHism": [
-    "alcoholism"
-  ],
-  "eval": [
-    "evaluation"
-  ],
-  "ex": [
-    "exercise"
-  ],
-  "exer": [
-    "exercise"
-  ],
-  "exam": [
-    "examine",
-    "examination"
-  ],
-  "ext": [
-    "extension"
-  ],
-  "ext rot": [
-    "external rotation"
-  ],
-  "F&C": [
-    "foam & condom"
-  ],
-  "fam": [
-    "family"
-  ],
-  "FBD": [
-    "fibrocystic breast disease"
-  ],
-  "FD": [
-    "fetal distress"
-  ],
-  "fdg": [
-    "feedings"
-  ],
-  "Feb": [
-    "February"
-  ],
-  "FeSo4": [
-    "Iron Sulfate"
-  ],
-  "Fl": [
-    "flouride"
-  ],
-  "fib": [
-    "fibrillation"
-  ],
-  "fld": [
-    "fluid"
-  ],
-  "flex": [
-    "flexion"
-  ],
-  "FMH": [
-    "Forsythe Memorial Hospital"
-  ],
-  "FNP": [
-    "Family Nurse Practitioner"
-  ],
-  "FOCUS": [
-    "find, organize, clarify, understand, select"
-  ],
-  "foley": [
-    "foley catheter"
-  ],
-  "FP": [    "family planning"
-  ],
-  "FPNS": [
-    "family planning nurse screening"
-  ],
-  "Fr": [
-    "French (catheter size)"
-  ],
-  "freq": [
-    "frequency"
-  ],
-  "fr/jce": [
-    "fruit juice"
-  ],
-  "Fri": [
-    "Friday"
-  ],
-  "FRS": [
-    "Family Resource Center"
-  ],
-  "FS": [
-    "food stamps"
-  ],
-  "FSBS": [
-    "finger stick blood sugar",
-    "finger-stick blood sugar",
-    "blood glucose monitoring"
-  ],
-  "ft": [
-    "foot",
-    "feet"
-  ],
-  "FT": [
-    "finger tip"
-  ],
-  "FTP": [
-    "failure to progress"
-  ],
-  "FTT": [
-    "failure to thrive"
-  ],
-  "FUO": [
-    "fever of unknown origin"
-  ],
-  "FWB": [
-    "full weight bearing",
-    "fetal well being"
-  ],
-  "Fx": [
-    "fracture",
-    "fraction"
-  ],
-  "ga": [
-    "gauge"
-  ],
-  "GA": [
-    "gestational age",
-    "general anaesthesia"
-  ],
-  "gal": [
-    "gallon"
-  ],
-  "GB": [
-    "gallbladder"
-  ],
-  "GBS": [
-    "Group B Strep",
-    "Guillain–Barré syndrome"
-  ],
-  "GC": [
-    "gonorrhea culture",
-    "general condition",
-    "gonococcus"
-  ],
-  "GD": [
-    "gestational diabetes"
-  ],
-  "GED": [
-    "General Education Diploma",
-    "General Equivalency Diploma"
-  ],
-  "gen": [
-    "general"
-  ],
-  "GERD": [
-    "gastro esophageal reflux disease",
-    "gastroesophageal reflux disease"
-  ],
-  "gest": [
-    "gestation"
-  ],
-  "GI": [
-    "gastrointestinal",
-    "gastrointestinal tract"
-  ],
-  "gluc;glu": [
-    "glucose"
-  ],
-  "gm": [
-    "gram"
-  ],
-  "gr": [
-    "grain"
-  ],
-  "GS": [
-    "glucose screen"
-  ],
-  "GSW": [
-    "gunshot wound"
-  ],
-  "gt": [
-    "gait"
-  ],
-  "gtt": [
-    "drops"
-  ],
-  "G-tube": [
-    "gastrostomy tube"
-  ],
-  "GU": [
-    "genitourinary",
-    "gastric ulcer"
-  ],
-  "gyn": [
-    "gyncological"
-  ],
-  "H Ed": [
-    "health educator",
-    "health education"
-  ],
-  "H&P": [
-    "history and physicial",
-    "history and physical examination"
-  ],
-  "HS": [
-    "hour of sleep",
-    "high school",
-    "nigh"
-  ],
-  "H.Sch": [
-    "high school"
-  ],
-  "H/O": [
-    "handout",
-    "history of"
-  ],
-  "H;Hosp": [
-    "Hospice"
-  ],
-  "H2O": [
-    "water"
-  ],
-  "H2O2": [
-    "hydrogen perxoide"
-  ],
-  "HA": [
-    "headache",
-    "hypertonia arterialis",
-    "headache calcium",
-    "hydroxyapatite"
-  ],
-  "hbv": [
-    "high biological value"
-  ],
-  "HC": [
-    "Hunger Coalition",
-    "Health Check",
-    "head circumference",
-    "hemorrhagic colitis",
-    "homocysteine"
-  ],
-  "HCC": [
-    "Health Check Coordinator",
-    "hepatocellular carcinoma"
-  ],
-  "HCFM": [
-    "High Country Family Medicine"
-  ],
-  "HCHC": [
-    "High Country Health Care"
-  ],
-  "HCMH": [
-    "Hugh Chatham Memorial Hospital"
-  ],
-  "HCPC": [
-    "Hope Crisis Pregnancy Center"
-  ],
-  "Hct": [
-    "hematocrit"
-  ],
-  "HD": [
-    "Health Department",
-    "Hodgkin disease",
-    "Hemodialysis",
-    "Huntington's disease"
-  ],
-  "HEENT": [
-    "head, eyes, ears, nose, throat"
-  ],
-  "hemi": [
-    "hemiplegia"
-  ],
-  "Hep A": [
-    "Hepatitis A vaccine"
-  ],
-  "Hep B": [
-    "Hepatitis B vaccine"
-  ],
-  "Heplock": [
-    "Heparin lock"
-  ],
-  "hgb": [
-    "hemoglobin"
-  ],
-  "HGSIL": [
-    "high grade squamous intraepithelial lesion",
-    "high-grade squamous intraepithelial lesion"
-  ],
-  "HH": [
-    "home health",
-    "Hitting Head"
-  ],
-  "HHA": [
-    "Home Health Agency"
-  ],
-  "Hib": [
-    "Hemophilus influenza b conjugate vaccine",
-    "haemophilus influenzae B"
-  ],
-  "HIV": [
-    "Human Immunodeficiency Virus"
-  ],
-  "hlth": [
-    "health"
-  ],
-  "hosp": [
-    "hospital"
-  ],
-  "HPV": [
-    "human papilloma virus",
-    "human papillomavirus"
-  ],
-  "HR": [
-    "High Risk",
-    "heart rate"
-  ],
-  "HSD": [
-    "high school diploma"
-  ],
-  "HSM": [
-    "hepatosplenomegaly"
-  ],
-  "ht": [
-    "height"
-  ],
-  "HTN": [
-    "hypertension"
-  ],
-  "HUD": [
-    "Housing and Urban Development"
-  ],
-  "HUS": [
-    "hemolytic uremic syndrome"
-  ],
-  "HV": [
-    "home visit"
-  ],
-  "Hx": [
-    "history",
-    "history of"
-  ],
-  "hx": [
-    "history"
-  ],
-  "hyper": [
-    "in excess"
-  ],
-  "hypo": [
-    "less than"
-  ],
-  "I&D": [
-    "incision and drainage"
-  ],
-  "I&O": [
-    "inputs and outputs",
-    "intake and outputs"
-  ],
-  "i.e.": [
-    "for example"
-  ],
-  "IBCLC": [
-    "International Board Certified Lactation Consultant"
-  ],
-  "IBS": [
-    "irritable bowel syndrome"
-  ],
-  "IBW": [
-    "ideal body weight"
-  ],
-  "IC": [
-    "infection control",
-    "ileocecal",
-    "immunocompromised",
-    "informed consent",
-    "intensive care",
-    "interstitial cystitis",
-    "immune complex",
-    "intracardiac"
-  ],
-  "ICF": [
-    "intermediate care facility",
-    "intracellular fluid"
-  ],
-  "ID": [
-    "identify",
-    "identification",
-    "infectious dose infectious disease identifying data"
-  ],
-  "IDDM": [
-    "insulin dependent diabetes mellitus",
-    "mellitus type 1"
-  ],
-  "IFC": [
-    "infant feeding"
-  ],
-  "IM": [
-    "intramuscular"
-  ],
-  "imm": [
-    "immunization"
-  ],
-  "immun": [
-    "immunization"
-  ],
-  "imp": [
-    "improved"
-  ],
-  "in": [
-    "inch"
-  ],
-  "inappr": [
-    "inappropriate"
-  ],
-  "Inc": [
-    "incorporated",
-    "incomplete"
-  ],
-  "ind": [
-    "induction"
-  ],
-  "info": [
-    "information"
-  ],
-  "inj": [
-    "injection"
-  ],
-  "ins": [
-    "insulin",
-    "insurance"
-  ],
-  "INT": [
-    "IV lock",
-    "intermittent needle therapy"
-  ],
-  "int rot": [
-    "internal rotation"
-  ],
-  "IPPB": [
-    "intermittent positive pressure breathing",
-    "mechanical ventilation"
-  ],
-  "IPV": [
-    "injectable polio vaccine"
-  ],
-  "irr": [
-    "irregular"
-  ],
-  "isol": [
-    "isolation"
-  ],
-  "isom": [
-    "isometric"
-  ],
-  "IUD": [
-    "Intrauterine Device",
-    "intrauterine death"
-  ],
-  "IUGR": [
-    "intrauterine growth retardation",
-    "intrauterine growth restriction"
-  ],
-  "IUP": [
-    "intrauterine pregnancy"
-  ],
-  "IV": [
-    "intravenous"
-  ],
-  "IVP": [
-    "intravenous pylogram",
-    "intravenous pyelogram"
-  ],
-  "Jan": [
-    "January"
-  ],
-  "jt": [
-    "joint"
-  ],
-  "J-tube": [
-    "Jejunostomy tube"
-  ],
-  "JVD": [
-    "juglar venous distention",
-    "jugular venous distension",
-    "jugular vein distention"
-  ],
-  "K+": [
-    "Potassium"
-  ],
-  "Kcal": [
-    "kilocalorie",
-    "calorie"
-  ],
-  "kid": [
-    "kidney"
-  ],
-  "KUB": [
-    "kidney, ureter, bladder",
-    "kidneys, ureters, and bladder"
-  ],
-  "L": [
-    "left",
-    "leukocytes",
-    "lumbar vertebrae"
-  ],
-  "lt": [
-    "length"
-  ],
-  "L/D": [
-    "labor /delivery"
-  ],
-  "L/T/C": [
-    "long, thick, closed"
-  ],
-  "L1-L5": [
-    "lumbar 1-5"
-  ],
-  "lab": [
-    "laboratory"
-  ],
-  "LAB": [
-    "laboratory results or interpretation"
-  ],
-  "lang": [
-    "language"
-  ],
-  "lat": [
-    "lateral"
-  ],
-  "LAT": [
-    "left anterior thigh"
-  ],
-  "lax": [
-    "laxative"
-  ],
-  "LBP": [
-    "lowback pain",
-    "low back pain"
-  ],
-  "LCSW": [
-    "Licensed Clinical Social Worker"
-  ],
-  "LD": [
-    "learning disability"
-  ],
-  "LDN": [
-    "licensed dietitian nutritionist"
-  ],
-  "LE": [
-    "lower extremities",
-    "lupus erythematosus",
-    "lower extremity"
-  ],
-  "LEEP": [
-    "Loop electrosurgical excision procedure",
-    "loop electrical excision procedure"
-  ],
-  "leuk.": [
-    "leukocytes"
-  ],
-  "LFA": [
-    "left forearm"
-  ],
-  "lg": [
-    "large"
-  ],
-  "LGA": [
-    "large for gestational age"
-  ],
-  "LGSIL": [
-    "low grade squamous intrapithelial lesion",
-    "low-grade squamous intraepithelial lesion"
-  ],
-  "lig": [
-    "ligament"
-  ],
-  "liq": [
-    "liquid"
-  ],
-  "lit": [
-    "literature"
-  ],
-  "LLE": [
-    "left lower extremity"
-  ],
-  "LLL": [
-    "left lower lobe"
-  ],
-  "LLQ": [
-    "left lower quadrant"
-  ],
-  "LMP": [
-    "last menstrual period",
-    "first day of the menstrual period",
-    "low malignant potential"
-  ],
-  "LNMP": [
-    "last normal menstrual period"
-  ],
-  "LOC": [
-    "level of consciousness",
-    "loss of consciousness"
-  ],
-  "LOM": [
-    "left otitis media",
-    "limitation of motion"
-  ],
-  "LOS": [
-    "length of stay"
-  ],
-  "LPN": [
-    "Licensed Practical Nurse"
-  ],
-  "LRI": [
-    "lower respiratory infection"
-  ],
-  "LS": [
-    "lumbosacral",
-    "lichen sclerosus",
-    "Lynch syndrome"
-  ],
-  "LSOM": [
-    "left serous otitis media"
-  ],
-  "LT": [
-    "left thigh",
-    "heat-labile enterotoxin"
-  ],
-  "LTCS": [
-    "low transverse Caesarean section"
-  ],
-  "LUE": [
-    "left upper extremity"
-  ],
-  "LUL": [
-    "left upper lobe",
-    "left upper lobe of lung"
-  ],
-  "LUOQ": [
-    "left upper outer quadrant"
-  ],
-  "LVL": [
-    "left vastus lateralis"
-  ],
-  "m": [
-    "murmur"
-  ],
-  "M/N": [
-    "midnight"
-  ],
-  "M’aid": [
-    "Medicaid"
-  ],
-  "Mar": [
-    "March"
-  ],
-  "mat": [
-    "maternity"
-  ],
-  "max": [
-    "maximum"
-  ],
-  "M’Care": [
-    "Medicare"
-  ],
-  "MD": [
-    "medical doctor"
-  ],
-  "med": [
-    "medication"
-  ],
-  "mess": [
-    "message"
-  ],
-  "MGF": [
-    "maternal grandfather"
-  ],
-  "MGM": [
-    "maternal grandmother"
-  ],
-  "MH": [
-    "Maternal health",
-    "Mountain Hearts",
-    "mobile home"
-  ],
-  "micro": [
-    "microscopic"
-  ],
-  "min": [
-    "minimum",
-    "minute"
-  ],
-  "MJFM": [
-    "Mount Jefferson Family Medicine"
-  ],
-  "mm": [
-    "millimeter"
-  ],
-  "MMGM": [
-    "mammogram"
-  ],
-  "MMRV": [
-    "Measles, Mumps, Rubella, Varicella vaccine"
-  ],
-  "MNT": [
-    "medical nutrition therapy"
-  ],
-  "mo": [
-    "month"
-  ],
-  "MOA": [
-    "medical office assistant"
-  ],
-  "Mon": [
-    "Monday"
-  ],
-  "mono": [
-    "mononucleosis"
-  ],
-  "MOPS": [
-    "mothers of preschoolers"
-  ],
-  "MOW": [
-    "Maternal Outreach Worker"
-  ],
-  "MPW": [
-    "Medicaid for Pregnant Women"
-  ],
-  "MSAFP": [
-    "maternal serum alpha fetoprotein"
-  ],
-  "MSW": [
-    "Masters in Social Work"
-  ],
-  "mus": [
-    "muscle"
-  ],
-  "mvt": [
-    "movement"
-  ],
-  "N/C V": [
-    "no charge visit"
-  ],
-  "N/G": [
-    "nasogastric"
-  ],
-  "N/S": [
-    "normal saline"
-  ],
-  "N/V": [
-    "nausea and vomiting"
-  ],
-  "Na+": [
-    "Sodium"
-  ],
-  "NCBH": [
-    "North Carolina Baptist Hospital"
-  ],
-  "NCIR": [
-    "North Carolina Immunization Registry"
-  ],
-  "neuro": [
-    "neurological"
-  ],
-  "NIA": [
-    "no irregular antibodies"
-  ],
-  "nl": [
-    "normal"
-  ],
-  "Nov": [
-    "November"
-  ],
-  "NR": [
-    "no reaction",
-    "non reactive"
-  ],
-  "NRBHC": [
-    "New River Behavioral Health Care"
-  ],
-  "nsg": [
-    "nurse"
-  ],
-  "Nutr": [
-    "Nutritionist"
-  ],
-  "OASIS": [
-    "Opposing Abuse with Services, Information and Shelter"
-  ],
-  "OBCM": [
-    "Obstetric Care Manager"
-  ],
-  "obst": [
-    "obstruction"
-  ],
-  "OC": [
-    "oral contraceptive"
-  ],
-  "occ": [
-    "occasional"
-  ],
-  "Oct": [
-    "October"
-  ],
-  "ofc": [
-    "office"
-  ],
-  "oint": [
-    "ointment"
-  ],
-  "OJ": [
-    "orange juice"
-  ],
-  "ON": [
-    "Ortho Novum"
-  ],
-  "os": [
-    "left eye"
-  ],
-  "otc": [
-    "over the counter",
-    "ortho tricyclen"
-  ],
-  "P&V": [
-    "prenatal vitamins"
-  ],
-  "P/P/D": [
-    "pack per day"
-  ],
-  "PACT": [
-    "Parents and Teachers together"
-  ],
-  "Pap Test": [
-    "papanicolaou test"
-  ],
-  "para": [
-    "paraplegic"
-  ],
-  "pass": [
-    "passive"
-  ],
-  "pbj": [
-    "peanut butter and jelly"
-  ],
-  "pc": [
-    "after meals"
-  ],
-  "PC": [
-    "Primary Care"
-  ],
-  "PCC": [
-    "Patient Care Coordinator",
-    "Coordination"
-  ],
-  "PCG": [
-    "Patient Care Giver"
-  ],
-  "PCMH": [
-    "Primary Care Medical Home"
-  ],
-  "peds": [
-    "pediatrics"
-  ],
-  "PFC": [
-    "Partnership for Children"
-  ],
-  "PGF": [
-    "paternal Grandfather"
-  ],
-  "PGM": [
-    "paternal Grandmother"
-  ],
-  "ph": [
-    "measure of alkalinity"
-  ],
-  "phys": [
-    "physician"
-  ],
-  "pkg": [
-    "package"
-  ],
-  "pkt": [
-    "packet"
-  ],
-  "pm": [
-    "afternoon"
-  ],
-  "PNC": [
-    "pre-natal client"
-  ],
-  "po": [
-    "by mouth",
-    "per os (per mouth)"
-  ],
-  "pos": [
-    "positive"
-  ],
-  "post": [
-    "posterior"
-  ],
-  "post-op": [
-    "postoperative"
-  ],
-  "PPBS": [
-    "2 hour post prandial blood sugar"
-  ],
-  "ppd": [
-    "pack per day"
-  ],
-  "prec": [
-    "precautions"
-  ],
-  "preg": [
-    "pregnancy"
-  ],
-  "pre-op": [
-    "preoperative"
-  ],
-  "prep": [
-    "preparation",
-    "prepare"
-  ],
-  "pres": [
-    "prescription"
-  ],
-  "prev": [
-    "previous"
-  ],
-  "pro T": [
-    "protime"
-  ],
-  "pro": [
-    "productive"
-  ],
-  "prot": [
-    "protein"
-  ],
-  "prob": [
-    "problem"
-  ],
-  "prod": [
-    "productive"
-  ],
-  "prog": [
-    "progress"
-  ],
-  "pron": [
-    "pronate"
-  ],
-  "pros": [
-    "prosthesis"
-  ],
-  "pt": [
-    "patient"
-  ],
-  "Pt": [
-    "preterm",
-    "premature"
-  ],
-  "pulm": [
-    "pulmonary"
-  ],
-  "pwd": [
-    "powder"
-  ],
-  "q am": [
-    "every morning"
-  ],
-  "q hs": [
-    "every night"
-  ],
-  "q mo": [
-    "every month"
-  ],
-  "qod": [
-    "every other day"
-  ],
-  "qomo": [
-    "every other month"
-  ],
-  "qowk": [
-    "every other week"
-  ],
-  "qd": [
-    "every day"
-  ],
-  "qh": [
-    "every hour"
-  ],
-  "QI": [
-    "Quality Improvement"
-  ],
-  "qid": [
-    "four times a day"
-  ],
-  "qtly": [
-    "quarterly"
-  ],
-  "quad": [
-    "quadriplegic"
-  ],
-  "R/S": [
-    "reschedule"
-  ],
-  "r/t": [
-    "related to"
-  ],
-  "rad": [
-    "radiation"
-  ],
-  "RAT": [
-    "right anterior thigh"
-  ],
-  "re": [
-    "regarding"
-  ],
-  "recd": [
-    "record"
-  ],
-  "rec’d": [
-    "received"
-  ],
-  "recert": [
-    "recertification"
-  ],
-  "RC": [
-    "recertification"
-  ],
-  "re-eval": [
-    "re-evaluate"
-  ],
-  "ref": [
-    "referred",
-    "referral",
-    "refill"
-  ],
-  "reg": [
-    "regular"
-  ],
-  "rehab pot": [
-    "rehabilitation potential"
-  ],
-  "REP": [
-    "redness, edema, pain"
-  ],
-  "reps": [
-    "repetitions"
-  ],
-  "req": [
-    "require",
-    "required"
-  ],
-  "resp": [
-    "respirations"
-  ],
-  "retic.ct": [
-    "reticulocyte count"
-  ],
-  "RH ED": [
-    "Registered Health Educator"
-  ],
-  "RN": [
-    "Registered Nurse"
-  ],
-  "ROI": [
-    "release of information"
-  ],
-  "RP": [
-    "radial pulse"
-  ],
-  "RRW": [
-    "rales, rhonchi, wheezes"
-  ],
-  "RSOM": [
-    "right serous otitis media",
-    "spontaneous ruptured membranes"
-  ],
-  "RTO": [
-    "return to office"
-  ],
-  "RUOQ": [
-    "right upper outer quadrant"
-  ],
-  "RX": [
-    "prescription",
-    "drug renewal or decision"
-  ],
-  "s": [
-    "without"
-  ],
-  "script": [
-    "prescription"
-  ],
-  "S&H": [
-    "speech & hearing"
-  ],
-  "S/E": [
-    "side effects"
-  ],
-  "S/L": [
-    "speech/language"
-  ],
-  "s/s": [
-    "signs, symptoms"
-  ],
-  "S1,etc": [
-    "sacral"
-  ],
-  "S1S2": [
-    "heart sounds"
-  ],
-  "SAQ": [
-    "short arc quad"
-  ],
-  "sat": [
-    "saturated"
-  ],
-  "Sat": [
-    "Saturday"
-  ],
-  "SBHC": [
-    "School Based Health Center"
-  ],
-  "sch": [
-    "scheduled, school"
-  ],
-  "sec": [
-    "secretary"
-  ],
-  "sed rate": [
-    "sedimentation rate"
-  ],
-  "Sept": [
-    "September"
-  ],
-  "serv": [
-    "serving"
-  ],
-  "shdr": [
-    "shoulder"
-  ],
-  "sig": [
-    "write, let it be written"
-  ],
-  "SKB": [
-    "Smith Kline Beecham"
-  ],
-  "sm": [
-    "small"
-  ],
-  "smkg": [
-    "smoking"
-  ],
-  "s/o": [
-    "symptoms of"
-  ],
-  "SOC": [
-    "start of care"
-  ],
-  "sol": [
-    "solution"
-  ],
-  "som": [
-    "serous otitis media"
-  ],
-  "sono": [
-    "sonogram"
-  ],
-  "sp": [
-    "speech"
-  ],
-  "SPab": [
-    "status post abortion"
-  ],
-  "spec": [
-    "specimen"
-  ],
-  "subq": [
-    "subcutaneous"
-  ],
-  "SSN": [
-    "Social security number"
-  ],
-  "STD’s": [
-    "sexually transmitted disease"
-  ],
-  "STE": [
-    "self testicle exam"
-  ],
-  "Strep": [
-    "Streptococcus A test"
-  ],
-  "subl": [
-    "sublingual"
-  ],
-  "sublux": [
-    "subluxation"
-  ],
-  "Sun": [
-    "Sunday"
-  ],
-  "sup": [
-    "supine"
-  ],
-  "supin": [
-    "supination",
-    "supinate"
-  ],
-  "supp": [
-    "suppository"
-  ],
-  "supv": [
-    "supervisor"
-  ],
-  "surg": [
-    "surgery"
-  ],
-  "svgs": [
-    "servings"
-  ],
-  "sx": [
-    "symptoms"
-  ],
-  "temp": [
-    "temperature"
-  ],
-  "tab": [
-    "tablet"
-  ],
-  "tbsp": [
-    "tablespoon"
-  ],
-  "Tdap": [
-    "Tetanus, diptheria, acceular pertussis"
-  ],
-  "TEN’s": [
-    "transcutaneous electrical nerve stimulation"
-  ],
-  "TFT": [
-    "Thyroid function test"
-  ],
-  "Trig": [
-    "triglycerides"
-  ],
-  "ThC": [
-    "Throat culture"
-  ],
-  "th": [
-    "thigh"
-  ],
-  "Thurs": [
-    "Thursday"
-  ],
-  "tid": [
-    "three times a day"
-  ],
-  "tinct": [
-    "tincture"
-  ],
-  "TL": [
-    "tubal ligation"
-  ],
-  "TO": [
-    "telephone order"
-  ],
-  "tol": [
-    "tolerant"
-  ],
-  "tr": [
-    "trace"
-  ],
-  "trach": [
-    "trachea",
-    "tracheotomy"
-  ],
-  "transp": [
-    "transportation"
-  ],
-  "Trich": [
-    "Trichomonas"
-  ],
-  "TRUST": [
-    "Test for Syphilis"
-  ],
-  "tsp": [
-    "teaspoon",
-    "dram"
-  ],
-  "TST": [
-    "Tuberculin Skin Test"
-  ],
-  "Tues": [
-    "Tuesday"
-  ],
-  "TWB": [
-    "tap water enema"
-  ],
-
-  "U/C": [
-    "urine culture",
-    "uterine contractions"
-  ],
-  "UCG": [
-    "pregnancy test"
-  ],
-  "UTA": [
-    "unable to access"
-  ],
-  "UTD": [
-    "up to date"
-  ],
-  "V tach": [
-    "ventricular tachycardia"
-  ],
-  "vac": [
-    "vaccine"
-  ],
-  "vag": [
-    "vaginal"
-  ],
-  "VAR": [
-    "Varicella"
-  ],
-  "vas": [
-    "vasectomy"
-  ],
-  "VB": [
-    "vaginal bleeding"
-  ],
-  "VCF": [
-    "vaginal contraceptive film"
-  ],
-  "veg": [
-    "vegetables"
-  ],
-  "veggies": [
-    "vegetables"
-  ],
-  "vent": [
-    "ventolater"
-  ],
-  "Vit": [
-    "vitamin"
-  ],
-  "VM": [
-    "voice mail"
-  ],
-  "vol": [
-    "volume"
-  ],
-  "vs/vst": [
-    "visit"
-  ],
-  "vtx": [
-    "vertex"
-  ],
-  "WCHD": [
-    "Watauga County Health Department"
-  ],
-  "WWC": [
-    "Watauga Women’s Center"
-  ],
-  "W.S.": [
-    "Winston-Salem",
-    "workshop"
-  ],
-  "W/D": [
-    "well developed"
-  ],
-  "W/F": [
-    "white female"
-  ],
-  "W/M": [
-    "white male"
-  ],
-  "W/N": [
-    "well nourished"
-  ],
-  "Wed": [
-    "Wednesday"
-  ],
-  "WFUBMC": [
-    "Wake Forest University Baptist Medical Center"
-  ],
-  "WHS": [
-    "Watauga High School"
-  ],
-  "WIC": [
-    "Women, Infants & Children nutrition program"
-  ],
-  "wk": [
-    "week"
-  ],
-  "WMC": [
-    "Watauga Medical Center"
-  ],
-  "WPH": [
-    "Women’s Preventive Health"
-  ],
-  "wrd": [
-    "ward"
-  ],
-  "WTDD": [
-    "wet to dry dressings"
-  ],
-  "x": [
-    "times"
-  ],
-  "Y": [
-    "yes"
-  ],
-  "Y/O": [
-    "years old"
-  ],
-  "yel": [
-    "yellow"
-  ],
-  "YM": [
-    "young mothers"
-  ],
-  "Symbol": [
-    "Definition"
-  ],
-  "?": [
-    "therefore"
-  ],
-  "%": [
-    "percent"
-  ],
-  "&": [
-    "and"
+  "σ": [
+    "standard deviation"
   ],
   "‘": [
     "foot",
     "hour"
   ],
-  "+": [
-    "plus",
-    "positive"
-  ],
-  "_": [
-    "before"
-  ],
-  ":": [
-    "ration"
-  ],
-  "<": [
-    "less than or equal to"
-  ],
-  "=": [
-    "equal"
-  ],
-  ">": [
-    "greater than or equal to"
-  ],
-  "@": [
-    "at"
-  ],
-  "2o": [
-    "secondary to",
-    "due to"
-  ],
   "“": [
     "inch",
     "minute"
   ],
-  "~": [
-    "approximately"
-  ],
-  "0;?": [
-    "no",
-    "absent"
-  ],
-  "#": [
-    "pound",
-    "number"
-  ],
-  "/": [
-    "per"
-  ],
-  "0?": [
-    "male"
-  ],
-  "1:1": [
-    "between",
-    "equal parts",
-    "one to one solution"
-  ],
-  "1o": [
-    "primary"
-  ],
-  ".": [
-    "half"
-  ],
-  "..": [
-    "two"
-  ],
-  "-": [
-    "without"
-  ],
-  "ACC": [
-    "American College of Cardiology"
-  ],
-  "AFl": [
-    "atrial flutter"
-  ],
-  "AHA": [
-    "American Heart Association"
-  ],
-  "AL": [
-    "amyloidosis"
-  ],
-  "APTT": [
-    "Activated Partial Thromboplastin Time"
-  ],
-  "ARBs": [
-    "angiotensin II receptor blockers"
-  ],
-  "ARP": [
-    "absolute refractory period"
-  ],
-  "ASDs": [
-    "atrial septal defects"
-  ],
-  "aVF": [
-    "augmented voltage left foot"
-  ],
-  "aVL": [
-    "augmented voltage left arm"
-  ],
-  "AVP": [
-    "arginine vasopressin"
-  ],
-  "aVR": [
-    "augmented voltage right arm"
-  ],
-  "AVNRTs": [
-    "atrioventricular nodal reentrant tachycardias"
-  ],
-  "AVRTs": [
-    "atrioventricular reentrant tachycardias"
-  ],
-  "bpm": [
-    "beats per minute"
-  ],
-  "BVH": [
-    "biventricular hypertrophy"
-  ],
-  "CADs": [
-    "cardiovascular diseases"
-  ],
-  "CARDIA": [
-    "Coronary Artery Risk Development in Young Adults"
-  ],
-  "CCBs": [
-    "calcium channel blockers"
-  ],
-  "CICR": [
-    "calcium-induced calcium release"
-  ],
-  "CMR": [
-    "cardiovascular magnetic resonance (CMR) imaging"
-  ],
-  "CoA": [
-    "coarctation of the aorta"
-  ],
-  "CPA": [
-    "conventional peripheral angiography"
-  ],
-  "CPVT": [
-    "catecholaminergic polymorphic ventricular tachycardia"
-  ],
-  "CVDs": [
-    "chronic venous disorders"
-  ],
-  "DADs": [
-    "delayed afterdepolarizations"
-  ],
-  "DESs": [
-    "drug-eluting stents"
-  ],
-  "DHPs": [
-    "dihydropyridines"
-  ],
-  "DORV": [
-    "double outlet right ventricle"
-  ],
-  "EDP": [
-    "end-diastolic pressure"
-  ],
-  "ERP": [
-    "effective refractory period"
-  ],
-  "GSV": [
-    "great saphenous vein"
-  ],
-  "5HT": [
-    "5-hydroxytryptamine"
-  ],
-  "IVS": [
-    "interventricular septum"
-  ],
-  "JET": [
-    "junctional ectopic tachycardia"
-  ],
-  "LAA": [
-    "left atrial appendage"
-  ],
-  "LMWHs": [
-    "low molecular weight heparins"
-  ],
-  "LTRI": [
-    "lower respiratory tract infection"
-  ],
-  "LVES": [
-    "left ventricular end-systolic"
-  ],
-  "MMVD": [
-    "mixed mitral valve disease"
-  ],
-  "MV": [
-    "mitral valve"
-  ],
-  "MYBPC3C": [
-    "myosin-binding protein C"
-  ],
-  "MYH7": [
-    "myosin heavy chain 7"
-  ],
-  "NCX": [
-    "sodium-calcium exchanger"
-  ],
-  "NDF": [
-    "net driving force"
-  ],
-  "NDHPs": [
-    "non-dihydropyridines"
-  ],
-  "NPY": [
-    "neuropeptide Y"
-  ],
-  "NSAIDs": [
-    "nonsteroidal anti-inflammatory drugs"
-  ],
-  "PACs": [
-    "premature atrial contractions"
-  ],
-  "PDE-3": [
-    "phosphodiesterase isozyme 3"
-  ],
-  "PETN": [
-    "pentaerythritol tetranitrate"
-  ],
-  "PRU": [
-    "peripheral resistance unit"
-  ],
-  "PS": [
-    "pulmonary stenosis"
-  ],
-  "PSV": [
-    "peak systolic velocity"
-  ],
-  "PTRA": [
-    "percutaneous transluminal renal angioplasty"
-  ],
-  "PVCs": [
-    "premature ventricular contractions"
-  ],
-  "PVE": [
-    "prosthetic valve endocarditis"
-  ],
-  "RAAS": [
-    "renin-angiotensin-aldosterone system"
-  ],
-  "RPLS": [
-    "reversible posterior leukoencephalopathy syndrome"
-  ],
-  "RVOT": [
-    "right ventricular outflow tract"
-  ],
-  "SA": [
-    "sinoatrial"
-  ],
-  "SACT": [
-    "sinoatrial conduction time"
-  ],
-  "SERCA": [
-    "sarcoplasmic reticulum Ca2+-ATPase"
-  ],
-  "SNS": [
-    "sympathetic nervous system"
-  ],
-  "SVTs": [
-    "supraventricular tachycardias"
-  ],
-  "TAPVC": [
-    "total anomalous pulmonary venous connection"
-  ],
-  "TAPVR/D": [
-    "total anomalous pulmonary venous return/drainage"
-  ],
-  "TCPC": [
-    "total cavopulmonary connection"
-  ],
-  "TIMI": [
-    "Thrombolysis in Myocardial Infarction"
-  ],
-  "TnC": [
-    "troponin C"
-  ],
-  "TnI": [
-    "troponin I"
-  ],
-  "TnT": [
-    "troponin T"
-  ],
-  "TNNT2": [
-    "cardiac troponin T"
-  ],
-  "ToF": [
-    "tetralogy of Fallot"
-  ],
-  "TXA2": [
-    "thromboxane"
-  ],
-  "UFH": [
-    "unfractionated heparin"
-  ],
-  "V1A": [
-    "vasopressin type 1A (V1A) receptor"
-  ],
-  "V2": [
-    "vasopressin type 2 (V2) receptor"
-  ],
-  "VFib or VF": [
-    "ventricular fibrillation"
-  ],
-  "VSDs": [
-    "ventricular septal defects"
-  ],
-  "VVs": [
-    "varicose veins"
-  ],
-  "vWF": [
-    "von Willebrand factor"
-  ],
-  "STA": [
-    "superior thyroid artery"
-  ],
-  "ICA": [
-    "internal carotid artery"
-  ],
-  "ECA": [
-    "External Carotid Artery"
-  ],
-  "COW": [
-    "Circle of Willis"
-  ],
-  "ICAE": [
-    "Internal Carotid Artery Endarterectomy"
-  ],
-  "ECAS": [
-    "Extracranial Carotid Artery Stenosis"
-  ],
-  "ICAO": [
-    "Internal Carotid Artery Occlusion"
-  ],
-  "CAS": [
-    "Carotid Artery Stenting"
-  ],
-  "NASCET": [
-    "North American Symptomatic Carotid Endarterectomy Trial"
-  ],
-  "ACAS": [
-    "Asymptomatic Carotid Artery Stenosis Study"
-  ],
-  "HITS": [
-    "High-Intensity Transient Signals"
-  ],
-  "CCAIMT": [
-    "Common Carotid Artery Intima-Media Thickness"
-  ],
-  "AO": [
-    "Aorta"
-  ],
-  "BA": [
-    "Brachial Artery"
+  "℞": [
+    "medical prescription",
+    "prescription drug",
+    "remedy"
   ]
 }
