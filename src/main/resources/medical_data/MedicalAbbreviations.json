@@ -116,7 +116,8 @@
   ],
   "ABI": [
     "acquired brain injury",
-    "ankle brachial pressure index"
+    "ankle brachial pressure index",
+    "ankle-brachial index"
   ],
   "ABLA": [
     "Acute Blood Loss Anemia"
@@ -173,7 +174,8 @@
     "anterior cervical discectomy and fusion"
   ],
   "ACE": [
-    "angiotensin-converting enzyme"
+    "angiotensin-converting enzyme",
+    "angiotensin-converting enzyme (ACE) inhibitors"
   ],
   "ACEI": [
     "angiotensin-converting enzyme inhibitor"
@@ -346,7 +348,7 @@
     "aortic incompetence"
   ],
   "AICD": [
-    "automated implantable cardioverter-defibrillator"
+    "automated implantable cardioverter defibrillator"
   ],
   "AID": [
     "artificial insemination by donor"
@@ -462,7 +464,8 @@
     "altered mental status"
   ],
   "ANA": [
-    "antinuclear antibody"
+    "antinuclear antibody",
+    "antinuclear antibody (ANA) test"
   ],
   "ANCA": [
     "antineutrophil cytoplasmic antibody"
@@ -524,7 +527,8 @@
   ],
   "APD": [
     "adult polycystic disease",
-    "automated peritoneal dialysis"
+    "automated peritoneal dialysis",
+    "action potential duration"
   ],
   "APECED": [
     "autoimmune polyendocrinopathy-candidiasis-ectodermal dystrophy"
@@ -601,7 +605,8 @@
   "ART": [
     "antiretroviral therapy assuming room temperature",
     "patient has died",
-    "assisted reproductive technology"
+    "assisted reproductive technology",
+    "antidromic reentrant tachycardia"
   ],
   "ARVC": [
     "arrhythmogenic right ventricular cardiomyopathy"
@@ -864,7 +869,8 @@
     "basic acid output"
   ],
   "BAT": [
-    "brown adipose tissue"
+    "brown adipose tissue",
+    "baroreflex activation therapy"
   ],
   "BAV": [
     "bicuspid aortic valve"
@@ -1031,7 +1037,8 @@
     "bowel not open"
   ],
   "BNP": [
-    "brain natriuretic peptide"
+    "brain natriuretic peptide",
+    "B-type natriuretic peptide"
   ],
   "BO": [
     "bowel open",
@@ -1253,7 +1260,7 @@
   ],
   "CABG": [
     "coronary artery bypass graft",
-    "cabbage"
+    "coronary artery bypass graft (CABG) surgery"
   ],
   "CABP": [
     "coronary artery bypass procedure"
@@ -1478,7 +1485,8 @@
   "CHD": [
     "chronic heart disease",
     "congenital heart defect",
-    "coronary heart disease"
+    "coronary heart disease",
+    "congenital heart disease"
   ],
   "CHE": [
     "cholinesterase"
@@ -1906,7 +1914,8 @@
     "cardiovascular disorder"
   ],
   "CVI": [
-    "cerebrovascular incident"
+    "cerebrovascular incident",
+    "cavotricuspid isthmus"
   ],
   "CVID": [
     "common variable immunodeficiency"
@@ -1998,7 +2007,8 @@
     "cyclosporin A"
   ],
   "Cx": [
-    "cervix"
+    "cervix",
+    "circumflex (branch)"
   ],
   "D&C": [
     "dilatation and curettage",
@@ -2245,7 +2255,8 @@
     "dioctyl sodium sulfosuccinate"
   ],
   "DP": [
-    "dorsalis pedis"
+    "dorsalis pedis",
+    "diastolic pressure"
   ],
   "DPH": [
     "diphenylhydantoin"
@@ -2412,7 +2423,8 @@
     "extended care facility"
   ],
   "ECG": [
-    "electrocardiogram"
+    "electrocardiogram",
+    "electrocardiography"
   ],
   "ECHO": [
     "enteric cytopathic human orphan virus",
@@ -3567,7 +3579,8 @@
   ],
   "ICD": [
     "implantable cardioverter-defibrillator",
-    "intercostal drain"
+    "intercostal drain",
+    "implantable cardioverter defibrillator"
   ],
   "ICD-10": [
     "International Classification of Diseases, 10th Revision"
@@ -3591,7 +3604,9 @@
     "intracranial pressure"
   ],
   "ICS": [
-    "intercostal space inhaled corticosteroids internal carotid stenosis"
+    "intercostal space",
+    "inhaled corticosteroids",
+    "internal carotid stenosis"
   ],
   "ICSI": [
     "intracytoplasmic sperm injection"
@@ -3632,7 +3647,8 @@
     "immunohistochemistry"
   ],
   "IHD": [
-    "ischaemic heart disease"
+    "ischaemic heart disease",
+    "ischemic heart disease"
   ],
   "IHPS": [
     "infantile hypertrophic pyloric stenosis"
@@ -3950,7 +3966,9 @@
     "lecithin-to-sphingomyelin ratio"
   ],
   "LA": [
-    "left atrium lymphadenopathy local anesthetic"
+    "left atrium",
+    "lymphadenopathy",
+    "local anesthetic"
   ],
   "LAAM": [
     "L-alpha-acetylmethadol"
@@ -3980,7 +3998,8 @@
     "lymphadenopathy"
   ],
   "LAP": [
-    "leukocyte alkaline phosphatase"
+    "leukocyte alkaline phosphatase",
+    "left atrial pressure"
   ],
   "LAR": [
     "low anterior resection"
@@ -4196,7 +4215,8 @@
     "left ventricular assist device"
   ],
   "LVEDP": [
-    "left ventricular end diastolic pressure"
+    "left ventricular end diastolic pressure",
+    "left ventricular end-diastolic pressure"
   ],
   "LVEF": [
     "left ventricular ejection fraction"
@@ -4537,7 +4557,8 @@
     "menstrual regulation (unsafe abortion"
   ],
   "MRA": [
-    "magnetic resonance angiography"
+    "magnetic resonance angiography",
+    "magnetic resonance angiogram"
   ],
   "MRCP": [
     "magnetic resonance cholangiopancreatography"
@@ -4943,7 +4964,7 @@
     "non-stress cardiotocograph"
   ],
   "NSTEMI": [
-    "non-ST-elevation myocardial infarction"
+    "non-ST elevation myocardial infarction"
   ],
   "NSU": [
     "nonspecific urethritis"
@@ -5156,7 +5177,8 @@
     "oxacillin-resistant staphylococcus aureus"
   ],
   "ORT": [
-    "oral rehydration therapy"
+    "oral rehydration therapy",
+    "orthodromic reentrant tachycardia"
   ],
   "OS": [
     "left eye",
@@ -5410,7 +5432,8 @@
     "pre-eclampsia",
     "pleural effusion",
     "physical examination",
-    "physical exam"
+    "physical exam",
+    "pulmonary thromboembolism"
   ],
   "PEA": [
     "pulseless electrical activity"
@@ -6051,7 +6074,8 @@
   ],
   "RFA": [
     "Radiofrequency ablation",
-    "right forearm"
+    "right forearm",
+    "radiofrequency ablation"
   ],
   "RFLP": [
     "restriction fragment length polymorphism"
@@ -6167,7 +6191,8 @@
     "relapsing-remitting multiple sclerosis"
   ],
   "RRP": [
-    "Recurrent Respiratory Papillomatosis"
+    "Recurrent Respiratory Papillomatosis",
+    "relative refractory period"
   ],
   "RRR": [
     "regular rate and rhythm",
@@ -6322,7 +6347,8 @@
   ],
   "SAM": [
     "systolic anterior motion of the mitral valve",
-    "Severe acute malnutrition"
+    "Severe acute malnutrition",
+    "systolic anterior motion"
   ],
   "SAN": [
     "sinoatrial node"
@@ -6580,7 +6606,8 @@
   ],
   "SNP": [
     "sodium nitroprusside",
-    "single nucleotide polymorphism"
+    "single nucleotide polymorphism",
+    "supranormal period"
   ],
   "SNRI": [
     "serotonin–norepinephrine reuptake inhibitor"
@@ -6625,7 +6652,8 @@
   ],
   "SP": [
     "status post",
-    "condition after"
+    "condition after",
+    "systolic pressure"
   ],
   "s/p": [
     "status post",
@@ -6656,7 +6684,8 @@
   ],
   "SR": [
     "slow release",
-    "Sinus rhythm"
+    "Sinus rhythm",
+    "sarcoplasmic reticulum"
   ],
   "SROM": [
     "spontaneous rupture of membranes"
@@ -6724,7 +6753,8 @@
     "enterohemorrhagic E. coli"
   ],
   "STEMI": [
-    "ST elevation myocardial infarction"
+    "ST elevation myocardial infarction",
+    "ST segment elevation myocardial infarction"
   ],
   "STH": [
     "somatotropic hormone"
@@ -6884,7 +6914,8 @@
     "type 2 respiratory failure"
   ],
   "TA": [
-    "temporal arteritis"
+    "temporal arteritis",
+    "tricuspid atresia"
   ],
   "TAB": [
     "therapeutic abortion",
@@ -8926,7 +8957,8 @@
     "encouraged"
   ],
   "ESC": [
-    "Employment Security Commission"
+    "Employment Security Commission",
+    "European Society of Cardiology"
   ],
   "et. al.": [
     "and others"
@@ -9410,7 +9442,8 @@
   ],
   "JVD": [
     "juglar venous distention",
-    "jugular venous distension"
+    "jugular venous distension",
+    "jugular vein distention"
   ],
   "K+": [
     "Potassium"
@@ -10425,5 +10458,251 @@
   ],
   "-": [
     "without"
+  ],
+  "ACC": [
+    "American College of Cardiology"
+  ],
+  "AFl": [
+    "atrial flutter"
+  ],
+  "AHA": [
+    "American Heart Association"
+  ],
+  "AL": [
+    "amyloidosis"
+  ],
+  "APTT": [
+    "Activated Partial Thromboplastin Time"
+  ],
+  "ARBs": [
+    "angiotensin II receptor blockers"
+  ],
+  "ARP": [
+    "absolute refractory period"
+  ],
+  "ASDs": [
+    "atrial septal defects"
+  ],
+  "aVF": [
+    "augmented voltage left foot"
+  ],
+  "aVL": [
+    "augmented voltage left arm"
+  ],
+  "AVP": [
+    "arginine vasopressin"
+  ],
+  "aVR": [
+    "augmented voltage right arm"
+  ],
+  "AVNRTs": [
+    "atrioventricular nodal reentrant tachycardias"
+  ],
+  "AVRTs": [
+    "atrioventricular reentrant tachycardias"
+  ],
+  "bpm": [
+    "beats per minute"
+  ],
+  "BVH": [
+    "biventricular hypertrophy"
+  ],
+  "CADs": [
+    "cardiovascular diseases"
+  ],
+  "CARDIA": [
+    "Coronary Artery Risk Development in Young Adults"
+  ],
+  "CCBs": [
+    "calcium channel blockers"
+  ],
+  "CICR": [
+    "calcium-induced calcium release"
+  ],
+  "CMR": [
+    "cardiovascular magnetic resonance (CMR) imaging"
+  ],
+  "CoA": [
+    "coarctation of the aorta"
+  ],
+  "CPA": [
+    "conventional peripheral angiography"
+  ],
+  "CPVT": [
+    "catecholaminergic polymorphic ventricular tachycardia"
+  ],
+  "CVDs": [
+    "chronic venous disorders"
+  ],
+  "DADs": [
+    "delayed afterdepolarizations"
+  ],
+  "DESs": [
+    "drug-eluting stents"
+  ],
+  "DHPs": [
+    "dihydropyridines"
+  ],
+  "DORV": [
+    "double outlet right ventricle"
+  ],
+  "EDP": [
+    "end-diastolic pressure"
+  ],
+  "ERP": [
+    "effective refractory period"
+  ],
+  "GSV": [
+    "great saphenous vein"
+  ],
+  "5HT": [
+    "5-hydroxytryptamine"
+  ],
+  "IVS": [
+    "interventricular septum"
+  ],
+  "JET": [
+    "junctional ectopic tachycardia"
+  ],
+  "LAA": [
+    "left atrial appendage"
+  ],
+  "LMWHs": [
+    "low molecular weight heparins"
+  ],
+  "LTRI": [
+    "lower respiratory tract infection"
+  ],
+  "LVES": [
+    "left ventricular end-systolic"
+  ],
+  "MMVD": [
+    "mixed mitral valve disease"
+  ],
+  "MV": [
+    "mitral valve"
+  ],
+  "MYBPC3C": [
+    "myosin-binding protein C"
+  ],
+  "MYH7": [
+    "myosin heavy chain 7"
+  ],
+  "NCX": [
+    "sodium-calcium exchanger"
+  ],
+  "NDF": [
+    "net driving force"
+  ],
+  "NDHPs": [
+    "non-dihydropyridines"
+  ],
+  "NPY": [
+    "neuropeptide Y"
+  ],
+  "NSAIDs": [
+    "nonsteroidal anti-inflammatory drugs"
+  ],
+  "PACs": [
+    "premature atrial contractions"
+  ],
+  "PDE-3": [
+    "phosphodiesterase isozyme 3"
+  ],
+  "PETN": [
+    "pentaerythritol tetranitrate"
+  ],
+  "PRU": [
+    "peripheral resistance unit"
+  ],
+  "PS": [
+    "pulmonary stenosis"
+  ],
+  "PSV": [
+    "peak systolic velocity"
+  ],
+  "PTRA": [
+    "percutaneous transluminal renal angioplasty"
+  ],
+  "PVCs": [
+    "premature ventricular contractions"
+  ],
+  "PVE": [
+    "prosthetic valve endocarditis"
+  ],
+  "RAAS": [
+    "renin-angiotensin-aldosterone system"
+  ],
+  "RPLS": [
+    "reversible posterior leukoencephalopathy syndrome"
+  ],
+  "RVOT": [
+    "right ventricular outflow tract"
+  ],
+  "SA": [
+    "sinoatrial"
+  ],
+  "SACT": [
+    "sinoatrial conduction time"
+  ],
+  "SERCA": [
+    "sarcoplasmic reticulum Ca2+-ATPase"
+  ],
+  "SNS": [
+    "sympathetic nervous system"
+  ],
+  "SVTs": [
+    "supraventricular tachycardias"
+  ],
+  "TAPVC": [
+    "total anomalous pulmonary venous connection"
+  ],
+  "TAPVR/D": [
+    "total anomalous pulmonary venous return/drainage"
+  ],
+  "TCPC": [
+    "total cavopulmonary connection"
+  ],
+  "TIMI": [
+    "Thrombolysis in Myocardial Infarction"
+  ],
+  "TnC": [
+    "troponin C"
+  ],
+  "TnI": [
+    "troponin I"
+  ],
+  "TnT": [
+    "troponin T"
+  ],
+  "TNNT2": [
+    "cardiac troponin T"
+  ],
+  "ToF": [
+    "tetralogy of Fallot"
+  ],
+  "TXA2": [
+    "thromboxane"
+  ],
+  "UFH": [
+    "unfractionated heparin"
+  ],
+  "V1A": [
+    "vasopressin type 1A (V1A) receptor"
+  ],
+  "V2": [
+    "vasopressin type 2 (V2) receptor"
+  ],
+  "VFib or VF": [
+    "ventricular fibrillation"
+  ],
+  "VSDs": [
+    "ventricular septal defects"
+  ],
+  "VVs": [
+    "varicose veins"
+  ],
+  "vWF": [
+    "von Willebrand factor"
   ]
 }
