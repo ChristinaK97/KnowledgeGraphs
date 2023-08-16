@@ -1,4 +1,4 @@
-package org.example.MappingGeneration.FormatSpecific;
+package org.example.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
