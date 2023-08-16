@@ -146,7 +146,9 @@
     "abdominal circumference",
     "assisted controlled ventilation",
     "acromioclavicular joint",
-    "antecubital fossa"
+    "antecubital fossa",
+    "before a meal",
+    "ante cibum"
   ],
   "AC&BC": [
     "air conduction and bone conduction (Weber test"
@@ -7833,10 +7835,6 @@
     "amino acids"
   ],
   "a.c. AC": [
-    "before a meal",
-    "ante cibum"
-  ],
-  "AC": [
     "before a meal",
     "ante cibum"
   ],
