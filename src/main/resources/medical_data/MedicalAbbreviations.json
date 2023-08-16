@@ -1253,7 +1253,8 @@
   "CA": [
     "calcium",
     "carcinoma",
-    "cancer"
+    "cancer",
+    "Coronary Artery"
   ],
   "CAA": [
     "coronary artery aneurysm"
@@ -1354,7 +1355,8 @@
     "carbon copy"
   ],
   "CCA": [
-    "clear cell adenocarcinoma"
+    "clear cell adenocarcinoma",
+    "common carotid artery"
   ],
   "CCB": [
     "calcium channel blocker"
@@ -1436,7 +1438,8 @@
   "CEA": [
     "carcinoembryonic antigen",
     "carotid endarterectomy",
-    "cost-effectiveness analysis"
+    "cost-effectiveness analysis",
+    "Carotid Endarterectomy"
   ],
   "CEIOL": [
     "cataract extraction with intraocular lens placement"
@@ -1911,7 +1914,8 @@
   ],
   "CVD": [
     "cardiovascular disease",
-    "cardiovascular disorder"
+    "cardiovascular disorder",
+    "Carotid Vascular Disease"
   ],
   "CVI": [
     "cerebrovascular incident",
@@ -2565,7 +2569,8 @@
     "elective lower segment caesarean section"
   ],
   "EM": [
-    "erythema multiforme"
+    "erythema multiforme",
+    "Eosinophilic myocarditis"
   ],
   "EMB": [
     "ethambutol",
@@ -2766,7 +2771,9 @@
   ],
   "FA": [
     "Fanconi anemia",
-    "folic acid"
+    "folic acid",
+    "facial artery",
+    "Femoral Artery"
   ],
   "FAMMM syndrome": [
     "familial atypical multiple mole melanoma syndrome"
@@ -3968,7 +3975,8 @@
   "LA": [
     "left atrium",
     "lymphadenopathy",
-    "local anesthetic"
+    "local anesthetic",
+    "lingual artery"
   ],
   "LAAM": [
     "L-alpha-acetylmethadol"
@@ -3983,7 +3991,8 @@
     "left anterior descending",
     "leukocyte adhesion deficiency",
     "left axis deviation",
-    "lymphadenopathy"
+    "lymphadenopathy",
+    "Left Anterior Descending Artery"
   ],
   "LAE": [
     "left atrial enlargement"
@@ -4095,7 +4104,8 @@
     "large loop excision of the transformation zone"
   ],
   "LM": [
-    "left main"
+    "left main",
+    "left main coronary artery"
   ],
   "LMA": [
     "left mentoanterior",
@@ -5255,7 +5265,8 @@
     "psoriatic arthritis",
     "primary aldosteronism",
     "pernicious anaemia",
-    "Physician’s Assistant"
+    "Physician’s Assistant",
+    "Popliteal Artery"
   ],
   "PAC": [
     "premature atrial contraction",
@@ -5406,7 +5417,16 @@
   "PDA": [
     "patent ductus arteriosus",
     "posterior descending artery",
+    "posterior interventricular artery",
     "patent ductus arteriosus"
+  ],
+  "PIV": [
+    "posterior descending artery",
+    "posterior interventricular artery"
+  ],
+  "PIVA": [
+    "posterior descending artery",
+    "posterior interventricular artery"
   ],
   "PDD": [
     "premenstrual dysphoric disorder"
@@ -5987,7 +6007,8 @@
     "refractory anemia",
     "rheumatoid arthritis",
     "right atrium",
-    "room air"
+    "room air",
+    "Renal Artery"
   ],
   "RAD": [
     "reflex anal dilatation",
@@ -6400,7 +6421,8 @@
     "subcutis"
   ],
   "SCA": [
-    "spinocerebellar ataxia"
+    "spinocerebellar ataxia",
+    "Subclavian Artery"
   ],
   "SCAT": [
     "sex cord tumor with annular tubes"
@@ -6915,7 +6937,8 @@
   ],
   "TA": [
     "temporal arteritis",
-    "tricuspid atresia"
+    "tricuspid atresia",
+    "Tibial Artery"
   ],
   "TAB": [
     "therapeutic abortion",
@@ -8420,6 +8443,9 @@
   "ACMS": [
     "Ashe County Middle School"
   ],
+  "ACM": [
+    "Arrhythmogenic cardiomyopathy"
+  ],
   "ACPC": [
     "Ashe County Partnership for Children"
   ],
@@ -8665,7 +8691,8 @@
     "catheriterized"
   ],
   "CB": [
-    "child birth"
+    "child birth",
+    "carotid bifurcation"
   ],
   "CBC": [
     "complete blood count"
@@ -8795,6 +8822,9 @@
   ],
   "cx": [
     "cervix"
+  ],
+  "CX": [
+    "circumflex artery"
   ],
   "* up": [
     "check up"
@@ -10704,5 +10734,47 @@
   ],
   "vWF": [
     "von Willebrand factor"
+  ],
+  "STA": [
+    "superior thyroid artery"
+  ],
+  "ICA": [
+    "internal carotid artery"
+  ],
+  "ECA": [
+    "External Carotid Artery"
+  ],
+  "COW": [
+    "Circle of Willis"
+  ],
+  "ICAE": [
+    "Internal Carotid Artery Endarterectomy"
+  ],
+  "ECAS": [
+    "Extracranial Carotid Artery Stenosis"
+  ],
+  "ICAO": [
+    "Internal Carotid Artery Occlusion"
+  ],
+  "CAS": [
+    "Carotid Artery Stenting"
+  ],
+  "NASCET": [
+    "North American Symptomatic Carotid Endarterectomy Trial"
+  ],
+  "ACAS": [
+    "Asymptomatic Carotid Artery Stenosis Study"
+  ],
+  "HITS": [
+    "High-Intensity Transient Signals"
+  ],
+  "CCAIMT": [
+    "Common Carotid Artery Intima-Media Thickness"
+  ],
+  "AO": [
+    "Aorta"
+  ],
+  "BA": [
+    "Brachial Artery"
   ]
 }
