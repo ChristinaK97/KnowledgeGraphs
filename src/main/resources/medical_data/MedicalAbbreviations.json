@@ -84,7 +84,8 @@
   ],
   "AB": [
     "abortion",
-    "AB blood type"
+    "AB blood type",
+    "apex beat"
   ],
   "ABC": [
     "airway, breathing, circulation",
@@ -338,7 +339,8 @@
   "AI": [
     "artificial insemination",
     "aortic insufficiency",
-    "aromatase inhibitors"
+    "aromatase inhibitors",
+    "aortic incompetence"
   ],
   "AICD": [
     "automated implantable cardioverter-defibrillator"
@@ -422,7 +424,8 @@
     "advanced life support"
   ],
   "ALT": [
-    "alanine transaminase"
+    "alanine transaminase",
+    "alanine aminotransferase"
   ],
   "AMA": [
     "advanced maternal age",
@@ -498,7 +501,8 @@
     "angina pectoris",
     "anteroposterior",
     "apical",
-    "area postrema"
+    "area postrema",
+    "antero-posterior"
   ],
   "APACHE II": [
     "Acute Physiology and Chronic Health Evaluation II"
@@ -727,7 +731,8 @@
     "atrioventricular"
   ],
   "AVF": [
-    "arteriovenous fistula"
+    "arteriovenous fistula",
+    "augmented voltage foot"
   ],
   "AVM": [
     "arteriovenous malformation"
@@ -737,7 +742,8 @@
     "atrioventricular node"
   ],
   "AVR": [
-    "aortic valve replacement"
+    "aortic valve replacement",
+    "augmented voltage right arm"
   ],
   "AVSD": [
     "atrioventricular septal defect"
@@ -1017,7 +1023,8 @@
     "brain natriuretic peptide"
   ],
   "BO": [
-    "bowel open"
+    "bowel open",
+    "bowels opened"
   ],
   "BOA": [
     "born out of asepsis"
@@ -1047,7 +1054,8 @@
   "BPD": [
     "biparietal diameter",
     "borderline personality disorder",
-    "bronchopulmonary dysplasia"
+    "bronchopulmonary dysplasia",
+    "bi-parietal diameter"
   ],
   "BPH": [
     "benign prostatic hyperplasia",
@@ -1461,7 +1469,8 @@
   ],
   "CHF": [
     "congestive heart failure",
-    "continuous hemofiltration"
+    "continuous hemofiltration",
+    "chronic heart failure"
   ],
   "CHO": [
     "carbohydrate"
@@ -1612,7 +1621,8 @@
     "chronic obstructive lung disease"
   ],
   "COP": [
-    "cryptogenic organizing pneumonitis"
+    "cryptogenic organizing pneumonitis",
+    "change of plaster"
   ],
   "COPD": [
     "chronic obstructive pulmonary disease"
@@ -1881,7 +1891,8 @@
   "CVS": [
     "chorionic villus sampling",
     "cardiovascular system",
-    "Cerebrovascular stroke"
+    "Cerebrovascular stroke",
+    "cerebrovascular system"
   ],
   "CVT": [
     "cerebral venous thrombosis"
@@ -1894,7 +1905,8 @@
     "coal worker's pneumoconiosis"
   ],
   "CXR": [
-    "chest x-ray (chest radiograph"
+    "chest x-ray chest radiograph",
+    "chest X-ray"
   ],
   "Ca": [
     "calcium carcinoma cancer"
@@ -2155,7 +2167,8 @@
     "dimethyltryptamine"
   ],
   "DNA": [
-    "deoxyribonucleic acid"
+    "deoxyribonucleic acid",
+    "did not attend"
   ],
   "DNACPR": [
     "do not attempt cardiopulmonary resuscitation"
@@ -2227,7 +2240,8 @@
   "DS": [
     "disease",
     "Down syndrome",
-    "diopters sphere"
+    "diopters sphere",
+    "disseminated sclerosis"
   ],
   "DSA": [
     "digital subtraction angiography",
@@ -2399,7 +2413,7 @@
   ],
   "EDC": [
     "estimated date of confinement",
-    "estimated date of confinement (at 40/40 weeks of pregnancy"
+    "estimated date of confinement (at 40/40 weeks of pregnancy)"
   ],
   "EDD": [
     "estimated date of delivery (at 40/40 weeks of pregnancy",
@@ -2415,7 +2429,8 @@
     "epidural hematoma"
   ],
   "EDM": [
-    "esophageal Doppler monitor"
+    "esophageal Doppler monitor",
+    "early diastolic murmur"
   ],
   "EDRF": [
     "endothelium-derived relaxing factor",
@@ -2838,7 +2853,8 @@
   "FOB": [
     "Foot of Bed",
     "father of baby",
-    "Fiberoptic Bronchoscopy"
+    "Fiberoptic Bronchoscopy",
+    "fecal occult blood"
   ],
   "FOBT": [
     "fecal occult blood test"
@@ -3789,7 +3805,9 @@
     "intra-occular pressure"
   ],
   "IP": [
-    "interphalangeal joint"
+    "interphalangeal joint",
+    "in-patient",
+    "interphalangeal"
   ],
   "IPF": [
     "idiopathic pulmonary fibrosis"
@@ -3848,7 +3866,8 @@
   ],
   "ISQ": [
     "no change",
-    "in status quo"
+    "in status quo",
+    "condition unchanged"
   ],
   "IT": [
     "immature teratoma",
@@ -3909,7 +3928,8 @@
     "intravenous drug user"
   ],
   "IVF": [
-    "in vitro fertilization; intravenous fluids"
+    "in vitro fertilization",
+    "intravenous fluids"
   ],
   "IVH": [
     "interventricular hemorrhage"
@@ -3938,7 +3958,8 @@
     "intravascular ultrasound"
   ],
   "Ig": [
-    "immunoglobulin"
+    "immunoglobulin",
+    "immune globulin"
   ],
   "IgA": [
     "immunoglobulin A"
@@ -4041,7 +4062,7 @@
     "Kaposi's sarcoma-associated herpesvirus"
   ],
   "KUB": [
-    "kidneys, ureters, and bladder (x-ray"
+    "kidneys, ureters, and bladder"
   ],
   "KVO": [
     "keep vein open"
@@ -4148,7 +4169,8 @@
     "left circumflex artery"
   ],
   "LDH": [
-    "lactate dehydrogenase"
+    "lactate dehydrogenase",
+    "lactic dehydrogenase"
   ],
   "LDL": [
     "low-density lipoprotein"
@@ -4254,7 +4276,8 @@
     "left occipitoanterior",
     "level of activity",
     "lysis of adhesions",
-    "Loss of Appetite"
+    "Loss of Appetite",
+    "left occipito-anterior position of fetus"
   ],
   "LOC": [
     "loss of consciousness",
@@ -4348,7 +4371,8 @@
     "left upper lobe of lung"
   ],
   "LUQ": [
-    "left upper quadrant of abdomen"
+    "left upper quadrant of abdomen",
+    "left upper quadrant"
   ],
   "LUS": [
     "lower uterine segment"
@@ -4635,7 +4659,8 @@
   ],
   "MMR": [
     "measles, mumps, and rubella combined vaccination",
-    "mismatch repair"
+    "mismatch repair",
+    "mass miniature radiograph"
   ],
   "MMR-D": [
     "mismatch repair deficiency syndrome"
@@ -4832,7 +4857,8 @@
     "nausea and vomiting"
   ],
   "NA": [
-    "negative appendectomy"
+    "negative appendectomy",
+    "not applicable"
   ],
   "NABS": [
     "normoactive bowel sounds"
@@ -4903,7 +4929,8 @@
   ],
   "ND": [
     "examination not done",
-    "not done"
+    "not done",
+    "normal delivery"
   ],
   "NDI": [
     "nephrogenic diabetes insipidus"
@@ -5018,7 +5045,9 @@
     "nitric oxide synthase; not otherwise specified"
   ],
   "NP": [
-    "Nurse Practitioner"
+    "Nurse Practitioner",
+    "not palpable",
+    "nasal passage"
   ],
   "NPA": [
     "nasal pharyngeal aspirate"
@@ -5195,7 +5224,8 @@
     "oxygen"
   ],
   "OA": [
-    "osteoarthritis"
+    "osteoarthritis",
+    "on admission"
   ],
   "OAB": [
     "Overactive bladder"
@@ -5372,7 +5402,8 @@
     "posteroanterior",
     "pulmonary artery",
     "psoriatic arthritis",
-    "primary aldosteronism"
+    "primary aldosteronism",
+    "pernicious anaemia"
   ],
   "PAC": [
     "premature atrial contraction",
@@ -5522,7 +5553,8 @@
   ],
   "PDA": [
     "patent ductus arteriosus",
-    "posterior descending artery"
+    "posterior descending artery",
+    "patent ductus arteriosus"
   ],
   "PDD": [
     "premenstrual dysphoric disorder"
@@ -5589,7 +5621,8 @@
   ],
   "PET": [
     "positron emission tomography",
-    "cerebral metabolic scan"
+    "cerebral metabolic scan",
+    "pre-eclamptic toxaemia"
   ],
   "PFO": [
     "patent foramen ovale"
@@ -5673,7 +5706,8 @@
   ],
   "PM": [
     "post meridiem",
-    "in the afternoon"
+    "in the afternoon",
+    "postmortem"
   ],
   "PM&R": [
     "physical medicine and rehabilitation"
@@ -5723,7 +5757,8 @@
   ],
   "PND": [
     "paroxysmal nocturnal dyspnea",
-    "postnasal drip"
+    "postnasal drip",
+    "postnatal depression"
   ],
   "PNET": [
     "primitive neuroectodermal tumor"
@@ -5853,7 +5888,8 @@
     "prolactin"
   ],
   "PROM": [
-    "prelabor rupture of membranespartial range of motion"
+    "prelabor rupture of membranespartial range of motion",
+    "premature rupture of membranes"
   ],
   "PRP": [
     "panretinal photocoagulation",
@@ -5958,7 +5994,8 @@
     "peptic ulcer disease"
   ],
   "PUO": [
-    "pyrexia of unknown origin"
+    "pyrexia of unknown origin",
+    "pyrexia of uncertain origin"
   ],
   "PUVA": [
     "psoralen UV A",
@@ -6122,7 +6159,8 @@
   ],
   "RBC": [
     "red blood cells",
-    "red blood count"
+    "red blood count",
+    "red blood corpuscles"
   ],
   "RBE": [
     "relative biologic equivalent"
@@ -6216,7 +6254,8 @@
     "regional lymph node"
   ],
   "RLQ": [
-    "right lower quadrant of abdomen"
+    "right lower quadrant of abdomen",
+    "right lower quadrant"
   ],
   "RML": [
     "right middle lobe of lung"
@@ -6307,7 +6346,8 @@
     "reverse transcriptase polymerase chain reaction"
   ],
   "RTA": [
-    "renal tubular acidosis"
+    "renal tubular acidosis",
+    "road traffic accident"
   ],
   "RTC": [
     "return to clinic"
@@ -6325,7 +6365,8 @@
     "right upper lobe of lung"
   ],
   "RUQ": [
-    "right upper quadrant of abdomen"
+    "right upper quadrant of abdomen",
+    "right upper quadrant"
   ],
   "RUTI": [
     "recurrent urinary tract infection"
@@ -6423,7 +6464,8 @@
     "subacromial decompression"
   ],
   "SAH": [
-    "subarachnoid hemorrhage"
+    "subarachnoid hemorrhage",
+    "subarachnoidal haemorrhage"
   ],
   "SAM": [
     "systolic anterior motion of the mitral valve",
@@ -6450,7 +6492,8 @@
     "small intestine"
   ],
   "SBE": [
-    "subacute bacterial endocarditis"
+    "subacute bacterial endocarditis",
+    "sub-acute bacterial endocarditis"
   ],
   "SBFT": [
     "small bowel follow through"
@@ -6639,7 +6682,8 @@
     "multiple sclerosis",
     "sclerosis multiplex",
     "submucosal",
-    "Skeletal Muscle"
+    "Skeletal Muscle",
+    "systolic murmur"
   ],
   "SMA": [
     "sequential multiple analysis",
@@ -6713,7 +6757,8 @@
     "sitting out of bed"
   ],
   "SOP": [
-    "sterile ophthalmic preparation"
+    "sterile ophthalmic preparation",
+    "surgical out-patients"
   ],
   "SOS": [
     "if needed",
@@ -6856,7 +6901,8 @@
   ],
   "SVD": [
     "spontaneous vaginal delivery",
-    "simple vertex delivery"
+    "simple vertex delivery",
+    "spontaneous vertex delivery"
   ],
   "SVE": [
     "sterile vaginal examination"
@@ -6946,7 +6992,8 @@
     "thoracic vertebrae"
   ],
   "T&A": [
-    "tonsillectomy with adenoidectomy"
+    "tonsillectomy with adenoidectomy",
+    "tonsils and adenoids"
   ],
   "T&C": [
     "type and cross-match (see blood transfusion"
@@ -7114,7 +7161,8 @@
     "total hip replacement"
   ],
   "TI": [
-    "terminal ileum"
+    "terminal ileum",
+    "tricuspid incompetence"
   ],
   "TIA": [
     "transient ischemic attack"
@@ -7174,7 +7222,8 @@
     "total mesorectal excision"
   ],
   "TMJ": [
-    "temporomandibular joint"
+    "temporomandibular joint",
+    "temporo-mandibular  joint"
   ],
   "TNF": [
     "tumor necrosis factor"
@@ -7216,7 +7265,8 @@
     "total parenteral nutrition"
   ],
   "TPR": [
-    "total peripheral resistance"
+    "total peripheral resistance",
+    "temperature, pulse, respiration"
   ],
   "TPa": [
     "tissue plasminogen activator"
@@ -7250,7 +7300,8 @@
     "tricuspid stenosis"
   ],
   "TSH": [
-    "Thoughts of self-harm"
+    "Thoughts of self-harm",
+    "thyroid-stimulating hormone"
   ],
   "TSHR-Ab": [
     "thyrotropin-receptor antibody"
@@ -7306,7 +7357,8 @@
     "transurethral resection of bladder tumor"
   ],
   "TURP": [
-    "transurethral resection of the prostate"
+    "transurethral resection of the prostate",
+    "transurethral prostate resection"
   ],
   "TV": [
     "Tricuspid valve"
@@ -7548,7 +7600,8 @@
   "VD": [
     "vaginal delivery venereal disease",
     "sexually transmitted disease",
-    "volume of distribution"
+    "volume of distribution",
+    "venereal disease"
   ],
   "VDRF": [
     "ventilator-dependent respiratory failure"
@@ -7710,7 +7763,8 @@
   ],
   "WBC": [
     "white blood cell",
-    "white blood cell count"
+    "white blood cell count",
+    "white blood corpuscles"
   ],
   "WBI": [
     "whole bowel irrigation"
@@ -7793,7 +7847,8 @@
     "extended alpha-fetoprotein"
   ],
   "XR": [
-    "extended release"
+    "extended release",
+    "X-ray"
   ],
   "XRT": [
     "radiotherapy used in cancer treatment"
@@ -8222,5 +8277,166 @@
   ],
   "ā": [
     "before"
+  ],
+  "μmol/L": [
+    "micromols per litre"
+  ],
+  "1/12": [
+    "1 month"
+  ],
+  "109/L": [
+    "times ten to the power nine per litre"
+  ],
+  "AJ": [
+    "ankle jerk"
+  ],
+  "BB": [
+    "bed bath",
+    "blanket bath"
+  ],
+  "BWt": [
+    "birth weight"
+  ],
+  "c/o": [
+    "complains of"
+  ],
+  "CAT": [
+    "coaxial",
+    "computerised axial tomography"
+  ],
+  "D&V": [
+    "diarrhoea and vomiting"
+  ],
+  "decub.": [
+    "lying down"
+  ],
+  "Dx": [
+    "diagnosis"
+  ],
+  "FH": [
+    "fetal heart"
+  ],
+  "FHH": [
+    "fetal heart heard"
+  ],
+  "fl": [
+    "femtolitre"
+  ],
+  "fL": [
+    "femtolitre"
+  ],
+  "FTND": [
+    "full term normal delivery"
+  ],
+  "GnRH": [
+    "gonadotrophin-releasing hormone"
+  ],
+  "GPI": [
+    "general paralysis of the insane"
+  ],
+  "Gyn.": [
+    "gynaecology"
+  ],
+  "HHV-8": [
+    "human herpes virus 8"
+  ],
+  "HVS": [
+    "high vaginal swab"
+  ],
+  "infusn": [
+    "infusion"
+  ],
+  "i.v.": [
+    "intravenous"
+  ],
+  "L/L": [
+    "litres per litre"
+  ],
+  "LIF": [
+    "left iliac fossa"
+  ],
+  "LKS": [
+    "liver, kidney and spleen"
+  ],
+  "LVD": [
+    "left ventricular dysfunction"
+  ],
+  "M/F": [
+    "male / female"
+  ],
+  "M/W/S": [
+    "married / widow(er) / single"
+  ],
+  "mcg": [
+    "microgram"
+  ],
+  "mg": [
+    "milligram"
+  ],
+  "ml": [
+    "millilitre"
+  ],
+  "MSSU": [
+    "mid-stream specimen of urine"
+  ],
+  "NND": [
+    "neo-natal death"
+  ],
+  "NPU": [
+    "not passed urine"
+  ],
+  "o.d.": [
+    "daily"
+  ],
+  "Obs.": [
+    "obstetrics"
+  ],
+  "oed.": [
+    "oedema"
+  ],
+  "OOH": [
+    "out of hours"
+  ],
+  "p.o.": [
+    "by mouth"
+  ],
+  "p.r.n.": [
+    "as required"
+  ],
+  "reg.": [
+    "regular"
+  ],
+  "RI": [
+    "respiratory infection"
+  ],
+  "RIH": [
+    "right inguinal hernia"
+  ],
+  "RTI": [
+    "respiratory tract infection"
+  ],
+  "s.c.": [
+    "subcutaneous"
+  ],
+  "stat.": [
+    "immediately (Latin)"
+  ],
+  "SWD": [
+    "short wave diathermy"
+  ],
+  "T3": [
+    "tri-iodothyronine"
+  ],
+  "tabs": [
+    "tablets"
+  ],
+  "U/L": [
+    "units per litre"
+  ],
+  "UMN": [
+    "upper motor neurone"
+  ],
+  "VP": [
+    "venous pressure"
   ]
 }
