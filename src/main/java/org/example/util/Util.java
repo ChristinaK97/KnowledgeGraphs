@@ -56,12 +56,15 @@ public class Util {
     }
 
     public static String normalise(Set<String> s){
-        return s.toString()
+        String label =  s.toString()
                            .replaceAll("[\\[\\],]","")
                            .replaceAll("_", " ")
                            .replace("p ", "")
                            .replace(" VALUE", "")
                            .replace(" ATTR", "");
+        if(label.startsWith("has is"))
+            label = label.substring(4);
+        return label;
     }
 
     // extract the local name of a uri
