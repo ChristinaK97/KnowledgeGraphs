@@ -1,24 +1,49 @@
 package org.example.MappingGeneration.FormatSpecific;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import org.example.util.JsonUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import java.lang.reflect.Type;
 
-import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 
 public class MedicalAbbrevDownloader {
 
-    public static final String MEDICAL_ABBREV_FILE = "src/main/resources/medical_data/MedicalAbbreviations.json";
+    public static final String MEDICAL_ABBREV_FILE =
+            "src/main/resources/medical_data/MedicalAbbreviations.json";
+
+    public static HashMap<String, ArrayList<String>> readMedicalAbbrevFile() {
+        HashMap<String, ArrayList<String>> medAbbrevMap = new HashMap<>();
+        JsonElement json = JsonUtil.readJSON(MEDICAL_ABBREV_FILE);
+        if (json.isJsonObject()) {
+            JsonObject jsonObject = json.getAsJsonObject();
+
+            // Iterate through the JSON object's entries
+            for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                String abbreviation = entry.getKey();
+                JsonArray meaningsArray = entry.getValue().getAsJsonArray();
+
+                ArrayList<String> meanings = new ArrayList<>();
+                for (JsonElement element : meaningsArray)
+                    meanings.add(element.getAsString());
+                medAbbrevMap.put(abbreviation, meanings);
+            }
+        }
+        System.out.println(medAbbrevMap);
+        return medAbbrevMap;
+    }
 
     public static void downloadWikipediaAbbreviations() {
 
@@ -56,8 +81,7 @@ public class MedicalAbbrevDownloader {
             JsonElement json = JsonUtil.readJSON(MEDICAL_ABBREV_FILE);
 
             // Convert JsonElement to Map
-            Type type = new TypeToken<Map<String, Object>>() {
-            }.getType();
+            Type type = new TypeToken<Map<String, Object>>() {}.getType();
             Map<String, Object> jsonMap = new Gson().fromJson(json, type);
 
             // Convert Map to TreeMap (case-insensitive sorting by keys)
@@ -71,11 +95,6 @@ public class MedicalAbbrevDownloader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-
-        MedicalAbbrevDownloader.sortJSONbyKey();
     }
 
 }

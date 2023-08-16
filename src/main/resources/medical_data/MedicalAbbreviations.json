@@ -120,7 +120,11 @@
     "ana ana",
     "amino acids"
   ],
-  "a.c. AC": [
+  "a.c.": [
+    "before a meal",
+    "ante cibum"
+  ],
+  "AC": [
     "before a meal",
     "ante cibum"
   ],
@@ -285,9 +289,6 @@
   ],
   "ABX": [
     "antibiotics"
-  ],
-  "AC": [
-    "before meals"
   ],
   "AC&BC": [
     "air conduction and bone conduction",
