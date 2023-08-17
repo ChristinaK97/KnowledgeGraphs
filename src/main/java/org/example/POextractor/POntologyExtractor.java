@@ -73,13 +73,14 @@ public class POntologyExtractor {
 
 
     private void createBaseElements() {
-        baseElements.put("TableClass", addClass("TableClass", "TableClass", null));
-        baseElements.put("AttributeClass", addClass("AttributeClass", "AttributeClass", null));
+        baseElements.put("TableClass", addClass("TableClass", "Base Element", null));
+        baseElements.put("AttributeClass", addClass("AttributeClass", "Base Element", null));
 
         for(String propName : new String[]{"FKProperty", "AttributeProperty"}) {
             OWLObjectProperty objproperty = factory.getOWLObjectProperty(propName, pm);
             baseElements.put(propName, objproperty);
             manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(objproperty));
+            addAnnotations(objproperty.getIRI(), propName, "Base Element");
         }
     }
 
