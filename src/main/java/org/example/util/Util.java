@@ -13,7 +13,7 @@ public class Util {
     public static final String resourcePath = "src/main/resources/";
 
     // do and po ontologies
-    public static final String DOontology = resourcePath + "dicom.owl";
+    public static final String DOontology = resourcePath + "saved_dicom/dicom.owl";
     public static final boolean offlineDOontology = true;
     public static final String POontology = resourcePath + "POntology.ttl";
 

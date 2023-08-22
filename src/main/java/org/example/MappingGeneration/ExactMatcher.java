@@ -16,6 +16,8 @@ import java.util.HashSet;
 
 import static org.example.MappingGeneration.Ontology.DATAPROPS;
 import static org.example.MappingGeneration.Ontology.ONTELEMENTS;
+import static org.example.util.Util.DOontology;
+import static org.example.util.Util.POontology;
 
 public class ExactMatcher {
 
@@ -26,7 +28,7 @@ public class ExactMatcher {
     private boolean removePunct = true;
 
 
-    public ExactMatcher(String srcOntoPath, String trgOntoPath, ArrayList<String> annotationPropertiesIRIs) throws FileNotFoundException {
+    public ExactMatcher(String srcOntoPath, String trgOntoPath, ArrayList<String> annotationPropertiesIRIs) {
 
         srcOnto = new Ontology(srcOntoPath, annotationPropertiesIRIs, removePunct);
         trgOnto = new Ontology(trgOntoPath, annotationPropertiesIRIs, removePunct);
@@ -104,8 +106,9 @@ public class ExactMatcher {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-        new ExactMatcher("src/main/resources/POntology.ttl",
-            "C:\\Users\\karal\\OneDrive\\Documents\\Σχολείο\\Σχολή\\Μεταπτυχιακό\\Project\\10. Health\\ontologies\\dicomOnto.ttl",
+        new ExactMatcher(
+            POontology,
+            DOontology,
             null);
     }
 

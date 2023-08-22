@@ -14,13 +14,14 @@ public class InputDataSource {
 
     // input data source
 
-    public static final String SQL = "SQL";
-    public static final String inputDataSource = SQL;
-    public static final String ontologyName = "epibank";
+    // uncomment for sql:
+    // public static final String inputDataSource = "SQL";
+    // public static final String ontologyName = "epibank";
 
-    // public static final String inputDataSource = Util.resourcePath + "dicom";
-    public static final String fileExtension = null; //"dcm"; //"json";
-    // public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
+    // uncomment for files:
+    public static final String inputDataSource = Util.resourcePath + "dicom_data";
+    public static final String fileExtension = "dcm"; //"json"; // null;
+    public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
     // sql database sample data
     public static final String SQL_DDL = Util.resourcePath + "EPIBANK_SQL_DDL_MySQL.sql";
@@ -28,7 +29,7 @@ public class InputDataSource {
     public static final String simulatedDataSample = Util.resourcePath + "simulated_data_v2 - sample/";
 
     public Object getDataSource() {
-        if(inputDataSource.equals(SQL))
+        if(inputDataSource.equals("SQL"))
             return new DBSchema();
         else {
             // find files matched the file extension from folder inputDataSource

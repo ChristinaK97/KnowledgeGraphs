@@ -11,10 +11,7 @@ import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -48,7 +45,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     private void gatherImports() {
         if(offlineDOontology){
             importURIs.add(
-                    SetPOasDOextension.class.getClassLoader().getResource(getLocalName(DOontology)).getPath()
+                    new File(DOontology).getAbsolutePath().replace("\\", "/")
             );
             return;
         }
@@ -584,7 +581,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
         String filePath = outputOntology;
 
-        String format = offlineDOontology ? "<%s> owl:imports <file:%s> ." : "<%s> owl:imports <%s> .";
+        String format = offlineDOontology ? "<%s> owl:imports <file:///%s> ." : "<%s> owl:imports <%s> .";
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));
