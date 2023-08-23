@@ -98,6 +98,12 @@
       <version>0.43.1</version>
     </dependency>
     <dependency>
+      <groupId>tech.tablesaw</groupId>
+      <artifactId>tablesaw-excel</artifactId>
+      <version>0.43.1</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
       <version>1.10.0</version>
@@ -153,6 +159,7 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
       <artifactId>jsoup</artifactId>
       <version>1.16.1</version>
     </dependency>
+    
 
 
 

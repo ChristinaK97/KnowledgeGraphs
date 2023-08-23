@@ -3,6 +3,7 @@ package org.example.MappingsFiles;
 import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.POextractor.Properties;
 import org.example.POextractor.RulesetApplication;
+import org.example.util.Ontology;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,7 +68,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
     private void addTrf(String elementName, String ontoElement, String type) {
 
-        ontoElement = msBasePrefix + ontoElement;
+        ontoElement = msBasePrefix + Ontology.rmvInvalidIriChars(ontoElement);
         if (trf.containsKey(elementName))
             trf.get(elementName).add(new Transformation(ontoElement, type));
         else

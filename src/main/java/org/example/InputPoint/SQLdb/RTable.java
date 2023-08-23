@@ -124,4 +124,19 @@ public class RTable {
     public boolean hasSimpleAttribute(){
         return hasSimpleAttribute;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        columns.forEach((colName, datatype) -> {
+           sb.append("\t\t").append(colName).append("\t").append(datatype);
+           if (isPK(colName))
+               sb.append("\tPK");
+           if (isFK(colName))
+               sb.append("\tFK ").append(FKs.get(colName).toString());
+           sb.append("\n");
+        });
+        sb.append("----------------------------");
+        return sb.toString();
+    }
 }

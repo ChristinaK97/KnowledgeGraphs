@@ -1,5 +1,7 @@
 package org.example.MappingGeneration;
 
+import org.example.util.Ontology;
+
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;

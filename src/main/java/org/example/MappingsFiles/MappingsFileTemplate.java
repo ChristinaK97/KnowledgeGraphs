@@ -1,13 +1,12 @@
 package org.example.MappingsFiles;
 
-import org.example.MappingGeneration.Ontology;
+import org.example.util.Ontology;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.example.MappingGeneration.Ontology.getLocalName;
 
 public class MappingsFileTemplate {
 

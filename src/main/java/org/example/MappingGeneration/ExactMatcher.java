@@ -6,6 +6,7 @@ import org.example.InputPoint.InputDataSource;
 import org.example.MappingGeneration.FormatSpecific.DICOMspecificRules;
 import org.example.MappingGeneration.FormatSpecific.FormatSpecificRules;
 import org.example.MappingsFiles.SetMappingsFile;
+import org.example.util.Ontology;
 import tech.tablesaw.api.Table;
 
 import java.io.FileNotFoundException;
@@ -14,8 +15,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.HashSet;
 
-import static org.example.MappingGeneration.Ontology.DATAPROPS;
-import static org.example.MappingGeneration.Ontology.ONTELEMENTS;
+import static org.example.util.Ontology.DATAPROPS;
+import static org.example.util.Ontology.ONTELEMENTS;
 import static org.example.InputPoint.InputDataSource.DOontology;
 import static org.example.InputPoint.InputDataSource.POontology;
 

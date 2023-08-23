@@ -4,7 +4,7 @@ import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.example.MappingGeneration.Ontology;
+import org.example.util.Ontology;
 import org.example.MappingsFiles.ManageMappingsFile;
 import org.example.MappingsFiles.MappingsFileTemplate;
 
@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.MappingGeneration.Ontology.getLocalName;
+import static org.example.util.Ontology.getLocalName;
 
 public class JenaOntologyModelHandler {
 

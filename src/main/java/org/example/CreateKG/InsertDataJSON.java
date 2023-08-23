@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.MappingGeneration.Ontology.getLocalName;
+import static org.example.util.Ontology.getLocalName;
 
 public class InsertDataJSON  extends InsertDataBase {
     private ArrayList<String> files;

@@ -7,7 +7,7 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
 
 import org.example.InputPoint.InputDataSource;
-import org.example.MappingGeneration.Ontology;
+import org.example.util.Ontology;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;

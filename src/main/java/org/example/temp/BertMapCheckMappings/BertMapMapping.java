@@ -1,6 +1,6 @@
 package org.example.temp.BertMapCheckMappings;
 
-import org.example.MappingGeneration.Ontology;
+import org.example.util.Ontology;
 
 import java.net.URI;
 import java.util.ArrayList;

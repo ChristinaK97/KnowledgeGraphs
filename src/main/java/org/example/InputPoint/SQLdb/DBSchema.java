@@ -2,6 +2,7 @@ package org.example.InputPoint.SQLdb;
 
 import org.example.InputPoint.InputDataSource;
 import org.example.InputPoint.SQLdb.SQLconnector.DatabaseConnector;
+import tech.tablesaw.api.Table;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,15 @@ public class DBSchema extends InputDataSource implements Iterable<RTable> {
         schema = connector.getSchemaName();
         retrieveSchema();
         connector.closeConnection();
+    }
+
+    /** For single table like files like CSV **/
+    public DBSchema(String tableName, Table inputTable, String PKcol) {
+        RTable table = new RTable();
+        table.addPK(PKcol);
+        for(String colName : inputTable.columnNames())  // table columns
+            table.addColumn(colName, inputTable.column(colName).type().getPrinterFriendlyName());
+        rTables.put(tableName, table);
     }
 
     public void retrieveSchema() {
@@ -78,4 +88,13 @@ public class DBSchema extends InputDataSource implements Iterable<RTable> {
     }
     public String getSchemaName(){return schema;}
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("DBSchema{\n");
+        rTables.forEach((tableName, rTable) -> {
+            sb.append(tableName).append("\n").append(rTable.toString()).append("\n");
+        });
+        sb.append("}");
+        return sb.toString();
+    }
 }

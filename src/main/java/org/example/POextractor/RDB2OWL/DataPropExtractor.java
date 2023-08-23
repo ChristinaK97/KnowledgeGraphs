@@ -34,10 +34,9 @@ public class DataPropExtractor {
             if (!(table.isPK(colName) || table.isFK(colName))) {
 
                 String extractedField = String.format("%s.%s", tableName, colName);
-                colName = colName.toLowerCase();
 
                 // Column has the same name as a table class
-                if(convertedIntoClass.containsValue(colName))
+                if(convertedIntoClass.containsValue(colName) || convertedIntoClass.containsValue(colName.toLowerCase()))
                     colName = colName + "_ATTR";
 
                 // Class (existing)     Column new class
@@ -87,6 +86,7 @@ public class DataPropExtractor {
             case "tinytext":
             case "mediumtext":
             case "longtext":
+            case "string":
                 return "xsd:string";
             case "binary":
             case "varbinary":

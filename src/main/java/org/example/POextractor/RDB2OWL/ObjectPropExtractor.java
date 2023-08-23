@@ -9,7 +9,7 @@ import java.util.*;
 
 public class ObjectPropExtractor {
 
-    private org.example.POextractor.Properties objProperties = new org.example.POextractor.Properties();
+    private Properties objProperties = new Properties();
     private HashMap<String, String> convertedIntoClass;
     private String tableName;
     private RTable table;

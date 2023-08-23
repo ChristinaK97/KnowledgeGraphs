@@ -1,7 +1,7 @@
 package org.example.POextractor;
 
 import org.example.InputPoint.InputDataSource;
-import org.example.MappingGeneration.Ontology;
+import org.example.util.Ontology;
 import org.example.MappingsFiles.CreateMappingsFile;
 import org.example.POextractor.Properties.DomRan;
 import org.example.InputPoint.DICOM.DICOMUtil;
@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.example.InputPoint.InputDataSource.POontology;
-import static org.example.MappingGeneration.Ontology.skosIRI;
+import static org.example.util.Ontology.skosIRI;
 
 public class POntologyExtractor {
 
@@ -83,6 +83,11 @@ public class POntologyExtractor {
             addAnnotations(objproperty.getIRI(), propName, "Base Element");
         }
     }
+    
+    private String validName(String resourceName) {
+        return Ontology.rmvInvalidIriChars(resourceName);
+    }
+
 
     // CLASSES
     private void addClasses() {
@@ -95,7 +100,8 @@ public class POntologyExtractor {
     }
 
     public OWLClass addClass(String className, String sDescription, String type) {
-        OWLClass sClass = factory.getOWLClass(className, pm);
+        String validClassName = validName(className);
+        OWLClass sClass = factory.getOWLClass(validClassName, pm);
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(sClass));
         addAnnotations(sClass.getIRI(), className, sDescription);
 
@@ -117,8 +123,7 @@ public class POntologyExtractor {
     }
 
     public void addObjectproperty(String propName, DomRan domRan, String type) {
-
-        OWLObjectProperty objproperty = factory.getOWLObjectProperty(propName, pm);
+        OWLObjectProperty objproperty = factory.getOWLObjectProperty(validName(propName), pm);
 
         OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(objproperty);
 
@@ -134,22 +139,24 @@ public class POntologyExtractor {
         // add domain
         Set<OWLClassExpression> domainClasses = new HashSet<>();
         for (String className : domRan.domain)
-            domainClasses.add(factory.getOWLClass(className, pm));
+            domainClasses.add(factory.getOWLClass(validName(className), pm));
 
         OWLClassExpression domainClass =
                 domainClasses.size() > 1 ?
-                factory.getOWLObjectUnionOf(domainClasses) : factory.getOWLClass(domRan.domain.iterator().next(), pm);
+                factory.getOWLObjectUnionOf(domainClasses) :                           // domain is union
+                factory.getOWLClass(domainClasses.iterator().next().toString(), pm);  // domain is a class
 
         OWLObjectPropertyDomainAxiom domainAxiom = factory.getOWLObjectPropertyDomainAxiom(objproperty, domainClass);
         manager.addAxiom(ontology, domainAxiom);
 
         ////////////////////////////////////
         // add range
-        OWLClass rangeClass= factory.getOWLClass(domRan.range.iterator().next(), pm);
+        String validRangeClass = validName(domRan.range.iterator().next());
+        OWLClass rangeClass= factory.getOWLClass(validRangeClass, pm);
         OWLObjectPropertyRangeAxiom rangeAxiom = factory.getOWLObjectPropertyRangeAxiom(objproperty, rangeClass);
         manager.addAxiom(ontology, rangeAxiom);
 
-        // domain (property someValuesFrom range)
+        // domain sbClassOf (property someValuesFrom range)
         OWLObjectSomeValuesFrom restriction = factory.getOWLObjectSomeValuesFrom(objproperty, rangeClass);
         for (OWLClassExpression domClass : domainClasses) {
             OWLAxiom axiom = factory.getOWLSubClassOfAxiom(domClass, restriction);
@@ -158,7 +165,7 @@ public class POntologyExtractor {
 
         // inverse property
         if(includeInverseAxiom) {
-            OWLObjectProperty inverse = factory.getOWLObjectProperty(domRan.getInverse(), pm);
+            OWLObjectProperty inverse = factory.getOWLObjectProperty(validName(domRan.getInverse()), pm);
 
             if(ontology.containsObjectPropertyInSignature(inverse.getIRI()))
                 manager.applyChange(new AddAxiom(ontology,
@@ -177,8 +184,8 @@ public class POntologyExtractor {
     // DATA PROPERTIES
 
     public void addDatatype(String propName, DomRan domRan) {
-
-        OWLDataProperty datatype = factory.getOWLDataProperty(propName, pm);
+        String validPropName = validName(propName);
+        OWLDataProperty datatype = factory.getOWLDataProperty(validPropName, pm);
 
         OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(datatype);
         addAnnotations(datatype.getIRI(), propName,
@@ -186,15 +193,16 @@ public class POntologyExtractor {
 
         // Add datatype
         manager.addAxiom(ontology, declaration);
-        OWLDataPropertyExpression man = factory.getOWLDataProperty(propName, pm);
+        OWLDataPropertyExpression man = factory.getOWLDataProperty(validPropName, pm);
 
         Set<OWLClassExpression> domainClasses = new HashSet<>();
         for (String className : domRan.domain)
-            domainClasses.add(factory.getOWLClass(className, pm));
-
+            domainClasses.add(factory.getOWLClass(validName(className), pm));
+        
         OWLClassExpression domainClass =
                 domainClasses.size() > 1 ?
-                        factory.getOWLObjectUnionOf(domainClasses) : factory.getOWLClass(domRan.domain.iterator().next(), pm);
+                        factory.getOWLObjectUnionOf(domainClasses) :                            // domain is union
+                        factory.getOWLClass(domainClasses.iterator().next().toString(), pm);   // domain is a class
 
         OWLDataPropertyDomainAxiom domainAxiom = factory.getOWLDataPropertyDomainAxiom(man, domainClass);
         manager.addAxiom(ontology, domainAxiom);

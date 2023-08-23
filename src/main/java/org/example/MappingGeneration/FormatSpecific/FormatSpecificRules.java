@@ -2,7 +2,7 @@ package org.example.MappingGeneration.FormatSpecific;
 
 import org.apache.jena.ontology.OntResource;
 import org.example.MappingGeneration.Matches;
-import org.example.MappingGeneration.Ontology;
+import org.example.util.Ontology;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 
 import java.util.ArrayList;

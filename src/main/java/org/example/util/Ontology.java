@@ -1,4 +1,4 @@
-package org.example.MappingGeneration;
+package org.example.util;
 
 import org.apache.jena.ontology.*;
 import org.apache.jena.query.*;
@@ -24,6 +24,8 @@ public class Ontology {
     public static final int OBJPROPS = 2;
     public static final int DATAPROPS = 3;
     public static final int[] ONTELEMENTS = new int[]{CLASSES, OBJPROPS, DATAPROPS};
+
+    public static final String invalidIRICharsRegex = "[/\\\\%# ]";
 
     private static final List<Property> predefinedAnnotations = Arrays.asList(
             RDFS.label
@@ -72,6 +74,10 @@ public class Ontology {
 
     public String getBasePrefix() {
         return pModel.getNsPrefixURI("");
+    }
+
+    public static String rmvInvalidIriChars(String resourceName) {
+        return resourceName.replaceAll(invalidIRICharsRegex, "_");
     }
 
     // acquire resource label

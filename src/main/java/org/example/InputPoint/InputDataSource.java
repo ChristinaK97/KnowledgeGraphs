@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.example.InputPoint.SQLdb.DBSchema;
+
+import javax.swing.*;
 
 public class InputDataSource {
 
@@ -19,8 +23,8 @@ public class InputDataSource {
     // public static final String ontologyName = "epibank";
 
     // uncomment for files:
-    public static final String inputDataSource = resourcePath + "dicom_data";
-    public static final String fileExtension = "dcm"; //"json"; // null;
+    public static final String inputDataSource = resourcePath + "medical_data";
+    public static final String fileExtension = "csv"; //"dcm"; //"json"; // null; //
     public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
     // sql database sample data
@@ -55,11 +59,21 @@ public class InputDataSource {
         else {
             // find files matched the file extension from folder inputDataSource
             try (Stream<Path> walk = Files.walk(Paths.get(inputDataSource))) {
-                return walk
+                List<String> filesInFolder = walk
                         .filter(p -> !Files.isDirectory(p))             // not a directory
                         .map(p -> p.toString())                        // convert path to string
                         .filter(f -> f.endsWith(fileExtension))       // check end with
                         .collect(Collectors.toList());               // collect all matched to a List
+
+                if (isSingleTableFile()) {
+
+                    if(filesInFolder.size() > 1)
+                        //TODO support multiple files
+                        System.err.println("Multiple file upload is not supported. Only the first file" + filesInFolder.get(0) + " will be uploaded.");
+                    return new TableFilesReader(filesInFolder.get(0)).getAsDBSchema();
+                }else
+                    return filesInFolder;
+
             }catch (IOException e) {
                 e.printStackTrace();
                 return null;
@@ -72,10 +86,12 @@ public class InputDataSource {
     }
 
     public static boolean isJSON() {
-        return "json_data".equals(fileExtension);
+        return "json".equals(fileExtension);
     }
     public static boolean isDSON() {
         return "dcm".equals(fileExtension);
     }
-
+    public static boolean isSingleTableFile() {return  isCSV() || isExcel();}
+    public static boolean isExcel(){return "xlsx".equals(fileExtension);}
+    public static boolean isCSV(){return "csv".equals(fileExtension);}
 }
