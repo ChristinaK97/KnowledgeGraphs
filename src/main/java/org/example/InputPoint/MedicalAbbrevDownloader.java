@@ -1,11 +1,11 @@
-package org.example.util;
+package org.example.InputPoint;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import org.example.util.JsonUtil;
+import org.example.InputPoint.JsonUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

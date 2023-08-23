@@ -1,18 +1,10 @@
 package org.example.temp.BertMapCheckMappings;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import org.example.util.JsonUtil;
-import org.example.util.Util;
+import org.example.MappingGeneration.Ontology;
 
-import java.io.FileReader;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BertMapMapping {
@@ -171,7 +163,7 @@ public class BertMapMapping {
             return ontoEl;
         }
 
-        public String getOntoElResource() {return Util.getLocalName(ontoEl);}
+        public String getOntoElResource() {return Ontology.getLocalName(ontoEl);}
 
         public void setOntoEl(URI ontoEl) {
             this.ontoEl = ontoEl;
@@ -181,7 +173,7 @@ public class BertMapMapping {
             return match;
         }
         public String getMatchResource() {
-            return Util.getLocalName(match);
+            return Ontology.getLocalName(match);
         }
 
         public void setMatch(URI match) {
@@ -202,7 +194,7 @@ public class BertMapMapping {
 
         public List<String> getPathResources() {
             return path.stream()
-                    .map(Util::getLocalName)
+                    .map(Ontology::getLocalName)
                     .collect(Collectors.toList());
         }
 

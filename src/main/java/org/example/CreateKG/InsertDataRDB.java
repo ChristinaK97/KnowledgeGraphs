@@ -8,12 +8,11 @@ import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.InputPoint.SQLdb.RTable;
 import org.example.InputPoint.SQLdb.RTable.FKpointer;
 import org.example.InputPoint.SQLdb.SQLconnector.DatabaseConnector;
-import org.example.util.HelperClasses.Pair;
+import org.example.util.Pair;
 import tech.tablesaw.api.Row;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 
 public class InsertDataRDB extends InsertDataBase {
 

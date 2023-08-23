@@ -1,7 +1,5 @@
 package org.example.MappingGeneration;
 
-import org.example.util.Util;
-
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,9 +68,9 @@ public class Matches {
     public String toString() {
         StringBuilder bd = new StringBuilder();
         matches.forEach((ontoEl, match) -> {
-            bd.append(Util.getLocalName(ontoEl))
+            bd.append(Ontology.getLocalName(ontoEl))
                     .append("\t")
-                    .append(Util.getLocalName(match.match))
+                    .append(Ontology.getLocalName(match.match))
                     .append("\t")
                     .append(match.score)
                     .append("\n");

@@ -4,6 +4,7 @@ import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
+import org.example.MappingGeneration.Ontology;
 import org.example.MappingsFiles.ManageMappingsFile;
 import org.example.MappingsFiles.MappingsFileTemplate;
 
@@ -11,7 +12,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.util.Util.*;
+import static org.example.MappingGeneration.Ontology.getLocalName;
 
 public class JenaOntologyModelHandler {
 
@@ -81,7 +82,7 @@ public class JenaOntologyModelHandler {
                     continue;
                 }
 
-                OntClass tableClass = getOntClass(get_TABLE_CLASS_URI(ontologyName));
+                OntClass tableClass = getOntClass(Ontology.get_TABLE_CLASS_URI(ontologyName));
 
                 // replace the class in the path with the specialised PO TableClass subclass
                 for (ExtendedIterator<OntClass> it = nodeClass.listSubClasses(); it.hasNext(); ) {
@@ -103,7 +104,7 @@ public class JenaOntologyModelHandler {
         if (label == null)
             label = resource.getLabel("");
         if(label == null)
-            label = resource.getLocalName();
+            label = getLocalName(resource);
         return label;
     }
 

@@ -1,10 +1,10 @@
 package org.example.POextractor;
 
 import org.example.InputPoint.InputDataSource;
+import org.example.MappingGeneration.Ontology;
 import org.example.MappingsFiles.CreateMappingsFile;
 import org.example.POextractor.Properties.DomRan;
-import org.example.util.DICOMUtil;
-import org.example.util.Util;
+import org.example.InputPoint.DICOM.DICOMUtil;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.*;
@@ -16,8 +16,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.example.util.Util.POontology;
-import static org.example.util.Util.skosIRI;
+import static org.example.InputPoint.InputDataSource.POontology;
+import static org.example.MappingGeneration.Ontology.skosIRI;
 
 public class POntologyExtractor {
 
@@ -253,7 +253,7 @@ public class POntologyExtractor {
             }
         }
         if(!isDICOMtag)
-            return new String[] {Util.normalise(rawLabel)};
+            return new String[] {Ontology.normalise(rawLabel)};
 
         // unreachable
         return null;

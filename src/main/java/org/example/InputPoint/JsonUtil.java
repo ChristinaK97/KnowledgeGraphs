@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.InputPoint;
 
 import com.google.gson.*;
 

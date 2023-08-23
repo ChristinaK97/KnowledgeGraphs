@@ -1,13 +1,13 @@
 package org.example.MappingsFiles;
 
-import org.example.util.Util;
+import org.example.MappingGeneration.Ontology;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.example.util.Util.getLocalName;
+import static org.example.MappingGeneration.Ontology.getLocalName;
 
 public class MappingsFileTemplate {
 
@@ -164,7 +164,7 @@ public class MappingsFileTemplate {
             return ontoEl;
         }
 
-        public String getOntoElResource() {return Util.getLocalName(ontoEl);}
+        public String getOntoElResource() {return Ontology.getLocalName(ontoEl);}
 
         public void setOntoEl(URI ontoEl) {
             this.ontoEl = ontoEl;
@@ -174,7 +174,7 @@ public class MappingsFileTemplate {
             return match;
         }
         public String getMatchResource() {
-            return Util.getLocalName(match);
+            return Ontology.getLocalName(match);
         }
 
         public void setMatch(URI match) {
@@ -195,7 +195,7 @@ public class MappingsFileTemplate {
 
         public List<String> getPathResources() {
             return path.stream()
-                    .map(Util::getLocalName)
+                    .map(Ontology::getLocalName)
                     .collect(Collectors.toList());
         }
 

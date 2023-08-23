@@ -1,7 +1,6 @@
 package org.example.InputPoint.DICOM;
 
 import org.dcm4che3.data.VR;
-import org.example.util.DICOMUtil;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;

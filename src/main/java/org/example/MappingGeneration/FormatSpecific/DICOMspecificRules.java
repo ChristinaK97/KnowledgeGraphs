@@ -11,7 +11,7 @@ import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.example.util.Util.getLocalName;
+import static org.example.MappingGeneration.Ontology.getLocalName;
 
 public class DICOMspecificRules implements FormatSpecificRules {
 

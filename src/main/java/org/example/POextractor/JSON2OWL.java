@@ -2,12 +2,9 @@ package org.example.POextractor;
 
 import com.google.gson.*;
 import org.example.InputPoint.DICOM.TagDictionary;
-import org.example.util.DICOMUtil;
-import org.example.util.JsonUtil;
+import org.example.InputPoint.JsonUtil;
 
 import java.util.*;
-
-import static org.example.util.DICOMUtil.replaceTagsWithNames;
 
 /**
  * Full Example:

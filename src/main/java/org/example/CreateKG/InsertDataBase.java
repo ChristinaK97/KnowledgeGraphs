@@ -12,11 +12,12 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
 
+import org.example.InputPoint.InputDataSource;
 import org.example.POextractor.Properties;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
-import org.example.util.HelperClasses.Pair;
+import org.example.util.Pair;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,8 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
-import static org.example.util.Util.*;
 
 public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
@@ -50,7 +49,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     public InsertDataBase (String ontologyName) {
         //TODO add this:
-        super(outputOntology, ontologyName);
+        super(InputDataSource.outputOntology, ontologyName);
         pModel.loadImports();
         mBasePrefix = pModel.getNsPrefixURI("");
         System.out.println(mBasePrefix);
@@ -256,7 +255,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     protected void writePaths() {
         try {
-            PrintWriter pw = new PrintWriter(pathsTXT);
+            PrintWriter pw = new PrintWriter(InputDataSource.pathsTXT);
             tablesClass.forEach((tableName, tableClass) -> {
                 pw.println(">> " + tableName);
                 pw.println("Table class : " + tablesClass.get(tableName));
@@ -296,7 +295,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         }
 
         // Save the individualsModel to a TTL file
-        String outputFile = individualsTTL;
+        String outputFile = InputDataSource.individualsTTL;
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
             individualsModel.write(fos, "TURTLE");
             System.out.println("Individuals saved to: " + outputFile);
@@ -307,7 +306,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     protected void saveFullKG() {
         OutputStream out = null;
-        String filePath = fullGraph; // sampleGraph;
+        String filePath = InputDataSource.fullGraph; // sampleGraph;
         try {
             out = new FileOutputStream(filePath);
         } catch (FileNotFoundException e) {

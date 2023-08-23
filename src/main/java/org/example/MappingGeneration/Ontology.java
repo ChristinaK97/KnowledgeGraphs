@@ -6,6 +6,7 @@ import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
+import org.semanticweb.owlapi.model.IRI;
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.api.Table;
 
@@ -28,13 +29,29 @@ public class Ontology {
             RDFS.label
     );
 
-
     private OntModel pModel;
     private String ontologyFile;
     private boolean newElementsAdded = false;
     private HashSet<Property> annotationPropertiesIRIs = new HashSet<>();
     private HashMap<String, ArrayList<String>> cachedAnnotations;
     private boolean removePunct;
+
+    // =================================================================================================================
+    // extra po elements
+    // =================================================================================================================
+    public static final IRI skosIRI = IRI.create("http://www.w3.org/2004/02/skos/core#");
+    public static final String TABLE_CLASS = "TableClass";
+    public static URI get_TABLE_CLASS_URI(String ontologyName) {
+        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/TableClass");
+    }
+    public static URI get_ATTRIBUTE_PROPERTY_URI(String ontologyName) {
+        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/AttributeProperty");
+    }
+    public static URI get_FK_PROPERTY_URI(String ontologyName) {
+        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/FKProperty");
+    }
+    // =================================================================================================================
+
 
     public Ontology(String ontologyFile, ArrayList<String> annotationPropertiesIRIs, boolean removePunct) {
         this.ontologyFile = ontologyFile;
@@ -46,6 +63,7 @@ public class Ontology {
     }
 
 
+
     private void loadOntology() {
         pModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         RDFDataMgr.read(pModel, ontologyFile);
@@ -55,6 +73,41 @@ public class Ontology {
     public String getBasePrefix() {
         return pModel.getNsPrefixURI("");
     }
+
+    // acquire resource label
+    public static String normalise(String s) {
+        return normalise(new HashSet<>(Collections.singleton(s)));
+    }
+
+    public static String normalise(Set<String> s){
+        String label =  s.toString()
+                .replaceAll("[\\[\\],]","")
+                .replaceAll("_", " ")
+                .replace("p ", "")
+                .replace(" VALUE", "")
+                .replace(" ATTR", "");
+        if(label.startsWith("has is"))
+            label = label.substring(4);
+        return label;
+    }
+
+    // extract the local name of a uri
+    public static String getLocalName(URI uri) {
+        return getLocalName(uri.getPath());
+
+    }
+
+    public static String getLocalName(String uri) {
+        return uri.substring(uri.lastIndexOf('/') + 1);
+    }
+
+    public static String getLocalName(Resource resource) {
+        String localName = resource.getLocalName();
+        if(localName.isEmpty())
+            localName = getLocalName(resource.getURI());
+        return localName;
+    }
+
 
     public static String swPrefixes() {
         return   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
@@ -77,6 +130,8 @@ public class Ontology {
     }
     public OntResource getOntResource(String uri) {return pModel.getOntResource(uri);}
     public OntResource getOntResource(URI uri) {return pModel.getOntResource(uri.toString());}
+
+    // =================================================================================================================
 
 
     public OntProperty createProperty(String propertyURI, String label, String description, int TYPE) {

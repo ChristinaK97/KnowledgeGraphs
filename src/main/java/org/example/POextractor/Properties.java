@@ -1,6 +1,6 @@
 package org.example.POextractor;
 
-import org.example.util.Util;
+import org.example.MappingGeneration.Ontology;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public class Properties{
         }
         public String getObjectPropertyRawLabel() {return "has_" + range;}
 
-        public String getInverse() {return String.format("p_%s_%s", Util.normalise(range), Util.normalise(domain)).replace(" ","_");}
+        public String getInverse() {return String.format("p_%s_%s", Ontology.normalise(range), Ontology.normalise(domain)).replace(" ","_");}
 
         public static String getInverse(String propName) {
             String[] parts = propName.split("_");

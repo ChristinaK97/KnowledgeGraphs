@@ -6,14 +6,14 @@ import com.google.gson.JsonObject;
 import org.dcm4che3.data.*;
 import org.dcm4che3.io.DicomInputStream;
 import org.dcm4che3.util.TagUtils;
-import org.example.util.JsonUtil;
+import org.example.InputPoint.JsonUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.example.util.DICOMUtil.parseForTime;
+import static org.example.InputPoint.DICOM.DICOMUtil.parseForTime;
 
 public class DICOM2JSON {
 

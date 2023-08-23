@@ -9,8 +9,8 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.example.InputPoint.InputDataSource;
-import org.example.util.HelperClasses.Pair;
-import org.example.util.JsonUtil;
+import org.example.util.Pair;
+import org.example.InputPoint.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.example.util.Util.getLocalName;
+import static org.example.MappingGeneration.Ontology.getLocalName;
 
 public class InsertDataJSON  extends InsertDataBase {
     private ArrayList<String> files;

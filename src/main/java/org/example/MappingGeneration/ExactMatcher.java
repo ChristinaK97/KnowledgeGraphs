@@ -16,8 +16,8 @@ import java.util.HashSet;
 
 import static org.example.MappingGeneration.Ontology.DATAPROPS;
 import static org.example.MappingGeneration.Ontology.ONTELEMENTS;
-import static org.example.util.Util.DOontology;
-import static org.example.util.Util.POontology;
+import static org.example.InputPoint.InputDataSource.DOontology;
+import static org.example.InputPoint.InputDataSource.POontology;
 
 public class ExactMatcher {
 

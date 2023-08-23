@@ -1,4 +1,4 @@
-package org.example.util;
+package org.example.InputPoint.DICOM;
 
 import org.dcm4che3.data.VR;
 import org.example.InputPoint.DICOM.TagDictionary;
