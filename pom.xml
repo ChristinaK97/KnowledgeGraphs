@@ -159,7 +159,14 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
       <artifactId>jsoup</artifactId>
       <version>1.16.1</version>
     </dependency>
-    
+
+    <!-- bidirectional map -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.4</version>
+    </dependency>
+
 
 
 

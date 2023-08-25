@@ -105,8 +105,8 @@ public class DICOM2JSON {
 
     /* public static void main(String[] args) {
         ArrayList<String> dicomFilePaths = new ArrayList<>();
-        // complex file
-        dicomFilePaths.add("src/main/resources/dicom/complex");
+        // complex.dcm file
+        dicomFilePaths.add("src/main/resources/dicom/complex.dcm");
         // simple.dcm file
         dicomFilePaths.add("src/main/resources/dicom/simple.dcm");
         new DICOM2JSON(dicomFilePaths, true);
