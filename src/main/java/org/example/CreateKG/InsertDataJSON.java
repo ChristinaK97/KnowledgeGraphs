@@ -31,12 +31,12 @@ public class InsertDataJSON  extends InsertDataBase {
     private BigInteger indivCounter;
     // <table JPath, <column JPath + each className from column paths, next id for column indiv>>
     private HashMap<String, HashMap<String, Long>> classCounter;
-    BidiMap<String, String> indivNames = new DualHashBidiMap<>();
+    BidiMap<String, String> indivNames;
 
     public InsertDataJSON(String ontologyName, ArrayList<String> files) {
         super(ontologyName);
         this.files = files;
-        //TODO Read initial values from a log file (last saved indiv ids)
+        //TODO Read initial values from a log file (last saved indiv ids). Now it is reset by run/session
         currRowID = 0;
         indivCounter = BigInteger.ZERO;
         run();
@@ -51,6 +51,7 @@ public class InsertDataJSON  extends InsertDataBase {
     protected void mapData() {
         findRoot();
         for (String file : files) {
+            indivNames = new DualHashBidiMap<>(); // reset per file
             JsonElement json = JsonUtil.readJSON(file);                                                                 System.out.println("Root " + root);
             parseJson(root, null, null, json,
                     root.equals("/" + JsonUtil.ROOTCLASS) ? root : ""
