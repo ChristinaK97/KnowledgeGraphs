@@ -19,12 +19,12 @@ public class InputDataSource {
     // input data source
 
     // uncomment for sql:
-    // public static final String inputDataSource = "SQL";
-    // public static final String ontologyName = "epibank";
+    //public static final String inputDataSource = "SQL";
+    //public static final String ontologyName = "epibank";
 
     // uncomment for files:
-    public static final String inputDataSource = resourcePath + "medical_data";
-    public static final String fileExtension = "csv"; //"dcm"; //"json"; // null; //
+    public static final String inputDataSource = resourcePath + "dicom_data";
+    public static final String fileExtension = "dcm"; //  //"json"; // null; //"csv";
     public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
     // sql database sample data

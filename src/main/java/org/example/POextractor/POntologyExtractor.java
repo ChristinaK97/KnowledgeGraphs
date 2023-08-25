@@ -82,6 +82,11 @@ public class POntologyExtractor {
             manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(objproperty));
             addAnnotations(objproperty.getIRI(), propName, "Base Element");
         }
+        String baseDataProperty = "hasValueProperty";
+        OWLDataProperty dataProperty = factory.getOWLDataProperty(baseDataProperty, pm);
+        baseElements.put(baseDataProperty, dataProperty);
+        manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(dataProperty));
+        addAnnotations(dataProperty.getIRI(), "has value", "Base Element");
     }
     
     private String validName(String resourceName) {
@@ -185,13 +190,13 @@ public class POntologyExtractor {
 
     public void addDatatype(String propName, DomRan domRan) {
         String validPropName = validName(propName);
-        OWLDataProperty datatype = factory.getOWLDataProperty(validPropName, pm);
+        OWLDataProperty datatypeProp = factory.getOWLDataProperty(validPropName, pm);
 
-        OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(datatype);
-        addAnnotations(datatype.getIRI(), propName,
+        OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(datatypeProp);
+        addAnnotations(datatypeProp.getIRI(), propName,
                         String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
 
-        // Add datatype
+        // Add datatypeProp
         manager.addAxiom(ontology, declaration);
         OWLDataPropertyExpression man = factory.getOWLDataProperty(validPropName, pm);
 
@@ -213,10 +218,15 @@ public class POntologyExtractor {
         manager.addAxiom(ontology, rangeAxiom);
 
         for (OWLClassExpression domClass : domainClasses) {
-            OWLDataSomeValuesFrom restriction = factory.getOWLDataSomeValuesFrom(datatype, dt);
+            OWLDataSomeValuesFrom restriction = factory.getOWLDataSomeValuesFrom(datatypeProp, dt);
             OWLAxiom axiom = factory.getOWLSubClassOfAxiom(domClass, restriction);
             manager.applyChange(new AddAxiom(ontology, axiom));
         }
+
+        // super property
+        manager.addAxiom(ontology,
+                factory.getOWLSubDataPropertyOfAxiom(datatypeProp, (OWLDataProperty) baseElements.get("hasValueProperty"))
+        );
     }
 
 

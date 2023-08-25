@@ -17,9 +17,9 @@ import java.util.Map;
 public class BertMapMappingsWrite {
 
     HashMap<String, ArrayList<String>> bertmapResults = new HashMap<>();
-    String bertmap_results_json = "src/main/resources/saved_epibank/bertmap_raw_epibank2fibo.json";
-    String mappingFileJson = "src/main/resources/PO2DO_Mappings.json";
-    String outputFile = "src/main/resources/saved_epibank/bertmap_fintech.json";
+    String bertmap_results_json = "src/main/resources/Bertmap results fintech/max avg/bertmaplogfile efs2fibo updated with low score mappings max.json";
+    String mappingFileJson = "src/main/resources/saved_efs/EFS_mappings.json";
+    String outputFile = "src/main/resources/saved_efs/bertmap_fintech.json";
 
     public BertMapMappingsWrite() {
         readBertmapMappings();
@@ -42,9 +42,11 @@ public class BertMapMappingsWrite {
                     JsonArray innerArray = element.getAsJsonArray();
                     if (innerArray.size() >= 2) {
                         String uri = innerArray.get(1).getAsString();
-                        String value = innerArray.get(2).getAsString();
+                        String score = innerArray.get(2).getAsString();
+                        String rank = innerArray.get(3).getAsString();
                         values.add(uri);
-                        values.add(value);
+                        values.add(score);
+                        values.add(rank);
                     }
                 }
 
