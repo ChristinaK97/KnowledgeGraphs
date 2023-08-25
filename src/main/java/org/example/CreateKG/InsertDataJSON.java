@@ -288,8 +288,7 @@ public class InsertDataJSON  extends InsertDataBase {
         long classCounterValue=-1;                                                                                      System.out.println("> Create indiv of type " + indivType);
 
         if(isRoot) {  //2
-            System.out.println("\tisRoot true");
-            className = root.substring(1);
+            className = root.substring(1);                                                                     System.out.println("\tisRoot true");
             indivLabel = String.format("%s%d", className, currRowID);
         }else {      //3
             className = getLocalName(indivType);
