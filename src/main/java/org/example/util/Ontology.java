@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -100,19 +101,17 @@ public class Ontology {
     // extract the local name of a uri
     public static String getLocalName(URI uri) {
         return getLocalName(uri.getPath());
-
+    }
+    public static String getLocalName(Resource resource) {
+        return getLocalName(resource.getURI());
     }
 
     public static String getLocalName(String uri) {
-        return uri.substring(uri.lastIndexOf('/') + 1);
+        // Regular expression to match / or # followed by anything except / and #
+        Matcher matcher = Pattern.compile("[/#]([^/#]+)$").matcher(uri);
+        return matcher.find() ? matcher.group(1) : null;
     }
 
-    public static String getLocalName(Resource resource) {
-        String localName = resource.getLocalName();
-        if(localName.isEmpty())
-            localName = getLocalName(resource.getURI());
-        return localName;
-    }
 
 
     public static String swPrefixes() {
