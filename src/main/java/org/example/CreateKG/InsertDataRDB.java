@@ -4,6 +4,7 @@ import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.vocabulary.RDF;
 import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.InputPoint.SQLdb.RTable;
 import org.example.InputPoint.SQLdb.RTable.FKpointer;
@@ -106,6 +107,17 @@ public class InsertDataRDB extends InsertDataBase {
 // GENERATE IDENTIFIERS ============================================================================================
 
     /**
+     * Generate the URI of a node
+     * @param indivType : The class of the individual
+     * @param rowID : The identifier of individual
+     * @return Concat(The uri of the class of the individual, its identifier)
+     */
+    protected String getIndivURI(OntClass indivType, String rowID) {
+        return indivType + rowID;
+    }
+
+
+    /**
      * Generate the node identifier of the core entity of a table
      * @param row: The Tablesaw row that is currently processed
      * @param rTable: The RTable of table that contains its columns,PKs,FKs (used to retrieve PK cols)
@@ -151,13 +163,27 @@ public class InsertDataRDB extends InsertDataBase {
         return resTypeURI + rowID;
     }
 
-    // SuperClass methods:
-    // String getIndivURI(OntClass indivType, String rowID)
 
 
     // =================================================================================================================
     // CREATE & CONNECT INDIVIDUALS  ===================================================================================
 
+    /**
+     * Create an individual if it doesn't exist
+     * @param indivURI : The URI
+     * @param indivType : The class of the individual (rdf:type)
+     * @param comment : rdf:comment value
+     * @return The resource that was created (or existed with this URI in the pModel)
+     */
+    private Resource createIndiv(String indivURI, OntClass indivType, String comment) {
+        Resource indiv = ontology.getOntResource(indivURI);
+        if(indiv == null) {
+            //System.out.println("create " + indivURI);
+            indiv = ontology.createResource(indivURI, null, comment);
+            indiv.addProperty(RDF.type, indivType);
+        }
+        return indiv;
+    }
 
     /**
      * Connect two individual of table classes with a "pure" FK object property.
@@ -218,7 +244,6 @@ public class InsertDataRDB extends InsertDataBase {
     }
 
     // SuperClass methods:
-    // Resource createIndiv(String indivURI, OntClass indivType, String comment) {
     // void setDataPropertyValue(Resource prevNode, OntProperty dataProp, Object colValue)
 
 // ========================================================================================================

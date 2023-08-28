@@ -197,40 +197,16 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     protected abstract void mapData();
 
-// GENERATE IDENTIFIERS ============================================================================================
-
-    /**
-     * Generate the URI of a node
-     * @param indivType : The class of the individual
-     * @param rowID : The identifier of individual
-     * @return Concat(The uri of the class of the individual, its identifier)
-     */
-    protected String getIndivURI(OntClass indivType, String rowID) {
-        return indivType + rowID;
-    }
-
-    // abstract String rowID(elements used to generate the id of a row/record);
-    // abstract String generateAttrIndivURI(elements used to generate the id of a secondary resource)
 
 // =================================================================================================================
 // CREATE & CONNECT INDIVIDUALS  ===================================================================================
 
-    /**
-     * Create an individual if it doesn't exist
-     * @param indivURI : The URI
-     * @param indivType : The class of the individual (rdf:type)
-     * @param comment : rdf:comment value
-     * @return The resource that was created (or existed with this URI in the pModel)
+
+    /* Implement the following methods per subclass
+        private Resource createIndiv(...)
+        private void createColPath(...)
      */
-    protected Resource createIndiv(String indivURI, OntClass indivType, String comment) {
-        Resource indiv = ontology.getOntResource(indivURI);
-        if(indiv == null) {
-            //System.out.println("create " + indivURI);
-            indiv = ontology.createResource(indivURI, null, comment);
-            indiv.addProperty(RDF.type, indivType);
-        }
-        return indiv;
-    }
+
 
     protected void setDataPropertyValue(Resource prevNode, OntProperty dataProp, Object colValue) {
         // to resolve WARN inventing a datatype for class java.time.Instant
@@ -241,9 +217,6 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         prevNode.addProperty(dataProp, dataValue);
     }
 
-
-    // abstract void createColPath(String rowID, Resource coreIndiv, Object colValue, ArrayList<OntResource> cp, String comment
-    //          + elements needed to create the ids and the path
 
 
     public OntProperty getInverse(OntProperty property) {

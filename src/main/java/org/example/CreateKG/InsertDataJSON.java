@@ -3,11 +3,12 @@ package org.example.CreateKG;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
-import org.apache.jena.vocabulary.RDFS;
 import org.example.InputPoint.InputDataSource;
 import org.example.InputPoint.JsonUtil;
 import org.example.util.Pair;
@@ -19,19 +20,23 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.collections4.BidiMap;
-import org.apache.commons.collections4.bidimap.DualHashBidiMap;
-
 import static org.example.util.Ontology.getLocalName;
 
 public class InsertDataJSON  extends InsertDataBase {
     private ArrayList<String> files;
     private String root;
-    private long currRowID;
-    private BigInteger indivCounter;
+
     // <table JPath, <column JPath + each className from column paths, next id for column indiv>>
     private HashMap<String, HashMap<String, Long>> classCounter;
+
+    /* key   = the JPath-like name/label of the individual e.g. record0_properties0
+       value = a big integer which is the local name of the individual's uri
+       .get(key) -> to get the big integer value as string
+       .getKey(value) -> to get the string label
+    */
     BidiMap<String, String> indivNames;
+    private long currRowID;
+    private BigInteger indivCounter;
 
     public InsertDataJSON(String ontologyName, ArrayList<String> files) {
         super(ontologyName);
@@ -240,7 +245,7 @@ public class InsertDataJSON  extends InsertDataBase {
      *                         or the last individual that was previously created should be reused instead
      * @return The resource that was created (or existed with this URI in the pModel)
      */
-    protected Resource createIndiv(OntClass indivType,
+    private Resource createIndiv(OntClass indivType,
                                    String extractedField,
                                    Resource prevIndiv,
                                    boolean isRoot,
