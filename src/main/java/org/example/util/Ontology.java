@@ -24,20 +24,23 @@ public class Ontology {
     public static final int CLASSES = 1;
     public static final int OBJPROPS = 2;
     public static final int DATAPROPS = 3;
+    public static final int INDIVIDUALS = 4;
     public static final int[] ONTELEMENTS = new int[]{CLASSES, OBJPROPS, DATAPROPS};
 
     public static final String invalidIRICharsRegex = "[/\\\\%# ]";
 
+    public OntModel pModel;
+    private String ontologyFile;
+
+
+    private HashSet<Property> annotationPropertiesIRIs = new HashSet<>();
     private static final List<Property> predefinedAnnotations = Arrays.asList(
             RDFS.label
     );
-
-    private OntModel pModel;
-    private String ontologyFile;
-    private boolean newElementsAdded = false;
-    private HashSet<Property> annotationPropertiesIRIs = new HashSet<>();
-    private HashMap<String, ArrayList<String>> cachedAnnotations;
     private boolean removePunct;
+    private HashMap<String, ArrayList<String>> cachedAnnotations;
+
+    private boolean newElementsAdded = false;
 
     // =================================================================================================================
     // extra po elements
@@ -56,13 +59,9 @@ public class Ontology {
     // =================================================================================================================
 
 
-    public Ontology(String ontologyFile, ArrayList<String> annotationPropertiesIRIs, boolean removePunct) {
+    public Ontology(String ontologyFile) {
         this.ontologyFile = ontologyFile;
         loadOntology();
-        findAnnotationProperties(annotationPropertiesIRIs);
-        resetCached();
-        this.removePunct = removePunct;
-        System.out.println(this.annotationPropertiesIRIs);
     }
 
 
@@ -77,6 +76,14 @@ public class Ontology {
         return pModel.getNsPrefixURI("");
     }
 
+    public static String swPrefixes() {
+        return   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>" ;
+    }
+
+    //==================================================================================================================
     public static String rmvInvalidIriChars(String resourceName) {
         return resourceName.replaceAll(invalidIRICharsRegex, "_");
     }
@@ -105,21 +112,12 @@ public class Ontology {
     public static String getLocalName(Resource resource) {
         return getLocalName(resource.getURI());
     }
-
     public static String getLocalName(String uri) {
         // Regular expression to match / or # followed by anything except / and #
         Matcher matcher = Pattern.compile("[/#]([^/#]+)$").matcher(uri);
         return matcher.find() ? matcher.group(1) : null;
     }
 
-
-
-    public static String swPrefixes() {
-        return   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
-                + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
-                + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
-                + "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>" ;
-    }
 
     public OntClass getOntClass(String uri) {
         return pModel.getOntClass(uri);
@@ -138,9 +136,16 @@ public class Ontology {
 
     // =================================================================================================================
 
+    public Resource createResource(String resourceIRI, String label, String description) {
+        newElementsAdded = true;
+        Resource newResource = pModel.createResource(resourceIRI);
+        addAnnotations(newResource, label, description);
+        return newResource;
+    }
 
     public OntProperty createProperty(String propertyURI, String label, String description, int TYPE) {
         // Create the property with the given URI
+        newElementsAdded = true;
         OntProperty newProperty;
         switch (TYPE) {
             case OBJPROPS:
@@ -156,6 +161,7 @@ public class Ontology {
         return newProperty;
     }
     public OntClass createClass(String classURI, String label, String description) {
+        newElementsAdded = true;
         OntClass newClass = pModel.createClass(classURI);
         addAnnotations(newClass, label, description);
         return newClass;
@@ -163,13 +169,18 @@ public class Ontology {
 
     private void addAnnotations(Resource newResource, String label, String description) {
         // Add rdfs:label and rdfs:comment annotations to the property
-        newResource.addProperty(ResourceFactory.createProperty("http://www.w3.org/2000/01/rdf-schema#label"), label);
-        newResource.addProperty(ResourceFactory.createProperty("http://www.w3.org/2000/01/rdf-schema#comment"), description);
-
-        newElementsAdded = true;
+        if(!"".equals(label) && label != null)
+            newResource.addLiteral(RDFS.label, label);
+        if(!"".equals(description) && description != null)
+            newResource.addLiteral(RDFS.comment, description);
     }
 
-    private void findAnnotationProperties(ArrayList<String> userDefinedAnnotProp) {
+
+    // =================================================================================================================
+    public void findAnnotationProperties(ArrayList<String> userDefinedAnnotProp, boolean removePunct) {
+
+        this.removePunct = removePunct;
+
         // predefined
         for(Property annotProp : predefinedAnnotations)
             if (isUsed(annotProp))
@@ -190,6 +201,8 @@ public class Ontology {
                 annotationPropertiesIRIs.add(annotProp);
         });
 
+        System.out.println(this.annotationPropertiesIRIs);
+        resetCached();
     }
 
 
@@ -210,9 +223,20 @@ public class Ontology {
                 return pModel.listObjectProperties();
             case DATAPROPS:
                 return pModel.listDatatypeProperties();
+            case INDIVIDUALS:
+                return pModel.listIndividuals();
             default:
                 return null;
         }
+    }
+
+    public String getLabel(OntResource resource) {
+        String label = resource.getLabel("en");
+        if (label == null)
+            label = resource.getLabel("");
+        if(label == null)
+            label = getLocalName(resource);
+        return label;
     }
 
     public ArrayList<String> getResourceAnnotations(String resourceURI) {
@@ -292,20 +316,19 @@ public class Ontology {
         return property.getDomain() != null && property.getRange() != null;
     }
 
-    public void close() {
+    public void saveChanges() {
         // DON'T FORGET TO CALL TO SAVE CHANGES!
-        if(newElementsAdded)
-            saveOntology();
+        if(newElementsAdded) {
+            OutputStream out = null;
+            try {
+                out = new FileOutputStream(ontologyFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            pModel.write(out, "TURTLE");
+        }
     }
 
-    private void saveOntology() {
-        OutputStream out = null;
-        try {
-            out = new FileOutputStream(ontologyFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        pModel.write(out, "TURTLE");
-    }
+
 
 }

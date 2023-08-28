@@ -79,7 +79,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         }*/
         OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         RDFDataMgr.read(dModel, InputDataSource.DOontology);
-        pModel.addSubModel(dModel);
+        ontology.pModel.addSubModel(dModel);
         //pModel.listClasses().forEach(System.out::println);
     }
 
@@ -137,8 +137,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             // before: tableClass -[objProp]-> Class -[dataProp]-> value
             // after:  tableClass -[dataProp]-> value
             try {
-                OntResource tableClass = getOntProperty(objMap.getOntoElURI()).getDomain();
-                DatatypeProperty dataProp = getOntProperty(dataMap.getOntoElURI()).asDatatypeProperty();
+                OntResource tableClass = ontology.getOntProperty(objMap.getOntoElURI()).getDomain();
+                DatatypeProperty dataProp = ontology.getOntProperty(dataMap.getOntoElURI()).asDatatypeProperty();
                 // if domain is an anonymous class like a union node, it will be deleted when deleting the
                 // property, so the generation of a copy is needed
                 dataProp.setDomain(getClassCopy(tableClass));
@@ -174,8 +174,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          * 3. If both classes have been defined in the ontology model :
          *      4. Set the PO class as a subclass of the DO class
          */
-        OntClass pClass = getOntClass(map.getOntoElURI());      //1
-        OntClass dClass = getOntClass(map.getMatchURI());       //2
+        OntClass pClass = ontology.getOntClass(map.getOntoElURI());      //1
+        OntClass dClass = ontology.getOntClass(map.getMatchURI());       //2
 
         if (pClass != null && dClass != null)                   //3
             dClass.addSubClass(pClass);                         //4
@@ -190,8 +190,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          * 3. If both properties have been defined in the ontology model :
          *      4. Set the PO property as a sub-property of the DO property
          */
-        OntProperty pProp = getOntProperty(map.getOntoElURI());
-        OntProperty dProp = getOntProperty(map.getMatchURI());
+        OntProperty pProp = ontology.getOntProperty(map.getOntoElURI());
+        OntProperty dProp = ontology.getOntProperty(map.getMatchURI());
 
         if (pProp != null && dProp != null)
             dProp.addSubProperty(pProp);
@@ -207,12 +207,12 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *      3. Remove all triples that contain this class as subject or object
          *      4. Delete the class from the ontology
          */
-        OntClass ontClass = getOntClass(classURI);                          // 1
+        OntClass ontClass = ontology.getOntClass(classURI);                          // 1
         if(ontClass != null){
             System.out.println("DEL " + ontClass.getLocalName());
             removeRestriction(ontClass, null);                    //2
-            pModel.removeAll(ontClass, null, null);                   //3
-            pModel.removeAll(null, null, ontClass);
+            ontology.pModel.removeAll(ontClass, null, null);                   //3
+            ontology.pModel.removeAll(null, null, ontClass);
             ontClass.remove();                                             //4
         }
     }
@@ -225,7 +225,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *      4. Remove all triples that contain this property
          *      5. Delete the property form the ontology model
          */
-        OntProperty property = getOntProperty(propURI);     // 1
+        OntProperty property = ontology.getOntProperty(propURI);     // 1
         if(property != null) {
             System.out.println("DEL "+ property.getLocalName());
 
@@ -241,9 +241,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 removeRestriction(domain.asClass(), property);
 
             //4
-            pModel.removeAll(property, null, null);
-            pModel.removeAll(null, property, null);
-            pModel.removeAll(null, null, property);
+            ontology.pModel.removeAll(property, null, null);
+            ontology.pModel.removeAll(null, property, null);
+            ontology.pModel.removeAll(null, null, property);
             property.remove();  //5
         }
     }
@@ -316,16 +316,16 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
             for(Mapping map : new Mapping[]{objMap, dataMap}) {
                 try {
-                    OntProperty prop = getOntProperty(map.getOntoElURI());
-                    OntResource newDomain = getOntClass(tablePath.get(tablePath.size()-1));
+                    OntProperty prop = ontology.getOntProperty(map.getOntoElURI());
+                    OntResource newDomain = ontology.getOntClass(tablePath.get(tablePath.size()-1));
                     correctDomain(prop, prop.getDomain(), Ontology.getLocalName(tableMapping.getOntoElResource()), newDomain);
                 }catch (NullPointerException e) {
                     // obj property was unnecessary so it was previously deleted
                 }
             }
             if(dataMap.hasMatch()) {
-                OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
-                OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
+                OntResource newRange = ontology.getOntProperty(dataMap.getMatchURI()).getRange();
+                OntProperty onProperty = ontology.getOntProperty(dataMap.getOntoElURI());
                 correctRange(onProperty, newRange);
             }
         }
@@ -346,8 +346,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         if(!dataMap.hasMatch() || dataMap.isCons())
             return;
 
-        OntResource newRange = getOntProperty(dataMap.getMatchURI()).getRange();
-        OntProperty onProperty = getOntProperty(dataMap.getOntoElURI());
+        OntResource newRange = ontology.getOntProperty(dataMap.getMatchURI()).getRange();
+        OntProperty onProperty = ontology.getOntProperty(dataMap.getOntoElURI());
         correctRange(onProperty, newRange);
     }
 
@@ -363,9 +363,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         if(map.getPathURIs() == null)
             return;
 
-        OntProperty prop = getOntProperty(map.getOntoElURI());
+        OntProperty prop = ontology.getOntProperty(map.getOntoElURI());
         OntResource curDomain = prop.getDomain();
-        OntResource newDomain = getOntClass(getLastNodeFromPath(map.getPathURIs()));
+        OntResource newDomain = ontology.getOntClass(getLastNodeFromPath(map.getPathURIs()));
 
         System.out.println("PATH IS NOT NULL. DOMAIN WILL BE CORRECTED. PATH = " + map.getPathResources());
         correctDomain(prop, curDomain, tableClass, newDomain);
@@ -414,7 +414,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 }
                 curDomain.as(UnionClass.class).remove();                                                            //7
                 newDomain = unionDomainClasses.size() > 1 ?                                                         //8
-                            pModel.createUnionClass(null, pModel.createList(unionDomainClasses.iterator())) :   // multiple classes as union
+                        ontology.pModel.createUnionClass(null, ontology.pModel.createList(unionDomainClasses.iterator())) :   // multiple classes as union
                             unionDomainClasses.iterator().next();                                                   // a single class
             }else                                                                                                   //9
                 removeRestriction(curDomain.asClass(), prop);                                                       //10
@@ -471,7 +471,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          * 7. Delete the anonymous restriction node from the model
          */
         List<Statement> toRemove = new ArrayList<>(); //1
-        StmtIterator it = pModel.listStatements(DClass, RDFS.subClassOf, (RDFNode) null);  //2
+        StmtIterator it = ontology.pModel.listStatements(DClass, RDFS.subClassOf, (RDFNode) null);  //2
         while (it.hasNext()) {  //3
             Statement stmt = it.nextStatement();
             if (stmt.getObject().canAs(Restriction.class))
@@ -479,9 +479,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                     toRemove.add(stmt);  //5
         }
         System.out.println(toRemove);
-        toRemove.forEach(pModel::remove);  //6
+        toRemove.forEach(ontology.pModel::remove);  //6
         for(Statement stmt : toRemove)     //7
-            pModel.removeAll(stmt.getObject().asResource(), null, null);
+            ontology.pModel.removeAll(stmt.getObject().asResource(), null, null);
 
     }
 
@@ -510,7 +510,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
      * @param newRange the range of values of the property for this class
      */
     private void addRangeRestriction(OntClass DClass, OntProperty onProperty, OntResource newRange) {
-        SomeValuesFromRestriction restriction = pModel.createSomeValuesFromRestriction(null, onProperty, newRange);
+        SomeValuesFromRestriction restriction = ontology.pModel.createSomeValuesFromRestriction(null, onProperty, newRange);
         DClass.addSuperClass(restriction.asClass());
     }
 
@@ -519,8 +519,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     private void handleClassAsFirstPathNode(String tableClassName, URI tableClassURI, Mapping map) {
         try {
-            OntProperty prop = getOntProperty(map.getOntoElURI());
-            OntClass firstClass = getOntClass(getFirstNodeFromPath(map.getPathURIs()));
+            OntProperty prop = ontology.getOntProperty(map.getOntoElURI());
+            OntClass firstClass = ontology.getOntClass(getFirstNodeFromPath(map.getPathURIs()));
             String firstClassName = firstClass.getLocalName();
 
             // Create a new property with the specified URI
@@ -529,20 +529,20 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             String newPropURI = getNewPropertyURI(null, firstClass, tableClassName);
 
             // property wasn't already created
-            if (getOntProperty(newPropURI) == null) {
+            if (ontology.getOntProperty(newPropURI) == null) {
 
                 System.out.println("FIRST CLASS : " + firstClass);
                 System.out.println("NEW PROP :" + newPropURI);
 
-                String newLabel = String.format("has %s", Ontology.normalise(getLabel(firstClass)));
+                String newLabel = String.format("has %s", Ontology.normalise(ontology.getLabel(firstClass)));
 
-                OntProperty newProp = pModel.createObjectProperty(newPropURI);
+                OntProperty newProp = ontology.pModel.createObjectProperty(newPropURI);
                 newProp.setLabel(newLabel, "en");
                 newProp.setComment(String.format("New prop to connect tableClass \"%s\" with firstPathClass \"%s\"", tableClassName, firstClassName), "en");
                 newProp.addComment(prop.getComment(""), "en");
-                newProp.setSuperProperty(getOntProperty(Ontology.get_ATTRIBUTE_PROPERTY_URI(ontologyName)));
+                newProp.setSuperProperty(ontology.getOntProperty(Ontology.get_ATTRIBUTE_PROPERTY_URI(ontologyName)));
 
-                OntClass DtableClass = getOntClass(tableClassURI);
+                OntClass DtableClass = ontology.getOntClass(tableClassURI);
                 newProp.setDomain(DtableClass);
                 newProp.setRange(firstClass);
                 addRangeRestriction(DtableClass, newProp, firstClass);
@@ -550,7 +550,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             }
         }catch (NullPointerException e) {
             //TODO remove print
-            if(map != null && map.hasPath() && getOntClass(getFirstNodeFromPath(map.getPathURIs())) != null)
+            if(map != null && map.hasPath() && ontology.getOntClass(getFirstNodeFromPath(map.getPathURIs())) != null)
                 e.printStackTrace();
             // Either the map doesn't contain a path and so getPFirstNode throws NPE
             // or the first node in the path wasn't a class but a property and
@@ -568,13 +568,13 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        pModel.write(out, "TURTLE");
+        ontology.pModel.write(out, "TURTLE");
         addOntologyMetadata();
     }
 
 
     private void addOntologyMetadata() {
-        String basePrefix = pModel.getNsPrefixURI("");
+        String basePrefix = ontology.getBasePrefix();
         System.out.println(basePrefix);
 
         String filePath = InputDataSource.outputOntology;
@@ -627,9 +627,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         if (cl.canAs(UnionClass.class)) {
             UnionClass unionClass = cl.as(UnionClass.class);
             ExtendedIterator<? extends OntClass> operands = unionClass.listOperands();
-            RDFList members = pModel.createList(operands);
+            RDFList members = ontology.pModel.createList(operands);
             operands.close();
-            return pModel.createUnionClass(null, members);
+            return ontology.pModel.createUnionClass(null, members);
         }
         return cl;
     }

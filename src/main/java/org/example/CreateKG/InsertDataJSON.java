@@ -311,16 +311,15 @@ public class InsertDataJSON  extends InsertDataBase {
         }
         Resource indiv = null;                                                                                          System.out.println("\tTry Indiv = "+ indivLabel+ " create new ? " + createNewIndiv + "\n\t counter = " + classCounter);
         if(indivNames.containsKey(indivLabel))
-            indiv = pModel.getOntResource(mBasePrefix + indivNames.get(indivLabel));
+            indiv = ontology.getOntResource(mBasePrefix + indivNames.get(indivLabel));
 
 
         assert !(indiv == null && !createNewIndiv); //6
         if(indiv == null) {
             indivCounter = indivCounter.add(BigInteger.ONE);
             indivNames.put(indivLabel, indivCounter.toString());
-            indiv = pModel.createResource(mBasePrefix + indivCounter);
-            indiv.addProperty(RDF.type, indivType);
-            indiv.addLiteral(RDFS.label, indivLabel);                                                                   System.out.println("\tcreate " + indivLabel + " as " + indiv);
+            indiv = ontology.createResource(mBasePrefix + indivCounter, indivLabel, null);
+            indiv.addProperty(RDF.type, indivType);                                                                   System.out.println("\tcreate " + indivLabel + " as " + indiv);
 
             if(isRoot)
                 ++currRowID;

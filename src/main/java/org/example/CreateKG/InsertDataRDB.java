@@ -43,7 +43,7 @@ public class InsertDataRDB extends InsertDataBase {
                         String.format("%shas_%s", mBasePrefix, tableClassName) :
                         getNewPropertyURI(mBasePrefix, getTClass(fkp.refTable), tableClassName);
 
-                OntProperty fkProp = getOntProperty(fkPropURI);
+                OntProperty fkProp = ontology.getOntProperty(fkPropURI);
                 if(fkProp != null) {
                     paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(new Pair<>(fkProp, true))));
                     //System.out.printf("%s %s %s\n", tableName, fkCol, fkPropURI);

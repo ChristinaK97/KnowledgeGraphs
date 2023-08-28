@@ -31,8 +31,10 @@ public class ExactMatcher {
 
     public ExactMatcher(String srcOntoPath, String trgOntoPath, ArrayList<String> annotationPropertiesIRIs) {
 
-        srcOnto = new Ontology(srcOntoPath, annotationPropertiesIRIs, removePunct);
-        trgOnto = new Ontology(trgOntoPath, annotationPropertiesIRIs, removePunct);
+        srcOnto = new Ontology(srcOntoPath);
+        srcOnto.findAnnotationProperties(annotationPropertiesIRIs, removePunct);
+        trgOnto = new Ontology(trgOntoPath);
+        trgOnto.findAnnotationProperties(annotationPropertiesIRIs, removePunct);
 
         for(int ONTELEMENT : ONTELEMENTS)
             match(ONTELEMENT);
@@ -47,7 +49,7 @@ public class ExactMatcher {
         spRules.addAdditionalMatches(srcOnto, trgOnto, matches);
         new SetMappingsFile(matches, spRules, getTableOntoEl());
 
-        srcOnto.close();
+        srcOnto.saveChanges();
     }
 
     public void match(int ONTELEMENT) {

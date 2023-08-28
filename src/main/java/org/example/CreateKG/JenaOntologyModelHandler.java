@@ -1,48 +1,30 @@
 package org.example.CreateKG;
 
-import org.apache.jena.ontology.*;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.ontology.OntClass;
 import org.apache.jena.util.iterator.ExtendedIterator;
-import org.example.util.Ontology;
 import org.example.MappingsFiles.ManageMappingsFile;
-import org.example.MappingsFiles.MappingsFileTemplate;
+import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.MappingsFiles.MappingsFileTemplate.Table;
+import org.example.util.Ontology;
 
 import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.util.Ontology.getLocalName;
-
 public class JenaOntologyModelHandler {
 
-    protected OntModel pModel;
+    protected Ontology ontology;
     protected String ontologyName;
-    protected List<MappingsFileTemplate.Table> tablesMaps;
+    protected List<Table> tablesMaps;
     private HashMap<String, URI> cachedSpecializedClasses = new HashMap<>();
 
     public JenaOntologyModelHandler(String ontologyFile, String ontologyName) {
         this.ontologyName = ontologyName;
-        loadPutativeOntology(ontologyFile);
+        this.ontology = new Ontology(ontologyFile);
         tablesMaps = ManageMappingsFile.readMapJSON();
     }
 
-    private void loadPutativeOntology(String ontologyFile) {
-        pModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(pModel, ontologyFile);
-        //pModel.listClasses().forEach(cl -> System.out.println(cl));
-    }
 
-    protected OntClass getOntClass(URI uri) {
-        return pModel.getOntClass(uri.toString());
-    }
-    protected OntProperty getOntProperty(URI uri) {
-        return pModel.getOntProperty(uri.toString());
-    }
-    protected OntProperty getOntProperty(String uri) {
-        return pModel.getOntProperty(uri);
-    }
-    protected OntResource getOntResource(URI uri) {return pModel.getOntResource(uri.toString());}
 
     protected URI getFirstNodeFromPath(List<URI> path) {
         return path.get(0);
@@ -54,7 +36,7 @@ public class JenaOntologyModelHandler {
 
     protected String getNewPropertyURI(String mBasePrefix, OntClass firstClass, String tableClassName) {
         /* tableClass -[p]-> firstClass */
-        mBasePrefix = mBasePrefix == null ? pModel.getNsPrefixURI("") : mBasePrefix;
+        mBasePrefix = mBasePrefix == null ? ontology.getBasePrefix() : mBasePrefix;
         String propertyNamePattern = firstClass.getNameSpace().equals(mBasePrefix) ?
 
                 "%sp_%s_%s" :       //baseURI/p_tableClassName_firstclassName
@@ -64,14 +46,14 @@ public class JenaOntologyModelHandler {
     }
 
 
-    protected void specialisePathDOclasses (MappingsFileTemplate.Mapping map) {
+    protected void specialisePathDOclasses (Mapping map) {
         // the map has no path attribute, no specialization is needed
         List<URI> nodes = map.getPathURIs();
         if(nodes == null)
             return;
 
         for(int i=0; i< nodes.size(); ++i) {
-            OntClass nodeClass  = getOntClass(nodes.get(i));
+            OntClass nodeClass  = ontology.getOntClass(nodes.get(i));
 
             if(nodeClass != null) { // if node is a class (and not a property instead)
                 String nodeURI = nodeClass.getURI();
@@ -82,7 +64,7 @@ public class JenaOntologyModelHandler {
                     continue;
                 }
 
-                OntClass tableClass = getOntClass(Ontology.get_TABLE_CLASS_URI(ontologyName));
+                OntClass tableClass = ontology.getOntClass(Ontology.get_TABLE_CLASS_URI(ontologyName));
 
                 // replace the class in the path with the specialised PO TableClass subclass
                 for (ExtendedIterator<OntClass> it = nodeClass.listSubClasses(); it.hasNext(); ) {
@@ -98,15 +80,6 @@ public class JenaOntologyModelHandler {
             }}
     }
 
-
-    protected String getLabel(OntResource resource) {
-        String label = resource.getLabel("en");
-        if (label == null)
-            label = resource.getLabel("");
-        if(label == null)
-            label = getLocalName(resource);
-        return label;
-    }
 
 }
 

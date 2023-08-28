@@ -17,6 +17,7 @@ import org.example.POextractor.Properties;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.util.Ontology;
 import org.example.util.Pair;
 
 import java.io.FileNotFoundException;
@@ -50,8 +51,8 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     public InsertDataBase (String ontologyName) {
         //TODO add this:
         super(InputDataSource.outputOntology, ontologyName);
-        pModel.loadImports();
-        mBasePrefix = pModel.getNsPrefixURI("");
+        ontology.pModel.loadImports();
+        mBasePrefix = ontology.getBasePrefix();
         System.out.println(mBasePrefix);
 
         //TODO remove this:
@@ -62,8 +63,8 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     protected void run() {
         // remove DO individuals before loading data
-        pModel.listIndividuals().forEachRemaining(resource -> {
-            pModel.removeAll(resource, null, null);
+        ontology.listResources(Ontology.INDIVIDUALS).forEachRemaining(resource -> {
+            ontology.pModel.removeAll(resource, null, null);
         });
 
         // create paths
@@ -88,7 +89,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
             String tableClassName = tableMapping.getOntoElResource();
 
             tablesClass.put(tableName, new Pair<>(
-                                    getOntClass(tableMapping.getOntoElURI()),
+                                    ontology.getOntClass(tableMapping.getOntoElURI()),
                                     tableMapping.hasPath())
             );
             paths.put(tableName, new HashMap<>());
@@ -107,12 +108,12 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                 // tableClass -> tablePath -> column path
                 if(tableMapping.hasPath())
                     for(URI tablePathEl : tableMapping.getPathURIs())
-                        addColumnPathElement(getOntResource(tablePathEl));
+                        addColumnPathElement(ontology.getOntResource(tablePathEl));
 
 
                 // COLUMN OBJECT PROPERTY ==============================================================================
                 // if object property wasn't deleted, add it to the column's path
-                OntResource objPropResource = getOntResource(objMap.getOntoElURI());
+                OntResource objPropResource = ontology.getOntResource(objMap.getOntoElURI());
                 if (objPropResource != null){
                     onlyDataPropertyWasMaintained = false;
                     // append the path of the object property to the column's path
@@ -125,7 +126,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                 //======================================================================================================
                 // COLUMN CLASS ========================================================================================
                 // append the column class to the column's path (if it wasn't deleted)
-                OntResource classResource = getOntResource(classMap.getOntoElURI());
+                OntResource classResource = ontology.getOntResource(classMap.getOntoElURI());
                 if (classResource != null) {
                     onlyDataPropertyWasMaintained = false;
                     addColumnPathElement(classResource);
@@ -142,7 +143,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
                 if(dataMap.hasDataProperty()) {
                     addPropertyPathToColumnPath(dataMap, onlyDataPropertyWasMaintained, tableClassName);
                     // append data property to the column's path (data properties are never deleted)
-                    addColumnPathElement(getOntResource(dataMap.getOntoElURI()));
+                    addColumnPathElement(ontology.getOntResource(dataMap.getOntoElURI()));
                 }
                 //======================================================================================================
                 paths.get(tableName).put(col.getColumn(), colPath);
@@ -168,17 +169,17 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
             System.out.println(propPath);
 
             if(checkFirstNode) {
-                OntResource firstNode = getOntResource(getFirstNodeFromPath(propPath));
+                OntResource firstNode = ontology.getOntResource(getFirstNodeFromPath(propPath));
                 // if first node in the path is a class -> a new property (firstProp) was created
                 if (firstNode.canAs(OntClass.class)) {
                     String newPropURI = getNewPropertyURI(mBasePrefix, firstNode.asClass(), tableClassName);
-                    OntProperty firstProp = getOntProperty(newPropURI);
+                    OntProperty firstProp = ontology.getOntProperty(newPropURI);
                     addColumnPathElement(firstProp);
                 }
             }
             // append the path elements to the column's list
             for(URI pathElement : propPath)
-                addColumnPathElement(getOntResource(pathElement));
+                addColumnPathElement(ontology.getOntResource(pathElement));
         }
     }
 
@@ -222,12 +223,11 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
      * @return The resource that was created (or existed with this URI in the pModel)
      */
     protected Resource createIndiv(String indivURI, OntClass indivType, String comment) {
-        Resource indiv = pModel.getOntResource(indivURI);
+        Resource indiv = ontology.getOntResource(indivURI);
         if(indiv == null) {
             //System.out.println("create " + indivURI);
-            indiv = pModel.createResource(indivURI);
+            indiv = ontology.createResource(indivURI, null, comment);
             indiv.addProperty(RDF.type, indivType);
-            indiv.addLiteral(RDFS.comment, comment);
         }
         return indiv;
     }
@@ -237,7 +237,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         // cast the datatype according to the range of the data property
         System.out.println(dataProp);
         System.out.println(dataProp.getRange().getURI());
-        Literal dataValue = pModel.createTypedLiteral(colValue, dataProp.getRange().getURI());
+        Literal dataValue = ontology.pModel.createTypedLiteral(colValue, dataProp.getRange().getURI());
         prevNode.addProperty(dataProp, dataValue);
     }
 
@@ -248,7 +248,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     public OntProperty getInverse(OntProperty property) {
         String inverse = mBasePrefix + Properties.DomRan.getInverse(property.getLocalName());
-        return getOntProperty(inverse);
+        return ontology.getOntProperty(inverse);
     }
 
 //==================================================================================================================
@@ -288,7 +288,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         individualsModel.setNsPrefix("rdfs", RDFS.getURI());
 
         // Iterate over the individuals and add them to the individualsModel
-        ExtendedIterator<? extends Resource> individuals = pModel.listIndividuals();
+        ExtendedIterator<? extends Resource> individuals = ontology.listResources(Ontology.INDIVIDUALS);
         while (individuals.hasNext()) {
             Resource individual = individuals.next();
             individualsModel.add(individual.listProperties());
@@ -312,8 +312,8 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        pModel.setNsPrefix("", mBasePrefix);
-        pModel.write(out, "TURTLE");
+        ontology.pModel.setNsPrefix("", mBasePrefix);
+        ontology.pModel.write(out, "TURTLE");
         System.out.println("Full graph saved to " + filePath);
     }
 
