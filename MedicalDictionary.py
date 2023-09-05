@@ -164,10 +164,9 @@ class MedicalDictionary:
         return letterTries
 
 
-
+# ======================================================================================================================
     def _readDictionaryCSV(self, dictionaryCSV: str, delimiter: str) -> pd.DataFrame:
         return pd.read_csv(dictionaryCSV, delimiter=delimiter, encoding='utf-8', low_memory=False)
-
 
     def _loadAllTries(self):
         return {
@@ -175,15 +174,12 @@ class MedicalDictionary:
             for letter, letterFile in self._loadFromPickle(self._getLetterDict()).items()
         }
 
-
     def _loadFromPickle(self, file):
         try:
             with open(file, 'rb') as file:
                 return pickle.load(file)
         except FileNotFoundError:
             print(f"File '{file}' not found. Skipping.")
-
-
 
     def _saveFound(self):
         return exists(MedicalDictionary.BASE_LETTER_TRIES_DIR) and \
@@ -206,12 +202,17 @@ class MedicalDictionary:
         with open(file, 'wb') as f:
             pickle.dump(content, f)
 
-
     def printLetterTries(self):
         for letter, letterTrie in self.letterTries.items():
             print(f">> {letter} LETTER TRIE:\n{letterTrie}\n", "="*30)
         print(f"# tries = {len(self.letterTries)}\n{self.letterTries.keys()}")
 
+# ======================================================================================================================
+
+    def generateCandidates(self, header):
+
+        while header != '':
+            pass
 
 
 
