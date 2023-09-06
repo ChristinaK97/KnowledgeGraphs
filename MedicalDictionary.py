@@ -6,6 +6,7 @@ import pandas as pd
 from os.path import exists
 from shutil import rmtree
 
+from HeaderTokenizer import WORD, UNK, ENTRY, TAG, SPAN
 from util.NearDuplicates import removeNearDuplicates
 
 
@@ -141,7 +142,7 @@ class MedicalDictionary:
 
 # ======================================================================================================================
 
-    def generateCandidates(self, header):
+    def generateAllPossibleCandidates(self, header):
 
         while header != '':
             firstLetter = header[0]
@@ -150,6 +151,24 @@ class MedicalDictionary:
                 print(header, match)
             header = header[1:]
 
+
+    def generateCandidates(self, header, headerInputs):
+
+        for entry, tag, span in zip(headerInputs[ENTRY], headerInputs[TAG], headerInputs[SPAN]):
+
+            if tag == WORD:
+                firstLetter = entry[0]
+                if firstLetter in self.letterTries:
+                    abbrev, fullForm = self.letterTries[firstLetter].longest_prefix_item(entry, (None, None))
+                    if abbrev is not None and len(abbrev) == len(entry):
+                        print(f"\tEXACT CANDS FOR '{entry}'  =   {abbrev}  :  {fullForm}")
+                    elif abbrev is not None:
+                        print(f"\tNO EXACT CANDS FOR '{entry}' . CLOSEST CAND =  {abbrev}  :  {fullForm}")
+                    else:
+                        print(f"\tNO EXACT CANDS FOR '{entry}'")
+
+            elif tag == UNK:
+                pass  # TODO
 
 
 

@@ -1,5 +1,4 @@
 import pandas as pd
-from spacy.tokens import Doc, Span
 from HeaderTokenizer import HeaderTokenizer
 from MedicalDictionary import MedicalDictionary
 
@@ -8,6 +7,20 @@ path = "C:\\Users\\karal\\OneDrive\\Υπολογιστής\\clinical-abbreviatio
 inputDataset = "Data_test_Encrypt_Repaired.csv"
 
 headers = pd.read_csv(inputDataset, delimiter=";").columns.to_list()
-HeaderTokenizer(headers)
+hTokenizer = HeaderTokenizer(headers)
+hTokenizer.generateHeaderInputs()
+
+medDict = MedicalDictionary(dictionaryCSVPath=path)
+
+for idx, (header, headerInputs) in enumerate(zip(headers, hTokenizer.getHeaderInputs())):
+    hTokenizer.printHeaderInfo(idx)
+    medDict.generateCandidates(header, headerInputs)
+    print("="*30)
 
 
+"""
+md = MedicalDictionary(dictionaryCSVPath=path)
+for h in headers:
+       md.generateAllPossibleCandidates(h)
+       print('\n=================================\n')
+"""

@@ -14,19 +14,34 @@ nltk.download('stopwords')
 en_stopwords = stopwords.words('english')
 
 # DONT REMOVE THESE UNUSED IMPORTS
+# import scispacy
+# from scispacy.linking import EntityLinker
 import spacy
+import scispacy
+from scispacy.linking import EntityLinker
+
 
 WORD = 1
 NUM = 2
 UNK = 3
+STOPWORD = 4
 UNDETER = -1
+
+ENTRY = 0
+TAG = 1
+SPAN = 2
+
+LINKER_THRS = 0.78
+
 
 class HeaderTokenizer:
     def __init__(self, headers):
         self.headers = headers
         self.ninjaHeaders = None
-        self.separators = None
-        self.headerTags = {}
+        self.separators = []
+        self.tags = {}
+        self.spans = []
+        self.headerInputs = []
 
         self.range = range(len(self.headers))
 
@@ -34,18 +49,27 @@ class HeaderTokenizer:
         self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
         self.linker = self.nlp.get_pipe("scispacy_linker")
 
+
+
+    def generateHeaderInputs(self):
+        """ driver """
         self._ninjaSpit()
         for idx in self.range:
+            self.separators.append(self._getSeparators(idx))
+            self._repairSingleChar(idx)
             self._repairSplitedWords(idx)
             self._createHeaderTags(idx)
+            self.spans.append(self._findSpans(idx))
+            self.headerInputs.append(self._createHeaderInputs(idx))
         self.print_()
+
+
+    def getHeaderInputs(self):
+        return self.headerInputs
 
 
     def _ninjaSpit(self):
         self.ninjaHeaders = [ninja(h) for h in self.headers]
-        self.separators = [self._getSeparators(idx) for idx in self.range]
-        for idx in self.range:
-            self._repairSingleChar(idx)
 
 
     def _getSeparators(self, idx):
@@ -141,9 +165,11 @@ class HeaderTokenizer:
             possibleWord = ''.join(ninjaHeader[i] + (seps[i] if i<len(idxGroup)-1 else '') for i in idxGroup)                       # ;print(possibleWord)
             if re.search(r'\D\d+(\.\d+)?\D', possibleWord):
                 continue
-            if self._isaEnglishWord(possibleWord)[0]:
+
+            isEnWord, tag = self._isaEnglishWord(possibleWord)
+            if isEnWord:
                 sepIdxRmv.update(idxGroup[:-1])
-                for i in idxGroup: replacements[i] = possibleWord
+                for i in idxGroup: replacements[i] = (possibleWord, tag)
 
         if sepIdxRmv:
             self.separators[idx] = [seps[i] for i in range(len(seps)) if i not in sepIdxRmv]
@@ -156,34 +182,14 @@ class HeaderTokenizer:
                     upNinjaHeader.append(ninjaHeader[i])
                     headerTags.append(UNDETER)
                 elif lastIdx == i-1:
-                    upNinjaHeader.append(replacements[i])
-                    headerTags.append(WORD)
+                    upNinjaHeader.append(replacements[i][0])
+                    headerTags.append(replacements[i][1])
 
             assert len(headerTags) == len(upNinjaHeader)
             self.ninjaHeaders[idx] = upNinjaHeader
-            self.headerTags[idx]   = headerTags
+            self.tags[idx]   = headerTags
 
         # print("---------")
-
-
-
-    def _createHeaderTags(self, idx):
-        ninjaHeaders = self.ninjaHeaders[idx]
-        headerTags = self.headerTags.get(idx, [])
-        wasEmpty = len(headerTags) == 0
-
-        for i, word in enumerate(ninjaHeaders):
-            if wasEmpty or headerTags[i] == UNDETER:
-
-                isEnWord, isNumeric = self._isaEnglishWord(word)
-                tag = NUM if isNumeric else (WORD if isEnWord else UNK)
-
-                if wasEmpty: headerTags.append(tag)
-                else: headerTags[i] = tag
-
-        self.headerTags[idx] = headerTags
-
-
 
 
     def _isNumeric(self, word):
@@ -192,29 +198,131 @@ class HeaderTokenizer:
 
     def _isaEnglishWord(self, word, checkLinker=True):
         if self._isNumeric(word):
-            return False, True
-        if word.lower() in en_stopwords or wordnet.synsets(word):
-            return True, False
+            return True, NUM
+
+        if word.lower() in en_stopwords:
+            return True, STOPWORD
+
+        if wordnet.synsets(word):
+            return True, WORD
+
         if checkLinker:
             entities = self.nlp(word).ents
             if entities:
                 matches = entities[0]._.kb_ents
-                if matches and matches[0][1] > 0.78:
-                    return self._checkMatches(word, matches), False
-            return False, False
+                if matches and matches[0][1] > LINKER_THRS:
+                    return self._checkMatches(word, matches)
+
+            return False, UNK
 
 
     def _checkMatches(self, word, matches):
         for umls_ent, score in matches:
             info = self.linker.kb.cui_to_entity[umls_ent]                                               # print(f"\nEntity = {umls_ent}  _  Score = {score}"); print(info)
             if hasDuplicateIn(word, info.aliases + [info.canonical_name]):
-                return True
-        return False
+                return True, WORD
+        return False, UNK
+
+
+
+    def _createHeaderTags(self, idx):
+        ninjaHeaders = self.ninjaHeaders[idx]
+        headerTags = self.tags.get(idx, [])
+        wasEmpty = len(headerTags) == 0
+
+        for i, word in enumerate(ninjaHeaders):
+            if wasEmpty or headerTags[i] == UNDETER:
+
+                _, tag = self._isaEnglishWord(word)
+
+                if wasEmpty: headerTags.append(tag)
+                else: headerTags[i] = tag
+
+        self.tags[idx] = headerTags
+
+
+    def _findSpans(self, idx):
+        ninjaHeader = self.ninjaHeaders[idx]
+        seps = self.separators[idx]
+
+        spans = []
+        start = 0
+        for i, nh in enumerate(ninjaHeader):
+            token = ninjaHeader[i]
+            end = start + len(token)
+            spans.append((start, end))
+            try:
+                start = end + len(seps[i])
+            except IndexError:
+                pass    # for last token
+        return spans
+
+
+    def _createHeaderInputs(self, idx):
+        ninjaHeader = self.ninjaHeaders[idx]
+        spans = self.spans[idx]
+        tags = self.tags[idx]
+        seps = self.separators[idx]
+
+        def addInput(entr, tag, span):
+            if entr not in _addedEntries:
+                inputEntries.append(entr)
+                inputTags.append(tag)
+                inputSpans.append(span)
+                _addedEntries.add(entr)
+
+
+        # the whole header as entry
+        inputEntries  = [self.headers[idx]]
+        inputTags = [WORD]
+        inputSpans = [(0, len(inputEntries[0]))]
+        _addedEntries = {inputEntries[0]}
+
+
+        if len(ninjaHeader) > 1:
+            for i, token in enumerate(ninjaHeader):
+                tokenSpan, tokenTag = spans[i], tags[i]
+
+                if tokenTag == WORD:
+                    addInput(token, tokenTag, tokenSpan)
+
+                elif tokenTag == NUM:
+                    if i > 0 and tags[i - 1] != STOPWORD:
+                        entry = f"{ninjaHeader[i - 1]}{seps[i - 1]}{token}"
+                        start = spans[i-1][0]
+                        end = tokenSpan[1]
+                        addInput(entry, WORD, (start, end))
+
+
+                    if i < len(seps) and tags[i + 1] != STOPWORD:
+                            entry = f"{token}{seps[i]}{ninjaHeader[i + 1]}"
+                            start = tokenSpan[0]
+                            end = spans[i + 1][1]
+                            addInput(entry, WORD, (start, end))
+
+                elif tokenTag == UNK:
+                    pass  # TODO
+
+                elif tokenTag == STOPWORD:
+                    pass  # don't try to interpreter stopwords
+
+        return inputEntries, inputTags, inputSpans
 
 
 
 
-    """
+    def print_(self):
+        for idx, (h, nh, sep, sn, hi) in enumerate(zip(self.headers, self.ninjaHeaders, self.separators, self.spans, self.headerInputs)):
+            print(f">> {h}  ->  {nh} \t {sep} \t {self.tags.get(idx, [])} \t {sn} \t {hi}")
+        print("="*30)
+
+    def printHeaderInfo(self, idx):
+        print(f">> {self.headers[idx]}  ->  {self.ninjaHeaders[idx]} \t {self.separators[idx]} \t {self.tags.get(idx, [])} \t {self.spans[idx]} \t {self.headerInputs[idx]}")
+
+
+
+
+"""
         def _wordRecognition(self, header, ninjaHeader, seps):
         print(f">> {header}  {ninjaHeader}")
 
@@ -233,18 +341,6 @@ class HeaderTokenizer:
             elif isEnWord:
                 words.append(w)
     """
-
-
-    def print_(self):
-        for idx, (h, nh, s) in enumerate(zip(self.headers, self.ninjaHeaders, self.separators)):
-            print(f">> {h}  ->  {nh} \t {s} \t {self.headerTags.get(idx, [])}")
-
-
-
-
-
-
-
 
 
 """
