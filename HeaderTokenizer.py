@@ -1,7 +1,7 @@
 import re
 
 from wordninja import split as ninja
-from NearDuplicates import hasDuplicateIn
+from util.NearDuplicates import hasDuplicateIn
 
 # model_name = 'monologg/biobert_v1.1_pubmed'
 # from transformers import BertTokenizer
@@ -15,8 +15,6 @@ en_stopwords = stopwords.words('english')
 
 # DONT REMOVE THESE UNUSED IMPORTS
 import spacy
-import scispacy
-from scispacy.linking import EntityLinker
 
 WORD = 1
 NUM = 2

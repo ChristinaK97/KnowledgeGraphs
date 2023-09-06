@@ -6,7 +6,7 @@ import pandas as pd
 from os.path import exists
 from shutil import rmtree
 
-from NearDuplicates import removeNearDuplicates
+from util.NearDuplicates import removeNearDuplicates
 
 
 class MedicalDictionary:
