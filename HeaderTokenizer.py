@@ -253,7 +253,7 @@ class HeaderTokenizer:
         if self._isNumeric(word):
             return True, NUM
 
-        if word.lower() in self.en_stopwords:
+        if len(word) == 1 or word.lower() in self.en_stopwords:
             return True, STOPWORD
 
         if wordnet.synsets(word):
