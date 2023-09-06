@@ -1,80 +1,12 @@
-import math
 from os import makedirs
 import pickle
-import re
-import string
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List
 from pytrie import SortedStringTrie as Trie
 import pandas as pd
-from thefuzz import fuzz as fz
 from os.path import exists
 from shutil import rmtree
 
-from UnionFind import UnionFind
-
-
-def removeNearDuplicates(inputList: List[str]) -> List[str]:
-    def lenDiff(x:str, y:str):
-        lx = len(x)
-        ly = len(y)
-        return (abs(lx - ly) / ((lx + ly) / 2)) * 100
-
-    def process(fullForm:str) -> Tuple[str, Set[str], str]:
-        noPunct = fullForm.translate(str.maketrans(string.punctuation, ' ' * len(string.punctuation)))
-        split = re.findall(r"\b\w+\b", noPunct.lower())
-        concat = "".join(split)
-        return noPunct, set(split), concat
-
-    processed = [process(fullForm) for fullForm in inputList]
-    # print(processed)
-
-    if len(processed) == 1:
-        return [processed[0][0]]
-
-    LEN_DIFF_THRS = 15
-    LEVEN_THRS = 96
-
-    nearDuplicatePairs = UnionFind(len(processed))
-
-    for idx1 in range(len(processed)):
-        _, split1, concat1 = processed[idx1]
-        for idx2 in range(idx1 + 1, len(processed)):
-            _, split2, concat2 = processed[idx2]
-
-            if concat1 == concat2 or split1 == split2 or \
-               (lenDiff(concat1, concat2) < LEN_DIFF_THRS and fz.ratio(concat1, concat2) >= LEVEN_THRS):
-                nearDuplicatePairs.union(idx1, idx2)
-
-            """
-            if concat1 == concat2 or split1 == split2 :
-                print(f"Identical \t< {inputList[idx1]} \t {inputList[idx2]} >")
-                nearDuplicatePairs.union(idx1, idx2)
-
-            elif lenDiff(concat1, concat2) < 15:
-                leven = fz.ratio(concat1, concat2)
-                if leven >= 98:
-                    print(f"{leven} {lenDiff(concat1, concat2)}\t< {concat1} \t {concat2} >")
-                    nearDuplicatePairs.union(idx1, idx2)
-            else:
-                print(f"Diff \t< {inputList[idx1]} \t {inputList[idx2]} >")            
-            """
-
-    nearDuplicateSets = nearDuplicatePairs.getSets()
-    # print(nearDuplicateSets)
-
-    distinctAnnots = []
-    for dSet in nearDuplicateSets:
-        minLen, minAnnot = math.inf, None
-        for idx in dSet:
-            currLen = len(processed[idx][0])
-            if currLen < minLen:
-                minLen, minAnnot = currLen, processed[idx][0]
-
-        distinctAnnots.append(minAnnot)
-
-    # print(distinctAnnots)
-    # print("========================================")
-    return distinctAnnots
+from NearDuplicates import removeNearDuplicates
 
 
 class MedicalDictionary:
@@ -87,7 +19,7 @@ class MedicalDictionary:
                  abbrevCol:str = "SF",
                  fullFormCol:str = "LF",
                  resetTries:bool = False,
-                 printTries:bool = True
+                 printTries:bool = False
     ):
         self.abbrevCol = abbrevCol
         self.fullFormCol = fullFormCol
@@ -212,13 +144,14 @@ class MedicalDictionary:
     def generateCandidates(self, header):
 
         while header != '':
-            pass
+            firstLetter = header[0]
+            if firstLetter in self.letterTries:
+                match = self.letterTries[firstLetter].longest_prefix_item(header, None)
+                print(header, match)
+            header = header[1:]
 
 
 
-path = "C:\\Users\\karal\\OneDrive\\Υπολογιστής\\clinical-abbreviations-1.0.2\\clinical-abbreviations-1.0.2" \
-       "\\metainventory\\Metainventory_Version1.0.0.csv "
-MedicalDictionary(path)
 
 
 
