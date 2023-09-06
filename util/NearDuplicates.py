@@ -1,7 +1,7 @@
 import math
 import re
 import string
-from typing import Tuple, Set, List
+from typing import Tuple, Set, List, Dict
 
 from thefuzz import fuzz as fz
 
@@ -44,18 +44,20 @@ if wConcat == cConcat or wSplit == cSplit :
 elif lenDiff(wConcat, cConcat) < LEN_DIFF_THRS:
     leven = fz.ratio(wConcat, cConcat)
     print(f"{leven} {lenDiff(wConcat, cConcat)}\t< {wConcat} \t {cConcat} >")
-    if leven >= 98:
+    if leven >= LEVEN_THRS:
         return True        
 """
 
 
-def removeNearDuplicates(inputList: List[str]) -> List[str]:
+
+
+def groupNearDuplicates(inputList: List[str]) -> Dict[str, List[str]]:
 
     processed = [process(fullForm) for fullForm in inputList]
     # print(processed)
 
     if len(processed) == 1:
-        return [processed[0][0]]
+        return {processed[0][0] : [processed[0][0]]}
 
     nearDuplicatePairs = UnionFind(len(processed))
 
@@ -70,19 +72,26 @@ def removeNearDuplicates(inputList: List[str]) -> List[str]:
 
     nearDuplicateSets = nearDuplicatePairs.getSets()
     # print(nearDuplicateSets)
+    # =====================================================================
 
-    distinctAnnots = []
+    distinctAnnots = {}
     for dSet in nearDuplicateSets:
-        minLen, minAnnot = math.inf, None
+        minLen, maxWhite, minAnnot, altAnnots = math.inf, -1, None, set()
         for idx in dSet:
-            currLen = len(processed[idx][0])
-            if currLen < minLen:
-                minLen, minAnnot = currLen, processed[idx][0]
+            annot = processed[idx][0]
+            altAnnots.add(annot)
 
-        distinctAnnots.append(minAnnot)
+            n_white = len(annot) - len(processed[idx][2])
+            cLen = len(annot) - n_white
+
+            if cLen < minLen or (cLen == minLen and n_white > maxWhite):
+                minLen, maxWhite, minAnnot = cLen, n_white, annot
+
+        distinctAnnots[minAnnot] = list(altAnnots)
 
     # print(distinctAnnots)
-    # print("========================================")
+    # print("="*30)
+    # return split_key_based_on_values(distinctAnnots)
     return distinctAnnots
 
 
@@ -91,11 +100,44 @@ if concat1 == concat2 or split1 == split2 :
     print(f"Identical \t< {inputList[idx1]} \t {inputList[idx2]} >")
     nearDuplicatePairs.union(idx1, idx2)
 
-elif lenDiff(concat1, concat2) < 15:
+elif lenDiff(concat1, concat2) < LEN_DIFF_THRS:
     leven = fz.ratio(concat1, concat2)
-    if leven >= 98:
+    if leven >= LEVEN_THRS:
         print(f"{leven} {lenDiff(concat1, concat2)}\t< {concat1} \t {concat2} >")
         nearDuplicatePairs.union(idx1, idx2)
 else:
     print(f"Diff \t< {inputList[idx1]} \t {inputList[idx2]} >")            
 """
+
+
+
+# ===============================================================================================================
+"""
+def split_key_based_on_values(dictionary):
+    new_dict = {}
+    for key, values in dictionary.items():
+        substr = common_substring(values)
+        if substr:
+            parts = key.split(substr)
+            if len(parts) == 2:
+                new_key = f'{parts[0]} {substr} {parts[1]}'.strip()
+            else:
+                new_key = key
+            new_dict[new_key] = values
+        else:
+            new_dict[key] = values
+    return new_dict
+
+def common_substring(strings):
+    substr = ""
+    if not strings:
+        return substr
+    min_len = min(len(s) for s in strings)
+    for i in range(min_len):
+        if all(s[i] == strings[0][i] for s in strings):
+            substr += strings[0][i]
+        else:
+            break
+    return substr
+"""
+

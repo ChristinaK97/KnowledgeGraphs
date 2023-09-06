@@ -7,7 +7,7 @@ from os.path import exists
 from shutil import rmtree
 
 from HeaderTokenizer import WORD, UNK, ENTRY, TAG, SPAN
-from util.NearDuplicates import removeNearDuplicates
+from util.NearDuplicates import groupNearDuplicates
 
 
 class MedicalDictionary:
@@ -51,7 +51,7 @@ class MedicalDictionary:
         # 1
         dictionaryDF = dictionaryDF.groupby(self.abbrevCol)[self.fullFormCol].unique().reset_index()
         # 2
-        dictionaryDF[self.fullFormCol] = dictionaryDF[self.fullFormCol].apply(list).apply(removeNearDuplicates)
+        dictionaryDF[self.fullFormCol] = dictionaryDF[self.fullFormCol].apply(list).apply(groupNearDuplicates)
         # 3
         letterBuckets = {}
         unique_first_letters = dictionaryDF[self.abbrevCol].str[0].unique()
@@ -67,19 +67,25 @@ class MedicalDictionary:
         :param letterBuckets: key = a character -> the first letter of all abbreviations in the dict value,
                               value = dict where
                                         key = an abbreviation
-                                        value = a list with all unique interpretations of the abbreviation
+                                        value = a dictionary with all unique interpretations of the abbreviation
+                                                (interpretations are grouped by searching for near duplicates)
         Create Files Dict where
                     key = a character -> the first letter of all abbreviations in the trie
                     value = a Trie where
                                     key = an abbreviation
-                                    value = a list with all unique interpretations of the abbreviation
+                                    value = a dictionary with all unique interpretations of the abbreviation
+                                            (interpretations are grouped by searching for near duplicates)
                 Example:
-                letterTrie[μ] value is:
+                letterTrie[ω] value is:
                     SortedStringTrie({
-                        'μ': ['micrometer', 'micrometre'],
-                        'μ H chain': ['mu heavy chain', 'μ heavy chain'],
-                        'μ OR': ['mu opioid receptor', 'μ opioid receptor'],
-                        'μ-H chain': ['mu heavy chain', 'μ heavy chain'], ...})
+                        'ω 3 FA': {
+                            'omega 3 fatty acid': ['omega 3 fatty acid', 'omega3 fatty acid'],
+                            'ω 3 fatty acid': ['ω 3 fatty acid', 'ω3 fatty acid']
+                        },
+                        'ω 3 PUFA': {
+                            'omega 3 polyunsaturated fatty acid': ['omega 3 polyunsaturated fatty acid', 'omega3 polyunsaturated fatty acid']
+                        }, ...
+                    })
         """
 
         letterTries = {}
