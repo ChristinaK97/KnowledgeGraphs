@@ -1,4 +1,6 @@
+import pickle
 import re
+from os.path import exists
 
 from wordninja import split as ninja
 from util.NearDuplicates import hasDuplicateIn
@@ -9,17 +11,9 @@ from util.NearDuplicates import hasDuplicateIn
 
 import nltk
 from nltk.corpus import wordnet, stopwords
-nltk.download("wordnet")
-nltk.download('stopwords')
-en_stopwords = stopwords.words('english')
 
-# DONT REMOVE THESE UNUSED IMPORTS
-# import scispacy
-# from scispacy.linking import EntityLinker
-import spacy
-import scispacy
-from scispacy.linking import EntityLinker
 
+saveFile = "resources\\headerTokenizerOutput.pkl"
 
 WORD = 1
 NUM = 2
@@ -35,15 +29,37 @@ LINKER_THRS = 0.78
 
 
 class HeaderTokenizer:
-    def __init__(self, headers):
-        self.headers = headers
-        self.ninjaHeaders = None
-        self.separators = []
-        self.tags = {}
-        self.spans = []
-        self.headerInputs = []
 
-        self.range = range(len(self.headers))
+
+    def __init__(self, headers, resetTokenizer:bool = False):
+
+        if resetTokenizer or not exists(saveFile):
+            self._initLibraries()
+
+            self.headers = headers
+            self.headersAlphabet = None
+            self.ninjaHeaders = None
+            self.separators = []
+            self.tags = {}
+            self.spans = []
+            self.headerInputs = []
+            self.headersIdxs = range(len(self.headers))
+
+            self._generateHeaderInputs()
+            self._saveResults()
+        else:
+            self._loadResults()
+
+
+    def _initLibraries(self):
+        nltk.download("wordnet")
+        nltk.download('stopwords')
+        self.en_stopwords = stopwords.words('english')
+
+        # DONT REMOVE THESE UNUSED IMPORTS
+        import spacy
+        import scispacy
+        from scispacy.linking import EntityLinker
 
         self.nlp = spacy.load("en_core_sci_lg")
         self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
@@ -51,10 +67,11 @@ class HeaderTokenizer:
 
 
 
-    def generateHeaderInputs(self):
+    def _generateHeaderInputs(self):
         """ driver """
+        self._createHeadersAlphabet()
         self._ninjaSpit()
-        for idx in self.range:
+        for idx in self.headersIdxs:
             self.separators.append(self._getSeparators(idx))
             self._repairSingleChar(idx)
             self._repairSplitedWords(idx)
@@ -62,6 +79,42 @@ class HeaderTokenizer:
             self.spans.append(self._findSpans(idx))
             self.headerInputs.append(self._createHeaderInputs(idx))
         self.print_()
+
+
+    def _createHeadersAlphabet(self):
+        # Initialize an empty set to collect unique characters
+        # Iterate through each string and add its characters to the set
+        # Convert the set of unique characters back to a sorted list
+        self.headersAlphabet = set()
+        for header in self.headers:
+            self.headersAlphabet.update(set(header))
+
+
+    def _saveResults(self):
+        attributes_to_save = {
+            'headers': self.headers,
+            'headersAlphabet': self.headersAlphabet,
+            'ninjaHeaders': self.ninjaHeaders,
+            'separators': self.separators,
+            'tags': self.tags,
+            'spans': self.spans,
+            'headerInputs': self.headerInputs,
+        }
+        with open(saveFile, 'wb') as file:
+            pickle.dump(attributes_to_save, file)
+
+
+    def _loadResults(self):
+        with open(saveFile, 'rb') as file:
+            la = pickle.load(file)
+
+        self.headers = la['headers']
+        self.headersAlphabet = la['headersAlphabet']
+        self.ninjaHeaders = la['ninjaHeaders']
+        self.separators = la['separators']
+        self.tags = la['tags']
+        self.spans = la['spans']
+        self.headerInputs = la['headerInputs']
 
 
     def getHeaderInputs(self):
@@ -200,7 +253,7 @@ class HeaderTokenizer:
         if self._isNumeric(word):
             return True, NUM
 
-        if word.lower() in en_stopwords:
+        if word.lower() in self.en_stopwords:
             return True, STOPWORD
 
         if wordnet.synsets(word):

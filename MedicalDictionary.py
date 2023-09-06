@@ -1,6 +1,6 @@
 from os import makedirs
 import pickle
-from typing import Dict, List
+from typing import Dict, List, Set
 from pytrie import SortedStringTrie as Trie
 import pandas as pd
 from os.path import exists
@@ -12,13 +12,14 @@ from util.NearDuplicates import groupNearDuplicates
 
 class MedicalDictionary:
 
-    BASE_LETTER_TRIES_DIR = 'letterTries\\'
+    BASE_LETTER_TRIES_DIR = 'resources\\letterTries\\'
 
     def __init__(self,
                  dictionaryCSVPath: str,
                  delimiter: str = "|",
                  abbrevCol:str = "SF",
                  fullFormCol:str = "LF",
+                 datasetAlphabet: Set[str] = None,
                  resetTries:bool = False,
                  printTries:bool = False
     ):
@@ -34,7 +35,8 @@ class MedicalDictionary:
                         self._readDictionaryCSV(dictionaryCSVPath, delimiter)))
         else:
             print("Load tries")
-            self.letterTries = self._loadAllTries()
+            self.letterTries = self._loadTries(datasetAlphabet)
+            print(f"Loaded {len(self.letterTries)} tries for letters = {self.letterTries.keys()}.\n")
 
         if printTries: self.printLetterTries()
 
@@ -107,10 +109,11 @@ class MedicalDictionary:
     def _readDictionaryCSV(self, dictionaryCSV: str, delimiter: str) -> pd.DataFrame:
         return pd.read_csv(dictionaryCSV, delimiter=delimiter, encoding='utf-8', low_memory=False)
 
-    def _loadAllTries(self):
+    def _loadTries(self, datasetAlphabet: Set[str] = None):
         return {
             letter : self._loadFromPickle(letterFile)
             for letter, letterFile in self._loadFromPickle(self._getLetterDict()).items()
+            if datasetAlphabet is None or letter in datasetAlphabet
         }
 
     def _loadFromPickle(self, file):

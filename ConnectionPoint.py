@@ -4,13 +4,14 @@ from MedicalDictionary import MedicalDictionary
 
 path = "C:\\Users\\karal\\OneDrive\\Υπολογιστής\\clinical-abbreviations-1.0.2\\clinical-abbreviations-1.0.2" \
        "\\metainventory\\Metainventory_Version1.0.0.csv"
-inputDataset = "Data_test_Encrypt_Repaired.csv"
+
+inputDataset = "resources\\Data_test_Encrypt_Repaired.csv"
 
 headers = pd.read_csv(inputDataset, delimiter=";").columns.to_list()
 hTokenizer = HeaderTokenizer(headers)
-hTokenizer.generateHeaderInputs()
 
-medDict = MedicalDictionary(dictionaryCSVPath=path)
+
+medDict = MedicalDictionary(dictionaryCSVPath=path, datasetAlphabet = hTokenizer.headersAlphabet)
 
 for idx, (header, headerInputs) in enumerate(zip(headers, hTokenizer.getHeaderInputs())):
     hTokenizer.printHeaderInfo(idx)
