@@ -43,6 +43,7 @@ class HeaderTokenizer:
             self.separators = []
             self.tags = {}
             self.spans = []
+            self.isUnambiguous = []
             self.headerInputs = []
             self.headersIdxs = range(len(self.headers))
 
@@ -82,6 +83,7 @@ class HeaderTokenizer:
             self._repairSingleChar(idx)
             self._repairSplitedWords(idx)
             self._createHeaderTags(idx)
+            self.isUnambiguous.append(self._isUnambiguous(idx))
             self._normalizeSeparators(idx)
             self.tokenizedHeaders.append(self._createTokenizedHeader(idx))
             self.spans.append(self._findSpans(idx))
@@ -108,6 +110,7 @@ class HeaderTokenizer:
             'separators': self.separators,
             'tags': self.tags,
             'spans': self.spans,
+            'isUnambiguous': self.isUnambiguous,
             'headerInputs': self.headerInputs,
         }
         with open(saveFile, 'wb') as file:
@@ -125,6 +128,7 @@ class HeaderTokenizer:
         self.separators = la['separators']
         self.tags = la['tags']
         self.spans = la['spans']
+        self.isUnambiguous = la['isUnambiguous']
         self.headerInputs = la['headerInputs']
 
 
@@ -303,6 +307,9 @@ class HeaderTokenizer:
         self.tags[idx] = headerTags
 
 
+    def _isUnambiguous(self, idx):
+        return UNK not in set(self.tags[idx])
+
 
     def _normalizeSeparators(self, idx):
         self.separators[idx] = [sep if sep not in {'','_'} else ' ' for sep in self.separators[idx]]
@@ -387,12 +394,12 @@ class HeaderTokenizer:
 
 
     def print_(self):
-        for idx, (h, nh, th, sep, sn, hi) in enumerate(zip(self.headers, self.ninjaHeaders, self.tokenizedHeaders, self.separators, self.spans, self.headerInputs)):
-            print(f">> '{h}'  ->  {nh}  ->  '{th}' \t {sep} \t {self.tags.get(idx, [])} \t {sn} \t {hi}")
+        for idx, (h, nh, th, sep, sn, iu, hi) in enumerate(zip(self.headers, self.ninjaHeaders, self.tokenizedHeaders, self.separators, self.isUnambiguous, self.spans, self.headerInputs)):
+            print(f">> '{h}'  ->  {nh}  ->  '{th}' \t {sep} \t {self.tags.get(idx, [])}  ->  {iu} \t {sn} \t {hi}")
         print("="*30)
 
     def printHeaderInfo(self, idx):
-        print(f">> '{self.headers[idx]}'  ->  {self.ninjaHeaders[idx]}  ->  '{self.tokenizedHeaders[idx]}' \t {self.separators[idx]} \t {self.tags.get(idx, [])} \t {self.spans[idx]} \t {self.headerInputs[idx]}")
+        print(f">> '{self.headers[idx]}'  ->  {self.ninjaHeaders[idx]}  ->  '{self.tokenizedHeaders[idx]}' \t {self.separators[idx]} \t {self.tags.get(idx, [])}  ->  {self.isUnambiguous[idx]} \t {self.spans[idx]} \t {self.headerInputs[idx]}")
 
 
 
