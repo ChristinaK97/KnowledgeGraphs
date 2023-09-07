@@ -56,7 +56,9 @@ class HeaderTokenizer:
     def getHeaderInputs(self):
         return self.headerInputs
 
-
+    def getHeaderFields(self, idx):
+        return self.headers[idx], self.tokenizedHeaders[idx], \
+               self.isUnambiguous[idx], self.headerInputs[idx]
 
 
     def _initLibraries(self):

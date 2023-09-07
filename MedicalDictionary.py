@@ -1,3 +1,4 @@
+from itertools import product
 from os import makedirs
 import pickle
 from typing import Dict, List, Set
@@ -107,7 +108,23 @@ class MedicalDictionary:
 
 # ======================================================================================================================
     def _readDictionaryCSV(self, dictionaryCSV: str, delimiter: str) -> pd.DataFrame:
-        return pd.read_csv(dictionaryCSV, delimiter=delimiter, encoding='utf-8', low_memory=False)
+        # Read the dictionary
+        # Create a list to store the new rows
+        # Get unique values of 'SF' column
+        # Iterate through unique SF values
+        # Create a new row with the same SF and LF value
+        # Append the new rows to the DataFrame
+        df = pd.read_csv(dictionaryCSV, delimiter=delimiter, encoding='utf-8', low_memory=False)
+        maintainAbbrevEntries = []
+        for abbrev in df[self.abbrevCol].unique():
+            maintainAbbrevEntries.append({
+                self.abbrevCol: abbrev,
+                self.fullFormCol: abbrev,
+            })
+        maintainAbbrevEntries = pd.DataFrame(maintainAbbrevEntries)
+        df = pd.concat([df, maintainAbbrevEntries], ignore_index=True)
+        return df
+
 
     def _loadTries(self, datasetAlphabet: Set[str] = None):
         return {
@@ -161,8 +178,10 @@ class MedicalDictionary:
             header = header[1:]
 
 
-    def generateCandidates(self, header, headerInputs):
+    def generateHeaderCandidates(self, headerInfo):
+        header, tokenizedHeader, _, headerInputs = headerInfo
 
+        headerAbbrevCands = {}
         for entry, tag, span in zip(headerInputs[ENTRY], headerInputs[TAG], headerInputs[SPAN]):
 
             if tag == WORD:
@@ -171,6 +190,8 @@ class MedicalDictionary:
                     abbrev, fullForm = self.letterTries[firstLetter].longest_prefix_item(entry, (None, None))
                     if abbrev is not None and len(abbrev) == len(entry):
                         print(f"\tYS EXACT CANDS FOR '{entry}'  =   {abbrev}  :  {fullForm}")
+                        headerAbbrevCands[entry] = (span, fullForm)
+
                     elif abbrev is not None:
                         print(f"\tNO EXACT CANDS FOR '{entry}' . CLOSEST CAND =  {abbrev}  :  {fullForm}")
                     else:
@@ -179,15 +200,71 @@ class MedicalDictionary:
             elif tag == UNK:
                 pass  # TODO
 
+        if headerAbbrevCands:
+            return self._gen_partial_and_whole_header_cands(header, tokenizedHeader, headerAbbrevCands)
 
 
+    def _gen_partial_and_whole_header_cands(self, header, tokenizedHeader, headerAbbrevCands):
+        print("\tCANDIDATES:")
+        # handle whole header candidates separately
+        wHeaderCands = headerAbbrevCands.pop(header, None)
+
+        # partial header candidates generation
+        candidates = self._generateCandidates(tokenizedHeader, headerAbbrevCands)
+
+        # whole header candidates generation
+        if wHeaderCands is not None:
+            wHeaderCands = {header : wHeaderCands}
+            candidates.update(self._generateCandidates(tokenizedHeader, wHeaderCands))
+        return candidates
 
 
+    def _generateCandidates(self, tokenizedHeader, headerAbbrevCands):
+        """
+        Explanation for generating combinations:
+        For generating interpretations by changing an abbreviation that is contained in a header
+        and does not span across the whole header. Eg, 'ECG stress' -> 'electrocardiogram stress'
+        Some headers might contain multiple abbreviations, so a candidate interpretation will be generated
+        for each combination of the full forms of the abbreviations
+        Eg.,    micro         alb
+            ('microcytic', 'albendazole')   microcytic albendazole
+            ('microcytic', 'albumin')       microcytic albumin
+            ('microcytic', 'alb')           microcytic alb
+            ('microscopy', 'albendazole')   microscopy albendazole
+            ('microscopy', 'albumin')       microscopy albumin
+            ('microscopy', 'alb')           microscopy alb
+            ('micro', 'albendazole')        micro albendazole
+            ('micro', 'albumin')            micro albumin
+            The original for of each abbrev is also consider for the candidates as
+            one of the abbrev might give a better score if it's not interpreted,
+            but the original tokenizedHeader is excluded here. -> TODO should check during selection
+        """
+        candidates = {}
+        spans, sortedBySpan, combinations = self._prepareCombinations(headerAbbrevCands)
+        for combination in combinations:
+            candidate = ''
+            prevEnd = 0
+            for dim, abbrev in enumerate(sortedBySpan):
+                currStart = spans[abbrev][0]
+                candidate += tokenizedHeader[prevEnd: currStart] + combination[dim]
+                prevEnd = spans[abbrev][1]
+            candidate += tokenizedHeader[prevEnd:]
+            if candidate != tokenizedHeader:
+                candidates[combination] = candidate
+                print(f"\t{combination} : {candidate}")
+        return candidates
 
 
+    def _prepareCombinations(self, headerAbbrevCands):
+        # Sort the dictionary keys based on the first element of each span
+        # Create a list of dictionaries in the sorted order
+        spans = {abbrev: headerAbbrevCands[abbrev][0] for abbrev in headerAbbrevCands.keys()}
+        sortedBySpan = sorted(spans.keys(), key=lambda k: spans[k][0])
+        abbrevDict = [headerAbbrevCands[abbrev][1] for abbrev in sortedBySpan]
 
-
-
+        fullFormsMain = [d.keys() for d in abbrevDict]
+        combinations = list(product(*fullFormsMain))
+        return spans, sortedBySpan, combinations
 
 
 

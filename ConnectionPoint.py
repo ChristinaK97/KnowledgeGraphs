@@ -17,9 +17,9 @@ hTokenizer = HeaderTokenizer(headers)
 
 medDict = MedicalDictionary(dictionaryCSVPath=path, datasetAlphabet = hTokenizer.headersAlphabet)
 
-for idx, (header, headerInputs) in enumerate(zip(headers, hTokenizer.getHeaderInputs())):
+for idx in range(len(headers)):
     hTokenizer.printHeaderInfo(idx)
-    medDict.generateCandidates(header, headerInputs)
+    medDict.generateHeaderCandidates(hTokenizer.getHeaderFields(idx))
     print("="*30)
 
 
