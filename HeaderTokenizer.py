@@ -37,6 +37,7 @@ class HeaderTokenizer:
             self._initLibraries()
 
             self.headers = headers
+            self.tokenizedHeaders = []
             self.headersAlphabet = None
             self.ninjaHeaders = None
             self.separators = []
@@ -49,6 +50,12 @@ class HeaderTokenizer:
             self._saveResults()
         else:
             self._loadResults()
+
+
+    def getHeaderInputs(self):
+        return self.headerInputs
+
+
 
 
     def _initLibraries(self):
@@ -66,7 +73,6 @@ class HeaderTokenizer:
         self.linker = self.nlp.get_pipe("scispacy_linker")
 
 
-
     def _generateHeaderInputs(self):
         """ driver """
         self._createHeadersAlphabet()
@@ -76,9 +82,12 @@ class HeaderTokenizer:
             self._repairSingleChar(idx)
             self._repairSplitedWords(idx)
             self._createHeaderTags(idx)
+            self._normalizeSeparators(idx)
+            self.tokenizedHeaders.append(self._createTokenizedHeader(idx))
             self.spans.append(self._findSpans(idx))
             self.headerInputs.append(self._createHeaderInputs(idx))
         self.print_()
+
 
 
     def _createHeadersAlphabet(self):
@@ -93,6 +102,7 @@ class HeaderTokenizer:
     def _saveResults(self):
         attributes_to_save = {
             'headers': self.headers,
+            'tokenizedHeaders': self.tokenizedHeaders,
             'headersAlphabet': self.headersAlphabet,
             'ninjaHeaders': self.ninjaHeaders,
             'separators': self.separators,
@@ -109,6 +119,7 @@ class HeaderTokenizer:
             la = pickle.load(file)
 
         self.headers = la['headers']
+        self.tokenizedHeaders = la['tokenizedHeaders']
         self.headersAlphabet = la['headersAlphabet']
         self.ninjaHeaders = la['ninjaHeaders']
         self.separators = la['separators']
@@ -117,8 +128,6 @@ class HeaderTokenizer:
         self.headerInputs = la['headerInputs']
 
 
-    def getHeaderInputs(self):
-        return self.headerInputs
 
 
     def _ninjaSpit(self):
@@ -294,6 +303,19 @@ class HeaderTokenizer:
         self.tags[idx] = headerTags
 
 
+
+    def _normalizeSeparators(self, idx):
+        self.separators[idx] = [sep if sep not in {'','_'} else ' ' for sep in self.separators[idx]]
+
+
+    def _createTokenizedHeader(self, idx):
+        ninjaHeader = self.ninjaHeaders[idx]
+        seps = self.separators[idx]
+        lH = len(ninjaHeader)
+        return ''.join(ninjaHeader[i] + (seps[i] if i < lH - 1 else '') for i in range(lH))
+
+
+
     def _findSpans(self, idx):
         ninjaHeader = self.ninjaHeaders[idx]
         seps = self.separators[idx]
@@ -365,12 +387,12 @@ class HeaderTokenizer:
 
 
     def print_(self):
-        for idx, (h, nh, sep, sn, hi) in enumerate(zip(self.headers, self.ninjaHeaders, self.separators, self.spans, self.headerInputs)):
-            print(f">> {h}  ->  {nh} \t {sep} \t {self.tags.get(idx, [])} \t {sn} \t {hi}")
+        for idx, (h, nh, th, sep, sn, hi) in enumerate(zip(self.headers, self.ninjaHeaders, self.tokenizedHeaders, self.separators, self.spans, self.headerInputs)):
+            print(f">> '{h}'  ->  {nh}  ->  '{th}' \t {sep} \t {self.tags.get(idx, [])} \t {sn} \t {hi}")
         print("="*30)
 
     def printHeaderInfo(self, idx):
-        print(f">> {self.headers[idx]}  ->  {self.ninjaHeaders[idx]} \t {self.separators[idx]} \t {self.tags.get(idx, [])} \t {self.spans[idx]} \t {self.headerInputs[idx]}")
+        print(f">> '{self.headers[idx]}'  ->  {self.ninjaHeaders[idx]}  ->  '{self.tokenizedHeaders[idx]}' \t {self.separators[idx]} \t {self.tags.get(idx, [])} \t {self.spans[idx]} \t {self.headerInputs[idx]}")
 
 
 
@@ -395,6 +417,21 @@ class HeaderTokenizer:
                 words.append(w)
     """
 
+"""def normalizeSeparators(self, idx):
+    ninjaHeader = self.ninjaHeaders[idx]
+    seps = self.separators[idx]
+    # tags = self.tags[idx]
+    lH = len(ninjaHeader)
+
+    normalized = ''
+    for i in range(lH):
+        if i < lH - 1:
+            sep = seps[i] if seps[i] not in {'', '_'} else ' '
+        else:
+            sep = ''
+        normalized += ninjaHeader[i] + sep
+
+    return normalized"""
 
 """
 l, s = ['NA', 's', 't'], ['']*2

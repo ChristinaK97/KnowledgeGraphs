@@ -4,7 +4,7 @@ from util.NearDuplicates import groupNearDuplicates
 
 path = "C:\\Users\\karal\\OneDrive\\Υπολογιστής\\clinical-abbreviations-1.0.2\\clinical-abbreviations-1.0.2" \
        "\\metainventory\\Metainventory_Version1.0.0.csv"
-medDict = MedicalDictionary(dictionaryCSVPath=path, printTries=True, resetTries=True)
+# medDict = MedicalDictionary(dictionaryCSVPath=path, printTries=True, resetTries=False)
 
 s = [
 'angiotensinconverting enzyme inhibitor',

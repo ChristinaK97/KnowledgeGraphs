@@ -11,6 +11,8 @@ headers = pd.read_csv(inputDataset, delimiter=";").columns.to_list()
 hTokenizer = HeaderTokenizer(headers)
 
 
+
+
 medDict = MedicalDictionary(dictionaryCSVPath=path, datasetAlphabet = hTokenizer.headersAlphabet)
 
 for idx, (header, headerInputs) in enumerate(zip(headers, hTokenizer.getHeaderInputs())):
@@ -19,9 +21,13 @@ for idx, (header, headerInputs) in enumerate(zip(headers, hTokenizer.getHeaderIn
     print("="*30)
 
 
+
 """
 md = MedicalDictionary(dictionaryCSVPath=path)
 for h in headers:
        md.generateAllPossibleCandidates(h)
        print('\n=================================\n')
 """
+
+
+
