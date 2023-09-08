@@ -1,13 +1,13 @@
 from itertools import product
 from os import makedirs
 import pickle
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Tuple
 from pytrie import SortedStringTrie as Trie
 import pandas as pd
 from os.path import exists
 from shutil import rmtree
 
-from HeaderTokenizer import WORD, UNK, ENTRY, TAG, SPAN
+from HeadersDataset import WORD, UNK, ENTRY, TAG, SPAN
 from util.NearDuplicates import groupNearDuplicates
 
 
@@ -26,6 +26,8 @@ class MedicalDictionary:
     ):
         self.abbrevCol = abbrevCol
         self.fullFormCol = fullFormCol
+
+        self.datasetAbbrevDetected = set()
 
         if resetTries or not self._saveFound():
             print("Create Tries")
@@ -178,7 +180,49 @@ class MedicalDictionary:
             header = header[1:]
 
 
+    def getDatasetAbbrevDetected(self):
+        """Call after searching for candidates for all the headers to get a set of all the
+           abbreviations found in the dataset. """
+        return self.datasetAbbrevDetected
+
+    def getExactMatch(self, abbrev):
+        firstLetter = abbrev[0]
+        if firstLetter in self.letterTries:
+            fullForm = self.letterTries[firstLetter].get(abbrev)
+            return list(fullForm.keys()) if fullForm is not None else []
+
+
+
+
     def generateHeaderCandidates(self, headerInfo):
+        """
+        :param headerInfo: header -> str, tokenizedHeader -> str, isUnambiguous (ignored) -> bool,
+                           headerInputs ->  parallel lists entry, tag, span
+        :return:
+            partialAbbrevsDetected: Tuple[str] of all the abbreviations detect within the header sorted according to
+                                    span. Excluding whole header abbrev
+                                    e.g., (micro, alb)
+            partialCands: Dict[Tuple[str], str],
+                          key= the interpretation of each abbrev in the combination. The order corresponds with the
+                               order of the abbrev in the partialAbbrevsDetected
+                          value= The candidate interpretation of the combination
+                          It contains all the possible interpretations of the header -> all the interpretations of
+                          the abbreviation as found in the trie in case a single abbreviation is found in the header,
+                          Or if more than one abbrev is found in the header, all the possible combinations of their
+                          interpretation, including candidates where only a portion of the abbreviations present
+                          were replaced by their interpretation.
+                          E.g., {
+                                      ('microcytic', 'albendazole'):   microcytic albendazole,
+                                      ('microcytic', 'albumin'):       microcytic albumin,
+                                      ('microcytic', 'alb'):           microcytic alb, ...
+                                }
+            wHeaderCands: Dict[Tuple[str], str] same thing as the partialCands but for whole header as abbrev candidates
+                          E.g., for header = 'MI'
+                          	    {('myocardial infarction',) : myocardial infarction,
+	                             ('massa intermedia',) : massa intermedia,...}
+
+	        If no abbreviations and candidates were found, it returns None * 3
+        """
         header, tokenizedHeader, _, headerInputs = headerInfo
 
         headerAbbrevCands = {}
@@ -190,6 +234,7 @@ class MedicalDictionary:
                     abbrev, fullForm = self.letterTries[firstLetter].longest_prefix_item(entry, (None, None))
                     if abbrev is not None and len(abbrev) == len(entry):
                         print(f"\tYS EXACT CANDS FOR '{entry}'  =   {abbrev}  :  {fullForm}")
+                        self.datasetAbbrevDetected.add(abbrev)
                         headerAbbrevCands[entry] = (span, fullForm)
 
                     elif abbrev is not None:
@@ -202,6 +247,7 @@ class MedicalDictionary:
 
         if headerAbbrevCands:
             return self._gen_partial_and_whole_header_cands(header, tokenizedHeader, headerAbbrevCands)
+        return None, None, None
 
 
     def _gen_partial_and_whole_header_cands(self, header, tokenizedHeader, headerAbbrevCands):
@@ -210,13 +256,13 @@ class MedicalDictionary:
         wHeaderCands = headerAbbrevCands.pop(header, None)
 
         # partial header candidates generation
-        candidates = self._generateCandidates(tokenizedHeader, headerAbbrevCands)
+        partialAbbrevsDetected, partialCands = self._generateCandidates(tokenizedHeader, headerAbbrevCands)
 
         # whole header candidates generation
         if wHeaderCands is not None:
             wHeaderCands = {header : wHeaderCands}
-            candidates.update(self._generateCandidates(tokenizedHeader, wHeaderCands))
-        return candidates
+            wHeaderCands = self._generateCandidates(tokenizedHeader, wHeaderCands)[1]
+        return partialAbbrevsDetected, partialCands, wHeaderCands
 
 
     def _generateCandidates(self, tokenizedHeader, headerAbbrevCands):
@@ -226,7 +272,8 @@ class MedicalDictionary:
         and does not span across the whole header. Eg, 'ECG stress' -> 'electrocardiogram stress'
         Some headers might contain multiple abbreviations, so a candidate interpretation will be generated
         for each combination of the full forms of the abbreviations
-        Eg.,    micro         alb
+
+        Eg.,    micro         alb   <- sortedBySpans
             ('microcytic', 'albendazole')   microcytic albendazole
             ('microcytic', 'albumin')       microcytic albumin
             ('microcytic', 'alb')           microcytic alb
@@ -252,7 +299,7 @@ class MedicalDictionary:
             if candidate != tokenizedHeader:
                 candidates[combination] = candidate
                 print(f"\t{combination} : {candidate}")
-        return candidates
+        return tuple(sortedBySpan), candidates
 
 
     def _prepareCombinations(self, headerAbbrevCands):

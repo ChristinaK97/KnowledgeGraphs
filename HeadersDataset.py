@@ -1,7 +1,9 @@
 import pickle
 import re
 from os.path import exists
+from typing import Set, List, Tuple
 
+from sklearn.feature_extraction.text import TfidfVectorizer
 from wordninja import split as ninja
 from util.NearDuplicates import hasDuplicateIn
 
@@ -12,8 +14,11 @@ from util.NearDuplicates import hasDuplicateIn
 import nltk
 from nltk.corpus import wordnet, stopwords
 
+from util.UnionFind import UnionFind
 
 saveFile = "resources\\headerTokenizerOutput.pkl"
+
+UNKNOWN_HEADER_NAME = "Unknown_Header"
 
 WORD = 1
 NUM = 2
@@ -26,14 +31,15 @@ TAG = 1
 SPAN = 2
 
 LINKER_THRS = 0.78
+TFIDF_THRS = 0.465
 
 
-class HeaderTokenizer:
+class HeadersDataset:
 
 
-    def __init__(self, headers, resetTokenizer:bool = False):
+    def __init__(self, headers, resetDataset:bool = False):
 
-        if resetTokenizer or not exists(saveFile):
+        if resetDataset or not exists(saveFile):
             self._initLibraries()
 
             self.headers = headers
@@ -52,14 +58,168 @@ class HeaderTokenizer:
         else:
             self._loadResults()
 
+        self.nHeaders = self.__sizeof__()
+        self.partialAbbrevsDetected = [None] * self.nHeaders
+        self.partialCands = [None] * self.nHeaders
+        self.wHeaderCands = [None] * self.nHeaders
+        self.datasetAbbrevs = set()
+        self.TfIdfMat = self._calc_Tf_Idf_SimMatrix()
+        self.contextPerAbbrev = None
 
-    def getHeaderInputs(self):
-        return self.headerInputs
+    def __sizeof__(self):
+        return len(self.headers)
 
-    def getHeaderFields(self, idx):
+# ======================================================================================================================
+# Public Methods
+# ======================================================================================================================
+    def getHeaderInfo(self, idx):
         return self.headers[idx], self.tokenizedHeaders[idx], \
                self.isUnambiguous[idx], self.headerInputs[idx]
 
+
+    def setHeaderAbbrevsInfo(self, idx, partialAbbrevsDetected, partialCands, wHeaderCands):
+        self.partialAbbrevsDetected[idx] = partialAbbrevsDetected
+        self.partialCands[idx] = partialCands
+        self.wHeaderCands[idx] = wHeaderCands
+
+
+    def setDatasetAbbrevs(self, datasetAbbrevs):
+        self.datasetAbbrevs = datasetAbbrevs
+        self.contextPerAbbrev = {abbrev : set() for abbrev in self.datasetAbbrevs}
+
+
+    def doesntContainAbbrevs(self, idx):
+        return self.partialAbbrevsDetected[idx] is None and self.wHeaderCands[idx] is None
+
+    def isWholeHeaderAbbrev(self, idx):
+        return self.wHeaderCands[idx] is not None
+
+    def containsPartialAbbrevs(self, idx):
+        return self.partialAbbrevsDetected[idx] is not None
+
+    def getHeaderAbbrevs(self, idx):
+        headerAbbrevs = set()
+        if self.containsPartialAbbrevs(idx):
+            headerAbbrevs.update(self.partialAbbrevsDetected[idx])
+        if self.isWholeHeaderAbbrev(idx):
+            headerAbbrevs.add(self.headers[idx])
+        return headerAbbrevs
+
+# ======================================================================================================================
+# Header context generation
+# ======================================================================================================================
+
+    def _calc_Tf_Idf_SimMatrix(self):
+        # https://stackoverflow.com/questions/68344050/remove-identical-documents-or-find-unique-documents-from-given-corpus
+        vect = TfidfVectorizer(min_df=1)
+        tfidf = vect.fit_transform([tokenizedHeader.lower() for tokenizedHeader in self.tokenizedHeaders])
+        a = tfidf * tfidf.T.A
+        return a
+
+
+    def _isWithinRange(self, idx):
+        return 0 <= idx < self.nHeaders
+
+
+    def generateHeaderContext(self, tgtIdx, winSize=2) -> Set[int]:
+
+        def gatherCandsFromOneSide(mostSideIdx, remSideContext, stepSign):
+            while self._isWithinRange(mostSideIdx) and remSideContext > 0:
+                if self._isGoodCandidateContext(tgtAbbrevs, tgtIdx, mostSideIdx):
+                    contextIdxs.add(mostSideIdx)
+                    remSideContext -= 1
+                mostSideIdx += stepSign
+            return mostSideIdx, remSideContext
+
+        h = self.headers[tgtIdx]
+        print(f"\nGet context for [{tgtIdx}] : {h}")
+        tgtAbbrevs = self.getHeaderAbbrevs(tgtIdx)
+
+        mostFrontIdx = tgtIdx - 1
+        mostRearIdx  = tgtIdx + 1
+
+        contextIdxs = set()
+        checkedPairsIdxs = set()
+
+        while len(contextIdxs) < winSize*2 and (self._isWithinRange(mostFrontIdx) or self._isWithinRange(mostRearIdx)):
+
+            remFrontContext = winSize - sum(1 for ctxIdx in contextIdxs if ctxIdx < tgtIdx)
+            remRearContext  = winSize - sum(1 for ctxIdx in contextIdxs if ctxIdx > tgtIdx)
+
+            if not self._isWithinRange(mostRearIdx):
+                remFrontContext += remRearContext
+                remRearContext = 0
+            elif not self._isWithinRange(mostFrontIdx):
+                remRearContext += remFrontContext
+                remFrontContext = 0
+
+            mostFrontIdx, remFrontContext = gatherCandsFromOneSide(mostFrontIdx, remFrontContext, -1)
+            mostRearIdx,  remRearContext  = gatherCandsFromOneSide(mostRearIdx,  remRearContext, 1)
+            print("\tCandidate context = ", [self.tokenizedHeaders[i] for i in contextIdxs])
+            for tgtAbbrev in tgtAbbrevs:
+                self.contextPerAbbrev[tgtAbbrev].update(contextIdxs)
+            contextIdxs, checkedPairsIdxs = self._filterContext(contextIdxs, checkedPairsIdxs)
+
+        print("\tSelected context = ", [self.tokenizedHeaders[i] for i in contextIdxs])
+        return contextIdxs
+
+
+
+    def _filterContext(self, contextIdxs, checkedPairsIdxs: Set[Tuple[int, int]]):
+        overlapping = UnionFind(len(contextIdxs))
+        normIdxs = [idx for idx in contextIdxs]
+
+        for i in range(len(normIdxs)):
+            idx1 = normIdxs[i]
+            for j in range(i+1, len(normIdxs)):
+                idx2 = normIdxs[j]
+
+                if (idx1,idx2) in checkedPairsIdxs or (idx2,idx1) in checkedPairsIdxs:
+                    continue
+
+                checkedPairsIdxs.add((idx1, idx2))
+
+                if self.getHeaderAbbrevs(idx1) & self.getHeaderAbbrevs(idx2):
+                    print(f"\t\tAbbr ORL '{self.tokenizedHeaders[idx1]}' , '{self.tokenizedHeaders[idx2]}'")
+                    overlapping.union(i, j)
+                else:
+                    TfIdf = self.TfIdfMat[idx1, idx2]
+                    print(f"\t\tScore( '{self.tokenizedHeaders[idx1]}' , '{self.tokenizedHeaders[idx2]}' ) = {TfIdf}")
+                    if TfIdf >= TFIDF_THRS:
+                        overlapping.union(i, j)
+
+        overlapping = overlapping.getSets()
+        overlapping = [[normIdxs[normIdx] for normIdx in group] for group in overlapping]
+        print(overlapping)
+        selectedContextIdxs = set()
+        for group in overlapping:
+            if len(group) > 1:
+                groupHeaders = [self.tokenizedHeaders[idx] for idx in group]
+                shortestIdx = group[min(range(len(groupHeaders)), key=lambda i: len(groupHeaders[i]))]
+            else:
+                shortestIdx = group[0]
+            selectedContextIdxs.add(shortestIdx)
+
+        return selectedContextIdxs, checkedPairsIdxs
+
+
+
+
+    def _isGoodCandidateContext(self, tgtAbbrevs, tgtIdx, ctxIdx):
+        if not self.isUnambiguous[ctxIdx]:
+            return False
+        if self.TfIdfMat[tgtIdx, ctxIdx] >= TFIDF_THRS:
+            return False
+        if tgtAbbrevs.intersection(self.getHeaderAbbrevs(ctxIdx)):
+            return False
+        for tgtAbbrev in tgtAbbrevs:
+            if ctxIdx in self.contextPerAbbrev[tgtAbbrev]:
+                return False
+        return True
+
+# ======================================================================================================================
+# Dataset Creation Methods
+# ======================================================================================================================
 
     def _initLibraries(self):
         nltk.download("wordnet")
@@ -134,8 +294,6 @@ class HeaderTokenizer:
         self.headerInputs = la['headerInputs']
 
 
-
-
     def _ninjaSpit(self):
         self.ninjaHeaders = [ninja(h) for h in self.headers]
 
@@ -198,9 +356,7 @@ class HeaderTokenizer:
         self.separators[idx] = [seps[i] for i in range(len(seps)) if i not in rmvIdxsSeps]
 
 
-
-
-    def consecutive(self, data, stepsize=1):
+    def _consecutive(self, data, stepsize=1):
         result = []
         current_sublist = []
 
@@ -222,7 +378,7 @@ class HeaderTokenizer:
         ninjaHeader = self.ninjaHeaders[idx]
 
         seps = self.separators[idx]
-        emptySepIdxs = self.consecutive([i for i in range(len(seps)) if seps[i] in weakDelim])
+        emptySepIdxs = self._consecutive([i for i in range(len(seps)) if seps[i] in weakDelim])
                                                                                                                                     # print(ninjaHeader); print(emptySepIdxs)
         sepIdxRmv = set()
         replacements = {}
@@ -292,7 +448,6 @@ class HeaderTokenizer:
         return False, UNK
 
 
-
     def _createHeaderTags(self, idx):
         ninjaHeaders = self.ninjaHeaders[idx]
         headerTags = self.tags.get(idx, [])
@@ -310,7 +465,7 @@ class HeaderTokenizer:
 
 
     def _isUnambiguous(self, idx):
-        return UNK not in set(self.tags[idx])
+        return UNK not in set(self.tags[idx]) and not self.headers[idx].startswith(UNKNOWN_HEADER_NAME)
 
 
     def _normalizeSeparators(self, idx):
@@ -404,9 +559,71 @@ class HeaderTokenizer:
         print(f">> '{self.headers[idx]}'  ->  {self.ninjaHeaders[idx]}  ->  '{self.tokenizedHeaders[idx]}' \t {self.separators[idx]} \t {self.tags.get(idx, [])}  ->  {self.isUnambiguous[idx]} \t {self.spans[idx]} \t {self.headerInputs[idx]}")
 
 
+# =======================================================================================================
+    """def _tokenFrequencies(self):
+        wordFrequencies = {}
+        for ninjaHeader in self.ninjaHeaders:
+            for token in ninjaHeader:
+                if token not in self.datasetAbbrevs:
+                    token = token.lower()
+                    if token not in wordFrequencies:
+                        wordFrequencies[token] = 1
+                    else:
+                        wordFrequencies[token] += 1
 
+        sorted_word_frequencies = dict(sorted(wordFrequencies.items(), key=lambda item: (item[1], -len(item[0]))))
+        tokenRanks = {}
+        for token, frequency in sorted_word_frequencies.items():
+            tokenRanks[token] = frequency
+            print(token, frequency)
+        return tokenRanks"""
 
-"""
+    """def generateHeaderContext(self, idx, winSize=1):
+
+        mostFrontIdx = max(0, idx - winSize)
+        mostRearIdx = min(self.nHeaders, idx + winSize + 1)
+        nContext = mostRearIdx - mostFrontIdx - 1
+        remainingContext = 2 * winSize - nContext
+
+        if remainingContext > 0:
+            if mostFrontIdx == 0:
+                while remainingContext > 0 and mostRearIdx < self.nHeaders:
+                    mostRearIdx += 1
+                    remainingContext -= 1
+            elif mostRearIdx == self.nHeaders:
+                while remainingContext > 0 and mostFrontIdx > 0:
+                    mostFrontIdx -= 1
+                    remainingContext -= 1
+
+        frontContext = self.ninjaHeaders[mostFrontIdx:idx]
+        rearContext  = self.ninjaHeaders[idx+1:mostRearIdx]"""
+
+    """
+        def _filterContext(self, contextIdxs):
+            rmv = set()
+            ninjaContext = [set(self.ninjaHeaders[idx]) for idx in contextIdxs]
+            print("\tCandidate context tks = ", ninjaContext)
+            overlapping = UnionFind(len(contextIdxs))
+
+            for idx1 in range(len(ninjaContext)):
+                ninja1 = set(ninjaContext[idx1])
+                for idx2 in range(idx1+1, len(ninjaContext)):
+                    ninja2 = set(ninjaContext[idx2])
+
+                    commonTokens = ninja1 & ninja2
+
+                    if commonTokens:
+                        print("\tCommon Tokens = ", commonTokens)
+                        if commonTokens & self.datasetAbbrevs:
+                            overlapping.union(idx1, idx2)
+                        else:
+                            overlapScore = 0.
+                            for common in commonTokens:
+                                overlapScore += len(common) / self.tokenFrequencies[common.lower()]
+                            print("\t\tScore = ", ninja1, ninja2, overlapScore)
+        """
+
+    """
         def _wordRecognition(self, header, ninjaHeader, seps):
         print(f">> {header}  {ninjaHeader}")
 
@@ -426,7 +643,7 @@ class HeaderTokenizer:
                 words.append(w)
     """
 
-"""def normalizeSeparators(self, idx):
+    """def normalizeSeparators(self, idx):
     ninjaHeader = self.ninjaHeaders[idx]
     seps = self.separators[idx]
     # tags = self.tags[idx]

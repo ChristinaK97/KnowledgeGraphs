@@ -37,4 +37,13 @@ print(s)
 
 d = {}
 
+print([5]*10)
 
+strings = ["apple", "banana", "cherry", "date", "fig"]
+shortest_index = min(range(len(strings)), key=lambda i: len(strings[i]))
+print("Index of Shortest String:", shortest_index)
+
+x= {1,2}
+y={2,3}
+x.update(y)
+print(x)

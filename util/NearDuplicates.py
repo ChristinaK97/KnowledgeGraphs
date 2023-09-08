@@ -59,7 +59,7 @@ def groupNearDuplicates(inputList: List[str]) -> Dict[str, List[str]]:
     if len(processed) == 1:
         return {processed[0][0] : [processed[0][0]]}
 
-    nearDuplicatePairs = UnionFind(len(processed))
+    nearDuplicates = UnionFind(len(processed))
 
     for idx1 in range(len(processed)):
         _, split1, concat1 = processed[idx1]
@@ -68,9 +68,9 @@ def groupNearDuplicates(inputList: List[str]) -> Dict[str, List[str]]:
 
             if concat1 == concat2 or split1 == split2 or \
                (lenDiff(concat1, concat2) < LEN_DIFF_THRS and fz.ratio(concat1, concat2) >= LEVEN_THRS):
-                nearDuplicatePairs.union(idx1, idx2)
+                nearDuplicates.union(idx1, idx2)
 
-    nearDuplicateSets = nearDuplicatePairs.getSets()
+    nearDuplicateSets = nearDuplicates.getSets()
     # print(nearDuplicateSets)
     # =====================================================================
 

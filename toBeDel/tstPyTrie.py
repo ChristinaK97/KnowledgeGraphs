@@ -26,9 +26,9 @@ print(list(t.iter_prefix_items('antonym')))
 """
 l  = [1]
 t = Trie(ACE=l, CAD="Coronary Artery Disease", CA="Calcium", LM="Left Main Artery")
-header = "ACECA"
+header = "ACE1"
 
 print(
-    t.longest_prefix_item(header)
+    t.get(header)
 )
 
