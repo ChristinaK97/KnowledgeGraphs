@@ -95,7 +95,7 @@ class HeadersDataset:
         return self.wHeaderCands[idx] is not None
 
     def containsPartialAbbrevs(self, idx):
-        return self.partialAbbrevsDetected[idx] is not None
+        return self.partialAbbrevsDetected[idx]
 
     def getHeaderAbbrevs(self, idx):
         headerAbbrevs = set()

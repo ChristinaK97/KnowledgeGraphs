@@ -185,11 +185,16 @@ class MedicalDictionary:
            abbreviations found in the dataset. """
         return self.datasetAbbrevDetected
 
-    def getExactMatch(self, abbrev):
+    def getExactMatch(self, abbrev, rmvIdentical:bool = True):
         firstLetter = abbrev[0]
         if firstLetter in self.letterTries:
             fullForm = self.letterTries[firstLetter].get(abbrev)
-            return list(fullForm.keys()) if fullForm is not None else []
+            if fullForm is not None:
+                fullForm = set(fullForm.keys())
+                if rmvIdentical: fullForm.discard(abbrev)
+                return fullForm
+            else:
+                return []
 
 
 
