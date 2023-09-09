@@ -1,21 +1,22 @@
-from typing import List, Union, Tuple, Dict, Set
+from typing import List, Union, Dict, Set
 
 import torch
 from torch import Tensor
 
 from HeadersDataset import HeadersDataset
 from MedicalDictionary import MedicalDictionary
+from BertSimilarityModel import BertSimilarityModel as Bert
 
 
 class HeaderCandScore:
-    def __init__(self, headerFF: str, score: torch.double, isWholeHeader:bool):
+    def __init__(self, headerFF: str, score: float, isWholeHeader:bool):
 
         self.headerFF = headerFF
         self.score = score
         self.isWholeHeader = isWholeHeader
         self.contextScores = []
 
-    def addContextScore(self, ctxScore: torch.double):
+    def addContextScore(self, ctxScore: float):
         self.contextScores.append(ctxScore)
 
     def setContextScores(self, ctxScores):
@@ -42,7 +43,7 @@ class InterpretHeaders:
         self.cachedEmbeddings: Dict[str, Tensor] = {}
         self._generateCachedEmbeddings()
 
-        self.globalAbbrevScores: Dict[str, Dict[str,torch.double]] = {}
+        self.globalAbbrevScores: Dict[str, Dict[str,float]] = {}
         self._calcGlobalAbbrevScores()
         # print(self.hDataset.datasetAbbrevs)
         # [[print(f'{abbrev} ({self.cachedEmbeddings[abbrev]}), {ff} = {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
@@ -72,7 +73,7 @@ class InterpretHeaders:
 
     def _cacheCollectionEmbeddings(self, collection: Union[Set[str], List[str]]):
         collection = {el for el in collection if el not in self.cachedEmbeddings}
-        batch, batchPos = InterpretHeaders.createBatches(collection)
+        batch, batchPos = Bert.createBatches(collection)
         embeddings = self._embedBatches(batch)                                                                          ;print(f"Cached {len(collection)} new embeddings")
         for el in collection:
             pos = batchPos[el]
@@ -87,7 +88,7 @@ class InterpretHeaders:
             abbrevEmbedding = self.cachedEmbeddings[abbrev]
 
             fullForms = self.medDict.getExactMatch(abbrev)
-            ffBatches, ffBatchPos = InterpretHeaders.createBatches(fullForms)
+            ffBatches, ffBatchPos = Bert.createBatches(fullForms)
             ffEmbeddings = self._embedBatches(ffBatches)
 
             globalAbbrevScores = self._calcScores(abbrevEmbedding, ffEmbeddings)
@@ -170,7 +171,7 @@ class InterpretHeaders:
                     wholeAbbrev = self.hDataset.headers[idx]                                                            # ;print(f"\tAbbrevs = Whole Header {wholeAbbrev}")
 
                     wholeFFs = self.medDict.getExactMatch(wholeAbbrev)
-                    wholeBatches, wholeBatchPos = InterpretHeaders.createBatches(wholeFFs)
+                    wholeBatches, wholeBatchPos = Bert.createBatches(wholeFFs)
                     wholeEmbeddings = self._embedBatches(wholeBatches)
 
                     for wholeFF, wholeScore in self.globalAbbrevScores[wholeAbbrev].items():
@@ -192,7 +193,7 @@ class InterpretHeaders:
                     headerEmbedding = self.cachedEmbeddings[tHeader]                                                    # ;print(f"\tPartial Abbrevs = {partialAbbrevs}\tEmb = {headerEmbedding}") # ;[print(headerAbbrevsFFs, headerFF) for headerAbbrevsFFs, headerFF in partialCands.items()]
 
                     # List[List[str]], Dict[Tuple[str], Tuple[int,int]]
-                    partialBatches, partialBatchPos = InterpretHeaders.createBatches(partialCands)
+                    partialBatches, partialBatchPos = Bert.createBatches(partialCands)
                     partialEmbeddings = self._embedBatches(partialBatches)
                     partialScores = self._calcScores(headerEmbedding, partialEmbeddings)
 
@@ -218,29 +219,6 @@ class InterpretHeaders:
         return [[tgtEmbedding + " * " + ffEmbedding for ffEmbedding in ffEmbeddingsBatch] for ffEmbeddingsBatch in ffEmbeddingsBatches]
         # return [tgtEmbedding * ffEmbeddingsBatch for ffEmbeddingsBatch in ffEmbeddingsBatches]
 
-
-    @staticmethod
-    def createBatches(sentences, batchSize: int = 16):
-        batches = []
-        currBatch = []
-        batchIdx = 0
-        batchPos = 0
-        sentBatchPos = {}
-        isDict = isinstance(sentences, dict)
-
-        for sent_i, sentence in enumerate(sentences):
-
-            currBatch.append(sentences[sentence] if isDict else sentence)
-            sentBatchPos[sentence] = (batchIdx, batchPos)
-            batchPos += 1
-
-            if batchPos == batchSize or sent_i == len(sentences)-1:
-                batches.append(currBatch)
-                currBatch = []
-                batchIdx += 1
-                batchPos = 0
-
-        return batches, sentBatchPos
 
 
     def _embedBatches(self, batches):

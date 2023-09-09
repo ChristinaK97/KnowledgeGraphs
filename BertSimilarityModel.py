@@ -1,8 +1,11 @@
 import random
+from typing import List, Union, Set, Dict, Tuple
 
 import numpy as np
 import torch
 from torch.nn import Module
+import torch.nn.functional as F
+from torch import Tensor
 from torch.cuda import is_available, get_device_name, current_device
 from transformers import BertTokenizer, BertModel
 
@@ -23,7 +26,7 @@ class BertSimilarityModel(Module):
         self.model.eval()
 
 
-    def forward(self, batches):
+    def forward(self, batches: List[List[str]]):
         tokenizedBatches = self._tokenizeBatches(batches)                                                               # ;print(tokenizedBatches)
         batches_embeddings = []
 
@@ -36,11 +39,51 @@ class BertSimilarityModel(Module):
         return batches_embeddings
 
 
-    def _tokenizeBatches(self, batches):
+    def _tokenizeBatches(self, batches: List[List[str]]):
         return [
             self.tokenizer(batch, padding=True, truncation=True, return_tensors='pt')
             .to(self.device)
         for batch in batches]
+
+
+    @staticmethod
+    def createBatches(sentences: Union[Set[str], List[str], Dict[Tuple[str],str]], batchSize: int = 16):
+        batches = []
+        currBatch = []
+        batchIdx = 0
+        batchPos = 0
+        sentBatchPos = {}
+        isDict = isinstance(sentences, dict)
+
+        for sent_i, sentence in enumerate(sentences):
+
+            currBatch.append(sentences[sentence] if isDict else sentence)
+            sentBatchPos[sentence] = (batchIdx, batchPos)
+            batchPos += 1
+
+            if batchPos == batchSize or sent_i == len(sentences)-1:
+                batches.append(currBatch)
+                currBatch = []
+                batchIdx += 1
+                batchPos = 0
+
+        return batches, sentBatchPos
+
+
+
+    @staticmethod
+    def cos(tgtEmbedding: Tensor, batchesEmbeddings: List[Tensor]) -> List[Tensor]:
+        """
+        :param tgtEmbedding: torch.Size([1,768])
+        :param batchesEmbeddings: List[Tensor[# sent in the batch, 768]] or List[Tensor[1, 768]]
+                len(batchesEmbeddings) == # batches
+        """
+        similarityScore = [
+            F.cosine_similarity(tgtEmbedding, batchEmbeddings, dim=1)
+            for batchEmbeddings in batchesEmbeddings]
+        assert len(similarityScore) == len(batchesEmbeddings)
+        return similarityScore
+
 
 
     @staticmethod
@@ -56,14 +99,32 @@ class BertSimilarityModel(Module):
 
 
 
-batches = [['Hello', 'Hello there'], ['This', 'sentence'], ['batch2_sent0']]
+
+"""
+batches_ = [['CAD'], ['Coronary Artery Disease', 'Computer Assisted Diagnosis'], ['Coronary Artery Disease', 'Computer Assisted Diagnosis']]
 bert = BertSimilarityModel()
-embeddings = bert(batches)
-for batch, batchEmbs in zip(batches, embeddings):
-    for sent, sentEmb in zip(batch, batchEmbs):
-        print(f"{sent}\t:\t{sentEmb[:3]}")
+embeddings = bert(batches_)
+for batch_, batchEmbs in zip(batches_, embeddings):
+    for sent, sentEmb in zip(batch_, batchEmbs):
+        print(f"{sent}\t:\t{sentEmb.shape}  {sentEmb[:3]}")
 
+singleEmb:Tensor = embeddings[0]
 
+twoEmbs = embeddings[1]
+print(twoEmbs)
 
+# if len(singleEmb.shape) < len(twoEmbs.shape):
+#    singleEmb = torch.unsqueeze(singleEmb, dim=0)
+# if len(singleEmb.shape) == 2:
+#     dim = 0 if singleEmb.shape[0] < singleEmb.shape[1] else 1
+# elif len(singleEmb.shape) == 1:
+#     dim = 1
 
+sim = BertSimilarityModel.cos(singleEmb, twoEmbs)
+print(sim, '\n==============')
 
+twoEmbs = [emb for emb in embeddings[1]]
+print(twoEmbs)
+sim = BertSimilarityModel.cos(singleEmb, twoEmbs)
+print(sim)
+"""
