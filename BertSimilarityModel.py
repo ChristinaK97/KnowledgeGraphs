@@ -78,7 +78,7 @@ class BertSimilarityModel(Module):
         :param batchesEmbeddings: List[Tensor[# sent in the batch, 768]] or List[Tensor[1, 768]] or List[Tensor[768]]
                 len(batchesEmbeddings) == # batches
         """
-        dim = 0 if len(batchesEmbeddings[0].shape) == 1 else 0
+        dim = max(len(tgtEmbedding.shape), len(batchesEmbeddings[0].shape)) - 1
         similarityScore = [
             F.cosine_similarity(tgtEmbedding, batchEmbeddings, dim=dim)
             for batchEmbeddings in batchesEmbeddings]
@@ -101,7 +101,7 @@ class BertSimilarityModel(Module):
 
 
 
-"""
+
 batches_ = [['CAD'], ['Coronary Artery Disease', 'Computer Assisted Diagnosis'], ['Coronary Artery Disease', 'Computer Assisted Diagnosis']]
 bert = BertSimilarityModel()
 embeddings = bert(batches_)
@@ -112,7 +112,7 @@ for batch_, batchEmbs in zip(batches_, embeddings):
 singleEmb:Tensor = embeddings[0]
 
 twoEmbs = embeddings[1]
-print(twoEmbs)
+print(twoEmbs.shape)
 
 # if len(singleEmb.shape) < len(twoEmbs.shape):
 #    singleEmb = torch.unsqueeze(singleEmb, dim=0)
@@ -125,7 +125,6 @@ sim = BertSimilarityModel.cos(singleEmb, twoEmbs)
 print(sim, '\n==============')
 
 twoEmbs = [emb for emb in embeddings[1]]
-print(twoEmbs)
 sim = BertSimilarityModel.cos(singleEmb, twoEmbs)
 print(sim)
-"""
+
