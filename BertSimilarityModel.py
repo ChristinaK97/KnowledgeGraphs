@@ -75,11 +75,12 @@ class BertSimilarityModel(Module):
     def cos(tgtEmbedding: Tensor, batchesEmbeddings: List[Tensor]) -> List[Tensor]:
         """
         :param tgtEmbedding: torch.Size([1,768])
-        :param batchesEmbeddings: List[Tensor[# sent in the batch, 768]] or List[Tensor[1, 768]]
+        :param batchesEmbeddings: List[Tensor[# sent in the batch, 768]] or List[Tensor[1, 768]] or List[Tensor[768]]
                 len(batchesEmbeddings) == # batches
         """
+        dim = 0 if len(batchesEmbeddings[0].shape) == 1 else 0
         similarityScore = [
-            F.cosine_similarity(tgtEmbedding, batchEmbeddings, dim=1)
+            F.cosine_similarity(tgtEmbedding, batchEmbeddings, dim=dim)
             for batchEmbeddings in batchesEmbeddings]
         assert len(similarityScore) == len(batchesEmbeddings)
         return similarityScore

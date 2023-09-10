@@ -7,7 +7,7 @@ from HeadersDataset import HeadersDataset
 from MedicalDictionary import MedicalDictionary
 from BertSimilarityModel import BertSimilarityModel as Bert
 
-print()
+
 class HeaderCandScore:
     def __init__(self, headerFF: str, score: float, isWholeHeader:bool):
 
@@ -40,15 +40,18 @@ class InterpretHeaders:
         self._setup()
 
         print(">> Inter")
+        self.bert = Bert()
+
         self.cachedEmbeddings: Dict[str, Tensor] = {}
         self._generateCachedEmbeddings()
 
         self.globalAbbrevScores: Dict[str, Dict[str,float]] = {}
         self._calcGlobalAbbrevScores()
         # print(self.hDataset.datasetAbbrevs)
-        # [[print(f'{abbrev} ({self.cachedEmbeddings[abbrev]}), {ff} = {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
+        # [[print(f'{abbrev}, {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
 
         self._calcHeaderScores()
+
 
     def _setup(self):
         for idx in self.hRange:
@@ -67,14 +70,13 @@ class InterpretHeaders:
 
     def _generateCachedEmbeddings(self):
         self._cacheCollectionEmbeddings(self.hDataset.datasetAbbrevs)
-        self._cacheCollectionEmbeddings(self.hDataset.tokenizedHeaders)
-        # [print(k, v) for k,v in self.cachedEmbeddings.items()]
+        self._cacheCollectionEmbeddings(self.hDataset.tokenizedHeaders)                                                 # ; [print(k, v[:3]) for k,v in self.cachedEmbeddings.items()]
 
 
     def _cacheCollectionEmbeddings(self, collection: Union[Set[str], List[str]]):
         collection = {el for el in collection if el not in self.cachedEmbeddings}
         batch, batchPos = Bert.createBatches(collection)
-        embeddings = self._embedBatches(batch)                                                                          ;print(f"Cached {len(collection)} new embeddings")
+        embeddings = self.bert(batch)                                                                                   ;print(f"Cached {len(collection)} new embeddings")
         for el in collection:
             pos = batchPos[el]
             self.cachedEmbeddings[el] = embeddings[pos[0]][pos[1]]
@@ -89,12 +91,13 @@ class InterpretHeaders:
 
             fullForms = self.medDict.getExactMatch(abbrev)
             ffBatches, ffBatchPos = Bert.createBatches(fullForms)
-            ffEmbeddings = self._embedBatches(ffBatches)
+            ffEmbeddings = self.bert(ffBatches)
 
-            globalAbbrevScores = self._calcScores(abbrevEmbedding, ffEmbeddings)
+            globalAbbrevScores = Bert.cos(abbrevEmbedding, ffEmbeddings)
             for fullForm in fullForms:
                 pos = ffBatchPos[fullForm]
-                self.globalAbbrevScores[abbrev][fullForm] = globalAbbrevScores[pos[0]][pos[1]]
+                self.globalAbbrevScores[abbrev][fullForm] = globalAbbrevScores[pos[0]][pos[1]].item()
+
 
 
     def _calcHeaderScores(self):
@@ -162,8 +165,7 @@ class InterpretHeaders:
                 tHeader = self.hDataset.tokenizedHeaders[idx]                                                           ;print(f"\nCalc for [{idx}] : {tHeader}")
 
                 ctx = [self.hDataset.tokenizedHeaders[ctxIdx] for ctxIdx in self.hContext[idx]]
-                ctxEmbeddings = [[self.cachedEmbeddings[ctxHeader]] for ctxHeader in ctx]
-
+                ctxEmbeddings = [self.cachedEmbeddings[ctxHeader] for ctxHeader in ctx]
                 # ======================================================================================================
                 # The whole header is an abbreviation
                 # ======================================================================================================
@@ -172,13 +174,13 @@ class InterpretHeaders:
 
                     wholeFFs = self.medDict.getExactMatch(wholeAbbrev)
                     wholeBatches, wholeBatchPos = Bert.createBatches(wholeFFs)
-                    wholeEmbeddings = self._embedBatches(wholeBatches)
+                    wholeEmbeddings = self.bert(wholeBatches)
 
                     for wholeFF, wholeScore in self.globalAbbrevScores[wholeAbbrev].items():
                         cand = HeaderCandScore(wholeFF, wholeScore, True)
                         pos  = wholeBatchPos[wholeFF]
                         emb  = wholeEmbeddings[pos[0]][pos[1]]
-                        ctxScores = self._calcScores(emb, ctxEmbeddings)
+                        ctxScores = Bert.cos(emb, ctxEmbeddings)
                         cand.setContextScores(ctxScores)
                         headerCandsScores[(wholeFF,)] = cand                                                            # ;print(f"\t{wholeFF} : {wholeFF} = {wholeScore}")
 
@@ -192,17 +194,16 @@ class InterpretHeaders:
 
                     headerEmbedding = self.cachedEmbeddings[tHeader]                                                    # ;print(f"\tPartial Abbrevs = {partialAbbrevs}\tEmb = {headerEmbedding}") # ;[print(headerAbbrevsFFs, headerFF) for headerAbbrevsFFs, headerFF in partialCands.items()]
 
-                    # List[List[str]], Dict[Tuple[str], Tuple[int,int]]
                     partialBatches, partialBatchPos = Bert.createBatches(partialCands)
-                    partialEmbeddings = self._embedBatches(partialBatches)
-                    partialScores = self._calcScores(headerEmbedding, partialEmbeddings)
+                    partialEmbeddings = self.bert(partialBatches)
+                    partialScores = Bert.cos(headerEmbedding, partialEmbeddings)
 
                     for headerAbbrevsFFs, headerFF in partialCands.items():
                         pos = partialBatchPos[headerAbbrevsFFs]
                         partialScore = partialScores[pos[0]][pos[1]]
                         cand = HeaderCandScore(headerFF, partialScore, False)                                           # ;print(f"\t{headerAbbrevsFFs} : {headerFF} = {partialScore}")
                         emb  = partialEmbeddings[pos[0]][pos[1]]
-                        ctxScores = self._calcScores(emb, ctxEmbeddings)
+                        ctxScores = Bert.cos(emb, ctxEmbeddings)
                         cand.setContextScores(ctxScores)
                         headerCandsScores[headerAbbrevsFFs] = cand
 
@@ -214,7 +215,7 @@ class InterpretHeaders:
 
 
 
-
+"""
     def _calcScores(self, tgtEmbedding, ffEmbeddingsBatches):
         return [[tgtEmbedding + " * " + ffEmbedding for ffEmbedding in ffEmbeddingsBatch] for ffEmbeddingsBatch in ffEmbeddingsBatches]
         # return [tgtEmbedding * ffEmbeddingsBatch for ffEmbeddingsBatch in ffEmbeddingsBatches]
@@ -234,7 +235,7 @@ class InterpretHeaders:
         return embeddings
 
 
-
+"""
 
 
 
