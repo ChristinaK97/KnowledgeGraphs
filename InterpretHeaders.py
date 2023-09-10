@@ -7,7 +7,7 @@ from HeadersDataset import HeadersDataset
 from MedicalDictionary import MedicalDictionary
 from BertSimilarityModel import BertSimilarityModel as Bert
 
-
+print()
 class HeaderCandScore:
     def __init__(self, headerFF: str, score: float, isWholeHeader:bool):
 
