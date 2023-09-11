@@ -1,5 +1,6 @@
 from typing import List, Union, Dict, Set, Tuple
 
+import numpy as np
 import pandas as pd
 import torch
 from numpy import mean
@@ -13,7 +14,7 @@ from util.NearDuplicates import groupNearDuplicates, findNearDuplicates
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
-pd.set_option('display.width', 400)
+pd.set_option('display.width', 1000)
 
 
 class InterpretHeaders:
@@ -44,6 +45,7 @@ class InterpretHeaders:
         self._calcHeaderScores()
         self._findSeeds()
         self._setSeedScores()
+        self._setGroups()
 
         self._printDataFrames()
 
@@ -97,8 +99,6 @@ class InterpretHeaders:
             _, nearDuplicates = findNearDuplicates(ffs, strict=False, leven_thrs=85)
             nearDuplicates = {ffs[i] : groupID for groupID, group in enumerate(nearDuplicates) for i in group}
             self.abbrevsCandsGroups[abbrev] = nearDuplicates
-
-
 
 
 
@@ -237,8 +237,6 @@ class InterpretHeaders:
                 self.headersCandsDFs[idx] = headerCands
 
 
-
-
     def _firstRoundFiltering(self, idx:int, headerCands:pd.DataFrame, FIRST_ROUND_THRS: float = 0.82):
         headerCands.sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
         pheaderAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
@@ -256,7 +254,6 @@ class InterpretHeaders:
                             break
 
         return headerCands.drop(toRmv, axis=0)
-
 
 
 
@@ -311,7 +308,6 @@ class InterpretHeaders:
         [print(k,v) for k,v in self.seeds.items()]
 
 
-
     def _setSeedScores(self):
         seedsBatches, seedsBatchPos = Bert.createBatches(self.seeds)
         seedsEmbeddings = self.bert(seedsBatches)
@@ -333,7 +329,6 @@ class InterpretHeaders:
             headerCands['meanSeedScore'] = candsMeanSeedScores
 
 
-
     def _weightAvgScores(self):
         candScoreW = 0.4
         globalW = 0.2
@@ -353,24 +348,50 @@ class InterpretHeaders:
 
 # ======================================================================================================
 
-    def _turnToDataframes(self):
+    def custom_agg(self, series):
+        # Check the data type of the series
+        if np.issubdtype(series.dtype, np.number):
+            return series.max()
+        elif series.dtype == 'object' and all(isinstance(x, tuple) for x in series):
+            if isinstance(series.iloc[0][0], str):
+                return list(series)
+            else:   # Get the maximum value per tuple position
+                max_values = [max(item) for item in zip(*series)]
+                return max_values
+        elif series.dtype == 'object':
+            return list(series)
+        else:
+            # Return the original series if the data type doesn't match any condition
+            return series
+
+    def _setGroups(self):
+        """def calculate_group(cand):
+            candAbbrevs = (self.hDataset.headers[idx],) if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx]
+            candGroup = tuple(self.abbrevsCandsGroups[abbrev][abbrevFF] for abbrev,abbrevFF in zip(candAbbrevs,cand.headerAbbrevsFFs))
+            return candGroup
 
         for idx, headerCands in self.headersCandsDFs.items():
-            headerCandsDF = []
-            for cand in headerCands:
+            headerCands['group'] = headerCands.apply(calculate_group, axis=1)"""
+
+        for idx, headerCands in self.headersCandsDFs.items():
+            if len(headerCands) == 0:   # all cands were filtered
+                continue
+            for i, cand in headerCands.iterrows():
                 candAbbrevs = (self.hDataset.headers[idx],) if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx]
-                candGroup = tuple(self.abbrevsCandsGroups[abbrev][abbrevFF] for abbrev,abbrevFF in zip(candAbbrevs,cand.headerAbbrevsFFs))
+                candGroup = tuple(self.abbrevsCandsGroups[abbrev][abbrevFF] for abbrev, abbrevFF in zip(candAbbrevs, cand.headerAbbrevsFFs))
+                headerCands.at[i, 'group'] = candGroup
+
+            self.headersCandsDFs[idx] = headerCands.groupby(['group', 'isWholeHeader']).agg(self.custom_agg).reset_index()
+            self.headersCandsDFs[idx].sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
 
 
-
-
-
-# ======================================================================================================
+    # ======================================================================================================
 
     def _printDataFrames(self):
         for idx, headerCands in self.headersCandsDFs.items():
             print(f"\n>> Header [{idx}]  {self.hDataset.tokenizedHeaders[idx]}\n")
-            print(headerCands[['score', 'meanCtxScore', 'meanCtxScore', 'globalScores', 'headerFF']])
+            print(headerCands[['score', 'meanCtxScore', 'meanSeedScore', 'globalScores', 'group', 'headerFF']])
+
 
 
 
