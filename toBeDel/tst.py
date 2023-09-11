@@ -47,3 +47,7 @@ x= {1,2}
 y={2,3}
 x.update(y)
 print(x)
+
+x = {1 : 1, 2: 5, 3:7}
+y = {1, 3}
+print(x.keys() & y)

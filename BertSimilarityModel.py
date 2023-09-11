@@ -13,6 +13,7 @@ from transformers import BertTokenizer, BertModel
 class BertSimilarityModel(Module):
 
     model_name = 'monologg/biobert_v1.1_pubmed'
+    BATCH_SIZE = 16
 
     def __init__(self):
         Module.__init__(self)
@@ -47,7 +48,7 @@ class BertSimilarityModel(Module):
 
 
     @staticmethod
-    def createBatches(sentences: Union[Set[str], List[str], Dict[Tuple[str],str]], batchSize: int = 16):
+    def createBatches(sentences: Union[Set[str], List[str], Dict[Tuple[str],str]]):
         batches = []
         currBatch = []
         batchIdx = 0
@@ -61,7 +62,7 @@ class BertSimilarityModel(Module):
             sentBatchPos[sentence] = (batchIdx, batchPos)
             batchPos += 1
 
-            if batchPos == batchSize or sent_i == len(sentences)-1:
+            if batchPos == BertSimilarityModel.BATCH_SIZE or sent_i == len(sentences)-1:
                 batches.append(currBatch)
                 currBatch = []
                 batchIdx += 1
