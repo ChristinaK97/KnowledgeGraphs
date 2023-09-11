@@ -27,6 +27,8 @@ class HeaderCand:
         self.seedScores: List = None
         self.meanSeedScores = None
 
+        self.weightAvgScore = None
+
 
     def setContextScores(self, ctxScores):
         self.contextScores = ctxScores
@@ -75,6 +77,8 @@ class InterpretHeaders:
         self._calcHeaderScores()
         self._findSeeds()
         self._setSeedScores()
+        self._weightAvgScores()
+        self._printTable()
 
 
     def _setup(self):
@@ -311,13 +315,12 @@ class InterpretHeaders:
 
 
 
-
     def _setSeedScores(self):
         seedsBatches, seedsBatchPos = Bert.createBatches(self.seeds)
         seedsEmbeddings = self.bert(seedsBatches)
 
-        for idx, headerCands in self.headersCands.items():
-            print(f"\n>> Calc Header [{idx}] : {self.hDataset.tokenizedHeaders[idx]}")
+        for idx, headerCands in tqdm(self.headersCands.items()):
+            # print(f"\n>> Calc Header [{idx}] : {self.hDataset.tokenizedHeaders[idx]}")
             hAbbrevs = self.hDataset.getHeaderAbbrevs(idx)
             overlap = set()
             for cA in self.seeds.keys() & hAbbrevs:
@@ -330,8 +333,24 @@ class InterpretHeaders:
                 seedScores = [batch[jpos].item() for ib, batch in enumerate(seedScores) for jpos in range(batch.shape[0]) if (ib, jpos) not in overlap]
                 cand.setSeedScores(seedScores)
 
-            self._printCandidates(idx, headerCands, [self.hDataset.tokenizedHeaders[ctxIdx] for ctxIdx in self.hContext[idx]], self.seeds)
-        self._printTable()
+            # self._printCandidates(idx, headerCands, [self.hDataset.tokenizedHeaders[ctxIdx] for ctxIdx in self.hContext[idx]], self.seeds)
+        # self._printTable()
+
+
+    def _weightAvgScores(self):
+        candScoreW = 0.4
+        globalW = 0.2
+        ctxW = 0.3
+        ssW = 0.3
+
+        for idx, headerCands in self.headersCands.items():
+            pAbbrev = self.hDataset.partialAbbrevsDetected[idx]
+            for cand in headerCands:
+                meanGlobal = self._getMeanGlobal(idx,cand,pAbbrev)
+                wAvg = candScoreW * cand.score + globalW * meanGlobal + ctxW * cand.meanCtxScore + ssW * cand.meanSeedScores
+                cand.weightAvgScore = wAvg
+            self.headersCands[idx] = sorted(headerCands, key=lambda x: x.weightAvgScore, reverse=True)
+
 
 
 
@@ -340,11 +359,12 @@ class InterpretHeaders:
 
     def _getMeanGlobal(self, idx, cand:HeaderCand, pheaderAbbrevs):
         globalScores = []
-        if pheaderAbbrevs:
-            for hA, hAI in zip(pheaderAbbrevs, cand.headerAbbrevsFFs):
-                globalScores.append(self.globalAbbrevScores[hA][hAI])
         if cand.isWholeHeader:
             globalScores.append(self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF])
+        elif pheaderAbbrevs:
+            for hA, hAI in zip(pheaderAbbrevs, cand.headerAbbrevsFFs):
+                globalScores.append(self.globalAbbrevScores[hA][hAI])
+
         return mean(globalScores)
 
 
@@ -379,7 +399,11 @@ class InterpretHeaders:
             pheaderAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
             print(f">> Header [{idx}] : {header}")
             for cand in headerCands:
-                candInfo = "\tS = " + str(round(cand.score*100, 3))
+                if cand.weightAvgScore is not None:
+                    candInfo = "\tWA = " + str(round(cand.weightAvgScore, 5)) + '\t'
+                else:
+                    candInfo = ''
+                candInfo += "\tS = " + str(round(cand.score*100, 3))
                 candInfo += "\t\tCS = " + str(round(cand.meanCtxScore * 100, 3))
 
                 if cand.seedScores is not None:
