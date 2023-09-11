@@ -50,20 +50,19 @@ def hasDuplicateIn(word, candAnnotations):
 
 
 
-
-def groupNearDuplicates(inputList: List[str], strict:bool = True) -> Dict[str, List[str]]:
-
+def findNearDuplicates(inputList: List[str], strict: bool = True, leven_thrs: int = LEVEN_THRS):
     def areSimilar():
         if strict:
-            return lenDiff(concat1, concat2) < LEN_DIFF_THRS and fz.ratio(concat1, concat2) >= LEVEN_THRS
+            return lenDiff(concat1, concat2) < LEN_DIFF_THRS and fz.ratio(concat1, concat2) >= leven_thrs
         else:
-            return fz.partial_token_sort_ratio(noPunc1, noPunc2) >= 0.8
+            # print(noPunc1, ' | ', noPunc2, ' | ', fz.partial_token_sort_ratio(noPunc1, noPunc2))
+            return fz.partial_token_sort_ratio(noPunc1, noPunc2) >= leven_thrs
     # --------------------------------------------------------------------
 
     processed = [process(fullForm) for fullForm in inputList]
 
     if len(processed) == 1:
-        return {processed[0][0] : [processed[0][0]]}
+        return {processed[0][0]: [processed[0][0]]}, [[0]]
 
     nearDuplicates = UnionFind(len(processed))
 
@@ -76,8 +75,15 @@ def groupNearDuplicates(inputList: List[str], strict:bool = True) -> Dict[str, L
                 nearDuplicates.union(idx1, idx2)
 
     nearDuplicateSets = nearDuplicates.getSets()
+    return processed, nearDuplicateSets
 
-    # --------------------------------------------------------------------
+
+
+def groupNearDuplicates(inputList: List[str], strict:bool = True, leven_thrs: int = LEVEN_THRS) -> Dict[str, List[str]]:
+
+    processed, nearDuplicateSets = findNearDuplicates(inputList, strict, leven_thrs=leven_thrs)
+    if len(processed) == 1:
+        return processed
 
     distinctAnnots = {}
     for dSet in nearDuplicateSets:
@@ -95,8 +101,6 @@ def groupNearDuplicates(inputList: List[str], strict:bool = True) -> Dict[str, L
         distinctAnnots[minAnnot] = list(altAnnots)
 
     return distinctAnnots
-
-
 
 
 

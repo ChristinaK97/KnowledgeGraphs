@@ -1,6 +1,8 @@
 import math
 from typing import List, Union, Dict, Set, Tuple
 
+import numpy as np
+import pandas as pd
 from thefuzz import fuzz as fz
 
 import torch
@@ -11,8 +13,12 @@ from tqdm import tqdm
 from HeadersDataset import HeadersDataset
 from MedicalDictionary import MedicalDictionary
 from BertSimilarityModel import BertSimilarityModel as Bert
-from util.NearDuplicates import groupNearDuplicates
+from util.NearDuplicates import groupNearDuplicates, findNearDuplicates
 
+
+pd.set_option('display.max_rows', 50)
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', 400)
 
 class HeaderCand:
     def __init__(self, headerAbbrevsFFs:Tuple[str], headerFF: str, score: Union[Tensor, float], isWholeHeader:bool):
@@ -70,15 +76,19 @@ class InterpretHeaders:
         self._generateCachedEmbeddings()
 
         self.globalAbbrevScores: Dict[str, Dict[str,float]] = {}
-        self._calcGlobalAbbrevScores()
+        self.abbrevsCandsGroups: Dict[str, Dict[str, int]]  = {}
+        self._setGlobalAbbrevInfo()
+
+        self.headersCands = {}
         # print(self.hDataset.datasetAbbrevs)
         # [[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
 
         self._calcHeaderScores()
         self._findSeeds()
         self._setSeedScores()
-        self._weightAvgScores()
-        self._printTable()
+        # self._weightAvgScores()
+        # self._printTable()
+        self._turnToDataframes()
 
 
     def _setup(self):
@@ -89,7 +99,7 @@ class InterpretHeaders:
                 * self.medDict.generateHeaderCandidates(self.hDataset.getHeaderInfo(idx))
             )
             print("=" * 30)
-        self.hDataset.setDatasetAbbrevs(self.medDict.datasetAbbrevDetected)                                 ;print(self.hDataset.datasetAbbrevs) ;[print(f"'{self.hDataset.tokenizedHeaders[idx]}',") for idx in self.hRange]
+        self.hDataset.setDatasetAbbrevs(self.medDict.datasetAbbrevDetected)                                             # ;print(self.hDataset.datasetAbbrevs) ;[print(f"'{self.hDataset.tokenizedHeaders[idx]}',") for idx in self.hRange]
 
         for idx in self.hRange:
             if not self.hDataset.doesntContainAbbrevs(idx):
@@ -111,7 +121,7 @@ class InterpretHeaders:
 
 
 
-    def _calcGlobalAbbrevScores(self):
+    def _setGlobalAbbrevInfo(self):
 
         for abbrev in self.hDataset.datasetAbbrevs:
             self.globalAbbrevScores[abbrev] = {}
@@ -125,6 +135,12 @@ class InterpretHeaders:
             for fullForm in fullForms:
                 pos = ffBatchPos[fullForm]
                 self.globalAbbrevScores[abbrev][fullForm] = globalAbbrevScores[pos[0]][pos[1]].item()
+
+        for i, (abbrev, ffs) in enumerate(self.globalAbbrevScores.items()):
+            ffs = list(ffs.keys())
+            _, nearDuplicates = findNearDuplicates(ffs, strict=False, leven_thrs=85)
+            nearDuplicates = {ffs[i] : groupID for groupID, group in enumerate(nearDuplicates) for i in group}
+            self.abbrevsCandsGroups[abbrev] = nearDuplicates
 
 
 
@@ -187,7 +203,6 @@ class InterpretHeaders:
                 LAD 1 * left anterior descending coronary artery 1
 
         """
-        self.headersCands = {}
         for idx in tqdm(self.hRange):
             if not self.hDataset.doesntContainAbbrevs(idx):
                 headerCands = []
@@ -238,9 +253,6 @@ class InterpretHeaders:
 
                 headerCands = self._firstRoundFiltering(idx, headerCands)                                               # self._printCandidates(idx, headerCands, ctx)
                 self.headersCands[idx] = headerCands
-
-
-
 
 
 
@@ -300,6 +312,7 @@ class InterpretHeaders:
                     continue
 
 
+            # all top score cands are the same concept
             highScoreCands = []
             k = ''
             for cand in cands:
@@ -307,7 +320,7 @@ class InterpretHeaders:
                     highScoreCands.append(cand.headerAbbrevsFFs[0])
                     k = self.hDataset.headers[idx] if cand.isWholeHeader else pAbbrevs[0]
             if len(highScoreCands) > 0:
-                nearDuplicates = groupNearDuplicates(highScoreCands, strict= False)
+                nearDuplicates = groupNearDuplicates(highScoreCands, strict= False, leven_thrs=80)
                 if len(nearDuplicates) == 1:
                     self.seeds[k] = next(iter(nearDuplicates))
 
@@ -349,7 +362,7 @@ class InterpretHeaders:
                 meanGlobal = self._getMeanGlobal(idx,cand,pAbbrev)
                 wAvg = candScoreW * cand.score + globalW * meanGlobal + ctxW * cand.meanCtxScore + ssW * cand.meanSeedScores
                 cand.weightAvgScore = wAvg
-            self.headersCands[idx] = sorted(headerCands, key=lambda x: x.weightAvgScore, reverse=True)
+            # self.headersCands[idx] = sorted(headerCands, key=lambda x: x.weightAvgScore, reverse=True)
 
 
 
@@ -366,6 +379,32 @@ class InterpretHeaders:
                 globalScores.append(self.globalAbbrevScores[hA][hAI])
 
         return mean(globalScores)
+
+# ======================================================================================================
+
+    def _turnToDataframes(self):
+
+        for idx, headerCands in self.headersCands.items():
+            headerCandsDF = []
+            for cand in headerCands:
+                candAbbrevs = (self.hDataset.headers[idx],) if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx]
+                candGroup = tuple(self.abbrevsCandsGroups[abbrev][abbrevFF] for abbrev,abbrevFF in zip(candAbbrevs,cand.headerAbbrevsFFs))
+                print(candAbbrevs)
+                print(cand.headerAbbrevsFFs)
+                print(candGroup)
+                headerCandsDF.append({
+                    "headerAbbrevsFFs" : cand.headerAbbrevsFFs,
+                    "headerFF" : cand.headerFF,
+                    "isWholeHeader" : cand.isWholeHeader,
+                    "group" : candGroup,
+                    "score": cand.score,
+                    "meanCtxScore": cand.meanCtxScore,
+                    "meanSeedScore": cand.meanSeedScores,
+                    "globalScore": self._getMeanGlobal(idx,cand,self.hDataset.partialAbbrevsDetected[idx])
+                })
+            self.headersCands[idx] = pd.DataFrame(headerCandsDF)
+            print(self.headersCands[idx].head(10))
+
 
 
 
@@ -399,10 +438,8 @@ class InterpretHeaders:
             pheaderAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
             print(f">> Header [{idx}] : {header}")
             for cand in headerCands:
-                if cand.weightAvgScore is not None:
-                    candInfo = "\tWA = " + str(round(cand.weightAvgScore, 5)) + '\t'
-                else:
-                    candInfo = ''
+                candInfo = ''
+
                 candInfo += "\tS = " + str(round(cand.score*100, 3))
                 candInfo += "\t\tCS = " + str(round(cand.meanCtxScore * 100, 3))
 
@@ -419,7 +456,10 @@ class InterpretHeaders:
                             candInfo += str(round(self.globalAbbrevScores[hA][hAI]*100, 3)) + ", "
                         except KeyError:
                             pass
-                candInfo += f' )\t\t {cand.headerFF}'
+                candInfo += f' )'
+                if cand.weightAvgScore is not None:
+                    candInfo += "\tWA = " + str(round(cand.weightAvgScore, 5)) + '\t'
+                candInfo += f"\t\t{cand.headerFF}"
                 print(candInfo)
             print()
 
