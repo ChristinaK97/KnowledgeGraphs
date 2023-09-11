@@ -109,7 +109,7 @@ class MedicalDictionary:
 
 
 # ======================================================================================================================
-    def _readDictionaryCSV(self, dictionaryCSV: str, delimiter: str) -> pd.DataFrame:
+    def _readDictionaryCSV(self, dictionaryCSV: str, delimiter: str, maintainAbbrevEntries:bool = False) -> pd.DataFrame:
         # Read the dictionary
         # Create a list to store the new rows
         # Get unique values of 'SF' column
@@ -117,14 +117,15 @@ class MedicalDictionary:
         # Create a new row with the same SF and LF value
         # Append the new rows to the DataFrame
         df = pd.read_csv(dictionaryCSV, delimiter=delimiter, encoding='utf-8', low_memory=False)
-        maintainAbbrevEntries = []
-        for abbrev in df[self.abbrevCol].unique():
-            maintainAbbrevEntries.append({
-                self.abbrevCol: abbrev,
-                self.fullFormCol: abbrev,
-            })
-        maintainAbbrevEntries = pd.DataFrame(maintainAbbrevEntries)
-        df = pd.concat([df, maintainAbbrevEntries], ignore_index=True)
+        if maintainAbbrevEntries:
+            maintainedAbbrevEntries = []
+            for abbrev in df[self.abbrevCol].unique():
+                maintainedAbbrevEntries.append({
+                    self.abbrevCol: abbrev,
+                    self.fullFormCol: abbrev,
+                })
+            maintainedAbbrevEntries = pd.DataFrame(maintainedAbbrevEntries)
+            df = pd.concat([df, maintainedAbbrevEntries], ignore_index=True)
         return df
 
 
@@ -213,9 +214,9 @@ class MedicalDictionary:
                           value= The candidate interpretation of the combination
                           It contains all the possible interpretations of the header -> all the interpretations of
                           the abbreviation as found in the trie in case a single abbreviation is found in the header,
-                          Or if more than one abbrev is found in the header, all the possible combinations of their
-                          interpretation, including candidates where only a portion of the abbreviations present
-                          were replaced by their interpretation.
+                          Or if more than one abbrev is found in the header, all the possible combinations of their interpretation,
+                          including candidates where only a portion of the abbreviations present were replaced by
+                          their interpretation. -> this happens if maintainAbbrevEntries==True when reading the csv
                           E.g., {
                                       ('microcytic', 'albendazole'):   microcytic albendazole,
                                       ('microcytic', 'albumin'):       microcytic albumin,

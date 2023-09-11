@@ -1,31 +1,38 @@
-from typing import List, Union, Dict, Set
+import math
+from typing import List, Union, Dict, Set, Tuple
+
+from thefuzz import fuzz as fz
 
 import torch
+from numpy import mean
 from torch import Tensor
 
 from HeadersDataset import HeadersDataset
 from MedicalDictionary import MedicalDictionary
 from BertSimilarityModel import BertSimilarityModel as Bert
+from util.NearDuplicates import groupNearDuplicates
 
 
-class HeaderCandScore:
-    def __init__(self, headerFF: str, score: float, isWholeHeader:bool):
+class HeaderCand:
+    def __init__(self, headerAbbrevsFFs:Tuple[str], headerFF: str, score: Union[Tensor, float], isWholeHeader:bool):
 
+        self.headerAbbrevsFFs= headerAbbrevsFFs
         self.headerFF = headerFF
-        self.score = score
+        self.score = score.item() if isinstance(score, Tensor) else score
         self.isWholeHeader = isWholeHeader
-        self.contextScores = []
+        self.contextScores:List[Tensor] = []
+        self.meanCtxScore: float = None
 
-    def addContextScore(self, ctxScore: float):
-        self.contextScores.append(ctxScore)
 
     def setContextScores(self, ctxScores):
         self.contextScores = ctxScores
+        self.meanCtxScore = torch.mean(torch.stack(self.contextScores), dim=0).item()
 
     def printCand(self, ctxHeaders):
         print(f"\t\tHFF =  '{self.headerFF}'\tIsWH = {self.isWholeHeader}\t Score =  {self.score}\n\t\tCtx Scores = ")
         for hctx, ctxScore in zip(ctxHeaders, self.contextScores):
             print(f"\t\t\t\tctx = {hctx}\t score = {ctxScore}")
+        print("\t\tMean ctx score = ", self.meanCtxScore)
 
 
 class InterpretHeaders:
@@ -48,7 +55,7 @@ class InterpretHeaders:
         self.globalAbbrevScores: Dict[str, Dict[str,float]] = {}
         self._calcGlobalAbbrevScores()
         # print(self.hDataset.datasetAbbrevs)
-        # [[print(f'{abbrev}, {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
+        [[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
 
         self._calcHeaderScores()
 
@@ -159,9 +166,10 @@ class InterpretHeaders:
                 LAD 1 * left anterior descending coronary artery 1
 
         """
+        headersCands = {}
         for idx in self.hRange:
             if not self.hDataset.doesntContainAbbrevs(idx):
-                headerCandsScores = {}
+                headerCands = []
                 tHeader = self.hDataset.tokenizedHeaders[idx]                                                           ;print(f"\nCalc for [{idx}] : {tHeader}")
 
                 ctx = [self.hDataset.tokenizedHeaders[ctxIdx] for ctxIdx in self.hContext[idx]]
@@ -172,17 +180,17 @@ class InterpretHeaders:
                 if self.hDataset.isWholeHeaderAbbrev(idx):
                     wholeAbbrev = self.hDataset.headers[idx]                                                            # ;print(f"\tAbbrevs = Whole Header {wholeAbbrev}")
 
-                    wholeFFs = self.medDict.getExactMatch(wholeAbbrev)
+                    wholeFFs = list(self.globalAbbrevScores[wholeAbbrev].keys())
                     wholeBatches, wholeBatchPos = Bert.createBatches(wholeFFs)
                     wholeEmbeddings = self.bert(wholeBatches)
 
                     for wholeFF, wholeScore in self.globalAbbrevScores[wholeAbbrev].items():
-                        cand = HeaderCandScore(wholeFF, wholeScore, True)
+                        cand = HeaderCand((wholeFF,), wholeFF, wholeScore, True)
                         pos  = wholeBatchPos[wholeFF]
                         emb  = wholeEmbeddings[pos[0]][pos[1]]
                         ctxScores = Bert.cos(emb, ctxEmbeddings)
                         cand.setContextScores(ctxScores)
-                        headerCandsScores[(wholeFF,)] = cand                                                            # ;print(f"\t{wholeFF} : {wholeFF} = {wholeScore}")
+                        headerCands.append(cand)                                                                   # ;print(f"\t{wholeFF} : {wholeFF} = {wholeScore}")
 
                 # ======================================================================================================
                 # The header contains partial abbreviations
@@ -201,53 +209,152 @@ class InterpretHeaders:
                     for headerAbbrevsFFs, headerFF in partialCands.items():
                         pos = partialBatchPos[headerAbbrevsFFs]
                         partialScore = partialScores[pos[0]][pos[1]]
-                        cand = HeaderCandScore(headerFF, partialScore, False)                                           # ;print(f"\t{headerAbbrevsFFs} : {headerFF} = {partialScore}")
+                        cand = HeaderCand(headerAbbrevsFFs, headerFF, partialScore, False)                                           # ;print(f"\t{headerAbbrevsFFs} : {headerFF} = {partialScore}")
                         emb  = partialEmbeddings[pos[0]][pos[1]]
                         ctxScores = Bert.cos(emb, ctxEmbeddings)
                         cand.setContextScores(ctxScores)
-                        headerCandsScores[headerAbbrevsFFs] = cand
+                        headerCands.append(cand)
 
-                for key, value in headerCandsScores.items():
-                    print(f"\tCand = '{key}'")
-                    value.printCand(ctx)
-
-
-
-
-
-"""
-    def _calcScores(self, tgtEmbedding, ffEmbeddingsBatches):
-        return [[tgtEmbedding + " * " + ffEmbedding for ffEmbedding in ffEmbeddingsBatch] for ffEmbeddingsBatch in ffEmbeddingsBatches]
-        # return [tgtEmbedding * ffEmbeddingsBatch for ffEmbeddingsBatch in ffEmbeddingsBatches]
+                headerCands = self._firstRoundFiltering(idx, headerCands)
+                self._printCandidates(idx, headerCands, ctx)
+                headersCands[idx] = headerCands
+        self._printTable(headersCands)
+        self._findSeeds(headersCands)
 
 
 
-    def _embedBatches(self, batches):
-        embeddings = []
-        counter = 0
-        for batch in batches:
-            batchEmbeddings = []
-            for sentence in batch:
-                batchEmbeddings.append(sentence)
-                counter += 1
-            # batchEmbeddings = torch.tensor(batchEmbeddings, requires_grad=False, dtype=torch.double)
-            embeddings.append(batchEmbeddings)
-        return embeddings
+
+    def _firstRoundFiltering(self, idx:int, headerCands:List[HeaderCand], FIRST_ROUND_THRS: float = 0.82):
+        headerCands = sorted(headerCands, key=lambda x: x.score, reverse=True)
+        pheaderAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
+        toRmv = set()
+        for i, cand in enumerate(headerCands):
+            if cand.score <= FIRST_ROUND_THRS:
+
+                if cand.meanCtxScore <= FIRST_ROUND_THRS or (
+                   cand.isWholeHeader and self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF] <= FIRST_ROUND_THRS):
+                    toRmv.add(i)                                                                                        ;print(f"\t\tRemove : {cand.headerFF}")
+                else:
+                    for hA, hAI in zip(pheaderAbbrevs, cand.headerAbbrevsFFs):
+                        if self.globalAbbrevScores[hA][hAI] <= FIRST_ROUND_THRS:
+                            toRmv.add(i)                                                                                ;print(f"\t\tRemove : {cand.headerFF}")
+                            break
+
+        return [headerCands[i] for i in range(len(headerCands)) if i not in toRmv]
 
 
-"""
+
+
+    def _findSeeds(self, headersCands: Dict[int, List[HeaderCand]]):
+        def key(cand):
+            return (self.hDataset.headers[idx],) if cand.isWholeHeader else pAbbrevs
+
+        seeds = {}
+        for idx, cands in headersCands.items():
+            if not cands:
+                continue
+
+            header = self.hDataset.headers[idx]
+            pAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
+
+            # complex headers are not considered seeds
+            if not(len(pAbbrevs) == 1 or self.hDataset.isWholeHeaderAbbrev(idx)):
+                continue
+
+            # single high score candidate
+            if len(cands) == 1:
+                if cands[0].score > 0.85 and self._getMeanGlobal(idx, cands[0], pAbbrevs) > 0.85:
+                    seeds[key(cands[0])] = cands[0].headerAbbrevsFFs[0]
+                continue
+
+            # single cand with scores greater than 90%
+            isSeed = True
+            top1Score, top1GlobalScore = cands[0].score, self._getMeanGlobal(idx,cands[0],pAbbrevs)
+            if top1Score > 0.9 and top1GlobalScore > 0.9:
+                for cand2 in cands[1:]:
+                    if cand2.score > 0.9 and self._getMeanGlobal(idx,cand2,pAbbrevs) > 0.9:
+                        isSeed = False
+                        break
+                if isSeed:
+                    seeds[key(cands[0])] = cands[0].headerAbbrevsFFs[0]
+                    continue
+
+
+            highScoreCands = []
+            k = ''
+            for cand in cands:
+                if cand.score >= 0.93 and self._getMeanGlobal(idx,cand,pAbbrevs) >= 0.93:
+                    highScoreCands.append(cand.headerAbbrevsFFs[0])
+                    k = (self.hDataset.headers[idx],) if cand.isWholeHeader else pAbbrevs
+            if len(highScoreCands) > 0:
+                nearDuplicates = groupNearDuplicates(highScoreCands, strict= False)
+                if len(nearDuplicates) == 1:
+                    seeds[k] = next(iter(nearDuplicates))
+
+        [print(k,v) for k,v in seeds.items()]
 
 
 
-"""
-sentences = [f'Sent {i}' for i in range(23)]
-batches, sentBatchIdxPos = InterpretHeaders.createBatches(sentences, batchSize=4)
-[print(batch) for batch in batches]
-[print(sentences[i], sentBatchIdxPos[i]) for i in range(len(sentences))]
-
-"""
 
 
+    def _getGlobalScore(self, abbrev, ff):
+        return self.globalAbbrevScores[abbrev][ff]
+
+    def _getMeanGlobal(self, idx, cand:HeaderCand, pheaderAbbrevs):
+        globalScores = []
+        if pheaderAbbrevs:
+            for hA, hAI in zip(pheaderAbbrevs, cand.headerAbbrevsFFs):
+                globalScores.append(self.globalAbbrevScores[hA][hAI])
+        if cand.isWholeHeader:
+            globalScores.append(self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF])
+        return mean(globalScores)
+
+
+
+# ======================================================================================================
+
+
+    def _printCandidates(self, idx, headerCands, ctx):
+        pheaderAbbrevs:Tuple = self.hDataset.partialAbbrevsDetected[idx]
+
+        headerCands = sorted(headerCands, key=lambda x: x.score, reverse=True)
+
+        for cand in headerCands:
+            print(f"\tCand = '{cand.headerAbbrevsFFs}'")
+            globalS = ""
+            if cand.isWholeHeader:
+                globalS += f"\t\tGlobal({self.hDataset.headers[idx]}, {cand.headerFF}) = {self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF]}\n"
+            if pheaderAbbrevs:
+                for hA, hAI in zip(pheaderAbbrevs, cand.headerAbbrevsFFs):
+                    try:
+                        globalS += f"\t\tGlobal({hA}, {hAI}) = {self.globalAbbrevScores[hA][hAI]}\n"
+                    except KeyError:
+                        pass
+            print(globalS, end='')
+            cand.printCand(ctx)
+
+
+
+    def _printTable(self, headersCands):
+        for idx, headerCands in headersCands.items():
+            header = self.hDataset.tokenizedHeaders[idx]
+            pheaderAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
+            print(f">> Header [{idx}] : {header}")
+            for cand in headerCands:
+                candInfo = "\tS = " + str(round(cand.score*100, 3))
+                candInfo += "\t\tCS = " + str(round(cand.meanCtxScore * 100, 3)) + "\t\tGS = ("
+
+                if cand.isWholeHeader:
+                    candInfo += str(round(self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF]*100, 3))
+                if pheaderAbbrevs:
+                    for hA, hAI in zip(pheaderAbbrevs, cand.headerAbbrevsFFs):
+                        try:
+                            candInfo += str(round(self.globalAbbrevScores[hA][hAI]*100, 3)) + ", "
+                        except KeyError:
+                            pass
+                candInfo += f' )\t\t {cand.headerFF}'
+                print(candInfo)
+            print()
 
 
 

@@ -11,6 +11,19 @@ LEN_DIFF_THRS = 15
 LEVEN_THRS = 95
 
 
+def jaccard(str1, str2):
+    set1 = set(str1)
+    set2 = set(str2)
+
+    intersection = len(set1.intersection(set2))
+    union = len(set1.union(set2))
+
+    similarity = intersection / union
+    return similarity
+
+
+
+
 def lenDiff(x: str, y: str):
     lx = len(x)
     ly = len(y)
@@ -36,25 +49,18 @@ def hasDuplicateIn(word, candAnnotations):
     return False
 
 
-"""
-if wConcat == cConcat or wSplit == cSplit :
-    print(f"Identical \t< {wConcat} \t {cConcat} >")
-    return True
-
-elif lenDiff(wConcat, cConcat) < LEN_DIFF_THRS:
-    leven = fz.ratio(wConcat, cConcat)
-    print(f"{leven} {lenDiff(wConcat, cConcat)}\t< {wConcat} \t {cConcat} >")
-    if leven >= LEVEN_THRS:
-        return True        
-"""
 
 
+def groupNearDuplicates(inputList: List[str], strict:bool = True) -> Dict[str, List[str]]:
 
-
-def groupNearDuplicates(inputList: List[str]) -> Dict[str, List[str]]:
+    def areSimilar():
+        if strict:
+            return lenDiff(concat1, concat2) < LEN_DIFF_THRS and fz.ratio(concat1, concat2) >= LEVEN_THRS
+        else:
+            return fz.partial_token_sort_ratio(noPunc1, noPunc2) >= 0.8
+    # --------------------------------------------------------------------
 
     processed = [process(fullForm) for fullForm in inputList]
-    # print(processed)
 
     if len(processed) == 1:
         return {processed[0][0] : [processed[0][0]]}
@@ -62,17 +68,16 @@ def groupNearDuplicates(inputList: List[str]) -> Dict[str, List[str]]:
     nearDuplicates = UnionFind(len(processed))
 
     for idx1 in range(len(processed)):
-        _, split1, concat1 = processed[idx1]
+        noPunc1, split1, concat1 = processed[idx1]
         for idx2 in range(idx1 + 1, len(processed)):
-            _, split2, concat2 = processed[idx2]
+            noPunc2, split2, concat2 = processed[idx2]
 
-            if concat1 == concat2 or split1 == split2 or \
-               (lenDiff(concat1, concat2) < LEN_DIFF_THRS and fz.ratio(concat1, concat2) >= LEVEN_THRS):
+            if concat1 == concat2 or split1 == split2 or areSimilar():
                 nearDuplicates.union(idx1, idx2)
 
     nearDuplicateSets = nearDuplicates.getSets()
-    # print(nearDuplicateSets)
-    # =====================================================================
+
+    # --------------------------------------------------------------------
 
     distinctAnnots = {}
     for dSet in nearDuplicateSets:
@@ -89,11 +94,26 @@ def groupNearDuplicates(inputList: List[str]) -> Dict[str, List[str]]:
 
         distinctAnnots[minAnnot] = list(altAnnots)
 
-    # print(distinctAnnots)
-    # print("="*30)
-    # return split_key_based_on_values(distinctAnnots)
     return distinctAnnots
 
+
+
+
+
+
+# ===============================================================================================================
+
+"""
+if wConcat == cConcat or wSplit == cSplit :
+    print(f"Identical \t< {wConcat} \t {cConcat} >")
+    return True
+
+elif lenDiff(wConcat, cConcat) < LEN_DIFF_THRS:
+    leven = fz.ratio(wConcat, cConcat)
+    print(f"{leven} {lenDiff(wConcat, cConcat)}\t< {wConcat} \t {cConcat} >")
+    if leven >= LEVEN_THRS:
+        return True        
+"""
 
 """
 if concat1 == concat2 or split1 == split2 :
@@ -110,8 +130,6 @@ else:
 """
 
 
-
-# ===============================================================================================================
 """
 def split_key_based_on_values(dictionary):
     new_dict = {}

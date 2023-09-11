@@ -101,7 +101,7 @@ class BertSimilarityModel(Module):
 
 
 
-
+"""
 batches_ = [['CAD'], ['Coronary Artery Disease', 'Computer Assisted Diagnosis'], ['Coronary Artery Disease', 'Computer Assisted Diagnosis']]
 bert = BertSimilarityModel()
 embeddings = bert(batches_)
@@ -114,13 +114,6 @@ singleEmb:Tensor = embeddings[0]
 twoEmbs = embeddings[1]
 print(twoEmbs.shape)
 
-# if len(singleEmb.shape) < len(twoEmbs.shape):
-#    singleEmb = torch.unsqueeze(singleEmb, dim=0)
-# if len(singleEmb.shape) == 2:
-#     dim = 0 if singleEmb.shape[0] < singleEmb.shape[1] else 1
-# elif len(singleEmb.shape) == 1:
-#     dim = 1
-
 sim = BertSimilarityModel.cos(singleEmb, twoEmbs)
 print(sim, '\n==============')
 
@@ -128,3 +121,4 @@ twoEmbs = [emb for emb in embeddings[1]]
 sim = BertSimilarityModel.cos(singleEmb, twoEmbs)
 print(sim)
 
+"""
