@@ -259,9 +259,8 @@ class MedicalDictionary:
 
 
     def _gen_partial_and_whole_header_cands(self, header, tokenizedHeader, headerAbbrevCands):
-        print("\tCANDIDATES:")
         # handle whole header candidates separately
-        wHeaderCands = headerAbbrevCands.pop(header, None)
+        wHeaderCands = headerAbbrevCands.pop(header, None)                                                              # ;print("\tCANDIDATES:")
 
         # partial header candidates generation
         partialAbbrevsDetected, partialCands = self._generateCandidates(tokenizedHeader, headerAbbrevCands)
@@ -305,8 +304,7 @@ class MedicalDictionary:
                 prevEnd = spans[abbrev][1]
             candidate += tokenizedHeader[prevEnd:]
             if candidate != tokenizedHeader:
-                candidates[combination] = candidate
-                print(f"\t{combination} : {candidate}")
+                candidates[combination] = candidate                                                                     # ; print(f"\t{combination} : {candidate}")
         return tuple(sortedBySpan), candidates
 
 

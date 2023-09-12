@@ -1,5 +1,6 @@
 import pickle
 import re
+from collections import Counter
 from os.path import exists
 from typing import Set, List, Tuple
 
@@ -543,7 +544,12 @@ class HeadersDataset:
                             addInput(entry, WORD, (start, end))
 
                 elif tokenTag == UNK:
-                    pass  # TODO
+                    # TODO
+                    """tagsCount = Counter(tags)
+                    if len(tags)==1 or (tagsCount[UNK]==1 and
+                                        tagsCount.get(WORD,0)==0 and tagsCount.get(STOPWORD,0)==0):
+                        addInput(token, tokenTag, tokenSpan)"""
+                    pass
 
                 elif tokenTag == STOPWORD:
                     pass  # don't try to interpreter stopwords
