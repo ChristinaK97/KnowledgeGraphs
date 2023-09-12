@@ -16,6 +16,10 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
+# set to None to skip filtering step
+FIRST_ROUND_THRS: float = 0.82
+SEC_ROUN_THRS: float = 0.85
+
 
 class InterpretHeaders:
 
@@ -43,11 +47,13 @@ class InterpretHeaders:
         # [[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
 
         self._calcHeaderScores()
+        self._secondRoundFiltering()
         self._findSeeds()
         self._setSeedScores()
         self._setGroups()
 
-        self._printDataFrames()
+        # self._printDataFrames()
+        self._selectBestCandidates()
 
 
     def _setup(self):
@@ -237,8 +243,10 @@ class InterpretHeaders:
                 self.headersCandsDFs[idx] = headerCands
 
 
-    def _firstRoundFiltering(self, idx:int, headerCands:pd.DataFrame, FIRST_ROUND_THRS: float = 0.82):
+    def _firstRoundFiltering(self, idx:int, headerCands:pd.DataFrame):
         headerCands.sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
+        if FIRST_ROUND_THRS is None:
+            return headerCands
         pheaderAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
         toRmv = set()
         for i, cand in headerCands.iterrows():
@@ -254,6 +262,37 @@ class InterpretHeaders:
                             break
 
         return headerCands.drop(toRmv, axis=0)
+
+
+    def _secondRoundFiltering(self):
+        if SEC_ROUN_THRS is None:
+            return
+        filtered = {}
+        for idx, headerCands in self.headersCandsDFs.items():
+            if self.hDataset.isWholeHeaderAbbrev(idx) or len(self.hDataset.partialAbbrevsDetected[idx]) == 1:
+                for _, cand in headerCands.iterrows():
+                    abbrev = self.hDataset.headers[idx] if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx][0]
+                    if cand.score < SEC_ROUN_THRS and cand.globalScores[0] < SEC_ROUN_THRS:
+                        # print(abbrev, cand.headerAbbrevsFFs[0], cand.score, cand.globalScores[0])
+                        if abbrev in filtered:
+                            filtered[abbrev].add(cand.headerAbbrevsFFs[0])
+                        else:
+                            filtered[abbrev] = {cand.headerAbbrevsFFs[0]}
+        # [print(k,v) for k,v in filtered.items()]
+        for idx, headerCands in self.headersCandsDFs.items():
+
+            if self.hDataset.getHeaderAbbrevs(idx) & filtered.keys():
+                # print("DETECTED", self.hDataset.getHeaderAbbrevs(idx))
+                candsIdxToRmv = set()
+                for ic, cand in headerCands.iterrows():
+                    abbrevs = (self.hDataset.headers[idx],) if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx]
+                    for abbrev, abbrevFF in zip(abbrevs, cand.headerAbbrevsFFs):
+                        if abbrevFF in filtered.get(abbrev, set()):
+                            # print("DROP: ", cand.headerFF)
+                            candsIdxToRmv.add(ic)
+                self.headersCandsDFs[idx] = headerCands.drop(candsIdxToRmv, axis=0)
+
+
 
 
 
@@ -348,30 +387,25 @@ class InterpretHeaders:
 
 # ======================================================================================================
 
-    def custom_agg(self, series):
-        # Check the data type of the series
-        if np.issubdtype(series.dtype, np.number):
-            return series.max()
-        elif series.dtype == 'object' and all(isinstance(x, tuple) for x in series):
-            if isinstance(series.iloc[0][0], str):
-                return list(series)
-            else:   # Get the maximum value per tuple position
-                max_values = [max(item) for item in zip(*series)]
-                return max_values
-        elif series.dtype == 'object':
-            return list(series)
-        else:
-            # Return the original series if the data type doesn't match any condition
-            return series
-
     def _setGroups(self):
-        """def calculate_group(cand):
-            candAbbrevs = (self.hDataset.headers[idx],) if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx]
-            candGroup = tuple(self.abbrevsCandsGroups[abbrev][abbrevFF] for abbrev,abbrevFF in zip(candAbbrevs,cand.headerAbbrevsFFs))
-            return candGroup
 
-        for idx, headerCands in self.headersCandsDFs.items():
-            headerCands['group'] = headerCands.apply(calculate_group, axis=1)"""
+        # --------------------------------------------------------------------------------------------------------------
+        def custom_agg(series):
+            # Check the data type of the series
+            if np.issubdtype(series.dtype, np.number):
+                return series.max()
+            elif series.dtype == 'object' and all(isinstance(x, tuple) for x in series):
+                if isinstance(series.iloc[0][0], str):
+                    return list(series)
+                else:  # Get the maximum value per tuple position
+                    max_values = [max(item) for item in zip(*series)]
+                    return max_values
+            elif series.dtype == 'object':
+                return list(series)
+            else:
+                # Return the original series if the data type doesn't match any condition
+                return series
+        # --------------------------------------------------------------------------------------------------------------
 
         for idx, headerCands in self.headersCandsDFs.items():
             if len(headerCands) == 0:   # all cands were filtered
@@ -381,19 +415,39 @@ class InterpretHeaders:
                 candGroup = tuple(self.abbrevsCandsGroups[abbrev][abbrevFF] for abbrev, abbrevFF in zip(candAbbrevs, cand.headerAbbrevsFFs))
                 headerCands.at[i, 'group'] = candGroup
 
-            self.headersCandsDFs[idx] = headerCands.groupby(['group', 'isWholeHeader']).agg(self.custom_agg).reset_index()
+            self.headersCandsDFs[idx] = headerCands.groupby(['group', 'isWholeHeader']).agg(custom_agg).reset_index()
             self.headersCandsDFs[idx].sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
 
+
+    def _selectBestCandidates(self):
+        for idx, hCs in self.headersCandsDFs.items():
+            # self._printIdxDF(idx)
+            print(f"\n\n>> Header [{idx}]  {self.hDataset.tokenizedHeaders[idx]}\n")
+            max_score_record = hCs[hCs['score'] == hCs['score'].max()]
+
+            max_pair_record = hCs[(hCs['meanCtxScore']  == hCs['meanCtxScore'].max())
+                                & (hCs['meanSeedScore'] == hCs['meanSeedScore'].max())]
+
+            print("\nRecord with max score:")
+            self._printDF(max_score_record)
+
+            print("\nRecord with max pair of values in meanCtxScore and meanSeedScore:")
+            self._printDF(max_pair_record)
+            print("="*70)
 
     # ======================================================================================================
 
     def _printDataFrames(self):
         for idx, headerCands in self.headersCandsDFs.items():
             print(f"\n>> Header [{idx}]  {self.hDataset.tokenizedHeaders[idx]}\n")
-            print(headerCands[['score', 'meanCtxScore', 'meanSeedScore', 'globalScores', 'group', 'headerFF']])
+            print(headerCands[['score', 'meanCtxScore', 'meanSeedScore', 'globalScores', 'headerFF', 'group','isWholeHeader']])
 
+    def _printIdxDF(self, idx):
+        print(f"\n\n>> Header [{idx}]  {self.hDataset.tokenizedHeaders[idx]}\n")
+        print(self.headersCandsDFs[idx][['score', 'meanCtxScore', 'meanSeedScore', 'globalScores', 'headerFF', 'group', 'isWholeHeader']])
 
-
+    def _printDF(self, df):
+        print(df[['score', 'meanCtxScore', 'meanSeedScore', 'globalScores', 'headerFF', 'group', 'isWholeHeader']])
 
 
 

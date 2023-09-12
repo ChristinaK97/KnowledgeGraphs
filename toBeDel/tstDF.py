@@ -54,6 +54,18 @@ def collect_to_list(series):
 
 
 df = df.groupby(['group', 'isWholeHeader']).agg(custom_agg).reset_index()
-
+df.sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
 
 print(df)
+
+# Record with the max value in the 'score' column
+max_score_record = df[df['score'] == df['score'].max()]
+
+# Record with the max pair of values in 'meanCtxScore' and 'meanSeedScore'
+max_pair_record = df[(df['meanCtxScore'] == df['meanCtxScore'].max()) & (df['meanSeedScore'] == df['meanSeedScore'].max())]
+
+print("Record with max score:")
+print(max_score_record)
+
+print("\nRecord with max pair of values in meanCtxScore and meanSeedScore:")
+print(max_pair_record)
