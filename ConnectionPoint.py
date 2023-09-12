@@ -7,9 +7,11 @@ path = "C:\\Users\\karal\\OneDrive\\Υπολογιστής\\clinical-abbreviatio
 
 inputDataset = "resources\\Data_test_Encrypt_Repaired.csv"
 
+outputPath = "resources\\abbrevExpansionResults.json"
+
 headers = pd.read_csv(inputDataset, delimiter=";").columns.to_list()
 
-InterpretHeaders(headers, path)
+InterpretHeaders(headers, path, outputPath)
 
 """
 md = MedicalDictionary(dictionaryCSVPath=path)

@@ -1,3 +1,4 @@
+import json
 from functools import reduce
 from typing import List, Union, Dict, Set, Tuple
 
@@ -25,7 +26,7 @@ SEC_ROUN_THRS: float = 0.85
 
 class InterpretHeaders:
 
-    def __init__(self, headers: List[str], medDictPath: str):
+    def __init__(self, headers: List[str], medDictPath: str, outputPath: str):
 
         self.hDataset = HeadersDataset(headers)
         self.medDict  = MedicalDictionary(dictionaryCSVPath=medDictPath,
@@ -56,6 +57,7 @@ class InterpretHeaders:
 
         # self._printDataFrames()
         self._selectBestCandidates()
+        self._extractResults(outputPath)
 
 
     def _setup(self):
@@ -71,6 +73,7 @@ class InterpretHeaders:
             if not self.hDataset.doesntContainAbbrevs(idx):
                 self.hContext[idx] = self.hDataset.generateHeaderContext(idx)
 
+# ======================================================================================================
 
     def _generateCachedEmbeddings(self):
         def _cacheCollectionEmbeddings(collection: Union[Set[str], List[str]]):
@@ -252,6 +255,7 @@ class InterpretHeaders:
                 self.headersCandsDFs[idx] = headerCands
         print(f"First round filtering (thrs = {FIRST_ROUND_THRS}) removed {firstRc} candidates")
 
+# ======================================================================================================
 
     def _firstRoundFiltering(self, idx:int, headerCands:pd.DataFrame, c):
         headerCands.sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
@@ -306,9 +310,7 @@ class InterpretHeaders:
                 self.headersCandsDFs[idx] = headerCands.drop(candsIdxToRmv, axis=0)
         print(f"\nSecond round filtering (thrs = {SEC_ROUN_THRS}) removed {c} candidates")
 
-
-
-
+# ======================================================================================================
 
     def _findSeeds(self):
         def key(cand):
@@ -519,10 +521,35 @@ class InterpretHeaders:
 
             self.headersCandsDFs[idx] = headerCands.loc[selectedCands]                                                  ; print(f"\n\n>> Selected for header [{idx}] : {self.hDataset.headers[idx]}\n{self.headersCandsDFs[idx]}\n\n", end='='*100)
 
+# ======================================================================================================
+
+    def _extractResults(self, outputPath: str):
+        results = {}
+        for idx in self.hRange:
+            headerResults = {
+                "tokenized" : self.hDataset.tokenizedHeaders[idx],
+                "abbrevs"   : list(self.hDataset.getHeaderAbbrevs(idx)),
+                "headerCands" : []
+            }
+            headerCands = self.headersCandsDFs.get(idx, [])
+            if len(headerCands) > 0:
+                for candRank, cand in headerCands.iterrows():
+                    headerResults['headerCands'].append({
+                        'headerFF' : cand.headerFF,
+                        'rank': candRank,
+                        'localScore': cand.score,
+                        'meanGlobalScores': mean(cand.globalScores),
+                        'meanLocalCtxScore' : cand.meanCtxScore,
+                        'meanGlobalCtxScore': cand.meanSeedScore
+                    })
+            results[self.hDataset.headers[idx]] = headerResults
+
+        with open(outputPath, 'w') as json_file:
+            json.dump(results, json_file, indent=4)
+        return results
 
 
-
-    # ======================================================================================================
+# ======================================================================================================
 
     def _printDataFrames(self):
         for idx, headerCands in self.headersCandsDFs.items():
