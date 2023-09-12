@@ -1,3 +1,4 @@
+from functools import reduce
 from typing import List, Union, Dict, Set, Tuple
 
 import numpy as np
@@ -11,6 +12,7 @@ from BertSimilarityModel import BertSimilarityModel as Bert
 from HeadersDataset import HeadersDataset
 from MedicalDictionary import MedicalDictionary
 from util.NearDuplicates import groupNearDuplicates, findNearDuplicates
+from util.UnionFind import UnionFind
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -42,11 +44,13 @@ class InterpretHeaders:
         self.abbrevsCandsGroups: Dict[str, Dict[str, int]]  = {}
         self._setGlobalAbbrevInfo()
 
-        self.headersCandsDFs: Dict[int, pd.DataFrame] = {}
+        self.headersCandsDFs: Dict[int, Union[pd.DataFrame, Dict[str, pd.DataFrame]]] = {}
         # print(self.hDataset.datasetAbbrevs)
         # [[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
 
         self._calcHeaderScores()
+        del self.cachedEmbeddings
+        del self.medDict
         self._secondRoundFiltering()
         self._findSeeds()
         self._setSeedScores()
@@ -87,7 +91,7 @@ class InterpretHeaders:
 
     def _setGlobalAbbrevInfo(self):
 
-        for abbrev in self.hDataset.datasetAbbrevs:
+        for abbrev in tqdm(self.hDataset.datasetAbbrevs):
             self.globalAbbrevScores[abbrev] = {}
             abbrevEmbedding = self.cachedEmbeddings[abbrev]
 
@@ -105,6 +109,12 @@ class InterpretHeaders:
             _, nearDuplicates = findNearDuplicates(ffs, strict=False, leven_thrs=85)
             nearDuplicates = {ffs[i] : groupID for groupID, group in enumerate(nearDuplicates) for i in group}
             self.abbrevsCandsGroups[abbrev] = nearDuplicates
+
+            """print('\n',abbrev )
+            g = [(v,k) for k,v in nearDuplicates.items()]
+            g.sort(key=lambda x: x[0])
+            [print(v, '\t', k) for v,k in g]"""
+
 
 
 
@@ -180,6 +190,7 @@ class InterpretHeaders:
                 "globalScores": globalScores
             }
 
+        firstRc = 0
         for idx in tqdm(self.hRange):
             if not self.hDataset.doesntContainAbbrevs(idx):
                 headerCands = []
@@ -236,17 +247,19 @@ class InterpretHeaders:
                                               isWholeHeader=False,
                                               score=partialScore,
                                               contextScores=ctxScores,
-                                              globalScores=tuple(self.globalAbbrevScores[abbrev][abbrevFF] for abbrev,abbrevFF in zip(partialAbbrevs,headerAbbrevsFFs))))
+                                              globalScores=tuple(self.globalAbbrevScores[abbrev][abbrevFF]
+                                                                 for abbrev,abbrevFF in zip(partialAbbrevs,headerAbbrevsFFs))))
 
                 headerCands = pd.DataFrame(headerCands)
-                headerCands = self._firstRoundFiltering(idx, headerCands)
+                headerCands, firstRc = self._firstRoundFiltering(idx, headerCands, firstRc)
                 self.headersCandsDFs[idx] = headerCands
+        print(f"First round filtering (thrs = {FIRST_ROUND_THRS}) removed {firstRc} candidates")
 
 
-    def _firstRoundFiltering(self, idx:int, headerCands:pd.DataFrame):
+    def _firstRoundFiltering(self, idx:int, headerCands:pd.DataFrame, c):
         headerCands.sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
         if FIRST_ROUND_THRS is None:
-            return headerCands
+            return headerCands, 0
         pheaderAbbrevs: Tuple = self.hDataset.partialAbbrevsDetected[idx]
         toRmv = set()
         for i, cand in headerCands.iterrows():
@@ -255,21 +268,24 @@ class InterpretHeaders:
                 if cand.meanCtxScore <= FIRST_ROUND_THRS or (
                    cand.isWholeHeader and self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF] <= FIRST_ROUND_THRS):
                     toRmv.add(i)                                                                                        # ;print(f"\t\tRemove : {cand.headerFF}")
+                    c += 1
                 else:
                     for hA, hAI in zip(pheaderAbbrevs, cand.headerAbbrevsFFs):
                         if self.globalAbbrevScores[hA][hAI] <= FIRST_ROUND_THRS:
                             toRmv.add(i)                                                                                # ;print(f"\t\tRemove : {cand.headerFF}")
+                            c += 1
                             break
 
-        return headerCands.drop(toRmv, axis=0)
+        return headerCands.drop(toRmv, axis=0), c
 
 
     def _secondRoundFiltering(self):
         if SEC_ROUN_THRS is None:
+            print(f"\nSecond round filtering (thrs = {SEC_ROUN_THRS}) removed 0 candidates")
             return
         filtered = {}
         for idx, headerCands in self.headersCandsDFs.items():
-            if self.hDataset.isWholeHeaderAbbrev(idx) or len(self.hDataset.partialAbbrevsDetected[idx]) == 1:
+            if self.hDataset.hasSingleAbbrev(idx):
                 for _, cand in headerCands.iterrows():
                     abbrev = self.hDataset.headers[idx] if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx][0]
                     if cand.score < SEC_ROUN_THRS and cand.globalScores[0] < SEC_ROUN_THRS:
@@ -279,6 +295,7 @@ class InterpretHeaders:
                         else:
                             filtered[abbrev] = {cand.headerAbbrevsFFs[0]}
         # [print(k,v) for k,v in filtered.items()]
+        c = 0
         for idx, headerCands in self.headersCandsDFs.items():
 
             if self.hDataset.getHeaderAbbrevs(idx) & filtered.keys():
@@ -290,7 +307,10 @@ class InterpretHeaders:
                         if abbrevFF in filtered.get(abbrev, set()):
                             # print("DROP: ", cand.headerFF)
                             candsIdxToRmv.add(ic)
+                            c += 1
+                            break
                 self.headersCandsDFs[idx] = headerCands.drop(candsIdxToRmv, axis=0)
+        print(f"\nSecond round filtering (thrs = {SEC_ROUN_THRS}) removed {c} candidates")
 
 
 
@@ -368,6 +388,7 @@ class InterpretHeaders:
             headerCands['meanSeedScore'] = candsMeanSeedScores
 
 
+    """
     def _weightAvgScores(self):
         candScoreW = 0.4
         globalW = 0.2
@@ -382,7 +403,7 @@ class InterpretHeaders:
                 wAvgsScores.append(wAvg)
             headerCands['wAvg'] = wAvgsScores
 
-
+    """
 
 
 # ======================================================================================================
@@ -409,38 +430,110 @@ class InterpretHeaders:
 
         for idx, headerCands in self.headersCandsDFs.items():
             if len(headerCands) == 0:   # all cands were filtered
+                self.headersCandsDFs[idx] = {
+                    "init": headerCands,
+                    "grouped": headerCands
+                }
                 continue
             for i, cand in headerCands.iterrows():
                 candAbbrevs = (self.hDataset.headers[idx],) if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx]
                 candGroup = tuple(self.abbrevsCandsGroups[abbrev][abbrevFF] for abbrev, abbrevFF in zip(candAbbrevs, cand.headerAbbrevsFFs))
                 headerCands.at[i, 'group'] = candGroup
+            headerCands.sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
 
-            self.headersCandsDFs[idx] = headerCands.groupby(['group', 'isWholeHeader']).agg(custom_agg).reset_index()
-            self.headersCandsDFs[idx].sort_values(by='score', ascending=False, inplace=True, ignore_index=True)
+            self.headersCandsDFs[idx] = {
+                "init" : headerCands,
+                "grouped" : headerCands.copy(deep=True).groupby(['group', 'isWholeHeader']).agg(custom_agg).reset_index()
+            }
+
+    def _gatherVotes(self):
+        def getTops():
+            maxScoreCand_ = hCs[hCs['score'] == hCs['score'].max()].reset_index(drop=False)
+
+            maxCtxCand_ = hCs[(hCs['meanCtxScore'] == hCs['meanCtxScore'].max())
+                              & (hCs['meanSeedScore'] == hCs['meanSeedScore'].max())].reset_index(drop=False)
+            # print(maxScoreCand_, '\n', maxCtxCand_, sep='')
+            return maxScoreCand_, maxCtxCand_
+
+        # ------------------------------------------------------------------------------------------------------
+        votes = []
+        for idx, hCs in self.headersCandsDFs.items():
+            hCs = hCs['grouped']
+            for topCand in getTops():
+                if len(topCand) > 0:
+                    abbrevs = (self.hDataset.headers[idx],) if topCand.at[0, 'isWholeHeader'] else \
+                        self.hDataset.partialAbbrevsDetected[idx]
+                    for i, abbrev in enumerate(abbrevs):
+                        topCandCopy = topCand.copy(deep=True)
+                        topCandCopy.at[0, "abbrev",] = abbrev
+                        topCandCopy.at[0, 'headerAbbrevsFFs'] = set(t[i] for t in topCand.at[0, 'headerAbbrevsFFs'])
+                        topCandCopy.at[0, 'globalScores'] = topCand.at[0, 'globalScores'][i]
+                        votes.append(topCandCopy)
+        votes = pd.concat(votes, ignore_index=True)[
+            ['abbrev', 'headerAbbrevsFFs', 'index', 'score', 'meanCtxScore', 'meanSeedScore', 'globalScores']] \
+            .sort_values(by='abbrev', ignore_index=True)
+        print(votes)
+        return votes
+
+    def _countVotes(self, votes):
+        topVotedPerAbbrev = {}
+        for abbrev in votes['abbrev'].unique():
+            abbrevVotes = votes[votes['abbrev'] == abbrev].reset_index(drop=True)
+            uf = UnionFind(len(abbrevVotes))
+            for i, candi in abbrevVotes.iterrows():
+                for j, candj in abbrevVotes[i + 1:].iterrows():
+                    if candi.headerAbbrevsFFs & candj.headerAbbrevsFFs:
+                        uf.union(i, j)
+
+            for groupId, group in enumerate(uf.getSets()):
+                for row in group:
+                    abbrevVotes.at[row, 'group'] = groupId
+
+            abbrevVotes = abbrevVotes.groupby('group').agg({
+                'abbrev': 'first',
+                'headerAbbrevsFFs': lambda x: set.union(*x),
+                'index': 'min',
+                'score': 'max',
+                'meanCtxScore': 'max',
+                'meanSeedScore': 'max',
+                'globalScores': 'max',
+                'group': 'count'
+            }).reset_index(drop=True)
+            topVoted = abbrevVotes[abbrevVotes['group'] == abbrevVotes['group'].max()].reset_index(
+                drop=False)  # ;print(f'{abbrev}\n{abbrevVotes}\n{topVoted}')
+            topVoted = reduce(lambda x, y: x | y, topVoted['headerAbbrevsFFs'])  # ;print(topVoted, '\n')
+            topVotedPerAbbrev[abbrev] = topVoted
+        return topVotedPerAbbrev
+
 
 
     def _selectBestCandidates(self):
-        for idx, hCs in self.headersCandsDFs.items():
-            # self._printIdxDF(idx)
-            print(f"\n\n>> Header [{idx}]  {self.hDataset.tokenizedHeaders[idx]}\n")
-            max_score_record = hCs[hCs['score'] == hCs['score'].max()]
+        topVotedPerAbbrev = self._countVotes(self._gatherVotes())
 
-            max_pair_record = hCs[(hCs['meanCtxScore']  == hCs['meanCtxScore'].max())
-                                & (hCs['meanSeedScore'] == hCs['meanSeedScore'].max())]
+        for idx, headerCands in self.headersCandsDFs.items():
+            headerCands = headerCands['init']
+            selectedCands = []
+            for i, cand in headerCands.iterrows():
+                candAbbrevs = (self.hDataset.headers[idx],) if cand.isWholeHeader else self.hDataset.partialAbbrevsDetected[idx]
+                isSelected = True
+                for abbrev, abbrevFF in zip(candAbbrevs, cand.headerAbbrevsFFs):
+                    if abbrevFF not in topVotedPerAbbrev.get(abbrev, set()):
+                        isSelected = False
+                        break
+                if isSelected: selectedCands.append(i)
 
-            print("\nRecord with max score:")
-            self._printDF(max_score_record)
+            self.headersCandsDFs[idx] = headerCands.loc[selectedCands]
+            print(f"\n\n>> Selected for header [{idx}] : {self.hDataset.headers[idx]}\n{self.headersCandsDFs[idx]}\n\n", end='='*100)
 
-            print("\nRecord with max pair of values in meanCtxScore and meanSeedScore:")
-            self._printDF(max_pair_record)
-            print("="*70)
+
+
 
     # ======================================================================================================
 
     def _printDataFrames(self):
         for idx, headerCands in self.headersCandsDFs.items():
             print(f"\n>> Header [{idx}]  {self.hDataset.tokenizedHeaders[idx]}\n")
-            print(headerCands[['score', 'meanCtxScore', 'meanSeedScore', 'globalScores', 'headerFF', 'group','isWholeHeader']])
+            print(headerCands[['score', 'meanCtxScore', 'meanSeedScore', 'globalScores', 'headerFF', 'headerAbbrevsFFs', 'group','isWholeHeader']])
 
     def _printIdxDF(self, idx):
         print(f"\n\n>> Header [{idx}]  {self.hDataset.tokenizedHeaders[idx]}\n")

@@ -105,6 +105,9 @@ class HeadersDataset:
             headerAbbrevs.add(self.headers[idx])
         return headerAbbrevs
 
+    def hasSingleAbbrev(self, idx):
+        return self.isWholeHeaderAbbrev(idx) or len(self.partialAbbrevsDetected[idx]) == 1
+
 # ======================================================================================================================
 # Header context generation
 # ======================================================================================================================

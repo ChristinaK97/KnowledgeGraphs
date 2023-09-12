@@ -56,7 +56,8 @@ def findNearDuplicates(inputList: List[str], strict: bool = True, leven_thrs: in
             return lenDiff(concat1, concat2) < LEN_DIFF_THRS and fz.ratio(concat1, concat2) >= leven_thrs
         else:
             # print(noPunc1, ' | ', noPunc2, ' | ', fz.partial_token_sort_ratio(noPunc1, noPunc2))
-            return fz.partial_token_sort_ratio(noPunc1, noPunc2) >= leven_thrs
+            return fz.partial_token_sort_ratio(noPunc1, noPunc2) >= leven_thrs or \
+                   fz.ratio(concat1, concat2) >= LEVEN_THRS
     # --------------------------------------------------------------------
 
     processed = [process(fullForm) for fullForm in inputList]

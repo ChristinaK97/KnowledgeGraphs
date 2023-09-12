@@ -7,6 +7,8 @@ import pandas as pd
 from os.path import exists
 from shutil import rmtree
 
+from tqdm import tqdm
+
 from HeadersDataset import WORD, UNK, ENTRY, TAG, SPAN
 from util.NearDuplicates import groupNearDuplicates
 
@@ -132,7 +134,7 @@ class MedicalDictionary:
     def _loadTries(self, datasetAlphabet: Set[str] = None):
         return {
             letter : self._loadFromPickle(letterFile)
-            for letter, letterFile in self._loadFromPickle(self._getLetterDict()).items()
+            for letter, letterFile in tqdm(self._loadFromPickle(self._getLetterDict()).items())
             if datasetAlphabet is None or letter in datasetAlphabet
         }
 
