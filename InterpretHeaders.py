@@ -64,8 +64,7 @@ class InterpretHeaders:
             self.hDataset.setHeaderAbbrevsInfo(
                 idx,
                 * self.medDict.generateHeaderCandidates(self.hDataset.getHeaderInfo(idx))
-            )
-            print("=" * 30)
+            )                                                                                                           ;print("=" * 30)
         self.hDataset.setDatasetAbbrevs(self.medDict.datasetAbbrevDetected)                                             # ;print(self.hDataset.datasetAbbrevs) ;[print(f"'{self.hDataset.tokenizedHeaders[idx]}',") for idx in self.hRange]
 
         for idx in self.hRange:
