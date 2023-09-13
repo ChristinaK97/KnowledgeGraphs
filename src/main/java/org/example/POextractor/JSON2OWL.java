@@ -6,6 +6,8 @@ import org.example.InputPoint.JsonUtil;
 
 import java.util.*;
 
+import static org.example.util.Annotations.*;
+
 /**
  * Full Example:
  *
@@ -63,12 +65,12 @@ public class JSON2OWL {
 
     boolean print = false;
 
-    protected HashMap<String, String> convertedIntoClass = new HashMap<>();
-    protected Properties objProperties = new Properties();
+    protected HashMap<String, String> tableClasses = new HashMap<>();
+    protected Properties pureObjProperties = new Properties();
     protected Properties dataProperties = new Properties();
 
     protected HashMap<String, String> attrClasses = new HashMap<>();
-    protected Properties newObjectProperties = new Properties();
+    protected Properties attrObjProperties = new Properties();
     private ArrayList<Properties.DomRan> nullValuedProperties = new ArrayList<>();
 
     private boolean turnAttrToClasses;
@@ -131,7 +133,7 @@ public class JSON2OWL {
             System.err.println("Invalid JSON");
             root = "?";
         }
-        convertedIntoClass.put("/" + root, root);
+        tableClasses.put("/" + root, root);
     }
 
 
@@ -164,7 +166,7 @@ public class JSON2OWL {
             key = prev;
         else {
             String newClass = key;
-            convertedIntoClass.put(extractedField, newClass);
+            tableClasses.put(extractedField, newClass);
             addObjectProperty(prev, key, extractedField, "jsonObj");
         }
 
@@ -187,7 +189,7 @@ public class JSON2OWL {
                 key = prev;
             else {
                 String newClass = key;
-                convertedIntoClass.put(extractedField, newClass);
+                tableClasses.put(extractedField, newClass);
                 addObjectProperty(prev, key, extractedField, "jsonArray");
             }
         }
@@ -204,11 +206,11 @@ public class JSON2OWL {
             return;
 
         String newClass = range;
-        //domain = convertedIntoClass.get(domain);
-        objProperties.addProperty(
+        //domain = tableClasses.get(domain);
+        pureObjProperties.addProperty(
                 rule,
                 domain,
-                String.format("p_%s_%s", domain, newClass),
+                pureObjPropName(domain, newClass),
                 newClass,
                 extractedField
         );
@@ -220,19 +222,19 @@ public class JSON2OWL {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
-        String domainClass = domain; //convertedIntoClass.get(domain);
+        String domainClass = domain; //tableClasses.get(domain);
         if (turnAttrToClasses) {
             String attrClass = range;                                                                                   if(print) System.out.println("\tADD ATCL " + attrClass + "\t\t" + extractedField);
             domainClass = attrClass;
             attrClasses.put(extractedField, attrClass);
-            newObjectProperties.addProperty("dp",
+            attrObjProperties.addProperty("dp",
                     domain,
-                    "has_"+attrClass,
+                    attrObjectPropertyName(attrClass),
                     attrClass,
                     extractedField
             );                                                                                                          if(print) System.out.println("\tADD NEW OP: " + String.format("p_%s_%s", domain, attrClass) + " \t\t" + extractedField);
         }
-        String dtPropName = "has_"+range+"_VALUE";
+        String dtPropName = dataPropName(range);
         String xsdDatatype = isDson() ? tagDictionary.getXsd_datatype(range) : JsonUtil.JSON2XSD(value);
         dataProperties.addProperty(
                 "dp",
@@ -268,12 +270,12 @@ public class JSON2OWL {
 
     public void print() {
         System.out.println(">> CLASSES");
-        System.out.println(convertedIntoClass.values());
+        System.out.println(tableClasses.values());
         System.out.println(attrClasses.values());
         System.out.println(">> OBJ PROP");
-        System.out.println(objProperties);
+        System.out.println(pureObjProperties);
         System.out.println(">> NEW OBJ PROP");
-        System.out.println(newObjectProperties);
+        System.out.println(attrObjProperties);
         System.out.println(">> DATA PROP");
         System.out.println(dataProperties);
     }

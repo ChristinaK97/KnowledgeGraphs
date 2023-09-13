@@ -17,9 +17,9 @@ import java.util.Map;
 public class BertMapMappingsWrite {
 
     HashMap<String, ArrayList<String>> bertmapResults = new HashMap<>();
-    String bertmap_results_json = "src/main/resources/Bertmap results fintech/max avg/bertmaplogfile efs2fibo updated with low score mappings max.json";
-    String mappingFileJson = "src/main/resources/saved_efs/EFS_mappings.json";
-    String outputFile = "src/main/resources/saved_efs/bertmap_fintech.json";
+    static String bertmap_results_json = "src/main/resources/Bertmap results fintech/max avg/bertmaplogfile efs2fibo updated with low score mappings max.json";
+    static String mappingFileJson = "src/main/resources/saved_efs/EFS_mappings.json";
+    static String outputFile = "src/main/resources/saved_efs/bertmap_fintech.json";
 
     public BertMapMappingsWrite() {
         readBertmapMappings();
@@ -27,8 +27,9 @@ public class BertMapMappingsWrite {
             writeBertmapResults()
         );
     }
+    public BertMapMappingsWrite(boolean doNothingConstructor) {}
 
-    private void readBertmapMappings() {
+    public HashMap<String, ArrayList<String>> readBertmapMappings() {
         JsonElement bertmapJson = JsonUtil.readJSON(bertmap_results_json);
 
         if (bertmapJson.isJsonObject()) {
@@ -55,6 +56,7 @@ public class BertMapMappingsWrite {
                 }
             }
         }
+        return bertmapResults;
     }
 
     private BertMapMapping writeBertmapResults() {

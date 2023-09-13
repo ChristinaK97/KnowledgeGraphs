@@ -42,12 +42,12 @@ public class OntologyExtractorJena {
 
     private void applyRules() {
         // table classes
-        HashMap<String, String> convertedIntoClass = new ClassExtractor(db).getConvertedIntoClass();
+        HashMap<String, String> tableClasses = new ClassExtractor(db).gettableClasses();
         // object properties connecting table classes
-        Properties objProperties = new ObjectPropExtractor(db, convertedIntoClass).getObjProperties();
+        Properties objProperties = new ObjectPropExtractor(db, tableClasses).getObjProperties();
 
         System.out.println(objProperties);
-        DataPropExtractor dpExtr = new DataPropExtractor(db,turnAttributesToClasses, convertedIntoClass);
+        DataPropExtractor dpExtr = new DataPropExtractor(db,turnAttributesToClasses, tableClasses);
         // data properties
         Properties dataProperties = dpExtr.getDataProp();
         // object properties connecting table classes with attribute classes. if !turnAttrToClasses :empty
@@ -58,15 +58,15 @@ public class OntologyExtractorJena {
         HashMap<String, String> attrClasses = dpExtr.getAttrClasses();
 
         // add elements to the ontology
-        addClasses(convertedIntoClass, "TableClass");
+        addClasses(tableClasses, "TableClass");
         addClasses(attrClasses, "AttributeClass");
         addObjectProperties(objProperties, newObjProp);
         dataProperties.getProperties().forEach(this::addDatatype);
 
         //new JSONExtractor().createMappingJSON_fromOntology(db, msBbasePrefix,
-        //        convertedIntoClass, attrClasses, objProperties, newObjProp, dataProperties);
+        //        tableClasses, attrClasses, objProperties, newObjProp, dataProperties);
 
-        //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, convertedIntoClass, objProperties);
+        //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, tableClasses, objProperties);
     }
 
 
@@ -112,7 +112,7 @@ public class OntologyExtractorJena {
 
     // OBJECT PROPERTIES
     private void addObjectProperties(Properties objProp, Properties newObjProp) {
-        objProp.getProperties().forEach((propName, domRan) -> addObjectproperty(propName, domRan, "FK"));
+        objProp.getProperties().forEach((propName, domRan) -> addObjectproperty(propName, domRan, "Pure"));
         newObjProp.getProperties().forEach((propName, domRan) -> addObjectproperty(propName, domRan, "Attribute"));
     }
 

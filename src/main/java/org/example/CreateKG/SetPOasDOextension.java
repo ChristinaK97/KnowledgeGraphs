@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.example.util.Annotations.normalise;
+
 public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
@@ -534,7 +536,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 System.out.println("FIRST CLASS : " + firstClass);
                 System.out.println("NEW PROP :" + newPropURI);
 
-                String newLabel = String.format("has %s", Ontology.normalise(ontology.getLabel(firstClass)));
+                String newLabel = String.format("has %s", normalise(ontology.getLabel(firstClass), false));
 
                 OntProperty newProp = ontology.pModel.createObjectProperty(newPropURI);
                 newProp.setLabel(newLabel, "en");

@@ -1,9 +1,9 @@
 package org.example.MappingsFiles;
 
 import org.example.InputPoint.SQLdb.DBSchema;
+import org.example.util.Annotations;
 import org.example.POextractor.Properties;
 import org.example.POextractor.RulesetApplication;
-import org.example.util.Ontology;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +23,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
         if (isRDB)
             createJSON((DBSchema) dataSource);
         else {
-            addProperties(rs.getFKObjProperties().getProperties(), "ObjectProperty");
+            addProperties(rs.getPureObjProperties().getProperties(), "ObjectProperty");
             createJSON(rs.getRootElementName(), rs.getClasses().get("Table"));
         }
         saveMappingsFile();
@@ -68,7 +68,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
     private void addTrf(String elementName, String ontoElement, String type) {
 
-        ontoElement = msBasePrefix + Ontology.rmvInvalidIriChars(ontoElement);
+        ontoElement = msBasePrefix + Annotations.rmvInvalidIriChars(ontoElement);
         if (trf.containsKey(elementName))
             trf.get(elementName).add(new Transformation(ontoElement, type));
         else

@@ -1,4 +1,4 @@
-package org.example.InputPoint;
+package org.example.temp.replaced.medical;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

@@ -1,6 +1,7 @@
 package org.example.InputPoint;
 
 import org.example.InputPoint.SQLdb.DBSchema;
+// import org.python.antlr.ast.Str;
 import tech.tablesaw.api.LongColumn;
 import tech.tablesaw.api.Table;
 import tech.tablesaw.io.csv.CsvReadOptions;
@@ -18,11 +19,13 @@ public class TableFilesReader {
     private static final String TABLE_NAME = "Patient_Record";
     private static final String EMPTY = "";
     private static final String UNKNOWN = "-";
-    private static final String DELIMITER = ";";
+    private static String DELIMITER = ";";
     private static final String UNKNOWN_HEADER = "Unknown_Header_";
     private static final String PKCol = "PKCol";
     private static final long FIRST_ROW_ID = 0;
 
+    /** Constructor for reading a single table dataset/file and extracting its schema as a DBSchema with a single table.
+     * Call getAsDBSchema() next to retrieve the DBSchema object. */
     public TableFilesReader(String file) {
         this.file = file;
         if(InputDataSource.isCSV())
@@ -34,6 +37,15 @@ public class TableFilesReader {
         singleTableDB = new DBSchema(TABLE_NAME, table, PKCol);
     }
 
+    /** Setter constructor for reading csv files */
+    public TableFilesReader(String file, String delimiter) {
+        this.file = file;
+        DELIMITER = delimiter;
+
+        if(!".csv".equals(file.substring(file.lastIndexOf('.')+1)))
+            throw new UnsupportedOperationException(file.substring(file.lastIndexOf('.')+1) + " is not supported. Import a csv instead.");
+    }
+
     /*TODO public Table readExcel(String file) {
         XlsxReader reader = new XlsxReader();
         XlsxReadOptions options = XlsxReadOptions.builder(file).build();
@@ -42,7 +54,7 @@ public class TableFilesReader {
         return table;
     }*/
 
-    public void readCSV() {
+    public Table readCSV() {
         repairCSV();
         System.out.println("Read "+ file);
         // Define custom CsvReadOptions with the desired delimiter
@@ -53,6 +65,7 @@ public class TableFilesReader {
         // Read the CSV file using the specified options
         table = Table.read().csv(options);
         new File(file).delete();
+        return table;
     }
 
     private void repairCSV() {

@@ -6,7 +6,6 @@ import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
-import org.semanticweb.owlapi.model.IRI;
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.api.Table;
 
@@ -27,8 +26,6 @@ public class Ontology {
     public static final int INDIVIDUALS = 4;
     public static final int[] ONTELEMENTS = new int[]{CLASSES, OBJPROPS, DATAPROPS};
 
-    public static final String invalidIRICharsRegex = "[/\\\\%# ]";
-
     public OntModel pModel;
     private String ontologyFile;
 
@@ -42,10 +39,10 @@ public class Ontology {
 
     private boolean newElementsAdded = false;
 
+
     // =================================================================================================================
     // extra po elements
     // =================================================================================================================
-    public static final IRI skosIRI = IRI.create("http://www.w3.org/2004/02/skos/core#");
     public static final String TABLE_CLASS = "TableClass";
     public static URI get_TABLE_CLASS_URI(String ontologyName) {
         return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/TableClass");
@@ -53,8 +50,8 @@ public class Ontology {
     public static URI get_ATTRIBUTE_PROPERTY_URI(String ontologyName) {
         return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/AttributeProperty");
     }
-    public static URI get_FK_PROPERTY_URI(String ontologyName) {
-        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/FKProperty");
+    public static URI get_PURE_PROPERTY_URI(String ontologyName) {
+        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/PureProperty");
     }
     // =================================================================================================================
 
@@ -81,28 +78,6 @@ public class Ontology {
                 + "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"
                 + "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>" ;
-    }
-
-    //==================================================================================================================
-    public static String rmvInvalidIriChars(String resourceName) {
-        return resourceName.replaceAll(invalidIRICharsRegex, "_");
-    }
-
-    // acquire resource label
-    public static String normalise(String s) {
-        return normalise(new HashSet<>(Collections.singleton(s)));
-    }
-
-    public static String normalise(Set<String> s){
-        String label =  s.toString()
-                .replaceAll("[\\[\\],]","")
-                .replaceAll("_", " ")
-                .replace("p ", "")
-                .replace(" VALUE", "")
-                .replace(" ATTR", "");
-        if(label.startsWith("has is"))
-            label = label.substring(4);
-        return label;
     }
 
     // extract the local name of a uri

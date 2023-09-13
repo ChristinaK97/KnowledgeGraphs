@@ -6,27 +6,29 @@ import org.example.POextractor.Properties;
 
 import java.util.HashMap;
 
+import static org.example.util.Annotations.*;
+
 public class DataPropExtractor {
 
-    private HashMap<String, String> convertedIntoClass;
+    private HashMap<String, String> tableClasses;
 
-    private Properties dataProp = new Properties();
-    private Properties newObjProp = new Properties();
+    private Properties dataProperties = new Properties();
+    private Properties attrObjProperties = new Properties();
 
     private HashMap<String, String> attrClasses = new HashMap<>();
     private boolean turnAttrToClasses;
 
 
 
-    public DataPropExtractor(DBSchema db, boolean turnAttrToClasses, HashMap<String, String> convertedIntoClass) {
+    public DataPropExtractor(DBSchema db, boolean turnAttrToClasses, HashMap<String, String> tableClasses) {
         this.turnAttrToClasses = turnAttrToClasses;
-        this.convertedIntoClass =  convertedIntoClass;
+        this.tableClasses = tableClasses;
 
         db.getrTables().forEach((tableName, table) -> {
-            if(convertedIntoClass.containsKey(tableName))
-                extractDataProp(tableName, convertedIntoClass.get(tableName), table);
+            if(tableClasses.containsKey(tableName))
+                extractDataProp(tableName, tableClasses.get(tableName), table);
         });
-        System.out.println(dataProp);
+        System.out.println(dataProperties);
     }
 
     private void extractDataProp(String tableName, String tClass, RTable table) {
@@ -36,25 +38,32 @@ public class DataPropExtractor {
                 String extractedField = String.format("%s.%s", tableName, colName);
 
                 // Column has the same name as a table class
-                if(convertedIntoClass.containsValue(colName) || convertedIntoClass.containsValue(colName.toLowerCase()))
-                    colName = colName + "_ATTR";
+                if(tableClasses.containsValue(colName) || tableClasses.containsValue(colName.toLowerCase()))
+                    colName = duplicateAttrClassName(colName);
 
                 // Class (existing)     Column new class
                 // tableName -has_colName-> colName -has_colName_value-> datatype
                 if(turnAttrToClasses) {
                     attrClasses.put(extractedField, colName);
-                    newObjProp.addProperty("dp", tClass,"has_"+colName,  colName, extractedField);
-                    dataProp.addProperty("dp", colName,"has_"+colName+"_VALUE",  SQL2XSD(datatype), extractedField);
+                    attrObjProperties.addProperty("dp", tClass,
+                                                      attrObjectPropertyName(colName),
+                                                      colName, extractedField);
+
+                    dataProperties.addProperty("dp", colName,
+                                                    dataPropName(colName),
+                                                    SQL2XSD(datatype), extractedField);
 
                 }else
                     // Don't turn attributes to classes
-                    dataProp.addProperty("dp", tClass,"has_"+colName,  SQL2XSD(datatype), extractedField);
+                    dataProperties.addProperty("dp", tClass,
+                                                    directDataPropertyName(colName),
+                                                    SQL2XSD(datatype), extractedField);
         }});
     }
 
     public HashMap<String, String> getAttrClasses() {return attrClasses;}
-    public Properties getNewObjProp() {return newObjProp;}
-    public Properties getDataProp() {return dataProp;}
+    public Properties getAttrObjProperties() {return attrObjProperties;}
+    public Properties getDataProperties() {return dataProperties;}
 
 
     private String SQL2XSD(String sqlType) {

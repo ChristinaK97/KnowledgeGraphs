@@ -1,31 +1,15 @@
 package org.example.InputPoint.DICOM;
 
 import org.dcm4che3.data.VR;
-import org.example.InputPoint.DICOM.TagDictionary;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DICOMUtil {
 
-    public static String normalise(String s) {
-        return normalise(new HashSet<>(Collections.singleton(s)));
-    }
-    public static String normalise(Set<String> s){
-        return s.toString()
-                .replaceAll("[\\[\\]]","")
-                .replaceAll("_", " ")
-                .replace("p ", "")
-                .replace(" VALUE", "")
-                .replace(" ATTR", "")
-                .replaceFirst("has ", "");
-    }
 
     public static String DICOM2XSD(VR vr) {
         if (vr == null)

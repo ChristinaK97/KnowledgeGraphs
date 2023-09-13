@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 public class ClassExtractor {
 
     DBSchema db;
-    HashMap<String, String> coveredIntoClass = new HashMap<>();
+    HashMap<String, String> tableClasses = new HashMap<>();
 
     public ClassExtractor(DBSchema db) {
         this.db = db;
         classRule1();
         classRule2();
-        System.out.println(coveredIntoClass);
+        System.out.println(tableClasses);
     }
 
     public void classRule1(){
@@ -46,7 +46,7 @@ public class ClassExtractor {
 
     private void classRule2() {
         db.getrTables().forEach((tableName, table) -> {
-            if (!coveredIntoClass.containsKey(tableName)) {
+            if (!tableClasses.containsKey(tableName)) {
 
                 if (table.nPk() == 1 ||
                     table.getIntersection().size() >= 1 ||
@@ -80,16 +80,16 @@ public class ClassExtractor {
             if(commonName.equals(""))
                 commonName = String.join("_", sharedTables);
             for (String tableName : sharedTables)
-                coveredIntoClass.put(tableName, commonName);
+                tableClasses.put(tableName, commonName);
         }
     }
 
     private void createClasses(String tableName) {
-        coveredIntoClass.put(tableName, tableName);
+        tableClasses.put(tableName, tableName);
     }
 
-    public HashMap<String, String> getConvertedIntoClass(){
-        return coveredIntoClass;
+    public HashMap<String, String> getTableClasses(){
+        return tableClasses;
     }
 }
 

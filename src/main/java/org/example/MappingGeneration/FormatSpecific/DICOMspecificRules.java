@@ -22,13 +22,13 @@ public class DICOMspecificRules implements FormatSpecificRules {
         String prefix = dicomPO.getBasePrefix();
         String queryString =
                 Ontology.swPrefixes()
-                + "SELECT (?columnClass as ?colClassURI)  (?label as ?tagName) WHERE {\n"
+                + "\nSELECT (?columnClass as ?colClassURI)  (?label as ?tagName) WHERE {\n"
                 + "    ?tableClass rdfs:subClassOf <" + prefix + "TableClass> , \n"
                 + "                                [a owl:Restriction ; owl:onProperty ?pureObjProp] .\n"
                 + "    ?columnClass rdfs:subClassOf <" + prefix + "TableClass> ; \n"
-                + "                 skos:altLabel ?label . \n"
+                + "                 skos:prefLabel ?label . \n"
                 + "    ?pureObjProp a owl:ObjectProperty ; \n"
-                + "                 rdfs:subPropertyOf <" + prefix + "FKProperty> ; \n"
+                + "                 rdfs:subPropertyOf <" + prefix + "PureProperty> ; \n"
                 + "                 rdfs:range ?columnClass . \n"
                 + "}";
         System.out.println(queryString);

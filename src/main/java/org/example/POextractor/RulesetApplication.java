@@ -41,19 +41,19 @@ public class RulesetApplication {
     // RELATIONAL DATABASE RULES
     public void applyRules(DBSchema db) {
         // table classes
-        classes.put("Table", new ClassExtractor(db).getConvertedIntoClass());
+        classes.put("Table", new ClassExtractor(db).getTableClasses());
 
         // object properties connecting table classes
-        objProperties.put("FK", new ObjectPropExtractor(db, classes.get("Table")).getObjProperties());
+        objProperties.put("Pure", new ObjectPropExtractor(db, classes.get("Table")).getPureObjProperties());
 
-        System.out.println(objProperties.get("FK"));
+        System.out.println(objProperties.get("Pure"));
         DataPropExtractor dpExtr = new DataPropExtractor(db,turnAttributesToClasses, classes.get("Table"));
         // data properties
-        dataProperties = dpExtr.getDataProp();
+        dataProperties = dpExtr.getDataProperties();
         // object properties connecting table classes with attribute classes. if !turnAttrToClasses :empty
         if(turnAttributesToClasses){
             classes.put("Attribute", dpExtr.getAttrClasses());
-            objProperties.put("Attribute", dpExtr.getNewObjProp());
+            objProperties.put("Attribute", dpExtr.getAttrObjProperties());
         }
     }
 
@@ -74,12 +74,12 @@ public class RulesetApplication {
         rootElementName = json2owl.getRoot();
         json2owl.print();
 
-        classes.put("Table", json2owl.convertedIntoClass);
-        objProperties.put("FK", json2owl.objProperties);
+        classes.put("Table", json2owl.tableClasses);
+        objProperties.put("Pure", json2owl.pureObjProperties);
         dataProperties = json2owl.dataProperties;
         if (turnAttributesToClasses) {
             classes.put("Attribute", json2owl.attrClasses);
-            objProperties.put("Attribute", json2owl.newObjectProperties);
+            objProperties.put("Attribute", json2owl.attrObjProperties);
         }
 
     }
@@ -107,8 +107,8 @@ public class RulesetApplication {
         return classes;
     }
 
-    public Properties getFKObjProperties() {
-        return objProperties.get("FK");
+    public Properties getPureObjProperties() {
+        return objProperties.get("Pure");
     }
     public Properties getAttrObjProp() {
         return objProperties.get("Attribute");

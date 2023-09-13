@@ -17,11 +17,21 @@ public class Pair<Class1, Class2> {
         return el2;
     }
 
+    //-----------------------------------------------
     public Class1 pathElement() {
         return el1;
     }
 
     public Class2 createNewIndiv() {
+        return el2;
+    }
+
+    //-----------------------------------------------
+    public Class1 annotationPropIRI() {
+        return el1;
+    }
+
+    public Class2 label() {
         return el2;
     }
 

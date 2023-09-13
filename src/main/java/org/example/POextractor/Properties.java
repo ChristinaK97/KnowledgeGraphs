@@ -1,8 +1,8 @@
 package org.example.POextractor;
 
-import org.example.util.Ontology;
-
 import java.util.*;
+
+import static org.example.util.Annotations.*;
 
 public class Properties{
     public static class DomRan {
@@ -25,11 +25,12 @@ public class Properties{
         }
         public String getObjectPropertyRawLabel() {return "has_" + range;}
 
-        public String getInverse() {return String.format("p_%s_%s", Ontology.normalise(range), Ontology.normalise(domain)).replace(" ","_");}
+        public String getInverse() {
+            return inverseName(range, domain);
+        }
 
         public static String getInverse(String propName) {
-            String[] parts = propName.split("_");
-            return parts[0] + "_" + parts[2] + "_" + parts[1];
+            return getInverseName(propName);
         }
 
         public Set<String> getExtractedField() {
@@ -46,7 +47,7 @@ public class Properties{
 
     public void addProperty(String rule, String domain, String propertyName, String range, String extractedField) {
         if(propertyName == null)
-            propertyName = pName(domain, range);
+            propertyName = pureObjPropName(domain, range);
 
         if(properties.containsKey(propertyName))
             properties.get(propertyName).makeUnion(rule, domain, range, extractedField);
@@ -54,9 +55,6 @@ public class Properties{
             properties.put(propertyName, new DomRan(rule, domain, range, extractedField));
     }
 
-    private String pName(String domain, String range) {
-        return String.format("p_%s_%s", domain, range);
-    }
 
     public HashMap<String, DomRan> getProperties() {
         return properties;

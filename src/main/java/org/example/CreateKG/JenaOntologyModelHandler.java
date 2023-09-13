@@ -11,6 +11,8 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.example.util.Ontology.getLocalName;
+
 public class JenaOntologyModelHandler {
 
     protected Ontology ontology;
@@ -42,7 +44,7 @@ public class JenaOntologyModelHandler {
                 "%sp_%s_%s" :       //baseURI/p_tableClassName_firstclassName
                 "%s%s_has_%s";      // baseURI/tableName_has_firstClassName
 
-        return String.format(propertyNamePattern, mBasePrefix, tableClassName, firstClass.getLocalName());
+        return String.format(propertyNamePattern, mBasePrefix, tableClassName, getLocalName(firstClass));
     }
 
 
