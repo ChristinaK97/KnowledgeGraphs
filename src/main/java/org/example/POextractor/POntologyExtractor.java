@@ -229,7 +229,7 @@ public class POntologyExtractor {
     private void addAnnotations(IRI iri, String rawLabel, String description) {
         //Add labels =======================================================================
 
-        getLabelSet(rawLabel, rs.getTagDictionary()).forEach(label -> {
+        getLabelSet(rawLabel, rs.getDatasetDictionary()).forEach(label -> {
             OWLAnnotation sLabel = factory.getOWLAnnotation(
                     factory.getOWLAnnotationProperty(label.annotationPropIRI()),
                     factory.getOWLLiteral(label.label()));

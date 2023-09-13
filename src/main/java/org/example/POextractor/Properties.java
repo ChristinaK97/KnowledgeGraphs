@@ -1,5 +1,7 @@
 package org.example.POextractor;
 
+import org.example.util.Annotations;
+
 import java.util.*;
 
 import static org.example.util.Annotations.*;
@@ -23,7 +25,7 @@ public class Properties{
             this.range.add(range);
             this.extractedField.add(extractedField);
         }
-        public String getObjectPropertyRawLabel() {return "has_" + range;}
+        public String getObjectPropertyRawLabel() {return Annotations.getObjectPropertyRawLabel(range);}
 
         public String getInverse() {
             return inverseName(range, domain);

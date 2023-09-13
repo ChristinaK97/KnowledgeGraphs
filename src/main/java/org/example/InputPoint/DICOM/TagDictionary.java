@@ -1,20 +1,20 @@
 package org.example.InputPoint.DICOM;
 
 import org.dcm4che3.data.VR;
+import org.example.util.DatasetDictionary;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TagDictionary {
+public class TagDictionary extends DatasetDictionary {
 
-    static class TagInfo {
-        String tagName;
+    class TagInfo extends DatasetElementInfo {
         VR vr;
         String xsd_datatype;
 
         public TagInfo(String tagName, VR vr) {
-            this.tagName = splitCamelCase(tagName);
+            elementName = splitCamelCase(tagName); // tagName
             this.vr = vr;
             this.xsd_datatype = DICOMUtil.DICOM2XSD(vr);
         }
@@ -35,25 +35,18 @@ public class TagDictionary {
     }
 //======================================================================================================================
 
-    private HashMap<String, TagInfo> tagDictionary = new HashMap<>();
 
     public void put(String tagCode, String tagName, VR vr) {
-        if (!tagDictionary.containsKey(tagCode))
-            tagDictionary.put(tagCode, new TagInfo(tagName, vr));
+        if (!datasetDictionary.containsKey(tagCode))
+            datasetDictionary.put(tagCode, new TagInfo(tagName, vr));
     }
 
-    public TagInfo getTagInfo(String tagCode) {
-        return tagDictionary.get(tagCode);
-    }
 
-    public String getTagName(String tagCode) {
-        return tagDictionary.get(tagCode).tagName;
-    }
     public VR getVr(String tagCode) {
-        return tagDictionary.get(tagCode).vr;
+        return ((TagInfo) datasetDictionary.get(tagCode)).vr;
     }
     public String getXsd_datatype(String tagCode) {
-        return tagDictionary.get(tagCode).xsd_datatype;
+        return ((TagInfo) datasetDictionary.get(tagCode)).xsd_datatype;
     }
 
 

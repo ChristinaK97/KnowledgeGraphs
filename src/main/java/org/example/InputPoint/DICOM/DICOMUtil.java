@@ -125,7 +125,7 @@ public class DICOMUtil {
         StringBuffer result = new StringBuffer();
         while (matcher.find()) {
             String tagCode = matcher.group();
-            String tagName = tagDictionary.getTagName(tagCode);
+            String tagName = tagDictionary.getElementName(tagCode);
             matcher.appendReplacement(result, Matcher.quoteReplacement(tagName != null ? tagName : tagCode));
         }
         matcher.appendTail(result);

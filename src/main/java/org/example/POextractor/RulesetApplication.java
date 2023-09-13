@@ -4,11 +4,13 @@ import com.google.gson.JsonObject;
 import org.example.InputPoint.DICOM.DICOM2JSON;
 import org.example.InputPoint.DICOM.TagDictionary;
 import org.example.InputPoint.SQLdb.DBSchema;
+import org.example.InputPoint.medical.AbbreviationsDictionary;
 import org.example.POextractor.RDB2OWL.ClassExtractor;
 import org.example.POextractor.RDB2OWL.DataPropExtractor;
 import org.example.POextractor.RDB2OWL.ObjectPropExtractor;
 
 import org.example.InputPoint.InputDataSource;
+import org.example.util.DatasetDictionary;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +24,9 @@ public class RulesetApplication {
 
     // for files (not sql rdb)
     private String rootElementName = null;
-    private String fileExtension = null;
 
-    // for dicom files
-    private TagDictionary tagDictionary = null;
+    // for dicom files and medical with abbrev expansion on
+    private DatasetDictionary datasetDictionary = null;
 
     public RulesetApplication(boolean turnAttributesToClasses) {
         this.turnAttributesToClasses = turnAttributesToClasses;
@@ -55,6 +56,9 @@ public class RulesetApplication {
             classes.put("Attribute", dpExtr.getAttrClasses());
             objProperties.put("Attribute", dpExtr.getAttrObjProperties());
         }
+
+        if(InputDataSource.applyMedAbbrevExpansion)
+            datasetDictionary = new AbbreviationsDictionary();
     }
 
     // JSON-LIKE FILE TYPES RULES
@@ -68,7 +72,7 @@ public class RulesetApplication {
             json2owl = applyRulesToDson(files);
 
         else {
-            throw new UnsupportedOperationException("Unsupported file format " + fileExtension);
+            throw new UnsupportedOperationException("Unsupported file format");
         }
         json2owl.removeNullRanges();
         rootElementName = json2owl.getRoot();
@@ -94,9 +98,9 @@ public class RulesetApplication {
 
         DICOM2JSON dicom2json = new DICOM2JSON(dicomFiles, true);
         ArrayList<JsonObject> dson = dicom2json.getDsonAsList();
-        tagDictionary = dicom2json.getTagDictionary();
+        datasetDictionary = dicom2json.getTagDictionary();
 
-        JSON2OWL dson2owl = new JSON2OWL(turnAttributesToClasses, tagDictionary);
+        JSON2OWL dson2owl = new JSON2OWL(turnAttributesToClasses, (TagDictionary) datasetDictionary);
         dson.forEach(dson2owl::applyRules);
         return dson2owl;
     }
@@ -123,11 +127,11 @@ public class RulesetApplication {
     }
 
     public boolean isDson() {
-        return tagDictionary != null;
+        return datasetDictionary != null;
     }
 
-    public TagDictionary getTagDictionary() {
-        return tagDictionary;
+    public DatasetDictionary getDatasetDictionary() {
+        return datasetDictionary;
     }
 
 }

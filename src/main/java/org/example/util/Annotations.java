@@ -1,7 +1,6 @@
 package org.example.util;
 
-import org.example.InputPoint.DICOM.TagDictionary;
-import org.example.util.Pair;
+import org.example.InputPoint.InputDataSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -25,6 +24,13 @@ public class Annotations {
 
     public static String pureObjPropName(String domain, String range) {
         return String.format("p_%s_%s", domain, range);
+    }
+
+    public static String getObjectPropertyRawLabel(String range) {
+        return getObjectPropertyRawLabel(new HashSet<>(Collections.singleton(range)));
+    }
+    public static String getObjectPropertyRawLabel(Set<String> range) {
+        return "has_" + range;
     }
 
     public static String symmetricObjPropName(String className) {
@@ -96,28 +102,39 @@ public class Annotations {
 
     //==================================================================================================================
 
-    public static ArrayList<Pair<IRI, String>> getLabelSet(String rawLabel, TagDictionary tagDictionary) {
+    public static ArrayList<Pair<IRI, String>> getLabelSet(String rawLabel, DatasetDictionary datasetDictionary) {
         ArrayList<Pair<IRI, String>> labelSet = new ArrayList<>();
-        boolean isDICOMtag = tagDictionary != null;
-        if (isDICOMtag) {
-            try {
-                String tagCodeLabel = normalise(rawLabel, true);
-                String tagName = tagDictionary.getTagName(tagCodeLabel);
+        boolean lookForAdditionalAnnots = datasetDictionary != null;
 
-                labelSet.add(new Pair<>(rdfsLabelIRI, tagCodeLabel));
-                labelSet.add(new Pair<>(skosPrefLabel, tagName));
-                return labelSet;
+        if (lookForAdditionalAnnots) {
+            try {
+                /*                              DSON                              Med csv
+                 * elementCodeLabel      tag code (GGGG.EEEE)         normalised header/header property -> rdfs:label
+                 * elementCode           tag code (GGGG.EEEE)           raw header/property label       -> to look up dictionary
+                 * elementName           tag name                           tokenized header            -> skos:prefLabel
+                 * additional annots        -                           abbreviation expansions         -> skos:altLabel
+                 */
+                String elementCodeLabel = normalise(rawLabel, InputDataSource.isDSON());
+                labelSet.add(new Pair<>(rdfsLabelIRI, elementCodeLabel));
+
+                String elementCode = InputDataSource.isDSON() ? elementCodeLabel : rawLabel;
+                String elementName = datasetDictionary.getElementName(elementCode);
+                if(elementName != null)
+                    labelSet.add(new Pair<>(skosPrefLabel, elementName));
+
+                datasetDictionary.getAdditionalAnnotations(elementCode).forEach(annotation -> {
+                    labelSet.add(new Pair<>(skosAltLabel, annotation));
+                });
 
             }catch (NullPointerException e) {
-                isDICOMtag = false;
+                // in case the dictionary doesn't contain the element (for base elements)
+                lookForAdditionalAnnots = false;
             }
         }
-        if(!isDICOMtag) {
+        if(!lookForAdditionalAnnots)
             labelSet.add(new Pair<>(rdfsLabelIRI, normalise(rawLabel, false)));
-            return labelSet;
-        }
-        // unreachable
-        return null;
+
+        return labelSet;
     }
 
 
