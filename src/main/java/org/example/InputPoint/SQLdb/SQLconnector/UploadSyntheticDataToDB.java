@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class UploadSyntheticDataToDB {
 
-    String folderPath = InputDataSource.simulatedDataFull; //simulatedDataSample;
+    String folderPath = InputDataSource.simulatedDataSample; // InputDataSource.simulatedDataFull;
     String ddl = InputDataSource.SQL_DDL;
 
     DatabaseConnector connector;
