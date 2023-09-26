@@ -33,7 +33,7 @@ public class InputDataSource {
 
     // sql database sample data
     public static final String SQL_DDL = resourcePath + "EPIBANK_SQL_DDL_MySQL _without fks.sql";
-    public static final String simulatedDataFull = resourcePath + "simulated_data_v2/";
+    public static final String simulatedDataFull = resourcePath + "saved_epibank/simulated_data/";
     public static final String simulatedDataSample = resourcePath + "simulated_data_v2 - sample/";
 
     // do and po ontologies

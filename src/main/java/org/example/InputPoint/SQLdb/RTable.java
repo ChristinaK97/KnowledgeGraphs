@@ -124,6 +124,9 @@ public class RTable {
     public boolean hasSimpleAttribute(){
         return hasSimpleAttribute;
     }
+    public String getColumnSQLtype(String columnName) {
+        return columns.get(columnName);
+    }
 
     @Override
     public String toString() {
