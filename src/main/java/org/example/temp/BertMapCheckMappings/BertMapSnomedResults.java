@@ -12,7 +12,7 @@ public class BertMapSnomedResults {
         Ontology snomed = new Ontology("src/main/resources/medical_data/SNOMED_rdfxml.rdf");
         snomed.findAnnotationProperties(null, false);
 
-        BertMapMappingsWrite.bertmap_results_json = "src/main/resources/medical_data/bertmap results reduce train data n uncased.json";
+        BertMapMappingsWrite.bertmap_results_json = "C:/Users/karal/progr/onto_workspace/KnowledgeGraphs/src/main/resources/Bertmap results/Bertmap results medical/bertmap results with abbrev expan .json";
         HashMap<String, ArrayList<String>> bertmapResults =
                 new BertMapMappingsWrite(true).readBertmapMappings();
         HashMap<String, HashMap<String, ArrayList<String>>> results = new HashMap<>();
@@ -33,6 +33,6 @@ public class BertMapSnomedResults {
             results.put(ontoEl, ontoElParsedMatches);
         });
         //System.out.println(results);
-        JsonUtil.saveToJSONFile("src/main/resources/medical_data/bertmap parsed results reduce train data n uncased.json", results);
+        JsonUtil.saveToJSONFile("C:/Users/karal/progr/onto_workspace/KnowledgeGraphs/src/main/resources/Bertmap results/Bertmap results medical/bertmap parsed results with abbrev expan .json", results);
     }
 }

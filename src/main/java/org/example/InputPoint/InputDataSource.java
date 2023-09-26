@@ -19,25 +19,25 @@ public class InputDataSource {
     // input data source
 
     // uncomment for sql:
-    //public static final String inputDataSource = "SQL";
-    //public static final String ontologyName = "epibank";
+    public static final String inputDataSource = "SQL";
+    public static final String ontologyName = "epibank";
 
     // uncomment for files:
-    public static final String inputDataSource = resourcePath + "medical_data";
-    public static final String fileExtension = "csv"; // "dcm"; // "json"; // null; //
-    public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
+    //public static final String inputDataSource = resourcePath + "medical_data";
+    public static final String fileExtension =  null; // "dcm"; // "json"; // // "csv";
+    //public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
-    public static final boolean applyMedAbbrevExpansion = true;  // set to true for health datasets that contain abbrevs
+    public static final boolean applyMedAbbrevExpansion = false;  // set to true for health datasets that contain abbrevs
     public static final String abbrevExpansionResultsFile = "C:/Users/karal/progr/onto_workspace/Medical/resources/"
                                                                 + "abbrevExpansionResults.json";
 
     // sql database sample data
-    public static final String SQL_DDL = resourcePath + "EPIBANK_SQL_DDL_MySQL.sql";
+    public static final String SQL_DDL = resourcePath + "EPIBANK_SQL_DDL_MySQL _without fks.sql";
     public static final String simulatedDataFull = resourcePath + "simulated_data_v2/";
     public static final String simulatedDataSample = resourcePath + "simulated_data_v2 - sample/";
 
     // do and po ontologies
-    public static final String DOontology = resourcePath + "saved_dicom/dicom.owl";
+    public static final String DOontology = resourcePath + "saved_epibank/FIBOLt.owl";
     public static final boolean offlineDOontology = true;
     public static final String POontology = resourcePath + "POntology.ttl";
 

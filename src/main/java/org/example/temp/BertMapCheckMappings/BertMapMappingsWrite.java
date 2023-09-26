@@ -4,22 +4,26 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import jnr.ffi.Struct;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Column;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Mapping;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Table;
 import org.example.InputPoint.JsonUtil;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BertMapMappingsWrite {
 
     HashMap<String, ArrayList<String>> bertmapResults = new HashMap<>();
-    static String bertmap_results_json = "src/main/resources/Bertmap results fintech/max avg/bertmaplogfile efs2fibo updated with low score mappings max.json";
-    static String mappingFileJson = "src/main/resources/saved_efs/EFS_mappings.json";
-    static String outputFile = "src/main/resources/saved_efs/bertmap_fintech.json";
+    static String bertmap_results_json = "src/main/resources/Bertmap results/Bertmap results fintech/max avg/bertmap_raw_epibank2fibo_updated with low score mappings max.json";
+    static String mappingFileJson = "src/main/resources/PO2DO_Mappings.json";
+    static String outputFile = "src/main/resources/saved_epibank/bertmap_fintech.json";
 
     public BertMapMappingsWrite() {
         readBertmapMappings();
@@ -93,12 +97,48 @@ public class BertMapMappingsWrite {
         return null;
     }
 
+    public static void extractToTxt() throws FileNotFoundException {
+        PrintWriter wr = new PrintWriter("src/main/resources/saved_epibank/bertmap_fintech_extract.txt");
+        BertMapMapping results = readMapJSON(outputFile);
+        System.out.print(results.getTables().size());
+        for(Table table : results.getTables()) {
+            System.out.print(">> " + table.getTable() + " :");
+            List<String> map = table.getMapping().getBertmap();
+            if(map != null)
+                for(int i=0; i< map.size()-2 ; i+=3)
+                    System.out.print(String.format("\n\t%s\t\t\t(%.3f / %s)", map.get(i).substring(map.get(i).lastIndexOf("/")+1), Double.parseDouble(map.get(i+1))*100, map.get(i+2)));
+            System.out.print("\n------------\n");
+            for(Column col : table.getColumns()) {
+                System.out.print(String.format("\n\t> %s\n\n\tOP\n", col.getColumn()));
+                map = col.getObjectPropMapping().getBertmap();
+                if (map != null)
+                    for(int i=0; i< map.size()-2 ; i+=3)
+                        System.out.print(String.format("\t\t-[ %s ]->\t\t\t(%.3f / %s)\n", map.get(i).substring(map.get(i).lastIndexOf("/")+1), Double.parseDouble(map.get(i+1))*100, map.get(i+2)));
+                System.out.print("\n\tCL\n");
+                map = col.getClassPropMapping().getBertmap();
+                if (map != null)
+                    for(int i=0; i< map.size()-2 ; i+=3)
+                        System.out.print(String.format("\t\t%s\t\t\t(%.3f / %s)\n", map.get(i).substring(map.get(i).lastIndexOf("/")+1), Double.parseDouble(map.get(i+1))*100, map.get(i+2)));
+                System.out.print("\n\tDP\n");
+                map = col.getDataPropMapping().getBertmap();
+                if (map != null)
+                    for(int i=0; i< map.size()-2 ; i+=3)
+                        System.out.print(String.format("\t\t-[ %s ]->\t\t\t(%.3f / %s)\n", map.get(i).substring(map.get(i).lastIndexOf("/")+1), Double.parseDouble(map.get(i+1))*100, map.get(i+2)));
+                System.out.print("\n------------\n");
+            }
+            System.out.print("============================================================================================\n\n");
+        }
+        wr.close();
+
+    }
+
     public void saveMappingsFile(BertMapMapping mappings) {
         JsonUtil.saveToJSONFile(outputFile, mappings);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         new BertMapMappingsWrite();
+        //BertMapMappingsWrite.extractToTxt();
     }
 
 }

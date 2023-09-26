@@ -66,6 +66,11 @@ public class Properties{
         return properties.get(propertyName);
     }
 
+    public boolean contains(String propertyName) {
+        return properties.containsKey(propertyName);
+    }
+
+
     @Override
     public String toString() {
         StringBuilder bd = new StringBuilder();
@@ -74,10 +79,6 @@ public class Properties{
                     propName, domRan.range, domRan.rule, domRan.extractedField));
         });
         return bd.toString();
-    }
-
-    public boolean contains(String propertyName) {
-        return properties.containsKey(propertyName);
     }
 
 }
