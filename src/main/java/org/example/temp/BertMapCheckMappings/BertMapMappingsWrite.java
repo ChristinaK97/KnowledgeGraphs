@@ -4,11 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import jnr.ffi.Struct;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Column;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Mapping;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Table;
-import org.example.InputPoint.JsonUtil;
+import org.example.A_InputPoint.JsonUtil;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

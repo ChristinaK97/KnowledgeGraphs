@@ -1,6 +1,6 @@
 package org.example.util;
 
-import org.example.InputPoint.InputDataSource;
+import org.example.A_InputPoint.InputDataSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 

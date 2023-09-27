@@ -1,7 +1,7 @@
 package org.example.MappingsFiles;
 
-import org.example.MappingGeneration.FormatSpecific.FormatSpecificRules;
-import org.example.MappingGeneration.Matches;
+import org.example.C_MappingGeneration.FormatSpecific.FormatSpecificRules;
+import org.example.C_MappingGeneration.Matches;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 

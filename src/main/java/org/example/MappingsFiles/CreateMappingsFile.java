@@ -1,9 +1,9 @@
 package org.example.MappingsFiles;
 
-import org.example.InputPoint.SQLdb.DBSchema;
+import org.example.A_InputPoint.SQLdb.DBSchema;
 import org.example.util.Annotations;
-import org.example.POextractor.Properties;
-import org.example.POextractor.RulesetApplication;
+import org.example.B_POextractor.Properties;
+import org.example.B_POextractor.RulesetApplication;
 
 import java.util.ArrayList;
 import java.util.Collections;

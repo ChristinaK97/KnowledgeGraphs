@@ -2,12 +2,12 @@ package org.example.MappingsFiles;
 
 import com.google.gson.Gson;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
-import org.example.InputPoint.JsonUtil;
+import org.example.A_InputPoint.JsonUtil;
 
 import java.io.FileReader;
 import java.util.List;
 
-import static org.example.InputPoint.InputDataSource.PO2DO_Mappings;
+import static org.example.A_InputPoint.InputDataSource.PO2DO_Mappings;
 
 public class ManageMappingsFile {
 
