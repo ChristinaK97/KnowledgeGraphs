@@ -4,8 +4,10 @@ import org.apache.jena.ontology.*;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
+import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 
+import org.apache.jena.vocabulary.XSD;
 import org.example.InputPoint.InputDataSource;
 import org.example.util.Ontology;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
@@ -351,7 +353,11 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
         OntProperty onProperty = ontology.getOntProperty(dataMap.getOntoElURI());
         OntResource newRange = ontology.getOntProperty(dataMap.getMatchURI()).getRange();
-        if(newRange == null || onProperty.getRange().getLocalName().equals(newRange.getLocalName()))
+        if(newRange == null ||
+           // TODO: Now only for simple xsd types. Handle owl custom types
+           ! newRange.getNameSpace().equals(XSD.NS) ||
+           onProperty.getRange().getLocalName().equals(newRange.getLocalName())
+        )
             //Range of DO data property is not specified or is consistent
             return;
 

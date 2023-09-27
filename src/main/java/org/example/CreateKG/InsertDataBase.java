@@ -166,7 +166,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     private void addPropertyPathToColumnPath(Mapping map, boolean checkFirstNode, String tableClassName) {
         if(map.hasPath()) {
             List<URI> propPath = map.getPathURIs();
-            System.out.println(propPath);
+            //System.out.println(propPath);
 
             if(checkFirstNode) {
                 OntResource firstNode = ontology.getOntResource(getFirstNodeFromPath(propPath));
@@ -211,8 +211,8 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     protected void setDataPropertyValue(Resource prevNode, OntProperty dataProp, Object colValue) {
         // to resolve WARN inventing a datatype for class java.time.Instant
         // cast the datatype according to the range of the data property
-        System.out.println(dataProp);
-        System.out.println(dataProp.getRange().getURI());
+        //System.out.println(dataProp);
+        //System.out.println(dataProp.getRange().getURI());
         Literal dataValue = ontology.pModel.createTypedLiteral(colValue, dataProp.getRange().getURI());
         prevNode.addProperty(dataProp, dataValue);
     }

@@ -5,6 +5,7 @@ import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
+import org.example.InputPoint.InputDataSource;
 import org.example.InputPoint.SQLdb.DBSchema;
 import org.example.InputPoint.SQLdb.RTable;
 import org.example.InputPoint.SQLdb.RTable.FKpointer;
@@ -14,6 +15,10 @@ import tech.tablesaw.api.Row;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+
+import static org.example.util.Annotations.symmetricObjPropName;
+import static org.example.util.Ontology.getLocalName;
 
 public class InsertDataRDB extends InsertDataBase {
 
@@ -23,6 +28,7 @@ public class InsertDataRDB extends InsertDataBase {
 
     DBSchema db = new DBSchema();
     DatabaseConnector connector = new DatabaseConnector();
+    private HashMap<String, Integer> tableIds = new HashMap<>();
 
     public InsertDataRDB(String ontologyName) {
         super(ontologyName);
@@ -32,16 +38,20 @@ public class InsertDataRDB extends InsertDataBase {
 
     @Override
     protected void addAdditionalPaths() {
+        int i = 0;
+        for(String tableName : db.getrTables().keySet())
+            tableIds.put(tableName, i++);
+
         addForeignKeysToPaths();
     }
 
     private void addForeignKeysToPaths() {
         for(String tableName : paths.keySet()) {
             db.getTable(tableName).getFKs().forEach((fkCol, fkp) -> {
-                String tableClassName = getTClass(tableName).getLocalName();
+                String tableClassName = getLocalName(getTClass(tableName));
 
                 String fkPropURI = tableName.equals(fkp.refTable) ? //self ref
-                        String.format("%shas_%s", mBasePrefix, tableClassName) :
+                        mBasePrefix + symmetricObjPropName(tableClassName):
                         getNewPropertyURI(mBasePrefix, getTClass(fkp.refTable), tableClassName);
 
                 OntProperty fkProp = ontology.getOntProperty(fkPropURI);
@@ -125,6 +135,7 @@ public class InsertDataRDB extends InsertDataBase {
      */
     private String rowID(Row row, RTable rTable) {
         StringBuilder rowID = new StringBuilder();
+        rowID.append("_").append(tableIds.get(rTable.getTableName())).append("_");
         rTable.getPKs().forEach(pkCol -> rowID.append(row.getObject(pkCol)));
         return rowID.toString();
     }
@@ -250,7 +261,7 @@ public class InsertDataRDB extends InsertDataBase {
 
 
     public static void main(String[] args) {
-        new InsertDataRDB("test_efs");
+        new InsertDataRDB(InputDataSource.ontologyName);
     }
 }
 

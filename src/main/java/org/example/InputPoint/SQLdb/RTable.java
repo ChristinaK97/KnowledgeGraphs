@@ -17,6 +17,7 @@ public class RTable {
         }
     }
 
+    private String tableName;
     private HashMap<String, String> columns;
     private HashSet<String> PKs;
     private HashMap<String, FKpointer> FKs;
@@ -25,7 +26,8 @@ public class RTable {
     private boolean hasSimpleAttribute;
     private boolean isPK_subsetOf_FK;
 
-    public RTable() {
+    public RTable(String tableName) {
+        this.tableName = tableName;
         columns = new HashMap<>();
         PKs = new HashSet<>();
         FKs = new HashMap<>();
@@ -37,6 +39,11 @@ public class RTable {
         set_isPK_subsetOf_FK();
         set_FK_PK_difference();
     }
+
+    public String getTableName() {
+        return tableName;
+    }
+
     //------------------------------------------------------------------------
     // PRIMARY COLUMNS
     //------------------------------------------------------------------------
@@ -139,7 +146,7 @@ public class RTable {
                sb.append("\tFK ").append(FKs.get(colName).toString());
            sb.append("\n");
         });
-        sb.append("----------------------------");
+        sb.append("----------------------------\n");
         return sb.toString();
     }
 }

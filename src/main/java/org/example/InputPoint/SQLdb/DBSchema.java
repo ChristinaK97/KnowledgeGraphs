@@ -23,7 +23,7 @@ public class DBSchema extends InputDataSource implements Iterable<RTable> {
 
     /** For single table like files like CSV **/
     public DBSchema(String tableName, Table inputTable, String PKcol) {
-        RTable table = new RTable();
+        RTable table = new RTable(tableName);
         table.addPK(PKcol);
         for(String colName : inputTable.columnNames())  // table columns
             table.addColumn(colName, inputTable.column(colName).type().getPrinterFriendlyName());
@@ -35,7 +35,7 @@ public class DBSchema extends InputDataSource implements Iterable<RTable> {
             ResultSet tables = connector.retrieveTables();
             while (tables.next()) {
                 String tableName = tables.getString("TABLE_NAME");
-                RTable table = new RTable();
+                RTable table = new RTable(tableName);
 
                 // table columns
                 ResultSet columns = connector.retrieveTableColumns(tableName);
