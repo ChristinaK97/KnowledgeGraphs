@@ -31,8 +31,8 @@ public class InputDataSource {
     public static final String abbrevExpansionResultsFile = "C:/Users/karal/progr/onto_workspace/Medical/resources/"
                                                                 + "abbrevExpansionResults.json";
 
-    // sql database sample data
-    public static final String SQL_DDL = resourcePath + "EPIBANK_SQL_DDL_MySQL _without fks.sql";
+    // sql database sample data to upload synthetic data
+    public static final String SQL_DDL = resourcePath + "saved_epibank/EPIBANK_SQL_DDL_MySQL _without fks.sql";
     public static final String simulatedDataFull = resourcePath + "saved_epibank/simulated_data/";
     public static final String simulatedDataSample = resourcePath + "saved_epibank/simulated_data - sample/";
 
