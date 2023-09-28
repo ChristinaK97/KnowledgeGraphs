@@ -19,18 +19,22 @@ public class DICOMspecificRules implements FormatSpecificRules {
 
     @Override
     public void addAdditionalMatches(Ontology dicomPO, Ontology dicomDO, Matches matches) {
+        addHasItemPaths(dicomPO, dicomDO, matches);
+    }
+
+    private void addHasItemPaths(Ontology dicomPO, Ontology dicomDO, Matches matches) {
         String prefix = dicomPO.getBasePrefix();
         String queryString =
                 Ontology.swPrefixes()
-                + "\nSELECT (?columnClass as ?colClassURI)  (?label as ?tagName) WHERE {\n"
-                + "    ?tableClass rdfs:subClassOf <" + prefix + "TableClass> , \n"
-                + "                                [a owl:Restriction ; owl:onProperty ?pureObjProp] .\n"
-                + "    ?columnClass rdfs:subClassOf <" + prefix + "TableClass> ; \n"
-                + "                 skos:prefLabel ?label . \n"
-                + "    ?pureObjProp a owl:ObjectProperty ; \n"
-                + "                 rdfs:subPropertyOf <" + prefix + "PureProperty> ; \n"
-                + "                 rdfs:range ?columnClass . \n"
-                + "}";
+                        + "\nSELECT (?columnClass as ?colClassURI)  (?label as ?tagName) WHERE {\n"
+                        + "    ?tableClass rdfs:subClassOf <" + prefix + "TableClass> , \n"
+                        + "                                [a owl:Restriction ; owl:onProperty ?pureObjProp] .\n"
+                        + "    ?columnClass rdfs:subClassOf <" + prefix + "TableClass> ; \n"
+                        + "                 skos:prefLabel ?label . \n"
+                        + "    ?pureObjProp a owl:ObjectProperty ; \n"
+                        + "                 rdfs:subPropertyOf <" + prefix + "PureProperty> ; \n"
+                        + "                 rdfs:range ?columnClass . \n"
+                        + "}";
         System.out.println(queryString);
         String[] vars = new String[] {"colClassURI", "tagName"};
         tech.tablesaw.api.Table table = dicomPO.runQuery(queryString, vars);
@@ -54,10 +58,10 @@ public class DICOMspecificRules implements FormatSpecificRules {
                 String newItemClass = colClassURI + "Item";
                 newElements.add(
                         dicomPO.createClass(
-                            newItemClass ,
-                            tagName + " Item",
-                            "Unknown Sequence Tag Item"
-                ));
+                                newItemClass ,
+                                tagName + " Item",
+                                "Unknown Sequence Tag Item"
+                        ));
                 path.add(newItemClass);
             }
             matches.setPath(colClassURI, path);
@@ -86,7 +90,6 @@ public class DICOMspecificRules implements FormatSpecificRules {
             }
         return newMappings;
     }
-
 
 
 }

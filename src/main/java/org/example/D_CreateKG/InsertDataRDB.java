@@ -190,7 +190,7 @@ public class InsertDataRDB extends InsertDataBase {
         Resource indiv = ontology.getOntResource(indivURI);
         if(indiv == null) {
             //System.out.println("create " + indivURI);
-            indiv = ontology.createResource(indivURI, null, comment);
+            indiv = ontology.createResource(indivURI, null,null, comment);
             indiv.addProperty(RDF.type, indivType);
         }
         return indiv;

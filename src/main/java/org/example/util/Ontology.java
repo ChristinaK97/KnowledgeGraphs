@@ -111,10 +111,10 @@ public class Ontology {
 
     // =================================================================================================================
 
-    public Resource createResource(String resourceIRI, String label, String description) {
+    public Resource createResource(String resourceIRI, Property labelProp, String label, String description) {
         newElementsAdded = true;
         Resource newResource = pModel.createResource(resourceIRI);
-        addAnnotations(newResource, label, description);
+        addAnnotations(newResource, labelProp, label, description);
         return newResource;
     }
 
@@ -132,20 +132,22 @@ public class Ontology {
             default:
                 throw new UnsupportedOperationException("Use OBJPROPS or DATAPROPS constants instead.");
         }
-        addAnnotations(newProperty, label, description);
+        addAnnotations(newProperty,null, label, description);
         return newProperty;
     }
     public OntClass createClass(String classURI, String label, String description) {
         newElementsAdded = true;
         OntClass newClass = pModel.createClass(classURI);
-        addAnnotations(newClass, label, description);
+        addAnnotations(newClass,null, label, description);
         return newClass;
     }
 
-    private void addAnnotations(Resource newResource, String label, String description) {
+    private void addAnnotations(Resource newResource, Property labelProp, String label, String description) {
         // Add rdfs:label and rdfs:comment annotations to the property
+        if(labelProp == null)
+            labelProp = RDFS.label;
         if(!"".equals(label) && label != null)
-            newResource.addLiteral(RDFS.label, label);
+            newResource.addLiteral(labelProp, label);
         if(!"".equals(description) && description != null)
             newResource.addLiteral(RDFS.comment, description);
     }
@@ -240,6 +242,8 @@ public class Ontology {
                     resourcesAnnotations.add(removePunctuation(object.asLiteral().getString()));
             });
         }
+        if(resourcesAnnotations.size() == 0)
+            resourcesAnnotations.add(getLocalName(resource));
         cachedAnnotations.put(resourceURI, resourcesAnnotations);
         return resourcesAnnotations;
     }

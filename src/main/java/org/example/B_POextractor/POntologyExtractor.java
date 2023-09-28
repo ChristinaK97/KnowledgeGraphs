@@ -2,6 +2,7 @@ package org.example.B_POextractor;
 
 import org.example.A_InputPoint.InputDataSource;
 import org.example.B_POextractor.Properties.DomRan;
+import org.example.MappingsFiles.CreateMappingsFile;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.*;
@@ -38,7 +39,7 @@ public class POntologyExtractor {
         createOntology();
         saveOntology(POontology);
 
-        // new CreateMappingsFile().extractMappingsFile(dataSource, msBasePrefix, rs);
+        new CreateMappingsFile().extractMappingsFile(dataSource, msBasePrefix, rs);
         //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, tableClasses, objProperties);
 
     }

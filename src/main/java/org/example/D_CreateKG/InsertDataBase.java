@@ -1,5 +1,6 @@
 package org.example.D_CreateKG;
 
+import org.apache.jena.ontology.AnnotationProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
@@ -29,6 +30,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.example.util.Ontology.getLocalName;
+
 public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     // <tableName : table ontClass, hasPath> where hasPath is whether the table mapping has path or not
@@ -36,6 +39,8 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     // <tableName : <columnName : path of resources>>
     protected HashMap<String, HashMap<String, ArrayList<Pair<OntResource,Boolean>>>> paths;
     String mBasePrefix;
+
+    protected AnnotationProperty sourceFileAnnotProp;
 
 
     // The elements -classes/properties- in the path of the current column + should create new individual? for each element
@@ -49,10 +54,11 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
     public InsertDataBase (String ontologyName) {
         //TODO add this:
-        super(InputDataSource.outputOntology, ontologyName);
+        super(InputDataSource.refinedOntology, ontologyName);
         ontology.pModel.loadImports();
         mBasePrefix = ontology.getBasePrefix();
         System.out.println(mBasePrefix);
+        sourceFileAnnotProp = ontology.pModel.createAnnotationProperty(mBasePrefix + "SourceFile");
 
         //TODO remove this:
         /*super(outputOntology, ontologyName);
@@ -210,8 +216,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     protected void setDataPropertyValue(Resource prevNode, OntProperty dataProp, Object colValue) {
         // to resolve WARN inventing a datatype for class java.time.Instant
         // cast the datatype according to the range of the data property
-        //System.out.println(dataProp);
-        //System.out.println(dataProp.getRange().getURI());
+        System.out.println("DATAPROP  " + dataProp + " -> " + colValue + " ^^ " + getLocalName(dataProp.getRange().getURI()));
         Literal dataValue = ontology.pModel.createTypedLiteral(colValue, dataProp.getRange().getURI());
         prevNode.addProperty(dataProp, dataValue);
     }

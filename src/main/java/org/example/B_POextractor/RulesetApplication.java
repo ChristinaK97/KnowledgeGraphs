@@ -1,7 +1,7 @@
 package org.example.B_POextractor;
 
 import com.google.gson.JsonObject;
-import org.example.A_InputPoint.DICOM.DICOM2JSON;
+import org.example.A_InputPoint.DICOM.DICOM2SediJSON;
 import org.example.A_InputPoint.DICOM.TagDictionary;
 import org.example.A_InputPoint.SQLdb.DBSchema;
 import org.example.A_InputPoint.medical.AbbreviationsDictionary;
@@ -96,7 +96,7 @@ public class RulesetApplication {
 
     private JSON2OWL applyRulesToDson(ArrayList<String> dicomFiles) {
 
-        DICOM2JSON dicom2json = new DICOM2JSON(dicomFiles, true);
+        DICOM2SediJSON dicom2json = new DICOM2SediJSON(dicomFiles, true);
         ArrayList<JsonObject> dson = dicom2json.getDsonAsList();
         datasetDictionary = dicom2json.getTagDictionary();
 

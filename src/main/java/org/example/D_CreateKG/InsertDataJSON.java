@@ -5,10 +5,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.apache.commons.collections4.BidiMap;
 import org.apache.commons.collections4.bidimap.DualHashBidiMap;
+import org.apache.jena.ontology.AnnotationProperty;
+import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.SKOS;
 import org.example.A_InputPoint.InputDataSource;
 import org.example.A_InputPoint.JsonUtil;
 import org.example.util.Pair;
@@ -37,6 +40,7 @@ public class InsertDataJSON  extends InsertDataBase {
     BidiMap<String, String> indivNames;
     private long currRowID;
     private BigInteger indivCounter;
+    private String currentFileName;
 
     public InsertDataJSON(String ontologyName, ArrayList<String> files) {
         super(ontologyName);
@@ -55,7 +59,9 @@ public class InsertDataJSON  extends InsertDataBase {
     @Override
     protected void mapData() {
         findRoot();
+
         for (String file : files) {
+            currentFileName = file.substring(file.lastIndexOf("/")+1, file.lastIndexOf("."));
             indivNames = new DualHashBidiMap<>(); // reset per file
             JsonElement json = JsonUtil.readJSON(file);                                                                 System.out.println("Root " + root);
             parseJson(root, null, null, json,
@@ -76,6 +82,8 @@ public class InsertDataJSON  extends InsertDataBase {
                 return;
             }
     }
+
+
 
 // =====================================================================================================================
 
@@ -104,11 +112,12 @@ public class InsertDataJSON  extends InsertDataBase {
         if(prev.equals(root) && key == null) {                                                                      //1
             classCounter = new HashMap<>();                                                                         //2
             setCounter(root);
-            prevIndiv = createIndiv(getTClass(root), extractedField, prevIndiv, true, true);                                             //3
+            prevIndiv = createIndiv(getTClass(root), extractedField, prevIndiv, true, true);    //3
+            prevIndiv.addLiteral(sourceFileAnnotProp, currentFileName);
         }
 
         if(value.isJsonPrimitive() && JsonUtil.isValid(prev, key, value, extractedField)) {                         //4
-            createColPath(prevIndiv, extractedField,                                                                               //5
+            createColPath(prevIndiv, extractedField,                                                                //5
                     JsonUtil.parseJSONvalue(value.getAsJsonPrimitive()));
         }
         else if(value.isJsonObject())                                                                               //7
@@ -323,7 +332,7 @@ public class InsertDataJSON  extends InsertDataBase {
         if(indiv == null) {
             indivCounter = indivCounter.add(BigInteger.ONE);
             indivNames.put(indivLabel, indivCounter.toString());
-            indiv = ontology.createResource(mBasePrefix + indivCounter, indivLabel, null);
+            indiv = ontology.createResource(mBasePrefix + indivCounter, null, indivLabel, null);
             indiv.addProperty(RDF.type, indivType);                                                                   System.out.println("\tcreate " + indivLabel + " as " + indiv);
 
             if(isRoot)

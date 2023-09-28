@@ -116,6 +116,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
     private void createJSON(String rootElementName, HashMap<String, String> tableClasses) {
         rootElementName = "/" + rootElementName;
+        System.out.println(rootElementName);
         HashMap<String, MappingsFileTemplate.Table> tableClassesTable = new HashMap<>();
         for(String classField: tableClasses.keySet()) {
             MappingsFileTemplate.Table table = new MappingsFileTemplate.Table(classField);
@@ -143,7 +144,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
                         t.type, t.ontoElement, "", true, null)
                 );
             String fieldTable = elName.substring(0, elName.lastIndexOf("/"));
-            System.out.println(elName + " " + fieldTable);
+            System.out.println(elName + " " + fieldTable + " " + tableClassesTable.get(fieldTable));
             tableClassesTable.get(fieldTable).addColumn(field);
         }
     }

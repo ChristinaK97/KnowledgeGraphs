@@ -282,7 +282,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          */
         Mapping tableMapping = tableMaps.getMapping();
         for (Column colMap : tableMaps.getColumns()) {               //1
-            System.out.println("MAKE CONS W/ PATH : " + tableMaps.getTable() + "." + colMap.getColumn());
+            System.out.println("MAKE CONS WITHOUT PATH : " + tableMaps.getTable() + "." + colMap.getColumn());
 
             Mapping objMap = colMap.getObjectPropMapping();       //2
             Mapping dataMap = colMap.getDataPropMapping();
@@ -313,7 +313,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         List<URI> tablePath = tableMapping.getPathURIs();
 
         for (Column colMap : tableMaps.getColumns()) {
-            System.out.println("MAKE CONS W PATH: " + tableMaps.getTable() + "." + colMap.getColumn());
+            System.out.println("MAKE CONS WITH PATH: " + tableMaps.getTable() + "<.>" + colMap.getColumn());
 
             Mapping objMap = colMap.getObjectPropMapping();
             Mapping dataMap = colMap.getDataPropMapping();
@@ -322,7 +322,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 try {
                     OntProperty prop = ontology.getOntProperty(map.getOntoElURI());
                     OntResource newDomain = ontology.getOntClass(tablePath.get(tablePath.size()-1));
-                    correctDomain(prop, prop.getDomain(), getLocalName(tableMapping.getOntoElResource()), newDomain);
+                    System.out.println("\ttable class " + tableMapping.getOntoElResource());
+                    correctDomain(prop, prop.getDomain(), getLocalName(tableMapping.getOntoElURI()), newDomain);
                 }catch (NullPointerException e) {
                     // obj property was unnecessary so it was previously deleted
                 }
@@ -408,7 +409,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *      10. Go to this class and remove the restriction "prop some range"
          * 11. Set newDomain as the domain of the prop
          */
-        System.out.println("CORRECT DOMAIN\nPROP : " + getLocalName(prop.getURI()) + " CURDOM: " + curDomain + " NEWDOM: " + newDomain);
+        System.out.println("CORRECT DOMAIN\nPROP : " + getLocalName(prop.getURI()) + " CURDOM: " + curDomain + " NEWDOM: " + newDomain + " TABLE CLASS = " + tableClass);
 
         if(curDomain != null) {                                                                                    //0
             if (curDomain.canAs(UnionClass.class)) {                                                               //1
@@ -574,7 +575,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     private void saveOutputOntology() {
         OutputStream out = null;
         try {
-            out = new FileOutputStream(InputDataSource.outputOntology);
+            out = new FileOutputStream(InputDataSource.refinedOntology);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -587,7 +588,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         String basePrefix = ontology.getBasePrefix();
         System.out.println(basePrefix);
 
-        String filePath = InputDataSource.outputOntology;
+        String filePath = InputDataSource.refinedOntology;
 
         String format = InputDataSource.offlineDOontology ? "<%s> owl:imports <file:///%s> ." : "<%s> owl:imports <%s> .";
 

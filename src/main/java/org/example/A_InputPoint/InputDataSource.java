@@ -16,13 +16,14 @@ public class InputDataSource {
     // input data source
 
     // uncomment for sql:
-    public static final String inputDataSource = "SQL";
-    public static final String ontologyName = "epibank";
+    //public static final String inputDataSource = "SQL";
+    //public static final String ontologyName = "epibank";
 
     // uncomment for files:
     //public static final String inputDataSource = resourcePath + "medical_data";
-    public static final String fileExtension =  null; // "dcm"; // "json"; // // "csv";
-    //public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
+    public static final String inputDataSource = resourcePath + "dicom_data"; //"C:/Users/karal/OneDrive/Υπολογιστής/DICOM_DATASET";
+    public static final String fileExtension = "dcm"; //  // "json"; // null; // "csv";
+    public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
     public static final boolean applyMedAbbrevExpansion = false;  // set to true for health datasets that contain abbrevs
     public static final String abbrevExpansionResultsFile = "C:/Users/karal/progr/onto_workspace/Medical/resources/"
@@ -34,7 +35,7 @@ public class InputDataSource {
     public static final String simulatedDataSample = resourcePath + "saved_epibank/simulated_data - sample/";
 
     // do and po ontologies
-    public static final String DOontology = resourcePath + "saved_epibank/FIBOLt.owl";
+    public static final String DOontology = resourcePath + "saved_dicom/dicom.owl";
     public static final boolean offlineDOontology = true;
     public static final String POontology = resourcePath + "POntology.ttl";
 
@@ -44,7 +45,7 @@ public class InputDataSource {
     public static final String PO2DO_Mappings_ObjProp = resourcePath + "PO2DO_Mappings_ObjProp.json";
 
     // output ontology
-    public static final String outputOntology = resourcePath + "outputOntology.ttl";
+    public static final String refinedOntology = resourcePath + "refinedOntology.ttl";
     public static final String mergedOutputOntology = resourcePath + "mergedOutputOntology.ttl";
 
     // final knowledge graph
