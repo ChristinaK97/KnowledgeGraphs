@@ -323,7 +323,7 @@ public class InsertDataJSON  extends InsertDataBase {
                 indivLabel = String.format("%s_%s%d", prevIndivLabel, className, classCounterValue - (createNewIndiv ? 0 : 1));
             }
         }
-        Resource indiv = null;                                                                                          System.out.println("\tTry Indiv = "+ indivLabel+ " create new ? " + createNewIndiv + "\n\t counter = " + classCounter);
+        Resource indiv = null;                                                                                                  System.out.println("\tTry Indiv = "+ indivLabel+ " create new ? " + createNewIndiv + "\n\t counter = " + classCounter);
         if(indivNames.containsKey(indivLabel))
             indiv = ontology.getOntResource(mBasePrefix + indivNames.get(indivLabel));
 
@@ -333,7 +333,8 @@ public class InsertDataJSON  extends InsertDataBase {
             indivCounter = indivCounter.add(BigInteger.ONE);
             indivNames.put(indivLabel, indivCounter.toString());
             indiv = ontology.createResource(mBasePrefix + indivCounter, null, indivLabel, null);
-            indiv.addProperty(RDF.type, indivType);                                                                   System.out.println("\tcreate " + indivLabel + " as " + indiv);
+            indiv.addProperty(RDF.type, indivType);
+            indiv.addLiteral(SKOS.prefLabel, String.format("%d_%d_%s", currRowID - (isRoot?0:1), indivCounter, getLocalName(indivType)));   System.out.println("\tcreate " + indivLabel + " as " + indiv);
 
             if(isRoot)
                 ++currRowID;
