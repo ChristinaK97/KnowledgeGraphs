@@ -80,6 +80,10 @@ public class DSON2OWL extends JSON2OWL {
             }
             objProp = pureObjPropName(domain, range);
         }
+        /*for(String topClass : new String[]{domain, range})
+            if(!tableClasses.containsKey(topClass))
+                tableClasses.put(topClass, topClass);*/
+
         System.out.printf("NEW TRIPLE : < %s , %s , %s >\n", domain, objProp, range);
         return new String[]{domain, objProp, range};
     }

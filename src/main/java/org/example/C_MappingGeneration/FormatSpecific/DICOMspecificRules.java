@@ -32,8 +32,13 @@ public class DICOMspecificRules implements FormatSpecificRules {
         String queryString =
                 Ontology.swPrefixes()
                         + "\nSELECT (?columnClass as ?colClassURI)  (?label as ?tagName) WHERE {\n"
-                        + "    ?tableClass rdfs:subClassOf <" + prefix + "TableClass> , \n"
+                        + "   {     ?topClassWithTheRestriction rdfs:subClassOf [a owl:Restriction ; owl:onProperty ?pureObjProp] .\n"
+                        + "         ?tableClass rdfs:subClassOf <" + prefix + "TableClass> , \n"
+                        + "                                      ?topClassWithTheRestriction ."
+                        + "   } union { \n"
+                        + "             ?tableClass rdfs:subClassOf <" + prefix + "TableClass> , \n"
                         + "                                [a owl:Restriction ; owl:onProperty ?pureObjProp] .\n"
+                        + "   }\n"
                         + "    ?columnClass rdfs:subClassOf <" + prefix + "TableClass> ; \n"
                         + "                 skos:prefLabel ?label . \n"
                         + "    ?pureObjProp a owl:ObjectProperty ; \n"
@@ -43,6 +48,7 @@ public class DICOMspecificRules implements FormatSpecificRules {
         System.out.println(queryString);
         String[] vars = new String[] {"colClassURI", "tagName"};
         tech.tablesaw.api.Table table = dicomPO.runQuery(queryString, vars);
+        System.out.println(table);
 
         table.forEach(row -> {
 
