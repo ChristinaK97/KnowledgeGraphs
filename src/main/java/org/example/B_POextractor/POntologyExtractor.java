@@ -110,6 +110,13 @@ public class POntologyExtractor {
             manager.applyChange(new AddAxiom(ontology,
                     factory.getOWLSubClassOfAxiom(sClass, (OWLClass) baseElements.get(type + "Class"))
             ));
+        String superClass = rs.getSuperClassOf(className);
+        if(superClass != null) {
+            IRI superclassURI = IRI.create(msBasePrefix + superClass);
+            manager.applyChange(new AddAxiom(ontology,
+                    factory.getOWLSubClassOfAxiom(sClass, factory.getOWLClass(superclassURI))
+            ));
+        }
 
         return sClass;
     }
@@ -124,6 +131,7 @@ public class POntologyExtractor {
     }
 
     public void addObjectproperty(String propName, DomRan domRan, String type) {
+
         OWLObjectProperty objproperty = factory.getOWLObjectProperty(validName(propName), pm);
 
         OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(objproperty);

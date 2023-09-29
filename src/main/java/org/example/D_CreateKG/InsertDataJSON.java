@@ -414,7 +414,7 @@ public class InsertDataJSON  extends InsertDataBase {
 
     public static void main(String[] args) {
         ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/dicom_data/simple.json"));
-        files.add("src/main/resources/dicom_data/complex.json");
+        files.add("src/main/resources/dicom_data/ct.json");
         //ArrayList<String> files = new ArrayList<>(Collections.singleton("src/main/resources/json_data/person.json"));
         System.out.println(files);
         new InsertDataJSON(InputDataSource.ontologyName, files);

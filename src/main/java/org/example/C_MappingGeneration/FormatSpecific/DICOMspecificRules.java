@@ -16,10 +16,15 @@ import static org.example.util.Ontology.getLocalName;
 public class DICOMspecificRules implements FormatSpecificRules {
 
     public DICOMspecificRules() {}
+    private String basePOprefix;
+    private String baseDOprefix;
 
     @Override
     public void addAdditionalMatches(Ontology dicomPO, Ontology dicomDO, Matches matches) {
+        this.basePOprefix = dicomPO.getBasePrefix();
+        this.baseDOprefix = dicomDO.getBasePrefix();
         addHasItemPaths(dicomPO, dicomDO, matches);
+        hasInformationEntityMatch(matches);
     }
 
     private void addHasItemPaths(Ontology dicomPO, Ontology dicomDO, Matches matches) {
@@ -68,28 +73,62 @@ public class DICOMspecificRules implements FormatSpecificRules {
         });
     }
 
+    private void hasInformationEntityMatch(Matches matches) {
+        matches.addMatch(
+                basePOprefix + "hasInformationEntity",
+                baseDOprefix + "hasInformationEntity",
+                1.0
+        );
+    }
+
+
+
+//==================================================================================================================
+
     @Override
     public ArrayList<Table> getNewMappings() {
         ArrayList<Table> newMappings = new ArrayList<>();
+        hasItemNewMappings(newMappings);
+        topClassesMappings (newMappings);
+        return newMappings;
+    }
+
+
+    private void hasItemNewMappings(ArrayList<Table> newMappings){
         for(OntResource newEl : newElements)
             if(newEl.canAs(OntClass.class)) {
 
                 Table newTable = new Table(getLocalName(newEl.getURI()));
                 newTable.setMapping(
                         new Mapping(
-                            "Class",
-                            newEl.getURI(),
-                            "http://semantic-dicom.org/seq#SequenceItem",
-                            true,
-                            null
-                ));
+                                "Class",
+                                newEl.getURI(),
+                                "http://semantic-dicom.org/seq#SequenceItem",
+                                true,
+                                null
+                        ));
                 newMappings.add(newTable);
 
             }else if(newEl.canAs(OntProperty.class)){
                 //TODO
             }
-        return newMappings;
     }
+
+    private void topClassesMappings(ArrayList<Table> newMappings) {
+        for(String topClass : new String[]{"InformationEntity", "InformationObjectDefinition"}) {
+            Table newTable = new Table(topClass);
+            newTable.setMapping(
+                    new Mapping(
+                            "Class",
+                            basePOprefix + topClass,
+                            baseDOprefix + topClass,
+                            true,
+                            null
+                    ));
+            newMappings.add(newTable);
+        }
+    }
+
 
 
 }

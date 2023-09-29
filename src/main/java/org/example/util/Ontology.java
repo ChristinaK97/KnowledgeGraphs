@@ -93,6 +93,7 @@ public class Ontology {
         return matcher.find() ? matcher.group(1) : null;
     }
 
+    // =================================================================================================================
 
     public OntClass getOntClass(String uri) {
         return pModel.getOntClass(uri);
@@ -108,6 +109,39 @@ public class Ontology {
     }
     public OntResource getOntResource(String uri) {return pModel.getOntResource(uri);}
     public OntResource getOntResource(URI uri) {return pModel.getOntResource(uri.toString());}
+
+
+
+    public OntClass getTopSuperclass(String subclassName) {
+        try{
+            return getTopSuperclass(getOntClass(getBasePrefix() + subclassName));
+        }catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    /* Function to find the top superclass of a class */
+    public OntClass getTopSuperclass(OntClass ontClass) {
+        while (ontClass.hasSuperClass()) {
+            for (OntClass operand : ontClass.listSuperClasses().toList())
+                if (operand.isURIResource()) {
+                    ontClass = operand.asClass();
+                    break;
+                }
+        }
+        return ontClass;
+    }
+
+    public Resource getClassCopy(Resource cl) {
+        if (cl.canAs(UnionClass.class)) {
+            UnionClass unionClass = cl.as(UnionClass.class);
+            ExtendedIterator<? extends OntClass> operands = unionClass.listOperands();
+            RDFList members = pModel.createList(operands);
+            operands.close();
+            return pModel.createUnionClass(null, members);
+        }
+        return cl;
+    }
 
     // =================================================================================================================
 

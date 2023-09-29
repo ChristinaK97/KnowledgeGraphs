@@ -19,8 +19,10 @@ public class RulesetApplication {
 
     boolean turnAttributesToClasses;
     HashMap<String, HashMap<String, String>> classes = new HashMap<>(2);
+    HashMap<String, String> key_isSubclassOf_value = new HashMap<>();
     HashMap<String, Properties> objProperties = new HashMap<>(2);
     Properties dataProperties;
+
 
     // for files (not sql rdb)
     private String rootElementName = null;
@@ -39,7 +41,11 @@ public class RulesetApplication {
             applyRules((ArrayList<String>) dataSource);
     }
 
+
+// =====================================================================================================================
     // RELATIONAL DATABASE RULES
+// =====================================================================================================================
+
     public void applyRules(DBSchema db) {
         // table classes
         classes.put("Table", new ClassExtractor(db).getTableClasses());
@@ -61,7 +67,11 @@ public class RulesetApplication {
             datasetDictionary = new AbbreviationsDictionary();
     }
 
+
+// =====================================================================================================================
     // JSON-LIKE FILE TYPES RULES
+// =====================================================================================================================
+
     public void applyRules(ArrayList<String> files) {
         JSON2OWL json2owl;
 
@@ -88,11 +98,14 @@ public class RulesetApplication {
 
     }
 
+
     private JSON2OWL applyRulesToJson(ArrayList<String> jsonFiles) {
         JSON2OWL json2owl = new JSON2OWL(turnAttributesToClasses);
         jsonFiles.forEach(json2owl::applyRules);
         return json2owl;
     }
+
+
 
     private JSON2OWL applyRulesToDson(ArrayList<String> dicomFiles) {
 
@@ -100,13 +113,17 @@ public class RulesetApplication {
         ArrayList<JsonObject> dson = dicom2json.getDsonAsList();
         datasetDictionary = dicom2json.getTagDictionary();
 
-        JSON2OWL dson2owl = new JSON2OWL(turnAttributesToClasses, (TagDictionary) datasetDictionary);
+        DSON2OWL dson2owl = new DSON2OWL(turnAttributesToClasses, (TagDictionary) datasetDictionary);
         dson.forEach(dson2owl::applyRules);
+        key_isSubclassOf_value = dson2owl.getKey_isSubclassOf_value();
         return dson2owl;
     }
 
 
+// =====================================================================================================================
     // GETTERS
+// =====================================================================================================================
+
     public HashMap<String, HashMap<String, String>> getClasses() {
         return classes;
     }
@@ -134,4 +151,11 @@ public class RulesetApplication {
         return datasetDictionary;
     }
 
+    public HashMap<String, String> key_isSubclassOf_value() {
+        return key_isSubclassOf_value;
+    }
+
+    public String getSuperClassOf(String subclassName) {
+        return key_isSubclassOf_value.get(subclassName);
+    }
 }

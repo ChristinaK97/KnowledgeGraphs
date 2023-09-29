@@ -3,6 +3,7 @@ package org.example.B_POextractor;
 import com.google.gson.*;
 import org.example.A_InputPoint.DICOM.TagDictionary;
 import org.example.A_InputPoint.JsonUtil;
+import org.example.util.Pair;
 
 import java.util.*;
 
@@ -63,7 +64,7 @@ import static org.example.util.Annotations.*;
  */
 public class JSON2OWL {
 
-    boolean print = false;
+    boolean print = true;
 
     protected HashMap<String, String> tableClasses = new HashMap<>();
     protected Properties pureObjProperties = new Properties();
@@ -71,22 +72,17 @@ public class JSON2OWL {
 
     protected HashMap<String, String> attrClasses = new HashMap<>();
     protected Properties attrObjProperties = new Properties();
-    private ArrayList<Properties.DomRan> nullValuedProperties = new ArrayList<>();
+    protected ArrayList<Properties.DomRan> nullValuedProperties = new ArrayList<>();
 
-    private boolean turnAttrToClasses;
+    protected boolean turnAttrToClasses;
 
-    // if not null it's dson not simple.dcm json
-    private TagDictionary tagDictionary = null;
 
     private String root;
 
     public JSON2OWL(boolean turnAttrToClasses) {
         this.turnAttrToClasses = turnAttrToClasses;
     }
-    public JSON2OWL(boolean turnAttrToClasses, TagDictionary tagDictionary) {
-        this.turnAttrToClasses = turnAttrToClasses;
-        this.tagDictionary = tagDictionary;
-    }
+
 
     public void applyRules(String file) {
         JsonElement json = JsonUtil.readJSON(file);
@@ -201,7 +197,7 @@ public class JSON2OWL {
 
 // =====================================================================================================================
 
-    private void addObjectProperty(String domain, String range, String extractedField, String rule) {
+    protected void addObjectProperty(String domain, String range, String extractedField, String rule) {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
@@ -218,7 +214,7 @@ public class JSON2OWL {
     }
 
     // domain ( -[has_range]-> range )* -[has_range_VALUE]-> type(value)
-    private void addDataProperty(String domain, String range, String extractedField, JsonPrimitive value) {
+    protected void addDataProperty(String domain, String range, String extractedField, JsonPrimitive value) {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
@@ -235,7 +231,7 @@ public class JSON2OWL {
             );                                                                                                          if(print) System.out.println("\tADD NEW OP: " + String.format("p_%s_%s", domain, attrClass) + " \t\t" + extractedField);
         }
         String dtPropName = dataPropName(range);
-        String xsdDatatype = isDson() ? tagDictionary.getXsd_datatype(range) : JsonUtil.JSON2XSD(value);
+        String xsdDatatype =  getDataPropertyRange(value, range);
         dataProperties.addProperty(
                 "dp",
                 domainClass,
@@ -247,6 +243,12 @@ public class JSON2OWL {
             nullValuedProperties.add(dataProperties.getPropertyDomRan(dtPropName));
     }
 
+
+    protected String getDataPropertyRange(JsonPrimitive value, String range) {
+        return JsonUtil.JSON2XSD(value);
+    }
+
+// =====================================================================================================================
 
     public void removeNullRanges() {
         if(nullValuedProperties.size() > 0) {
@@ -264,9 +266,6 @@ public class JSON2OWL {
         return root;
     }
 
-    public boolean isDson() {
-        return tagDictionary != null;
-    }
 
     public void print() {
         System.out.println(">> CLASSES");

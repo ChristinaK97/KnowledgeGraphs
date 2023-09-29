@@ -5,10 +5,15 @@ import org.dcm4che3.data.VR;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DICOMUtil {
+
+
+    public static String hasSOPClassUID = "http://semantic-dicom.org/rema#hasSOPClassUID";
+    public static String SOPClassUIDtag = "(0008,0016)";
 
 
     public static String DICOM2XSD(VR vr) {

@@ -34,8 +34,6 @@ import static org.example.util.Ontology.getLocalName;
 public class DICOM2SediJSON {
 
     Ontology sedi;
-    String hasSOPClassUID = "http://semantic-dicom.org/rema#hasSOPClassUID";
-    String SOPClassUIDtag = "(0008,0016)";
 
     // for each hasInformationEntity of the InfoObjDefin class definition store the json table into the
     // map to be able to add additional attributes while iterating the file
@@ -198,7 +196,7 @@ public class DICOM2SediJSON {
     private String getSOPClassUID(Attributes ats) {
         // get the sop class uid value of the dicom file
         for(int tag : ats.tags())
-            if(TagUtils.toString(tag).equals(SOPClassUIDtag))
+            if(TagUtils.toString(tag).equals(DICOMUtil.SOPClassUIDtag))
                 return ats.getString(tag);
         return null;
     }
@@ -212,7 +210,7 @@ public class DICOM2SediJSON {
             String query = Ontology.swPrefixes() +
                     "\nSELECT ?resource" +
                     "\n where {" +
-                    "\n?resource <" + hasSOPClassUID + "> ?label . " +
+                    "\n?resource <" + DICOMUtil.hasSOPClassUID + "> ?label . " +
                     "\nFILTER (str(?label) = '" + SOPClassUID + "')" +
                     "\n}";
 
@@ -234,6 +232,7 @@ public class DICOM2SediJSON {
                     if (onClassValue != null && onClassValue.isResource())
                         informationEntities.add(onClassValue.as(OntClass.class).getURI());
                 }
+                operands.close();
             }
             // the info obj def class included for attaching elements directly to the base image class (eg MRImage),
             // #Unknown info entity to group the private tags

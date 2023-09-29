@@ -145,7 +145,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                 DatatypeProperty dataProp = ontology.getOntProperty(dataMap.getOntoElURI()).asDatatypeProperty();
                 // if domain is an anonymous class like a union node, it will be deleted when deleting the
                 // property, so the generation of a copy is needed
-                dataProp.setDomain(getClassCopy(tableClass));
+                dataProp.setDomain(ontology.getClassCopy(tableClass));
                 if(tableClass.isClass())
                     addRangeRestriction(tableClass, dataProp, dataProp.getRange());
             }catch (NullPointerException e) {
@@ -634,16 +634,6 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 // UTIL ================================================================================================================
 
-    private Resource getClassCopy(Resource cl) {
-        if (cl.canAs(UnionClass.class)) {
-            UnionClass unionClass = cl.as(UnionClass.class);
-            ExtendedIterator<? extends OntClass> operands = unionClass.listOperands();
-            RDFList members = ontology.pModel.createList(operands);
-            operands.close();
-            return ontology.pModel.createUnionClass(null, members);
-        }
-        return cl;
-    }
 
 
     //==================================================================================
