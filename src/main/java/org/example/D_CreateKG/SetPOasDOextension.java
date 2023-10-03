@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.example.util.Annotations.getInverseName;
 import static org.example.util.Annotations.normalise;
 import static org.example.util.Ontology.getLocalName;
 
@@ -542,22 +543,24 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             // property wasn't already created
             if (ontology.getOntProperty(newPropURI) == null) {
 
-                System.out.println("FIRST CLASS : " + firstClass);
-                System.out.println("NEW PROP :" + newPropURI);
-
-                String newLabel = String.format("has %s", normalise(ontology.getLabel(firstClass), false));
-
-                OntProperty newProp = ontology.pModel.createObjectProperty(newPropURI);
-                newProp.setLabel(newLabel, "en");
-                newProp.setComment(String.format("New prop to connect tableClass \"%s\" with firstPathClass \"%s\"", tableClassName, firstClassName), "en");
-                newProp.addComment(prop.getComment(""), "en");
-                newProp.setSuperProperty(ontology.getOntProperty(Ontology.get_PURE_PROPERTY_URI(ontologyName)));
-
-                OntClass DtableClass = ontology.getOntClass(tableClassURI);
-                newProp.setDomain(DtableClass);
-                newProp.setRange(firstClass);
+                OntClass DtableClass = ontology.getOntClass(tableClassURI);                                             System.out.println("FIRST CLASS : " + firstClass); System.out.println("NEW PROP :" + newPropURI);
+                OntProperty newProp = createObjectProperty(
+                        newPropURI,
+                        DtableClass,
+                        firstClass,
+                        String.format("has %s", normalise(ontology.getLabel(firstClass), false)),
+                        prop.getComment("")
+                );
                 addRangeRestriction(DtableClass, newProp, firstClass);
 
+                OntProperty inverse = createObjectProperty(
+                        ontology.getBasePrefix() + String.format("p_%s_%s", firstClassName, tableClassName),
+                        firstClass,
+                        DtableClass,
+                        String.format("has %s", normalise(ontology.getLabel(DtableClass), false)),
+                        prop.getComment("")
+                );
+                newProp.setInverseOf(inverse);
             }
         }catch (NullPointerException e) {
             //TODO remove print
@@ -567,6 +570,19 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             // or the first node in the path wasn't a class but a property and
             // so getOntClass returned null. No modifications are needed in this case
          }
+    }
+
+
+    private OntProperty createObjectProperty(String newPropURI, OntClass domain, OntClass range, String newLabel, String comment) {
+        OntProperty newProp = ontology.pModel.createObjectProperty(newPropURI);
+        newProp.setLabel(newLabel, "en");
+        newProp.setComment(String.format("New prop to connect \"%s\" with \"%s\"", domain, range), "en");
+        newProp.addComment(comment, "en");
+        newProp.setSuperProperty(ontology.getOntProperty(Ontology.get_PURE_PROPERTY_URI(ontologyName)));
+
+        newProp.setDomain(domain);
+        newProp.setRange(range);
+        return newProp;
     }
 
 //======================================================================================================================

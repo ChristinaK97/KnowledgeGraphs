@@ -20,9 +20,9 @@ public class InputDataSource {
     //public static final String ontologyName = "epibank";
 
     // uncomment for files:
-    //public static final String inputDataSource = resourcePath + "medical_data";
-    public static final String inputDataSource = resourcePath + "dicom_data"; //"C:/Users/karal/OneDrive/Υπολογιστής/DICOM_DATASET";
-    public static final String fileExtension = "dcm"; //  // "json"; // null; // "csv";
+    // resourcePath + "dicom_data";
+    public static final String inputDataSource =  "C:/Users/karal/OneDrive/Υπολογιστής/DICOM_DATASET";
+    public static final String fileExtension = "dcm";  // // "json"; // null; // "csv";
     public static final String ontologyName = inputDataSource.substring(inputDataSource.lastIndexOf("/")+1);
 
     public static final boolean applyMedAbbrevExpansion = false;  // set to true for health datasets that contain abbrevs

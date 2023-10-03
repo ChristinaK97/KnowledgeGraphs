@@ -39,12 +39,12 @@ public class JenaOntologyModelHandler {
     protected String getNewPropertyURI(String mBasePrefix, OntClass firstClass, String tableClassName) {
         /* tableClass -[p]-> firstClass */
         mBasePrefix = mBasePrefix == null ? ontology.getBasePrefix() : mBasePrefix;
-        String propertyNamePattern = firstClass.getNameSpace().equals(mBasePrefix) ?
+       /* String propertyNamePattern = firstClass.getNameSpace().equals(mBasePrefix) ?
 
                 "%sp_%s_%s" :       //baseURI/p_tableClassName_firstclassName
-                "%s%s_has_%s";      // baseURI/tableName_has_firstClassName
+                "%s%s_has_%s";      // baseURI/tableName_has_firstClassName */
 
-        return String.format(propertyNamePattern, mBasePrefix, tableClassName, getLocalName(firstClass));
+        return String.format("%sp_%s_%s", mBasePrefix, tableClassName, getLocalName(firstClass));
     }
 
 
