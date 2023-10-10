@@ -110,7 +110,27 @@ public class Ontology {
     public OntResource getOntResource(String uri) {return pModel.getOntResource(uri);}
     public OntResource getOntResource(URI uri) {return pModel.getOntResource(uri.toString());}
 
+    // =================================================================================================================
 
+    public OntResource getInfereredDomRan(OntProperty prop, boolean searchDomain) {
+        OntResource domRan = null;
+        LinkedList<OntProperty> superprops = new LinkedList<>();
+        superprops.addLast(prop);                                                                                       //System.out.println("\nsearch " + (searchDomain?"domain":"range") + " for " + prop);
+
+        while (superprops.size()>0) {
+            prop = superprops.removeFirst();
+            domRan = searchDomain? prop.getDomain() : prop.getRange();
+            if(domRan != null)
+                break;
+            else{
+                Set<? extends OntProperty> superpropsSet = prop.listSuperProperties().toSet();
+                superpropsSet.remove(prop);
+                superprops.addAll(superpropsSet);                                                                       //System.out.println(prop + " has super " + superprops);
+            }
+        }                                                                                                               //System.out.println("found " + domRan + "\n");
+        return domRan;
+    }
+    // =================================================================================================================
 
     public OntClass getTopSuperclass(String subclassName) {
         try{
@@ -131,6 +151,46 @@ public class Ontology {
         }
         return ontClass;
     }
+
+
+    public HashMap<String,Integer> getAncestors(String ontResourceURI, boolean isSelfSuperclass) {
+        OntResource ontResource = getOntResource(ontResourceURI);
+        return ontResource==null ? new HashMap<>() : getAncestors(ontResource, isSelfSuperclass);
+    }
+
+    public HashMap<String,Integer> getAncestors(OntResource ontResource, boolean isSelfSuperclass) {
+        HashMap<String, Integer> ancestors = new HashMap<>();
+        if(isSelfSuperclass)
+            ancestors.put(ontResource.toString(), 0);
+        HashSet<String> visited = new HashSet<>();
+        getAncestors(ontResource, ancestors, 1, visited);
+        return ancestors;
+    }
+
+    private void getAncestors(OntResource ontResource, HashMap<String, Integer> ancestors, int depth, HashSet<String> visited) {
+        if(!visited.contains(ontResource.toString())){
+            visited.add(ontResource.toString());
+            List<? extends OntResource> superResources = listSuperResources(ontResource);
+            if(superResources.size()>0){
+                for (OntResource operand : superResources) {
+                    if (operand.isURIResource()) {
+                        ancestors.put(
+                                operand.toString(),
+                                Math.min(ancestors.getOrDefault(operand.toString(), Integer.MAX_VALUE), depth)
+                        );
+                        getAncestors(operand, ancestors, depth+1, visited);
+            }}}
+        }
+    }
+
+    private List<? extends OntResource> listSuperResources(OntResource ontResource) {
+        if(ontResource.canAs(OntClass.class))
+            return ontResource.asClass().listSuperClasses().toList();
+        else
+            return ontResource.asProperty().listSuperProperties().toList();
+    }
+
+    // =================================================================================================================
 
     public Resource getClassCopy(Resource cl) {
         if (cl.canAs(UnionClass.class)) {
