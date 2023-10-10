@@ -160,8 +160,9 @@ public class MappingSelection {
             objMap = considerHierarchies(objMap);
         if(classMap != null && classMap.rowCount()>1)
             classMap = considerHierarchies(classMap);
-        //findNaryTriples(objMap, classMap, dataMap);
+
         System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
+        findNaryTriples(objMap, classMap, dataMap);
     }
 
 //======================================================================================================================
@@ -209,6 +210,36 @@ public class MappingSelection {
     }
 
 //======================================================================================================================
+
+
+//======================================================================================================================
+
+    private void findNaryTriples(Table objMap, Table classMap, Table dataMap) {
+
+        if(objMap != null && classMap != null) {
+            System.out.println("Discover n-ary paths...");
+
+            Table mapPaths = Table.create();
+            mapPaths.addColumns(StringColumn.create(OBJ_MAP), StringColumn.create(CLASS_MAP));
+
+            for(String objCand : objMap.stringColumn(TGTCand)) {
+                OntResource range = tgtOnto.getInfereredDomRan(tgtOnto.getOntProperty(objCand), false);
+                for(String classCand : classMap.stringColumn(TGTCand)) {
+                    if(areCompatible(range, classCand, false)) {
+                        mapPaths.stringColumn(OBJ_MAP).append(objCand);                                                             //System.out.printf("\t%s -> %s\n", getLocalName(objCand),getLocalName(classCand));
+                        mapPaths.stringColumn(CLASS_MAP).append(classCand);
+                    }
+            }}
+            //if(mapPaths.rowCount() > 0)
+                //analysePaths(mapPaths, objMap, classMap);
+        }
+    }
+
+
+
+
+//======================================================================================================================
+
     private Table considerHierarchies(Table elMap) {
         /* maxDepth==0 <=> ISA relationship. Should specialize to some subclass?
         /* maxDepth>0 and group size > 1 <=> Have-common-ancestors relationship. Is there some sibling that
@@ -240,50 +271,6 @@ public class MappingSelection {
         return updatedTable;
     }
 
-
-
-
-//======================================================================================================================
-
-    private void findNaryTriples(Table objMap, Table classMap, Table dataMap) {
-
-        if(objMap != null && classMap != null) {
-            System.out.println("Discover n-ary paths...");
-
-            Table mapPaths = Table.create();
-            mapPaths.addColumns(StringColumn.create(OBJ_MAP), StringColumn.create(CLASS_MAP));
-
-            for(String objCand : objMap.stringColumn(TGTCand)) {
-                OntResource range = tgtOnto.getInfereredDomRan(tgtOnto.getOntProperty(objCand), false);
-                for(String classCand : classMap.stringColumn(TGTCand)) {
-                    if(areCompatible(range, classCand, false)) {
-                        mapPaths.stringColumn(OBJ_MAP).append(objCand);                                                             //System.out.printf("\t%s -> %s\n", getLocalName(objCand),getLocalName(classCand));
-                        mapPaths.stringColumn(CLASS_MAP).append(classCand);
-                    }
-            }}
-            if(mapPaths.rowCount() > 0)
-                analysePaths(mapPaths, objMap, classMap);
-        }
-    }
-
-
-    private void analysePaths(Table mapPaths, Table objMap, Table classMap) {                                                        System.out.println("Discovered paths:");for(Row path:mapPaths) System.out.printf("\t%s -> %s\n",getLocalName(path.getString(OBJ_MAP)),getLocalName(path.getString(CLASS_MAP)));
-        analyseMapElement(mapPaths, objMap, OBJ_MAP);                                                                                System.out.println("\n- Analyze column " + OBJ_MAP);
-        analyseMapElement(mapPaths, classMap, CLASS_MAP);                                                                            System.out.println("\n- Analyze column " + CLASS_MAP);
-        mapPaths = mapPaths.dropDuplicateRows();                                                                                     System.out.println("\nProcessed paths:");for(Row path:mapPaths) System.out.printf("\t%s -> %s\n",getLocalName(path.getString(OBJ_MAP)),getLocalName(path.getString(CLASS_MAP)));
-    }
-
-    private void analyseMapElement(Table mapPaths, Table elMap, String colEl){
-        HashMap<String, String> trfs = generalizationAndSpecializationTrfs(elMap,
-                findHierarchicalRelations(mapPaths.stringColumn(colEl).asSet()));                                                 System.out.println("Trfs :"); trfs.forEach((cand,trfsTo)->{System.out.printf("\t%s => %s\n",getLocalName(cand),getLocalName(trfsTo));});
-
-        for(int i=0; i<mapPaths.rowCount(); ++i){
-            String cand = mapPaths.getString(i, colEl);
-            mapPaths.stringColumn(colEl).set(i, trfs.getOrDefault(cand,cand));
-        }
-    }
-
-//======================================================================================================================
 
     /**
      *      objCand                  classCand
@@ -345,24 +332,6 @@ public class MappingSelection {
         return hierarchies;
     }
 
-
-    private HashMap<String, String> generalizationAndSpecializationTrfs(
-            Table elMap, HashMap<HashSet<String>, Pair<String, Integer>> hierarchies) {
-        // maxDepth==0 <=> ISA relationship. Should specialize to some subclass?
-        // maxDepth>0 and group size > 1 <=> Have-common-ancestors relationship. Is there some sibling that
-        //      is better than the rest, or should generalize to the ancestor
-        HashMap<String, String> trfs = new HashMap<>();
-        hierarchies.forEach((group, p) -> {
-            if(group.size()>1) {
-                String trfsTo = (p.maxDepth()==0) ?
-                        specialize(p.closestCommonAnc(), group, elMap) :
-                        generalize(p.closestCommonAnc(), group, elMap);
-                for(String cand : group)
-                    trfs.put(cand, trfsTo);
-            }
-        });
-        return trfs;
-    }
 
     private String specialize(String ancestorURI, HashSet<String> group, Table elMap) {
         // maxDepth==0 <=> ISA relationship. Should specialize to some subclass?
@@ -466,8 +435,39 @@ public class MappingSelection {
                     else if (column instanceof IntColumn)
                         column.append(groupTable.intColumn(column.name()));*/
 
+/*private void analysePaths(Table mapPaths, Table objMap, Table classMap) {                                                        System.out.println("Discovered paths:");for(Row path:mapPaths) System.out.printf("\t%s -> %s\n",getLocalName(path.getString(OBJ_MAP)),getLocalName(path.getString(CLASS_MAP)));
+        analyseMapElement(mapPaths, objMap, OBJ_MAP);                                                                                System.out.println("\n- Analyze column " + OBJ_MAP);
+        analyseMapElement(mapPaths, classMap, CLASS_MAP);                                                                            System.out.println("\n- Analyze column " + CLASS_MAP);
+        mapPaths = mapPaths.dropDuplicateRows();                                                                                     System.out.println("\nProcessed paths:");for(Row path:mapPaths) System.out.printf("\t%s -> %s\n",getLocalName(path.getString(OBJ_MAP)),getLocalName(path.getString(CLASS_MAP)));
+    }
 
+    private void analyseMapElement(Table mapPaths, Table elMap, String colEl){
+        HashMap<String, String> trfs = generalizationAndSpecializationTrfs(elMap,
+                findHierarchicalRelations(mapPaths.stringColumn(colEl).asSet()));                                                 System.out.println("Trfs :"); trfs.forEach((cand,trfsTo)->{System.out.printf("\t%s => %s\n",getLocalName(cand),getLocalName(trfsTo));});
 
+        for(int i=0; i<mapPaths.rowCount(); ++i){
+            String cand = mapPaths.getString(i, colEl);
+            mapPaths.stringColumn(colEl).set(i, trfs.getOrDefault(cand,cand));
+        }
+    }*/
+
+/*private HashMap<String, String> generalizationAndSpecializationTrfs(
+            Table elMap, HashMap<HashSet<String>, Pair<String, Integer>> hierarchies) {
+        // maxDepth==0 <=> ISA relationship. Should specialize to some subclass?
+        // maxDepth>0 and group size > 1 <=> Have-common-ancestors relationship. Is there some sibling that
+        //      is better than the rest, or should generalize to the ancestor
+        HashMap<String, String> trfs = new HashMap<>();
+        hierarchies.forEach((group, p) -> {
+            if(group.size()>1) {
+                String trfsTo = (p.maxDepth()==0) ?
+                        specialize(p.closestCommonAnc(), group, elMap) :
+                        generalize(p.closestCommonAnc(), group, elMap);
+                for(String cand : group)
+                    trfs.put(cand, trfsTo);
+            }
+        });
+        return trfs;
+    }*/
 
 
 
