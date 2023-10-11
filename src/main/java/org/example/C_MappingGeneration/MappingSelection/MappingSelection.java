@@ -9,15 +9,12 @@ import org.apache.jena.ontology.OntResource;
 import org.apache.jena.ontology.UnionClass;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.XSD;
-import org.apache.poi.ss.formula.functions.T;
-import org.checkerframework.checker.units.qual.C;
 import org.example.A_InputPoint.InputDataSource;
 import org.example.MappingsFiles.MappingsFileTemplate;
 import org.example.util.Ontology;
 import org.example.util.Pair;
 import tech.tablesaw.api.*;
 import org.example.A_InputPoint.JsonUtil;
-import tech.tablesaw.columns.AbstractColumn;
 import tech.tablesaw.columns.Column;
 
 import java.util.*;
@@ -44,6 +41,8 @@ public class MappingSelection {
     final double BES_LOW_THRS  = 0.1;
     final double PJ_HIGH_THRS  = 50;
     final int DEPTH_THRS = 3;
+
+    boolean logHierarchy=false;
 
     HashSet<Resource> decimalDatatypes = new HashSet<>(List.of(new Resource[]{XSD.xdouble, XSD.xfloat, XSD.decimal}));
     HashSet<Resource> intDatatypes     = new HashSet<>(List.of(new Resource[]{XSD.integer, XSD.unsignedInt, XSD.unsignedShort, XSD.xshort, XSD.positiveInteger, XSD.nonPositiveInteger, XSD.nonNegativeInteger}));
@@ -81,8 +80,8 @@ public class MappingSelection {
     }
     private Table createTable(ArrayList<Column> columns) {
         Table table = Table.create();
-        table.addColumns(columns.get(0),columns.get(1),columns.get(2),
-                         columns.get(3),columns.get(4),columns.get(5),columns.get(6));
+        for(Column column : columns)
+            table.addColumns(column);
         return table;
     }
 
@@ -151,18 +150,19 @@ public class MappingSelection {
         Table objMap   = rawMaps.get(objProp);
         Table classMap = rawMaps.get(colClass);
         Table dataMap  = rawMaps.get(dataProp);
-        if(objMap != null)
+
+        if(objMap != null) {
             objMap  = filterObjMap(tableMap, objMap);
+            if(objMap.rowCount()>1)
+                objMap = considerHierarchies(objMap);
+        }
+        if(classMap != null && classMap.rowCount()>1)
+            classMap = considerHierarchies(classMap);
         if(dataMap != null)
             dataMap = filterDataMap(dataProp, dataMap);
 
-        if(objMap != null && objMap.rowCount()>1)
-            objMap = considerHierarchies(objMap);
-        if(classMap != null && classMap.rowCount()>1)
-            classMap = considerHierarchies(classMap);
-
         System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
-        findNaryTriples(objMap, classMap, dataMap);
+        Table mapPaths = findNaryPatterns(objMap, classMap, dataMap);
     }
 
 //======================================================================================================================
@@ -174,7 +174,7 @@ public class MappingSelection {
         int rowID = -1;
         for(String objCand : objMap.stringColumn(TGTCand)) {
             ++rowID;
-            OntResource domain = tgtOnto.getInfereredDomRan(tgtOnto.getOntProperty(objCand), true);
+            OntResource domain = tgtOnto.getInferedDomRan(objCand, true);
             if(!areCompatible(domain, tableClass, true)) {                                                                    //System.out.println("Are not compatible " + getLocalName(tableClass) + " " + getLocalName(objCand));
                 toRmv.add(rowID);
             }
@@ -190,7 +190,7 @@ public class MappingSelection {
         for(String dataCand : dataMap.stringColumn(TGTCand)) {
             ++rowID;
             boolean areCompatible = false;
-            OntResource DOrange = tgtOnto.getInfereredDomRan(tgtOnto.getOntProperty(dataCand), false);
+            OntResource DOrange = tgtOnto.getInferedDomRan(dataCand, false);
             if(DOrange!=null && !DOrange.toString().startsWith(XSD.NS)) {
                 if(DOrange.asClass().getEquivalentClass().asUnionClass().listOperands().toSet().contains(POrange)){
                     areCompatible = true;
@@ -211,31 +211,46 @@ public class MappingSelection {
 
 //======================================================================================================================
 
+    private Table findNaryPatterns(Table objMap, Table classMap, Table dataMap) {
 
-//======================================================================================================================
+        boolean hasObjCands   = objMap   != null;
+        boolean hasClassCands = classMap != null;
+        boolean hasDataCands  = dataMap  != null;
 
-    private void findNaryTriples(Table objMap, Table classMap, Table dataMap) {
+        Table mapPaths = Table.create();
+        mapPaths.addColumns(StringColumn.create(OBJ_MAP), StringColumn.create(CLASS_MAP), StringColumn.create(DATA_MAP));
 
-        if(objMap != null && classMap != null) {
-            System.out.println("Discover n-ary paths...");
+        HashMap<String, HashSet<String>> classCompatibleDataCands = new HashMap<>();
+        if(hasClassCands && hasDataCands)
+            for(String classCand : classMap.stringColumn(TGTCand))
+                classCompatibleDataCands.put(classCand, classUsesDataProps(classCand, dataMap));
 
-            Table mapPaths = Table.create();
-            mapPaths.addColumns(StringColumn.create(OBJ_MAP), StringColumn.create(CLASS_MAP));
-
+        if(hasObjCands && hasClassCands) {                                                                                              System.out.println("Discover n-ary paths...");
             for(String objCand : objMap.stringColumn(TGTCand)) {
-                OntResource range = tgtOnto.getInfereredDomRan(tgtOnto.getOntProperty(objCand), false);
+                OntResource range = tgtOnto.getInferedDomRan(objCand, false);
                 for(String classCand : classMap.stringColumn(TGTCand)) {
                     if(areCompatible(range, classCand, false)) {
-                        mapPaths.stringColumn(OBJ_MAP).append(objCand);                                                             //System.out.printf("\t%s -> %s\n", getLocalName(objCand),getLocalName(classCand));
-                        mapPaths.stringColumn(CLASS_MAP).append(classCand);
+                        if(classCompatibleDataCands.get(classCand).size()==0) {
+                            mapPaths.stringColumn(OBJ_MAP)  .append(objCand);
+                            mapPaths.stringColumn(CLASS_MAP).append(classCand);
+                            mapPaths.stringColumn(DATA_MAP) .append("");
+                        }else{
+                            for(String dataCand : classCompatibleDataCands.get(classCand)){
+                                mapPaths.stringColumn(OBJ_MAP)  .append(objCand);
+                                mapPaths.stringColumn(CLASS_MAP).append(classCand);
+                                mapPaths.stringColumn(DATA_MAP) .append(dataCand);
+                        }}
                     }
-            }}
-            //if(mapPaths.rowCount() > 0)
-                //analysePaths(mapPaths, objMap, classMap);
-        }
+        }}}
+        classCompatibleDataCands.forEach((classCand, compDataCands) -> {
+            if(compDataCands.size()>0 && !mapPaths.stringColumn(CLASS_MAP).contains(classCand)){
+                for(String dataCand : compDataCands) {
+                    mapPaths.stringColumn(OBJ_MAP)  .append("");
+                    mapPaths.stringColumn(CLASS_MAP).append(classCand);
+                    mapPaths.stringColumn(DATA_MAP) .append(dataCand);
+        }}});                                                                                                                   for(Row mapPath : mapPaths) {String o = mapPath.getString(OBJ_MAP);String c = mapPath.getString(CLASS_MAP);String d = mapPath.getString(DATA_MAP);System.out.printf("\t%s  ->  %s  ->  %s\n", ("".equals(o)?"\t":getLocalName(o)),getLocalName(c),("".equals(d)?"\t":getLocalName(d)));}
+        return mapPaths;
     }
-
-
 
 
 //======================================================================================================================
@@ -244,12 +259,12 @@ public class MappingSelection {
         /* maxDepth==0 <=> ISA relationship. Should specialize to some subclass?
         /* maxDepth>0 and group size > 1 <=> Have-common-ancestors relationship. Is there some sibling that
         /*      is better than the rest, or should generalize to the ancestor */
-        ArrayList<Column> updatedCols = createEmptyColumns();                                                           //System.out.println("\nFiltered table:\n" + elMap);
+        ArrayList<Column> updatedCols = createEmptyColumns();                                                           //if(logHierarchy) System.out.println("\nFiltered table:\n" + elMap);
 
         HashMap<HashSet<String>, Pair<String, Integer>> hierarchies =
                 findHierarchicalRelations(elMap.stringColumn(TGTCand).asSet());
 
-        hierarchies.forEach((group, p) -> {                                                                             System.out.println("\nGroup = " + getLocal(group));
+        hierarchies.forEach((group, p) -> {                                                                             if(logHierarchy) System.out.println("\nGroup = " + getLocal(group));
             Table groupTable = elMap.where(elMap.stringColumn(TGTCand).isIn(group));
             String trfsTo;
             if (group.size()>1)
@@ -267,7 +282,7 @@ public class MappingSelection {
                 else if(column instanceof IntColumn)
                     column.append((int) groupTable.intColumn(column.name()).min());
         });
-        Table updatedTable = createTable(updatedCols);                                                                  //System.out.println("Updated table:\n" + updatedTable);
+        Table updatedTable = createTable(updatedCols);                                                                  //if(logHierarchy) System.out.println("Updated table:\n" + updatedTable);
         return updatedTable;
     }
 
@@ -295,7 +310,7 @@ public class MappingSelection {
      *      Closest Common Ancestor = Account	Depth = 0	Children = [Account (2), DemandDepositAccount (2), ]
      */
     private HashMap<HashSet<String>, Pair<String, Integer>> findHierarchicalRelations(Set<String> candidates) {
-                                                                                                                        System.out.println("\nFind hierarchical relations in " + getLocal(candidates));
+                                                                                                                        if(logHierarchy) System.out.println("\nFind hierarchical relations in " + getLocal(candidates));
         HashMap<String, Pair<HashSet<String>, Integer>> commonAncestors = new HashMap<>();
         for(String candidate: candidates){
             tgtOnto.getAncestors(candidate, true).forEach((ancestor, depth) -> {
@@ -309,7 +324,7 @@ public class MappingSelection {
                 }else if (depth <= DEPTH_THRS)
                     commonAncestors.put(ancestor, new Pair<>(new HashSet<>(){{add(candidate);}}, depth));
         });}
-                                                                                                                        //*p*/System.out.printf("Cands = %s\n", getLocal(candidates));  commonAncestors.forEach((ancestor, p) -> {System.out.printf("Ans = %s\t\tD = %d\t\tChn = %s\n", getLocalName(ancestor), p.maxDepth(), getLocal(p.children()));});/*p*/
+                                                                                                                        //*p*/if(logHierarchy) {System.out.printf("Cands = %s\n", getLocal(candidates));  commonAncestors.forEach((ancestor, p) -> {System.out.printf("Ans = %s\t\tD = %d\t\tChn = %s\n", getLocalName(ancestor), p.maxDepth(), getLocal(p.children()));});}/*p*/
         HashMap<HashSet<String>, Pair<String, Integer>> hierarchies = new HashMap<>();
         HashMap<String,Integer> candGroupSize = new HashMap<>(){{for(String c:candidates) put(c,1);}};
         commonAncestors.forEach((ancestor, p) -> {
@@ -328,7 +343,7 @@ public class MappingSelection {
                 if(group.getKey().size() != candGroupSize.get(candidate))
                     return true;
             return false;
-        });                                                                                                             /*p*/hierarchies.forEach((children, p) -> {System.out.printf("Clos Anc = %s\t\tD = %d\t\tChn = [", getLocalName(p.closestCommonAnc()), p.maxDepth()); for(String c:children) System.out.printf("%s (%d), ", getLocalName(c), candGroupSize.get(c)); System.out.println("]");});System.out.println();/*p*/
+        });                                                                                                             /*p*/if(logHierarchy) {hierarchies.forEach((children, p) -> {System.out.printf("Clos Anc = %s\t\tD = %d\t\tChn = [", getLocalName(p.closestCommonAnc()), p.maxDepth()); for(String c:children) System.out.printf("%s (%d), ", getLocalName(c), candGroupSize.get(c)); System.out.println("]");});System.out.println();}/*p*/
         return hierarchies;
     }
 
@@ -341,7 +356,7 @@ public class MappingSelection {
         Table tops = groupT
                 .where(groupT.intColumn(PJRank).isLessThanOrEqualTo(ancestor.intColumn(PJRank).get(0))
                   .and(groupT.doubleColumn(PJ).isGreaterThanOrEqualTo(ancestor.doubleColumn(PJ).get(0)))
-        );                                                                                                                              System.out.printf("[sp] Found %d equally good with ancestor, top = %s\n => Check if there is a top sibling, or if should generalize to the ancestor <%s>.\n", tops.rowCount(), getLocal(tops.stringColumn(TGTCand).asList()), getLocalName(ancestorURI));if(tops.rowCount()==0) System.out.printf("[sp] No generalize to ancestor <%s>\n", getLocalName(ancestorURI));
+        );                                                                                                                              if(logHierarchy){ System.out.printf("[sp] Found %d equally good with ancestor, top = %s\n => Check if there is a top sibling, or if should generalize to the ancestor <%s>.\n", tops.rowCount(), getLocal(tops.stringColumn(TGTCand).asList()), getLocalName(ancestorURI));if(tops.rowCount()==0) System.out.printf("[sp] No generalize to ancestor <%s>\n", getLocalName(ancestorURI));}
         return (tops.rowCount()>0) ? generalize(ancestorURI, tops) : ancestorURI;
     }
 
@@ -349,7 +364,7 @@ public class MappingSelection {
     private String generalize(String ancestorURI, HashSet<String> group, Table elMap) {
         // maxDepth>0 and group size > 1 <=> Have-common-ancestors relationship. Is there some sibling that
         //                                   is better than the rest, or should generalize to the ancestor
-        Table groupT = elMap.where(elMap.stringColumn(TGTCand).isIn(group));                                                                System.out.printf("[gn] Have-common-ancestor relation in group = %s\n => Is there a top sibling or should generalize to ancestor = <%s> ?\n", getLocal(group), getLocalName(ancestorURI));
+        Table groupT = elMap.where(elMap.stringColumn(TGTCand).isIn(group));                                                                if(logHierarchy) {System.out.printf("[gn] Have-common-ancestor relation in group = %s\n => Is there a top sibling or should generalize to ancestor = <%s> ?\n", getLocal(group), getLocalName(ancestorURI));}
         return generalize(ancestorURI, groupT);
     }
 
@@ -360,13 +375,14 @@ public class MappingSelection {
                 .where(filtered.intColumn(PJRank).isLessThanOrEqualTo(filtered.intColumn(PJRank).min())
                   .and(filtered.doubleColumn(PJ).isGreaterThanOrEqualTo(filtered.doubleColumn(PJ).max()))
         );
-        String trfsTo = (tops.rowCount() == 1) ? tops.getString(0, TGTCand) : ancestorURI;                                                if(tops.rowCount()==1)System.out.printf("[gn] YES best found <%s>\n", getLocalName(trfsTo)); else System.out.printf("[gn] NO generalize to ancestor = <%s>\n", getLocalName(ancestorURI));
+        String trfsTo = (tops.rowCount() == 1) ? tops.getString(0, TGTCand) : ancestorURI;                                                if(logHierarchy) {if(tops.rowCount()==1)System.out.printf("[gn] YES best found <%s>\n", getLocalName(trfsTo)); else System.out.printf("[gn] NO generalize to ancestor = <%s>\n", getLocalName(ancestorURI));}
         return trfsTo;
     }
 
 
 //======================================================================================================================
 //======================================================================================================================
+
     private boolean areCompatible(OntResource domRan, String classURI, boolean missingDomRanIsCompatible) {
         boolean areCompatible = false;
         if(domRan == null)
@@ -386,11 +402,43 @@ public class MappingSelection {
     }
 
 
-    private boolean areCompatible(String class1, String class2, boolean isSelfSuperclass) {
-        return tgtOnto.getAncestors(class1, isSelfSuperclass).containsKey(class2) ||
-               tgtOnto.getAncestors(class2, isSelfSuperclass).containsKey(class1);
+    private boolean areCompatible(String resource1, String resource2, boolean isSelfSuperResource) {
+        return resource1.equals(resource2) ||
+               tgtOnto.getAncestors(resource1, isSelfSuperResource).containsKey(resource2) ||
+               tgtOnto.getAncestors(resource2, isSelfSuperResource).containsKey(resource1);
     }
 
+    private HashSet<String> classUsesDataProps(String classURI, Table dataMap) {
+        HashSet<String> compatibleCands = new HashSet<>();
+        Set<String> otherCands;
+
+        for(String dataCand : dataMap.stringColumn(TGTCand)) {
+            OntResource domain = tgtOnto.getInferedDomRan(dataCand, true);
+            if(areCompatible(domain, classURI, false))
+                compatibleCands.add(dataCand);
+        }
+        otherCands = dataMap.where(dataMap.stringColumn(TGTCand).isNotIn(compatibleCands)).stringColumn(TGTCand).asSet();                       //System.out.printf("%s  class\n\tCompatible dataCands = %s.\n\tOther cands = %s\n", getLocalName(classURI), getLocal(compatibleCands), getLocal(otherCands));
+        if(otherCands.size() > 0) {
+            String query = Ontology.swPrefixes() + "\n"                                     +
+                    "select ?restrProp where {"                                             +
+                    "   {\n" +
+                    "      <" + classURI + "> rdfs:subClassOf [ a owl:Restriction ;\n"      +
+                    "                         owl:onProperty ?restrProp ] .\n"              +
+                    "   } union {\n" +
+                    "       <" + classURI + "> rdfs:subClassOf+ ?superCl .\n"               +
+                    "       ?superCl rdfs:subClassOf [ a owl:Restriction ;\n"               +
+                    "                                  owl:onProperty ?restrProp ] .\n"     +
+                    "   }}";
+            Set<String> restrProps = tgtOnto.runQuery(query,new String[]{"restrProp"}).stringColumn("restrProp").asSet();           //System.out.println("\tRestr Props = " + getLocal(restrProps));
+            for(String otherCand : otherCands)
+                for(String restrProp : restrProps)
+                    if(areCompatible(otherCand, restrProp, true)) {
+                        compatibleCands.add(otherCand);                                                                                         //System.out.printf("\tCand <%s> is compat w restr prop <%s>.\n", getLocalName(otherCand), getLocalName(restrProp));
+                        break;
+                    }
+        }
+        return compatibleCands;
+    }
 
 
 //======================================================================================================================

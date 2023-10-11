@@ -112,7 +112,12 @@ public class Ontology {
 
     // =================================================================================================================
 
-    public OntResource getInfereredDomRan(OntProperty prop, boolean searchDomain) {
+    public OntResource getInferedDomRan(String propURI, boolean searchDomain) {
+        OntProperty prop = getOntProperty(propURI);
+        return prop!=null ? getInferedDomRan(prop, searchDomain) : null;
+    }
+
+    public OntResource getInferedDomRan(OntProperty prop, boolean searchDomain) {
         OntResource domRan = null;
         LinkedList<OntProperty> superprops = new LinkedList<>();
         superprops.addLast(prop);                                                                                       //System.out.println("\nsearch " + (searchDomain?"domain":"range") + " for " + prop);
@@ -362,9 +367,8 @@ public class Ontology {
 
             // Create an empty Table with columns based on the variable names
             Table table = Table.create();
-            for (String var : vars) {
+            for (String var : vars)
                 table.addColumns(StringColumn.create(var, new ArrayList<>()));
-            }
 
             // Populate the Table with the query results
             while (results.hasNext()) {
@@ -373,12 +377,7 @@ public class Ontology {
                 // Add each variable value to the corresponding column in the Table
                 for (String var : vars) {
                     RDFNode node = soln.get(var);
-                    if (node != null) {
-                        table.stringColumn(var).append(node.toString());
-                    } else {
-                        // If the variable is not bound in the solution, add an empty cell
-                        table.stringColumn(var).append("");
-                    }
+                    table.stringColumn(var).append(node!=null ? node.toString() : "");   // If the variable is not bound in the solution, add an empty cell
                 }
             }
             return table;
