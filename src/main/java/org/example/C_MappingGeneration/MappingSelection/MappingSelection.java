@@ -165,6 +165,8 @@ public class MappingSelection {
         Table mapPaths = findNaryPatterns(objMap, classMap, dataMap);
     }
 
+    //private void selectTableColumnMaps(String tableMap, )
+
 //======================================================================================================================
     private Table filterObjMap(String tableClass, Table objMap) {
         if(tableClass == null) // TODO think of a rule for this case
@@ -213,19 +215,15 @@ public class MappingSelection {
 
     private Table findNaryPatterns(Table objMap, Table classMap, Table dataMap) {
 
-        boolean hasObjCands   = objMap   != null;
-        boolean hasClassCands = classMap != null;
-        boolean hasDataCands  = dataMap  != null;
-
         Table mapPaths = Table.create();
         mapPaths.addColumns(StringColumn.create(OBJ_MAP), StringColumn.create(CLASS_MAP), StringColumn.create(DATA_MAP));
 
         HashMap<String, HashSet<String>> classCompatibleDataCands = new HashMap<>();
-        if(hasClassCands && hasDataCands)
+        if(classMap != null && dataMap != null)
             for(String classCand : classMap.stringColumn(TGTCand))
                 classCompatibleDataCands.put(classCand, classUsesDataProps(classCand, dataMap));
 
-        if(hasObjCands && hasClassCands) {                                                                                              System.out.println("Discover n-ary paths...");
+        if(objMap != null && classMap != null) {                                                                                              System.out.println("Discover n-ary paths...");
             for(String objCand : objMap.stringColumn(TGTCand)) {
                 OntResource range = tgtOnto.getInferedDomRan(objCand, false);
                 for(String classCand : classMap.stringColumn(TGTCand)) {
