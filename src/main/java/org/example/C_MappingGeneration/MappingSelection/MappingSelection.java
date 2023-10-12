@@ -41,6 +41,7 @@ public class MappingSelection {
     final double BES_HIGH_THRS = 85;
     final double BES_LOW_THRS  = 0.1;
     final double PJ_HIGH_THRS  = 50;
+    final double PJ_LOW_THRS = 20;
     final int DEPTH_THRS = 3;
 
     boolean logHierarchy=false;
@@ -155,15 +156,20 @@ public class MappingSelection {
         /*---------------------------------------------------*/
         // filter candidates
         if(hasCands(objMap)) {
-            objMap  = filterObjMap(tableOptimal, objMap);
+            objMap = rejectCandsWithLowPJ(objMap);
+            objMap = filterObjMap(tableOptimal, objMap);
             if(objMap.rowCount()>1)
                 objMap = considerHierarchies(objMap);
         }
-        if(hasCands(classMap) && classMap.rowCount()>1)
-            classMap = considerHierarchies(classMap);
-        if(hasCands(dataMap))
+        if(hasCands(classMap)) {
+            classMap = rejectCandsWithLowPJ(classMap);
+            if(classMap.rowCount() > 1)
+                classMap = considerHierarchies(classMap);
+        }
+        if(hasCands(dataMap)){
+            dataMap = rejectCandsWithLowPJ(dataMap);
             dataMap = filterDataMap(dataProp, dataMap);
-
+        }
         /*---------------------------------------------------*/                                                         System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
         // search for n-ary path pattern
         Table mapPaths = findNaryPatterns(objMap, classMap, dataMap);
@@ -231,7 +237,7 @@ public class MappingSelection {
         if(hasDataCands)
            dataOptimal = selectDataOptimal(dataMap, compatibleDomain, tableOptimal, (String) objOptimal, clsOptimal);
 
-       System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(objOptimal), getLocal(dataOptimal));
+       System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));
 
        return new Object[]{objOptimal, clsOptimal, dataOptimal};
     }
@@ -300,6 +306,11 @@ public class MappingSelection {
                 toRmv.add(rowID);
       }
         return toRmv.size()>0 ? dataMap.dropRows(Ints.toArray(toRmv)) : dataMap;
+    }
+
+
+    private Table rejectCandsWithLowPJ(Table elMap) {
+        return elMap.where(elMap.doubleColumn(PJ).isGreaterThanOrEqualTo(PJ_LOW_THRS));
     }
 
 //======================================================================================================================
@@ -386,7 +397,8 @@ public class MappingSelection {
 
         if(hasCands(dataMap))
             dataOptimal = selectDataOptimal(mapPaths, dataMap, objOptimal, clsOptimal);
-                                                                                                                                                                        if(logNary){System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));}
+
+        if(logNary){System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));}
         return new String[]{objOptimal, clsOptimal, dataOptimal};
     }
 
@@ -628,11 +640,11 @@ public class MappingSelection {
     private String getLocal(Object x) {
         if(x == null)
             return null;
-        try {
+        if(x.toString().startsWith("http"))
             return getLocalName(x.toString());
-        }catch (Exception e){
+        else
             return getLocal((Collection<String>) x);
-        }
+
     }
 
     public static void main(String[] args) {
