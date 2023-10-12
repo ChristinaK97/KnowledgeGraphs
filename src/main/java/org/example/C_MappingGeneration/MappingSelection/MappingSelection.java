@@ -137,13 +137,12 @@ public class MappingSelection {
     private void selectTableColumnOptimal() {
         for(MappingsFileTemplate.Table table : tablesList) {
             String tableMap = tableClassMaps.get(table.getMapping().getOntoElURI().toString());
-            for(MappingsFileTemplate.Column col : table.getColumns()) {                                                 System.out.printf(">> For table = <%s> with selected table map = <%s> : Select map for col <%s>\n", table.getTable(), (tableMap!=null?getLocalName(tableMap):null), col.getColumn());
+            for(MappingsFileTemplate.Column col : table.getColumns()) {                                                 System.out.printf(">> For table = <%s> with selected table map = <%s> : Select map for col <%s>\n", table.getTable(), getLocal(tableMap), col.getColumn());
                 String objProp   = col.getObjectPropMapping().getOntoElURI().toString();
                 String colClass  = col.getClassPropMapping().getOntoElURI().toString();
                 String dataProp  = col.getDataPropMapping().getOntoElURI().toString();
                 selectTableColumnOptimal(tableMap, objProp, colClass, dataProp);
-
-                                                                                                                        System.out.println("\n=============================================================================================================================\n\n");
+                System.out.println("\n=============================================================================================================================\n\n");
             }
         }
     }
@@ -165,8 +164,7 @@ public class MappingSelection {
         if(hasCands(dataMap))
             dataMap = filterDataMap(dataProp, dataMap);
 
-        System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
-        /*---------------------------------------------------*/
+        /*---------------------------------------------------*/                                                         System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
         // search for n-ary path pattern
         Table mapPaths = findNaryPatterns(objMap, classMap, dataMap);
         if(mapPaths.rowCount()>0)
@@ -179,6 +177,17 @@ public class MappingSelection {
 
     private boolean hasCands(Table elMap){
         return elMap != null && elMap.rowCount() > 0;
+    }
+
+
+    private Object selectOptimal(Table elMap, Set<String> filter, boolean allowUnion) {
+        Table tops = filter==null ? elMap.copy() : elMap.where(elMap.stringColumn(TGTCand).isIn(filter));
+        tops = tops.where(tops.intColumn(PJRank).isLessThanOrEqualTo(tops.intColumn(PJRank).min()));
+        if(tops.rowCount() > 1 && ! allowUnion)
+            tops = tops.where(tops.doubleColumn(BES).isEqualTo(tops.doubleColumn(BES).max()));
+        return tops.rowCount()==1 ?
+                tops.getString(0, TGTCand) :
+                tops.stringColumn(TGTCand).asSet();
     }
 
 
@@ -219,11 +228,11 @@ public class MappingSelection {
         else if (hasClassCands)
             clsOptimal = selectOptimal(clsMap, null, true);
 
-        System.out.printf("Object* = <%s>\tClass* = <%s>\n", (objOptimal!=null ? getLocalName(objOptimal.toString()):null), (clsOptimal!=null ? (clsOptimal instanceof String ? getLocalName(clsOptimal.toString()) : getLocal((Set<String>)clsOptimal)):null));
+        System.out.printf("Object* = <%s>\tClass* = <%s>\n", getLocal(objOptimal), getLocal(clsOptimal));
         if(hasDataCands)
            dataOptimal = selectDataOptimal(dataMap, compatibleDomain, tableOptimal, (String) objOptimal, clsOptimal);
 
-       System.out.printf("Selected optimal | %s -> %s -> %s |\n", (objOptimal!=null ? getLocalName(objOptimal.toString()):null), (clsOptimal!=null ? (clsOptimal instanceof String ? getLocalName(clsOptimal.toString()) : getLocal((Set<String>)clsOptimal)):null), (dataOptimal!=null?getLocalName(dataOptimal.toString()):null));
+       System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(objOptimal), getLocal(dataOptimal));
 
        return new Object[]{objOptimal, clsOptimal, dataOptimal};
     }
@@ -252,19 +261,6 @@ public class MappingSelection {
     }
 
 
-
-    private Object selectOptimal(Table elMap, Set<String> filter, boolean allowUnion) {
-        Table tops = filter==null ? elMap.copy() : elMap.where(elMap.stringColumn(TGTCand).isIn(filter));
-        tops = tops.where(tops.intColumn(PJRank).isLessThanOrEqualTo(tops.intColumn(PJRank).min()));
-        if(tops.rowCount() > 1 && ! allowUnion)
-            tops = tops.where(tops.doubleColumn(BES).isEqualTo(tops.doubleColumn(BES).max()));
-        return tops.rowCount()==1 ?
-               tops.getString(0, TGTCand) :
-               tops.stringColumn(TGTCand).asSet();
-    }
-
-
-
 //======================================================================================================================
     private Table filterObjMap(String tableClass, Table objMap) {
 
@@ -274,7 +270,7 @@ public class MappingSelection {
             ++rowID;
             OntResource domain = tgtOnto.getInferedDomRan(objCand, true);
             if((tableClass == null && domain != null) ||
-                !areCompatible(domain, tableClass, true, false)) {                      //System.out.println("Are not compatible " + (tableClass!=null?getLocalName(tableClass):null) + " " + getLocalName(objCand));
+                !areCompatible(domain, tableClass, true, false)) {                      //System.out.println("Are not compatible " + getLocal(tableClass) + " " + getLocal(objCand));
                     toRmv.add(rowID);   }
         }                                                                                                               //System.out.println("DROP " + toRmv);
         return toRmv.size()>0 ? objMap.dropRows(Ints.toArray(toRmv)) : objMap;
@@ -300,7 +296,7 @@ public class MappingSelection {
                         ((decimalDatatypes.contains(DOrange) || intDatatypes.contains(DOrange)) && intDatatypes.contains(POrange)) ||
                         (decimalDatatypes.contains(DOrange) && decimalDatatypes.contains(POrange)) ||
                         (dateDatatypes.contains(DOrange) && dateDatatypes.contains(POrange));
-            }                                                                                                                                   //System.out.printf("%s (%s) - %s (%s) ? %s\n",getLocalName(dataProp), getLocalName(POrange), getLocalName(dataCand), (DOrange!=null?getLocalName(DOrange):"-"), areCompatible);
+            }                                                                                                                                   //System.out.printf("%s (%s) - %s (%s) ? %s\n",getLocal(dataProp), getLocal(POrange), getLocal(dataCand), getLocal(DOrange), areCompatible);
             if(!areCompatible)
                 toRmv.add(rowID);
       }
@@ -392,7 +388,7 @@ public class MappingSelection {
         if(hasCands(dataMap))
             dataOptimal = selectDataOptimal(mapPaths, dataMap, objOptimal, clsOptimal);
 
-        if(logNary){System.out.printf("Selected optimal | %s -> %s -> %s |\n", (objOptimal!=null?getLocalName(objOptimal):null), (clsOptimal!=null?getLocalName(clsOptimal):null), (dataOptimal!=null?getLocalName(dataOptimal):null));}
+        if(logNary){System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));}
 
         return new String[]{objOptimal, clsOptimal, dataOptimal};
     }
@@ -631,6 +627,15 @@ public class MappingSelection {
             s.append(getLocalName(el)).append(", ");
         s.append("]");
         return s.toString();
+    }
+    private String getLocal(Object x) {
+        if(x == null)
+            return null;
+        try {
+            return getLocalName(x.toString());
+        }catch (Exception e){
+            return getLocal((Collection<String>) x);
+        }
     }
 
     public static void main(String[] args) {
