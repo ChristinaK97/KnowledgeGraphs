@@ -328,8 +328,7 @@ public class MappingSelection {
         Table topPairs = mapPaths.where(mapPaths.intColumn(SumPJRank).isLessThanOrEqualTo(mapPaths.intColumn(SumPJRank)));
         objTop.addAll(topPairs.stringColumn(OBJ_MAP).asList());
         clsTop.addAll(topPairs.stringColumn(CLASS_MAP).asList());
-        objTop.remove("");
-        clsTop.remove("");                                                                                           if(logNary){System.out.println("Top objs = " + getLocal(objTop)); System.out.println("Top class = " + getLocal(clsTop));}
+        objTop.remove("");                                                                                   if(logNary){System.out.println("Top objs = " + getLocal(objTop)); System.out.println("Top class = " + getLocal(clsTop));}
         int nObjTop = objTop.size();
         int nClsTop = clsTop.size();
 
