@@ -170,14 +170,14 @@ public class MappingSelection {
         // search for n-ary path pattern
         Table mapPaths = findNaryPatterns(objMap, classMap, dataMap);
         if(mapPaths.rowCount()>0)
-            return selectFromNaryPaths(tableOptimal, mapPaths, objMap, classMap, dataMap);
+            return selectFromNaryPaths(mapPaths, objMap, classMap, dataMap);
         /*---------------------------------------------------*/
 
         return null;
     }
 
 
-    private String[] selectFromNaryPaths(String tableMap, Table mapPaths, Table objMap, Table classMap, Table dataMap) {
+    private String[] selectFromNaryPaths(Table mapPaths, Table objMap, Table classMap, Table dataMap) {
         String objOptimal = null, classOptimal = null, dataOptimal = null;
         Set<String> objTop   = findTops(mapPaths.stringColumn(OBJ_MAP), objMap, objMap != null);                               System.out.println("Top objs = " + getLocal(objTop));
         Set<String> classTop = findTops(mapPaths.stringColumn(CLASS_MAP), classMap, classMap != null);                         System.out.println("Top class = " + getLocal(classTop));
@@ -187,7 +187,7 @@ public class MappingSelection {
         Table optimalPaths;
         Set<String> dataCands = null;
         if(nObjTop > 1 && nClassTop > 1) {                                                                                  System.out.println("Reject candidates " + getLocal(objTop) + " " + getLocal(classTop));
-            //dataCands = classUsesDataProps(tableMap, dataMap, true);
+            //dataCands = classUsesDataProps(tableOptimal, dataMap, true);
             return new String[]{null, null, null};
         }
         else if (nObjTop == 1 && nClassTop == 1) {
