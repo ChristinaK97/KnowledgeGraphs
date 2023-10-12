@@ -182,6 +182,9 @@ public class MappingSelection {
     }
 
 
+//======================================================================================================================
+//======================================================================================================================
+
     private Object[] selectFromIncompatiblePaths(String tableOptimal, Table objMap, Table clsMap, Table dataMap) {
         Object objOptimal = null, clsOptimal = null, dataOptimal = null;
         boolean hasObjCands   = hasCands(objMap);
@@ -264,17 +267,15 @@ public class MappingSelection {
 
 //======================================================================================================================
     private Table filterObjMap(String tableClass, Table objMap) {
-        if(tableClass == null) // TODO think of a rule for this case
-            return objMap;
 
         ArrayList<Integer> toRmv = new ArrayList<>();
         int rowID = -1;
         for(String objCand : objMap.stringColumn(TGTCand)) {
             ++rowID;
             OntResource domain = tgtOnto.getInferedDomRan(objCand, true);
-            if(!areCompatible(domain, tableClass, true, false)) {                                                                    //System.out.println("Are not compatible " + getLocalName(tableClass) + " " + getLocalName(objCand));
-                toRmv.add(rowID);
-            }
+            if((tableClass == null && domain != null) ||
+                !areCompatible(domain, tableClass, true, false)) {                      //System.out.println("Are not compatible " + (tableClass!=null?getLocalName(tableClass):null) + " " + getLocalName(objCand));
+                    toRmv.add(rowID);   }
         }                                                                                                               //System.out.println("DROP " + toRmv);
         return toRmv.size()>0 ? objMap.dropRows(Ints.toArray(toRmv)) : objMap;
     }
