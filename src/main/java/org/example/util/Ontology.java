@@ -195,6 +195,16 @@ public class Ontology {
             return ontResource.asProperty().listSuperProperties().toList();
     }
 
+
+    public boolean areDisjoint(String resource1, String resource2) {
+        OntResource r1 = getOntResource(resource1);
+        OntResource r2 = getOntResource(resource2);
+        boolean areDisjoint = getOntResource(resource1).isDifferentFrom(getOntResource(resource2));
+        if(!areDisjoint && r1.canAs(OntClass.class))
+            areDisjoint = r1.asClass().isDisjointWith(r2);
+        return areDisjoint;
+    }
+
     // =================================================================================================================
 
     public Resource getClassCopy(Resource cl) {
