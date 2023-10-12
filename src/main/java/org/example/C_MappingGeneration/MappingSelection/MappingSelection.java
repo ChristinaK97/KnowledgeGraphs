@@ -61,8 +61,8 @@ public class MappingSelection {
 
         readMappingsJSON(bertmapMappingsFile);
         tablesList = readMapJSON();
-        selectTableMaps();
-        selectTableColumnMaps();
+        selectTableOptimal();
+        selectTableColumnOptimal();
     }
 //======================================================================================================================
 //======================================================================================================================
@@ -110,11 +110,11 @@ public class MappingSelection {
 
 //======================================================================================================================
 //======================================================================================================================
-    private void selectTableMaps() {
+    private void selectTableOptimal() {
         for(MappingsFileTemplate.Table table : tablesList) {
             String tablePOClass = table.getMapping().getOntoElURI().toString();
             Table tMap = rawMaps.get(tablePOClass);
-            String tableMapping = null;
+            String tableOptimal = null;
             try {
                 // BES >= BES_HIGH_THRS or (BES >= BES_LOW_THRS and PJ >= PJ_HIGH_THRS
                 tMap = tMap
@@ -124,48 +124,124 @@ public class MappingSelection {
                 );
                 tMap = tMap.where(tMap.numberColumn(PJRank).isEqualTo(tMap.numberColumn(PJRank).min()));
                 tMap = tMap.where(tMap.numberColumn(PJPerc).isEqualTo(tMap.numberColumn(PJPerc).max()));
-                tableMapping = tMap.getString(0, TGTCand);
+                tableOptimal = tMap.getString(0, TGTCand);
             }catch (IndexOutOfBoundsException ignored) {}
-            tableClassMaps.put(tablePOClass, tableMapping);                                                             // System.out.printf(">> %s:\n%s\n%s\n\n", tablePOClass, tMap, tableMapping);
+            tableClassMaps.put(tablePOClass, tableOptimal);                                                             // System.out.printf(">> %s:\n%s\n%s\n\n", tablePOClass, tMap, tableOptimal);
         }
     }
 
 //======================================================================================================================
 //======================================================================================================================
-    private void selectTableColumnMaps() {
+    private void selectTableColumnOptimal() {
         for(MappingsFileTemplate.Table table : tablesList) {
             String tableMap = tableClassMaps.get(table.getMapping().getOntoElURI().toString());
             for(MappingsFileTemplate.Column col : table.getColumns()) {                                                 System.out.printf(">> For table = <%s> with selected table map = <%s> : Select map for col <%s>\n", table.getTable(), (tableMap!=null?getLocalName(tableMap):null), col.getColumn());
                 String objProp   = col.getObjectPropMapping().getOntoElURI().toString();
                 String colClass  = col.getClassPropMapping().getOntoElURI().toString();
                 String dataProp  = col.getDataPropMapping().getOntoElURI().toString();
-                selectTableColumnMaps(tableMap, objProp, colClass, dataProp);
+                selectTableColumnOptimal(tableMap, objProp, colClass, dataProp);
 
                                                                                                                         System.out.println("\n=============================================================================================================================\n\n");
             }
         }
     }
 
-    private void selectTableColumnMaps(String tableMap, String objProp, String colClass, String dataProp) {
+    private String[] selectTableColumnOptimal(String tableOptimal, String objProp, String colClass, String dataProp) {
+        // retrieve column candidates
         Table objMap   = rawMaps.get(objProp);
         Table classMap = rawMaps.get(colClass);
         Table dataMap  = rawMaps.get(dataProp);
 
-        if(objMap != null) {
-            objMap  = filterObjMap(tableMap, objMap);
+        boolean hasObjCands   = objMap   != null;
+        boolean hasClassCands = classMap != null;
+        boolean hasDataCands  = dataMap  != null;
+        /*---------------------------------------------------*/
+        // filter candidates
+        if(hasObjCands) {
+            objMap  = filterObjMap(tableOptimal, objMap);
             if(objMap.rowCount()>1)
                 objMap = considerHierarchies(objMap);
         }
-        if(classMap != null && classMap.rowCount()>1)
+        if(hasClassCands && classMap.rowCount()>1)
             classMap = considerHierarchies(classMap);
-        if(dataMap != null)
+        if(hasDataCands)
             dataMap = filterDataMap(dataProp, dataMap);
-
-        System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
+        /*---------------------------------------------------*/                                                         System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
+        // search for n-ary path pattern
         Table mapPaths = findNaryPatterns(objMap, classMap, dataMap);
+        if(mapPaths.rowCount()>0)
+            return selectFromNaryPaths(tableOptimal, mapPaths, objMap, classMap, dataMap);
+        /*---------------------------------------------------*/
+
+        return null;
     }
 
-    //private void selectTableColumnMaps(String tableMap, )
+
+    private String[] selectFromNaryPaths(String tableMap, Table mapPaths, Table objMap, Table classMap, Table dataMap) {
+        String objOptimal = null, classOptimal = null, dataOptimal = null;
+        Set<String> objTop   = findTops(mapPaths.stringColumn(OBJ_MAP), objMap, objMap != null);                               System.out.println("Top objs = " + getLocal(objTop));
+        Set<String> classTop = findTops(mapPaths.stringColumn(CLASS_MAP), classMap, classMap != null);                         System.out.println("Top class = " + getLocal(classTop));
+        int nObjTop = objTop.size();
+        int nClassTop = classTop.size();
+
+        Table optimalPaths;
+        Set<String> dataCands = null;
+        if(nObjTop > 1 && nClassTop > 1) {                                                                                  System.out.println("Reject candidates " + getLocal(objTop) + " " + getLocal(classTop));
+            //dataCands = classUsesDataProps(tableMap, dataMap, true);
+            return new String[]{null, null, null};
+        }
+        else if (nObjTop == 1 && nClassTop == 1) {
+            objOptimal = objTop.iterator().next();
+            classOptimal = classTop.iterator().next();
+            dataCands = mapPaths.where(mapPaths.stringColumn(OBJ_MAP).isEqualTo(objOptimal)
+                                  .and(mapPaths.stringColumn(CLASS_MAP).isEqualTo(classOptimal))
+            ).stringColumn(DATA_MAP).asSet();
+        }
+        else if(nObjTop == 1) {
+            objOptimal = objTop.iterator().next();
+            optimalPaths = mapPaths.where(mapPaths.stringColumn(OBJ_MAP).isEqualTo(objOptimal));
+            if(nClassTop > 0){
+                classOptimal = selectOptimal(classMap, optimalPaths.stringColumn(CLASS_MAP).asSet());
+                dataCands = optimalPaths.where(optimalPaths.stringColumn(CLASS_MAP).isEqualTo(classOptimal)).stringColumn(DATA_MAP).asSet();
+            }else{
+                String compatibleDomain = tgtOnto.getInferedDomRan(objOptimal, false).getURI();
+                dataCands = classUsesDataProps(compatibleDomain, dataMap, true);
+            }
+        }else if(nClassTop == 1) {
+            classOptimal = classTop.iterator().next();
+            optimalPaths = mapPaths.where(mapPaths.stringColumn(CLASS_MAP).isEqualTo(classOptimal));
+            if(nObjTop > 0) {
+                objOptimal = selectOptimal(objMap,optimalPaths.stringColumn(OBJ_MAP).asSet());
+                optimalPaths = optimalPaths.where(optimalPaths.stringColumn(OBJ_MAP).isEqualTo(objOptimal));
+            }
+            dataCands = optimalPaths.stringColumn(DATA_MAP).asSet();
+        }
+        assert dataCands != null ;
+        dataCands.remove("");
+        if(dataCands.size() > 0)
+            dataOptimal = selectOptimal(dataMap, dataCands);
+
+        System.out.printf("Selected optimal %s -> %s -> %s", (objOptimal!=null?getLocalName(objOptimal):null), (classOptimal!=null?getLocalName(classOptimal):null), (dataOptimal!=null?getLocalName(dataOptimal):null));
+
+        return new String[]{objOptimal, classOptimal, dataOptimal};
+    }
+
+
+    private String selectOptimal(Table elMap, Set<String> elCands) {
+        return elMap.where(elMap.stringColumn(TGTCand).isIn(elCands)).getString(0, TGTCand);
+    }
+
+
+
+
+    private Set<String> findTops(StringColumn mapPathEl, Table elMap, boolean hasElCands) {
+        if(!hasElCands)
+            return new HashSet<>();
+        Table tops = elMap.where(elMap.stringColumn(TGTCand).isIn(mapPathEl));
+        tops = tops.where(tops.intColumn(PJRank).isLessThanOrEqualTo(tops.intColumn(PJRank).min()));
+        return tops.stringColumn(TGTCand).asSet();
+    }
+
 
 //======================================================================================================================
     private Table filterObjMap(String tableClass, Table objMap) {
@@ -221,7 +297,7 @@ public class MappingSelection {
         HashMap<String, HashSet<String>> classCompatibleDataCands = new HashMap<>();
         if(classMap != null && dataMap != null)
             for(String classCand : classMap.stringColumn(TGTCand))
-                classCompatibleDataCands.put(classCand, classUsesDataProps(classCand, dataMap));
+                classCompatibleDataCands.put(classCand, classUsesDataProps(classCand, dataMap, false));
 
         if(objMap != null && classMap != null) {                                                                                              System.out.println("Discover n-ary paths...");
             for(String objCand : objMap.stringColumn(TGTCand)) {
@@ -406,13 +482,13 @@ public class MappingSelection {
                tgtOnto.getAncestors(resource2, isSelfSuperResource).containsKey(resource1);
     }
 
-    private HashSet<String> classUsesDataProps(String classURI, Table dataMap) {
+    private HashSet<String> classUsesDataProps(String classURI, Table dataMap, boolean missingDomainIsCompatible) {
         HashSet<String> compatibleCands = new HashSet<>();
         Set<String> otherCands;
 
         for(String dataCand : dataMap.stringColumn(TGTCand)) {
             OntResource domain = tgtOnto.getInferedDomRan(dataCand, true);
-            if(areCompatible(domain, classURI, false))
+            if(areCompatible(domain, classURI, missingDomainIsCompatible))
                 compatibleCands.add(dataCand);
         }
         otherCands = dataMap.where(dataMap.stringColumn(TGTCand).isNotIn(compatibleCands)).stringColumn(TGTCand).asSet();                       //System.out.printf("%s  class\n\tCompatible dataCands = %s.\n\tOther cands = %s\n", getLocalName(classURI), getLocal(compatibleCands), getLocal(otherCands));
