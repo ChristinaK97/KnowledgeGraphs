@@ -43,6 +43,7 @@ public class MappingSelection {
     final double PJ_HIGH_THRS  = 50;
     final double PJ_LOW_THRS = 20;
     final int DEPTH_THRS = 3;
+    boolean rejectPropertyMaps = false;
 
     boolean logHierarchy=false;
     boolean logNary=true;
@@ -156,10 +157,14 @@ public class MappingSelection {
         /*---------------------------------------------------*/
         // filter candidates
         if(hasCands(objMap)) {
-            objMap = rejectCandsWithLowPJ(objMap);
-            objMap = filterObjMap(tableOptimal, objMap);
-            if(objMap.rowCount()>1)
-                objMap = considerHierarchies(objMap);
+            if(rejectPropertyMaps)
+                objMap = null;
+            else{
+                objMap = rejectCandsWithLowPJ(objMap);
+                objMap = filterObjMap(tableOptimal, objMap);
+                if(objMap.rowCount()>1)
+                    objMap = considerHierarchies(objMap);
+            }
         }
         if(hasCands(classMap)) {
             classMap = rejectCandsWithLowPJ(classMap);
@@ -167,8 +172,12 @@ public class MappingSelection {
                 classMap = considerHierarchies(classMap);
         }
         if(hasCands(dataMap)){
-            dataMap = rejectCandsWithLowPJ(dataMap);
-            dataMap = filterDataMap(dataProp, dataMap);
+            if(rejectPropertyMaps) {
+                dataMap = null;
+            }else{
+                dataMap = rejectCandsWithLowPJ(dataMap);
+                dataMap = filterDataMap(dataProp, dataMap);
+            }
         }
         /*---------------------------------------------------*/                                                         System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
         // search for n-ary path pattern
