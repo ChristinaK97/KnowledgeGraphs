@@ -228,7 +228,6 @@ public class MappingSelection {
         else if (hasClassCands)
             clsOptimal = selectOptimal(clsMap, null, true);
 
-        System.out.printf("Object* = <%s>\tClass* = <%s>\n", getLocal(objOptimal), getLocal(clsOptimal));
         if(hasDataCands)
            dataOptimal = selectDataOptimal(dataMap, compatibleDomain, tableOptimal, (String) objOptimal, clsOptimal);
 
@@ -323,7 +322,7 @@ public class MappingSelection {
                 classCompatibleDataCands.put(classCand, compatibleDataCands);
             });
 
-        if(hasObjCands && hasClassCands) {                                                                                              if(logNary)System.out.println("Discover n-ary paths...");
+        if(hasObjCands && hasClassCands) {                                                                                                              if(logNary)System.out.println("Discover n-ary paths...");
             for(String objCand : objMap.stringColumn(TGTCand)) {
                 OntResource range = tgtOnto.getInferedDomRan(objCand, false);
                 for(String classCand : clsMap.stringColumn(TGTCand)) {
@@ -362,15 +361,15 @@ public class MappingSelection {
 
             mapPath.setInt(SumPJRank, pairSumPJRank);
         }
-        if(logNary){for(Row mapPath : mapPaths) {String o = mapPath.getString(OBJ_MAP);String c = mapPath.getString(CLASS_MAP);String d = mapPath.getString(DATA_MAP);System.out.printf("\t%s  ->  %s  ->  %s\t\t%d\n", ("".equals(o)?"\t":getLocalName(o)),getLocalName(c),("".equals(d)?"\t":getLocalName(d)), mapPath.getInt(SumPJRank));}}
+                                                                                                                                                                     if(logNary){for(Row mapPath : mapPaths) {String o = mapPath.getString(OBJ_MAP);String c = mapPath.getString(CLASS_MAP);String d = mapPath.getString(DATA_MAP);System.out.printf("\t%s  ->  %s  ->  %s\t\t%d\n", ("".equals(o)?"\t":getLocalName(o)),getLocalName(c),("".equals(d)?"\t":getLocalName(d)), mapPath.getInt(SumPJRank));}}
         Table topPairs = mapPaths.where(mapPaths.intColumn(SumPJRank).isLessThanOrEqualTo(mapPaths.intColumn(SumPJRank).min()));
         objTop.addAll(topPairs.stringColumn(OBJ_MAP).asList());
         clsTop.addAll(topPairs.stringColumn(CLASS_MAP).asList());
-        objTop.remove("");                                                                                                               if(logNary){System.out.println("Top objs = " + getLocal(objTop)); System.out.println("Top class = " + getLocal(clsTop));}
+        objTop.remove("");                                                                                                                                         if(logNary){System.out.println("Top objs = " + getLocal(objTop)); System.out.println("Top class = " + getLocal(clsTop));}
         int nObjTop = objTop.size();
         int nClsTop = clsTop.size();
 
-        if(nObjTop > 1 && nClsTop > 1) {                                                                                                    if(logNary)System.out.println("Reject candidates " + getLocal(objTop) + " " + getLocal(clsTop));
+        if(nObjTop > 1 && nClsTop > 1) {                                                                                                                             if(logNary)System.out.println("Reject candidates " + getLocal(objTop) + " " + getLocal(clsTop));
             return new String[]{null, null, null}; }
 
         objOptimal = (nObjTop == 1) ? objTop.iterator().next() : null;
@@ -387,9 +386,7 @@ public class MappingSelection {
 
         if(hasCands(dataMap))
             dataOptimal = selectDataOptimal(mapPaths, dataMap, objOptimal, clsOptimal);
-
-        if(logNary){System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));}
-
+                                                                                                                                                                        if(logNary){System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));}
         return new String[]{objOptimal, clsOptimal, dataOptimal};
     }
 
