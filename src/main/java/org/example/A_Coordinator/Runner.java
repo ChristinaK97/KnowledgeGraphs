@@ -54,9 +54,6 @@ public class Runner {
     }
 
     private Object getExportedDbSource(List<String> filesInFolder) {
-        if(filesInFolder.size() > 1)
-            //TODO support multiple files
-            System.err.println("Multiple file upload is not supported. Only the first file" + filesInFolder.get(0) + " will be uploaded.");
         return new TableFilesReader(filesInFolder).getAsDBSchema();
     }
 
