@@ -39,21 +39,7 @@ public class Ontology {
 
     private boolean newElementsAdded = false;
 
-
-    // =================================================================================================================
-    // extra po elements
-    // =================================================================================================================
-    public static final String TABLE_CLASS = "TableClass";
-    public static URI get_TABLE_CLASS_URI(String ontologyName) {
-        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/TableClass");
-    }
-    public static URI get_ATTRIBUTE_PROPERTY_URI(String ontologyName) {
-        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/AttributeProperty");
-    }
-    public static URI get_PURE_PROPERTY_URI(String ontologyName) {
-        return URI.create("http://www.example.net/ontologies/" + ontologyName + ".owl/PureProperty");
-    }
-    // =================================================================================================================
+// =================================================================================================================
 
 
     public Ontology(String ontologyFile) {

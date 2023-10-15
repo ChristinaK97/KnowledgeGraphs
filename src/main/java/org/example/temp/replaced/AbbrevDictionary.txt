@@ -1,7 +1,7 @@
 package org.example.medical;
 
 import org.apache.commons.collections4.trie.PatriciaTrie;
-import org.example.A_InputPoint.TableFilesReader;
+import org.example.B_InputDatasetProcessing.TableFilesReader;
 import tech.tablesaw.api.Table;
 
 import java.util.ArrayList;

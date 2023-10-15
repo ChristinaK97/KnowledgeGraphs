@@ -2,12 +2,12 @@ package org.example.MappingsFiles;
 
 import com.google.gson.Gson;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
-import org.example.A_InputPoint.JsonUtil;
+import org.example.B_InputDatasetProcessing.JsonUtil;
 
 import java.io.FileReader;
 import java.util.List;
 
-import static org.example.A_InputPoint.InputDataSource.PO2DO_Mappings;
+import static org.example.A_Coordinator.Runner.config;
 
 public class ManageMappingsFile {
 
@@ -19,7 +19,7 @@ public class ManageMappingsFile {
 
     public static List<Table> readMapJSON() {
         Gson gson = new Gson();
-        try (FileReader reader = new FileReader(PO2DO_Mappings)) {
+        try (FileReader reader = new FileReader(config.Out.PO2DO_Mappings)) {
             // Convert JSON file to Java object
             return gson.fromJson(reader, MappingsFileTemplate.class).getTables();
         } catch (Exception ex) {
@@ -35,7 +35,7 @@ public class ManageMappingsFile {
     }
 
     public void saveMappingsFile() {
-        JsonUtil.saveToJSONFile(PO2DO_Mappings, fileTemplate);
+        JsonUtil.saveToJSONFile(config.Out.PO2DO_Mappings, fileTemplate);
     }
 
 

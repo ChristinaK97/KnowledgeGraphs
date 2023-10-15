@@ -1,9 +1,11 @@
 package org.example.util;
+import static org.example.A_Coordinator.Runner.config;
 
-import org.example.A_InputPoint.InputDataSource;
+import org.apache.jena.vocabulary.SKOS;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -13,9 +15,27 @@ public class Annotations {
 
 
     public static final IRI rdfsLabelIRI = OWLRDFVocabulary.RDFS_LABEL.getIRI();
-    public static final IRI skosIRI = IRI.create("http://www.w3.org/2004/02/skos/core#");
-    public static final IRI skosAltLabel = IRI.create(skosIRI + "altLabel");
-    public static final IRI skosPrefLabel = IRI.create(skosIRI + "prefLabel");
+    public static final IRI skosIRI = IRI.create(SKOS.getURI());
+    public static final IRI skosAltLabel = IRI.create(SKOS.altLabel.getURI());
+    public static final IRI skosPrefLabel = IRI.create(SKOS.prefLabel.getURI());
+    // =================================================================================================================
+    // base po elements
+    // =================================================================================================================
+    public static final String BASE_ELEMENT = "Base Element";
+    public static final String TABLE_PREFIX = "Table";
+    public static final String PURE_PREFIX = "Pure";
+    public static final String ATTRIBUTE_PREFIX = "Attribute";
+    public static final String CLASS_SUFFIX = "Class";
+    public static final String TABLE_CLASS = TABLE_PREFIX + CLASS_SUFFIX;
+    public static URI TABLE_CLASS_URI = URI.create(config.Out.POntologyBaseNS + TABLE_CLASS);
+    public static final String ATTRIBUTE_CLASS = ATTRIBUTE_PREFIX + CLASS_SUFFIX;
+    public static final String PROPERTY_SUFFIX = "Property";
+    public static final String ATTRIBUTE_PROPERTY = ATTRIBUTE_PREFIX + PROPERTY_SUFFIX;
+    public static final String PURE_OBJ_PROPERTY = PURE_PREFIX + PROPERTY_SUFFIX;
+    public static URI PURE_PROPERTY_URI = URI.create(config.Out.POntologyBaseNS + PURE_OBJ_PROPERTY);
+    public static final String VALUE_DATA_PROPERTY = "hasValueProperty";
+    public static final String VALUE_DATA_PROPERTY_LABEL = "has value";
+    //==================================================================================================================
 
 
     public static String duplicateAttrClassName(String field) {
@@ -114,10 +134,10 @@ public class Annotations {
                  * elementName           tag name                           tokenized header            -> skos:prefLabel
                  * additional annots        -                           abbreviation expansions         -> skos:altLabel
                  */
-                String elementCodeLabel = normalise(rawLabel, InputDataSource.isDSON());
+                String elementCodeLabel = normalise(rawLabel, config.In.isDSON());
                 labelSet.add(new Pair<>(rdfsLabelIRI, elementCodeLabel));
 
-                String elementCode = InputDataSource.isDSON() ? elementCodeLabel : rawLabel;
+                String elementCode = config.In.isDSON() ? elementCodeLabel : rawLabel;
                 String elementName = datasetDictionary.getElementName(elementCode);
                 if(elementName != null)
                     labelSet.add(new Pair<>(skosPrefLabel, elementName));

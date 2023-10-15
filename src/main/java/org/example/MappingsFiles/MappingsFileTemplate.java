@@ -213,6 +213,13 @@ public class MappingsFileTemplate {
         public boolean hasPath() {
             return path != null;
         }
+
+        public URI getFirstNodeFromPath() {
+            return path.get(0);
+        }
+        public URI getLastNodeFromPath() {
+            return path.get(path.size() - 1);
+        }
     }
     //================================================================================
 

@@ -1,22 +1,24 @@
 package org.example.MappingsFiles;
 
-import org.example.A_InputPoint.SQLdb.DBSchema;
+import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
 import org.example.util.Annotations;
-import org.example.B_POextractor.Properties;
-import org.example.B_POextractor.RulesetApplication;
+import org.example.C_POextractor.Properties;
+import org.example.C_POextractor.RulesetApplication;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static org.example.A_Coordinator.Runner.config;
+import static org.example.util.Annotations.CLASS_SUFFIX;
+import static org.example.util.Annotations.TABLE_PREFIX;
+
 public class CreateMappingsFile extends ManageMappingsFile {
 
     private HashMap<String, ArrayList<Transformation>> trf = new HashMap<>();
-    private String msBasePrefix;
     private boolean isRDB;
 
-    public void extractMappingsFile(Object dataSource, String msBasePrefix, RulesetApplication rs) {
-        this.msBasePrefix = msBasePrefix;
+    public void extractMappingsFile(Object dataSource,  RulesetApplication rs) {
         this.isRDB = dataSource instanceof DBSchema;
         gatherTrfs(rs);
 
@@ -24,7 +26,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
             createJSON((DBSchema) dataSource);
         else {
             addProperties(rs.getPureObjProperties().getProperties(), "ObjectProperty");
-            createJSON(rs.getRootElementName(), rs.getClasses().get("Table"));
+            createJSON(config.Out.RootClassName, rs.getClasses().get(TABLE_PREFIX));
         }
         saveMappingsFile();
     }
@@ -46,7 +48,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
     private void gatherTrfs(RulesetApplication rs) {
         rs.getClasses().forEach((_type, classes) -> {
             classes.forEach((elName, elClass) -> {
-                addTrf(elName, elClass, "Class");
+                addTrf(elName, elClass, CLASS_SUFFIX);
             });});
         try{
             addProperties(rs.getAttrObjProp().getProperties(), "ObjectProperty");
@@ -68,7 +70,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
     private void addTrf(String elementName, String ontoElement, String type) {
 
-        ontoElement = msBasePrefix + Annotations.rmvInvalidIriChars(ontoElement);
+        ontoElement = config.Out.POntologyBaseNS + Annotations.rmvInvalidIriChars(ontoElement);
         if (trf.containsKey(elementName))
             trf.get(elementName).add(new Transformation(ontoElement, type));
         else

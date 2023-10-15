@@ -146,7 +146,7 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
       <version>5.30.0</version>
     </dependency>
 
-    <!-- dcm4che-imageio library -->
+    <!-- dcm4che-image io library -->
     <dependency>
       <groupId>org.dcm4che</groupId>
       <artifactId>dcm4che-imageio</artifactId>
@@ -169,13 +169,6 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
     </dependency>
 
 
-    <!-- using python -->
-    <dependency>
-      <groupId>org.python</groupId>
-      <artifactId>jython</artifactId>
-      <version>2.7.3</version>
-    </dependency>
-
     <!-- data structures -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -184,9 +177,9 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
     </dependency>
 
 
-
-
   </dependencies>
+
+
     <build>
         <plugins>
             <plugin>

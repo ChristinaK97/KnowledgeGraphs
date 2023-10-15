@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Column;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Mapping;
 import org.example.temp.BertMapCheckMappings.BertMapMapping.Table;
-import org.example.A_InputPoint.JsonUtil;
+import org.example.B_InputDatasetProcessing.JsonUtil;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
