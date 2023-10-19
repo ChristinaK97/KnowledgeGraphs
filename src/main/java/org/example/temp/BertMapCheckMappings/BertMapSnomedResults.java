@@ -1,6 +1,6 @@
 package org.example.temp.BertMapCheckMappings;
 
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 import org.example.util.Ontology;
 
 import java.util.ArrayList;
