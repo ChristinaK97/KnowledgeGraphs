@@ -1,8 +1,8 @@
 package org.example.C_POextractor.RDB2OWL;
 
 import static org.example.A_Coordinator.Runner.config;
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
-import org.example.B_InputDatasetProcessing.SQLdb.RTable;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.B_InputDatasetProcessing.Tabular.RTable;
 import org.example.C_POextractor.Properties;
 import org.example.util.XSDmappers;
 
@@ -21,7 +21,7 @@ public class DataPropExtractor {
 
 
 
-    public DataPropExtractor(DBSchema db, HashMap<String, String> tableClasses) {
+    public DataPropExtractor(RelationalDB db, HashMap<String, String> tableClasses) {
         this.tableClasses = tableClasses;
 
         db.getrTables().forEach((tableName, table) -> {

@@ -1,4 +1,4 @@
-package org.example.A_Coordinator.Inputs;
+package org.example.B_InputDatasetProcessing.Tabular;
 import static org.example.A_Coordinator.Runner.config;
 
 import com.github.jsonldjava.shaded.com.google.common.collect.ImmutableMap;
@@ -10,17 +10,17 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-public class DatabaseConnector {
+public class SQLConnector implements BaseTabularConnector {
 
     private String schema;
     private Connection connection;
     private DatabaseMetaData metadata;
     private static HashMap<Integer, ColumnType> type = initializeMap();
 
-    public DatabaseConnector() {
+    public SQLConnector() {
         if(config != null)
             connect();
-        else
+        else // for testing
             tstConnect();
     }
 

@@ -1,14 +1,14 @@
 package org.example.A_Coordinator.config;
 
 import com.google.gson.JsonObject;
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 
 import java.nio.file.Paths;
 
 public class Config {
 
     public static String FINTECH = "Fintech";
-    public static String HEATH = "Heath";
+    public static String HEATH = "Health";
     public static String CTI = "CTI";
     public static String resourcePath = "src/main/resources/";
     public InputPointConfig In;
@@ -19,14 +19,18 @@ public class Config {
         setConfigParams(UseCase, FileExtension);
     }
 
-    private void setConfigParams(String UseCase, String FileExtension) {
-        String configFilePath = String.format("%sConfigFiles/%s_%s_Config.json", resourcePath,UseCase,FileExtension);
-        JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
 
+    private void setConfigParams(String UseCase, String FileExtension) {
+
+        String configFilePath = String.format("%sConfigFiles/%s_%s_Config.json", resourcePath, UseCase, FileExtension);
+        JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
+        String DefaultRootClassName = "Record";
+
+        // Inputs parameters -----------------------------------------------------------------------
+
+        In = new InputPointConfig();
         JsonObject inputDatasetParams = configFile.getAsJsonObject("InputDataset");
-        In = new InputPointConfig(UseCase,
-                inputDatasetParams.get("DatasetName").getAsString(),
-                FileExtension);
+
         if("SQL".equals(FileExtension)) {
             JsonObject sqlCredParams = inputDatasetParams.getAsJsonObject("SQL");
             In.setSQLCredentials(
@@ -34,15 +38,23 @@ public class Config {
                     sqlCredParams.get("User").getAsString(),
                     sqlCredParams.get("Password").getAsString());
         }else{
-            JsonObject datasetFolderParams = configFile.getAsJsonObject("FilesDataset");
+            JsonObject datasetFolderParams = inputDatasetParams.getAsJsonObject("FilesDataset");
+            try {
+                DefaultRootClassName = datasetFolderParams.get("DefaultRootClassName").getAsString();
+            }catch (UnsupportedOperationException ignore) {}
         }
+        In.setRequiredParams(UseCase, inputDatasetParams.get("DatasetName").getAsString(), FileExtension);
+
+
+        // KG outputs parameters -----------------------------------------------------------------------
         JsonObject kgOutsParams = configFile.getAsJsonObject("KnowledgeGraphsOutputs");
         Out = new KGOutputsConfig(In.DatasetName, In.DatasetResourcesPath,
                 kgOutsParams.get("applyMedicalAbbreviationExpansionStep").getAsBoolean(),
                 kgOutsParams.get("DOntology").getAsString(),
                 kgOutsParams.get("offlineDOntology").getAsBoolean(),
                 kgOutsParams.get("turnAttributesToClasses").getAsBoolean(),
-                kgOutsParams.get("includeInverseAxiom").getAsBoolean()
+                kgOutsParams.get("includeInverseAxiom").getAsBoolean(),
+                DefaultRootClassName
         );
     }
 
@@ -58,6 +70,7 @@ public class Config {
             this.Password = Password;
         }
     }
+
     public static class InputPointConfig {
         // input data source
         public String UseCase;
@@ -71,7 +84,9 @@ public class Config {
         public String ProcessedDataDir;
         public String CachedDataDir;
 
-        public InputPointConfig(String UseCase, String DatasetName, String FileExtension) {
+        public InputPointConfig() {}
+
+        public void setRequiredParams(String UseCase, String DatasetName, String FileExtension) {                        // , String overrideDatasource
             this.UseCase = UseCase;
             this.DatasetName = DatasetName;
             this.FileExtension = FileExtension;
@@ -83,11 +98,11 @@ public class Config {
         }
 
 
-        private void setDirPaths() {
-            DatasetResourcesPath = String.format("%sUse Case/%s/%s/", resourcePath, UseCase, DatasetName);
-            DownloadedDataDir    = DatasetResourcesPath + "Downloaded Data/";
-            ProcessedDataDir     = DatasetResourcesPath + "Processed Data/";
-            CachedDataDir        = DatasetResourcesPath + "Cached Data/";
+        private void setDirPaths() {                                                                                    // String overrideDatasource
+            DatasetResourcesPath = String.format("%sUse_Case/%s/%s/", resourcePath, UseCase, DatasetName);
+            DownloadedDataDir    = DatasetResourcesPath + "Downloaded_Data/";                                            // overrideDatasource == null ? DatasetResourcesPath + "Downloaded_Data/" : overrideDatasource;
+            ProcessedDataDir     = DatasetResourcesPath + "Processed_Data/";
+            CachedDataDir        = DatasetResourcesPath + "Cached_Data/";
         }
 
         public boolean isJSON() {
@@ -136,18 +151,21 @@ public class Config {
 
         public KGOutputsConfig(String DatasetName, String DatasetResourcesPath,
                   boolean applyMedAbbrevExpansion, String DOntology, boolean offlineDOntology,
-                  boolean turnAttributesToClasses, boolean includeInverseAxioms)
-        {
+                  boolean turnAttributesToClasses, boolean includeInverseAxioms,
+                  String DefaultRootClassName
+        ){
             this.turnAttributesToClasses = turnAttributesToClasses;
             this.includeInverseAxioms = includeInverseAxioms;
 
             this.applyMedAbbrevExpansion = applyMedAbbrevExpansion;
             abbrevExpansionResultsFile = String.format("%sOther/abbrevExpansionResults.json", DatasetResourcesPath);
 
-            KGOutputsDir    = String.format("%sKG Outputs/", DatasetResourcesPath);
+            KGOutputsDir    = String.format("%sKG_Outputs/", DatasetResourcesPath);
             POntologyName   = DatasetName;
             POntology       = KGOutputsDir + "POntology.ttl";
             POntologyBaseNS = String.format("http://www.example.net/ontologies/%s.owl/", POntologyName);
+
+            this.DefaultRootClassName = DefaultRootClassName;
 
             String DOdir = Paths.get(DatasetResourcesPath).getParent().toString().replace("\\","/");
             this.DOntology = String.format("%sDOntology/%s", DOdir, DOntology);
@@ -163,6 +181,10 @@ public class Config {
     }
 
 
-
-
 }
+
+
+/* if(FileExtension == null) {
+       overrideDatasource = datasetFolderParams.get("DownloadedDataDir").getAsString();
+       FileExtension = datasetFolderParams.get("FileExtension").getAsString();
+}*/

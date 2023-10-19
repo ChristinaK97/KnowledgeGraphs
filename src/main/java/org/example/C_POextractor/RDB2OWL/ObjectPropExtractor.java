@@ -1,8 +1,8 @@
 package org.example.C_POextractor.RDB2OWL;
 
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
-import org.example.B_InputDatasetProcessing.SQLdb.RTable.FKpointer;
-import org.example.B_InputDatasetProcessing.SQLdb.RTable;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.B_InputDatasetProcessing.Tabular.RTable.FKpointer;
+import org.example.B_InputDatasetProcessing.Tabular.RTable;
 import org.example.util.Annotations;
 import org.example.C_POextractor.Properties;
 
@@ -15,7 +15,7 @@ public class ObjectPropExtractor {
     private String tableName;
     private RTable table;
 
-    public ObjectPropExtractor(DBSchema db, HashMap<String, String> tableClasses) {
+    public ObjectPropExtractor(RelationalDB db, HashMap<String, String> tableClasses) {
         this.tableClasses = tableClasses;
         db.getrTables().forEach((tableName, table) -> {
             this.tableName = tableName;
@@ -30,7 +30,7 @@ public class ObjectPropExtractor {
         System.out.println(pureObjProperties);
     }
 
-    private void objPropRule1(DBSchema db) {
+    private void objPropRule1(RelationalDB db) {
 
         table.getFKs().forEach((fkCol, fkp) -> {
             String thisClass = tClass(tableName);
@@ -113,7 +113,7 @@ public class ObjectPropExtractor {
                                                         selfRefClass, null);
     }
 
-    private void objPropRule8(DBSchema db) {
+    private void objPropRule8(RelationalDB db) {
         String thisClass = tClass(tableName);
         if (isClass(thisClass))
 

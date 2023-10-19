@@ -3,9 +3,10 @@ package org.example.temp;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
-import org.example.B_InputDatasetProcessing.SQLdb.RTable;
-import org.example.A_Coordinator.Inputs.DatabaseConnector;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.B_InputDatasetProcessing.Tabular.RTable;
+import org.example.B_InputDatasetProcessing.Tabular.SQLConnector;
+import org.example.util.XSDmappers;
 
 import java.io.*;
 import java.sql.PreparedStatement;
@@ -23,17 +24,17 @@ public class UploadSyntheticDataToDB {
     String folderPath = "src/main/resources/Use Case/Fintech/EPIBANK/Downloaded Data/simulated_data - sample";
     String ddl = "src/main/resources/Use Case/Fintech/EPIBANK/Other/EPIBANK_SQL_DDL_MySQL _without fks.sql";
 
-    DatabaseConnector connector;
+    SQLConnector connector;
     String schema;
     List<String> tableOrder;
     HashSet<String> missingTables = new HashSet<>();
     HashMap<String, HashSet<Integer>> toNext;
-    DBSchema db;
+    RelationalDB db;
 
     public UploadSyntheticDataToDB() {
-        connector =  new DatabaseConnector();
+        connector =  new SQLConnector();
         schema = connector.getSchemaName();
-        db = new DBSchema();
+        db = new RelationalDB();
 
         tableOrder = extractTableOrderFromFile(ddl);
         gatherMissingTables();
@@ -196,10 +197,10 @@ public class UploadSyntheticDataToDB {
                 else if(Pattern.compile("\\d{2}/\\d{2}/\\d{4}").matcher(columnValue).matches())
                     format = "dd/MM/yyyy";
                 else if(Pattern.compile("\\d{4}.\\d{1,2}").matcher(columnValue).matches()) {
-                    columnValue = fixDateFormat(columnValue, "yyyy.MM");
+                    columnValue = XSDmappers.fixDateFormat(columnValue, "yyyy.MM");
                     format = "yyyy-MM-dd";
                 }else if(Pattern.compile("\\d{4}").matcher(columnValue).matches()) {
-                    columnValue = fixDateFormat(columnValue, "YYYY");
+                    columnValue = XSDmappers.fixDateFormat(columnValue, "YYYY");
                     format = "yyyy-MM-dd";
                 }
                 SimpleDateFormat inputDateFormat = new SimpleDateFormat(format) ;
@@ -244,18 +245,6 @@ public class UploadSyntheticDataToDB {
             default:
                 // Handle unknown data types or provide a default SQL type
                 return Types.OTHER; // You can change this to a more appropriate default
-        }
-    }
-
-    private String fixDateFormat(String columnValue, String inputFormat) {
-        // System.out.println("\tFIX DATE FORMAT");
-        try {
-            SimpleDateFormat originalDateFormat = new SimpleDateFormat(inputFormat);
-            SimpleDateFormat targetDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date date = originalDateFormat.parse(columnValue);
-            return targetDateFormat.format(date);
-        } catch (ParseException e) {
-            return (columnValue + ".01").replaceAll("\\.", "-");
         }
     }
 

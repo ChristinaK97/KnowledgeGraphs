@@ -1,8 +1,8 @@
 package org.example.A_Coordinator;
 
 import org.example.A_Coordinator.config.Config;
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
-import org.example.B_InputDatasetProcessing.TableFilesReader;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
 import org.example.C_POextractor.POntologyExtractor;
 
 import java.io.IOException;
@@ -24,23 +24,24 @@ public class Runner {
     public void pipeline() {
         Object dataSource = getDataSource();
         new POntologyExtractor(dataSource);
+        if(dataSource instanceof RelationalDB)
+            ((RelationalDB) dataSource).closeConnection();
     }
 
     private Object getDataSource() {
         if(config.In.FileExtension.equals("SQL"))
-            return new DBSchema();
+            return new RelationalDB();
         else
             return getFileDataSource();
     }
 
     private Object getFileDataSource() {
-        // find files matched the file extension from folder inputDataSource
         try (Stream<Path> walk = Files.walk(Paths.get(config.In.DownloadedDataDir))) {
             List<String> filesInFolder = walk
-                    .filter(p -> !Files.isDirectory(p))                                 // not a directory
-                    .map(p -> p.toString())                                             // convert path to string
-                    .filter(f -> f.endsWith(config.In.FileExtension))                   // check end with
-                    .collect(Collectors.toList());                                      // collect all matched to a List
+                    .filter(p -> !Files.isDirectory(p))                                 // Not a directory
+                    .map(p -> p.toString())                                             // Convert path to string
+                    .filter(f -> f.endsWith(config.In.FileExtension))                   // Check end with
+                    .collect(Collectors.toList());
 
             if(config.In.isCSV() || config.In.isExcel()) {
                 return getExportedDbSource(filesInFolder);
@@ -54,7 +55,7 @@ public class Runner {
     }
 
     private Object getExportedDbSource(List<String> filesInFolder) {
-        return new TableFilesReader(filesInFolder).getAsDBSchema();
+        return new TabularFilesReader(filesInFolder).getRelationalDB();
     }
 
 

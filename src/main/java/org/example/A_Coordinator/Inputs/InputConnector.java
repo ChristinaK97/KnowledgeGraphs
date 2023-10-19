@@ -8,7 +8,7 @@ import static org.example.A_Coordinator.config.Config.*;
 public class InputConnector {
 
     public static String USE_CASE = FINTECH;
-    public static String filename = "SQL";
+    public static String filename = "person_typed.csv";  // "Data_test_Encrypt.csv";
 
 
     public InputConnector() {

@@ -88,7 +88,7 @@ public class POntologyExtractor {
     private void addClasses() {
         rs.classes.forEach((type, classes) -> {
             classes.forEach((elementName, elementClass) -> {
-                String sDescription = String.format("%s %s converted to class %s", type, elementName, elementClass);
+                String sDescription = String.format("%s [%s] converted to class %s", type, elementName, elementClass);
                 addClass(elementClass, sDescription, type);
             });
         });
@@ -136,7 +136,7 @@ public class POntologyExtractor {
         addAnnotations(
                 objproperty.getIRI(),
                 domRan.getObjectPropertyRawLabel(),
-                String.format("%s from %s", domRan.rule.toString(),
+                String.format("%s from %s", domRan.rule.toString().replaceAll("[\\[\\]]", ""),
                 domRan.extractedField));
 
         ////////////////////////////////////
@@ -197,7 +197,8 @@ public class POntologyExtractor {
 
         OWLDeclarationAxiom declaration = factory.getOWLDeclarationAxiom(datatypeProp);
         addAnnotations(datatypeProp.getIRI(), propName,
-                        String.format("%s from %s", domRan.rule.toString(), domRan.extractedField));
+                        String.format("%s from %s", domRan.rule.toString().replaceAll("[\\[\\]]", ""),
+                                                    domRan.extractedField));
 
         // Add datatypeProp
         manager.addAxiom(ontology, declaration);

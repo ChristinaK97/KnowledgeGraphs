@@ -5,10 +5,9 @@ import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
-import org.example.B_InputDatasetProcessing.SQLdb.RTable;
-import org.example.B_InputDatasetProcessing.SQLdb.RTable.FKpointer;
-import org.example.A_Coordinator.Inputs.DatabaseConnector;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.B_InputDatasetProcessing.Tabular.RTable;
+import org.example.B_InputDatasetProcessing.Tabular.RTable.FKpointer;
 import org.example.util.Pair;
 import tech.tablesaw.api.Row;
 
@@ -25,12 +24,12 @@ public class InsertDataRDB extends InsertDataBase {
     // tablesClass : <tableName : table ontClass>
     // paths : <tableName : <columnName : path of resources>>
 
-    DBSchema db = new DBSchema();
-    DatabaseConnector connector = new DatabaseConnector();
+    RelationalDB db;
     private HashMap<String, Integer> tableIds = new HashMap<>();
 
-    public InsertDataRDB() {
+    public InsertDataRDB(RelationalDB db) {
         super();
+        this.db = db;
         run();
     }
 
@@ -67,7 +66,7 @@ public class InsertDataRDB extends InsertDataBase {
     @Override
     protected void mapData() {
         db.getrTables().forEach((tableName, rTable) -> {
-            tech.tablesaw.api.Table data = connector.retrieveDataFromTable(tableName);
+            tech.tablesaw.api.Table data = db.retrieveDataFromTable(tableName);
 
             /*p*/System.out.println(">> TABLE : " + tableName);
             /*p*/System.out.println(data.first(3));

@@ -5,7 +5,7 @@ import static org.example.A_Coordinator.Runner.config;
 
 import org.example.B_InputDatasetProcessing.DICOM.DICOM2SediJSON;
 import org.example.B_InputDatasetProcessing.DICOM.TagDictionary;
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Medical.AbbreviationsDictionary;
 import org.example.C_POextractor.RDB2OWL.ClassExtractor;
 import org.example.C_POextractor.RDB2OWL.DataPropExtractor;
@@ -29,8 +29,8 @@ public class RulesetApplication {
     private DatasetDictionary datasetDictionary = null;
 
     public RulesetApplication(Object dataSource) {
-        if(dataSource instanceof DBSchema)
-            applyRules((DBSchema) dataSource);
+        if(dataSource instanceof RelationalDB)
+            applyRules((RelationalDB) dataSource);
         else if (dataSource instanceof ArrayList)
             applyRules((ArrayList<String>) dataSource);
     }
@@ -41,7 +41,7 @@ public class RulesetApplication {
     // RELATIONAL DATABASE RULES
 // =====================================================================================================================
 
-    public void applyRules(DBSchema db) {
+    public void applyRules(RelationalDB db) {
         /* 1. table classes
          * 2. object properties connecting table classes
          * 3. data properties

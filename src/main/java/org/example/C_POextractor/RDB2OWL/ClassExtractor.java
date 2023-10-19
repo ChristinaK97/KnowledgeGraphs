@@ -1,7 +1,7 @@
 package org.example.C_POextractor.RDB2OWL;
 
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
-import org.example.B_InputDatasetProcessing.SQLdb.RTable.FKpointer;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.B_InputDatasetProcessing.Tabular.RTable.FKpointer;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 
 public class ClassExtractor {
 
-    DBSchema db;
+    RelationalDB db;
     HashMap<String, String> tableClasses = new HashMap<>();
 
-    public ClassExtractor(DBSchema db) {
+    public ClassExtractor(RelationalDB db) {
         this.db = db;
         classRule1();
         classRule2();

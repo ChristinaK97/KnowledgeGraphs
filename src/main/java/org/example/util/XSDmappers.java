@@ -3,6 +3,9 @@ package org.example.util;
 import com.google.gson.JsonPrimitive;
 import org.dcm4che3.data.VR;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class XSDmappers {
 
 
@@ -132,4 +135,15 @@ public class XSDmappers {
     }
 
 
+    public static String fixDateFormat(String columnValue, String inputFormat) {
+        // System.out.println("\tFIX DATE FORMAT");
+        try {
+            SimpleDateFormat originalDateFormat = new SimpleDateFormat(inputFormat);
+            SimpleDateFormat targetDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = originalDateFormat.parse(columnValue);
+            return targetDateFormat.format(date);
+        } catch (ParseException e) {
+            return (columnValue + ".01").replaceAll("\\.", "-");
+        }
+    }
 }
