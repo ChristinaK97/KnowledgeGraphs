@@ -1,0 +1,19 @@
+{
+  "PIIs": [
+    "full_name",
+    "father_name",
+    "spouse_name",
+    "gender",
+    "language",
+    "nationality",
+    "tax_id",
+    "social_security_number",
+    "birth_date",
+    "country_of_residence",
+    "is_deceased",
+    "deceased_date",
+    "address",
+    "email",
+    "full_name"
+  ]
+}
