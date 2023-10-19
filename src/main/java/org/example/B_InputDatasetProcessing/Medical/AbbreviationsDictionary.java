@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.example.A_Coordinator.Runner.config;
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 import org.example.util.Annotations;
 import org.example.util.DatasetDictionary;
 
