@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import org.dcm4che3.data.*;
 import org.dcm4che3.io.DicomInputStream;
 import org.dcm4che3.util.TagUtils;
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 
 import java.io.File;
 import java.io.IOException;

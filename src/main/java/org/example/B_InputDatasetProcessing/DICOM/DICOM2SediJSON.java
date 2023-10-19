@@ -15,7 +15,7 @@ import org.dcm4che3.data.Sequence;
 import org.dcm4che3.data.VR;
 import org.dcm4che3.io.DicomInputStream;
 import org.dcm4che3.util.TagUtils;
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 import org.example.util.Ontology;
 import tech.tablesaw.api.Table;
 

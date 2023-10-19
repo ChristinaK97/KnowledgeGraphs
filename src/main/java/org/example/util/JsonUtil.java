@@ -1,4 +1,4 @@
-package org.example.B_InputDatasetProcessing;
+package org.example.util;
 
 import com.google.gson.*;
 
@@ -73,19 +73,19 @@ public class JsonUtil {
 
 // =====================================================================================================================
 
-    public static HashSet<String> invalid = new HashSet<>(Set.of("None", "null", "", " "));
+    public static HashSet<String> invalid = new HashSet<>(Set.of("none", "null", "", " ", "-"));
 
     public static boolean isInvalidProperty(String prev, String key, String extractedField){
 
         return  prev == null || key == null ||
-                invalid.contains(prev) || invalid.contains(key) ||
+                invalid.contains(prev.toLowerCase()) || invalid.contains(key.toLowerCase()) ||
                 (prev.equals(key) && extractedField.equals("/"+prev));
 
     }
 
     public static boolean isValid(String prev, String key, JsonElement value, String extractedField) {
 
-        return !(isInvalidProperty(prev, key, extractedField) || invalid.contains(value.getAsString()));
+        return !(isInvalidProperty(prev, key, extractedField) || invalid.contains(value.getAsString().toLowerCase()));
     }
 
 

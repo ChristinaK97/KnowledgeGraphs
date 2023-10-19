@@ -2,7 +2,7 @@ package org.example.C_POextractor;
 
 import com.google.gson.*;
 import static org.example.A_Coordinator.Runner.config;
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 import org.example.util.XSDmappers;
 
 import java.util.*;

@@ -4,7 +4,7 @@ import static org.example.A_Coordinator.Runner.config;
 import com.google.gson.JsonPrimitive;
 import org.apache.jena.ontology.OntClass;
 import org.example.B_InputDatasetProcessing.DICOM.TagDictionary;
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 import org.example.util.Ontology;
 import tech.tablesaw.api.Table;
 
