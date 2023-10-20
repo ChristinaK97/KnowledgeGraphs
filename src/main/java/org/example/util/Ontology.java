@@ -51,7 +51,7 @@ public class Ontology {
 
     private void loadOntology() {
         pModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(pModel, ontologyFile);
+        RDFDataMgr.read(pModel, ontologyFile.replace("\\", "/"));
         //pModel.listClasses().forEach(cl -> System.out.println(cl));
     }
 
@@ -97,6 +97,11 @@ public class Ontology {
     public OntResource getOntResource(URI uri) {return pModel.getOntResource(uri.toString());}
 
     // =================================================================================================================
+
+    public boolean hasDomRan(OntProperty property) {
+        return property.getDomain() != null && property.getRange() != null;
+    }
+
 
     public OntResource getInferedDomRan(String propURI, boolean searchDomain) {
         OntProperty prop = getOntProperty(propURI);
@@ -380,20 +385,15 @@ public class Ontology {
         }
     }
 
-    public boolean hasDomRan(OntProperty property) {
-        return property.getDomain() != null && property.getRange() != null;
-    }
 
+    /* DON'T FORGET TO CALL TO SAVE CHANGES! */
     public void saveChanges() {
-        // DON'T FORGET TO CALL TO SAVE CHANGES!
         if(newElementsAdded) {
-            OutputStream out = null;
             try {
-                out = new FileOutputStream(ontologyFile);
+                OutputStream out = new FileOutputStream(ontologyFile);
+                pModel.write(out, "TURTLE");
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            pModel.write(out, "TURTLE");
+                e.printStackTrace(); }
         }
     }
 

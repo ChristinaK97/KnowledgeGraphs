@@ -13,7 +13,6 @@ import tech.tablesaw.io.csv.CsvReadOptions;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -49,13 +48,13 @@ public class TabularFilesReader {
 
 
     public void addTable(String tableName, String downloadedFilePath) {
-        if(tableName == null) {
-            tableName = FileHandler.getFileName(downloadedFilePath);
-            tableName = tableName.substring(0, tableName.lastIndexOf("."));
-        }                                                                                                               if(log) System.out.println("TABLE " + tableName);
-        Table table;
+        String processedFilePath = FileHandler.getProcessedFilePath(downloadedFilePath,
+                "csv", true);
+        if(tableName == null)
+            tableName = processedFilePath.substring(0, processedFilePath.lastIndexOf("."));
+
+        Table table;                                                                                                    if(log) System.out.println("TABLE " + tableName);
         HashMap<String, String> colTypes;
-        String processedFilePath = FileHandler.getProcessedFilePath(downloadedFilePath);
         if(!Files.exists(Paths.get(processedFilePath))) {                                                               if(log)System.out.println("PROCESS " + downloadedFilePath);
             Pair<List<List<String>>, Integer> rowsInfo = readRows(downloadedFilePath);
             List<String> headers = repairHeaders(rowsInfo.el1(), rowsInfo.el2());                                       if(log) System.out.println("HEADERS = " + headers);
@@ -69,7 +68,7 @@ public class TabularFilesReader {
             table = tableTyped.el1();                                                                                   if(log) {System.out.println(table.first(10)); for(String c:table.columnNames()) System.out.println(c + " " + tableTyped.el2().get(c)); }
             colTypes = tableTyped.el2();
 
-            saveRepairedFile(table, downloadedFilePath);
+            saveProcessedFile(table, processedFilePath);
         } else {                                                                                                        if(log) System.out.println("LOAD " + processedFilePath);
             table = readCSV(processedFilePath);
             colTypes = determineColumnTypes(table).el2();
@@ -365,17 +364,7 @@ public class TabularFilesReader {
         return Table.read().csv(options);
     }
 
-    private void saveRepairedFile(Table table, String downloadedFilePath) {
-        String fileLocalName = FileHandler.getFileName(downloadedFilePath);
-        String fileSubFolder = FileHandler.getProcessedFileSubfolder(downloadedFilePath, fileLocalName);
-
-        Path fileSubFolderPath = Paths.get(fileSubFolder);
-        if (Files.notExists(fileSubFolderPath)) {
-            try {
-                Files.createDirectories(fileSubFolderPath);
-            } catch (IOException ignore) {}
-        }
-        String processedFilePath = String.format("%s/%s", fileSubFolder, fileLocalName);
+    private void saveProcessedFile(Table table, String processedFilePath) {
         table.write().csv(processedFilePath);
         System.out.println("CSV repaired successfully.");
     }

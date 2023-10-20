@@ -5,12 +5,14 @@ import org.example.util.JsonUtil;
 
 import java.nio.file.Paths;
 
+import static org.example.util.FileHandler.getPath;
+
 public class Config {
 
     public static String FINTECH = "Fintech";
     public static String HEATH = "Health";
     public static String CTI = "CTI";
-    public static String resourcePath = "src/main/resources/";
+    public static String resourcePath = getPath("src/main/resources");
     public InputPointConfig In;
     public KGOutputsConfig Out;
 
@@ -22,7 +24,7 @@ public class Config {
 
     private void setConfigParams(String UseCase, String FileExtension) {
 
-        String configFilePath = String.format("%sConfigFiles/%s_%s_Config.json", resourcePath, UseCase, FileExtension);
+        String configFilePath = getPath(String.format("%s/ConfigFiles/%s_%s_Config.json", resourcePath, UseCase, FileExtension));
         JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
         String DefaultRootClassName = "Record";
 
@@ -99,10 +101,10 @@ public class Config {
 
 
         private void setDirPaths() {                                                                                    // String overrideDatasource
-            DatasetResourcesPath = String.format("%sUse_Case/%s/%s/", resourcePath, UseCase, DatasetName);
-            DownloadedDataDir    = DatasetResourcesPath + "Downloaded_Data/";                                            // overrideDatasource == null ? DatasetResourcesPath + "Downloaded_Data/" : overrideDatasource;
-            ProcessedDataDir     = DatasetResourcesPath + "Processed_Data/";
-            CachedDataDir        = DatasetResourcesPath + "Cached_Data/";
+            DatasetResourcesPath = getPath(String.format("%s/Use_Case/%s/%s", resourcePath, UseCase, DatasetName));
+            DownloadedDataDir    = getPath(DatasetResourcesPath + "/Downloaded_Data");                                            // overrideDatasource == null ? DatasetResourcesPath + "Downloaded_Data/" : overrideDatasource;
+            ProcessedDataDir     = getPath(DatasetResourcesPath + "/Processed_Data");
+            CachedDataDir        = getPath(DatasetResourcesPath + "/Cached_Data");
         }
 
         public boolean isJSON() {
@@ -158,25 +160,25 @@ public class Config {
             this.includeInverseAxioms = includeInverseAxioms;
 
             this.applyMedAbbrevExpansion = applyMedAbbrevExpansion;
-            abbrevExpansionResultsFile = String.format("%sOther/abbrevExpansionResults.json", DatasetResourcesPath);
+            abbrevExpansionResultsFile = getPath(String.format("%sOther/abbrevExpansionResults.json", DatasetResourcesPath));
 
-            KGOutputsDir    = String.format("%sKG_Outputs/", DatasetResourcesPath);
+            KGOutputsDir    = getPath(String.format("%sKG_Outputs/", DatasetResourcesPath));
             POntologyName   = DatasetName;
-            POntology       = KGOutputsDir + "POntology.ttl";
+            POntology       = getPath(KGOutputsDir + "/POntology.ttl");
             POntologyBaseNS = String.format("http://www.example.net/ontologies/%s.owl/", POntologyName);
 
             this.DefaultRootClassName = DefaultRootClassName;
 
-            String DOdir = Paths.get(DatasetResourcesPath).getParent().toString().replace("\\","/");
-            this.DOntology = String.format("%sDOntology/%s", DOdir, DOntology);
+            String DOdir   = getPath(Paths.get(DatasetResourcesPath).getParent().toString());
+            this.DOntology = getPath(String.format("%s/DOntology/%s", DOdir, DOntology));
             this.offlineDOntology = offlineDOntology;
 
-            PO2DO_Mappings  = KGOutputsDir + "PO2DO_Mappings.json";
-            RefinedOntology = KGOutputsDir + "refinedOntology.ttl";
-            IndividualsTTL  = KGOutputsDir + "individuals.ttl";
-            FullGraph       = KGOutputsDir + "fullGraph.ttl";
-            LogDir          = DatasetResourcesPath + "Log/";
-            PathsTXT        = LogDir + "paths.txt";
+            PO2DO_Mappings  = getPath(KGOutputsDir + "/PO2DO_Mappings.json");
+            RefinedOntology = getPath(KGOutputsDir + "/refinedOntology.ttl");
+            IndividualsTTL  = getPath(KGOutputsDir + "/individuals.ttl");
+            FullGraph       = getPath(KGOutputsDir + "/fullGraph.ttl");
+            LogDir          = getPath(DatasetResourcesPath + "/Log");
+            PathsTXT        = getPath(LogDir + "/paths.txt");
         }
     }
 
