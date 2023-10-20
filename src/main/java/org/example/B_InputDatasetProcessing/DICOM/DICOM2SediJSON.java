@@ -17,95 +17,124 @@ import org.dcm4che3.io.DicomInputStream;
 import org.dcm4che3.util.TagUtils;
 import org.example.util.JsonUtil;
 import org.example.util.Ontology;
-import tech.tablesaw.api.Table;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.*;
+import static org.example.util.FileHandler.getProcessedFilePath;
 import static org.example.util.Ontology.getLocalName;
 
 public class DICOM2SediJSON {
 
-    Ontology sedi;
+    private Ontology sedi;
 
     // for each hasInformationEntity of the InfoObjDefin class definition store the json table into the
     // map to be able to add additional attributes while iterating the file
-    HashMap<String, JsonObject> infoEntitiesDicts;
+    private HashMap<String, JsonObject> infoEntitiesDicts;
 
     // key = tagCode of tagName (if tagCode wasnt found and tagName was) value = the classes of the domain of the
     // property that correspondes to the tag
-    HashMap<String, HashSet<String>> cachedTagCodeDomain;
+    private HashMap<String, HashSet<String>> cachedTagCodeDomain;
 
     // key = the SOPClassUID values, value = [The InfoObjDef class (OntoClass),
     //                                      the InformationEntities related to the InfoObjDef (HashSet<String>)]
-    HashMap<String, Object[]> cachedClassDefinition;
-    PrintWriter log;
+    private HashMap<String, Object[]> cachedClassDefinition;
+    private PrintWriter logger;
+    private boolean log = false;
 
 
-    private HashMap<String, JsonObject> dson;
+// ========================================================================================================
     private TagDictionary tagDictionary;
-
-
-    public HashMap<String, JsonObject> getDson () {
-        return dson;
-    }
-
-    public ArrayList<JsonObject> getDsonAsList() {
-        return new ArrayList<>(dson.values());
-    }
+    private HashMap<String, JsonObject> dsonObjectsCollection;
 
     public TagDictionary getTagDictionary() {
         return tagDictionary;
     }
+    public HashMap<String, JsonObject> getDsonObjectsCollection() {
+        return dsonObjectsCollection;
+    }
+
+// ========================================================================================================
 
 
-    public DICOM2SediJSON(ArrayList<String> dicomFilePaths, boolean saveDsonFiles){
+    public DICOM2SediJSON(ArrayList<String> dicomFilePaths){
         sedi = new Ontology(config.Out.DOntology);
-        dson = new HashMap<>();
+        dsonObjectsCollection = new HashMap<>();
         tagDictionary = new TagDictionary();
         cachedTagCodeDomain = new HashMap<>();
-        cachedClassDefinition = new HashMap<>();
-        try {
-            log = new PrintWriter(config.Out.LogDir + "dcmLog.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        parseDICOMcollection(dicomFilePaths, saveDsonFiles);
-        log.close();
+        cachedClassDefinition = new HashMap<>();                                                                        if(log) try { logger = new PrintWriter(config.Out.LogDir + "dcmLog.txt"); } catch (FileNotFoundException e) {log=false;}
+        parseDICOMcollection(dicomFilePaths);                                                                           if(log) logger.close();
     }
 
 
-    private void parseDICOMcollection(ArrayList<String> dicomFilePaths, boolean saveDsonFiles) {
-        for (String dicomFilePath : dicomFilePaths) {
-            // each dicom file is a different type of image related to specific info entities
-            infoEntitiesDicts = new HashMap<>();                                                                        log.println(dicomFilePath);
-            //System.out.println(dicomFilePath);
+    private void parseDICOMcollection(ArrayList<String> dicomFilePaths) {
+        for (String dicomFilePath : dicomFilePaths) {                                                                   if(log) logger.println(dicomFilePath); //System.out.println(dicomFilePath);
             try (DicomInputStream dis = new DicomInputStream(new File(dicomFilePath))) {
-                Attributes attributes = dis.readDataset();
-                JsonObject dicom2json = parseDICOMfile(attributes);
 
-                String jsonPath = String.format("%s%s.json",
-                        config.In.ProcessedDataDir,
-                        dicomFilePath.substring(dicomFilePath.lastIndexOf("/")+1, dicomFilePath.lastIndexOf("."))
-                );
-                if(saveDsonFiles)
-                    JsonUtil.saveToJSONFile(jsonPath, dicom2json);
-                dson.put(dicomFilePath.substring(dicomFilePath.lastIndexOf("/")+1), dicom2json);
+                JsonObject dson;
+                Attributes attributes = dis.readDataset();
+                String processedDSONPath = getProcessedFilePath(dicomFilePath,
+                        "json", true);
+
+                if(!Files.exists(Paths.get(processedDSONPath))) {
+                    // each dicom file is a different type of image related to specific info entities
+                    infoEntitiesDicts = new HashMap<>();
+                    dson = parseDICOMfile(attributes);
+                    saveProcessedFile(dson, processedDSONPath);
+                }else
+                    dson = readProcessedDICOM(attributes, processedDSONPath);
+
+                dsonObjectsCollection.put(processedDSONPath, dson);
 
             } catch (IOException e) {
-                e.printStackTrace();
-            }
-
+                System.err.println("Unable to parse " + dicomFilePath); }
         }
     }
+
+
+
+// ========================================================================================================
+    /** Save the processed file/dson object */
+    private void saveProcessedFile(JsonObject dson, String processedDSONPath) {
+        JsonUtil.saveToJSONFile(processedDSONPath, dson);
+    }
+
+    // For saved processed dson files
+
+    private JsonObject readProcessedDICOM (Attributes attributes, String processedFilePath) {
+        JsonObject dson = JsonUtil.readJSON(processedFilePath).getAsJsonObject();
+        gatherTagsToDictionary(attributes);
+        return dson;
+    }
+
+    private void gatherTagsToDictionary(Attributes attributes) {
+        for (int tag : attributes.tags()) {
+            String tagCode = TagUtils.toString(tag);
+            String tagName = ElementDictionary.keywordOf(tag, null);
+            VR vr = attributes.getVR(tag);
+
+            if (tagName.equals(""))
+                tagName = "Unknown Tag and Data";
+            if (vr != VR.SQ)
+                tagDictionary.put(tagCode, tagName, vr);
+            else
+                for (Attributes sqItem : attributes.getSequence(tag))
+                    gatherTagsToDictionary(sqItem);
+        }
+    }
+
+// ========================================================================================================
+
+    // For new dcm files
 
     /** Retrieve the infoObjectDefinition class and associated info entities according to the value of the SOPClassUID */
     private JsonObject parseDICOMfile(Attributes attributes) {
@@ -129,14 +158,14 @@ public class DICOM2SediJSON {
         // 2
         infoEntitiesDicts.forEach((infoEntityURI, entityJson) -> {
             if(!infoEntityURI.equals(defClass.toString())){
-                infoObjectDef.add(getLocalName(infoEntityURI), entityJson);                                                                                   log.println("ADD TO BASE " + getLocalName(infoEntityURI));
+                infoObjectDef.add(getLocalName(infoEntityURI), entityJson);                                                                                   if(log) logger.println("ADD TO BASE " + getLocalName(infoEntityURI));
             }});
 
         // 3
         JsonObject container = new JsonObject();
         container.add(getLocalName(defClass), infoObjectDef);
         JsonObject dicom2json = new JsonObject();
-        dicom2json.add("DICOMObject", container);                                                                                                    log.println(new GsonBuilder().setPrettyPrinting().serializeNulls().create().toJson(dicom2json));
+        dicom2json.add(config.Out.DefaultRootClassName, container);                                                                                                    if(log) logger.println(new GsonBuilder().setPrettyPrinting().serializeNulls().create().toJson(dicom2json));
         return dicom2json;
     }
 
@@ -163,18 +192,18 @@ public class DICOM2SediJSON {
                 domain = "#Unknown";
                 tagName = "Unknown Tag and Data";
             }
-            tagDictionary.put(tagCode, tagName, vr);                                                                                                        log.println(depth + "\t" + tagCode + " " + tagName + " " + " " + (vr!=VR.SQ ? attributes.getString(tag) : "SQ") + "\t" + domain);
+            tagDictionary.put(tagCode, tagName, vr);                                                                                                        if(log) logger.println(depth + "\t" + tagCode + " " + tagName + " " + " " + (vr!=VR.SQ ? attributes.getString(tag) : "SQ") + "\t" + domain);
 
             if (vr != VR.SQ) {  //3
                 String value = parseForTime(attributes.getString(tag), vr);
                 if (depth == 0 && domain != null) { /*3.1*/
-                    infoEntitiesDicts.get(domain).getAsJsonObject().addProperty(tagCode, value);                                                            log.println("\t\tStuck on " + getLocalName(domain));
+                    infoEntitiesDicts.get(domain).getAsJsonObject().addProperty(tagCode, value);                                                            if(log) logger.println("\t\tStuck on " + getLocalName(domain));
                 }else{ /*3.2*/
-                    prevElem.getAsJsonObject().addProperty(tagCode, value);                                                                                 log.println("\t\tStuck on " + prevElem);
+                    prevElem.getAsJsonObject().addProperty(tagCode, value);                                                                                 if(log) logger.println("\t\tStuck on " + prevElem);
                 }
             }else { //4
                 ++depth;
-                Sequence sq = attributes.getSequence(tag);    /*4.1*/                                                                                              log.println("\t# items = " + sq.size() + " [");
+                Sequence sq = attributes.getSequence(tag);    /*4.1*/                                                                                       if(log) logger.println("\t# items = " + sq.size() + " [");
 
                 JsonElement valueElement = new JsonArray();
                 for(Attributes sqItem : sq) {
@@ -184,10 +213,10 @@ public class DICOM2SediJSON {
                 }
                 --depth;  //4.2
 
-                if(depth == 0 && domain != null) {                                                                                                              log.println("\t\tStuck on " + getLocalName(domain));
+                if(depth == 0 && domain != null) {                                                                                                           if(log) logger.println("\t\tStuck on " + getLocalName(domain));
                     infoEntitiesDicts.get(domain).add(tagCode, valueElement);
-                }else {                                                                                                                                         log.println("\t\tStuck on " + prevElem);
-                    prevElem.getAsJsonObject().add(tagCode, valueElement); }                                                                                    log.println("]\n");
+                }else {                                                                                                                                      if(log) logger.println("\t\tStuck on " + prevElem);
+                    prevElem.getAsJsonObject().add(tagCode, valueElement); }                                                                                 if(log) logger.println("]\n");
             }
         }
     }
@@ -222,9 +251,9 @@ public class DICOM2SediJSON {
                     "\nFILTER (str(?label) = '" + SOPClassUID + "')" +
                     "\n}";
 
-            Table result = sedi.runQuery(query, new String[]{"resource"});
-            String defClassURI = result.stringColumn("resource").get(0);
-            OntClass defClass = sedi.getOntClass(defClassURI);                                                                                                      log.println(defClass);
+            String defClassURI = sedi.runQuery(query, new String[]{"resource"})
+                                     .stringColumn("resource").get(0);
+            OntClass defClass = sedi.getOntClass(defClassURI);                                                                                                  if(log) logger.println(defClass);
 
             // 2
             OntClass restriction = defClass.getEquivalentClass();
@@ -241,8 +270,7 @@ public class DICOM2SediJSON {
             }
             // 3
             informationEntities.add(defClassURI);
-            informationEntities.add("#Unknown");
-            informationEntities.forEach(log::println);
+            informationEntities.add("#Unknown");                                                                                                    if(log) informationEntities.forEach(logger::println);
             // 3.1
             cachedClassDefinition.put(SOPClassUID, new Object[]{defClass, informationEntities});
         }
@@ -282,7 +310,7 @@ public class DICOM2SediJSON {
         // get the appropriate class where the tag attribute will be attached
         // eg info entity={ImageMRImage} union domain = {ImageMRImage, ImageCTImage} intersection={ImageMRImage}<-
         Set<String> intersection = new HashSet<>(cachedTagCodeDomain.get(searchElement));
-        intersection.retainAll(infoEntities);                                                                               log.println("INTERSECTION " + intersection);
+        intersection.retainAll(infoEntities);                                                                                   if(log) logger.println("INTERSECTION " + intersection);
         if(intersection.size() > 0)
             return intersection.iterator().next();
         else

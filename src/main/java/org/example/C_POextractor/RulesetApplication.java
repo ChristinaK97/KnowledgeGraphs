@@ -102,12 +102,11 @@ public class RulesetApplication {
 
     private JSON2OWL applyRulesToDson(ArrayList<String> dicomFiles) {
 
-        DICOM2SediJSON dicom2json = new DICOM2SediJSON(dicomFiles, true);
-        ArrayList<JsonObject> dson = dicom2json.getDsonAsList();
+        DICOM2SediJSON dicom2json = new DICOM2SediJSON(dicomFiles);
         datasetDictionary = dicom2json.getTagDictionary();
 
         DSON2OWL dson2owl = new DSON2OWL((TagDictionary) datasetDictionary);
-        dson.forEach(dson2owl::applyRules);
+        dicom2json.getDsonObjectsCollection().values().forEach(dson2owl::applyRules);
         key_isSubclassOf_value = dson2owl.getKey_isSubclassOf_value();
         return dson2owl;
     }

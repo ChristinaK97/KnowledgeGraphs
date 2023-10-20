@@ -1,4 +1,4 @@
-package org.example.B_InputDatasetProcessing.DICOM;
+package org.example.temp.replaced;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import org.dcm4che3.data.*;
 import org.dcm4che3.io.DicomInputStream;
 import org.dcm4che3.util.TagUtils;
+import org.example.B_InputDatasetProcessing.DICOM.TagDictionary;
 import org.example.util.JsonUtil;
 
 import java.io.File;
