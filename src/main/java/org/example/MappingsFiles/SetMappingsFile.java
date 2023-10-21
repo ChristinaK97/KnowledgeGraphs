@@ -8,18 +8,22 @@ import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static org.example.A_Coordinator.Runner.config;
 
 
 public class SetMappingsFile extends ManageMappingsFile {
 
     private Matches matches;
     private List<Table> tablesList;
-    private HashSet<String> tableClassesURIs;
+    // private Set<String> tableClassesURIs;
+    private boolean addPathsOnlyToTableMaps = config.In.isDSON();
 
-    public SetMappingsFile(Matches matches, FormatSpecificRules spRules, HashSet<String> tableClassesURIs) {
+    public SetMappingsFile(Matches matches, FormatSpecificRules spRules /*, Set<String> tableClassesURIs*/) {
         super();
         this.matches = matches;
-        this.tableClassesURIs = tableClassesURIs;
+        // this.tableClassesURIs = tableClassesURIs;
         tablesList = readMapJSON();
         addMatches();
         addNewMappings(spRules);
@@ -43,9 +47,11 @@ public class SetMappingsFile extends ManageMappingsFile {
     private void setMatch(Mapping map, boolean isColumnMapping) {
         String ontoEl = map.getOntoElURI().toString();
         map.setMatch(matches.getMatchURI(ontoEl));
-        if(!isColumnMapping || !tableClassesURIs.contains(ontoEl))
+        // Replaced condition: !isColumnMapping || !tableClassesURIs.contains(ontoEl)
+        if(!isColumnMapping || !addPathsOnlyToTableMaps) {
+            System.out.printf("Add path map to %s. Map path = %s\n", ontoEl, matches.getPath(ontoEl));
             map.setPath(matches.getPath(ontoEl));
-
+        }
     }
 
     private void addNewMappings(FormatSpecificRules spRules) {
