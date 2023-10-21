@@ -1,6 +1,7 @@
 package org.example.B_InputDatasetProcessing.Tabular;
 
 import static org.example.A_Coordinator.Runner.config;
+import static org.example.util.FileHandler.getFileNameWithoutExtension;
 import static org.example.util.XSDmappers.fixDateFormat;
 
 import org.example.util.FileHandler;
@@ -51,7 +52,7 @@ public class TabularFilesReader {
         String processedFilePath = FileHandler.getProcessedFilePath(downloadedFilePath,
                 "csv", true);
         if(tableName == null)
-            tableName = processedFilePath.substring(0, processedFilePath.lastIndexOf("."));
+            tableName = getFileNameWithoutExtension(processedFilePath);
 
         Table table;                                                                                                    if(log) System.out.println("TABLE " + tableName);
         HashMap<String, String> colTypes;
