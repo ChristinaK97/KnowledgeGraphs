@@ -8,7 +8,7 @@ import static org.example.A_Coordinator.config.Config.*;
 public class InputConnector {
 
     public static String USE_CASE = HEATH;
-    public static String filename = "ct.dcm";  // "Data_test_Encrypt.csv";
+    public static String filename = "fileInputFromUI.dcm";
 
 
     public InputConnector() {

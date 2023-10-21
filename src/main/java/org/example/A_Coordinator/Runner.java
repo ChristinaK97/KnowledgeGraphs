@@ -4,6 +4,7 @@ import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
 import org.example.C_POextractor.POntologyExtractor;
+import org.example.D_MappingGeneration.ExactMapper;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +13,9 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.example.A_Coordinator.config.Config.MappingConfig.BERTMAP;
+import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER;
 
 public class Runner {
 
@@ -22,8 +26,22 @@ public class Runner {
     }
 
     public void pipeline() {
+        // B. Load Data source
         Object dataSource = getDataSource();
+        // C. Extract PO
         new POntologyExtractor(dataSource);
+        // D. Run Mapper
+        switch (config.Map.Mapper){
+            case EXACT_MAPPER:
+                new ExactMapper(null);
+                break;
+            case BERTMAP:
+                break;
+            default:
+                config.Map.printUnsupportedMapperError();
+                break;
+        }
+        // Close connection to relational DB (SQL)
         if(dataSource instanceof RelationalDB)
             ((RelationalDB) dataSource).closeConnection();
     }
@@ -39,7 +57,7 @@ public class Runner {
         try (Stream<Path> walk = Files.walk(Paths.get(config.In.DownloadedDataDir))) {
             List<String> filesInFolder = walk
                     .filter(p -> !Files.isDirectory(p))                                 // Not a directory
-                    .map(p -> p.toString())                                             // Convert path to string
+                    .map(Path::toString)                                                // Convert path to string
                     .filter(f -> f.endsWith(config.In.FileExtension))                   // Check end with
                     .collect(Collectors.toList());
 

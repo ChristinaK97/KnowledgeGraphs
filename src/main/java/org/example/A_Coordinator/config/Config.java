@@ -12,9 +12,11 @@ public class Config {
     public static String FINTECH = "Fintech";
     public static String HEATH = "Health";
     public static String CTI = "CTI";
+
     public static String resourcePath = getPath("src/main/resources");
     public InputPointConfig In;
     public KGOutputsConfig Out;
+    public MappingConfig Map;
 
 
     public Config(String UseCase, String FileExtension) {
@@ -58,6 +60,13 @@ public class Config {
                 kgOutsParams.get("includeInverseAxiom").getAsBoolean(),
                 DefaultRootClassName
         );
+
+        // Mapping parameters ------------------------------------------------------------------------------
+        JsonObject mappingParams = configFile.getAsJsonObject("MappingParameters");
+        Map = new MappingConfig(
+                mappingParams.get("Mapper").getAsString()
+        );
+
     }
 
 
@@ -107,15 +116,11 @@ public class Config {
             CachedDataDir        = getPath(DatasetResourcesPath + "/Cached_Data");
         }
 
-        public boolean isJSON() {
-            return "json".equals(FileExtension);
-        }
-        public boolean isDSON() {
-            return "dcm".equals(FileExtension);
-        }
+        public boolean isJSON() {return "json".equals(FileExtension);}
+        public boolean isDSON() {return "dcm".equals(FileExtension);}
         public boolean isExcel(){return "xlsx".equals(FileExtension);}
-        public  boolean isCSV(){return "csv".equals(FileExtension);}
-        public boolean isSQL(){return credentials != null;}
+        public  boolean isCSV() {return "csv".equals(FileExtension);}
+        public boolean isSQL()  {return credentials != null;}
 
     }
 
@@ -162,7 +167,7 @@ public class Config {
             this.applyMedAbbrevExpansion = applyMedAbbrevExpansion;
             abbrevExpansionResultsFile = getPath(String.format("%sOther/abbrevExpansionResults.json", DatasetResourcesPath));
 
-            KGOutputsDir    = getPath(String.format("%sKG_Outputs/", DatasetResourcesPath));
+            KGOutputsDir    = getPath(String.format("%s/KG_Outputs/", DatasetResourcesPath));
             POntologyName   = DatasetName;
             POntology       = getPath(KGOutputsDir + "/POntology.ttl");
             POntologyBaseNS = String.format("http://www.example.net/ontologies/%s.owl/", POntologyName);
@@ -182,7 +187,19 @@ public class Config {
         }
     }
 
+    public static class MappingConfig {
+        public static final String EXACT_MAPPER = "ExactMapper";
+        public static final String BERTMAP = "BERTMap";
+        public String Mapper;
 
+        public MappingConfig(String Mapper) {
+            this.Mapper = Mapper;
+        }
+
+        public void printUnsupportedMapperError() {
+            System.err.printf("Unsupported mapper %s. Choose %s or %s\n", Mapper, EXACT_MAPPER, BERTMAP);
+        }
+    }
 }
 
 
