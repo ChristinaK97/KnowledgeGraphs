@@ -18,7 +18,7 @@ import static org.example.util.Annotations.TABLE_CLASS;
 import static org.example.util.Ontology.DATAPROPS;
 import static org.example.util.Ontology.ONTELEMENTS;
 
-public class ExactMatcher {
+public class ExactMapper {
 
 
     private Ontology srcOnto;
@@ -27,7 +27,7 @@ public class ExactMatcher {
     private boolean removePunct = true;
 
 
-    public ExactMatcher(ArrayList<String> annotationPropertiesIRIs) {
+    public ExactMapper(ArrayList<String> annotationPropertiesIRIs) {
 
         srcOnto = new Ontology(config.Out.POntology);
         srcOnto.findAnnotationProperties(annotationPropertiesIRIs, removePunct);

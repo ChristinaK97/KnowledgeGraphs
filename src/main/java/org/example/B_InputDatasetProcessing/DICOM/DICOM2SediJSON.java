@@ -73,6 +73,10 @@ public class DICOM2SediJSON {
         cachedTagCodeDomain = new HashMap<>();
         cachedClassDefinition = new HashMap<>();                                                                        if(log) try { logger = new PrintWriter(config.Out.LogDir + "dcmLog.txt"); } catch (FileNotFoundException e) {log=false;}
         parseDICOMcollection(dicomFilePaths);                                                                           if(log) logger.close();
+        // the default root was DICOMObject. Set it as the root attribute of the DICOM Information Def Obj
+        // container and then change the Default root to null to show that the dson has a well-defined root
+        config.Out.RootClassName = config.Out.DefaultRootClassName;
+        config.Out.DefaultRootClassName = null;
     }
 
 
@@ -124,9 +128,8 @@ public class DICOM2SediJSON {
 
             if (tagName.equals(""))
                 tagName = "Unknown Tag and Data";
-            if (vr != VR.SQ)
-                tagDictionary.put(tagCode, tagName, vr);
-            else
+            tagDictionary.put(tagCode, tagName, vr);
+            if(vr == VR.SQ)
                 for (Attributes sqItem : attributes.getSequence(tag))
                     gatherTagsToDictionary(sqItem);
         }
