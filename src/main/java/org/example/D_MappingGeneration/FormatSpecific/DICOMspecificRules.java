@@ -106,7 +106,6 @@ public class DICOMspecificRules implements FormatSpecificRules {
                                 Annotations.CLASS_SUFFIX,
                                 newEl.getURI(),
                                 SequenceItemURI,
-                                true,
                                 null
                         ));
                 newMappings.add(newTable);
@@ -124,7 +123,6 @@ public class DICOMspecificRules implements FormatSpecificRules {
                             Annotations.CLASS_SUFFIX,
                             basePOprefix + topClass,
                             baseDOprefix + topClass,
-                            true,
                             null
                     ));
             newMappings.add(newTable);

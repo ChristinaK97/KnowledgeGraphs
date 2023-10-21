@@ -117,7 +117,7 @@ public class MappingsFileTemplate {
             try {
                 return mappings.get(type);
             }catch (IndexOutOfBoundsException e) {
-                return new Mapping(null,"","", false, null);
+                return new Mapping(null,"","", null);
             }
         }
 
@@ -139,16 +139,14 @@ public class MappingsFileTemplate {
         private String type;
         private URI ontoEl;
         private URI match;
-        private boolean isCons;
         private List<URI> path;
 
-        public Mapping(String type, String ontoEl, String match, boolean isCons, List<URI> path) {
+        public Mapping(String type, String ontoEl, String match, List<URI> path) {
             this.type = type;
             this.ontoEl = URI.create(ontoEl);
             this.match = URI.create(match);
             if(path != null)
                 this.path = path;
-            this.isCons = isCons;
         }
 
         public String getType() {
@@ -180,13 +178,6 @@ public class MappingsFileTemplate {
             this.match = match;
         }
 
-        public boolean isCons() {
-            return isCons;
-        }
-
-        public void setCons(boolean cons) {
-            isCons = cons;
-        }
 
         public List<URI> getPathURIs() {
             return path;

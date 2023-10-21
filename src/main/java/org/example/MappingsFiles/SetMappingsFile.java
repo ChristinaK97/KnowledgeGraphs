@@ -2,13 +2,12 @@ package org.example.MappingsFiles;
 
 import org.example.D_MappingGeneration.FormatSpecific.FormatSpecificRules;
 import org.example.D_MappingGeneration.Matches;
+import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.example.A_Coordinator.Runner.config;
 
@@ -36,7 +35,7 @@ public class SetMappingsFile extends ManageMappingsFile {
             Mapping tableMap = tableMaps.getMapping();
             setMatch(tableMap, false);
 
-            for (MappingsFileTemplate.Column col : tableMaps.getColumns()) {
+            for (Column col : tableMaps.getColumns()) {
                 setMatch(col.getObjectPropMapping(), true);
                 setMatch(col.getClassPropMapping(), true);
                 setMatch(col.getDataPropMapping(), true);
