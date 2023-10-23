@@ -25,10 +25,11 @@ public class SetMappingsFile extends ManageMappingsFile {
         // this.tableClassesURIs = tableClassesURIs;
         tablesList = readMapJSON();
         addMatches();
-        addNewMappings(spRules);
-        fileTemplate.setTables(tablesList);
-        saveMappingsFile();
+        if(spRules != null)
+            addNewMappings(spRules);
+        saveMappingsFile(tablesList);
     }
+
 
     private void addMatches() {
         for(Table tableMaps : tablesList) {
@@ -59,3 +60,16 @@ public class SetMappingsFile extends ManageMappingsFile {
     }
 
 }
+
+    //TODO for testing. Remove it
+    /*public SetMappingsFile(Matches matches, FormatSpecificRules spRules, String PO2DO, Set<String> tableClassesURIs) {
+        super();
+        this.matches = matches;
+        // this.tableClassesURIs = tableClassesURIs;
+        tablesList = readMapJSON(PO2DO);
+        addMatches();
+        if(spRules != null)
+            addNewMappings(spRules);
+        fileTemplate.setTables(tablesList);
+        saveMappingsFile(PO2DO);
+    }*/

@@ -81,11 +81,31 @@ public class Ontology {
 
     // =================================================================================================================
 
+    public OntClass getOntClass(List<URI> unionClassesURIs) {
+        if(unionClassesURIs.size() == 1)
+            return getOntClass(unionClassesURIs.get(0));
+
+        List<OntClass> unionClasses = new ArrayList<>();
+        for(URI uri : unionClassesURIs) {
+            OntClass ontClass = getOntClass(uri);
+            if(ontClass != null)
+                unionClasses.add(ontClass);
+        }
+        return unionClasses.size() > 0 ?
+                pModel.createUnionClass(null, pModel.createList(unionClasses.iterator()))
+                : null;
+    }
+
     public OntClass getOntClass(String uri) {
         return pModel.getOntClass(uri);
     }
     public OntClass getOntClass(URI uri) {
         return pModel.getOntClass(uri.toString());
+    }
+
+    public OntProperty getOntProperty(List<URI> unionProperty) {
+        //TODO support union property
+        return getOntProperty(unionProperty.get(0));
     }
     public OntProperty getOntProperty(URI uri) {
         return pModel.getOntProperty(uri.toString());
@@ -343,7 +363,7 @@ public class Ontology {
             });
         }
         if(resourcesAnnotations.size() == 0)
-            resourcesAnnotations.add(getLocalName(resource));
+            resourcesAnnotations.add(removePunctuation(getLocalName(resource)));
         cachedAnnotations.put(resourceURI, resourcesAnnotations);
         return resourcesAnnotations;
     }

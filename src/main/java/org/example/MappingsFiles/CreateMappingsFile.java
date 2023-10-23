@@ -1,9 +1,12 @@
 package org.example.MappingsFiles;
 
-import org.example.B_InputDatasetProcessing.SQLdb.DBSchema;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.util.Annotations;
 import org.example.C_POextractor.Properties;
 import org.example.C_POextractor.RulesetApplication;
+import org.example.MappingsFiles.MappingsFileTemplate.Table;
+import org.example.MappingsFiles.MappingsFileTemplate.Column;
+import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,11 +22,11 @@ public class CreateMappingsFile extends ManageMappingsFile {
     private boolean isRDB;
 
     public void extractMappingsFile(Object dataSource,  RulesetApplication rs) {
-        this.isRDB = dataSource instanceof DBSchema;
+        this.isRDB = dataSource instanceof RelationalDB;
         gatherTrfs(rs);
 
         if (isRDB)
-            createJSON((DBSchema) dataSource);
+            createJSON((RelationalDB) dataSource);
         else {
             addProperties(rs.getPureObjProperties().getProperties(), "ObjectProperty");
             createJSON(config.Out.RootClassName, rs.getClasses().get(TABLE_PREFIX));
@@ -79,7 +82,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
 // =====================================================================================================
 
-    private void createJSON(DBSchema db) {
+    private void createJSON(RelationalDB db) {
 
         ArrayList<String> tables = new ArrayList<>(db.getrTables().keySet());
         Collections.sort(tables);
@@ -87,12 +90,12 @@ public class CreateMappingsFile extends ManageMappingsFile {
         for(String tableName : tables) {
 
             if (trf.containsKey(tableName)) {
-                MappingsFileTemplate.Table table = new MappingsFileTemplate.Table(tableName);
+                Table table = new Table(tableName);
 
-                MappingsFileTemplate.Mapping tableMapping = new MappingsFileTemplate.Mapping(
+                Mapping tableMapping = new Mapping(
                         trf.get(tableName).get(0).type,
                         trf.get(tableName).get(0).ontoElement,
-                        "", true, null);
+                        null, null);
                 table.setMapping(tableMapping);
 
                 // Table Columns =========================================================================================
@@ -100,11 +103,11 @@ public class CreateMappingsFile extends ManageMappingsFile {
                     String t_c = String.format("%s.%s", tableName, columnName);
 
                     if (trf.containsKey(t_c)) {
-                        MappingsFileTemplate.Column column = new MappingsFileTemplate.Column(columnName);
+                        Column column = new Column(columnName);
 
                         for (Transformation t : trf.get(t_c))
                             column.addMapping(new MappingsFileTemplate.Mapping(
-                                    t.type, t.ontoElement, "", true, null)
+                                    t.type, t.ontoElement, null, null)
                             );
                         table.addColumn(column);
                     }
@@ -119,13 +122,13 @@ public class CreateMappingsFile extends ManageMappingsFile {
     private void createJSON(String rootElementName, HashMap<String, String> tableClasses) {
         rootElementName = "/" + rootElementName;
         System.out.println(rootElementName);
-        HashMap<String, MappingsFileTemplate.Table> tableClassesTable = new HashMap<>();
+        HashMap<String, Table> tableClassesTable = new HashMap<>();
         for(String classField: tableClasses.keySet()) {
-            MappingsFileTemplate.Table table = new MappingsFileTemplate.Table(classField);
-            MappingsFileTemplate.Mapping tableMapping = new MappingsFileTemplate.Mapping(
+            Table table = new Table(classField);
+            Mapping tableMapping = new Mapping(
                     trf.get(classField).get(0).type,
                     trf.get(classField).get(0).ontoElement,
-                    "", true, null);
+                    null, null);
             table.setMapping(tableMapping);
             tableClassesTable.put(classField, table);
             fileTemplate.addTable(table);
@@ -140,10 +143,10 @@ public class CreateMappingsFile extends ManageMappingsFile {
             if(elName.equals(rootElementName))
                 continue;
 
-            MappingsFileTemplate.Column field = new MappingsFileTemplate.Column(elName);
+            Column field = new Column(elName);
             for (Transformation t : trf.get(elName))
-                field.addMapping(new MappingsFileTemplate.Mapping(
-                        t.type, t.ontoElement, "", true, null)
+                field.addMapping(new Mapping(
+                        t.type, t.ontoElement, null,null)
                 );
             String fieldTable = elName.substring(0, elName.lastIndexOf("/"));
             System.out.println(elName + " " + fieldTable + " " + tableClassesTable.get(fieldTable));

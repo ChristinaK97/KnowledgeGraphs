@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.example.A_Coordinator.Runner.config;
 import static org.example.util.Annotations.normalise;
@@ -53,23 +54,25 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         // online domain ontology
         for(Table tableMaps : tablesMaps) {
             if(tableMaps.getMapping().hasMatch())
-                importURIs.add(extractOntoModule(tableMaps.getMapping().getMatchURI()));
+                importURIs.addAll(extractOntoModule(tableMaps.getMapping().getMatchURI()));
 
             for(Column colMaps : tableMaps.getColumns())
                 for(Mapping map : colMaps.getMappings()) {
                     if(map.hasMatch())
-                        importURIs.add(extractOntoModule(map.getMatchURI()));
+                        importURIs.addAll(extractOntoModule(map.getMatchURI()));
 
                     if(map.hasPath())
-                        for(java.net.URI pURI : map.getPathURIs())
-                            importURIs.add(extractOntoModule(pURI));
+                        importURIs.addAll(extractOntoModule(map.getPathURIs()));
                 }
         }
         System.out.println(importURIs);
     }
 
-    private String extractOntoModule(java.net.URI uri) {
-        return uri.toString().substring(0, uri.toString().lastIndexOf("/")) + "/";
+    private List<String> extractOntoModule(List<URI> uris) {
+        return uris.stream().map(uri ->
+                        uri.toString().substring(0, uri.toString().lastIndexOf("/")) + "/")
+                .collect(Collectors.toList());
+
     }
 
 
@@ -81,7 +84,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             pModel.addSubModel(dModel);
         }*/
         OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(dModel, config.Out.DOntology);
+        RDFDataMgr.read(dModel, config.Out.DOntology.replace("\\", "/"));
         ontology.pModel.addSubModel(dModel);
         //pModel.listClasses().forEach(System.out::println);
     }
@@ -133,7 +136,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         //4. DEL  PO ObjProp AND Class ?
         if(dataMap.hasDataProperty()
                 && !objMap.hasMatch() && !classMap.hasMatch()
-                && objMap.getPathURIs() == null //&& dataMap.getPathURIs() == null
+                && !objMap.hasPath()                             //&& dataMap.getPathURIs() == null
         ){
 
             // Connect the domain of the PO objProp (that will be del) with the dataProp (that will remain)
@@ -283,7 +286,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         for (Column colMap : tableMaps.getColumns()) {               //1
             System.out.println("MAKE CONS WITHOUT PATH : " + tableMaps.getTable() + "." + colMap.getColumn());
 
-            Mapping objMap = colMap.getObjectPropMapping();       //2
+            Mapping objMap  = colMap.getObjectPropMapping();       //2
             Mapping dataMap = colMap.getDataPropMapping();
 
             try {

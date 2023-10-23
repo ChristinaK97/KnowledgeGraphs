@@ -9,6 +9,7 @@ import org.example.util.Ontology;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -105,7 +106,7 @@ public class DICOMspecificRules implements FormatSpecificRules {
                         new Mapping(
                                 Annotations.CLASS_SUFFIX,
                                 newEl.getURI(),
-                                SequenceItemURI,
+                                Collections.singletonList(URI.create(SequenceItemURI)),
                                 null
                         ));
                 newMappings.add(newTable);
@@ -122,7 +123,7 @@ public class DICOMspecificRules implements FormatSpecificRules {
                     new Mapping(
                             Annotations.CLASS_SUFFIX,
                             basePOprefix + topClass,
-                            baseDOprefix + topClass,
+                            Collections.singletonList(URI.create(baseDOprefix + topClass)),
                             null
                     ));
             newMappings.add(newTable);

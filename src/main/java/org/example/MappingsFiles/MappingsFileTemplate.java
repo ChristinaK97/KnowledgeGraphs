@@ -117,7 +117,7 @@ public class MappingsFileTemplate {
             try {
                 return mappings.get(type);
             }catch (IndexOutOfBoundsException e) {
-                return new Mapping(null,"","", null);
+                return new Mapping(null,"", null, null);
             }
         }
 
@@ -138,13 +138,14 @@ public class MappingsFileTemplate {
     public static class Mapping {
         private String type;
         private URI ontoEl;
-        private URI match;
+        private List<URI> match;
         private List<URI> path;
 
-        public Mapping(String type, String ontoEl, String match, List<URI> path) {
-            this.type = type;
+        public Mapping(String type, String ontoEl, List<URI> match, List<URI> path) {
+            this.type   = type;
             this.ontoEl = URI.create(ontoEl);
-            this.match = URI.create(match);
+            if(match == null)
+                this.match = new ArrayList<>();
             if(path != null)
                 this.path = path;
         }
@@ -167,17 +168,13 @@ public class MappingsFileTemplate {
             this.ontoEl = ontoEl;
         }
 
-        public URI getMatchURI() {
+        public List<URI> getMatchURI() {
             return match;
         }
-        public String getMatchResource() {
-            return Ontology.getLocalName(match);
-        }
 
-        public void setMatch(URI match) {
+        public void setMatch(List<URI> match) {
             this.match = match;
         }
-
 
         public List<URI> getPathURIs() {
             return path;
@@ -194,7 +191,7 @@ public class MappingsFileTemplate {
         }
 
         public boolean hasMatch() {
-            return !"".equals(match.toString());
+            return match.size() > 0;
         }
 
         public boolean hasDataProperty() {
