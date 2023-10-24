@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.normalise;
 import static org.example.util.Annotations.PURE_PROPERTY_URI;
 import static org.example.util.Ontology.getLocalName;

@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 
 public class FileHandler {
 

@@ -5,13 +5,13 @@ package org.example.temp.replaced.medical;
 
 public class AbbrevDb2Snomed {
 
-    public static void main(String[] args) {
-        /*PythonInterpreter interpreter = new PythonInterpreter();
+    /*public static void main(String[] args) {
+        PythonInterpreter interpreter = new PythonInterpreter();
         System.out.println("Java runs python code using jython");
         interpreter.execfile("src/main/java/testPython.py");
         System.out.println("x: " + interpreter.get("x"));
-        System.out.println("x: " + interpreter.get("y"));*/
-    }
+        System.out.println("x: " + interpreter.get("y"));
+    }*/
 
 }
 

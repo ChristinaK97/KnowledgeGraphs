@@ -3,7 +3,6 @@ package org.example.A_Coordinator;
 import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
-import org.example.C_POextractor.POntologyExtractor;
 import org.example.D_MappingGeneration.ExactMapper;
 
 import java.io.IOException;
@@ -17,30 +16,31 @@ import java.util.stream.Stream;
 import static org.example.A_Coordinator.config.Config.MappingConfig.BERTMAP;
 import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER;
 
-public class Runner {
+public class Pipeline {
 
     public static Config config;
 
-    public Runner(Config config) {
-        Runner.config = config;
+    public Pipeline(Config config) {
+        Pipeline.config = config;
     }
 
-    public void pipeline() {
+    public void run() {
         // B. Load Data source
         Object dataSource = getDataSource();
         // C. Extract PO
-        new POntologyExtractor(dataSource);
+        //new POntologyExtractor(dataSource);
         // D. Run Mapper
-        switch (config.Map.Mapper){
+        switch (config.DOMap.Mapper){
             case EXACT_MAPPER:
                 new ExactMapper(null);
                 break;
             case BERTMAP:
                 break;
             default:
-                config.Map.printUnsupportedMapperError();
+                config.DOMap.printUnsupportedMapperError();
                 break;
         }
+        //new SetPOasDOextension();
         // Close connection to relational DB (SQL)
         if(dataSource instanceof RelationalDB)
             ((RelationalDB) dataSource).closeConnection();

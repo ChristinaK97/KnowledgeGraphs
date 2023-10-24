@@ -10,13 +10,14 @@ import static org.example.util.FileHandler.getPath;
 public class Config {
 
     public static String FINTECH = "Fintech";
-    public static String HEATH = "Health";
+    public static String HEALTH = "Health";
     public static String CTI = "CTI";
 
     public static String resourcePath = getPath("src/main/resources");
     public InputPointConfig In;
     public KGOutputsConfig Out;
-    public MappingConfig Map;
+    public MappingConfig DOMap;
+    public MappingConfig PiiMap;
 
 
     public Config(String UseCase, String FileExtension) {
@@ -62,10 +63,8 @@ public class Config {
         );
 
         // Mapping parameters ------------------------------------------------------------------------------
-        JsonObject mappingParams = configFile.getAsJsonObject("MappingParameters");
-        Map = new MappingConfig(
-                mappingParams.get("Mapper").getAsString()
-        );
+        JsonObject mappingParams = configFile.getAsJsonObject("DOMappingParameters");
+        DOMap = new MappingConfig(mappingParams);
 
     }
 
@@ -191,9 +190,25 @@ public class Config {
         public static final String EXACT_MAPPER = "ExactMapper";
         public static final String BERTMAP = "BERTMap";
         public String Mapper;
+        public double BES_HIGH_THRS;
+        public double BES_LOW_THRS;
+        public double PJ_HIGH_THRS;
 
-        public MappingConfig(String Mapper) {
-            this.Mapper = Mapper;
+        public double PJ_REJECT_THRS;
+        public double BES_REJECT_THRS;
+
+        public int DEPTH_THRS;
+        public boolean rejectPropertyMaps;
+
+        public MappingConfig(JsonObject params) {
+            Mapper = params.get("Mapper").getAsString();
+            BES_HIGH_THRS   = params.get("BES_HIGH_THRS").getAsDouble();
+            BES_LOW_THRS    = params.get("BES_LOW_THRS").getAsDouble();
+            PJ_HIGH_THRS    = params.get("PJ_HIGH_THRS").getAsDouble();
+            PJ_REJECT_THRS  = params.get("PJ_REJECT_THRS").getAsDouble();
+            BES_REJECT_THRS = params.get("BES_REJECT_THRS").getAsDouble();
+            DEPTH_THRS      = params.get("DEPTH_THRS").getAsInt();
+            rejectPropertyMaps = params.get("rejectPropertyMaps").getAsBoolean();
         }
 
         public void printUnsupportedMapperError() {

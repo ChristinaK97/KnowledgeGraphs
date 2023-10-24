@@ -10,7 +10,7 @@ import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.SKOS;
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import org.example.util.JsonUtil;
 import org.example.util.Pair;
 

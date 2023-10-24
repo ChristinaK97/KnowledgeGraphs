@@ -1,6 +1,6 @@
 package org.example.B_InputDatasetProcessing.Tabular;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.FileHandler.getFileNameWithoutExtension;
 import static org.example.util.XSDmappers.fixDateFormat;
 

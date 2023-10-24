@@ -1,6 +1,6 @@
 package org.example.C_POextractor;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.*;
 import org.example.C_POextractor.Properties.DomRan;
 import org.example.MappingsFiles.CreateMappingsFile;

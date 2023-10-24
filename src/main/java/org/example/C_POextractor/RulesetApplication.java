@@ -1,7 +1,6 @@
 package org.example.C_POextractor;
 
-import com.google.gson.JsonObject;
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 
 import org.example.B_InputDatasetProcessing.DICOM.DICOM2SediJSON;
 import org.example.B_InputDatasetProcessing.DICOM.TagDictionary;

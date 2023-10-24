@@ -1,5 +1,5 @@
 package org.example.B_InputDatasetProcessing.Tabular;
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 
 import com.github.jsonldjava.shaded.com.google.common.collect.ImmutableMap;
 import tech.tablesaw.api.ColumnType;

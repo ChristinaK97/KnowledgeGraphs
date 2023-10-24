@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.TABLE_CLASS_URI;
 import static org.example.util.Ontology.getLocalName;
 

@@ -1,6 +1,6 @@
 package org.example.C_POextractor.RDB2OWL;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.RTable;
 import org.example.C_POextractor.Properties;

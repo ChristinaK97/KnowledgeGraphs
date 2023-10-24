@@ -1,5 +1,5 @@
 package org.example.util;
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 
 import org.apache.jena.vocabulary.SKOS;
 import org.semanticweb.owlapi.model.IRI;

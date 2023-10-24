@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.HashSet;
+
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.util.iterator.ExtendedIterator;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import org.example.D_MappingGeneration.FormatSpecific.DICOMspecificRules;
 import org.example.D_MappingGeneration.FormatSpecific.FormatSpecificRules;
 import org.example.MappingsFiles.SetMappingsFile;
 import org.example.util.Ontology;
-import tech.tablesaw.api.Table;
 
 import static org.example.util.Annotations.TABLE_CLASS;
 import static org.example.util.Ontology.DATAPROPS;

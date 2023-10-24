@@ -1,6 +1,6 @@
 package org.example.C_POextractor;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import com.google.gson.JsonPrimitive;
 import org.apache.jena.ontology.OntClass;
 import org.example.B_InputDatasetProcessing.DICOM.TagDictionary;

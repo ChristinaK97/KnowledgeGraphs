@@ -1,7 +1,7 @@
 package org.example.C_POextractor;
 
 import com.google.gson.*;
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import org.example.util.JsonUtil;
 import org.example.util.XSDmappers;
 

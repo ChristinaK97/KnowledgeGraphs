@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import org.example.util.JsonUtil;
 import org.example.util.Annotations;
 import org.example.util.DatasetDictionary;

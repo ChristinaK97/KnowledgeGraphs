@@ -7,7 +7,7 @@ import org.example.util.JsonUtil;
 import java.io.FileReader;
 import java.util.List;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 
 public class ManageMappingsFile {
 

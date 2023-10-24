@@ -1,6 +1,6 @@
 package org.example.B_InputDatasetProcessing.DICOM;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import com.google.gson.*;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntProperty;

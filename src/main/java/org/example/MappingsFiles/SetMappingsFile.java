@@ -6,10 +6,9 @@ import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 
 
 public class SetMappingsFile extends ManageMappingsFile {

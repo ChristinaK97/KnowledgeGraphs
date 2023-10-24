@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 
 public class RelationalDB implements Iterable<RTable> {
     private HashMap<String, RTable> rTables = new HashMap<>();

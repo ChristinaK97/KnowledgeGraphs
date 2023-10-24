@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import static org.example.A_Coordinator.Runner.config;
+import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.symmetricObjPropName;
 import static org.example.util.Ontology.getLocalName;
 
