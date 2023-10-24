@@ -12,6 +12,7 @@ import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.*;
 import static org.example.util.Ontology.getLocalName;
@@ -22,6 +23,7 @@ public class DICOMspecificRules implements FormatSpecificRules {
     private String basePOprefix;
     private String baseDOprefix;
 
+    // add additional matches to existing elements (their maps are included in the json template)
     @Override
     public void addAdditionalMatches(Ontology dicomPO, Ontology dicomDO, Matches matches) {
         this.basePOprefix = dicomPO.getBasePrefix();
@@ -88,11 +90,13 @@ public class DICOMspecificRules implements FormatSpecificRules {
 
 //==================================================================================================================
 
+    // add matches for new elements (the json template didn't include maps for these elements before)
+    // add these as new tables
     @Override
     public ArrayList<Table> getNewMappings() {
         ArrayList<Table> newMappings = new ArrayList<>();
         hasItemNewMappings(newMappings);
-        topClassesMappings (newMappings);
+        topClassesMappings(newMappings);
         return newMappings;
     }
 
@@ -130,7 +134,10 @@ public class DICOMspecificRules implements FormatSpecificRules {
         }
     }
 
+//==================================================================================================================
 
+    @Override
+    public void modifyMappings(List<Table> tablesList) {}
 
 }
 

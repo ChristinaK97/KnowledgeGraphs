@@ -6,6 +6,7 @@ import org.example.util.Ontology;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface FormatSpecificRules {
 
@@ -14,4 +15,6 @@ public interface FormatSpecificRules {
     void addAdditionalMatches(Ontology srcOnto, Ontology trgOnto, Matches matches);
 
     ArrayList<Table> getNewMappings();
+
+    void modifyMappings(List<Table> tablesList);
 }

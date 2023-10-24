@@ -17,7 +17,7 @@ public class SetMappingsFile extends ManageMappingsFile {
     private Matches matches;
     private List<Table> tablesList;
     // private Set<String> tableClassesURIs;
-    private boolean addPathsOnlyToTableMaps = config.In.isDSON();
+    private boolean addPathsOnlyToTableMaps = false;//config.In.isDSON();
 
     public SetMappingsFile(Matches matches, FormatSpecificRules spRules /*, Set<String> tableClassesURIs*/) {
         super();
@@ -25,9 +25,21 @@ public class SetMappingsFile extends ManageMappingsFile {
         // this.tableClassesURIs = tableClassesURIs;
         tablesList = readMapJSON();
         addMatches();
-        if(spRules != null)
-            addNewMappings(spRules);
+        applyFormatSpecificRules(spRules);
         saveMappingsFile(tablesList);
+    }
+
+
+    //TODO for testing. Remove it
+    public SetMappingsFile(Matches matches, FormatSpecificRules spRules, String PO2DO) {
+        super();
+        this.matches = matches;
+        // this.tableClassesURIs = tableClassesURIs;
+        tablesList = readMapJSON(PO2DO);
+        addMatches();
+        applyFormatSpecificRules(spRules);
+        fileTemplate.setTables(tablesList);
+        saveMappingsFile(PO2DO);
     }
 
 
@@ -54,22 +66,15 @@ public class SetMappingsFile extends ManageMappingsFile {
         }
     }
 
-    private void addNewMappings(FormatSpecificRules spRules) {
-        ArrayList<Table> newMappings = spRules.getNewMappings();
-        tablesList.addAll(newMappings);
+
+    private void applyFormatSpecificRules(FormatSpecificRules spRules) {
+        if(spRules != null) {
+            // add new mappings
+            tablesList.addAll(spRules.getNewMappings());
+            // make modifications to established mappings
+            spRules.modifyMappings(tablesList);
+        }
     }
 
 }
 
-    //TODO for testing. Remove it
-    /*public SetMappingsFile(Matches matches, FormatSpecificRules spRules, String PO2DO, Set<String> tableClassesURIs) {
-        super();
-        this.matches = matches;
-        // this.tableClassesURIs = tableClassesURIs;
-        tablesList = readMapJSON(PO2DO);
-        addMatches();
-        if(spRules != null)
-            addNewMappings(spRules);
-        fileTemplate.setTables(tablesList);
-        saveMappingsFile(PO2DO);
-    }*/

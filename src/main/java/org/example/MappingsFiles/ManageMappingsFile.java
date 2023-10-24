@@ -39,6 +39,10 @@ public class ManageMappingsFile {
         }
         return null;
     }
+    //TODO: for testing. Remove it
+    public void saveMappingsFile(String PO2DO_Mappings_file) {
+        JsonUtil.saveToJSONFile(PO2DO_Mappings_file, fileTemplate);
+    }
 
 
     public void saveMappingsFile(List<Table> tablesList) {
@@ -49,10 +53,5 @@ public class ManageMappingsFile {
     public void saveMappingsFile() {
         JsonUtil.saveToJSONFile(config.Out.PO2DO_Mappings, fileTemplate);
     }
-
-    /*public void saveMappingsFile(String PO2DO_Mappings_file) {
-        JsonUtil.saveToJSONFile(PO2DO_Mappings_file, fileTemplate);
-    }*/
-
 
 }

@@ -140,6 +140,7 @@ public class MappingsFileTemplate {
         private URI ontoEl;
         private List<URI> match;
         private List<URI> path;
+        private List<URI> initialMatch;
 
         public Mapping(String type, String ontoEl, List<URI> match, List<URI> path) {
             this.type   = type;
@@ -148,8 +149,10 @@ public class MappingsFileTemplate {
                 this.match = new ArrayList<>();
             if(path != null)
                 this.path = path;
+            initialMatch = null;
         }
 
+        // type ----------------------------------------------------------------
         public String getType() {
             return type;
         }
@@ -158,6 +161,11 @@ public class MappingsFileTemplate {
             this.type = type;
         }
 
+        public boolean hasDataProperty() {
+            return type != null;
+        }
+
+        // ontoEl ----------------------------------------------------------------
         public URI getOntoElURI() {
             return ontoEl;
         }
@@ -168,14 +176,31 @@ public class MappingsFileTemplate {
             this.ontoEl = ontoEl;
         }
 
+        // match ----------------------------------------------------------------
         public List<URI> getMatchURI() {
             return match;
         }
 
         public void setMatch(List<URI> match) {
-            this.match = match;
+            this.match = match != null ? match : new ArrayList<>();
+        }
+        public boolean hasMatch() {
+            return match.size() > 0;
         }
 
+        public void setAsInitialMatch() {
+            initialMatch = match;
+            setMatch(null);
+        }
+
+        public List<URI> getInitialMatch() {
+            return initialMatch;
+        }
+        public void setInitialMatch(List<URI> initialMatch) {
+            this.initialMatch = initialMatch;
+        }
+
+        // path ----------------------------------------------------------------
         public List<URI> getPathURIs() {
             return path;
         }
@@ -185,29 +210,19 @@ public class MappingsFileTemplate {
                     .map(Ontology::getLocalName)
                     .collect(Collectors.toList());
         }
-
-        public void setPath(List<URI> path) {
-            this.path = path;
-        }
-
-        public boolean hasMatch() {
-            return match.size() > 0;
-        }
-
-        public boolean hasDataProperty() {
-            return type != null;
-        }
-
         public boolean hasPath() {
             return path != null;
         }
-
+        public void setPath(List<URI> path) {
+            this.path = path;
+        }
         public URI getFirstNodeFromPath() {
             return path.get(0);
         }
         public URI getLastNodeFromPath() {
             return path.get(path.size() - 1);
         }
+
     }
     //================================================================================
 

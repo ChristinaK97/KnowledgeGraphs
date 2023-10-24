@@ -7,14 +7,17 @@ import com.google.gson.JsonObject;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.ontology.UnionClass;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.XSD;
+import org.example.D_MappingGeneration.FormatSpecific.FormatSpecificRules;
+import org.example.D_MappingGeneration.FormatSpecific.TabularSpecificRules;
+import org.example.D_MappingGeneration.Matches;
 import org.example.MappingsFiles.MappingsFileTemplate;
+import org.example.MappingsFiles.SetMappingsFile;
 import org.example.util.Ontology;
 import org.example.util.Pair;
+import org.example.util.XSDmappers;
 import tech.tablesaw.api.*;
-import static org.example.A_Coordinator.Runner.config;
-import org.example.B_InputDatasetProcessing.JsonUtil;
+import org.example.util.JsonUtil;
 import tech.tablesaw.columns.Column;
 
 import java.util.*;
@@ -40,37 +43,48 @@ public class MappingSelection {
     final double BES_HIGH_THRS = 85;
     final double BES_LOW_THRS  = 0.1;
     final double PJ_HIGH_THRS  = 50;
-    final double PJ_LOW_THRS = 20;
-    final int DEPTH_THRS = 3;
+
+    final double PJ_REJECT_THRS = 20;
+    final double BES_REJECT_THRS = 0;  //90 for piis
+
+    final int DEPTH_THRS = 3; // 1 for piis
     boolean rejectPropertyMaps = false;
 
     boolean logHierarchy=false;
-    boolean logNary=true;
+    boolean logNary=false;
 
-    HashSet<Resource> decimalDatatypes = new HashSet<>(List.of(new Resource[]{XSD.xdouble, XSD.xfloat, XSD.decimal}));
-    HashSet<Resource> intDatatypes     = new HashSet<>(List.of(new Resource[]{XSD.integer, XSD.unsignedInt, XSD.unsignedShort, XSD.xshort, XSD.positiveInteger, XSD.nonPositiveInteger, XSD.nonNegativeInteger}));
-    HashSet<Resource> dateDatatypes    = new HashSet<>(List.of(new Resource[]{XSD.date, XSD.dateTime, XSD.dateTimeStamp, XSD.time}));
+    int c = 0;
+
 //======================================================================================================================
 
-    private HashMap<String, Table> rawMaps = new HashMap<>();
+    private Matches matches;
+    private Ontology srcOnto, tgtOnto;
     private List<MappingsFileTemplate.Table> tablesList;
+    private HashMap<String, Table> rawMaps = new HashMap<>();
     private HashMap<String, String> tableClassMaps = new HashMap<>();
 
-    private Ontology srcOnto, tgtOnto;
 
-    public MappingSelection(String bertmapMappingsFile) {
-        srcOnto = new Ontology(config.Out.POntology);
-        tgtOnto = new Ontology(config.Out.DOntology);
+    public MappingSelection(String bertmapMappingsFile, String srcOnto, String tgtOnto) {
+        //srcOnto = new Ontology(config.Out.POntology);
+        this.srcOnto = new Ontology(srcOnto);
+        this.tgtOnto = new Ontology(tgtOnto);
 
+        matches = new Matches();
         readMappingsJSON(bertmapMappingsFile);
-        tablesList = readMapJSON();
+        String PO2DO = "src/main/resources/Use_Case/Fintech/EPIBANK/KG_outputs/PO2DO_Mappings.json";
+        tablesList = readMapJSON(PO2DO);
         selectTableOptimal();
         selectTableColumnOptimal();
+
+        boolean isTabular = true;
+        FormatSpecificRules spRules = isTabular ? new TabularSpecificRules() : null;
+
+        new SetMappingsFile(matches, spRules, PO2DO);
     }
 //======================================================================================================================
 //======================================================================================================================
     private ArrayList<Column> createEmptyColumns() {
-        ArrayList<Column> columns = new ArrayList<>(){{
+        return new ArrayList<>(){{
             add(StringColumn.create(LOCALNAME));
             add(DoubleColumn.create(BES));
             add(IntColumn.create(BESRank));
@@ -79,7 +93,6 @@ public class MappingSelection {
             add(IntColumn.create(PJRank));
             add(StringColumn.create(TGTCand));
         }};
-        return columns;
     }
     private Table createTable(ArrayList<Column> columns) {
         Table table = Table.create();
@@ -119,7 +132,7 @@ public class MappingSelection {
             Table tMap = rawMaps.get(tablePOClass);
             String tableOptimal = null;
             try {
-                // BES >= BES_HIGH_THRS or (BES >= BES_LOW_THRS and PJ >= PJ_HIGH_THRS
+                // BES >= BES_HIGH_THRS or (BES >= BES_LOW_THRS and PJ >= PJ_HIGH_THRS)
                 tMap = tMap
                         .where(tMap.numberColumn(BES).isGreaterThanOrEqualTo(BES_HIGH_THRS)
                            .or(     tMap.numberColumn(BES).isGreaterThanOrEqualTo(BES_LOW_THRS)
@@ -130,6 +143,7 @@ public class MappingSelection {
                 tableOptimal = tMap.getString(0, TGTCand);
             }catch (IndexOutOfBoundsException ignored) {}
             tableClassMaps.put(tablePOClass, tableOptimal);                                                             // System.out.printf(">> %s:\n%s\n%s\n\n", tablePOClass, tMap, tableOptimal);
+            matches.addMatch(tablePOClass, tableOptimal, 0);
         }
     }
 
@@ -142,7 +156,12 @@ public class MappingSelection {
                 String objProp   = col.getObjectPropMapping().getOntoElURI().toString();
                 String colClass  = col.getClassPropMapping().getOntoElURI().toString();
                 String dataProp  = col.getDataPropMapping().getOntoElURI().toString();
-                selectTableColumnOptimal(tableMap, objProp, colClass, dataProp);
+
+                Object[] mapTriple = selectTableColumnOptimal(tableMap, objProp, colClass, dataProp);
+                matches.addMatch(objProp,  mapTriple[0], 0);
+                matches.addMatch(colClass, mapTriple[1], 0);
+                matches.addMatch(dataProp, mapTriple[2], 0);
+
                 System.out.println("\n=============================================================================================================================\n\n");
             }
         }
@@ -159,14 +178,14 @@ public class MappingSelection {
             if(rejectPropertyMaps)
                 objMap = null;
             else{
-                objMap = rejectCandsWithLowPJ(objMap);
+                objMap = rejectCandsWithLowScore(objMap);
                 objMap = filterObjMap(tableOptimal, objMap);
                 if(objMap.rowCount()>1)
                     objMap = considerHierarchies(objMap);
             }
         }
         if(hasCands(classMap)) {
-            classMap = rejectCandsWithLowPJ(classMap);
+            classMap = rejectCandsWithLowScore(classMap);
             if(classMap.rowCount() > 1)
                 classMap = considerHierarchies(classMap);
         }
@@ -174,7 +193,7 @@ public class MappingSelection {
             if(rejectPropertyMaps) {
                 dataMap = null;
             }else{
-                dataMap = rejectCandsWithLowPJ(dataMap);
+                dataMap = rejectCandsWithLowScore(dataMap);
                 dataMap = filterDataMap(dataProp, dataMap);
             }
         }
@@ -226,9 +245,10 @@ public class MappingSelection {
                 objVotes += objScore == maxScore ? 1 : 0;
                 clsVotes += clsScore == maxScore ? 1 : 0;
             }
+            OntResource objRange = tgtOnto.getInferedDomRan((String) objOptimal, false);
+            boolean areCompatible = areCompatible(objRange, clsOptimal.toString(), true, false);
             if(objVotes != clsVotes) {
-                OntResource objRange = tgtOnto.getInferedDomRan((String) objOptimal, false);
-                if(!areCompatible(objRange, clsOptimal.toString(), true, false))
+                if(!areCompatible)
                     if(objVotes > clsVotes)
                         clsOptimal = null;
                     else { // objVotes < clsVotes
@@ -306,9 +326,9 @@ public class MappingSelection {
                         DOrange == null ||
                         DOrange.equals(XSD.xstring) ||
                         DOrange.equals(POrange) ||
-                        ((decimalDatatypes.contains(DOrange) || intDatatypes.contains(DOrange)) && intDatatypes.contains(POrange)) ||
-                        (decimalDatatypes.contains(DOrange) && decimalDatatypes.contains(POrange)) ||
-                        (dateDatatypes.contains(DOrange) && dateDatatypes.contains(POrange));
+                        ((XSDmappers.decimalDatatypes.contains(DOrange) || XSDmappers.intDatatypes.contains(DOrange)) && XSDmappers.intDatatypes.contains(POrange)) ||
+                        (XSDmappers.decimalDatatypes.contains(DOrange) && XSDmappers.decimalDatatypes.contains(POrange)) ||
+                        (XSDmappers.dateDatatypes.contains(DOrange) && XSDmappers.dateDatatypes.contains(POrange));
             }                                                                                                                                   //System.out.printf("%s (%s) - %s (%s) ? %s\n",getLocal(dataProp), getLocal(POrange), getLocal(dataCand), getLocal(DOrange), areCompatible);
             if(!areCompatible)
                 toRmv.add(rowID);
@@ -317,8 +337,10 @@ public class MappingSelection {
     }
 
 
-    private Table rejectCandsWithLowPJ(Table elMap) {
-        return elMap.where(elMap.doubleColumn(PJ).isGreaterThanOrEqualTo(PJ_LOW_THRS));
+    private Table rejectCandsWithLowScore(Table elMap) {
+        return elMap.where(elMap.doubleColumn(PJ).isGreaterThanOrEqualTo(PJ_REJECT_THRS)
+                      .and(elMap.doubleColumn(BES).isGreaterThanOrEqualTo(BES_REJECT_THRS))
+        );
     }
 
 //======================================================================================================================
@@ -406,7 +428,7 @@ public class MappingSelection {
         if(hasCands(dataMap))
             dataOptimal = selectDataOptimal(mapPaths, dataMap, objOptimal, clsOptimal);
 
-        if(logNary){System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));}
+        System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));
         return new String[]{objOptimal, clsOptimal, dataOptimal};
     }
 
@@ -638,14 +660,16 @@ public class MappingSelection {
 
 //======================================================================================================================
 //======================================================================================================================
-    private String getLocal(Collection<String> group) {
+    public static String getLocal(Collection<String> group) {
+        if(group == null)
+            return null;
         StringBuilder s = new StringBuilder("[");
         for(String el:group)
             s.append(getLocalName(el)).append(", ");
         s.append("]");
         return s.toString();
     }
-    private String getLocal(Object x) {
+    public static String getLocal(Object x) {
         if(x == null)
             return null;
         if(x.toString().startsWith("http"))
@@ -656,70 +680,17 @@ public class MappingSelection {
     }
 
     public static void main(String[] args) {
-        String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json";
-        new MappingSelection(bertmapMappingsFile);
+        String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json"; //Pii
+        String src = "src/main/resources/Use_Case/Fintech/EPIBANK/KG_outputs/POntology.ttl";
+        //String tgt = "src/main/resources/PII/dpv-pii.ttl";
+        String tgt = "src/main/resources/Use_Case/Fintech/DOntology/FIBOLt.owl";
+        new MappingSelection(bertmapMappingsFile, src, tgt);
     }
 }
 
 
 
 
-
-
-/*if(p.maxDepth() <= DEPTH_THRS && group.size()>1) {
-                String trfsTo = (p.maxDepth() == 0) ?
-                             specialize(p.closestCommonAnc(), group, elMap) :
-                             generalize(p.closestCommonAnc(), group, elMap);
-
-                 updatedCols.get(0).append(getLocalName(trfsTo));
-                 updatedCols.get(6).append(trfsTo);
-                 for(Column column : updatedCols)
-                     if(column instanceof DoubleColumn)
-                         column.append(groupTable.doubleColumn(column.name()).max());
-                     else if(column instanceof IntColumn)
-                         column.append((int) groupTable.intColumn(column.name()).min());
-            }else
-                for (Column column : updatedCols)
-                    if (column instanceof StringColumn)
-                        column.append(groupTable.stringColumn(column.name()));
-                    else if (column instanceof DoubleColumn)
-                        column.append(groupTable.doubleColumn(column.name()));
-                    else if (column instanceof IntColumn)
-                        column.append(groupTable.intColumn(column.name()));*/
-
-/*private void analysePaths(Table mapPaths, Table objMap, Table classMap) {                                                        System.out.println("Discovered paths:");for(Row path:mapPaths) System.out.printf("\t%s -> %s\n",getLocalName(path.getString(OBJ_MAP)),getLocalName(path.getString(CLASS_MAP)));
-        analyseMapElement(mapPaths, objMap, OBJ_MAP);                                                                                System.out.println("\n- Analyze column " + OBJ_MAP);
-        analyseMapElement(mapPaths, classMap, CLASS_MAP);                                                                            System.out.println("\n- Analyze column " + CLASS_MAP);
-        mapPaths = mapPaths.dropDuplicateRows();                                                                                     System.out.println("\nProcessed paths:");for(Row path:mapPaths) System.out.printf("\t%s -> %s\n",getLocalName(path.getString(OBJ_MAP)),getLocalName(path.getString(CLASS_MAP)));
-    }
-
-    private void analyseMapElement(Table mapPaths, Table elMap, String colEl){
-        HashMap<String, String> trfs = generalizationAndSpecializationTrfs(elMap,
-                findHierarchicalRelations(mapPaths.stringColumn(colEl).asSet()));                                                 System.out.println("Trfs :"); trfs.forEach((cand,trfsTo)->{System.out.printf("\t%s => %s\n",getLocalName(cand),getLocalName(trfsTo));});
-
-        for(int i=0; i<mapPaths.rowCount(); ++i){
-            String cand = mapPaths.getString(i, colEl);
-            mapPaths.stringColumn(colEl).set(i, trfs.getOrDefault(cand,cand));
-        }
-    }*/
-
-/*private HashMap<String, String> generalizationAndSpecializationTrfs(
-            Table elMap, HashMap<HashSet<String>, Pair<String, Integer>> hierarchies) {
-        // maxDepth==0 <=> ISA relationship. Should specialize to some subclass?
-        // maxDepth>0 and group size > 1 <=> Have-common-ancestors relationship. Is there some sibling that
-        //      is better than the rest, or should generalize to the ancestor
-        HashMap<String, String> trfs = new HashMap<>();
-        hierarchies.forEach((group, p) -> {
-            if(group.size()>1) {
-                String trfsTo = (p.maxDepth()==0) ?
-                        specialize(p.closestCommonAnc(), group, elMap) :
-                        generalize(p.closestCommonAnc(), group, elMap);
-                for(String cand : group)
-                    trfs.put(cand, trfsTo);
-            }
-        });
-        return trfs;
-    }*/
 
 
 

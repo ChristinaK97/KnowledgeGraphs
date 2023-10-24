@@ -38,11 +38,9 @@ public class ExactMapper {
         for(int ONTELEMENT : ONTELEMENTS)
             match(ONTELEMENT);
 
-        FormatSpecificRules spRules;                                                                                                    System.out.println("# total matches = " + matches.size());
-        if(config.In.isDSON())
-            spRules = new DICOMspecificRules();
-        else
-            spRules = null; //TODO add other types if this matcher is used for input data except dicom files
+        FormatSpecificRules spRules = config.In.isDSON() ? new DICOMspecificRules()
+                /*TODO add other types if this matcher is used for input data except dicom files*/
+                : null;                                                                                                 System.out.println("# total matches = " + matches.size());
 
         spRules.addAdditionalMatches(srcOnto, trgOnto, matches);
         new SetMappingsFile(matches, spRules /*,getTableOntoEl()*/);
