@@ -16,13 +16,11 @@ public class SetMappingsFile extends ManageMappingsFile {
 
     private Matches matches;
     private List<Table> tablesList;
-    // private Set<String> tableClassesURIs;
-    private boolean addPathsOnlyToTableMaps = false;//config.In.isDSON();
+    private boolean addPathsOnlyToTableMaps = config.In.isDSON();
 
-    public SetMappingsFile(Matches matches, FormatSpecificRules spRules /*, Set<String> tableClassesURIs*/) {
+    public SetMappingsFile(Matches matches, FormatSpecificRules spRules) {
         super();
         this.matches = matches;
-        // this.tableClassesURIs = tableClassesURIs;
         tablesList = readMapJSON();
         addMatches();
         applyFormatSpecificRules(spRules);
@@ -34,7 +32,6 @@ public class SetMappingsFile extends ManageMappingsFile {
     public SetMappingsFile(Matches matches, FormatSpecificRules spRules, String PO2DO) {
         super();
         this.matches = matches;
-        // this.tableClassesURIs = tableClassesURIs;
         tablesList = readMapJSON(PO2DO);
         addMatches();
         applyFormatSpecificRules(spRules);
@@ -59,7 +56,6 @@ public class SetMappingsFile extends ManageMappingsFile {
     private void setMatch(Mapping map, boolean isColumnMapping) {
         String ontoEl = map.getOntoElURI().toString();
         map.setMatch(matches.getMatchURI(ontoEl));
-        // Replaced condition: !isColumnMapping || !tableClassesURIs.contains(ontoEl)
         if(!isColumnMapping || !addPathsOnlyToTableMaps) {
             System.out.printf("Add path map to %s. Map path = %s\n", ontoEl, matches.getPath(ontoEl));
             map.setPath(matches.getPath(ontoEl));

@@ -43,7 +43,7 @@ public class ExactMapper {
                 : null;                                                                                                 System.out.println("# total matches = " + matches.size());
 
         spRules.addAdditionalMatches(srcOnto, trgOnto, matches);
-        new SetMappingsFile(matches, spRules /*,getTableOntoEl()*/);
+        new SetMappingsFile(matches, spRules);
         srcOnto.saveChanges();
     }
 
