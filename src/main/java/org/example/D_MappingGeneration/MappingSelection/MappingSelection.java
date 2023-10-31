@@ -8,6 +8,8 @@ import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.ontology.UnionClass;
 import org.apache.jena.vocabulary.XSD;
+import org.example.A_Coordinator.config.Config;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.D_MappingGeneration.FormatSpecific.FormatSpecificRules;
 import org.example.D_MappingGeneration.FormatSpecific.TabularSpecificRules;
 import org.example.D_MappingGeneration.Matches;
@@ -40,20 +42,11 @@ public class MappingSelection {
     static String CLASS_MAP = "classMap";
     static String DATA_MAP  = "dataMap";
 
-    final double BES_HIGH_THRS = 85;
-    final double BES_LOW_THRS  = 0.1;
-    final double PJ_HIGH_THRS  = 50;
-
-    final double PJ_REJECT_THRS = 20;
-    final double BES_REJECT_THRS = 0;  //90 for piis
-
-    final int DEPTH_THRS = 3; // 1 for piis
-    boolean rejectPropertyMaps = false;
+    private Config.MappingConfig config;
 
     boolean logHierarchy=false;
     boolean logNary=false;
 
-    int c = 0;
 
 //======================================================================================================================
 
@@ -64,23 +57,26 @@ public class MappingSelection {
     private HashMap<String, String> tableClassMaps = new HashMap<>();
 
 
-    public MappingSelection(String bertmapMappingsFile, String srcOnto, String tgtOnto) {
-        //srcOnto = new Ontology(config.Out.POntology);
+    public MappingSelection(String srcOnto, String tgtOnto,
+                            String bertmapMappingsFile, Config.MappingConfig config,
+                            Object datasource
+    ) {
         this.srcOnto = new Ontology(srcOnto);
         this.tgtOnto = new Ontology(tgtOnto);
+        this.config = config;
 
         matches = new Matches();
         readMappingsJSON(bertmapMappingsFile);
-        String PO2DO = "src/main/resources/Use_Case/Fintech/EPIBANK/KG_outputs/PO2DO_Mappings.json";
-        tablesList = readMapJSON(PO2DO);
+        tablesList = readMapJSON();
         selectTableOptimal();
         selectTableColumnOptimal();
 
-        boolean isTabular = true;
-        FormatSpecificRules spRules = isTabular ? new TabularSpecificRules() : null;
-
-        new SetMappingsFile(matches, spRules, PO2DO);
+        FormatSpecificRules spRules = datasource instanceof RelationalDB ?
+                                      new TabularSpecificRules((RelationalDB) datasource) : null;
+        new SetMappingsFile(matches, spRules);
     }
+
+
 //======================================================================================================================
 //======================================================================================================================
     private ArrayList<Column> createEmptyColumns() {
@@ -134,9 +130,9 @@ public class MappingSelection {
             try {
                 // BES >= BES_HIGH_THRS or (BES >= BES_LOW_THRS and PJ >= PJ_HIGH_THRS)
                 tMap = tMap
-                        .where(tMap.numberColumn(BES).isGreaterThanOrEqualTo(BES_HIGH_THRS)
-                           .or(     tMap.numberColumn(BES).isGreaterThanOrEqualTo(BES_LOW_THRS)
-                               .and(tMap.numberColumn(PJ) .isGreaterThanOrEqualTo(PJ_HIGH_THRS)))
+                        .where(tMap.numberColumn(BES).isGreaterThanOrEqualTo(config.BES_HIGH_THRS)
+                           .or(     tMap.numberColumn(BES).isGreaterThanOrEqualTo(config.BES_LOW_THRS)
+                               .and(tMap.numberColumn(PJ) .isGreaterThanOrEqualTo(config.PJ_HIGH_THRS)))
                 );
                 tMap = tMap.where(tMap.numberColumn(PJRank).isEqualTo(tMap.numberColumn(PJRank).min()));
                 tMap = tMap.where(tMap.numberColumn(PJPerc).isEqualTo(tMap.numberColumn(PJPerc).max()));
@@ -175,7 +171,7 @@ public class MappingSelection {
         /*---------------------------------------------------*/
         // filter candidates
         if(hasCands(objMap)) {
-            if(rejectPropertyMaps)
+            if(config.rejectPropertyMaps)
                 objMap = null;
             else{
                 objMap = rejectCandsWithLowScore(objMap);
@@ -190,7 +186,7 @@ public class MappingSelection {
                 classMap = considerHierarchies(classMap);
         }
         if(hasCands(dataMap)){
-            if(rejectPropertyMaps) {
+            if(config.rejectPropertyMaps) {
                 dataMap = null;
             }else{
                 dataMap = rejectCandsWithLowScore(dataMap);
@@ -338,8 +334,8 @@ public class MappingSelection {
 
 
     private Table rejectCandsWithLowScore(Table elMap) {
-        return elMap.where(elMap.doubleColumn(PJ).isGreaterThanOrEqualTo(PJ_REJECT_THRS)
-                      .and(elMap.doubleColumn(BES).isGreaterThanOrEqualTo(BES_REJECT_THRS))
+        return elMap.where(elMap.doubleColumn(PJ).isGreaterThanOrEqualTo(config.PJ_REJECT_THRS)
+                      .and(elMap.doubleColumn(BES).isGreaterThanOrEqualTo(config.BES_REJECT_THRS))
         );
     }
 
@@ -531,11 +527,11 @@ public class MappingSelection {
                 if(commonAncestors.containsKey(ancestor)) {
                     int currDepth = commonAncestors.get(ancestor).maxDepth();
                     int updatedDepth = (currDepth==0 || depth==0) ? 0 : Math.max(currDepth, depth);
-                    if(updatedDepth <= DEPTH_THRS) {
+                    if(updatedDepth <= config.DEPTH_THRS) {
                         commonAncestors.get(ancestor).children().add(candidate);
                         commonAncestors.get(ancestor).setMaxDepth(updatedDepth);
                     }
-                }else if (depth <= DEPTH_THRS)
+                }else if (depth <= config.DEPTH_THRS)
                     commonAncestors.put(ancestor, new Pair<>(new HashSet<>(){{add(candidate);}}, depth));
         });}
                                                                                                                         //*p*/if(logHierarchy) {System.out.printf("Cands = %s\n", getLocal(candidates));  commonAncestors.forEach((ancestor, p) -> {System.out.printf("Ans = %s\t\tD = %d\t\tChn = %s\n", getLocalName(ancestor), p.maxDepth(), getLocal(p.children()));});}/*p*/
@@ -679,13 +675,6 @@ public class MappingSelection {
 
     }
 
-    public static void main(String[] args) {
-        String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json"; //Pii
-        String src = "src/main/resources/Use_Case/Fintech/EPIBANK/KG_outputs/POntology.ttl";
-        //String tgt = "src/main/resources/PII/dpv-pii.ttl";
-        String tgt = "src/main/resources/Use_Case/Fintech/DOntology/FIBOLt.owl";
-        new MappingSelection(bertmapMappingsFile, src, tgt);
-    }
 }
 
 

@@ -31,7 +31,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     private HashSet<String> importURIs = new HashSet<>();
 
     public SetPOasDOextension() {
-        super();
+        super(config.Out.POntology);
         gatherImports();
         loadDomainOntoImports();
         setHierarchy();

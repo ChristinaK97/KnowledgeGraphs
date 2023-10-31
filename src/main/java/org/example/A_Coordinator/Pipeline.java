@@ -3,12 +3,18 @@ package org.example.A_Coordinator;
 import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
+import org.example.C_POextractor.POntologyExtractor;
 import org.example.D_MappingGeneration.ExactMapper;
+import org.example.D_MappingGeneration.MappingSelection.MappingSelection;
+import org.example.E_CreateKG.InsertDataJSON;
+import org.example.E_CreateKG.InsertDataRDB;
+import org.example.E_CreateKG.SetPOasDOextension;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,23 +33,35 @@ public class Pipeline {
     public void run() {
         // B. Load Data source
         Object dataSource = getDataSource();
+        boolean isTabular = dataSource instanceof RelationalDB;
         // C. Extract PO
-        //new POntologyExtractor(dataSource);
+        new POntologyExtractor(dataSource);
         // D. Run Mapper
         switch (config.DOMap.Mapper){
             case EXACT_MAPPER:
                 new ExactMapper(null);
                 break;
             case BERTMAP:
+                String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json";
+                new MappingSelection(config.Out.POntology, config.Out.DOntology,
+                                      bertmapMappingsFile, config.DOMap, dataSource);
                 break;
             default:
                 config.DOMap.printUnsupportedMapperError();
                 break;
         }
-        //new SetPOasDOextension();
-        // Close connection to relational DB (SQL)
-        if(dataSource instanceof RelationalDB)
+        // E. Create Knowledge Graph
+        // E1: Create Use Case Ontology
+        new SetPOasDOextension();
+        // E2: Create Full Graph
+        if(isTabular) {
+            new InsertDataRDB((RelationalDB) dataSource);
+            // Close connection to relational DB (SQL)
             ((RelationalDB) dataSource).closeConnection();
+        }else {
+            new InsertDataJSON((List<String>) dataSource);
+        }
+
     }
 
     private Object getDataSource() {

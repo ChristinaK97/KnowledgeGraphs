@@ -17,13 +17,14 @@ import org.example.util.Pair;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.example.util.Ontology.getLocalName;
 
 public class InsertDataJSON  extends InsertDataBase {
-    private ArrayList<String> files;
+    private List<String> files;
     private String root;
 
     // <table JPath, <column JPath + each className from column paths, next id for column indiv>>
@@ -39,7 +40,7 @@ public class InsertDataJSON  extends InsertDataBase {
     private BigInteger indivCounter;
     private String currentFileName;
 
-    public InsertDataJSON(ArrayList<String> files) {
+    public InsertDataJSON(List<String> files) {
         super();
         this.files = files;
         //TODO Read initial values from a log file (last saved indiv ids). Now it is reset by run/session

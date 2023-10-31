@@ -5,7 +5,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.RTable;
-import org.example.B_InputDatasetProcessing.Tabular.SQLConnector;
+import org.example.B_InputDatasetProcessing.Tabular.Connectors.SQLConnector;
 import org.example.util.XSDmappers;
 
 import java.io.*;
