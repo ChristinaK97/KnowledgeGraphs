@@ -13,7 +13,6 @@
     "is_deceased",
     "deceased_date",
     "address",
-    "email",
-    "full_name"
+    "email"
   ]
 }
