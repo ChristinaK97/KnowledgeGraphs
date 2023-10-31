@@ -1,5 +1,9 @@
 package org.example.B_InputDatasetProcessing.Tabular;
 
+import org.example.B_InputDatasetProcessing.Tabular.Connectors.BaseTabularConnector;
+import org.example.B_InputDatasetProcessing.Tabular.Connectors.SQLConnector;
+import org.example.B_InputDatasetProcessing.Tabular.Connectors.TabularFilesConnector;
+import tech.tablesaw.api.Row;
 import tech.tablesaw.api.Table;
 
 import java.sql.ResultSet;
@@ -81,10 +85,6 @@ public class RelationalDB implements Iterable<RTable> {
         System.out.println(rTables.toString());
     }
 
-    public Table retrieveDataFromTable(String tableName) {
-        return connector.retrieveDataFromTable(tableName);
-    }
-
     public Iterator<RTable> iterator() {
         return rTables.values().iterator();
     }
@@ -100,8 +100,21 @@ public class RelationalDB implements Iterable<RTable> {
         return rTables.get(tableName).isPK(columnName);
     }
 
+    // queries
+    public Table retrieveDataFromTable(String tableName) {
+        return connector.retrieveDataFromTable(tableName);
+    }
 
-//---------------------------------------------------------------------------------------
+    public boolean isJoin(String srcTable, String fkCol,
+                          String tgtTable, String pkCol) {
+        return connector.isJoin(srcTable, fkCol,
+                                tgtTable, pkCol);
+    }
+
+    public Iterable<Row> selectRowsWithValue(String tableName, String column, String value) {
+        return connector.selectRowsWithValue(tableName, column, value);
+    }
+    //---------------------------------------------------------------------------------------
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("DBSchema{\n");

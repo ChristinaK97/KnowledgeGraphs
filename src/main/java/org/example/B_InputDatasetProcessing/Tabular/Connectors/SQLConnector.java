@@ -1,4 +1,4 @@
-package org.example.B_InputDatasetProcessing.Tabular;
+package org.example.B_InputDatasetProcessing.Tabular.Connectors;
 import static org.example.A_Coordinator.Pipeline.config;
 
 import com.github.jsonldjava.shaded.com.google.common.collect.ImmutableMap;
@@ -92,8 +92,45 @@ public class SQLConnector implements BaseTabularConnector {
     }
 
 
+    @Override
     public Table retrieveDataFromTable(String tableName) {
         return runQuery("SELECT * FROM " + tableName + ";");
+    }
+
+    @Override
+    public boolean isJoin(String srcTable, String fkCol,
+                        String tgtTable, String pkCol) {
+        /* Example address_typed.person_key point to person_typed.person_key
+                SELECT DISTINCT address_typed.person_key
+                FROM address_typed
+                WHERE address_typed.person_key IS NOT NULL
+                AND NOT EXISTS (
+                    SELECT 1
+                    FROM person_typed
+                    WHERE person_typed.person_key = address_typed.person_key
+                )
+         */
+        String query = String.format(
+                "SELECT DISTINCT %s.%s FROM %s \n" +
+                "WHERE %s.%s IS NOT NULL \n" +
+                "AND NOT EXISTS ( \n" +
+                "   SELECT 1 FROM %s \n" +
+                "   WHERE %s.%s = %s.%s\n); \n",
+                srcTable, fkCol, srcTable,
+                srcTable, fkCol,
+                tgtTable,
+                tgtTable, pkCol, srcTable, fkCol
+        );
+        return runQuery(query).rowCount() == 0;
+    }
+
+    @Override
+    public Table selectRowsWithValue(String tableName, String column, String value) {
+        String query = String.format(
+                "SELECT * FROM %s WHERE %s = %s ;",
+                            tableName, column, value
+        );
+        return runQuery(query);
     }
 
 

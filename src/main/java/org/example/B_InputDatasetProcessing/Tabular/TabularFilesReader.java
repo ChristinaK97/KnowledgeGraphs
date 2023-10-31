@@ -345,15 +345,6 @@ public class TabularFilesReader {
         table.insertColumn(table.columnCount(), rowIdColumn);
     }
 
-    private void determineCandidateKeys(Table table) {
-        for(String colName : table.columnNames()) {
-            Set<String> unique = table.stringColumn(colName).asSet();
-            unique.removeAll(nullValues);
-            if(unique.size() == table.rowCount())
-                System.out.println("Candidate key  =  " + colName);
-        }
-    }
-
 
 // =====================================================================================================
 

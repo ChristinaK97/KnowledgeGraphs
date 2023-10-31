@@ -46,17 +46,19 @@ public class InsertDataRDB extends InsertDataBase {
     private void addForeignKeysToPaths() {
         for(String tableName : paths.keySet()) {
             db.getTable(tableName).getFKs().forEach((fkCol, fkp) -> {
-                String tableClassName = getLocalName(getTClass(tableName));
 
-                String fkPropURI = tableName.equals(fkp.refTable) ? //self ref
-                        config.Out.POntologyBaseNS + symmetricObjPropName(tableClassName):
-                        getNewPropertyURI(config.Out.POntologyBaseNS, getTClass(fkp.refTable), tableClassName);
+                if(!paths.get(tableName).containsKey(fkCol)) {
+                    String tableClassName = getLocalName(getTClass(tableName));
 
-                OntProperty fkProp = ontology.getOntProperty(fkPropURI);
-                if(fkProp != null) {
-                    paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(new Pair<>(fkProp, true))));
-                }
-            });
+                    String fkPropURI = tableName.equals(fkp.refTable) ? //self ref
+                            config.Out.POntologyBaseNS + symmetricObjPropName(tableClassName):
+                            getNewPropertyURI(config.Out.POntologyBaseNS, getTClass(fkp.refTable), tableClassName);
+
+                    OntProperty fkProp = ontology.getOntProperty(fkPropURI);
+                    if(fkProp != null)
+                        paths.get(tableName).put(fkCol, new ArrayList<>(Collections.singleton(new Pair<>(fkProp, true))));
+
+            }});
         }
     }
 
@@ -194,20 +196,27 @@ public class InsertDataRDB extends InsertDataBase {
 
     /**
      * Connect two individual of table classes with a "pure" FK object property.
-     * src -[fkProp]-> trg
-     * @param src : The subject resource
+     * srcIndiv -[fkProp]-> trg
+     * @param srcIndiv : The subject resource
      * @param trgID : The identifier of the object resource
      * @param fkProp : The object (FK) property  resource
      * @param fkp : "Tuple" refTable.refCol (used to retrieve the tableClass of the object)
      */
-    private void createJoin(Resource src, String trgID, OntProperty fkProp, FKpointer fkp) {
-        OntClass trgClass = getTClass(fkp.refTable);
-        Resource trg = createIndiv(getIndivURI(trgClass, trgID), trgClass, fkp.refTable);
-        src.addProperty(fkProp, trg);
+    private void createJoin(Resource srcIndiv, String trgID, OntProperty fkProp, FKpointer fkp) {
+        OntClass tgtClass = getTClass(fkp.refTable);
 
-        OntProperty inverse = getInverse(fkProp);
-        if(inverse != null)
-            trg.addProperty(inverse, src);
+        // select * from refTable where refColumn = trgID
+        Iterable<Row> selectedRows = db.selectRowsWithValue(fkp.refTable, fkp.refColumn, trgID);
+        for(Row tgtRow : selectedRows) {
+            System.out.println(tgtRow);
+            String tgtURI = getIndivURI( // tgtClass + concat(pk values of ref row)
+                                tgtClass, rowID(tgtRow, db.getTable(fkp.refTable)));
+            Resource tgtIndiv = createIndiv(tgtURI, tgtClass, fkp.refTable);
+            srcIndiv.addProperty(fkProp, tgtIndiv);
+            OntProperty inverse = getInverse(fkProp);
+            if (inverse != null)
+                tgtIndiv.addProperty(inverse, srcIndiv);
+        }
     }
 
 

@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import static org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader.nullValues;
+import static org.example.util.Ontology.CLASSES;
 import static org.example.util.Ontology.getLocalName;
 
 public abstract class InsertDataBase extends JenaOntologyModelHandler {
@@ -51,21 +53,16 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
 
     public InsertDataBase () {
-        //TODO add this:
-        super();
+        super(config.Out.RefinedOntology);
         ontology.pModel.loadImports();
         sourceFileAnnotProp = ontology.pModel.createAnnotationProperty(config.Out.POntologyBaseNS + "SourceFile");
-
-        //TODO remove this:
-        /*super(outputOntology, ontologyName);
-        mBasePrefix = "http://www.example.net/ontologies/json.owl/";*/
-
     }
 
     protected void run() {
         // remove DO individuals before loading data
         ontology.listResources(Ontology.INDIVIDUALS).forEachRemaining(resource -> {
             ontology.pModel.removeAll(resource, null, null);
+            ontology.pModel.removeAll(null, null, resource);
         });
 
         // create paths
@@ -189,7 +186,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     }
 
     protected boolean isNotNull(Object colValue) {
-        return colValue != null && !colValue.equals("");
+        return colValue != null && !nullValues.contains(colValue.toString().toLowerCase());
     }
 
 // INSERT DATA =====================================================================================================
@@ -210,7 +207,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
     protected void setDataPropertyValue(Resource prevNode, OntProperty dataProp, Object colValue) {
         // to resolve WARN inventing a datatype for class java.time.Instant
         // cast the datatype according to the range of the data property
-        Literal dataValue = ontology.pModel.createTypedLiteral(colValue, dataProp.getRange().getURI());                         System.out.println("DATAPROP  " + dataProp + " -> " + colValue + " ^^ " + getLocalName(dataProp.getRange().getURI()));
+        Literal dataValue = ontology.pModel.createTypedLiteral(colValue, dataProp.getRange().getURI());                         //System.out.println("DATAPROP  " + dataProp + " -> " + colValue + " ^^ " + getLocalName(dataProp.getRange().getURI()));
         prevNode.addProperty(dataProp, dataValue);
     }
 
