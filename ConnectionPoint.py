@@ -1,7 +1,6 @@
 import pandas as pd
 
-from InterpretHeaders import InterpretHeaders
-from SciSpacyEntityLinker import SciSpacyEntityLinker
+from source.InterpretHeaders import InterpretHeaders
 
 path = "resources\\Metainventory_Version1.0.0.csv"
 inputDataset = "resources\\Data_test_Encrypt_Repaired.csv"

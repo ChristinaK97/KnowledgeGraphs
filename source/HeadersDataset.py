@@ -6,7 +6,7 @@ from typing import Set, List, Tuple
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from wordninja import split as ninja
-from util.NearDuplicates import hasDuplicateIn
+from source.util.NearDuplicates import hasDuplicateIn
 
 # model_name = 'monologg/biobert_v1.1_pubmed'
 # from transformers import BertTokenizer
@@ -15,7 +15,7 @@ from util.NearDuplicates import hasDuplicateIn
 import nltk
 from nltk.corpus import wordnet, stopwords
 
-from util.UnionFind import UnionFind
+from source.util.UnionFind import UnionFind
 
 saveFile = "resources\\headerTokenizerOutput.pkl"
 

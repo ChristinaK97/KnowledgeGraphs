@@ -5,7 +5,7 @@ from typing import Tuple, Set, List, Dict
 
 from thefuzz import fuzz as fz
 
-from util.UnionFind import UnionFind
+from source.util.UnionFind import UnionFind
 
 LEN_DIFF_THRS = 15
 LEVEN_THRS = 95
