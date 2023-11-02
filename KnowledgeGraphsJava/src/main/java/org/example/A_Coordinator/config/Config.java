@@ -13,7 +13,7 @@ public class Config {
     public static String HEALTH = "Health";
     public static String CTI = "CTI";
 
-    public static String resourcePath = getPath("KnowledgeGraphsJava/src/main/resources");
+    public static String resourcePath = getPath("src/main/resources");
     public InputPointConfig In;
     public KGOutputsConfig Out;
     public MappingConfig DOMap;
