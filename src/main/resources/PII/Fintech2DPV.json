@@ -1,0 +1,179 @@
+{
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Geographic": [
+    "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicCoordinateSystem",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/GeographicDirectionalSymbol",
+    "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegionIdentifier",
+    "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegion",
+    "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegionKind"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Name": [
+    "https://www.omg.org/spec/Commons/ContextualDesignators/ContextualName",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasPersonName"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#OfficialID": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/BirthCertificateIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/BusinessRegistries/BusinessRegisterIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DeathCertificateIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DriversLicenseIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrumentIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/FundsIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/LicenseIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/NationalIdentificationNumber",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/TaxIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/BirthCertificate",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DeathCertificate"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Passport": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/Passport",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/PassportNumberIdentificationScheme",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/PassportNumber"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#VehicleLicense": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DriversLicense"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#VehicalLicenseNumber": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DriversLicenseIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DriversLicenseIdentificationScheme"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Language": [
+    "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/Language"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Dialect": [
+    "https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/LanguageVariant"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#PersonalDocuments": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/IdentityDocument",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/Certificate"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Age": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Age"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#BirthDate": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/DateOfBirth",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasDateOfBirth"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Gender": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasGender"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#FinancialAccount": [
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#AccountIdentifier": [
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountIdentifier"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#PaymentCardNumber": [
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CardIdentificationNumber",
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CardValidationCode"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#CreditCardNumber": [
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CreditCard"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#PaymentCard": [
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/PaymentCard",
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/DebitCard"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#PaymentCardExpiry": [
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansSpecific/CardAccounts/CardExpirationDate"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Insurance": [
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/InsuranceCompany",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Guaranty/InsurancePolicy",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/FinancialServicesEntities/InsuranceService"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Ownership": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Ownership",
+    "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/hasOwnershipPercentage"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Income": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/AccountingEquity/Income"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#LoanRecord": [
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/Loan",
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanApplications/LoanApplication",
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanApplications/LoanApplicationPhase",
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanEvents/LoanPhase",
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/LoanApplications/LoanApplicationStatus"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Sale": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Sale"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Tax": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/TaxIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/RegulatoryAgencies/TaxAuthority"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Transaction": [
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionCategory",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionDate",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/TransactionEvent",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionRecordIdentifier",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/TransactionRecord",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasTransactionDate",
+    "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/IndividualTransaction",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/Payment",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentEvent",
+    "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/PaymentHistory",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentSchedule"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Religion": [
+    "https://spec.edmcouncil.org/fibo/ontology/BE/Corporations/Corporations/ReligiousCorporation"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#EmploymentHistory": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/FormalOrganizations/Employee",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/FormalOrganizations/Employer",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/FormalOrganizations/Employment"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#EmailAddress": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/ElectronicMailAddress",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/hasElectronicMailAddress"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#PhysicalAddress": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/Address",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/PhysicalAddress",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasResidence",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasStreetAddress",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddressLine1",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddressLine2",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddressLine3",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/Postcode"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#TelephoneNumber": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/VirtualPlaces/TelephoneNumber"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#BirthPlace": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/PlaceOfBirth",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/hasPlaceOfBirth"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Country": [
+    "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Country",
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Places/Locations/hasCountry"
+  ],
+  "https://w3id.org/dpv/dpv-owl/dpv-pd#Location": [
+    "https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Location"
+  ],
+  "https://w3id.org/dpv/dpv-owl#NaturalPerson": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/Person"
+  ],
+  "https://w3id.org/dpv/dpv-owl#LegalEntity": [
+    "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegalPerson",
+    "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/LegalEntity",
+    "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/LegalEntityIdentifier"
+  ],
+  "https://w3id.org/dpv/dpv-owl#Adult": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/Adult"
+  ],
+  "https://w3id.org/dpv/dpv-owl#Child": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/Minor"
+  ],
+  "https://w3id.org/dpv/dpv-owl#Employee": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Organizations/FormalOrganizations/Employee"
+  ],
+  "https://w3id.org/dpv/dpv-owl#Entity": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/IndependentParty"
+  ],
+  "https://w3id.org/dpv/dpv-owl#Contract": [
+    "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract"
+  ]
+}

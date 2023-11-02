@@ -1,0 +1,53 @@
+package org.example.medical;
+
+import org.apache.commons.collections4.trie.PatriciaTrie;
+import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
+import tech.tablesaw.api.Table;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class AbbrevDictionary {
+
+    class Trie<E> extends PatriciaTrie<E> {
+        TrieEntry<String, E> getNearestEntryForKey(final String key) {
+            super.get
+        }
+    }
+
+    private String delimiter;
+
+    public void readDictionaryCSV(String dictionaryCSVPath, String delimiter) {
+        this.delimiter = delimiter == null? "|" : delimiter;
+        Table dictionaryDF = new TableFilesReader(dictionaryCSVPath, this.delimiter).readCSV();
+    }
+
+    public void createTrieDictionary() {
+
+    }
+
+    public void tstLibrary() {
+        // Create a sample map
+        Map<String, String> sampleMap = new HashMap<>();
+        sampleMap.put("CAD", "Coronary Artery Disease");
+        sampleMap.put("LM", "Left Main Artery");
+        sampleMap.put("CA", "Calcium");
+
+        // Create a PatriciaTrie by copying the entries from the map
+        PatriciaTrie<String> patriciaTrie = new PatriciaTrie<>(sampleMap);
+
+        // Now, the PatriciaTrie contains the same key-value pairs as the original map
+        //System.out.println(patriciaTrie.getNearestEntryForKey("CAD"));    // Outputs: 1
+        //System.out.println(patriciaTrie.get("Left Main Artery"));    // Outputs: 2
+        //System.out.println(patriciaTrie.get("CA"));  // Outputs: 3
+    }
+
+
+    public static void main(String[] args) {
+        new AbbrevDictionary().tstLibrary();
+    }
+
+
+}
