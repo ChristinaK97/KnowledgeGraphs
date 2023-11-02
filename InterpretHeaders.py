@@ -266,8 +266,7 @@ class InterpretHeaders:
         for i, cand in headerCands.iterrows():
             if cand.score <= FIRST_ROUND_THRS:
 
-                if cand.meanCtxScore <= FIRST_ROUND_THRS or (
-                   cand.isWholeHeader and self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF] <= FIRST_ROUND_THRS):
+                if cand.isWholeHeader and self.globalAbbrevScores[self.hDataset.headers[idx]][cand.headerFF] <= FIRST_ROUND_THRS:
                     toRmv.add(i)                                                                                        # ;print(f"\t\tRemove : {cand.headerFF}")
                     c += 1
                 else:
