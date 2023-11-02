@@ -42,7 +42,8 @@ defusedxml==0.7.1
 Deprecated==1.2.13
 dill==0.3.6
 docdata==0.0.3
-en-core-sci-lg==0.5.1
+# en-core-sci-lg==0.5.1
+https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.1/en_core_sci_lg-0.5.1.tar.gz
 enlighten==1.11.2
 executing==1.2.0
 fastjsonschema==2.16.3
