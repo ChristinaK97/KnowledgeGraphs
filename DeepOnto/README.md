@@ -95,7 +95,7 @@ pip install deeponto
 One can git clone the repository without installing through PyPI and install the dependencies manually by:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirementsBertMap.txt
 ```
 
 
