@@ -26,6 +26,7 @@ from src.deeponto.onto import Ontology
 from src.deeponto.utils.decorators import paper
 from src.deeponto.utils import FileUtils, Tokenizer
 from src.deeponto.utils.logging import create_logger
+from .extractBertMapMappings import MappingSelector
 from .text_semantics import TextSemanticsCorpora
 from .bert_classifier import BERTSynonymClassifier
 from .mapping_prediction import MappingPredictor
@@ -108,10 +109,15 @@ class BERTMapPipeline:
         self.config_bert()
         for entity_type in ["Classes", "ObjectProperties", "DataProperties"]:
             self.run_predictor(entity_type)
-        self.run_repair()
+        if self.config.global_matching.run_logmap_repair:
+            self.run_repair()
+
+        # extract results to "BertMapMappings.json"
+        self.extractBertMapMappings()
+
+
 
     def build_corpora(self):
-
 
         # provided mappings if any
         self.known_mappings = self.config.known_mappings
@@ -360,3 +366,15 @@ class BERTMapPipeline:
         """Save the BERTMap configuration in `.yaml`."""
         with open(config_file, "w") as c:
             config.dump(stream=c, sort_keys=False, default_flow_style=False)
+
+
+
+    def extractBertMapMappings(self):
+        MappingSelector(
+            rawMappingsFile = os.path.join(self.output_path, "match", "raw_mappings.json"),
+            srcOntoPath = self.src_onto.owl_path,
+            tgtOntoPath = self.tgt_onto.owl_path,
+            srcAnnotProps = self.config.annotation_property_iris.source,
+            tgtAnnotProps = self.config.annotation_property_iris.target,
+            outputFile = os.path.join(self.output_path, "match", "BertMapMappings.json")
+        )
