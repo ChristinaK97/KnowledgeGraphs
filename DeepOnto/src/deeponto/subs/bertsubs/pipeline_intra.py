@@ -29,7 +29,7 @@ from typing import List
 from transformers import TrainingArguments
 from yacs.config import CfgNode
 
-from DeepOnto.src.deeponto.onto import Ontology
+from src.deeponto.onto import Ontology
 from .bert_classifier import BERTSubsumptionClassifierTrainer
 from .text_semantics import SubsumptionSampler
 

@@ -9,12 +9,11 @@ from numpy import mean
 from torch import Tensor
 from tqdm import tqdm
 
-from AAExpansion.source.BertSimilarityModel import BertSimilarityModel as Bert
-from AAExpansion.source.HeadersDataset import HeadersDataset
-from AAExpansion.source.MedicalDictionary import MedicalDictionary
-from AAExpansion.source.util.NearDuplicates import groupNearDuplicates, findNearDuplicates
-from AAExpansion.source.util.UnionFind import UnionFind
-
+from source.BertSimilarityModel import BertSimilarityModel as Bert
+from source.HeadersDataset import HeadersDataset
+from source.MedicalDictionary import MedicalDictionary
+from source.util.NearDuplicates import groupNearDuplicates, findNearDuplicates
+from source.util.UnionFind import UnionFind
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)

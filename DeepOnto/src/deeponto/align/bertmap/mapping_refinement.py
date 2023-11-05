@@ -23,11 +23,11 @@ import pandas as pd
 import enlighten
 
 
-from DeepOnto.src.deeponto.align.mapping import EntityMapping
-from DeepOnto.src.deeponto.onto import Ontology
-from DeepOnto.src.deeponto.utils import FileUtils, Tokenizer
-from DeepOnto.src.deeponto.utils.decorators import paper
-from DeepOnto.src.deeponto.align.logmap import run_logmap_repair
+from src.deeponto.align.mapping import EntityMapping
+from src.deeponto.onto import Ontology
+from src.deeponto.utils import FileUtils, Tokenizer
+from src.deeponto.utils.decorators import paper
+from src.deeponto.align.logmap import run_logmap_repair
 from .mapping_prediction import MappingPredictor
 from ...utils.kg_utils import BEST_RANK
 

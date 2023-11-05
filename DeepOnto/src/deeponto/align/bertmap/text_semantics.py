@@ -22,10 +22,10 @@ from typing import List, Set, Tuple, Optional, Union
 
 from tqdm import tqdm
 
-from DeepOnto.src.deeponto.align.bertmap.thesaurus_corpus import WordNetCorpus
-from DeepOnto.src.deeponto.onto import Ontology
-from DeepOnto.src.deeponto.align.mapping import ReferenceMapping
-from DeepOnto.src.deeponto.utils import FileUtils, DataUtils
+from src.deeponto.align.bertmap.thesaurus_corpus import WordNetCorpus
+from src.deeponto.onto import Ontology
+from src.deeponto.align.mapping import ReferenceMapping
+from src.deeponto.utils import FileUtils, DataUtils
 
 
 # @paper(

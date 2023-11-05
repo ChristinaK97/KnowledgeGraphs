@@ -21,11 +21,11 @@ import random
 import enlighten
 import transformers
 
-from DeepOnto.src.deeponto.align.mapping import ReferenceMapping
-from DeepOnto.src.deeponto.onto import Ontology
-from DeepOnto.src.deeponto.utils.decorators import paper
-from DeepOnto.src.deeponto.utils import FileUtils, Tokenizer
-from DeepOnto.src.deeponto.utils.logging import create_logger
+from src.deeponto.align.mapping import ReferenceMapping
+from src.deeponto.onto import Ontology
+from src.deeponto.utils.decorators import paper
+from src.deeponto.utils import FileUtils, Tokenizer
+from src.deeponto.utils.logging import create_logger
 from .extractBertMapMappings import MappingSelector
 from .text_semantics import TextSemanticsCorpora
 from .bert_classifier import BERTSynonymClassifier

@@ -1,15 +1,20 @@
 version: '3'
 services:
-  knowledge-graphs-python:
+  python-environment:
     build:
-      context: ./KnowledgeGraphsPython
+      context: ./PythonEnvironment
       args:
         - TORCH_VERSION=${TORCH_VERSION}
         - TORCHAUDIO_VERSION=${TORCHAUDIO_VERSION}
         - TORCHVISION_VERSION=${TORCHVISION_VERSION}
         - CUDA_VERSION=${CUDA_VERSION}
-    image: knowledge-graphs-python:latest
-    container_name: knowledge-graphs-python
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+    image: python-environment:latest
+    container_name: python-environment
+
+  aa-extraction:
+    build:
+      context: ./AAExpansion
+    depends_on:
+      - python-environment
+    image: aa-expansion:latest
+    container_name: aa-expansion

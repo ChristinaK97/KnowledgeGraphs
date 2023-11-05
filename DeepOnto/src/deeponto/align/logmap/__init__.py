@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import DeepOnto.src.deeponto.utils
+from src.deeponto.utils import FileUtils
 import os
 
 
@@ -39,4 +39,4 @@ def run_logmap_repair(
         + f" {output_path} false true"
     )
     print(f"The jar command is:\n{repair_command}.")
-    DeepOnto.src.deeponto.utils.FileUtils.run_jar(repair_command)
+    FileUtils.run_jar(repair_command)

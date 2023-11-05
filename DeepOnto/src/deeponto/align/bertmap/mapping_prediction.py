@@ -30,9 +30,9 @@ import pandas as pd
 import enlighten
 
 
-from DeepOnto.src.deeponto.align.mapping import EntityMapping
-from DeepOnto.src.deeponto.onto import Ontology
-from DeepOnto.src.deeponto.utils import FileUtils, Tokenizer
+from src.deeponto.align.mapping import EntityMapping
+from src.deeponto.onto import Ontology
+from src.deeponto.utils import FileUtils, Tokenizer
 from .bert_classifier import BERTSynonymClassifier
 from ...utils.kg_utils import BEST_RANK
 

@@ -20,9 +20,9 @@ from collections import defaultdict
 import pandas as pd
 import random
 
-from DeepOnto.src.deeponto.onto import Ontology
-from DeepOnto.src.deeponto.utils import FileUtils, DataUtils, Tokenizer
-from DeepOnto.src.deeponto.utils.kg_utils import BEST_RANK
+from src.deeponto.onto import Ontology
+from src.deeponto.utils import FileUtils, DataUtils, Tokenizer
+from src.deeponto.utils.kg_utils import BEST_RANK
 
 if TYPE_CHECKING:
     from org.semanticweb.owlapi.model import OWLObject  # type: ignore
