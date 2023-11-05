@@ -9,5 +9,8 @@
         <module name="KnowledgeGraphsJava" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="KnowledgeGraphs" target="9" />
+    </bytecodeTargetLevel>
   </component>
 </project>
