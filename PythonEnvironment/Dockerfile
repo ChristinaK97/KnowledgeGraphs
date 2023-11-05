@@ -4,7 +4,7 @@ ARG TORCH_VERSION
 ARG TORCHAUDIO_VERSION
 ARG TORCHVISION_VERSION
 ARG CUDA_VERSION
-FROM pytorch/pytorch:${TORCH_VERSION}-cuda${CUDA_VERSION}-cudnn8-runtime AS builder
+FROM pytorch/pytorch:${TORCH_VERSION}-cuda${CUDA_VERSION}-cudnn8-runtime
 
 # Use ARGs after FROM: https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG TORCH_VERSION
@@ -28,11 +28,11 @@ RUN apt-get update && apt-get install -y g++ && \
 RUN rm en_core_sci_lg-0.5.1.tar.gz
 
 # Final runtime stage
-FROM pytorch/pytorch:${TORCH_VERSION}-cuda${CUDA_VERSION}-cudnn8-runtime AS final
+# FROM pytorch/pytorch:${TORCH_VERSION}-cuda${CUDA_VERSION}-cudnn8-runtime AS final
 
 # Set the working directory in the runtime stage
-WORKDIR /KnowledgeGraphApp
+# WORKDIR /KnowledgeGraphApp
 
 # Copy only necessary artifacts from the builder stage
-COPY --from=builder /KnowledgeGraphApp /KnowledgeGraphApp
+# COPY --from=builder /KnowledgeGraphApp /KnowledgeGraphApp
 

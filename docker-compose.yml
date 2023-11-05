@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   python-environment:
     build:
@@ -18,3 +18,10 @@ services:
       - python-environment
     image: aa-expansion:latest
     container_name: aa-expansion
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
