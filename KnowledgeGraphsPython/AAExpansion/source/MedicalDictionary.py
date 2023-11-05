@@ -9,8 +9,8 @@ from shutil import rmtree
 
 from tqdm import tqdm
 
-from source.HeadersDataset import WORD, UNK, ENTRY, TAG, SPAN
-from source.util.NearDuplicates import groupNearDuplicates
+from AAExpansion.source.HeadersDataset import WORD, UNK, ENTRY, TAG, SPAN
+from AAExpansion.source.util.NearDuplicates import groupNearDuplicates
 
 
 class MedicalDictionary:

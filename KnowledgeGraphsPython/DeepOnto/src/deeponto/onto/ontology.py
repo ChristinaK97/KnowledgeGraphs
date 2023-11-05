@@ -24,8 +24,8 @@ import warnings
 import itertools
 import jpype
 
-from src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
-from src.deeponto import init_jvm
+from DeepOnto.src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
+from DeepOnto.src.deeponto import init_jvm
 
 # ======================================================================================================================
 # initialise JVM for python-java interaction

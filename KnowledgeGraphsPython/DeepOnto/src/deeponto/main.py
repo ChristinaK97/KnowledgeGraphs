@@ -1,8 +1,8 @@
 # documentation
 # https://krr-oxford.github.io/DeepOnto/bertmap/
 
-from src.deeponto.onto import Ontology
-from src.deeponto.align.bertmap import BERTMapPipeline, DEFAULT_CONFIG_FILE
+from DeepOnto.src.deeponto.onto import Ontology
+from DeepOnto.src.deeponto.align.bertmap import BERTMapPipeline, DEFAULT_CONFIG_FILE
 from torch.cuda import is_available, get_device_name, current_device
 
 print(is_available(), get_device_name(current_device()))

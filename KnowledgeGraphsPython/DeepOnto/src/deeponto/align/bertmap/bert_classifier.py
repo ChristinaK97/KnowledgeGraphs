@@ -20,8 +20,8 @@ from sklearn.metrics import accuracy_score
 import numpy as np
 import random
 
-from src.deeponto.utils import Tokenizer, FileUtils
-from src.deeponto.utils.decorators import paper
+from DeepOnto.src.deeponto.utils import Tokenizer, FileUtils
+from DeepOnto.src.deeponto.utils.decorators import paper
 
 
 # @paper(
