@@ -5,16 +5,19 @@ else:
     print("Cuda NOT available")
 
 import pandas as pd
+from pathlib import Path
 
 from source.InterpretHeaders import InterpretHeaders
 
-path = "resources\\Metainventory_Version1.0.0.csv"
-inputDataset = "resources\\Data_test_Encrypt_Repaired.csv"
-outputPath = "resources\\abbrevExpansionResults.json"
 
-# headers = pd.read_csv(inputDataset, delimiter=";").columns.to_list()
+path = Path("resources/Metainventory_Version1.0.0.csv")
+inputDataset = Path("resources/Data_test_Encrypt_Repaired.csv")
+outputPath = Path("resources/abbrevExpansionResults.json")
 
-# InterpretHeaders(headers, path, outputPath)
+headers = pd.read_csv(inputDataset, delimiter=";").columns.to_list()
+print("Headers : ", headers[0:5])
+
+InterpretHeaders(headers, path, outputPath)
 # SciSpacyEntityLinker(outputPath)
 
 """

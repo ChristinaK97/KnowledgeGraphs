@@ -1,5 +1,6 @@
 import json
 from functools import reduce
+from pathlib import Path
 from typing import List, Union, Dict, Set, Tuple
 
 import numpy as np
@@ -26,7 +27,7 @@ SEC_ROUN_THRS: float = 0.85
 
 class InterpretHeaders:
 
-    def __init__(self, headers: List[str], medDictPath: str, outputPath: str):
+    def __init__(self, headers: List[str], medDictPath: Union[str,Path], outputPath: Union[str,Path]):
 
         self.hDataset = HeadersDataset(headers)
         self.medDict  = MedicalDictionary(dictionaryCSVPath=medDictPath,

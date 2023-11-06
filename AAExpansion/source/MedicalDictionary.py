@@ -1,7 +1,8 @@
 from itertools import product
 from os import makedirs
 import pickle
-from typing import Dict, List, Set, Tuple
+from pathlib import Path
+from typing import Dict, List, Set, Tuple, Union
 from pytrie import SortedStringTrie as Trie
 import pandas as pd
 from os.path import exists
@@ -15,10 +16,10 @@ from source.util.NearDuplicates import groupNearDuplicates
 
 class MedicalDictionary:
 
-    BASE_LETTER_TRIES_DIR = 'resources\\letterTries\\'
+    BASE_LETTER_TRIES_DIR = Path('resources/letterTries/')
 
     def __init__(self,
-                 dictionaryCSVPath: str,
+                 dictionaryCSVPath: Union[str, Path],
                  delimiter: str = "|",
                  abbrevCol:str = "SF",
                  fullFormCol:str = "LF",
@@ -26,24 +27,31 @@ class MedicalDictionary:
                  resetTries:bool = False,
                  printTries:bool = False
     ):
+        # Medical AA senses input dataframe parameters
         self.abbrevCol = abbrevCol
         self.fullFormCol = fullFormCol
+        self.dictionaryCSVPath = dictionaryCSVPath
+        self.delimiter = delimiter
 
         self.datasetAbbrevDetected = set()
 
+        # Create or load tries dictionary
         if resetTries or not self._saveFound():
-            print("Create Tries")
-            self._prepareFolder()
-            self.letterTries = \
-                self._createLetterTries(
-                    self._makeLetterBuckets(
-                        self._readDictionaryCSV(dictionaryCSVPath, delimiter)))
+            self.letterTries = self._resetTries()
         else:
             print("Load tries")
             self.letterTries = self._loadTries(datasetAlphabet)
-            print(f"Loaded {len(self.letterTries)} tries for letters = {self.letterTries.keys()}.\n")
+        print(f"Loaded {len(self.letterTries)} tries for letters = {self.letterTries.keys()}.\n")
 
         if printTries: self.printLetterTries()
+
+
+    def _resetTries(self):
+        print("Create Tries")
+        self._prepareFolder()
+        return self._createLetterTries(
+                    self._makeLetterBuckets(
+                        self._readDictionaryCSV(self.dictionaryCSVPath, self.delimiter)))
 
 
 
@@ -132,18 +140,21 @@ class MedicalDictionary:
 
 
     def _loadTries(self, datasetAlphabet: Set[str] = None):
-        return {
-            letter : self._loadFromPickle(letterFile)
-            for letter, letterFile in tqdm(self._loadFromPickle(self._getLetterDict()).items())
-            if datasetAlphabet is None or letter in datasetAlphabet
-        }
+        try:
+            return {
+                letter : self._loadFromPickle(letterFile)
+                for letter, letterFile in tqdm(self._loadFromPickle(self._getLetterDict()).items())
+                if datasetAlphabet is None or letter in datasetAlphabet
+            }
+        except Exception:   # Could be Union[FileNotFoundError, NotImplementedError]:
+            # if at least one file failed to load, reset tries
+            return self._resetTries()
+
 
     def _loadFromPickle(self, file):
-        try:
-            with open(file, 'rb') as file:
-                return pickle.load(file)
-        except FileNotFoundError:
-            print(f"File '{file}' not found. Skipping.")
+        with open(file, 'rb') as f:
+            return pickle.load(f)
+
 
     def _saveFound(self):
         return exists(MedicalDictionary.BASE_LETTER_TRIES_DIR) and \
@@ -157,10 +168,10 @@ class MedicalDictionary:
         makedirs(bDir)
 
     def _getLetterDict(self):
-        return f"{MedicalDictionary.BASE_LETTER_TRIES_DIR}LetterDict.pkl"
+        return Path(f"{MedicalDictionary.BASE_LETTER_TRIES_DIR}/LetterDict.pkl")
 
     def _getLetterTrieFile(self, letterFileName):
-        return f"{MedicalDictionary.BASE_LETTER_TRIES_DIR}Trie{letterFileName}.pkl"
+        return Path(f"{MedicalDictionary.BASE_LETTER_TRIES_DIR}/Trie{letterFileName}.pkl")
 
     def _saveToPickle(self, content, file):
         with open(file, 'wb') as f:

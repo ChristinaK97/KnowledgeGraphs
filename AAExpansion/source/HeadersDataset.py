@@ -2,6 +2,7 @@ import pickle
 import re
 from collections import Counter
 from os.path import exists
+from pathlib import Path
 from typing import Set, List, Tuple
 
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -17,7 +18,7 @@ from nltk.corpus import wordnet, stopwords
 
 from source.util.UnionFind import UnionFind
 
-saveFile = "resources\\headerTokenizerOutput.pkl"
+saveFile = Path("resources/headerTokenizerOutput.pkl")
 
 UNKNOWN_HEADER_NAME = "Unknown_Header"
 
