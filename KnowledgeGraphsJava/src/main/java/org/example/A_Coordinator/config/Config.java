@@ -1,6 +1,7 @@
 package org.example.A_Coordinator.config;
 
 import com.google.gson.JsonObject;
+import org.example.A_Coordinator.Inputs.InputConnector;
 import org.example.util.JsonUtil;
 
 import java.nio.file.Paths;
@@ -13,7 +14,6 @@ public class Config {
     public static String HEALTH = "Health";
     public static String CTI = "CTI";
 
-    public static String resourcePath = getPath("src/main/resources");
     public InputPointConfig In;
     public KGOutputsConfig Out;
     public MappingConfig DOMap;
@@ -27,7 +27,7 @@ public class Config {
 
     private void setConfigParams(String UseCase, String FileExtension) {
 
-        String configFilePath = getPath(String.format("%s/ConfigFiles/%s_%s_Config.json", resourcePath, UseCase, FileExtension));
+        String configFilePath = getPath(String.format("%s/ConfigFiles/%s_%s_Config.json", InputConnector.resourcePath, UseCase, FileExtension));
         JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
         String DefaultRootClassName = "Record";
 
@@ -109,7 +109,7 @@ public class Config {
 
 
         private void setDirPaths() {                                                                                    // String overrideDatasource
-            DatasetResourcesPath = getPath(String.format("%s/Use_Case/%s/%s", resourcePath, UseCase, DatasetName));
+            DatasetResourcesPath = getPath(String.format("%s/Use_Case/%s/%s", InputConnector.resourcePath, UseCase, DatasetName));
             DownloadedDataDir    = getPath(DatasetResourcesPath + "/Downloaded_Data");                                            // overrideDatasource == null ? DatasetResourcesPath + "Downloaded_Data/" : overrideDatasource;
             ProcessedDataDir     = getPath(DatasetResourcesPath + "/Processed_Data");
             CachedDataDir        = getPath(DatasetResourcesPath + "/Cached_Data");

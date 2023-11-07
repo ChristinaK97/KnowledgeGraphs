@@ -4,11 +4,13 @@ import org.example.A_Coordinator.Pipeline;
 import org.example.A_Coordinator.config.Config;
 
 import static org.example.A_Coordinator.config.Config.*;
+import static org.example.util.FileHandler.getPath;
 
 public class InputConnector {
 
     public static String USE_CASE = FINTECH;
-    public static String filename = "something.csv";
+    public static String filename = "gfh.csv";
+    public static String resourcePath = getPath("resources");
 
 
     public InputConnector() {
@@ -23,6 +25,7 @@ public class InputConnector {
     }
 
     public static void main(String[] args) {
+
         new InputConnector();
     }
 }

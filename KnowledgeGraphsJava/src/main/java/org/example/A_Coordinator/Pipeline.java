@@ -1,5 +1,6 @@
 package org.example.A_Coordinator;
 
+import org.apache.jena.riot.RIOT;
 import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
@@ -28,6 +29,11 @@ public class Pipeline {
 
     public Pipeline(Config config) {
         Pipeline.config = config;
+        /* Initialize RDF formats to fix the following error in the uber jar:
+            Exception in thread "main" org.apache.jena.shared.NoWriterForLangException: Writer not found: TURTLE
+            at org.apache.jena.rdf.model.impl.RDFWriterFImpl.getWriter(RDFWriterFImpl.java:66)
+         */
+        RIOT.init();
     }
 
     public void run() {
@@ -42,6 +48,7 @@ public class Pipeline {
                 new ExactMapper(null);
                 break;
             case BERTMAP:
+                //TODO: call bertmap service here
                 String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json";
                 new MappingSelection(config.Out.POntology, config.Out.DOntology,
                                       bertmapMappingsFile, config.DOMap, dataSource);
