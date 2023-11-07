@@ -31,12 +31,12 @@ public class Pipeline {
     }
 
     public void run() {
-        // B. Load Data source
+        // B. Load Data source -----------------------------------------------------------------------------------------
         Object dataSource = getDataSource();
         boolean isTabular = dataSource instanceof RelationalDB;
-        // C. Extract PO
+        // C. Extract PO -----------------------------------------------------------------------------------------
         new POntologyExtractor(dataSource);
-        // D. Run Mapper
+        // D. Run Mapper -----------------------------------------------------------------------------------------
         switch (config.DOMap.Mapper){
             case EXACT_MAPPER:
                 new ExactMapper(null);
@@ -50,19 +50,30 @@ public class Pipeline {
                 config.DOMap.printUnsupportedMapperError();
                 break;
         }
-        // E. Create Knowledge Graph
-        // E1: Create Use Case Ontology
+        // E. Create Knowledge Graph -----------------------------------------------------------------------------------
+        // E1: Create Use Case Ontology --------------------------------------------------------------------------------
         new SetPOasDOextension();
-        // E2: Create Full Graph
+
+        // E2: Create Full Graph ---------------------------------------------------------------------------------------
+        // Tabular dataset in the form of a RelationDB
         if(isTabular) {
             new InsertDataRDB((RelationalDB) dataSource);
-            // Close connection to relational DB (SQL)
-            ((RelationalDB) dataSource).closeConnection();
-        }else {
+            ((RelationalDB) dataSource).closeConnection();  // Close connection to relational DB (SQL)
+
+        // DICOM files that have been transformed to DSON
+        }else if (config.In.isDSON()) {
+            List<String> processedDSONFolder = findFilesInFolder(config.In.ProcessedDataDir, "json");
+            new InsertDataJSON(processedDSONFolder);
+
+        // Plain JSON files that were not processed
+        // TODO: In case you want to apply some preprocessing steps to the downloaded json files retrieve the processed data dir instead of the downloaded
+        }else if (config.In.isJSON()){
             new InsertDataJSON((List<String>) dataSource);
         }
 
     }
+
+
 
     private Object getDataSource() {
         if(config.In.FileExtension.equals("SQL"))
@@ -72,19 +83,23 @@ public class Pipeline {
     }
 
     private Object getFileDataSource() {
-        try (Stream<Path> walk = Files.walk(Paths.get(config.In.DownloadedDataDir))) {
-            List<String> filesInFolder = walk
+        List<String> downloadedFiles = findFilesInFolder(config.In.DownloadedDataDir, config.In.FileExtension);
+        if(config.In.isCSV() || config.In.isExcel())
+            return getExportedDbSource(downloadedFiles);
+        else
+            return downloadedFiles;
+    }
+
+    private List<String> findFilesInFolder(String folder, String fileExtension){
+        try (Stream<Path> walk = Files.walk(Paths.get(folder))) {
+            return walk
                     .filter(p -> !Files.isDirectory(p))                                 // Not a directory
                     .map(Path::toString)                                                // Convert path to string
-                    .filter(f -> f.endsWith(config.In.FileExtension))                   // Check end with
+                    .filter(f -> f.endsWith(fileExtension))                             // Check end with
                     .collect(Collectors.toList());
 
-            if(config.In.isCSV() || config.In.isExcel()) {
-                return getExportedDbSource(filesInFolder);
-            }else
-                return filesInFolder;
-
         }catch (IOException e) {
+            System.err.println("Data source in folder " + folder + " with extension " + fileExtension + " not found");
             e.printStackTrace();
             return null;
         }
