@@ -182,7 +182,7 @@ public class MappingsFileTemplate {
         }
 
         public void setMatch(List<URI> match) {
-            this.match = match != null ? match : new ArrayList<>();
+            this.match = (match != null) ? match : new ArrayList<>();
         }
         public boolean hasMatch() {
             return match.size() > 0;

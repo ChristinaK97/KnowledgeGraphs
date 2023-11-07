@@ -21,25 +21,39 @@ public class SetMappingsFile extends ManageMappingsFile {
         super();
         this.matches = matches;
         tablesList = readMapJSON();
-        addMatches();
-        applyFormatSpecificRules(spRules);
+
+        if(spRules != null) {
+            // add new mappings
+            // set matches to the mapping json objects
+            // make modifications to established mappings
+            tablesList.addAll(spRules.getNewMappings());
+            setMatches();
+            spRules.modifyMappings(tablesList);
+
+        }else // if not format specific need to be applied simply set the matches to the mappings file template
+            setMatches();
+
         saveMappingsFile(tablesList);
     }
 
 
     //TODO for testing. Remove it
-    public SetMappingsFile(Matches matches, FormatSpecificRules spRules, String PO2DO) {
+    /*public SetMappingsFile(Matches matches, FormatSpecificRules spRules, String PO2DO) {
         super();
         this.matches = matches;
         tablesList = readMapJSON(PO2DO);
-        addMatches();
-        applyFormatSpecificRules(spRules);
+        if(spRules != null) {
+            tablesList.addAll(spRules.getNewMappings());
+            setMatches();
+            spRules.modifyMappings(tablesList);
+        }else
+            setMatches();
         fileTemplate.setTables(tablesList);
         saveMappingsFile(PO2DO);
-    }
+    }*/
 
 
-    private void addMatches() {
+    private void setMatches() {
         for(Table tableMaps : tablesList) {
             Mapping tableMap = tableMaps.getMapping();
             setMatch(tableMap, false);
@@ -56,20 +70,11 @@ public class SetMappingsFile extends ManageMappingsFile {
         String ontoEl = map.getOntoElURI().toString();
         map.setMatch(matches.getMatchURI(ontoEl));
         if(!isColumnMapping || !addPathsOnlyToTableMaps) {
-            System.out.printf("Add path map to %s. Map path = %s\n", ontoEl, matches.getPath(ontoEl));
+            //System.out.printf("Add path map to %s. Map path = %s\n", ontoEl, matches.getPath(ontoEl));
             map.setPath(matches.getPath(ontoEl));
         }
     }
 
-
-    private void applyFormatSpecificRules(FormatSpecificRules spRules) {
-        if(spRules != null) {
-            // add new mappings
-            tablesList.addAll(spRules.getNewMappings());
-            // make modifications to established mappings
-            spRules.modifyMappings(tablesList);
-        }
-    }
 
 }
 
