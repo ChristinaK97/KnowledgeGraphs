@@ -2,6 +2,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.1.3</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
   <groupId>org.example</groupId>
   <artifactId>KnowledgeGraphsJava</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -33,7 +40,7 @@
       <version>8.0.31</version>
     </dependency>
 
-    <dependency>
+    <!--<dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>2.0.7</version>
@@ -42,7 +49,7 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>2.0.7</version>
-    </dependency>
+    </dependency>-->
 
     <!-- OWL API -->
     <dependency>
@@ -177,6 +184,36 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
     </dependency>
 
 
+    <!-- spring boot dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <version>3.1.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>3.1.3</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-dependencies</artifactId>
+      <version>3.1.3</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webflux</artifactId>
+      <version>6.0.13</version>
+    </dependency>
+    <!-- -->
+
+
   </dependencies>
 <!-- =============================================================================================================== -->
 
@@ -207,7 +244,7 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
 
               <archive>
                 <manifest>
-                  <mainClass>org.example.A_Coordinator.Inputs.InputConnector</mainClass>
+                  <mainClass>org.example.KnowledgeGraphsJavaApp</mainClass>
                 </manifest>
               </archive>
             </configuration>

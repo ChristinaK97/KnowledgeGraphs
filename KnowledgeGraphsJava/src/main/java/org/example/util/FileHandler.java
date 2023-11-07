@@ -9,6 +9,10 @@ import static org.example.A_Coordinator.Pipeline.config;
 
 public class FileHandler {
 
+    public static String getFileExtension(String filePath) {
+        return filePath.substring(filePath.lastIndexOf(".")+1);
+    }
+
     public static String getFileNameWithoutExtension(String filePath) {
         return removeExtension(/*fileNameWithExtension = */ Paths.get(filePath).getFileName().toString());
     }
