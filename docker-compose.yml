@@ -25,3 +25,13 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [ gpu ]
+    volumes:
+      - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/AAExpansion:/KnowledgeGraphsApp/resources
+
+  knowledge-graphs-main:
+    build:
+      context: ./KnowledgeGraphsJava
+    image: knowledge-graphs-main:latest
+    container_name: knowledge-graphs-main
+    volumes:
+      - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/KnowledgeGraphsJava:/KnowledgeGraphsApp/resources

@@ -7,6 +7,7 @@ import org.example.util.JsonUtil;
 import java.nio.file.Paths;
 
 import static org.example.util.FileHandler.getPath;
+import static org.example.A_Coordinator.Inputs.InputConnector.DOCKER_ENV;
 
 public class Config {
 
@@ -27,7 +28,13 @@ public class Config {
 
     private void setConfigParams(String UseCase, String FileExtension) {
 
-        String configFilePath = getPath(String.format("%s/ConfigFiles/%s_%s_Config.json", InputConnector.resourcePath, UseCase, FileExtension));
+        String configFileDir = DOCKER_ENV ?
+                  getPath("/KnowledgeGraphsApp/resources")
+                : getPath(Paths.get(System.getProperty("user.dir")).getParent() + "/.KnowledgeGraphsResources/KnowledgeGraphsJava");
+        String configFilePath =
+                getPath(String.format("%s/ConfigFiles/%s_%s_Config.json", configFileDir, UseCase, FileExtension));
+
+
         JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
         String DefaultRootClassName = "Record";
 
@@ -92,7 +99,6 @@ public class Config {
         public String FileExtension;
         public String DownloadedDataDir;
         public String ProcessedDataDir;
-        public String CachedDataDir;
 
         public InputPointConfig() {}
 
@@ -108,11 +114,10 @@ public class Config {
         }
 
 
-        private void setDirPaths() {                                                                                    // String overrideDatasource
+        private void setDirPaths() {                                                                                                    // String overrideDatasource
             DatasetResourcesPath = getPath(String.format("%s/Use_Case/%s/%s", InputConnector.resourcePath, UseCase, DatasetName));
             DownloadedDataDir    = getPath(DatasetResourcesPath + "/Downloaded_Data");                                            // overrideDatasource == null ? DatasetResourcesPath + "Downloaded_Data/" : overrideDatasource;
             ProcessedDataDir     = getPath(DatasetResourcesPath + "/Processed_Data");
-            CachedDataDir        = getPath(DatasetResourcesPath + "/Cached_Data");
         }
 
         public boolean isJSON() {return "json".equals(FileExtension);}
@@ -173,8 +178,11 @@ public class Config {
 
             this.DefaultRootClassName = DefaultRootClassName;
 
-            String DOdir   = getPath(Paths.get(DatasetResourcesPath).getParent().toString());
-            this.DOntology = getPath(String.format("%s/DOntology/%s", DOdir, DOntology));
+            String DOdir   = DOCKER_ENV ?
+                  getPath("/KnowledgeGraphsApp/resources/DOntologies")
+                : getPath(Paths.get(System.getProperty("user.dir")).getParent().toString() + "/.KnowledgeGraphsResources/KnowledgeGraphsJava/DOntologies");
+
+            this.DOntology = getPath(String.format("%s/%s", DOdir, DOntology));
             this.offlineDOntology = offlineDOntology;
 
             PO2DO_Mappings  = getPath(KGOutputsDir + "/PO2DO_Mappings.json");

@@ -8,8 +8,10 @@ import static org.example.util.FileHandler.getPath;
 
 public class InputConnector {
 
-    public static String USE_CASE = FINTECH;
-    public static String filename = "gfh.csv";
+    public static boolean DOCKER_ENV = true;
+
+    public static String USE_CASE = HEALTH;
+    public static String filename = "gfh.dcm";
     public static String resourcePath = getPath("resources");
 
 
