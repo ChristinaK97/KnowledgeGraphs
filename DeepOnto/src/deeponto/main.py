@@ -1,13 +1,11 @@
 # documentation
 # https://krr-oxford.github.io/DeepOnto/bertmap/
 
-from src.deeponto.onto import Ontology
-from src.deeponto.align.bertmap import BERTMapPipeline, DEFAULT_CONFIG_FILE
 from torch.cuda import is_available, get_device_name, current_device
-
 print(is_available(), get_device_name(current_device()))
-# ================================================================================
 
+
+# ================================================================================
 
 base = 'C:\\Users\\karal\\progr\\onto_workspace\\Ontologies\\'
 FIBO_FILE = 'FIBOLt.owl'
@@ -21,10 +19,25 @@ MAP_TO_DO_TASK = False
 
 
 # Load CONFIG ====================================================================
-config = BERTMapPipeline.load_bertmap_config(DEFAULT_CONFIG_FILE)
+from src.deeponto.align.bertmap.config_file_handler import load_bertmap_config, DEFAULT_CONFIG_FILE
+
+def startJVM(memory: str = '8g'):
+    from src.deeponto import init_jvm
+    import jpype
+    # initialise JVM for python-java interaction
+    if not jpype.isJVMStarted():
+        init_jvm(memory)
+
+
+config = load_bertmap_config(DEFAULT_CONFIG_FILE)
+startJVM(config.jvm_max_memory)
 config.output_path = 'resources\\'
 
 # ================================================================================
+
+
+from src.deeponto.onto import Ontology
+from src.deeponto.align.bertmap.pipeline import BERTMapPipeline
 
 def config_for_do_mapping():
     # Define ontologies

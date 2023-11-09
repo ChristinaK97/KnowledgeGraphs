@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .pipeline import BERTMapPipeline, DEFAULT_CONFIG_FILE
+# from .pipeline import BERTMapPipeline
+# from .config_file_handler import DEFAULT_CONFIG_FILE
 
 # @paper(
 #     "BERTMap: A BERT-based Ontology Alignment System (AAAI-2022)",

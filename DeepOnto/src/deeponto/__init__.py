@@ -16,14 +16,32 @@
 import jpype
 import os
 import mowl
+import glob
+from pathlib import Path
 
-def init_jvm(memory):
+""" Get jars from mowl dir in .conda env. Initial implementation"""
+def get_jars_default():
     dirname = os.path.dirname(mowl.__file__)
     jars_dir = os.path.join(dirname, "lib/")
     # jars = f'{str.join(":", [jars_dir + name for name in os.listdir(jars_dir)])}'
-    jars = f'{str.join(";", [jars_dir + name for name in os.listdir(jars_dir)])}'
-    jars = jars.replace('/', '\\').replace('\\', '\\\\')
-    
+    jars = f'{str.join(";", [str(Path(jars_dir + name)) for name in os.listdir(jars_dir)])}'
+    # jars = jars.replace('/', '\\').replace('\\', '\\\\')
+    # print("# jars = ", len(os.listdir(jars_dir)))
+    return jars
+
+
+""" Get jars from in-project dir """
+def get_jars():
+    jars_dir = str(Path('align/logmap/java-dependencies'))
+    jars = glob.glob(f'{jars_dir}\\*.jar')
+    # print("# jars = ", len(jars))
+    jars = f'{str.join(";", [str(Path(jar_file)) for jar_file in jars])}'
+    return jars
+
+
+def init_jvm(memory):
+    jars = get_jars()
+
     if not jpype.isJVMStarted():
         
         jpype.startJVM(

@@ -23,9 +23,9 @@ import transformers
 
 from src.deeponto.align.mapping import ReferenceMapping
 from src.deeponto.onto import Ontology
-from src.deeponto.utils.decorators import paper
-from src.deeponto.utils import FileUtils, Tokenizer
+from src.deeponto.utils import FileUtils
 from src.deeponto.utils.logging import create_logger
+from .config_file_handler import save_bertmap_config
 from .extractBertMapMappings import MappingSelector
 from .text_semantics import TextSemanticsCorpora
 from .bert_classifier import BERTSynonymClassifier
@@ -34,7 +34,6 @@ from .mapping_refinement import MappingRefiner
 
 
 MODEL_OPTIONS = {"bertmap": {"trainable": True}, "bertmaplt": {"trainable": False}}
-DEFAULT_CONFIG_FILE = os.path.join(os.path.dirname(__file__), "default_config.yaml")
 transformers.logging.set_verbosity_info()
 
 
@@ -101,7 +100,7 @@ class BERTMapPipeline:
         self.logger.info(f"Load the following configurations:\n{FileUtils.print_dict(self.config)}")
         config_path = os.path.join(self.output_path, "config.yaml")
         self.logger.info(f"Save the configuration file at {config_path}.")
-        self.save_bertmap_config(self.config, config_path)
+        save_bertmap_config(self.config, config_path)
 
         self.build_corpora()
 
@@ -349,25 +348,6 @@ class BERTMapPipeline:
 
         return best_checkpoint
     
-    @staticmethod
-    def load_bertmap_config(config_file: Optional[str] = None):
-        """Load the BERTMap configuration in `.yaml`. If the file
-        is not provided, use the default configuration.
-        """
-        if not config_file:
-            config_file = DEFAULT_CONFIG_FILE
-            print(f"Use the default configuration at {DEFAULT_CONFIG_FILE}.")  
-        if not config_file.endswith(".yaml"):
-            raise RuntimeError("Configuration file should be in `yaml` format.")
-        return CfgNode(FileUtils.load_file(config_file))
-
-    @staticmethod
-    def save_bertmap_config(config: CfgNode, config_file: str):
-        """Save the BERTMap configuration in `.yaml`."""
-        with open(config_file, "w") as c:
-            config.dump(stream=c, sort_keys=False, default_flow_style=False)
-
-
 
     def extractBertMapMappings(self):
         MappingSelector(

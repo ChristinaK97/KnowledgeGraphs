@@ -22,9 +22,12 @@ from tqdm import tqdm
 from yacs.config import CfgNode
 import warnings
 import itertools
-import jpype
+# import jpype
 
 from src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
+
+# start jvm in main instead
+"""
 from src.deeponto import init_jvm
 
 # ======================================================================================================================
@@ -35,7 +38,7 @@ if not jpype.isJVMStarted():
     memory = click.prompt("Please enter the maximum memory located to JVM", type=str, default="8g")
     print()
     init_jvm(memory)
-
+"""
 # ======================================================================================================================
 from java.io import File  # type: ignore
 from java.util import Collections  # type: ignore
