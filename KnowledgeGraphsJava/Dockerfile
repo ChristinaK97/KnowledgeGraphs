@@ -8,5 +8,7 @@ WORKDIR /KnowledgeGraphApp
 COPY target/KnowledgeGraphsJava-1.0-SNAPSHOT-jar-with-dependencies.jar .
 COPY resources ./resources
 
-# Command to run your Java application
+EXPOSE 7530
+
+# Command to run Java application
 CMD ["java", "-jar", "KnowledgeGraphsJava-1.0-SNAPSHOT-jar-with-dependencies.jar"]

@@ -33,5 +33,7 @@ services:
       context: ./KnowledgeGraphsJava
     image: knowledge-graphs-main:latest
     container_name: knowledge-graphs-main
+    ports:
+      - "7530:7530"
     volumes:
       - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/KnowledgeGraphsJava:/KnowledgeGraphsApp/resources
