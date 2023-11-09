@@ -10,6 +10,8 @@ import org.example.D_MappingGeneration.MappingSelection.MappingSelection;
 import org.example.E_CreateKG.InsertDataJSON;
 import org.example.E_CreateKG.InsertDataRDB;
 import org.example.E_CreateKG.SetPOasDOextension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,6 +27,7 @@ import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER
 public class Pipeline {
 
     public static Config config;
+    private static Logger LG = LoggerFactory.getLogger(Pipeline.class);
 
     public Pipeline(Config config) {
         Pipeline.config = config;
@@ -36,19 +39,27 @@ public class Pipeline {
     }
 
     public void run() {
-        // B. Load Data source -----------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
+        LG.info("B. LOAD DATA SOURCE");
         Object dataSource = getDataSource();
         boolean isTabular = dataSource instanceof RelationalDB;
-        // C. Extract PO -----------------------------------------------------------------------------------------
+
+        // -------------------------------------------------------------------------------------------------------------
+        LG.info("C. EXTRACT PONTOLOGY");
         new POntologyExtractor(dataSource);
-        // D. Run Mapper -----------------------------------------------------------------------------------------
+
+        if(config.In.DatasetName.equals("ERP")) return;
+        // -------------------------------------------------------------------------------------------------------------
         switch (config.DOMap.Mapper){
             case EXACT_MAPPER:
+                LG.info("D. RUN EXACT MAPPER");
                 new ExactMapper(null);
                 break;
             case BERTMAP:
                 //TODO: call bertmap service here
+                LG.info("D. RUN BERTMAP MAPPER");
                 String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json";
+                LG.info("D. RUN MAPPING SELECTION");
                 new MappingSelection(config.Out.POntology, config.Out.DOntology,
                                       bertmapMappingsFile, config.DOMap, dataSource);
                 break;
@@ -57,21 +68,22 @@ public class Pipeline {
                 break;
         }
         // E. Create Knowledge Graph -----------------------------------------------------------------------------------
-        // E1: Create Use Case Ontology --------------------------------------------------------------------------------
+        LG.info("E1. CREATE USE CASE ONTOLOGY");
         new SetPOasDOextension();
 
-        // E2: Create Full Graph ---------------------------------------------------------------------------------------
-        // Tabular dataset in the form of a RelationDB
+        // -------------------------------------------------------------------------------------------------------------
+        LG.info("E2: CREATE FULL GRAPH");
+        // Tabular dataset in the form of a RelationDB -----------------------------------------------------------------
         if(isTabular) {
             new InsertDataRDB((RelationalDB) dataSource);
             ((RelationalDB) dataSource).closeConnection();  // Close connection to relational DB (SQL)
 
-        // DICOM files that have been transformed to DSON
+        // DICOM files that have been transformed to DSON --------------------------------------------------------------
         }else if (config.In.isDSON()) {
             List<String> processedDSONFolder = findFilesInFolder(config.In.ProcessedDataDir, "json");
             new InsertDataJSON(processedDSONFolder);
 
-        // Plain JSON files that were not processed
+        // Plain JSON files that were not processed --------------------------------------------------------------------
         // TODO: In case you want to apply some preprocessing steps to the downloaded json files retrieve the processed data dir instead of the downloaded
         }else if (config.In.isJSON()){
             new InsertDataJSON((List<String>) dataSource);
@@ -105,7 +117,7 @@ public class Pipeline {
                     .collect(Collectors.toList());
 
         }catch (IOException e) {
-            System.err.println("Data source in folder " + folder + " with extension " + fileExtension + " not found");
+            LG.error("Data source in folder " + folder + " with extension " + fileExtension + " not found");
             e.printStackTrace();
             return null;
         }

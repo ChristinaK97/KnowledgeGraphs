@@ -1,40 +1,40 @@
+import os.path as path
+
 import torch
+from pathlib import Path
+from flask import Flask, request, jsonify
+
 isCudaAvailableMessage = \
     "Cuda available : " + torch.cuda.get_device_name(torch.cuda.current_device()) if torch.cuda.is_available() else \
     "Cuda NOT available"
 print(isCudaAvailableMessage)
+# ----------------------------------------------------------------------------------------------------------------------
 
-import pandas as pd
-from pathlib import Path
+metaInventoryPath = Path("/KnowledgeGraphsApp/resources/Metainventory_Version1.0.0.csv")
+if not path.exists(metaInventoryPath):
+    script_dir = Path(path.dirname(path.abspath(__file__)))
+    metaInventoryPath = Path(
+        f"{script_dir.parent}/.KnowledgeGraphsResources/AAExpansion/Metainventory_Version1.0.0.csv")
 
-from source.InterpretHeaders import InterpretHeaders
-
-import os
-
-def list_files_in_directory():
-    directory = Path("/KnowledgeGraphsApp")
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            file_path = os.path.join(root, file)
-            print(file_path)
-
-list_files_in_directory()
-path = Path("/KnowledgeGraphsApp/resources/Metainventory_Version1.0.0.csv")
-inputDataset = Path("resources/Data_test_Encrypt_Repaired.csv")
 outputPath = Path("resources/abbrevExpansionResults.json")
+# ----------------------------------------------------------------------------------------------------------------------
 
-headers = pd.read_csv(inputDataset, delimiter=";").columns.to_list()
-print("Headers : ", headers[0:5])
+app = Flask(__name__)
 
-InterpretHeaders(headers, path, outputPath)
-# SciSpacyEntityLinker(outputPath)
+@app.route('/start_aa_expansion', methods=['POST'])
+def start_aa_expansion():
+    from source.InterpretHeaders import InterpretHeaders
 
-"""
-md = MedicalDictionary(dictionaryCSVPath=path)
-for h in headers:
-       md.generateAllPossibleCandidates(h)
-       print('\n=================================\n')
-"""
+    headers = request.get_json()
+    print(headers)
 
+    AAExpansionResults  = InterpretHeaders(headers, metaInventoryPath).extractResults(outputPath)
+    response = jsonify(AAExpansionResults)
+    print("jsonify = ", response)
+    return response
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=7531)
 
 

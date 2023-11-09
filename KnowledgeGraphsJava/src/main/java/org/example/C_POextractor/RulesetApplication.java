@@ -58,7 +58,7 @@ public class RulesetApplication {
         }
 
         if(config.Out.applyMedAbbrevExpansion)
-            datasetDictionary = new AbbreviationsDictionary();
+            datasetDictionary = new AbbreviationsDictionary(db);
     }
 
 

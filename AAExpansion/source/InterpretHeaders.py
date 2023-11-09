@@ -27,7 +27,7 @@ SEC_ROUN_THRS: float = 0.85
 
 class InterpretHeaders:
 
-    def __init__(self, headers: List[str], medDictPath: Union[str,Path], outputPath: Union[str,Path]):
+    def __init__(self, headers: List[str], medDictPath: Union[str,Path]):
 
         self.hDataset = HeadersDataset(headers)
         self.medDict  = MedicalDictionary(dictionaryCSVPath=medDictPath,
@@ -58,7 +58,7 @@ class InterpretHeaders:
 
         # self._printDataFrames()
         self._selectBestCandidates()
-        self._extractResults(outputPath)
+        # self.extractResults(outputPath)
 
 
     def _setup(self):
@@ -523,7 +523,7 @@ class InterpretHeaders:
 
 # ======================================================================================================
 
-    def _extractResults(self, outputPath: str):
+    def extractResults(self, outputPath: Union[str,Path] = None):
         results = {}
         for idx in self.hRange:
             headerResults = {
@@ -544,8 +544,9 @@ class InterpretHeaders:
                     })
             results[self.hDataset.headers[idx]] = headerResults
 
-        with open(outputPath, 'w') as json_file:
-            json.dump(results, json_file, indent=4)
+        if outputPath is not None:
+            with open(outputPath, 'w') as json_file:
+                json.dump(results, json_file, indent=4)
         return results
 
 
