@@ -2,6 +2,16 @@ package org.example.B_InputDatasetProcessing.Medical;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.util.Annotations;
+import org.example.util.DatasetDictionary;
+import org.example.util.JsonUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,27 +19,16 @@ import java.util.List;
 
 import static org.example.A_Coordinator.Inputs.InputConnector.DOCKER_ENV;
 import static org.example.A_Coordinator.Pipeline.config;
-
-import com.google.gson.JsonParser;
-import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
-import org.example.util.JsonUtil;
-import org.example.util.Annotations;
-import org.example.util.DatasetDictionary;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.web.client.RestTemplate;
-
-import static org.example.util.Annotations.*;
+import static org.example.util.Annotations.getObjectPropertyRawLabel;
+import static org.example.util.Annotations.normalise;
+import static org.example.util.Requests.infiniteRestTemplate;
 
 
 public class AbbreviationsDictionary extends DatasetDictionary {
 
     // Define the URL of the Python service
     private static String AAExpansionEndpoint =
-            String.format("http://%s:7531/start_aa_expansion", DOCKER_ENV ? "aa-expansion" : "192.168.1.5");
+            String.format("http://%s:7531/start_aa_expansion", DOCKER_ENV ? "aa-expansion" : "localhost");
 
 // =====================================================================================================================
     class HeaderInfo extends DatasetElementInfo{
@@ -90,22 +89,25 @@ public class AbbreviationsDictionary extends DatasetDictionary {
     /** HTTP GET Request to AAExpansion service */
     private JsonObject startAAExpansion(List<String> inputs) {
         Logger LG = LoggerFactory.getLogger(AbbreviationsDictionary.class);
-        LG.info("HTTP REQUEST: GET " + AAExpansionEndpoint);
+        LG.info("HTTP REQUEST: POST " + AAExpansionEndpoint + " # headers = " + inputs.size());
         // Prepare the HTTP headers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        // Send an HTTP POST request to the Python service
-        String responseJson = new RestTemplate().postForObject(
-                AAExpansionEndpoint,
-                new HttpEntity<>(inputs, headers),
-                String.class
-        );
+        String responseJson = null;
+        try {
+            responseJson = infiniteRestTemplate().postForObject(
+                    AAExpansionEndpoint,
+                    new HttpEntity<>(inputs, headers),
+                    String.class
+            );
+        }catch (Exception e) {
+            LG.error("AAExpansion request failed: " + e.getLocalizedMessage());
+        }
         if(responseJson != null) {
             // Parse the JSON response into a JsonObject using GSON
             JsonObject response = JsonParser.parseString(responseJson).getAsJsonObject();
-            LG.info("REQUEST SUCCESSFUL");
-            System.out.println(response);
+            LG.info("REQUEST SUCCESSFUL. # keys " + response.keySet().size());
             return response;
         }else {
             LG.error("AAExpansion request failed: response was NULL.");
