@@ -18,6 +18,8 @@ services:
       - python-environment
     image: aa-expansion:latest
     container_name: aa-expansion
+    ports:
+      - "7531:7531"
     deploy:
       resources:
         reservations:
@@ -31,6 +33,8 @@ services:
   knowledge-graphs-main:
     build:
       context: ./KnowledgeGraphsJava
+    depends_on:
+      - aa-extraction
     image: knowledge-graphs-main:latest
     container_name: knowledge-graphs-main
     ports:
