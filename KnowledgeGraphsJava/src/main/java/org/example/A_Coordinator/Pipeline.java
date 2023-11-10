@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 
 import static org.example.A_Coordinator.config.Config.MappingConfig.BERTMAP;
 import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER;
+import static org.example.util.Requests.startBertmap;
 
 public class Pipeline {
 
@@ -48,7 +49,6 @@ public class Pipeline {
         LG.info("C. EXTRACT PONTOLOGY");
         new POntologyExtractor(dataSource);
 
-        if(config.In.DatasetName.equals("ERP")) return;
         // -------------------------------------------------------------------------------------------------------------
         switch (config.DOMap.Mapper){
             case EXACT_MAPPER:
@@ -58,6 +58,7 @@ public class Pipeline {
             case BERTMAP:
                 //TODO: call bertmap service here
                 LG.info("D. RUN BERTMAP MAPPER");
+                startBertmap();
                 String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json";
                 LG.info("D. RUN MAPPING SELECTION");
                 new MappingSelection(config.Out.POntology, config.Out.DOntology,

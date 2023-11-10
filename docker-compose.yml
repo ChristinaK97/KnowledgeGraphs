@@ -30,6 +30,24 @@ services:
     volumes:
       - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/AAExpansion:/KnowledgeGraphsApp/resources
 
+  bertmap:
+    build:
+      context: ./DeepOnto
+    depends_on:
+      - python-environment
+    image: bertmap:latest
+    container_name: bertmap
+    ports:
+      - "7532:7532"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [ gpu ]
+
+
   knowledge-graphs-main:
     build:
       context: ./KnowledgeGraphsJava
