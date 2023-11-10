@@ -1,5 +1,6 @@
 import json
 from functools import reduce
+from os.path import exists
 from pathlib import Path
 from typing import List, Union, Dict, Set, Tuple
 
@@ -27,38 +28,44 @@ SEC_ROUN_THRS: float = 0.85
 
 class InterpretHeaders:
 
-    def __init__(self, headers: List[str], medDictPath: Union[str,Path]):
+    def __init__(self, headers: List[str], medDictPath: Union[str,Path], outputPath:Union[str,Path] = None, reset:bool = True):
 
-        self.hDataset = HeadersDataset(headers)
-        self.medDict  = MedicalDictionary(dictionaryCSVPath=medDictPath,
-                                          datasetAlphabet=self.hDataset.headersAlphabet)
-        self.hRange = range(self.hDataset.__sizeof__())
-        self.hContext = {}
-        self._setup()
+        self.outputPath = outputPath
+        self.reset = reset
 
-        print(">> Inter")
-        self.bert = Bert()
+        if reset or outputPath is None or not exists(outputPath):
+            self.reset = True
 
-        self.cachedEmbeddings: Dict[str, Tensor] = {}
-        self._generateCachedEmbeddings()
+            self.hDataset = HeadersDataset(headers)
+            self.medDict  = MedicalDictionary(dictionaryCSVPath=medDictPath,
+                                              datasetAlphabet=self.hDataset.headersAlphabet)
+            self.hRange = range(self.hDataset.__sizeof__())
+            self.hContext = {}
+            self._setup()
 
-        self.globalAbbrevScores: Dict[str, Dict[str,float]] = {}
-        self.abbrevsCandsGroups: Dict[str, Dict[str, int]]  = {}
-        self._setGlobalAbbrevInfo()
+            print(">> Inter")
+            self.bert = Bert()
 
-        self.headersCandsDFs: Dict[int, Union[pd.DataFrame, Dict[str, pd.DataFrame]]] = {}                              # ;print(self.hDataset.datasetAbbrevs) # ;[[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
+            self.cachedEmbeddings: Dict[str, Tensor] = {}
+            self._generateCachedEmbeddings()
 
-        self._calcHeaderScores()
-        del self.cachedEmbeddings
-        del self.medDict
-        self._secondRoundFiltering()
-        self._findSeeds()
-        self._setSeedScores()
-        self._setGroups()
+            self.globalAbbrevScores: Dict[str, Dict[str,float]] = {}
+            self.abbrevsCandsGroups: Dict[str, Dict[str, int]]  = {}
+            self._setGlobalAbbrevInfo()
 
-        # self._printDataFrames()
-        self._selectBestCandidates()
-        # self.extractResults(outputPath)
+            self.headersCandsDFs: Dict[int, Union[pd.DataFrame, Dict[str, pd.DataFrame]]] = {}                              # ;print(self.hDataset.datasetAbbrevs) # ;[[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
+
+            self._calcHeaderScores()
+            del self.cachedEmbeddings
+            del self.medDict
+            self._secondRoundFiltering()
+            self._findSeeds()
+            self._setSeedScores()
+            self._setGroups()
+
+            # self._printDataFrames()
+            self._selectBestCandidates()
+            # self.extractResults(outputPath)
 
 
     def _setup(self):
@@ -523,7 +530,12 @@ class InterpretHeaders:
 
 # ======================================================================================================
 
-    def extractResults(self, outputPath: Union[str,Path] = None):
+    def extractResults(self):
+
+        if not self.reset:
+            with open(self.outputPath, 'r') as json_file:
+                return json.load(json_file)
+
         results = {}
         for idx in self.hRange:
             headerResults = {
@@ -544,8 +556,8 @@ class InterpretHeaders:
                     })
             results[self.hDataset.headers[idx]] = headerResults
 
-        if outputPath is not None:
-            with open(outputPath, 'w') as json_file:
+        if self.outputPath is not None:
+            with open(self.outputPath, 'w') as json_file:
                 json.dump(results, json_file, indent=4)
         return results
 
