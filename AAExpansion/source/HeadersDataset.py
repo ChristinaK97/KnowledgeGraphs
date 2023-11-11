@@ -1,20 +1,15 @@
 import pickle
 import re
-from collections import Counter
+from os import remove
 from os.path import exists
 from pathlib import Path
-from typing import Set, List, Tuple
-
-from sklearn.feature_extraction.text import TfidfVectorizer
-from wordninja import split as ninja
-from source.util.NearDuplicates import hasDuplicateIn
-
-# model_name = 'monologg/biobert_v1.1_pubmed'
-# from transformers import BertTokenizer
-# tokenizer = BertTokenizer.from_pretrained(model_name)
+from typing import Set, Tuple
 
 import nltk
 from nltk.corpus import wordnet, stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+from wordninja import split as ninja
+from source.util.NearDuplicates import hasDuplicateIn
 
 from source.util.UnionFind import UnionFind
 
@@ -74,6 +69,17 @@ class HeadersDataset:
 # ======================================================================================================================
 # Public Methods
 # ======================================================================================================================
+    @staticmethod
+    def delete_saved_headers_dataset():
+        try:
+            remove(saveFile)
+            print(f"File '{saveFile}' deleted successfully.")
+        except FileNotFoundError:
+            print(f"File '{saveFile}' not found.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
     def getHeaderInfo(self, idx):
         return self.headers[idx], self.tokenizedHeaders[idx], \
                self.isUnambiguous[idx], self.headerInputs[idx]

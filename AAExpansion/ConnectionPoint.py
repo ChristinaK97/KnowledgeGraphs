@@ -28,7 +28,7 @@ def start_aa_expansion():
     headers = request.get_json()
     print("# headers = ", len(headers), headers[0:5])
 
-    AAExpansionResults  = InterpretHeaders(headers, metaInventoryPath, outputPath, False).extractResults()
+    AAExpansionResults  = InterpretHeaders(headers, metaInventoryPath, outputPath, False).results
     response = jsonify(AAExpansionResults)
     print("jsonify = ", response)
     return response

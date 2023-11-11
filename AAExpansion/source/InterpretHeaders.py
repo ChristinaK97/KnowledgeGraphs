@@ -31,41 +31,65 @@ class InterpretHeaders:
     def __init__(self, headers: List[str], medDictPath: Union[str,Path], outputPath:Union[str,Path] = None, reset:bool = True):
 
         self.outputPath = outputPath
-        self.reset = reset
+        self.reset = reset or outputPath is None or not exists(outputPath)
 
-        if reset or outputPath is None or not exists(outputPath):
-            self.reset = True
+        if not self.reset:
+            self.results = self._try_to_load_results(headers)
 
+        if self.reset:
             self.hDataset = HeadersDataset(headers)
-            self.medDict  = MedicalDictionary(dictionaryCSVPath=medDictPath,
-                                              datasetAlphabet=self.hDataset.headersAlphabet)
-            self.hRange = range(self.hDataset.__sizeof__())
-            self.hContext = {}
-            self._setup()
+            self.medDict = MedicalDictionary(dictionaryCSVPath=medDictPath,
+                                             datasetAlphabet=self.hDataset.headersAlphabet)
+            self._run_pipeline()
 
-            print(">> Inter")
-            self.bert = Bert()
 
-            self.cachedEmbeddings: Dict[str, Tensor] = {}
-            self._generateCachedEmbeddings()
 
-            self.globalAbbrevScores: Dict[str, Dict[str,float]] = {}
-            self.abbrevsCandsGroups: Dict[str, Dict[str, int]]  = {}
-            self._setGlobalAbbrevInfo()
+    def _try_to_load_results(self, headers: List[str]):
+        with open(self.outputPath, 'r') as json_file:
+            results = json.load(json_file)
+        are_same = True
+        for header in headers:
+            if header not in results.keys():
+                are_same = False
+                break
+        if not are_same:
+            # input headers and save file headers don't match
+            self.reset = True
+            results = None
+            HeadersDataset.delete_saved_headers_dataset()
+        return results
 
-            self.headersCandsDFs: Dict[int, Union[pd.DataFrame, Dict[str, pd.DataFrame]]] = {}                              # ;print(self.hDataset.datasetAbbrevs) # ;[[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
 
-            self._calcHeaderScores()
-            del self.cachedEmbeddings
-            del self.medDict
-            self._secondRoundFiltering()
-            self._findSeeds()
-            self._setSeedScores()
-            self._setGroups()
 
-            # self._printDataFrames()
-            self._selectBestCandidates()
-            # self.extractResults(outputPath)
+    def _run_pipeline(self):
+        self.hRange = range(self.hDataset.__sizeof__())
+        self.hContext = {}
+        self._setup()
+
+        print(">> Inter")
+        self.bert = Bert()
+
+        self.cachedEmbeddings: Dict[str, Tensor] = {}
+        self._generateCachedEmbeddings()
+
+        self.globalAbbrevScores: Dict[str, Dict[str, float]] = {}
+        self.abbrevsCandsGroups: Dict[str, Dict[str, int]] = {}
+        self._setGlobalAbbrevInfo()
+
+        self.headersCandsDFs: Dict[int, Union[pd.DataFrame, Dict[
+            str, pd.DataFrame]]] = {}  # ;print(self.hDataset.datasetAbbrevs) # ;[[print(f'{abbrev} -> {ff}  =  {score}') for ff, score in abbrevScores.items()] for abbrev, abbrevScores in self.globalAbbrevScores.items()]
+
+        self._calcHeaderScores()
+        del self.cachedEmbeddings
+        del self.medDict
+        self._secondRoundFiltering()
+        self._findSeeds()
+        self._setSeedScores()
+        self._setGroups()
+
+        # self._printDataFrames()
+        self._selectBestCandidates()
+        self.results = self._extractResults()
 
 
     def _setup(self):
@@ -530,12 +554,7 @@ class InterpretHeaders:
 
 # ======================================================================================================
 
-    def extractResults(self):
-
-        if not self.reset:
-            with open(self.outputPath, 'r') as json_file:
-                return json.load(json_file)
-
+    def _extractResults(self):
         results = {}
         for idx in self.hRange:
             headerResults = {
