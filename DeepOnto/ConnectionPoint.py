@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from src.deeponto.main import run_pipeline, MAP_TO_DO, MAP_TO_DPV
 
 def test_gpu():
@@ -6,9 +6,7 @@ def test_gpu():
     from torch.cuda import is_available, get_device_name, current_device
     print(is_available(), get_device_name(current_device()))
     tensor = torch.tensor([3, 4, 5], dtype=torch.int64, device=current_device())
-    print(tensor.device)
     return tensor.device
-
 
 def run_outside_flask():
     HEALTH = 'health'
@@ -17,7 +15,7 @@ def run_outside_flask():
     FIBO_FILE = 'FIBOLt.owl'
     SNOMED_FILE = 'SNOMED-CT-International-072023.owl'
     # -----------------------------------------------------------
-    UseCase = FINTECT
+    use_case = FINTECT
     DOntology = base + FIBO_FILE
     POntology = base + 'POntologies\\' + 'EPIBANKPO.ttl'
     DPV = base + 'dpv-pii.ttl'
@@ -26,7 +24,7 @@ def run_outside_flask():
     mode = MAP_TO_DPV
     # -------------------------------------------------------------
     bertmap_mappings = run_pipeline(
-        use_case=UseCase,
+        use_case=use_case,
         base_output_path=base_output_path,
         mode=mode,
         POntology_path=POntology,
@@ -34,21 +32,28 @@ def run_outside_flask():
         DPV_path=DPV
     )
     print(bertmap_mappings)
+# ================================================================================================
 
 
-"""
 app = Flask(__name__)
 
 @app.route('/start_bertmap', methods=['POST'])
 def start_bertmap():
-    device = test_gpu()
-    run()
-    response = jsonify({'device' : str(device)})
+    print(test_gpu())
+    data = request.get_json()
+    bertmap_mappings = run_pipeline(
+        use_case            = data.get('use_case'),
+        base_output_path    = data.get('base_output_path'),
+        mode                = MAP_TO_DO if data.get('run_for_do_mapping') else MAP_TO_DPV,
+        POntology_path      = data.get('POntology_path'),
+        DOntology_path      = data.get('DOntology_path'),
+        DPV_path            = data.get('DPV_path')
+    )
+    response = jsonify(bertmap_mappings)
     print('jsonify = ', response)
     return response
-"""
 
 
 if __name__ == '__main__':
-    run_outside_flask()
-    # app.run(host='0.0.0.0', port=7532)
+    # run_outside_flask()
+    app.run(host='0.0.0.0', port=7532)
