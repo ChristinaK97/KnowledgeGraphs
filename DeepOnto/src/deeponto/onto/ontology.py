@@ -17,12 +17,12 @@ from __future__ import annotations
 import os
 from typing import Optional, List, Union
 from collections import defaultdict
-
-
 from tqdm import tqdm
 from yacs.config import CfgNode
 import warnings
 import itertools
+# don't remove this unused import, it won't be able to import java
+import mowl
 
 from src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
 
