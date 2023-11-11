@@ -45,7 +45,7 @@ def run():
         config.annotation_property_iris.target = [
             'http://www.w3.org/2000/01/rdf-schema#label'
         ]
-        config.additional_annotation_iris += [
+        config.annotation_property_iris.additional_annotation_iris += [
             'http://purl.org/dc/terms/description'
         ]
         # use do for training
@@ -69,7 +69,7 @@ def run():
             'https://www.omg.org/spec/Commons/AnnotationVocabulary/abbreviation',
             'https://www.omg.org/spec/Commons/AnnotationVocabulary/acronym'
         ]
-        config.additional_annotation_iris = [
+        config.annotation_property_iris.additional_annotation_iris = [
             'http://www.w3.org/2004/02/skos/core#definition',
             'https://www.omg.org/spec/Commons/AnnotationVocabulary/explanatoryNote',
             'http://www.w3.org/2004/02/skos/core#editorialNote',
@@ -82,7 +82,7 @@ def run():
             'http://www.w3.org/2004/02/skos/core#altLabel',
             'http://www.w3.org/2004/02/skos/core#prefLabel'
         ]
-        config.additional_annotation_iris = [
+        config.annotation_property_iris.additional_annotation_iris = [
             'http://www.w3.org/2004/02/skos/core#definition'
         ]
 

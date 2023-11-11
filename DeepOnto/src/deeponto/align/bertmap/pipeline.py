@@ -148,7 +148,6 @@ class BERTMapPipeline:
                     src_onto=self.src_onto,
                     tgt_onto=self.tgt_onto,
                     annotation_property_iris=self.annotation_property_iris,
-                    additional_annotation_iris= self.config.additional_annotation_iris,
                     class_mappings=self.known_mappings,
                     auxiliary_ontos=self.auxiliary_ontos,
                     use_wordnet=self.config.use_wordnet
