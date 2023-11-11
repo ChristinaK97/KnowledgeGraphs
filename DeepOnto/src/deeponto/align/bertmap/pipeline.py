@@ -113,8 +113,6 @@ class BERTMapPipeline:
         if self.config.global_matching.run_logmap_repair:
             self.run_repair()
 
-        # extract results to "BertMapMappings.json"
-        self.extractBertMapMappings()
 
 # ======================================================================================================================
 # Build and load training corpus
@@ -365,6 +363,7 @@ class BERTMapPipeline:
 # ======================================================================================================================
 
     def extractBertMapMappings(self):
+        return \
         MappingSelector(
             rawMappingsFile = os.path.join(self.output_path, self.config.mode, "match", "raw_mappings.json"),
             srcOntoPath = self.src_onto.owl_path,
@@ -372,4 +371,4 @@ class BERTMapPipeline:
             srcAnnotProps = self.config.annotation_property_iris.source,
             tgtAnnotProps = self.config.annotation_property_iris.target,
             outputFile = os.path.join(self.output_path, self.config.mode, "match", "BertMapMappings.json")
-        )
+        ).rawMaps

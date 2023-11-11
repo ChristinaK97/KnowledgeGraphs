@@ -18,11 +18,9 @@
 # )
 
 jvm_max_memory: 8g
-
 model: bertmap
-
 output_path: null
-
+mode: null
 annotation_property_iris:
   source:
     - http://www.w3.org/2000/01/rdf-schema#label  # rdfs:label, the basic one
@@ -48,6 +46,10 @@ annotation_property_iris:
     - http://www.w3.org/2004/02/skos/core#altLabel
     - http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P108
     - http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#P90
+  aux:
+    - http://www.w3.org/2000/01/rdf-schema#label
+  additional_annotation_iris:
+    - - http://www.w3.org/2000/01/rdf-schema#comment
 
 # additional corpora
 known_mappings: null  # if provided, cross-ontology corpus will be built
@@ -67,8 +69,9 @@ bert:
 
 # global matching config
 global_matching:
-  enabled: true
+  enabled: True
   num_raw_candidates: 200 # the number of potential candidates selected for mapping predictions
   num_best_predictions: 10  # the number of best scored mappings preserved in the raw output mappings
   mapping_extension_threshold: 0.9  # \kappa
   mapping_filtered_threshold: 0.9995 # \lambda
+  run_logmap_repair: False
