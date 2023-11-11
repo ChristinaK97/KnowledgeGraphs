@@ -95,7 +95,7 @@ class MappingPredictor:
 
 
         # new log file
-        self.logfile = output_path + "logfile.txt"
+        self.logfile = os.path.join(output_path, "logfile.txt")
         if MappingPredictor.override:
             MappingPredictor.override = False
             with open(self.logfile, 'w') as file:

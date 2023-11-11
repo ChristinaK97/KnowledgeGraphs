@@ -35,7 +35,7 @@ from .mapping_refinement import MappingRefiner
 
 MODEL_OPTIONS = {"bertmap": {"trainable": True}, "bertmaplt": {"trainable": False}}
 transformers.logging.set_verbosity_info()
-
+# ======================================================================================================================
 
 # @paper(
 #     "BERTMap: A BERT-based Ontology Alignment System (AAAI-2022)",
@@ -87,7 +87,7 @@ class BERTMapPipeline:
         self.config.output_path = "." if not self.config.output_path else self.config.output_path
         self.config.output_path = os.path.abspath(self.config.output_path)
         self.output_path = os.path.join(self.config.output_path, self.name)
-        FileUtils.create_path(self.output_path)
+        FileUtils.create_path(os.path.join(self.output_path, self.config.mode))
 
         # create logger and progress manager (hidden attribute) 
         self.logger = create_logger(self.name, self.output_path)
@@ -97,8 +97,10 @@ class BERTMapPipeline:
         self.src_onto = src_onto
         self.tgt_onto = tgt_onto
         self.annotation_property_iris = self.config.annotation_property_iris
+
+        # config file
         self.logger.info(f"Load the following configurations:\n{FileUtils.print_dict(self.config)}")
-        config_path = os.path.join(self.output_path, "config.yaml")
+        config_path = os.path.join(self.output_path, self.config.mode, "config.yaml")
         self.logger.info(f"Save the configuration file at {config_path}.")
         save_bertmap_config(self.config, config_path)
 
@@ -114,7 +116,9 @@ class BERTMapPipeline:
         # extract results to "BertMapMappings.json"
         self.extractBertMapMappings()
 
-
+# ======================================================================================================================
+# Build and load training corpus
+# ======================================================================================================================
 
     def build_corpora(self):
 
@@ -132,6 +136,7 @@ class BERTMapPipeline:
         # load or construct the corpora
         self.corpora_path = os.path.join(self.data_path, "text-semantics.corpora.json")
         self.corpora = self.load_text_semantics_corpora()
+
 
 
     def load_text_semantics_corpora(self):
@@ -159,6 +164,7 @@ class BERTMapPipeline:
 
         self.logger.info(f"No training needed; skip the construction of {data_name}.")
         return None
+
 
 
     def load_or_construct(self, data_file: str, data_name: str, construct_func: Callable, *args, **kwargs):
@@ -189,7 +195,6 @@ class BERTMapPipeline:
         data_name = "fine-tuning data"
 
         if self.name == "bertmap":
-
             def construct():
                 finetune_data = dict()
                 samples = self.corpora["synonyms"] + self.corpora["nonsynonyms"]
@@ -203,6 +208,10 @@ class BERTMapPipeline:
 
         self.logger.info(f"No training needed; skip the construction of {data_name}.")
         return None
+
+# ======================================================================================================================
+# Configure and run BERT
+# ======================================================================================================================
 
     def config_bert(self):
 
@@ -254,7 +263,7 @@ class BERTMapPipeline:
         # mapping predictions
         self.global_matching_config = self.config.global_matching
         self.mapping_predictor = MappingPredictor(
-            output_path=self.output_path,
+            output_path=os.path.join(self.output_path, self.config.mode),
             tokenizer_path=self.bert_config.pretrained_path,
             src_annotation_index=self.src_annotation_index,
             tgt_annotation_index=self.tgt_annotation_index,
@@ -273,7 +282,7 @@ class BERTMapPipeline:
             self.mapping_predictor.mapping_prediction()  # mapping prediction
             if self.name == "bertmap":
                 self.mapping_refiner = MappingRefiner(
-                    output_path=self.output_path,
+                    output_path=os.path.join(self.output_path, self.config.mode),
                     src_onto=self.src_onto,
                     tgt_onto=self.tgt_onto,
                     mapping_predictor=self.mapping_predictor,
@@ -293,8 +302,10 @@ class BERTMapPipeline:
 
         # class pair scoring is invoked outside
 
+
     def run_repair(self):
         self.mapping_refiner.mapping_repair()  # mapping repair
+
 
 
     def load_bert_synonym_classifier(self):
@@ -324,6 +335,7 @@ class BERTMapPipeline:
             validation_data=self.finetune_data["validation"],
         )
 
+
     def load_best_checkpoint(self) -> Optional[str]:
         """Find the best checkpoint by searching for trainer states in each checkpoint file."""
         best_checkpoint = -1
@@ -346,14 +358,18 @@ class BERTMapPipeline:
             best_checkpoint = os.path.join(self.bert_finetuned_path, f"checkpoint-{best_checkpoint}")
 
         return best_checkpoint
-    
+
+
+# ======================================================================================================================
+# Extract results with json format
+# ======================================================================================================================
 
     def extractBertMapMappings(self):
         MappingSelector(
-            rawMappingsFile = os.path.join(self.output_path, "match", "raw_mappings.json"),
+            rawMappingsFile = os.path.join(self.output_path, self.config.mode, "match", "raw_mappings.json"),
             srcOntoPath = self.src_onto.owl_path,
             tgtOntoPath = self.tgt_onto.owl_path,
             srcAnnotProps = self.config.annotation_property_iris.source,
             tgtAnnotProps = self.config.annotation_property_iris.target,
-            outputFile = os.path.join(self.output_path, "match", "BertMapMappings.json")
+            outputFile = os.path.join(self.output_path, self.config.mode, "match", "BertMapMappings.json")
         )

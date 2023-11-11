@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from src.deeponto.main import run
+from src.deeponto.main import run, MAP_TO_DO, MAP_TO_DPV
 
 def test_gpu():
     import torch
@@ -10,7 +10,6 @@ def test_gpu():
     return tensor.device
 
 
-run()
 """
 app = Flask(__name__)
 
@@ -21,10 +20,9 @@ def start_bertmap():
     response = jsonify({'device' : str(device)})
     print('jsonify = ', response)
     return response
-
+"""
 
 if __name__ == '__main__':
-    run()
+    mode = MAP_TO_DPV
+    run(mode)
     # app.run(host='0.0.0.0', port=7532)
-
-"""

@@ -1,8 +1,11 @@
 # documentation
 # https://krr-oxford.github.io/DeepOnto/bertmap/
+from typing import Union
 
+MAP_TO_DO = "map_to_do"
+MAP_TO_DPV = "map_to_dpv"
 
-def run():
+def run(mode: Union[MAP_TO_DO, MAP_TO_DPV]):
     base = 'C:\\Users\\karal\\progr\\onto_workspace\\Ontologies\\'
     FIBO_FILE = 'FIBOLt.owl'
     SNOMED_FILE = 'SNOMED-CT-International-072023.owl'
@@ -10,7 +13,7 @@ def run():
     DOntology = FIBO_FILE
     POntology = 'POntologies\\' + 'EPIBANKPO.ttl'
 
-    MAP_TO_DO_TASK = False
+    MAP_TO_DO_TASK = mode == MAP_TO_DO
 
 
 
@@ -27,6 +30,7 @@ def run():
     config = load_bertmap_config(DEFAULT_CONFIG_FILE)
     startJVM(config.jvm_max_memory)
     config.output_path = 'resources\\'
+    config.mode = mode
 
     # ================================================================================
 
