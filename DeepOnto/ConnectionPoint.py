@@ -13,11 +13,13 @@ def run_outside_flask():
     FINTECT = 'fintech'
     base = 'C:\\Users\\karal\\progr\\onto_workspace\\Ontologies\\'
     FIBO_FILE = 'FIBOLt.owl'
-    SNOMED_FILE = 'SNOMED-CT-International-072023.owl'
+    SNOMED_FILE = 'SNOMED_rdfxml.rdf'
+    FINTECH_PO = 'EPIBANKPO.ttl'
+    HEALTH_PO = 'medcsv_with_abbrevExpansions.ttl'
     # -----------------------------------------------------------
     use_case = FINTECT
     DOntology = base + FIBO_FILE
-    POntology = base + 'POntologies\\' + 'EPIBANKPO.ttl'
+    POntology = base + 'POntologies\\' + FINTECH_PO
     DPV = base + 'dpv-pii.ttl'
 
     base_output_path = 'resources\\'
@@ -55,5 +57,5 @@ def start_bertmap():
 
 
 if __name__ == '__main__':
-    # run_outside_flask()
-    app.run(host='0.0.0.0', port=7532)
+    run_outside_flask()
+    # app.run(host='0.0.0.0', port=7532)

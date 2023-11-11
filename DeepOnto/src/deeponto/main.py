@@ -79,6 +79,8 @@ def get_default_configuration(
 
     config = load_bertmap_config(DEFAULT_CONFIG_FILE)
     config.mode = mode
+    config.jvm_max_memory = '2g' if do_is_fibo else '4g'
+    config.use_wordnet = do_is_fibo
 
     # annotation properties ================================================================================
 
