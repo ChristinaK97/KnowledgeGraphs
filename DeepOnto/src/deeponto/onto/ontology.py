@@ -18,11 +18,11 @@ import os
 from typing import Optional, List, Union
 from collections import defaultdict
 
+
 from tqdm import tqdm
 from yacs.config import CfgNode
 import warnings
 import itertools
-# import jpype
 
 from src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
 
@@ -39,6 +39,7 @@ if not jpype.isJVMStarted():
     print()
     init_jvm(memory)
 """
+
 # ======================================================================================================================
 from java.io import File  # type: ignore
 from java.util import Collections  # type: ignore
@@ -584,7 +585,7 @@ class OntologyReasoner:
         elif reasoner == "Elk":
             self.owl_reasoner_factory = ElkReasonerFactory()
         else:
-            raise Exception(f"Unsupported reasoner {reasoner}. Set config.reasoner to Hermit or Pellet")
+            raise Exception(f"Unsupported reasoner {reasoner}. Set config.reasoner to Hermit, Pellet or Elk")
 
         self.owl_reasoner = self.owl_reasoner_factory.createReasoner(self.onto.owl_onto)
         print(type(self.owl_reasoner))

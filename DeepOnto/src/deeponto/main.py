@@ -1,22 +1,8 @@
 # documentation
 # https://krr-oxford.github.io/DeepOnto/bertmap/
 
-from flask import Flask, jsonify
-
-def test_gpu():
-    import torch
-    from torch.cuda import is_available, get_device_name, current_device
-    print(is_available(), get_device_name(current_device()))
-    tensor = torch.tensor([3, 4, 5], dtype=torch.int64, device=current_device())
-    print(tensor.device)
-    return tensor.device
-
-
-
-# ================================================================================
 
 def run():
-
     base = 'C:\\Users\\karal\\progr\\onto_workspace\\Ontologies\\'
     FIBO_FILE = 'FIBOLt.owl'
     SNOMED_FILE = 'SNOMED-CT-International-072023.owl'
@@ -33,18 +19,16 @@ def run():
 
     def startJVM(memory: str = '8g'):
         from src.deeponto import init_jvm
-        import jpype
         # initialise JVM for python-java interaction
+        import jpype
         if not jpype.isJVMStarted():
             init_jvm(memory)
-
 
     config = load_bertmap_config(DEFAULT_CONFIG_FILE)
     startJVM(config.jvm_max_memory)
     config.output_path = 'resources\\'
 
     # ================================================================================
-
 
     from src.deeponto.onto import Ontology
     from src.deeponto.align.bertmap.pipeline import BERTMapPipeline
@@ -145,20 +129,5 @@ def run():
     tgt_onto = Ontology(tgt_onto_path, config.reasoner)
     BERTMapPipeline(src_onto, tgt_onto, config)
 
-
-
-app = Flask(__name__)
-
-@app.route('/start_bertmap', methods=['POST'])
-def start_bertmap():
-    device = test_gpu()
-    run()
-    response = jsonify({"device" : str(device)})
-    print("jsonify = ", response)
-    return response
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=7532)
 
 

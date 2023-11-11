@@ -15,12 +15,12 @@
 # the following code is credited to the mOWL library 
 import jpype
 import os
-import mowl
 import glob
 from pathlib import Path
 
 """ Get jars from mowl dir in .conda env. Initial implementation"""
 def get_jars_default():
+    import mowl
     dirname = os.path.dirname(mowl.__file__)
     jars_dir = os.path.join(dirname, "lib/")
     # jars = f'{str.join(":", [jars_dir + name for name in os.listdir(jars_dir)])}'
@@ -32,9 +32,9 @@ def get_jars_default():
 
 """ Get jars from in-project dir """
 def get_jars():
-    jars_dir = str(Path('align/logmap/java-dependencies'))
+    jars_dir = str(Path(str(Path(__file__).parent) + '/align/logmap/java-dependencies'))
     jars = glob.glob(f'{jars_dir}\\*.jar')
-    # print("# jars = ", len(jars))
+    print("# jars = ", len(jars))
     jars = f'{str.join(";", [str(Path(jar_file)) for jar_file in jars])}'
     return jars
 
