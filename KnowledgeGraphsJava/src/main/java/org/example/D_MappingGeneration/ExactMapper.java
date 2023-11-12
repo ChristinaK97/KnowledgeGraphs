@@ -31,7 +31,7 @@ public class ExactMapper {
 
         srcOnto = new Ontology(config.Out.POntology);
         srcOnto.findAnnotationProperties(annotationPropertiesIRIs, removePunct);
-        trgOnto = new Ontology(config.Out.DOntology);
+        trgOnto = new Ontology(config.DOMap.TgtOntology);
         trgOnto.findAnnotationProperties(annotationPropertiesIRIs, removePunct);
 
         for(int ONTELEMENT : ONTELEMENTS)

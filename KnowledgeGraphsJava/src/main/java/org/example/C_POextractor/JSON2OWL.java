@@ -84,7 +84,7 @@ public class JSON2OWL {
     public void applyRules(JsonElement json) {
         findRoot(json);
         parseJson(root, null, json,
-                root.equals(config.Out.DefaultRootClassName) ? "/" + root : ""
+                root.equals(config.In.DefaultRootClassName) ? "/" + root : ""
         );
     }
 

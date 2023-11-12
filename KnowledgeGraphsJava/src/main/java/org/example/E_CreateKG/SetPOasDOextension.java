@@ -45,9 +45,9 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 //======================================================================================================================
 
     private void gatherImports() {
-        if(config.Out.offlineDOntology){
+        if(config.DOMap.offlineOntology){
             importURIs.add(
-                    new File(config.Out.DOntology).getAbsolutePath().replace("\\", "/")
+                    new File(config.DOMap.TgtOntology).getAbsolutePath().replace("\\", "/")
             );
             return;
         }
@@ -84,7 +84,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             pModel.addSubModel(dModel);
         }*/
         OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(dModel, config.Out.DOntology.replace("\\", "/"));
+        RDFDataMgr.read(dModel, config.DOMap.TgtOntology.replace("\\", "/"));
         ontology.pModel.addSubModel(dModel);
         //pModel.listClasses().forEach(System.out::println);
     }
@@ -607,7 +607,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
         String filePath = config.Out.RefinedOntology;
 
-        String format = config.Out.offlineDOntology ? "<%s> owl:imports <file:///%s> ." : "<%s> owl:imports <%s> .";
+        String format = config.DOMap.offlineOntology ? "<%s> owl:imports <file:///%s> ." : "<%s> owl:imports <%s> .";
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath));

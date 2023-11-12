@@ -67,7 +67,7 @@ public class DICOM2SediJSON {
 
 
     public DICOM2SediJSON(ArrayList<String> dicomFilePaths){
-        sedi = new Ontology(config.Out.DOntology);
+        sedi = new Ontology(config.DOMap.TgtOntology);
         dsonObjectsCollection = new HashMap<>();
         tagDictionary = new TagDictionary();
         cachedTagCodeDomain = new HashMap<>();
@@ -75,8 +75,8 @@ public class DICOM2SediJSON {
         parseDICOMcollection(dicomFilePaths);                                                                           if(log) logger.close();
         // the default root was DICOMObject. Set it as the root attribute of the DICOM Information Def Obj
         // container and then change the Default root to null to show that the dson has a well-defined root
-        config.Out.RootClassName = config.Out.DefaultRootClassName;
-        config.Out.DefaultRootClassName = null;
+        config.Out.RootClassName = config.In.DefaultRootClassName;
+        config.In.DefaultRootClassName = null;
     }
 
 
@@ -168,7 +168,7 @@ public class DICOM2SediJSON {
         JsonObject container = new JsonObject();
         container.add(getLocalName(defClass), infoObjectDef);
         JsonObject dicom2json = new JsonObject();
-        dicom2json.add(config.Out.DefaultRootClassName, container);                                                                                                    if(log) logger.println(new GsonBuilder().setPrettyPrinting().serializeNulls().create().toJson(dicom2json));
+        dicom2json.add(config.In.DefaultRootClassName, container);                                                                                                    if(log) logger.println(new GsonBuilder().setPrettyPrinting().serializeNulls().create().toJson(dicom2json));
         return dicom2json;
     }
 

@@ -23,7 +23,7 @@ public class DSON2OWL extends JSON2OWL {
     public DSON2OWL(TagDictionary tagDictionary) {
         super();
         this.tagDictionary = tagDictionary;
-        sedi = new Ontology(config.Out.DOntology);
+        sedi = new Ontology(config.DOMap.TgtOntology);
     }
 
     @Override

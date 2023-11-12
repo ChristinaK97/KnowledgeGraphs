@@ -58,10 +58,10 @@ public class Pipeline {
             case BERTMAP:
                 //TODO: call bertmap service here
                 LG.info("D. RUN BERTMAP MAPPER");
-                startBertmap();
+                //startBertmap();
                 String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json";
                 LG.info("D. RUN MAPPING SELECTION");
-                new MappingSelection(config.Out.POntology, config.Out.DOntology,
+                new MappingSelection(config.Out.POntology, config.DOMap.TgtOntology,
                                       bertmapMappingsFile, config.DOMap, dataSource);
                 break;
             default:

@@ -63,7 +63,7 @@ public class InsertDataJSON  extends InsertDataBase {
             indivNames = new DualHashBidiMap<>(); // reset per file
             JsonElement json = JsonUtil.readJSON(file);                                                                 System.out.println("Root " + root);
             parseJson(root, null, null, json,
-                    root.equals("/" + config.Out.DefaultRootClassName) ? root : ""
+                    root.equals("/" + config.In.DefaultRootClassName) ? root : ""
             );
         }
     }

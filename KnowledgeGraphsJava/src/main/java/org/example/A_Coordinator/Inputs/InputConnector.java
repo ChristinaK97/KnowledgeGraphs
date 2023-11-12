@@ -13,10 +13,10 @@ import static org.example.util.FileHandler.getFileExtension;
 import static org.example.util.FileHandler.getPath;
 
 @RestController
-@RequestMapping("/KGsInputPoint")
+@RequestMapping("/KGInputPoint")
 public class InputConnector {
 
-    public static boolean DOCKER_ENV = true;
+    public static boolean DOCKER_ENV = false;
 
     public static String USE_CASE;              //= HEALTH;
     public static String FILENAME;              //= "gfh.dcm";
