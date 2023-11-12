@@ -8,23 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.example.A_Coordinator.config.Config.*;
-import static org.example.util.FileHandler.getFileExtension;
-import static org.example.util.FileHandler.getPath;
+import java.nio.file.Paths;
+
+import static org.example.util.FileHandler.*;
 
 @RestController
 @RequestMapping("/KGInputPoint")
 public class InputConnector {
-
-    public static boolean DOCKER_ENV = true;
+    public static String  WORKDIR = Paths.get(System.getProperty("user.dir")).toString();
+    public static boolean IS_DOCKER_ENV = WORKDIR.startsWith("/KnowledgeGraphsApp");
+    public static String  resourcePath = getPath("resources");
 
     public static String FINTECH = "fintech";
     public static String HEALTH = "health";
     public static String CTI = "CTI";
-
-    public static String USE_CASE;              //= HEALTH;
-    public static String FILENAME;              //= "gfh.dcm";
-    public static String resourcePath = getPath("resources");
 
 
     @Autowired
@@ -33,10 +30,8 @@ public class InputConnector {
     @PostMapping(value = "/testPipeline")
     private void startPipeline(@RequestParam("UseCase") String UseCase,
                                @RequestParam("filename") String filename) {
-        USE_CASE = UseCase;
-        FILENAME = filename;
         // LoggerFactory.getLogger(InputConnector.class).info(UseCase + " " + filename);
-        Pipeline pipeline = new Pipeline(setupConfig(USE_CASE, FILENAME));
+        Pipeline pipeline = new Pipeline(setupConfig(UseCase, filename));
         pipeline.run();
     }
 

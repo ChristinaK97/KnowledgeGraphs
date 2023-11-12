@@ -7,7 +7,7 @@ import org.example.util.JsonUtil;
 import java.nio.file.Paths;
 
 import static org.example.util.FileHandler.getPath;
-import static org.example.A_Coordinator.Inputs.InputConnector.DOCKER_ENV;
+import static org.example.A_Coordinator.Inputs.InputConnector.IS_DOCKER_ENV;
 
 public class Config {
 
@@ -45,9 +45,9 @@ public class Config {
 
 
     private String getConfigFilePath(String UseCase, String FileExtension) {
-        String configFileDir = DOCKER_ENV ?
+        String configFileDir = IS_DOCKER_ENV ?
                 getPath("/KnowledgeGraphsApp/resources")
-                : getPath(Paths.get(System.getProperty("user.dir")).getParent() + "/.KnowledgeGraphsResources/KnowledgeGraphsJava");
+              : getPath(Paths.get(System.getProperty("user.dir")).getParent() + "/.KnowledgeGraphsResources/KnowledgeGraphsJava");
         String configFilePath =
                 getPath(String.format("%s/ConfigFiles/%s_%s_Config.json", configFileDir, UseCase, FileExtension));
         return configFilePath;
@@ -224,7 +224,7 @@ public class Config {
 
 
         private String getTgtOntologyDir() {
-            return DOCKER_ENV ?
+            return IS_DOCKER_ENV ?
                     getPath("/KnowledgeGraphsApp/resources/DOntologies")
                   : getPath(Paths.get(System.getProperty("user.dir")).getParent().toString()
                                     + "/.KnowledgeGraphsResources/KnowledgeGraphsJava/DOntologies");

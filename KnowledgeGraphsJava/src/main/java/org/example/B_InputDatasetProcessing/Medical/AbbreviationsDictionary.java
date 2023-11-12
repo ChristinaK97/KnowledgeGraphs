@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.A_Coordinator.Inputs.InputConnector.DOCKER_ENV;
+import static org.example.A_Coordinator.Inputs.InputConnector.IS_DOCKER_ENV;
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.getObjectPropertyRawLabel;
 import static org.example.util.Annotations.normalise;
@@ -27,7 +27,7 @@ public class AbbreviationsDictionary extends DatasetDictionary {
 
     // Define the URL of the Python service
     private static String AAExpansionEndpoint =
-            String.format("http://%s:7531/start_aa_expansion", DOCKER_ENV ? "aa-expansion" : "localhost");
+            String.format("http://%s:7531/start_aa_expansion", IS_DOCKER_ENV ? "aa-expansion" : "localhost");
 
 // =====================================================================================================================
     class HeaderInfo extends DatasetElementInfo{

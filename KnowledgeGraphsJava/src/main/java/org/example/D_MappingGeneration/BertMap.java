@@ -9,14 +9,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import java.time.Duration;
 
-import static org.example.A_Coordinator.Inputs.InputConnector.DOCKER_ENV;
+import static org.example.A_Coordinator.Inputs.InputConnector.IS_DOCKER_ENV;
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.FileHandler.getAbsolutePath;
 
 public class BertMap {
 
     private static String BertMapEndpoint =
-            String.format("http://%s:7532/start_bertmap", DOCKER_ENV ? "bertmap" : "localhost");
+            String.format("http://%s:7532/start_bertmap", IS_DOCKER_ENV ? "bertmap" : "localhost");
 
     private class BertmapRequest {
         private String use_case;
