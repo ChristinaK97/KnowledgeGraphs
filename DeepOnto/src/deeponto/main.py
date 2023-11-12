@@ -127,7 +127,8 @@ def get_default_configuration(
         'yiyanghkust/finbert-pretrain' if do_is_fibo else \
         'monologg/biobert_v1.1_pubmed'
 
-    config.bert.num_epochs_for_training = 3.0 if do_is_fibo else 5.0
+    # TODO replace temporary number of epochs
+    config.bert.num_epochs_for_training = 1.0 # 3.0 if do_is_fibo else 5.0
     config.bert.batch_size_for_training = 32
     config.bert.batch_size_for_prediction = 32
     # config.bert.resume_training = False

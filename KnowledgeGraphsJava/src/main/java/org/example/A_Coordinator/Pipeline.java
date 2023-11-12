@@ -1,10 +1,12 @@
 package org.example.A_Coordinator;
 
+import com.google.gson.JsonObject;
 import org.apache.jena.riot.RIOT;
 import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
 import org.example.C_POextractor.POntologyExtractor;
+import org.example.D_MappingGeneration.BertMap;
 import org.example.D_MappingGeneration.ExactMapper;
 import org.example.D_MappingGeneration.MappingSelection.MappingSelection;
 import org.example.E_CreateKG.InsertDataJSON;
@@ -50,23 +52,20 @@ public class Pipeline {
         new POntologyExtractor(dataSource);
 
         // -------------------------------------------------------------------------------------------------------------
-        switch (config.DOMap.Mapper){
-            case EXACT_MAPPER:
+        LG.info("D. RUN MAPPER: " + config.DOMap.Mapper);
+        switch (config.DOMap.Mapper) {
+            case EXACT_MAPPER -> {
                 LG.info("D. RUN EXACT MAPPER");
                 new ExactMapper(null);
-                break;
-            case BERTMAP:
-                //TODO: call bertmap service here
-                LG.info("D. RUN BERTMAP MAPPER");
-                //startBertmap();
-                String bertmapMappingsFile = "C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json";
-                LG.info("D. RUN MAPPING SELECTION");
-                new MappingSelection(config.Out.POntology, config.DOMap.TgtOntology,
-                                      bertmapMappingsFile, config.DOMap, dataSource);
-                break;
-            default:
-                config.DOMap.printUnsupportedMapperError();
-                break;
+            }
+            case BERTMAP ->
+                    new MappingSelection(
+                        config.Out.POntology,
+                        config.DOMap.TgtOntology,
+                        new BertMap().startBertmap(true),
+                        config.DOMap, dataSource);
+            default ->
+                    config.DOMap.printUnsupportedMapperError();
         }
         // E. Create Knowledge Graph -----------------------------------------------------------------------------------
         LG.info("E1. CREATE USE CASE ONTOLOGY");

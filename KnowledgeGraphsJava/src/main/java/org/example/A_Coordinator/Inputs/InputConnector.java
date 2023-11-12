@@ -18,8 +18,8 @@ public class InputConnector {
 
     public static boolean DOCKER_ENV = false;
 
-    public static String FINTECH = "Fintech";
-    public static String HEALTH = "Health";
+    public static String FINTECH = "fintech";
+    public static String HEALTH = "health";
     public static String CTI = "CTI";
 
     public static String USE_CASE;              //= HEALTH;

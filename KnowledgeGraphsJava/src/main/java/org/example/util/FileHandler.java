@@ -66,4 +66,8 @@ public class FileHandler {
     public static String getPath(String fPath) {
         return Paths.get(fPath).toString();
     }
+
+    public static String getAbsolutePath(String localPath) {
+        return Paths.get(localPath).toAbsolutePath().toString();
+    }
 }

@@ -58,7 +58,7 @@ public class MappingSelection {
 
 
     public MappingSelection(String srcOnto, String tgtOnto,
-                            String bertmapMappingsFile, Config.MappingConfig config,
+                            JsonObject bertmapJson, Config.MappingConfig config,
                             Object datasource
     ) {
         this.srcOnto = new Ontology(srcOnto);
@@ -66,7 +66,7 @@ public class MappingSelection {
         this.config = config;
 
         matches = new Matches();
-        readMappingsJSON(bertmapMappingsFile);
+        readMappingsJSON(bertmapJson);
         tablesList = readMapJSON();
         selectTableOptimal();
         selectTableColumnOptimal();
@@ -97,8 +97,8 @@ public class MappingSelection {
         return table;
     }
 
-    private void readMappingsJSON(String bertmapMappingsFile){
-        JsonObject bertmapJson = JsonUtil.readJSON(bertmapMappingsFile).getAsJsonObject();
+    private void readMappingsJSON(JsonObject bertmapJson){
+        // JsonObject bertmapJson = JsonUtil.readJSON(bertmapMappingsFile).getAsJsonObject();
         for (String ontoEl : bertmapJson.keySet()) {
             JsonArray candsList = bertmapJson.getAsJsonArray(ontoEl);
             ArrayList<Column> columns = createEmptyColumns();

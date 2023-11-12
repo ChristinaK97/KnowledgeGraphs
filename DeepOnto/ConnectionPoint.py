@@ -43,6 +43,7 @@ app = Flask(__name__)
 def start_bertmap():
     print(test_gpu())
     data = request.get_json()
+    print(data)
     bertmap_mappings = run_pipeline(
         use_case            = data.get('use_case'),
         base_output_path    = data.get('base_output_path'),
@@ -57,5 +58,5 @@ def start_bertmap():
 
 
 if __name__ == '__main__':
-    run_outside_flask()
-    # app.run(host='0.0.0.0', port=7532)
+    # run_outside_flask()
+    app.run(host='0.0.0.0', port=7532)
