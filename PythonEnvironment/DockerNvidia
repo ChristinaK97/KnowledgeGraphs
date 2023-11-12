@@ -1,0 +1,43 @@
+ARG TORCH_VERSION
+ARG TORCHAUDIO_VERSION
+ARG TORCHVISION_VERSION
+ARG CUDA_VERSION
+ARG CU
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-devel-ubuntu20.04
+
+ARG TORCH_VERSION
+ARG TORCHAUDIO_VERSION
+ARG TORCHVISION_VERSION
+ARG CUDA_VERSION
+ARG CU
+
+# ARG DEBIAN_FRONTEND=noninteractive
+
+# RUN rm /etc/apt/sources.list.d/cuda.list
+
+RUN apt-get update && \
+	apt-get install --no-install-recommends -y python3.8 python3.8-dev python3.8-venv python3-pip python3-wheel build-essential
+
+# RUN python3 -m venv /opt/venv
+# ENV PATH="/opt/venv/bin:$PATH"
+
+WORKDIR /KnowledgeGraphsApp
+COPY requirements.txt .
+COPY en_core_sci_lg-0.5.1.tar.gz .
+
+RUN python3 -m pip install --upgrade pip && \
+	apt-get install -y g++
+
+RUN pip3 install torch=="${TORCH_VERSION}+cu${CU}"  \
+                torchaudio=="${TORCHAUDIO_VERSION}+cu${CU}"  \
+                torchvision=="${TORCHVISION_VERSION}+cu${CU}"  \
+                --extra-index-url "https://download.pytorch.org/whl/cu${CU}" && \
+	pip3 install -r requirements.txt -f . && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# ENV PATH="/opt/venv/bin:$PATH"
+RUN rm en_core_sci_lg-0.5.1.tar.gz
+
+
+
+

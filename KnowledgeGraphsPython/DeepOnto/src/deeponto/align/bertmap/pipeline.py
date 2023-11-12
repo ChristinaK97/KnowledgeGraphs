@@ -21,10 +21,10 @@ import random
 import enlighten
 import transformers
 
-from src.deeponto.align.mapping import ReferenceMapping
-from src.deeponto.onto import Ontology
-from src.deeponto.utils import FileUtils
-from src.deeponto.utils.logging import create_logger
+from DeepOnto.src.deeponto.align.mapping import ReferenceMapping
+from DeepOnto.src.deeponto.onto import Ontology
+from DeepOnto.src.deeponto.utils import FileUtils
+from DeepOnto.src.deeponto.utils.logging import create_logger
 from .config_file_handler import save_bertmap_config
 from .extractBertMapMappings import MappingSelector
 from .text_semantics import TextSemanticsCorpora

@@ -1,6 +1,5 @@
 package org.example.A_Coordinator;
 
-import com.google.gson.JsonObject;
 import org.apache.jena.riot.RIOT;
 import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
@@ -61,7 +60,7 @@ public class Pipeline {
                     new MappingSelection(
                         config.Out.POntology,
                         config.DOMap.TgtOntology,
-                        new BertMap().startBertmap(true),
+                        new BertMap().startBertmap(true), // call bertmap service
                         config.DOMap, dataSource);
             default ->
                     config.DOMap.printUnsupportedMapperError();

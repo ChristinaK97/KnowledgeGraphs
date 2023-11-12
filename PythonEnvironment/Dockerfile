@@ -13,7 +13,7 @@ ARG TORCHVISION_VERSION
 ARG CUDA_VERSION
 
 # Set working directory
-WORKDIR /KnowledgeGraphApp
+WORKDIR /KnowledgeGraphsApp
 
 COPY requirements.txt .
 # Copy the model from the same directory as the Dockerfile
@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y g++ && \
     python -m pip install --upgrade pip &&  \
     pip install torch=="${TORCH_VERSION}" torchaudio=="${TORCHAUDIO_VERSION}" torchvision=="${TORCHVISION_VERSION}" \
     -r requirements.txt -f . && \
+    apt-get install -y openjdk-17-jdk && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN rm en_core_sci_lg-0.5.1.tar.gz

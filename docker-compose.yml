@@ -32,7 +32,7 @@ services:
 
   bertmap:
     build:
-      context: ./DeepOnto
+      context: ./KnowledgeGraphsPython
     depends_on:
       - python-environment
     image: bertmap:latest
@@ -46,6 +46,8 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [ gpu ]
+    volumes:
+      - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/KnowledgeGraphsJava/DOntologies:/KnowledgeGraphsApp/resources
 
 
   knowledge-graphs-main:
@@ -53,6 +55,7 @@ services:
       context: ./KnowledgeGraphsJava
     depends_on:
       - aa-extraction
+      - bertmap
     image: knowledge-graphs-main:latest
     container_name: knowledge-graphs-main
     ports:

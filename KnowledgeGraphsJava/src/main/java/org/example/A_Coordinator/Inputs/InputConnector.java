@@ -16,7 +16,7 @@ import static org.example.util.FileHandler.getPath;
 @RequestMapping("/KGInputPoint")
 public class InputConnector {
 
-    public static boolean DOCKER_ENV = false;
+    public static boolean DOCKER_ENV = true;
 
     public static String FINTECH = "fintech";
     public static String HEALTH = "health";

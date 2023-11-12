@@ -24,11 +24,11 @@ import itertools
 # don't remove this unused import, it won't be able to import java
 import mowl
 
-from src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
+from DeepOnto.src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
 
 # start jvm in main instead
 """
-from src.deeponto import init_jvm
+from DeepOnto.src.deeponto import init_jvm
 
 # ======================================================================================================================
 # initialise JVM for python-java interaction

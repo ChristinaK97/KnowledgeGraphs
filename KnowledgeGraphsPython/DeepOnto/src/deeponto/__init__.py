@@ -1,4 +1,5 @@
 # Copyright 2021 Yuan He. All rights reserved.
+from os.path import exists
 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +19,12 @@ import os
 import glob
 from pathlib import Path
 
+
+def writelog(message):
+    mode = "a" if exists("debug.txt") else "w"
+    with open("debug.txt", mode, encoding='utf-8') as file:
+        file.write(message)
+
 """ Get jars from mowl dir in .conda env. Initial implementation"""
 def get_jars_default():
     import mowl
@@ -33,9 +40,12 @@ def get_jars_default():
 """ Get jars from in-project dir """
 def get_jars():
     jars_dir = str(Path(str(Path(__file__).parent) + '/align/logmap/java-dependencies'))
-    jars = glob.glob(f'{jars_dir}\\*.jar')
-    print("# jars = ", len(jars))
-    jars = f'{str.join(";", [str(Path(jar_file)) for jar_file in jars])}'
+    jars = glob.glob(os.path.join(jars_dir, '*.jar'))
+    print(f"Look in {jars_dir}\n# jars = {len(jars)}\njars list = {jars}\n")
+
+    # Separator for linux is ":" while for windows ";" -> To fix unable to import java libs
+    sep  = ":" if jars_dir.startswith("/KnowledgeGraphsApp") else ";"
+    jars = f'{str.join(sep, [str(Path(jar_file)) for jar_file in jars])}'
     return jars
 
 
@@ -51,5 +61,5 @@ def init_jvm(memory):
             convertStrings=False)
         
     if jpype.isJVMStarted():
-        print(f"{memory} maximum memory allocated to JVM.")
-        print("JVM started successfully.")
+        writelog(f"{memory} maximum memory allocated to JVM.")
+        writelog("JVM started successfully.")

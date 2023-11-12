@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 from typing import Optional
 from yacs.config import CfgNode
-from src.deeponto.utils import FileUtils
+from DeepOnto.src.deeponto.utils import FileUtils
 
 DEFAULT_CONFIG_FILE = os.path.join(os.path.dirname(__file__), "default_config.yaml")
 

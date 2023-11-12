@@ -4,7 +4,6 @@ import os.path
 from os.path import exists
 from pathlib import Path
 from typing import Union
-from src.deeponto.align.bertmap.config_file_handler import load_bertmap_config
 
 MAP_TO_DO  = "map_to_do"
 MAP_TO_DPV = "map_to_dpv"
@@ -32,6 +31,7 @@ def run_pipeline(
               f"\nNote that default parameters are available only for DOntology in [FIBO, SNOMED], and/or mapping to DPV for PII identification.", sep="")
         config = get_default_configuration(mode, DOntology_path)
     else:
+        from DeepOnto.src.deeponto.align.bertmap.config_file_handler import load_bertmap_config
         config = load_bertmap_config(config_file_path)
         print(f"Found config file for use case = '{use_case}' and task = '{mode}' in path = '{config_file_path}' and loaded successfully.")
 
@@ -39,7 +39,7 @@ def run_pipeline(
 
     # Start jvm --------------------------------------------------------------------------------------------------------
     def startJVM(memory: str = '8g'):
-        from src.deeponto import init_jvm
+        from DeepOnto.src.deeponto import init_jvm
         # initialise JVM for python-java interaction
         import jpype
         if not jpype.isJVMStarted():
@@ -48,7 +48,7 @@ def run_pipeline(
     startJVM(config.jvm_max_memory)
 
     # Set ontologies ---------------------------------------------------------------------------------------------------
-    from src.deeponto.onto import Ontology
+    from DeepOnto.src.deeponto.onto import Ontology
 
     src_onto_path = str(Path(POntology_path))
     tgt_onto_path = str(Path(DOntology_path)) if map_to_do_mode else str(Path(DPV_path))
@@ -59,7 +59,7 @@ def run_pipeline(
     tgt_onto = Ontology(tgt_onto_path, config.reasoner)
 
     # Run BertMap pipeline ---------------------------------------------------------------------------------------------
-    from src.deeponto.align.bertmap.pipeline import BERTMapPipeline
+    from DeepOnto.src.deeponto.align.bertmap.pipeline import BERTMapPipeline
     return BERTMapPipeline(src_onto, tgt_onto, config).extractBertMapMappings()
 
 
@@ -75,7 +75,7 @@ def get_default_configuration(
     do_is_snomed = 'snomed' in DOntology_path.lower()
 
     # Load CONFIG ==========================================================================================
-    from src.deeponto.align.bertmap.config_file_handler import DEFAULT_CONFIG_FILE
+    from DeepOnto.src.deeponto.align.bertmap.config_file_handler import DEFAULT_CONFIG_FILE, load_bertmap_config
 
     config = load_bertmap_config(DEFAULT_CONFIG_FILE)
     config.mode = mode

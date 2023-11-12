@@ -1,7 +1,7 @@
 FROM python-environment:latest
 
 # Set working directory
-WORKDIR /KnowledgeGraphApp
+WORKDIR /KnowledgeGraphsApp
 
 # Copy Python application code
 COPY . .
@@ -10,9 +10,9 @@ COPY . .
 EXPOSE 7532
 
 # Install a compatible JDK
-RUN apt-get update &&  \
-    apt-get install -y openjdk-17-jdk && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+#RUN apt-get update &&  \
+#    apt-get install -y openjdk-17-jdk && \
+#    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Define the command to run the Python application
-CMD ["python", "src/deeponto/main.py"]
+CMD ["python", "ConnectionPoint.py"]

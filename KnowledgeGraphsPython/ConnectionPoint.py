@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request
-from src.deeponto.main import run_pipeline, MAP_TO_DO, MAP_TO_DPV
+
+from DeepOnto.src.deeponto.main import MAP_TO_DPV, MAP_TO_DO, run_pipeline
+
 
 def test_gpu():
     import torch
