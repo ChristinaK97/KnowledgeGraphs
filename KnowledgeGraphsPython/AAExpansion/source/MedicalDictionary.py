@@ -10,15 +10,16 @@ from shutil import rmtree
 
 from tqdm import tqdm
 
-from source.HeadersDataset import WORD, UNK, ENTRY, TAG, SPAN
-from source.util.NearDuplicates import groupNearDuplicates
+from AAExpansion.source.HeadersDataset import WORD, UNK, ENTRY, TAG, SPAN
+from AAExpansion.source.util.NearDuplicates import groupNearDuplicates
 
 
 class MedicalDictionary:
 
-    BASE_LETTER_TRIES_DIR = Path('resources/letterTries/')
+    BASE_LETTER_TRIES_DIR = None
 
     def __init__(self,
+                 aa_expansion_base_dir:Union[str, Path],
                  dictionaryCSVPath: Union[str, Path],
                  delimiter: str = "|",
                  abbrevCol:str = "SF",
@@ -27,6 +28,7 @@ class MedicalDictionary:
                  resetTries:bool = False,
                  printTries:bool = False
     ):
+        MedicalDictionary.BASE_LETTER_TRIES_DIR = Path(f"{aa_expansion_base_dir}/letterTries")
         # Medical AA senses input dataframe parameters
         self.abbrevCol = abbrevCol
         self.fullFormCol = fullFormCol

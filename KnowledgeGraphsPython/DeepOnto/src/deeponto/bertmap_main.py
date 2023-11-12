@@ -9,9 +9,9 @@ MAP_TO_DO  = "map_to_do"
 MAP_TO_DPV = "map_to_dpv"
 
 
-def run_pipeline(
+def run_bertmap_pipeline(
         use_case: str,
-        base_output_path: str,
+        base_output_dir: str,
         mode: Union[MAP_TO_DO, MAP_TO_DPV],
         POntology_path: str,
         DOntology_path: str,
@@ -23,7 +23,8 @@ def run_pipeline(
         raise FileNotFoundError(f"Mode is {mode} but DPV_path eq {DPV_path}")
 
     # eg. resources/fintech/bertmap/map_to_do/config.yaml
-    output_path = os.path.join(str(Path(base_output_path)), use_case)
+    output_path = os.path.join(str(Path(base_output_dir)), use_case)
+    print("OUTPUT PATH = ", output_path)
     config_file_path = os.path.join(output_path, 'bertmap', mode, 'config.yaml')
 
     if not exists(config_file_path):
@@ -148,4 +149,33 @@ def get_default_configuration(
         ]
     return config
 
+# ================================================================================================
+
+def run_outside_flask():
+    HEALTH = 'health'
+    FINTECT = 'fintech'
+    base = 'C:\\Users\\karal\\progr\\onto_workspace\\Ontologies\\'
+    FIBO_FILE = 'FIBOLt.owl'
+    SNOMED_FILE = 'SNOMED_rdfxml.rdf'
+    FINTECH_PO = 'EPIBANKPO.ttl'
+    HEALTH_PO = 'medcsv_with_abbrevExpansions.ttl'
+    # -----------------------------------------------------------
+    use_case = FINTECT
+    DOntology = base + FIBO_FILE
+    POntology = base + 'POntologies\\' + FINTECH_PO
+    DPV = base + 'dpv-pii.ttl'
+
+    base_output_path = 'resources\\'
+    mode = MAP_TO_DPV
+    # -------------------------------------------------------------
+    bertmap_mappings = run_bertmap_pipeline(
+        use_case=use_case,
+        base_output_dir=base_output_path,
+        mode=mode,
+        POntology_path=POntology,
+        DOntology_path=DOntology,
+        DPV_path=DPV
+    )
+    print(bertmap_mappings)
+# ================================================================================================
 

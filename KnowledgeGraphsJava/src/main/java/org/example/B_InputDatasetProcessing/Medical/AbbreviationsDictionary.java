@@ -3,6 +3,7 @@ package org.example.B_InputDatasetProcessing.Medical;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.util.Annotations;
 import org.example.util.DatasetDictionary;
@@ -17,19 +18,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.A_Coordinator.Inputs.InputConnector.IS_DOCKER_ENV;
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.AAExpansionEndpoint;
 import static org.example.util.Annotations.getObjectPropertyRawLabel;
 import static org.example.util.Annotations.normalise;
 
 
 public class AbbreviationsDictionary extends DatasetDictionary {
 
-    // Define the URL of the Python service
-    private static String AAExpansionEndpoint =
-            String.format("http://%s:7531/start_aa_expansion", IS_DOCKER_ENV ? "aa-expansion" : "localhost");
-
-// =====================================================================================================================
+    // =====================================================================================================================
     class HeaderInfo extends DatasetElementInfo{
         private ArrayList<String> headerFFs;
 

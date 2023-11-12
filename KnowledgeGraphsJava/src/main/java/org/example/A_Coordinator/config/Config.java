@@ -1,16 +1,31 @@
 package org.example.A_Coordinator.config;
 
 import com.google.gson.JsonObject;
-import org.example.A_Coordinator.Inputs.InputConnector;
 import org.example.util.JsonUtil;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.example.util.FileHandler.getPath;
-import static org.example.A_Coordinator.Inputs.InputConnector.IS_DOCKER_ENV;
 
 public class Config {
 
+    public static Path WORKDIR = Paths.get(System.getProperty("user.dir"));
+    public static boolean IS_DOCKER_ENV = WORKDIR.toString().startsWith("/KnowledgeGraphsApp");
+
+    public static String resourcesPath = IS_DOCKER_ENV ?
+              getPath(String.format("%s/data", WORKDIR))
+            : getPath(String.format("%s/.KnowledgeGraphsData/KnowledgeGraphsJava", WORKDIR.getParent()));
+
+    // Define the URL of the Python services
+
+    public static String AAExpansionEndpoint =
+            String.format("http://%s:7531/start_aa_expansion", IS_DOCKER_ENV ? "knowledge-graphs-python" : "localhost");
+
+    public static String BertMapEndpoint =
+            String.format("http://%s:7531/start_bertmap", IS_DOCKER_ENV ? "knowledge-graphs-python" : "localhost");
+
+// =====================================================================================================================
     public InputPointConfig In;
     public KGOutputsConfig Out;
     public MappingConfig DOMap;
@@ -24,7 +39,8 @@ public class Config {
 
     private void setConfigParams(String UseCase, String FileExtension) {
 
-        String configFilePath = getConfigFilePath(UseCase, FileExtension);
+        String configFilePath = getPath(String.format(
+                "%s/ConfigFiles/%s_%s_Config.json", resourcesPath, UseCase, FileExtension));
         JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
 
         // Inputs parameters -----------------------------------------------------------------------
@@ -43,15 +59,6 @@ public class Config {
                 configFile.getAsJsonObject("PiiMappingParameters"));
     }
 
-
-    private String getConfigFilePath(String UseCase, String FileExtension) {
-        String configFileDir = IS_DOCKER_ENV ?
-                getPath("/KnowledgeGraphsApp/resources")
-              : getPath(Paths.get(System.getProperty("user.dir")).getParent() + "/.KnowledgeGraphsResources/KnowledgeGraphsJava");
-        String configFilePath =
-                getPath(String.format("%s/ConfigFiles/%s_%s_Config.json", configFileDir, UseCase, FileExtension));
-        return configFilePath;
-    }
 
 
 // =====================================================================================================================
@@ -97,7 +104,7 @@ public class Config {
 
 
         private void setDirPaths() {                                                                                                    // String overrideDatasource
-            DatasetResourcesPath = getPath(String.format("%s/Use_Case/%s/%s", InputConnector.resourcePath, UseCase, DatasetName));
+            DatasetResourcesPath = getPath(String.format("%s/Use_Case/%s/%s", resourcesPath, UseCase, DatasetName));
             DownloadedDataDir    = getPath(DatasetResourcesPath + "/Downloaded_Data");                                            // overrideDatasource == null ? DatasetResourcesPath + "Downloaded_Data/" : overrideDatasource;
             ProcessedDataDir     = getPath(DatasetResourcesPath + "/Processed_Data");
         }
@@ -167,7 +174,8 @@ public class Config {
             this.includeInverseAxioms = includeInverseAxioms;
 
             this.applyMedAbbrevExpansion = applyMedAbbrevExpansion;
-            abbrevExpansionResultsFile = getPath(String.format("%sOther/abbrevExpansionResults.json", DatasetResourcesPath));
+            // TODO modify if you want to use:
+            abbrevExpansionResultsFile = getPath(String.format("%s/Other/abbrevExpansionResults.json", DatasetResourcesPath));
 
             KGOutputsDir    = getPath(String.format("%s/KG_Outputs/", DatasetResourcesPath));
             POntologyName   = DatasetName;
@@ -194,7 +202,6 @@ public class Config {
         public static final String BERTMAP = "BERTMap";
         public String Mapper;
 
-        public String base_output_path;
         public double BES_HIGH_THRS;
         public double BES_LOW_THRS;
         public double PJ_HIGH_THRS;
@@ -208,11 +215,10 @@ public class Config {
         public MappingConfig(JsonObject params) {
 
             TgtOntology = params.get("TgtOntology").getAsString();
-            TgtOntology = getPath(String.format("%s/%s", getTgtOntologyDir(), TgtOntology));
+            TgtOntology = getPath(String.format("%s/DOntologies/%s", resourcesPath, TgtOntology));
             offlineOntology = params.get("offlineOntology").getAsBoolean();
 
             Mapper = params.get("Mapper").getAsString();
-            base_output_path   = params.get("base_output_path").getAsString();
             BES_HIGH_THRS   = params.get("BES_HIGH_THRS").getAsDouble();
             BES_LOW_THRS    = params.get("BES_LOW_THRS").getAsDouble();
             PJ_HIGH_THRS    = params.get("PJ_HIGH_THRS").getAsDouble();
@@ -220,14 +226,6 @@ public class Config {
             BES_REJECT_THRS = params.get("BES_REJECT_THRS").getAsDouble();
             DEPTH_THRS      = params.get("DEPTH_THRS").getAsInt();
             rejectPropertyMaps = params.get("rejectPropertyMaps").getAsBoolean();
-        }
-
-
-        private String getTgtOntologyDir() {
-            return IS_DOCKER_ENV ?
-                    getPath("/KnowledgeGraphsApp/resources/DOntologies")
-                  : getPath(Paths.get(System.getProperty("user.dir")).getParent().toString()
-                                    + "/.KnowledgeGraphsResources/KnowledgeGraphsJava/DOntologies");
         }
 
         public void printUnsupportedMapperError() {

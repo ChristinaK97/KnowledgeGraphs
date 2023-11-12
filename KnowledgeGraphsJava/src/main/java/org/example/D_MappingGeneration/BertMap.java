@@ -1,43 +1,34 @@
 package org.example.D_MappingGeneration;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.example.A_Coordinator.config.Config;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import java.time.Duration;
 
-import static org.example.A_Coordinator.Inputs.InputConnector.IS_DOCKER_ENV;
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.FileHandler.getAbsolutePath;
 
 public class BertMap {
 
-    private static String BertMapEndpoint =
-            String.format("http://%s:7532/start_bertmap", IS_DOCKER_ENV ? "bertmap" : "localhost");
-
     private class BertmapRequest {
         private String use_case;
-        private String base_output_path;
         private boolean run_for_do_mapping;
-        @JsonProperty("POntology_path")
-        private String POntology_path;
-        @JsonProperty("DOntology_path")
-        private String DOntology_path;
-        @JsonProperty("DPV_path")
-        private String DPV_path;
+        private String pontology_path;
+        private String dontology_path;
+        private String dpv_path;
 
-        public BertmapRequest(String use_case, String base_output_path, boolean run_for_do_mapping,
-                              String POntology_path, String DOntology_path, String DPV_path)
+        public BertmapRequest(String use_case, boolean run_for_do_mapping,
+                              String pontology_path, String dontology_path, String dpv_path)
         {
             this.use_case = use_case;
-            this.base_output_path = base_output_path;
             this.run_for_do_mapping = run_for_do_mapping;
-            this.POntology_path = getAbsolutePath(POntology_path);
-            this.DOntology_path = DOntology_path;
-            this.DPV_path = DPV_path;
+            this.pontology_path = getAbsolutePath(pontology_path);
+            this.dontology_path = dontology_path;
+            this.dpv_path = dpv_path;
         }
 
         public String getUse_case() {
@@ -46,35 +37,29 @@ public class BertMap {
         public void setUse_case(String use_case) {
             this.use_case = use_case;
         }
-        public String getBase_output_path() {
-            return base_output_path;
-        }
-        public void setBase_output_path(String base_output_path) {
-            this.base_output_path = base_output_path;
-        }
         public boolean isRun_for_do_mapping() {
             return run_for_do_mapping;
         }
         public void setRun_for_do_mapping(boolean run_for_do_mapping) {
             this.run_for_do_mapping = run_for_do_mapping;
         }
-        public String getPOntology_path() {
-            return POntology_path;
+        public String getPontology_path() {
+            return pontology_path;
         }
-        public void setPOntology_path(String POntology_path) {
-            this.POntology_path = POntology_path;
+        public void setPontology_path(String pontology_path) {
+            this.pontology_path = pontology_path;
         }
-        public String getDOntology_path() {
-            return DOntology_path;
+        public String getDontology_path() {
+            return dontology_path;
         }
-        public void setDOntology_path(String DOntology_path) {
-            this.DOntology_path = DOntology_path;
+        public void setDontology_path(String dontology_path) {
+            this.dontology_path = dontology_path;
         }
-        public String getDPV_path() {
-            return DPV_path;
+        public String getDpv_path() {
+            return dpv_path;
         }
-        public void setDPV_path(String DPV_path) {
-            this.DPV_path = DPV_path;
+        public void setDpv_path(String dpv_path) {
+            this.dpv_path = dpv_path;
         }
     }
 
@@ -84,7 +69,6 @@ public class BertMap {
 
         BertmapRequest requestBody = new BertmapRequest(
             config.In.UseCase,
-            config.DOMap.base_output_path,
             run_for_do_mapping,
             config.Out.POntology,
             config.DOMap.TgtOntology,
@@ -92,7 +76,7 @@ public class BertMap {
         );
 
         String response = webClient.post()
-                .uri(BertMapEndpoint)
+                .uri(Config.BertMapEndpoint)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(requestBody))
                 .retrieve()

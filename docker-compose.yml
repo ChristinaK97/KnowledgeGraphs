@@ -11,13 +11,13 @@ services:
     image: python-environment:latest
     container_name: python-environment
 
-  aa-extraction:
+  knowledge-graphs-python:
     build:
-      context: ./AAExpansion
+      context: ./KnowledgeGraphsPython
     depends_on:
       - python-environment
-    image: aa-expansion:latest
-    container_name: aa-expansion
+    image: knowledge-graphs-python:latest
+    container_name: knowledge-graphs-python
     ports:
       - "7531:7531"
     deploy:
@@ -28,37 +28,17 @@ services:
               count: 1
               capabilities: [ gpu ]
     volumes:
-      - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/AAExpansion:/KnowledgeGraphsApp/resources
-
-  bertmap:
-    build:
-      context: ./KnowledgeGraphsPython
-    depends_on:
-      - python-environment
-    image: bertmap:latest
-    container_name: bertmap
-    ports:
-      - "7532:7532"
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [ gpu ]
-    volumes:
-      - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/KnowledgeGraphsJava/DOntologies:/KnowledgeGraphsApp/resources
+      - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
 
 
   knowledge-graphs-main:
     build:
       context: ./KnowledgeGraphsJava
     depends_on:
-      - aa-extraction
-      - bertmap
+      - knowledge-graphs-python
     image: knowledge-graphs-main:latest
     container_name: knowledge-graphs-main
     ports:
       - "7530:7530"
     volumes:
-      - ${KNOWLEDGE_GRAPHS_RESOURCES_PATH}/KnowledgeGraphsJava:/KnowledgeGraphsApp/resources
+      - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data

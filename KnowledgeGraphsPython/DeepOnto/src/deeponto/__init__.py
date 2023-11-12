@@ -25,6 +25,7 @@ def writelog(message):
     with open("debug.txt", mode, encoding='utf-8') as file:
         file.write(message)
 
+
 """ Get jars from mowl dir in .conda env. Initial implementation"""
 def get_jars_default():
     import mowl
@@ -61,5 +62,5 @@ def init_jvm(memory):
             convertStrings=False)
         
     if jpype.isJVMStarted():
-        writelog(f"{memory} maximum memory allocated to JVM.")
-        writelog("JVM started successfully.")
+        print(f"{memory} maximum memory allocated to JVM.")
+        print("JVM started successfully.")

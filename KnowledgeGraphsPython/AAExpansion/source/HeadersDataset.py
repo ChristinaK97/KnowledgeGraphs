@@ -3,17 +3,15 @@ import re
 from os import remove
 from os.path import exists
 from pathlib import Path
-from typing import Set, Tuple
+from typing import Set, Tuple, Union, List
 
 import nltk
 from nltk.corpus import wordnet, stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from wordninja import split as ninja
-from source.util.NearDuplicates import hasDuplicateIn
+from AAExpansion.source.util.NearDuplicates import hasDuplicateIn
 
-from source.util.UnionFind import UnionFind
-
-saveFile = Path("resources/headerTokenizerOutput.pkl")
+from AAExpansion.source.util.UnionFind import UnionFind
 
 UNKNOWN_HEADER_NAME = "Unknown_Header"
 
@@ -33,10 +31,16 @@ TFIDF_THRS = 0.465
 
 class HeadersDataset:
 
+    HEADERS_DATASET_FILE = None
 
-    def __init__(self, headers, resetDataset:bool = False):
+    def __init__(self,
+                 aa_expansion_base_dir: Union[str,Path],
+                 headers:List[str],
+                 resetDataset:bool = False):
 
-        if resetDataset or not exists(saveFile):
+        HeadersDataset.HEADERS_DATASET_FILE = Path(f"{aa_expansion_base_dir}/headerTokenizerOutput.pkl")
+
+        if resetDataset or not exists(HeadersDataset.HEADERS_DATASET_FILE):
             self._initLibraries()
 
             self.headers = headers
@@ -72,10 +76,10 @@ class HeadersDataset:
     @staticmethod
     def delete_saved_headers_dataset():
         try:
-            remove(saveFile)
-            print(f"File '{saveFile}' deleted successfully.")
+            remove(HeadersDataset.HEADERS_DATASET_FILE)
+            print(f"File '{HeadersDataset.HEADERS_DATASET_FILE}' deleted successfully.")
         except FileNotFoundError:
-            print(f"File '{saveFile}' not found.")
+            print(f"File '{HeadersDataset.HEADERS_DATASET_FILE}' not found.")
         except Exception as e:
             print(f"An error occurred: {e}")
 
@@ -286,12 +290,12 @@ class HeadersDataset:
             'isUnambiguous': self.isUnambiguous,
             'headerInputs': self.headerInputs,
         }
-        with open(saveFile, 'wb') as file:
+        with open(HeadersDataset.HEADERS_DATASET_FILE, 'wb') as file:
             pickle.dump(attributes_to_save, file)
 
 
     def _loadResults(self):
-        with open(saveFile, 'rb') as file:
+        with open(HeadersDataset.HEADERS_DATASET_FILE, 'rb') as file:
             la = pickle.load(file)
 
         self.headers = la['headers']

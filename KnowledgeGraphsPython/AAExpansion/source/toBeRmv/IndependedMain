@@ -7,7 +7,7 @@ print(isCudaAvailableMessage)
 import pandas as pd
 from pathlib import Path
 
-from source.InterpretHeaders import InterpretHeaders
+from AAExpansion.source.InterpretHeaders import InterpretHeaders
 
 import os
 

@@ -11,11 +11,11 @@ from numpy import mean
 from torch import Tensor
 from tqdm import tqdm
 
-from source.BertSimilarityModel import BertSimilarityModel as Bert
-from source.HeadersDataset import HeadersDataset
-from source.MedicalDictionary import MedicalDictionary
-from source.util.NearDuplicates import groupNearDuplicates, findNearDuplicates
-from source.util.UnionFind import UnionFind
+from AAExpansion.source.BertSimilarityModel import BertSimilarityModel as Bert
+from AAExpansion.source.HeadersDataset import HeadersDataset
+from AAExpansion.source.MedicalDictionary import MedicalDictionary
+from AAExpansion.source.util.NearDuplicates import groupNearDuplicates, findNearDuplicates
+from AAExpansion.source.util.UnionFind import UnionFind
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -28,7 +28,12 @@ SEC_ROUN_THRS: float = 0.85
 
 class InterpretHeaders:
 
-    def __init__(self, headers: List[str], medDictPath: Union[str,Path], outputPath:Union[str,Path] = None, reset:bool = True):
+    def __init__(self,
+                 aa_expansion_base_dir:Union[str,Path],
+                 headers: List[str],
+                 medDictPath: Union[str,Path],
+                 outputPath:Union[str,Path] = None,
+                 reset:bool = True):
 
         self.outputPath = outputPath
         self.reset = reset or outputPath is None or not exists(outputPath)
@@ -37,9 +42,10 @@ class InterpretHeaders:
             self.results = self._try_to_load_results(headers)
 
         if self.reset:
-            self.hDataset = HeadersDataset(headers)
-            self.medDict = MedicalDictionary(dictionaryCSVPath=medDictPath,
-                                             datasetAlphabet=self.hDataset.headersAlphabet)
+            self.hDataset = HeadersDataset(aa_expansion_base_dir, headers)
+            self.medDict  = MedicalDictionary(aa_expansion_base_dir,
+                                              dictionaryCSVPath=medDictPath,
+                                              datasetAlphabet=self.hDataset.headersAlphabet)
             self._run_pipeline()
 
 

@@ -90,7 +90,6 @@ public class Pipeline {
     }
 
 
-
     private Object getDataSource() {
         if(config.In.FileExtension.equals("SQL"))
             return new RelationalDB();
