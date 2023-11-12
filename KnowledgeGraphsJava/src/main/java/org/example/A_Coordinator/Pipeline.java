@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 
 import static org.example.A_Coordinator.config.Config.MappingConfig.BERTMAP;
 import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER;
-import static org.example.util.Requests.startBertmap;
 
 public class Pipeline {
 

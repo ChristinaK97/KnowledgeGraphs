@@ -9,10 +9,10 @@ import org.example.util.DatasetDictionary;
 import org.example.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,6 @@ import static org.example.A_Coordinator.Inputs.InputConnector.DOCKER_ENV;
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.getObjectPropertyRawLabel;
 import static org.example.util.Annotations.normalise;
-import static org.example.util.Requests.infiniteRestTemplate;
 
 
 public class AbbreviationsDictionary extends DatasetDictionary {
@@ -90,27 +89,28 @@ public class AbbreviationsDictionary extends DatasetDictionary {
     private JsonObject startAAExpansion(List<String> inputs) {
         Logger LG = LoggerFactory.getLogger(AbbreviationsDictionary.class);
         LG.info("HTTP REQUEST: POST " + AAExpansionEndpoint + " # headers = " + inputs.size());
-        // Prepare the HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        String responseJson = null;
         try {
-            responseJson = infiniteRestTemplate().postForObject(
-                    AAExpansionEndpoint,
-                    new HttpEntity<>(inputs, headers),
-                    String.class
-            );
-        }catch (Exception e) {
+            String responseJson = WebClient.create()
+                    .post()
+                    .uri(AAExpansionEndpoint)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(inputs)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .timeout(Duration.ofHours(64))
+                    .block();
+
+            if (responseJson != null) {
+                // Parse the JSON response into a JsonObject using GSON
+                JsonObject response = JsonParser.parseString(responseJson).getAsJsonObject();
+                LG.info("REQUEST SUCCESSFUL. # keys " + response.keySet().size());
+                return response;
+            } else {
+                LG.error("AAExpansion request failed: response was NULL.");
+                return null;
+            }
+        } catch (Exception e) {
             LG.error("AAExpansion request failed: " + e.getLocalizedMessage());
-        }
-        if(responseJson != null) {
-            // Parse the JSON response into a JsonObject using GSON
-            JsonObject response = JsonParser.parseString(responseJson).getAsJsonObject();
-            LG.info("REQUEST SUCCESSFUL. # keys " + response.keySet().size());
-            return response;
-        }else {
-            LG.error("AAExpansion request failed: response was NULL.");
             return null;
         }
     }
@@ -158,22 +158,5 @@ public class AbbreviationsDictionary extends DatasetDictionary {
         return ((HeaderInfo) datasetDictionary.get(elementCode)).getHeaderFFs();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
