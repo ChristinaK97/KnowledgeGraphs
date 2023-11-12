@@ -11,10 +11,6 @@ import static org.example.A_Coordinator.Inputs.InputConnector.DOCKER_ENV;
 
 public class Config {
 
-    public static String FINTECH = "Fintech";
-    public static String HEALTH = "Health";
-    public static String CTI = "CTI";
-
     public InputPointConfig In;
     public KGOutputsConfig Out;
     public MappingConfig DOMap;
@@ -78,7 +74,7 @@ public class Config {
             this.FileExtension = FileExtension;
             this.DatasetName = inputDatasetParams.get("DatasetName").getAsString();
 
-            String DefaultRootClassName = "Record";
+            this.DefaultRootClassName = "Record";
             if("SQL".equals(FileExtension)) {
                 JsonObject sqlCredParams = inputDatasetParams.getAsJsonObject("SQL");
                 setSQLCredentials(
@@ -88,7 +84,7 @@ public class Config {
             }else{
                 JsonObject datasetFolderParams = inputDatasetParams.getAsJsonObject("FilesDataset");
                 try {
-                    DefaultRootClassName = datasetFolderParams.get("DefaultRootClassName").getAsString();
+                    this.DefaultRootClassName = datasetFolderParams.get("DefaultRootClassName").getAsString();
                 }catch (UnsupportedOperationException ignore) {}
             }
             setDirPaths();

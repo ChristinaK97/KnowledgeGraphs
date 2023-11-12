@@ -18,6 +18,10 @@ public class InputConnector {
 
     public static boolean DOCKER_ENV = false;
 
+    public static String FINTECH = "Fintech";
+    public static String HEALTH = "Health";
+    public static String CTI = "CTI";
+
     public static String USE_CASE;              //= HEALTH;
     public static String FILENAME;              //= "gfh.dcm";
     public static String resourcePath = getPath("resources");
