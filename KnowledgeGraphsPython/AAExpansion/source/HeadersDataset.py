@@ -9,8 +9,8 @@ import nltk
 from nltk.corpus import wordnet, stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from wordninja import split as ninja
-from AAExpansion.source.util.NearDuplicates import hasDuplicateIn
 
+from AAExpansion.source.util.NearDuplicates import hasDuplicateIn
 from AAExpansion.source.util.UnionFind import UnionFind
 
 UNKNOWN_HEADER_NAME = "Unknown_Header"
@@ -38,9 +38,11 @@ class HeadersDataset:
                  headers:List[str],
                  resetDataset:bool = False):
 
+        self.aa_expansion_base_dir = aa_expansion_base_dir
         HeadersDataset.HEADERS_DATASET_FILE = Path(f"{aa_expansion_base_dir}/headerTokenizerOutput.pkl")
 
         if resetDataset or not exists(HeadersDataset.HEADERS_DATASET_FILE):
+            print("Creating headers dictionary...")
             self._initLibraries()
 
             self.headers = headers
@@ -235,6 +237,11 @@ class HeadersDataset:
 # ======================================================================================================================
 # Dataset Creation Methods
 # ======================================================================================================================
+    def _writelog(self, message):
+        file_path = Path(f"{self.aa_expansion_base_dir}/debug.txt")
+        mode = "a" if exists(file_path) else "w"
+        with open(file_path, mode, encoding='utf-8') as file:
+            file.write(message + "\n")
 
     def _initLibraries(self):
         nltk.download("wordnet")
@@ -243,14 +250,14 @@ class HeadersDataset:
 
         # DONT REMOVE THESE UNUSED IMPORTS
         import spacy
-        import scispacy
-        from scispacy.linking import EntityLinker
 
         self.nlp = spacy.load("en_core_sci_lg")
+        # TODO: gets stuck when running in docker container!
         self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
         self.linker = self.nlp.get_pipe("scispacy_linker")
 
 
+# ======================================================================================================================
     def _generateHeaderInputs(self):
         """ driver """
         self._createHeadersAlphabet()
