@@ -15,17 +15,22 @@ import java.util.HashMap;
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.CLASS_SUFFIX;
 import static org.example.util.Annotations.TABLE_PREFIX;
+import static org.example.util.FileHandler.fileExists;
 
 public class CreateMappingsFile extends ManageMappingsFile {
 
-    public CreateMappingsFile(boolean resetMappingsFile) {
-        super(resetMappingsFile);
-    }
-
     private HashMap<String, ArrayList<Transformation>> trf = new HashMap<>();
     private boolean isRDB;
+    private boolean hasStored;
+    private MappingsFileTemplate storedFileTemplate;
 
-    public void extractMappingsFile(Object dataSource,  RulesetApplication rs) {
+    public CreateMappingsFile() {
+        hasStored = fileExists(config.Out.PO2DO_Mappings) && config.Out.maintainStoredPreprocessingResults;
+        if(hasStored)
+            storedFileTemplate = readMapJSONasTemplate();
+    }
+
+    public void extractMappingsFile(Object dataSource, RulesetApplication rs) {
         this.isRDB = dataSource instanceof RelationalDB;
         gatherTrfs(rs);
 
@@ -171,7 +176,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
         String tableFile =  isExtractedFromCurrentFile ? config.notification.getFilename()    : String.format("%s.%s",tableName, config.In.FileExtension);
         String tableDocId = isExtractedFromCurrentFile ? config.notification.getDocument_id() : null;
 
-        Table storedTable  = fileTemplate.getTable(tableName);
+        Table storedTable  = hasStored ? storedFileTemplate.getTable(tableName) : null;
         Table updatedTable = new Table(tableName);
 
         if(storedTable != null)
@@ -182,7 +187,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
     /** Maintain only is column is pii according to the preprocessing tool */
     private Column updatedColumn(String tableName, String columnName, boolean isExtractedFromCurrentFile) {
-        Column storedColumns = fileTemplate.getTableColumn(tableName, columnName);
+        Column storedColumns = hasStored ? storedFileTemplate.getTableColumn(tableName, columnName) : null;
         Column updatedColumn = new Column(columnName);
 
         if(storedColumns != null)
@@ -193,5 +198,8 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
         return updatedColumn;
     }
+
+// =====================================================================================================
+
 
 }

@@ -14,16 +14,6 @@ public class ManageMappingsFile {
 
     protected MappingsFileTemplate fileTemplate;
 
-    public ManageMappingsFile(boolean resetMappingsFile) {
-        resetMappingsFile = resetMappingsFile || !fileExists(config.Out.PO2DO_Mappings);
-        System.out.println("Reset mappings file? " + resetMappingsFile);
-        fileTemplate = resetMappingsFile ? new MappingsFileTemplate() : readMapJSONasTemplate();
-        if(fileTemplate == null) {
-            System.out.println("File not found. So reset it.");
-            fileTemplate = new MappingsFileTemplate();
-        }
-    }
-
     public ManageMappingsFile() {
         fileTemplate = new MappingsFileTemplate();
     }
