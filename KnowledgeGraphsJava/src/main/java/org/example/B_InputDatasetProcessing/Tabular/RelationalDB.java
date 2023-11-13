@@ -32,8 +32,10 @@ public class RelationalDB implements Iterable<RTable> {
 
 
     /** For single table like files like CSV or exported sql db**/
-    public void addTable(String tableName, Table inputTable, HashMap<String,String> colTypes, String PKcol) {
-        RTable table = new RTable(tableName);
+    public void addTable(String tableName, String filename, Table inputTable,
+                         HashMap<String,String> colTypes, String PKcol)
+    {
+        RTable table = new RTable(tableName, filename);
         table.addPK(PKcol);
         for(String colName : inputTable.columnNames())  // table columns
             table.addColumn(colName, colTypes.get(colName));
@@ -48,7 +50,7 @@ public class RelationalDB implements Iterable<RTable> {
             ResultSet tables = ((SQLConnector) connector).retrieveTables();
             while (tables.next()) {
                 String tableName = tables.getString("TABLE_NAME");
-                RTable table = new RTable(tableName);
+                RTable table = new RTable(tableName, tableName);
 
                 // table columns
                 ResultSet columns = ((SQLConnector) connector).retrieveTableColumns(tableName);

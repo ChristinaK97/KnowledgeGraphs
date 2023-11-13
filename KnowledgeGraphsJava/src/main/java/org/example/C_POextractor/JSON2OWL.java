@@ -8,6 +8,7 @@ import org.example.util.XSDmappers;
 import java.util.*;
 
 import static org.example.util.Annotations.*;
+import static org.example.util.FileHandler.getFileNameWithoutExtension;
 
 /**
  * Full Example:
@@ -66,6 +67,8 @@ public class JSON2OWL {
 
     boolean print = true;
 
+    private String filename;
+
     protected HashMap<String, String> tableClasses = new HashMap<>();
     protected Properties pureObjProperties = new Properties();
     protected Properties dataProperties = new Properties();
@@ -76,12 +79,18 @@ public class JSON2OWL {
 
     private String root;
 
+    public void applyRules(String file, JsonObject json) {
+        this.filename = getFileNameWithoutExtension(file);
+        applyRules(json);
+    }
+
     public void applyRules(String file) {
+        this.filename = getFileNameWithoutExtension(file);
         JsonElement json = JsonUtil.readJSON(file);
         applyRules(json);
     }
 
-    public void applyRules(JsonElement json) {
+    private void applyRules(JsonElement json) {
         findRoot(json);
         parseJson(root, null, json,
                 root.equals(config.In.DefaultRootClassName) ? "/" + root : ""
@@ -122,7 +131,7 @@ public class JSON2OWL {
             System.err.println("Invalid JSON");
             root = "?";
         }
-        tableClasses.put("/" + root, root);
+        addTableClass("/" + root, root);
     }
 
 
@@ -155,7 +164,7 @@ public class JSON2OWL {
             key = prev;
         else {
             String newClass = key;
-            tableClasses.put(extractedField, newClass);
+            addTableClass(extractedField, newClass);
             addObjectProperty(prev, key, extractedField, "jsonObj");
         }
 
@@ -178,7 +187,7 @@ public class JSON2OWL {
                 key = prev;
             else {
                 String newClass = key;
-                tableClasses.put(extractedField, newClass);
+                addTableClass(extractedField, newClass);
                 addObjectProperty(prev, key, extractedField, "jsonArray");
             }
         }
@@ -189,6 +198,15 @@ public class JSON2OWL {
 
 
 // =====================================================================================================================
+
+    protected void addTableClass(String tableName, String tableClassName) {
+        tableClasses.put(tableName, tableClassName);
+
+        // TODO: preprocessing notif
+        String notificationFilename =  config.notification.getFilename();
+        if(this.filename.equals(notificationFilename))
+            config.notification.addExtractedTableName(tableName);
+    }
 
     protected void addObjectProperty(String domain, String range, String extractedField, String rule) {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))

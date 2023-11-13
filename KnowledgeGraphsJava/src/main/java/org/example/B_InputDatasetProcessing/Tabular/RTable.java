@@ -18,6 +18,7 @@ public class RTable {
     }
 
     private String tableName;
+    private String filename;
     private HashMap<String, String> columns;
     private HashSet<String> PKs;
     private HashMap<String, FKpointer> FKs;
@@ -26,8 +27,9 @@ public class RTable {
     private boolean hasSimpleAttribute;
     private boolean isPK_subsetOf_FK;
 
-    public RTable(String tableName) {
+    public RTable(String tableName, String filename) {
         this.tableName = tableName;
+        this.filename = filename;
         columns = new HashMap<>();
         PKs = new HashSet<>();
         FKs = new HashMap<>();
@@ -42,6 +44,9 @@ public class RTable {
 
     public String getTableName() {
         return tableName;
+    }
+    public String getFilename() {
+        return filename;
     }
 
     //------------------------------------------------------------------------

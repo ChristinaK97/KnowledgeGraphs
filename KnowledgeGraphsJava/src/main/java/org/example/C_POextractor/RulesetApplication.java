@@ -105,7 +105,8 @@ public class RulesetApplication {
         datasetDictionary = dicom2json.getTagDictionary();
 
         DSON2OWL dson2owl = new DSON2OWL((TagDictionary) datasetDictionary);
-        dicom2json.getDsonObjectsCollection().values().forEach(dson2owl::applyRules);
+        dicom2json.getDsonObjectsCollection().forEach(dson2owl::applyRules);
+        // dicom2json.getDsonObjectsCollection().values().forEach(dson2owl::applyRules);
         key_isSubclassOf_value = dson2owl.getKey_isSubclassOf_value();
         return dson2owl;
     }

@@ -7,6 +7,8 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import static org.example.A_Coordinator.Pipeline.config;
+
 public class ClassExtractor {
 
     RelationalDB db;
@@ -80,12 +82,21 @@ public class ClassExtractor {
             if(commonName.equals(""))
                 commonName = String.join("_", sharedTables);
             for (String tableName : sharedTables)
-                tableClasses.put(tableName, commonName);
+                createClasses(tableName, commonName);
         }
     }
 
     private void createClasses(String tableName) {
-        tableClasses.put(tableName, tableName);
+        createClasses(tableName, tableName);
+    }
+    private void createClasses(String tableName, String tableClassName) {
+        tableClasses.put(tableName, tableClassName);
+
+        // TODO: preprocessing notif
+        String tableFilename = this.db.getTable(tableName).getFilename();
+        String notificationFilename =  config.notification.getFilename();
+        if(tableFilename.equals(notificationFilename))
+            config.notification.addExtractedTableName(tableName);
     }
 
     public HashMap<String, String> getTableClasses(){

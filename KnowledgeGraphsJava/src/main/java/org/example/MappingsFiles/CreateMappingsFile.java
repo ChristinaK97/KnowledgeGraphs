@@ -18,6 +18,10 @@ import static org.example.util.Annotations.TABLE_PREFIX;
 
 public class CreateMappingsFile extends ManageMappingsFile {
 
+    public CreateMappingsFile(boolean resetMappingsFile) {
+        super(resetMappingsFile);
+    }
+
     private HashMap<String, ArrayList<Transformation>> trf = new HashMap<>();
     private boolean isRDB;
 
@@ -90,7 +94,9 @@ public class CreateMappingsFile extends ManageMappingsFile {
         for(String tableName : tables) {
 
             if (trf.containsKey(tableName)) {
-                Table table = new Table(tableName);
+                boolean isExtractedFromCurrentFile = config.notification.hasExtractedTable(tableName);
+
+                Table table = updatedTable(tableName, isExtractedFromCurrentFile);
 
                 Mapping tableMapping = new Mapping(
                         trf.get(tableName).get(0).type,
@@ -103,59 +109,85 @@ public class CreateMappingsFile extends ManageMappingsFile {
                     String t_c = String.format("%s.%s", tableName, columnName);
 
                     if (trf.containsKey(t_c)) {
-                        Column column = new Column(columnName);
+                        Column column = updatedColumn(tableName, columnName, isExtractedFromCurrentFile);
 
                         for (Transformation t : trf.get(t_c))
                             column.addMapping(new MappingsFileTemplate.Mapping(
                                     t.type, t.ontoElement, null, null)
                             );
-                        table.addColumn(column);
+                        table.addColumn(columnName, column);
                     }
                 }
-                fileTemplate.addTable(table);
+                fileTemplate.addTable(tableName, table);
             }
         }
     }
+
 
 // =====================================================================================================
 
     private void createJSON(String rootElementName, HashMap<String, String> tableClasses) {
         rootElementName = "/" + rootElementName;
         System.out.println(rootElementName);
-        HashMap<String, Table> tableClassesTable = new HashMap<>();
-        for(String classField: tableClasses.keySet()) {
-            Table table = new Table(classField);
+        HashMap<String, Table> tableClassesTable = new HashMap<>(); // MappingsFileTemplate.Table object for each TableClass
+        for(String tableName: tableClasses.keySet()) {
+            // Table table = new Table(tableName);
+            Table table = updatedTable(tableName, config.notification.hasExtractedTable(tableName));
+
             Mapping tableMapping = new Mapping(
-                    trf.get(classField).get(0).type,
-                    trf.get(classField).get(0).ontoElement,
+                    trf.get(tableName).get(0).type,
+                    trf.get(tableName).get(0).ontoElement,
                     null, null);
             table.setMapping(tableMapping);
-            tableClassesTable.put(classField, table);
-            fileTemplate.addTable(table);
+            tableClassesTable.put(tableName, table);
+            fileTemplate.addTable(tableName, table);
         }
 
         System.out.println(tableClassesTable.keySet());
 
-        ArrayList<String> fieldsNames = new ArrayList<>(trf.keySet());
-        Collections.sort(fieldsNames);
+        ArrayList<String> columnNames = new ArrayList<>(trf.keySet());
+        Collections.sort(columnNames);
 
-        for(String elName : fieldsNames) {
-            if(elName.equals(rootElementName))
+        for(String columnName : columnNames) {
+            if(columnName.equals(rootElementName))
                 continue;
+            String tableName = columnName.substring(0, columnName.lastIndexOf("/"));
+            System.out.println(tableName + "\t\t" + columnName + "\t\t" + tableClassesTable.get(tableName));
 
-            Column field = new Column(elName);
-            for (Transformation t : trf.get(elName))
-                field.addMapping(new Mapping(
+            Column column = updatedColumn(tableName, columnName, config.notification.hasExtractedTable(tableName));
+            for (Transformation t : trf.get(columnName))
+                column.addMapping(new Mapping(
                         t.type, t.ontoElement, null,null)
                 );
-            String fieldTable = elName.substring(0, elName.lastIndexOf("/"));
-            System.out.println(elName + " " + fieldTable + " " + tableClassesTable.get(fieldTable));
-            tableClassesTable.get(fieldTable).addColumn(field);
+
+            tableClassesTable.get(tableName).addColumn(columnName, column);
         }
     }
 
 // =====================================================================================================
 
 
+    private Table updatedTable(String tableName, boolean isExtractedFromCurrentFile) {
+        String tableFile =  isExtractedFromCurrentFile ? config.notification.getFilename()    : String.format("%s.%s",tableName, config.In.FileExtension);
+        String tableDocId = isExtractedFromCurrentFile ? config.notification.getDocument_id() : null;
+
+        Table table = fileTemplate.getTable(tableName);
+        System.out.printf("tableName = %s with retrieved table = %s\n", tableName, table!=null?table.getTable():null);
+        if(table == null)
+            table = new Table(tableName, tableFile, tableDocId);
+        else
+            table.addTableSource(tableFile, tableDocId);
+        return table;
+    }
+
+    private Column updatedColumn(String tableName, String columnName, boolean isExtractedFromCurrentFile) {
+        Column column = fileTemplate.getTableColumn(tableName, columnName);
+        if(column == null)
+            column = new Column(columnName);
+        if(isExtractedFromCurrentFile)
+            column.setPii(
+                    config.notification.isPii(columnName));
+        return column;
+    }
 
 }

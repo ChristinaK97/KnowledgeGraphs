@@ -4,27 +4,56 @@ import org.example.util.Ontology;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 public class MappingsFileTemplate {
 
+    private List<Table> tables;
+    //TODO: change the mappings file template to use hashmaps instead of lists
+    //TODO: for now, locate table by name using its index. Don't write to gson
+    private transient HashMap<String, Integer> tablesIdx;
+
     public MappingsFileTemplate() {
         this.tables = new ArrayList<>();
+        this.tablesIdx = new HashMap<>();
     }
 
-    private List<Table> tables;
+    public void setTables(List<Table> tables) {
+        this.tables = tables;
+        for (int i = 0; i < tables.size(); i++)
+            this.tablesIdx.put(tables.get(i).table, i);
+    }
+    public void addTable(String tableName, Table table) {
+        if(tablesIdx.containsKey(tableName))
+            tables.set(tablesIdx.get(tableName), table);
+        else{
+            tables.add(table);
+            tablesIdx.put(table.table, tables.size()-1);
+        }
+    }
 
     public List<Table> getTables() {
         return tables;
     }
 
-    public void setTables(List<Table> tables) {
-        this.tables = tables;
+    /** Returns null if table doesn't exist */
+    public Table getTable(String tableName) {
+        try {
+            return tables.get(tablesIdx.get(tableName));
+        }catch (NullPointerException e){
+            return null;
+        }
     }
-    public void addTable(Table table) {
-        tables.add(table);
+    /** Returns null if this column doesn't exist in this table, or if the table doesn't exists */
+    public Column getTableColumn(String tableName, String colName) {
+        try {
+            return getTable(tableName).getColumn(colName);
+        }catch (NullPointerException e) {
+            return null;
+        }
     }
 
     //================================================================================
@@ -34,18 +63,35 @@ public class MappingsFileTemplate {
      */
     public static class Table {
         private String table;
+        private ArrayList<String> filenames;
+        private ArrayList<String> docIds;
         private Mapping mapping;
-        private List<Column> columns;
 
-        public Table(String element) {
-            this.table = element;
+        private List<Column> columns;
+        private transient HashMap<String, Integer> columnsIdx;
+
+        public Table(String tableName, String filename, String docId) {
+            this.table = tableName;
             this.columns = new ArrayList<>();
+            this.columnsIdx = new HashMap<>();
+
+            addTableSource(filename, docId);
+        }
+        public void addTableSource(String filename, String docId){
+            if(filenames == null)
+                filenames = new ArrayList<>();
+            if(filename != null) {
+                System.out.printf("\tIn table %s from %s, add new filename = %s\n", table, filenames, filename);
+                filenames.add(filename);
+            }if(docIds == null)
+                docIds = new ArrayList<>();
+            if(docId != null)
+                docIds.add(docId);
         }
 
         public String getTable() {
             return table;
         }
-
         public void setTable(String table) {
             this.table = table;
         }
@@ -53,22 +99,50 @@ public class MappingsFileTemplate {
         public Mapping getMapping() {
             return mapping;
         }
-
         public void setMapping(Mapping mapping) {
             this.mapping = mapping;
         }
 
+        public void setColumns(List<Column> columns) {
+            this.columns = columns;
+            for (int i = 0; i < columns.size(); i++)
+                this.columnsIdx.put(columns.get(i).column, i);
+        }
+        public void addColumn(String columnName, Column column) {
+            if(columnsIdx.containsKey(columnName))
+                columns.set(columnsIdx.get(columnName), column);
+            else {
+                columns.add(column);
+                columnsIdx.put(column.column, columns.size()-1);
+            }
+        }
         public List<Column> getColumns() {
             return columns;
         }
 
-        public void addColumn(Column column) {
-            columns.add(column);
+        /** Returns null if column doesn't exist */
+        public Column getColumn(String columnName) {
+            try {
+                return columns.get(columnsIdx.get(columnName));
+            }catch (NullPointerException e){
+                return null;
+            }
         }
 
-        public void setColumns(List<Column> columns) {
-            this.columns = columns;
+        public ArrayList<String> getFilenames() {
+            return filenames;
         }
+        public void setFilenames(ArrayList<String> filenames) {
+            this.filenames = filenames;
+        }
+        public ArrayList<String> getDocIds() {
+            return docIds;
+        }
+        public void setDocIds(ArrayList<String> docIds) {
+            this.docIds = docIds;
+        }
+
+
     }
     //================================================================================
 
@@ -78,6 +152,7 @@ public class MappingsFileTemplate {
      */
     public static class Column {
         private String column;
+        private boolean isPii;
         private List<Mapping> mappings;
 
         public Column(String field) {
@@ -88,15 +163,21 @@ public class MappingsFileTemplate {
         public String getColumn() {
             return column;
         }
-
         public void setColumn(String column) {
             this.column = column;
+        }
+
+        /** is this column a pii attribute according to the preprocessing ? (isPii stores the output of the preprocessing) */
+        public boolean isPii() {
+            return isPii;
+        }
+        public void setPii(boolean pii) {
+            isPii = pii;
         }
 
         public void addMapping(Mapping mapping) {
             this.mappings.add(mapping);
         }
-
         public void setMappings(List<Mapping> mappings) {
             this.mappings = mappings;
         }
@@ -140,6 +221,7 @@ public class MappingsFileTemplate {
         private URI ontoEl;
         private List<URI> match;
         private List<URI> path;
+        // store the resources that this po el was initially mapped to (useful during pii identification)
         private List<URI> initialMatch;
 
         public Mapping(String type, String ontoEl, List<URI> match, List<URI> path) {

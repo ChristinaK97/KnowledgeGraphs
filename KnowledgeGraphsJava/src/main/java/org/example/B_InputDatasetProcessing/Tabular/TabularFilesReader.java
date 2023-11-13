@@ -1,6 +1,7 @@
 package org.example.B_InputDatasetProcessing.Tabular;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.util.FileHandler.getFileNameWithExtension;
 import static org.example.util.FileHandler.getFileNameWithoutExtension;
 import static org.example.util.XSDmappers.fixDateFormat;
 
@@ -38,7 +39,7 @@ public class TabularFilesReader {
         db = new RelationalDB();
         for(String downloadedFilePath : files) {
             String singleTableName = files.size()==1 ? config.In.DefaultRootClassName : null;
-            addTable(singleTableName, downloadedFilePath);
+            addTable(singleTableName, getFileNameWithoutExtension(downloadedFilePath), downloadedFilePath);
         }                                                                                                               if(log) System.out.println("FINISHED READING TABLES");
     }
 
@@ -48,7 +49,7 @@ public class TabularFilesReader {
     }
 
 
-    public void addTable(String tableName, String downloadedFilePath) {
+    public void addTable(String tableName, String filename, String downloadedFilePath) {
         String processedFilePath = FileHandler.getProcessedFilePath(downloadedFilePath,
                 "csv", true);
         if(tableName == null)
@@ -75,7 +76,7 @@ public class TabularFilesReader {
             colTypes = determineColumnTypes(table).el2();
         }
 
-        db.addTable(tableName, table, colTypes, PKCol);                                                                  if(log) System.out.println("===============================================================\n");
+        db.addTable(tableName, filename, table, colTypes, PKCol);                                                                  if(log) System.out.println("===============================================================\n");
     }
 
 

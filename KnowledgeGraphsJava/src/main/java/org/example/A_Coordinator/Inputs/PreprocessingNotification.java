@@ -1,5 +1,6 @@
 package org.example.A_Coordinator.Inputs;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class PreprocessingNotification {
@@ -9,6 +10,8 @@ public class PreprocessingNotification {
     private String filename;
     private String hash;
     private List<String> piis;
+    private HashSet<String> tableNames = new HashSet<>();
+
 
     // Getters and setters
 
@@ -54,6 +57,23 @@ public class PreprocessingNotification {
         this.piis = piis;
     }
 
+
+    public void addExtractedTableName(String extractedTableName) {
+        tableNames.add(extractedTableName);
+    }
+    public boolean hasExtractedTable(String extractedTableName) {
+        return tableNames.contains(extractedTableName);
+    }
+    public HashSet<String> getExtractedTableNames() {
+        return tableNames;
+    }
+
+    public boolean isPii(String colName) {
+        for(String pii : piis)
+            if(colName.endsWith(pii))
+                return true;
+        return false;
+    }
 
     @Override
     public String toString() {

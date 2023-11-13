@@ -34,7 +34,7 @@ public class POntologyExtractor {
         createOntology();
         saveOntology();
 
-        new CreateMappingsFile().extractMappingsFile(dataSource, rs);
+        new CreateMappingsFile(config.Out.resetMappingFile).extractMappingsFile(dataSource, rs);
         //new JSONExtractor().createMappingJSON_forFKobjectProperties(db, msBbasePrefix, tableClasses, objProperties);
 
     }

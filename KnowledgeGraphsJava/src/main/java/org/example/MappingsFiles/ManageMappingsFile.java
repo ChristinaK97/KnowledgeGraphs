@@ -8,35 +8,50 @@ import java.io.FileReader;
 import java.util.List;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.util.FileHandler.fileExists;
 
 public class ManageMappingsFile {
 
     protected MappingsFileTemplate fileTemplate;
 
+    public ManageMappingsFile(boolean resetMappingsFile) {
+        resetMappingsFile = resetMappingsFile || !fileExists(config.Out.PO2DO_Mappings);
+        System.out.println("Reset mappings file? " + resetMappingsFile);
+        fileTemplate = resetMappingsFile ? new MappingsFileTemplate() : readMapJSONasTemplate();
+        if(fileTemplate == null) {
+            System.out.println("File not found. So reset it.");
+            fileTemplate = new MappingsFileTemplate();
+        }
+    }
+
     public ManageMappingsFile() {
         fileTemplate = new MappingsFileTemplate();
     }
 
-    public static List<Table> readMapJSON() {
-        Gson gson = new Gson();
+    public static MappingsFileTemplate readMapJSONasTemplate() {
         try (FileReader reader = new FileReader(config.Out.PO2DO_Mappings)) {
             // Convert JSON file to Java object
-            return gson.fromJson(reader, MappingsFileTemplate.class).getTables();
+            return new Gson().fromJson(reader, MappingsFileTemplate.class);
         } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            ex.printStackTrace();}
+        return null;
+    }
+
+    public static List<Table> readMapJSON() {
+        try (FileReader reader = new FileReader(config.Out.PO2DO_Mappings)) {
+            return new Gson().fromJson(reader, MappingsFileTemplate.class).getTables();
+        } catch (Exception ex) {
+            ex.printStackTrace();}
         return null;
     }
 
     //TODO: this is for testing. Remove it
     public static List<Table> readMapJSON(String PO2DOMappingPath) {
-        Gson gson = new Gson();
         try (FileReader reader = new FileReader(PO2DOMappingPath)) {
             // Convert JSON file to Java object
-            return gson.fromJson(reader, MappingsFileTemplate.class).getTables();
+            return new Gson().fromJson(reader, MappingsFileTemplate.class).getTables();
         } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            ex.printStackTrace();}
         return null;
     }
     //TODO: for testing. Remove it

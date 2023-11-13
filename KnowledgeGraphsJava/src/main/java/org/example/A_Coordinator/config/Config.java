@@ -1,6 +1,7 @@
 package org.example.A_Coordinator.config;
 
 import com.google.gson.JsonObject;
+import org.example.A_Coordinator.Inputs.PreprocessingNotification;
 import org.example.util.JsonUtil;
 
 import java.nio.file.Path;
@@ -30,12 +31,14 @@ public class Config {
     public KGOutputsConfig Out;
     public MappingConfig DOMap;
     public MappingConfig PiiMap;
+    public PreprocessingNotification notification;
 
 
-    public Config(String UseCase, String FileExtension) {
+    public Config(String UseCase, String FileExtension, PreprocessingNotification notification) {
         System.out.println("WORKDIR: " + WORKDIR);
         System.out.println("In docker ? " + IS_DOCKER_ENV);
         System.out.println("Resources dir: " + resourcesPath);
+        this.notification = notification;
         setConfigParams(UseCase, FileExtension);
     }
 
@@ -149,6 +152,7 @@ public class Config {
 
         // po to do mappings
         public String PO2DO_Mappings;
+        public boolean resetMappingFile = false;
 
         // output ontology
         public String RefinedOntology;

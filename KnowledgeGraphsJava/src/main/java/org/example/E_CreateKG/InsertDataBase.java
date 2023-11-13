@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import static org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader.nullValues;
-import static org.example.util.Ontology.CLASSES;
 import static org.example.util.Ontology.getLocalName;
 
 public abstract class InsertDataBase extends JenaOntologyModelHandler {

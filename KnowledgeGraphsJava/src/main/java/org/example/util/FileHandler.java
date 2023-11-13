@@ -13,8 +13,12 @@ public class FileHandler {
         return filePath.substring(filePath.lastIndexOf(".")+1);
     }
 
+    public static String getFileNameWithExtension(String filePath) {
+        return Paths.get(filePath).getFileName().toString();
+    }
+
     public static String getFileNameWithoutExtension(String filePath) {
-        return removeExtension(/*fileNameWithExtension = */ Paths.get(filePath).getFileName().toString());
+        return removeExtension(/*fileNameWithExtension = */ getFileNameWithExtension(filePath));
     }
 
     public static String removeExtension(String fileNameWithExtension) {
@@ -69,5 +73,9 @@ public class FileHandler {
 
     public static String getAbsolutePath(String localPath) {
         return Paths.get(localPath).toAbsolutePath().toString();
+    }
+
+    public static boolean fileExists(String filePath) {
+        return Files.exists(Paths.get(filePath));
     }
 }

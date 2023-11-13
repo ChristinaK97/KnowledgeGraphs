@@ -42,22 +42,22 @@ public class InputConnector {
     }
 
 
-    private Config setupConfig(String UseCase, String filename) {
+    private Config setupConfig(String UseCase, String filename, PreprocessingNotification notification) {
         String FileExtension = filename.equals("SQL") ? "SQL" :
                 getFileExtension(filename);
-        return new Config(UseCase, FileExtension);
+        return new Config(UseCase, FileExtension, notification);
     }
 
 
     /** Receive post request / notification from preprocessing */
     @PostMapping(value = "/fileMetadata")
     public ResponseEntity<String> receivePreprocessingNotification(
-            @RequestBody PreprocessingNotification fileMetadata) {
+            @RequestBody PreprocessingNotification notification) {
         try {
-            LOGGER.info("Knowledge Graphs received:\n" + fileMetadata);
-            String UseCase  = fileMetadata.getDomain();
-            String fileName = fileMetadata.getFilename();
-            this.config = setupConfig(UseCase, fileName);
+            LOGGER.info("Knowledge Graphs received:\n" + notification);
+            String UseCase  = notification.getDomain();
+            String fileName = notification.getFilename();
+            this.config = setupConfig(UseCase, fileName, notification);
             Path fileDownloadPath = Paths.get(String.format("%s/%s", config.In.DownloadedDataDir, fileName));
 
             if (downloadFile(fileName, fileDownloadPath))
@@ -145,7 +145,7 @@ public class InputConnector {
     private void startPipeline(@RequestParam("UseCase") String UseCase,
                                @RequestParam("filename") String filename) {
         LOGGER.info(UseCase + " " + filename);
-        Pipeline pipeline = new Pipeline(setupConfig(UseCase, filename));
+        Pipeline pipeline = new Pipeline(setupConfig(UseCase, filename, new PreprocessingNotification()));
         pipeline.run();
     }
 // =====================================================================================================================
