@@ -12,8 +12,6 @@ import java.util.stream.Collectors;
 public class MappingsFileTemplate {
 
     private List<Table> tables;
-    //TODO: change the mappings file template to use hashmaps instead of lists
-    //TODO: for now, locate table by name using its index. Don't write to gson
     private transient HashMap<String, Integer> tablesIdx;
 
     public MappingsFileTemplate() {
@@ -21,10 +19,17 @@ public class MappingsFileTemplate {
         this.tablesIdx = new HashMap<>();
     }
 
+    public void postDeserialization() {
+        tablesIdx = new HashMap<>();
+        for (int i = 0; i < tables.size(); i++) {
+            this.tablesIdx.put(tables.get(i).table, i);
+            tables.get(i).postDeserialization();
+        }
+    }
+
     public void setTables(List<Table> tables) {
         this.tables = tables;
-        for (int i = 0; i < tables.size(); i++)
-            this.tablesIdx.put(tables.get(i).table, i);
+        postDeserialization();
     }
     public void addTable(String tableName, Table table) {
         if(tablesIdx.containsKey(tableName))
@@ -70,23 +75,28 @@ public class MappingsFileTemplate {
         private List<Column> columns;
         private transient HashMap<String, Integer> columnsIdx;
 
-        public Table(String tableName, String filename, String docId) {
+        public Table(String tableName) {
             this.table = tableName;
             this.columns = new ArrayList<>();
             this.columnsIdx = new HashMap<>();
-
-            addTableSource(filename, docId);
+            this.filenames = new ArrayList<>();
+            this.docIds = new ArrayList<>();
+        }
+        public void copyTableSource(Table storedTable){
+            this.setFilenames(storedTable.filenames);
+            this.setDocIds(storedTable.docIds);
         }
         public void addTableSource(String filename, String docId){
-            if(filenames == null)
-                filenames = new ArrayList<>();
-            if(filename != null) {
-                System.out.printf("\tIn table %s from %s, add new filename = %s\n", table, filenames, filename);
+            if(filename != null)
                 filenames.add(filename);
-            }if(docIds == null)
-                docIds = new ArrayList<>();
             if(docId != null)
                 docIds.add(docId);
+        }
+
+        public void postDeserialization() {
+            columnsIdx = new HashMap<>();
+            for (int i = 0; i < columns.size(); i++)
+                columnsIdx.put(columns.get(i).column, i);
         }
 
         public String getTable() {
@@ -105,8 +115,7 @@ public class MappingsFileTemplate {
 
         public void setColumns(List<Column> columns) {
             this.columns = columns;
-            for (int i = 0; i < columns.size(); i++)
-                this.columnsIdx.put(columns.get(i).column, i);
+            postDeserialization();
         }
         public void addColumn(String columnName, Column column) {
             if(columnsIdx.containsKey(columnName))

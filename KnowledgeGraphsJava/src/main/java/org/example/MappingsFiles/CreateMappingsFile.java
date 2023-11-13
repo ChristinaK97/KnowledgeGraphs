@@ -166,28 +166,32 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
 // =====================================================================================================
 
-
+    /** Maintain table metadata such as the files from which the table's po elements where extracted */
     private Table updatedTable(String tableName, boolean isExtractedFromCurrentFile) {
         String tableFile =  isExtractedFromCurrentFile ? config.notification.getFilename()    : String.format("%s.%s",tableName, config.In.FileExtension);
         String tableDocId = isExtractedFromCurrentFile ? config.notification.getDocument_id() : null;
 
-        Table table = fileTemplate.getTable(tableName);
-        System.out.printf("tableName = %s with retrieved table = %s\n", tableName, table!=null?table.getTable():null);
-        if(table == null)
-            table = new Table(tableName, tableFile, tableDocId);
-        else
-            table.addTableSource(tableFile, tableDocId);
-        return table;
+        Table storedTable  = fileTemplate.getTable(tableName);
+        Table updatedTable = new Table(tableName);
+
+        if(storedTable != null)
+            updatedTable.copyTableSource(storedTable);
+        updatedTable.addTableSource(tableFile, tableDocId);
+        return updatedTable;
     }
 
+    /** Maintain only is column is pii according to the preprocessing tool */
     private Column updatedColumn(String tableName, String columnName, boolean isExtractedFromCurrentFile) {
-        Column column = fileTemplate.getTableColumn(tableName, columnName);
-        if(column == null)
-            column = new Column(columnName);
-        if(isExtractedFromCurrentFile)
-            column.setPii(
+        Column storedColumns = fileTemplate.getTableColumn(tableName, columnName);
+        Column updatedColumn = new Column(columnName);
+
+        if(storedColumns != null)
+            updatedColumn.setPii(storedColumns.isPii());
+        else if(isExtractedFromCurrentFile)
+            updatedColumn.setPii(
                     config.notification.isPii(columnName));
-        return column;
+
+        return updatedColumn;
     }
 
 }

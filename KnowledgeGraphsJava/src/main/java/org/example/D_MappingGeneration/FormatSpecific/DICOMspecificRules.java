@@ -105,7 +105,7 @@ public class DICOMspecificRules implements FormatSpecificRules {
         for(OntResource newEl : newElements)
             if(newEl.canAs(OntClass.class)) {
 
-                Table newTable = new Table(getLocalName(newEl.getURI()), null, null);
+                Table newTable = new Table(getLocalName(newEl.getURI()));
                 newTable.setMapping(
                         new Mapping(
                                 Annotations.CLASS_SUFFIX,
@@ -122,7 +122,7 @@ public class DICOMspecificRules implements FormatSpecificRules {
 
     private void topClassesMappings(ArrayList<Table> newMappings) {
         for(String topClass : new String[]{InformationEntity, InformationObjectDefinition}) {
-            Table newTable = new Table(topClass, null, null);
+            Table newTable = new Table(topClass);
             newTable.setMapping(
                     new Mapping(
                             Annotations.CLASS_SUFFIX,

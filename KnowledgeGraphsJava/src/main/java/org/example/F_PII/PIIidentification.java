@@ -20,7 +20,7 @@ import static org.example.MappingsFiles.ManageMappingsFile.readMapJSON;
 
 public class PIIidentification {
 
-    String PO2DO = "src/main/resources/Use_Case/Fintech/EPIBANK/Other/PO2DO_Mappings.json";
+    /*String PO2DO = "src/main/resources/Use_Case/Fintech/EPIBANK/Other/PO2DO_Mappings.json";
     String POPath = "src/main/resources/Use_Case/Fintech/EPIBANK/KG_outputs/POntology.ttl";
     String DOPath = "src/main/resources/Use_Case/Fintech/DOntology/FIBOLt.owl";
     String dpvPath = "src/main/resources/PII/dpv-pii.ttl";
@@ -252,7 +252,7 @@ public class PIIidentification {
 
     public static void main(String[] args) {
         new PIIidentification();
-    }
+    }*/
 
 }
 

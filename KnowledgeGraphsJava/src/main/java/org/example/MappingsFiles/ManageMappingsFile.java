@@ -30,8 +30,9 @@ public class ManageMappingsFile {
 
     public static MappingsFileTemplate readMapJSONasTemplate() {
         try (FileReader reader = new FileReader(config.Out.PO2DO_Mappings)) {
-            // Convert JSON file to Java object
-            return new Gson().fromJson(reader, MappingsFileTemplate.class);
+            MappingsFileTemplate mft = new Gson().fromJson(reader, MappingsFileTemplate.class);
+            mft.postDeserialization();
+            return mft;
         } catch (Exception ex) {
             ex.printStackTrace();}
         return null;
@@ -39,25 +40,13 @@ public class ManageMappingsFile {
 
     public static List<Table> readMapJSON() {
         try (FileReader reader = new FileReader(config.Out.PO2DO_Mappings)) {
-            return new Gson().fromJson(reader, MappingsFileTemplate.class).getTables();
+            MappingsFileTemplate mft = new Gson().fromJson(reader, MappingsFileTemplate.class);
+            mft.postDeserialization();
+            return mft.getTables();
         } catch (Exception ex) {
             ex.printStackTrace();}
         return null;
     }
-
-    //TODO: this is for testing. Remove it
-    public static List<Table> readMapJSON(String PO2DOMappingPath) {
-        try (FileReader reader = new FileReader(PO2DOMappingPath)) {
-            // Convert JSON file to Java object
-            return new Gson().fromJson(reader, MappingsFileTemplate.class).getTables();
-        } catch (Exception ex) {
-            ex.printStackTrace();}
-        return null;
-    }
-    //TODO: for testing. Remove it
-    /*public void saveMappingsFile(String PO2DO_Mappings_file) {
-        JsonUtil.saveToJSONFile(PO2DO_Mappings_file, fileTemplate);
-    }*/
 
 
     public void saveMappingsFile(List<Table> tablesList) {
