@@ -14,7 +14,7 @@ public class Config {
     public static boolean IS_DOCKER_ENV = WORKDIR.toString().startsWith("/KnowledgeGraphsApp");
 
     public static String resourcesPath = IS_DOCKER_ENV ?
-              getPath(String.format("%s/data", WORKDIR))
+              getPath(String.format("%s/data/KnowledgeGraphsJava", WORKDIR))
             : getPath(String.format("%s/.KnowledgeGraphsData/KnowledgeGraphsJava", WORKDIR.getParent()));
 
     // Define the URL of the Python services
@@ -33,6 +33,9 @@ public class Config {
 
 
     public Config(String UseCase, String FileExtension) {
+        System.out.println("WORKDIR: " + WORKDIR);
+        System.out.println("In docker ? " + IS_DOCKER_ENV);
+        System.out.println("Resources dir: " + resourcesPath);
         setConfigParams(UseCase, FileExtension);
     }
 

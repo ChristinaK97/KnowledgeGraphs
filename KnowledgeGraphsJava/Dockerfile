@@ -2,11 +2,10 @@
 FROM openjdk:17-alpine
 
 # Set the working directory in the container
-WORKDIR /KnowledgeGraphApp
+WORKDIR /KnowledgeGraphsApp
 
 # Copy Uber JAR into the container
 COPY target/KnowledgeGraphsJava-1.0-SNAPSHOT-jar-with-dependencies.jar .
-COPY data ./resources
 
 # Make port available to the outside of this container
 EXPOSE 7530
