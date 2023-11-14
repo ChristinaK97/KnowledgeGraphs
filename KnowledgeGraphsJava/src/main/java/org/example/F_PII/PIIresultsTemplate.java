@@ -1,10 +1,7 @@
 package org.example.F_PII;
 import org.example.MappingsFiles.MappingsFileTemplate.Source;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PIIresultsTemplate {
     List<PIIattribute> PIIattributes = new ArrayList<>();
@@ -19,6 +16,10 @@ public class PIIresultsTemplate {
 
     public void addPIIattribute(PIIattribute piiAttribute){
         PIIattributes.add(piiAttribute);
+    }
+
+    public void sortPiiAttributesList() {
+        PIIattributes.sort(Comparator.comparing(PIIattribute::getDatasetElement));
     }
 }
 
@@ -80,6 +81,9 @@ class PIIattribute {
         isSpecialCategoryPersonalData = specialCategoryPersonalData;
     }
 
+    public Set<Source> getSources() {
+        return sources;
+    }
     public void addSource(Source source) {
         sources.add(source);
     }

@@ -74,8 +74,10 @@ public class PIIidentification {
         findPiis();
 
         extractResults();
+        groupByDatasetElement();
         cleanupHierarchies();
         appendT41piisList();
+        PiiResults.sortPiiAttributesList();
         JsonUtil.saveToJSONFile("fintech-piis.json", PiiResults);
 
         System.out.println(this);
@@ -264,29 +266,6 @@ public class PIIidentification {
         return annot;
     }
 
-//=============================================================================================================
-// Group by column and clean up duplicates adn hierarchies
-//=============================================================================================================
-    private void cleanupHierarchies() {
-        for(PIIattribute piiAttr : PiiResults.getPIIattributes()) {
-            HashSet<Integer> toRmv = new HashSet<>();
-            List<DpvMatch> dpvMatches = piiAttr.getDpvMatches();
-
-            for (int i = 0; i < dpvMatches.size(); i++) {
-                String match = dpvMatches.get(i).getMatch();
-                for (int j = i+1; j < dpvMatches.size(); j++) {
-                    // duplicate match or the current match i is a superclass of some other match j
-                    if(match.equals(dpvMatches.get(j).getMatch()) || dpvMatches.get(j).hasSuperClass(match)) {
-                        toRmv.add(i);
-            }}}
-            List<DpvMatch> cleanedUpMatches = new ArrayList<>();
-            for (int i = 0; i < dpvMatches.size(); i++) {
-                if(!toRmv.contains(i)) {
-                    cleanedUpMatches.add(dpvMatches.get(i));
-            }}
-            piiAttr.setDpvMatches(cleanedUpMatches);
-        }
-    }
 
 //=============================================================================================================
 // Append T4.1 PIIs list
@@ -313,7 +292,45 @@ public class PIIidentification {
 
     }
 
+//=============================================================================================================
+// Group by column and clean up duplicates adn hierarchies
+//=============================================================================================================
 
+    private void groupByDatasetElement() {
+        HashMap<String, PIIattribute> grouped = new HashMap<>();
+
+        PiiResults.getPIIattributes().forEach(piiAttr -> {
+            String datasetEl = piiAttr.getDatasetElement();
+            if(grouped.containsKey(datasetEl)) {
+                grouped.get(datasetEl).addSources(piiAttr.getSources());
+            }else {
+                grouped.put(datasetEl, piiAttr);
+            }
+        });
+        PiiResults.setPIIattributes(new ArrayList<>(grouped.values()));
+    }
+
+
+    private void cleanupHierarchies() {
+        for(PIIattribute piiAttr : PiiResults.getPIIattributes()) {
+            HashSet<Integer> toRmv = new HashSet<>();
+            List<DpvMatch> dpvMatches = piiAttr.getDpvMatches();
+
+            for (int i = 0; i < dpvMatches.size(); i++) {
+                String match = dpvMatches.get(i).getMatch();
+                for (int j = i+1; j < dpvMatches.size(); j++) {
+                    // duplicate match or the current match i is a superclass of some other match j
+                    if(match.equals(dpvMatches.get(j).getMatch()) || dpvMatches.get(j).hasSuperClass(match)) {
+                        toRmv.add(i);
+                    }}}
+            List<DpvMatch> cleanedUpMatches = new ArrayList<>();
+            for (int i = 0; i < dpvMatches.size(); i++) {
+                if(!toRmv.contains(i)) {
+                    cleanedUpMatches.add(dpvMatches.get(i));
+                }}
+            piiAttr.setDpvMatches(cleanedUpMatches);
+        }
+    }
 
 //=============================================================================================================
 
