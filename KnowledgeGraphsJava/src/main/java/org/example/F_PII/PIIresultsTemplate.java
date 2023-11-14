@@ -1,6 +1,10 @@
 package org.example.F_PII;
+import org.example.MappingsFiles.MappingsFileTemplate.Source;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PIIresultsTemplate {
     List<PIIattribute> PIIattributes = new ArrayList<>();
@@ -20,8 +24,10 @@ public class PIIresultsTemplate {
 
 class PIIattribute {
     private String datasetElement;
+    private Set<Source> sources = new HashSet<>();
     //private ArrayList<String> knowledgeGraphURI;
     private boolean isPersonalData;
+    private boolean isIdentifying;
     private boolean isSpecialCategoryPersonalData;
     private List<DpvMatch> dpvMatches = new ArrayList<>();
 
@@ -56,17 +62,29 @@ class PIIattribute {
     public boolean isPersonalData() {
         return isPersonalData;
     }
-
     public void setPersonalData(boolean personalData) {
         isPersonalData = personalData;
+    }
+
+    public boolean isIdentifying() {
+        return isIdentifying;
+    }
+    public void setIdentifying(boolean identifying) {
+        isIdentifying = identifying;
     }
 
     public boolean isSpecialCategoryPersonalData() {
         return isSpecialCategoryPersonalData;
     }
-
     public void setSpecialCategoryPersonalData(boolean specialCategoryPersonalData) {
         isSpecialCategoryPersonalData = specialCategoryPersonalData;
+    }
+
+    public void addSource(Source source) {
+        sources.add(source);
+    }
+    public void addSources(Set<Source> sources) {
+        this.sources.addAll(sources);
     }
 }
 
@@ -75,9 +93,14 @@ class DpvMatch {
     private String label;
     private String description;
     private List<IsSubclassOf> isSubclassOf = new ArrayList<>();
+    private transient HashSet<String> superClasses = new HashSet<>();
 
     public void addSuperclass(IsSubclassOf superClass) {
         isSubclassOf.add(superClass);
+        superClasses.add(superClass.getUri());
+    }
+    public boolean hasSuperClass(String dpvClass) {
+        return superClasses.contains(dpvClass);
     }
 
     public String getMatch() {

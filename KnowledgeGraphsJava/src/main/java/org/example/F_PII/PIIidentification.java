@@ -2,53 +2,79 @@ package org.example.F_PII;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.apache.jena.ontology.OntClass;
-import org.apache.jena.ontology.OntResource;
-import org.apache.jena.rdf.model.RDFNode;
+import org.example.MappingsFiles.MappingsFileTemplate;
 import org.example.util.JsonUtil;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.MappingsFiles.MappingsFileTemplate.Source;
 import org.example.util.Ontology;
+import org.example.util.Pair;
 
+import java.net.URI;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static org.example.MappingsFiles.ManageMappingsFile.readMapJSON;
+import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.MappingsFiles.ManageMappingsFile.readMapJSONasTemplate;
 
 public class PIIidentification {
 
-    /*String PO2DO = "src/main/resources/Use_Case/Fintech/EPIBANK/Other/PO2DO_Mappings.json";
-    String POPath = "src/main/resources/Use_Case/Fintech/EPIBANK/KG_outputs/POntology.ttl";
-    String DOPath = "src/main/resources/Use_Case/Fintech/DOntology/FIBOLt.owl";
-    String dpvPath = "src/main/resources/PII/dpv-pii.ttl";
-    String DO2dpvPath = "src/main/resources/PII/Fintech2DPV.json";
-    String T41PIIsPath = "src/main/resources/Use_Case/Fintech/EPIBANK/T41PIIs.json";
+    static class OntoElInfo {
+        // pairs of <tableName,columnName> that were transformed to this ontoEl
+        HashSet<Pair<String, String>> datasetEls = new HashSet<>();
+        // the dpv classes that this ontoEl was associated with
+        HashSet<String> dpvMatches = new HashSet<>();
+
+        public OntoElInfo(String tableName, String colName, String dpvClass) {
+            addDatasetEl(tableName, colName);
+            addDpvMatch(dpvClass);
+        }
+
+        public void addDatasetEl(String tableName, String colName) {
+            datasetEls.add(new Pair<>(tableName, colName));
+        }
+        public void addDpvMatch(String dpvClass) {
+            dpvMatches.add(dpvClass);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------
 
     String personalDataURI = "https://w3id.org/dpv/dpv-owl#PersonalData";
     String specialPersonalDataURI = "https://w3id.org/dpv/dpv-owl#SpecialCategoryPersonalData";
+    String identifyingURI = "https://w3id.org/dpv/dpv-owl/dpv-pd#Identifying";
 
 
-    private Ontology POnto;
     private Ontology DOnto;
     private Ontology dpvOnto;
-    private List<Table> tablesList;
+    private MappingsFileTemplate tablesList;
+
     private HashMap<String, ArrayList<String>> do2dpv;
-    private HashMap<String, Set<String>> PIIs;
+    private boolean doCrossMapping;
+
+    private HashMap<String, OntoElInfo> PIIs;
 
     private PIIresultsTemplate PiiResults;
-    private HashSet<String> KGPiis = new HashSet<>();
+    private HashSet<Pair<String,String>> KGPiis = new HashSet<>();
+
 
     public PIIidentification() {
-        POnto = new Ontology(POPath);
-        DOnto = new Ontology(DOPath);
-        dpvOnto = new Ontology(dpvPath);
+        doCrossMapping = config.PiiMap.UseCase2DPV_file_path != null;
+        DOnto   = doCrossMapping ? new Ontology(config.DOMap.TgtOntology) : null;
+        dpvOnto = new Ontology(config.PiiMap.TgtOntology);
+
+        tablesList = readMapJSONasTemplate();
+
         PIIs = new HashMap<>();
         PiiResults = new PIIresultsTemplate();
-        crossMapping();
+
+        doCrossMapping = config.PiiMap.UseCase2DPV_file_path != null;
+        loadDO2dpvMappings();
+
+        findPiis();
+
         extractResults();
+        cleanupHierarchies();
         appendT41piisList();
         JsonUtil.saveToJSONFile("fintech-piis.json", PiiResults);
 
@@ -60,7 +86,10 @@ public class PIIidentification {
 //=============================================================================================================
     private void loadDO2dpvMappings() {
         do2dpv = new HashMap<>();
-        JsonObject maps = JsonUtil.readJSON(DO2dpvPath).getAsJsonObject();
+        if(!doCrossMapping) // no cross mappings file was found
+            return;
+
+        JsonObject maps = JsonUtil.readJSON(config.PiiMap.UseCase2DPV_file_path).getAsJsonObject();
         for(String dpvEl : maps.keySet()) {
             for(JsonElement doElJson : maps.get(dpvEl).getAsJsonArray()) {
                 String doEl = doElJson.getAsString();
@@ -72,93 +101,108 @@ public class PIIidentification {
         }
     }
 
-    private void crossMapping() {
-        try {
-            loadDO2dpvMappings();
-        }catch (Exception e){ return; } //DO2DPV file not found -> don't add cross mappings
-        tablesList = readMapJSON(PO2DO);
-        for(Table table : tablesList) {
-            crossMapping(table.getMapping());
+
+    // the table and column that are examined at the moment
+    private String tableName;
+    private String colName;
+
+    private void findPiis() {
+        for(Table table : tablesList.getTables()) {
+            this.tableName = table.getTable();
+
+            // table pii
+            String tableClass = table.getMapping().getOntoElURI().toString();
+            addBertMapDPVmappings(tableClass, table.getDpvMappings());
+            if(doCrossMapping)
+                crossMapping(table.getMapping());
+
             for (Column col : table.getColumns()) {
-                crossMapping(col.getObjectPropMapping());
-                crossMapping(col.getClassPropMapping());
-                crossMapping(col.getDataPropMapping());
-            }
+                this.colName = col.getColumn();
+
+                // attribute/column class pii
+                String attrClass = col.getClassPropMapping().getOntoElResource();
+                addBertMapDPVmappings(attrClass, col.getDpvMappings());
+
+                if(doCrossMapping) {
+                    crossMapping(col.getObjectPropMapping());
+                    crossMapping(col.getClassPropMapping());
+                    crossMapping(col.getDataPropMapping());
+                }
+            }//end_column
+        }//end_table
+    }
+
+//=============================================================================================================
+// BertMap DPV mappings
+//=============================================================================================================
+
+    private void addBertMapDPVmappings(String ontoEl, List<URI> dpvMappings) {
+        for(URI dpvClass: dpvMappings) {
+            addDetectedPII(ontoEl, dpvClass.toString());
         }
     }
 
-    private void crossMapping(Mapping elMap) {
-        String ontoEl = elMap.getOntoElURI().toString();
-        if(elMap.hasMatch()) {
-            String match = elMap.getMatchURI().toString();
-            Set<String> matchAncestors = DOnto.getAncestors(match, true).keySet();
-            matchAncestors.forEach(ancestor -> {
-                if(do2dpv.containsKey(ancestor))
-                    do2dpv.get(ancestor).forEach(dpvClass -> addDetectedPII(ontoEl, dpvClass));
-            });
-        }
-    }
 //=============================================================================================================
 // Cross mapping
 //=============================================================================================================
+    private void crossMapping(Mapping elMap) {
+        String ontoEl = elMap.getOntoElURI().toString();
+        if(elMap.hasMatch())
+            for(URI match : elMap.getMatchURI())
+                crossMapElementMatch(ontoEl, match.toString());
+        if(elMap.hasInitialMatch())
+            for(URI initMatch : elMap.getInitialMatch())
+                crossMapElementMatch(ontoEl, initMatch.toString());
+    }
+
+    private void crossMapElementMatch(String ontoEl, String match) {
+        Set<String> matchAncestors = DOnto.getAncestors(match, true).keySet();
+        matchAncestors.forEach(ancestor -> {
+            if(do2dpv.containsKey(ancestor))
+                do2dpv.get(ancestor).forEach(dpvClass -> addDetectedPII(ontoEl, dpvClass));
+        });
+    }
+
     private void addDetectedPII(String ontoEl, String dpvClass) {
-        if(PIIs.containsKey(ontoEl))
-            PIIs.get(ontoEl).add(dpvClass);
-        else
-            PIIs.put(ontoEl, new HashSet<>(){{add(dpvClass);}});
+        if(PIIs.containsKey(ontoEl)) {
+            PIIs.get(ontoEl).addDatasetEl(this.tableName, this.colName);
+            PIIs.get(ontoEl).addDpvMatch(dpvClass);
+        }else {
+            PIIs.put(ontoEl, new OntoElInfo(this.tableName, this.colName, dpvClass));
+        }
     }
 
 //=============================================================================================================
 // Extract results
 //=============================================================================================================
+
     private void extractResults() {
-        HashMap<String, ArrayList<String>> piiFields = new HashMap<>();
-        for(String ontoElURI : PIIs.keySet()) {
-            OntResource ontoEl = POnto.getOntResource(ontoElURI);
-            String extractedFieldString = null;
-            for (RDFNode comment : ontoEl.listComments(null).toList()) {
-                Matcher matcher = Pattern.compile("\\[(.*?)\\]").matcher(comment.asLiteral().getString());
-                if (matcher.find()) {
-                    extractedFieldString = matcher.group(1);
-                    break;
-                }
-            }
-            assert extractedFieldString != null;
-            for(String datasetEl : extractedFieldString.split(",")) {
-                datasetEl = datasetEl.trim();
+        // group PO ontoEl by tableName and columnName
+        HashMap<Pair<String,String>, ArrayList<String>> piiFields = new HashMap<>();
+
+        PIIs.forEach((ontoEl, info) -> {
+            info.datasetEls.forEach(datasetEl -> {
                 KGPiis.add(datasetEl);
                 if(piiFields.containsKey(datasetEl))
-                    piiFields.get(datasetEl).add(ontoElURI);
+                    piiFields.get(datasetEl).add(ontoEl);
                 else
-                    piiFields.put(datasetEl, new ArrayList<>(){{add(ontoElURI);}});
-            }
-        }
+                    piiFields.put(datasetEl, new ArrayList<>(){{add(ontoEl);}});
+        });});
+
         // -----------------------------------------------------
         piiFields.forEach((datasetEl, ontoElements) -> {
-            HashSet<String> detectedMatches = new HashSet<>();
 
             PIIattribute piiAttr = new PIIattribute();
-            piiAttr.setDatasetElement(datasetEl);
+
+            // column name and identifiers
+            piiAttr.setDatasetElement(datasetEl.colName());
+            piiAttr.addSources(getSources(datasetEl.tableName()));
+
             // piiAttr.setKnowledgeGraphURI(ontoElements);
-            boolean isPersonalData = false, isSpecialPersonalData = false;
+            boolean isPersonalData = false, isIdentifying = false, isSpecialPersonalData = false ;
 
-            for(String ontoElURI : ontoElements) {
-                for(String dpvClass : PIIs.get(ontoElURI)) {
-
-                    // -----------------------------------------------------
-                    if(detectedMatches.contains(dpvClass))
-                        continue;
-                    detectedMatches.add(dpvClass);
-                    boolean isNewMatch = true;
-                    OntClass dpvOntClass = dpvOnto.getOntClass(dpvClass);
-                    for(String detectedMatch : detectedMatches)
-                        if(dpvOntClass.hasSubClass(dpvOnto.getOntClass(detectedMatch), false)) {
-                            isNewMatch = false;
-                            break;
-                        }
-                    if(!isNewMatch)
-                        continue;
-                    // -----------------------------------------------------
+            for(String ontoEl : ontoElements) {
+                for(String dpvClass : PIIs.get(ontoEl).dpvMatches) {
 
                     DpvMatch dpvMatch = new DpvMatch();
                     dpvMatch.setMatch(dpvClass);
@@ -177,11 +221,14 @@ public class PIIidentification {
 
                         if(personalDataURI.equals(ancestor))
                             isPersonalData = true;
+                        if(identifyingURI.equals(ancestor))
+                            isIdentifying = true;
                         if(specialPersonalDataURI.equals(ancestor))
                             isSpecialPersonalData = true;
                     }
                     piiAttr.addMatch(dpvMatch);
                     piiAttr.setPersonalData(isPersonalData);
+                    piiAttr.setIdentifying(isIdentifying);
                     piiAttr.setSpecialCategoryPersonalData(isSpecialPersonalData);
                 }
             }
@@ -189,6 +236,9 @@ public class PIIidentification {
         });
     }
 
+    private Set<Source> getSources(String tableName) {
+        return tablesList.getTable(tableName).getSources();
+    }
 
 
     private Map<String, Integer> getAncestors(String dpvClass) {
@@ -213,32 +263,59 @@ public class PIIidentification {
     }
 
 //=============================================================================================================
-// Append T4.1 PIIs list
+// Clean up hierarchies
 //=============================================================================================================
-    private void appendT41piisList() {
-        List<JsonElement> piisList = JsonUtil.readJSON(T41PIIsPath).getAsJsonObject().get("PIIs").getAsJsonArray().asList();
-        for(JsonElement datasetElJson : piisList) {
-            String datasetEl = datasetElJson.getAsString();
-            boolean isIncluded = false;
-            for(String kgPii : KGPiis) {
-                if(kgPii.endsWith(datasetEl)) {
-                    isIncluded = true;
-                    break;
+    private void cleanupHierarchies() {
+        for(PIIattribute piiAttr : PiiResults.getPIIattributes()) {
+            HashSet<Integer> toRmv = new HashSet<>();
+            List<DpvMatch> dpvMatches = piiAttr.getDpvMatches();
+
+            for (int i = 0; i < dpvMatches.size(); i++) {
+                String match = dpvMatches.get(i).getMatch();
+                for (int j = i+1; j < dpvMatches.size(); j++) {
+                    // duplicate match or the current match i is a superclass of some other match j
+                    if(match.equals(dpvMatches.get(j).getMatch()) || dpvMatches.get(j).hasSuperClass(match)) {
+                        toRmv.add(i);
+            }}}
+            List<DpvMatch> cleanedUpMatches = new ArrayList<>();
+            for (int i = 0; i < dpvMatches.size(); i++) {
+                if(!toRmv.contains(i)) {
+                    cleanedUpMatches.add(dpvMatches.get(i));
             }}
-            if(!isIncluded) {
-                PIIattribute piiAttr = new PIIattribute();
-                piiAttr.setDatasetElement(datasetEl);
-                piiAttr.setPersonalData(true);
-                piiAttr.setSpecialCategoryPersonalData(false);
-                PiiResults.addPIIattribute(piiAttr);
-            }
+            piiAttr.setDpvMatches(cleanedUpMatches);
         }
     }
 
+//=============================================================================================================
+// Append T4.1 PIIs list
+//=============================================================================================================
+
+    private void appendT41piisList() {
+
+        for(Table table : tablesList.getTables()) {
+            for(Column column : table.getColumns()) {
+
+                if(  column.isPii() &&                                                  //was detected by T41 as pii and
+                   ! KGPiis.contains(new Pair<>(table.getTable(), column.getColumn())) //was not already found by KGs
+                ){
+                    PIIattribute piiAttr = new PIIattribute();
+                    piiAttr.setDatasetElement(column.getColumn());
+                    piiAttr.addSources(table.getSources());
+                    piiAttr.setPersonalData(true);
+                    piiAttr.setIdentifying(false);
+                    piiAttr.setSpecialCategoryPersonalData(false);
+                    PiiResults.addPIIattribute(piiAttr);
+                }
+            }
+        }
+
+    }
+
+
 
 //=============================================================================================================
 
-    @Override
+    /*@Override
     public String toString() {
         StringBuilder bd = new StringBuilder();
         for(String ontoEl : PIIs.keySet()){
@@ -248,11 +325,8 @@ public class PIIidentification {
             });
         }
         return bd.toString();
-    }
-
-    public static void main(String[] args) {
-        new PIIidentification();
     }*/
+
 
 }
 

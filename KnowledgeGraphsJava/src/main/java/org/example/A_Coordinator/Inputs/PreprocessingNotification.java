@@ -2,6 +2,7 @@ package org.example.A_Coordinator.Inputs;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 public class PreprocessingNotification {
     private String document_id;
@@ -12,8 +13,13 @@ public class PreprocessingNotification {
     private List<String> piis;
     private HashSet<String> tableNames = new HashSet<>();
 
+    public PreprocessingNotification() {
+        filename = ".";
+        document_id = String.valueOf(new Random().nextInt());
+        hash = String.valueOf(new Random().nextInt());
+    }
 
-    // Getters and setters
+// Getters and setters
 
     public String getDocument_id() {
         return document_id;

@@ -68,6 +68,7 @@ public class MappingsFileTemplate {
         private String table;
         private Set<Source> sources;
         private Mapping mapping;
+        private List<URI> dpvMappings;
 
         private List<Column> columns;
         private transient HashMap<String, Integer> columnsIdx;
@@ -77,6 +78,7 @@ public class MappingsFileTemplate {
             this.columns = new ArrayList<>();
             this.columnsIdx = new HashMap<>();
             this.sources = new HashSet<>();
+            this.dpvMappings = new ArrayList<>();
         }
         public void copyTableSource(Table storedTable){
             this.sources = storedTable.sources;
@@ -132,6 +134,19 @@ public class MappingsFileTemplate {
             }
         }
 
+        public Set<Source> getSources() {
+            return sources;
+        }
+        public void setSources(Set<Source> sources) {
+            this.sources = sources;
+        }
+
+        public List<URI> getDpvMappings() {
+            return dpvMappings;
+        }
+        public void setDpvMappings(List<URI> dpvMappings) {
+            this.dpvMappings = dpvMappings;
+        }
     }
     //================================================================================
 
@@ -144,9 +159,12 @@ public class MappingsFileTemplate {
         private boolean isPii;
         private List<Mapping> mappings;
 
+        private List<URI> dpvMappings;
+
         public Column(String field) {
             this.column = field;
             this.mappings = new ArrayList<>();
+            this.dpvMappings = new ArrayList<>();
         }
 
         public String getColumn() {
@@ -154,14 +172,6 @@ public class MappingsFileTemplate {
         }
         public void setColumn(String column) {
             this.column = column;
-        }
-
-        /** is this column a pii attribute according to the preprocessing ? (isPii stores the output of the preprocessing) */
-        public boolean isPii() {
-            return isPii;
-        }
-        public void setPii(boolean pii) {
-            isPii = pii;
         }
 
         public void addMapping(Mapping mapping) {
@@ -201,6 +211,22 @@ public class MappingsFileTemplate {
             delMappingPerType(2);
         }
         private void delMappingPerType(int type) {mappings.set(type, null);}
+
+
+        /** is this column a pii attribute according to the preprocessing ? (isPii stores the output of the preprocessing) */
+        public boolean isPii() {
+            return isPii;
+        }
+        public void setPii(boolean pii) {
+            isPii = pii;
+        }
+
+        public List<URI> getDpvMappings() {
+            return dpvMappings;
+        }
+        public void setDpvMappings(List<URI> dpvMappings) {
+            this.dpvMappings = dpvMappings;
+        }
     }
 
     //================================================================================
@@ -269,6 +295,9 @@ public class MappingsFileTemplate {
         }
         public void setInitialMatch(List<URI> initialMatch) {
             this.initialMatch = initialMatch;
+        }
+        public boolean hasInitialMatch() {
+            return initialMatch != null && initialMatch.size()>0;
         }
 
         // path ----------------------------------------------------------------

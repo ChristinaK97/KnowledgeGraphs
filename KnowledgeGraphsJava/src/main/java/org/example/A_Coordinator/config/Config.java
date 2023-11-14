@@ -7,6 +7,7 @@ import org.example.util.JsonUtil;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import static org.example.util.FileHandler.fileExists;
 import static org.example.util.FileHandler.getPath;
 
 public class Config {
@@ -62,10 +63,10 @@ public class Config {
 
         // Mapping parameters ------------------------------------------------------------------------------
         DOMap = new MappingConfig(
-                configFile.getAsJsonObject("DOMappingParameters"));
+                configFile.getAsJsonObject("DOMappingParameters"), null, null);
 
         PiiMap = new MappingConfig(
-                configFile.getAsJsonObject("PiiMappingParameters"));
+                configFile.getAsJsonObject("PiiMappingParameters"), In.UseCase, In.DatasetResourcesPath);
     }
 
 
@@ -222,7 +223,9 @@ public class Config {
         public int DEPTH_THRS;
         public boolean rejectPropertyMaps;
 
-        public MappingConfig(JsonObject params) {
+        public String UseCase2DPV_file_path = null;
+
+        public MappingConfig(JsonObject params, String UseCase, String DatasetResourcesPath) {
 
             TgtOntology = params.get("TgtOntology").getAsString();
             TgtOntology = getPath(String.format("%s/DOntologies/%s", resourcesPath, TgtOntology));
@@ -236,6 +239,15 @@ public class Config {
             BES_REJECT_THRS = params.get("BES_REJECT_THRS").getAsDouble();
             DEPTH_THRS      = params.get("DEPTH_THRS").getAsInt();
             rejectPropertyMaps = params.get("rejectPropertyMaps").getAsBoolean();
+
+            // for pii cross mapping. stored in the PiiMap
+            if(UseCase != null && DatasetResourcesPath != null) {
+                UseCase2DPV_file_path = getPath(
+                        String.format("%s/%s2DPV.json",
+                                Paths.get(DatasetResourcesPath).getParent(), UseCase));
+                if(!fileExists(UseCase2DPV_file_path))
+                    UseCase2DPV_file_path = null;
+            }
         }
 
         public void printUnsupportedMapperError() {

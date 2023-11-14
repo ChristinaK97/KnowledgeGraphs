@@ -11,6 +11,8 @@ import org.example.D_MappingGeneration.MappingSelection.MappingSelection;
 import org.example.E_CreateKG.InsertDataJSON;
 import org.example.E_CreateKG.InsertDataRDB;
 import org.example.E_CreateKG.SetPOasDOextension;
+import org.example.F_PII.PIIidentification;
+import org.example.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +26,7 @@ import java.util.stream.Stream;
 
 import static org.example.A_Coordinator.config.Config.MappingConfig.BERTMAP;
 import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER;
+import static org.example.util.FileHandler.getPath;
 
 public class Pipeline {
 
@@ -60,7 +63,8 @@ public class Pipeline {
                     new MappingSelection(
                         config.Out.POntology,
                         config.DOMap.TgtOntology,
-                        new BertMap().startBertmap(true), // call bertmap service
+                        JsonUtil.readJSON(getPath("C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json")).getAsJsonObject(),
+                        //new BertMap().startBertmap(true), // call bertmap service
                         config.DOMap, dataSource);
             default ->
                     config.DOMap.printUnsupportedMapperError();
@@ -86,6 +90,8 @@ public class Pipeline {
         }else if (config.In.isJSON()){
             new InsertDataJSON((List<String>) dataSource);
         }
+
+        new PIIidentification();
 
     }
 
