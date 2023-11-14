@@ -82,25 +82,8 @@ public class PIIidentification {
     }
 
 //=============================================================================================================
-// Cross mapping
+// Find piis mapping
 //=============================================================================================================
-    private void loadDO2dpvMappings() {
-        do2dpv = new HashMap<>();
-        if(!doCrossMapping) // no cross mappings file was found
-            return;
-
-        JsonObject maps = JsonUtil.readJSON(config.PiiMap.UseCase2DPV_file_path).getAsJsonObject();
-        for(String dpvEl : maps.keySet()) {
-            for(JsonElement doElJson : maps.get(dpvEl).getAsJsonArray()) {
-                String doEl = doElJson.getAsString();
-                if(do2dpv.containsKey(doEl))
-                    do2dpv.get(doEl).add(dpvEl);
-                else
-                    do2dpv.put(doEl, new ArrayList<>(){{add(dpvEl);}});
-            }
-        }
-    }
-
 
     // the table and column that are examined at the moment
     private String tableName;
@@ -132,6 +115,15 @@ public class PIIidentification {
         }//end_table
     }
 
+    private void addDetectedPII(String ontoEl, String dpvClass) {
+        if(PIIs.containsKey(ontoEl)) {
+            PIIs.get(ontoEl).addDatasetEl(this.tableName, this.colName);
+            PIIs.get(ontoEl).addDpvMatch(dpvClass);
+        }else {
+            PIIs.put(ontoEl, new OntoElInfo(this.tableName, this.colName, dpvClass));
+        }
+    }
+
 //=============================================================================================================
 // BertMap DPV mappings
 //=============================================================================================================
@@ -145,6 +137,24 @@ public class PIIidentification {
 //=============================================================================================================
 // Cross mapping
 //=============================================================================================================
+
+    private void loadDO2dpvMappings() {
+        do2dpv = new HashMap<>();
+        if(!doCrossMapping) // no cross mappings file was found
+            return;
+
+        JsonObject maps = JsonUtil.readJSON(config.PiiMap.UseCase2DPV_file_path).getAsJsonObject();
+        for(String dpvEl : maps.keySet()) {
+            for(JsonElement doElJson : maps.get(dpvEl).getAsJsonArray()) {
+                String doEl = doElJson.getAsString();
+                if(do2dpv.containsKey(doEl))
+                    do2dpv.get(doEl).add(dpvEl);
+                else
+                    do2dpv.put(doEl, new ArrayList<>(){{add(dpvEl);}});
+            }
+        }
+    }
+
     private void crossMapping(Mapping elMap) {
         String ontoEl = elMap.getOntoElURI().toString();
         if(elMap.hasMatch())
@@ -163,14 +173,6 @@ public class PIIidentification {
         });
     }
 
-    private void addDetectedPII(String ontoEl, String dpvClass) {
-        if(PIIs.containsKey(ontoEl)) {
-            PIIs.get(ontoEl).addDatasetEl(this.tableName, this.colName);
-            PIIs.get(ontoEl).addDpvMatch(dpvClass);
-        }else {
-            PIIs.put(ontoEl, new OntoElInfo(this.tableName, this.colName, dpvClass));
-        }
-    }
 
 //=============================================================================================================
 // Extract results
@@ -263,7 +265,7 @@ public class PIIidentification {
     }
 
 //=============================================================================================================
-// Clean up hierarchies
+// Group by column and clean up duplicates adn hierarchies
 //=============================================================================================================
     private void cleanupHierarchies() {
         for(PIIattribute piiAttr : PiiResults.getPIIattributes()) {
