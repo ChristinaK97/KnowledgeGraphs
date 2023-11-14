@@ -1,6 +1,9 @@
 package org.example.B_InputDatasetProcessing.DICOM;
 
+import org.dcm4che3.data.ElementDictionary;
+import org.dcm4che3.data.StandardElementDictionary;
 import org.dcm4che3.data.VR;
+import org.dcm4che3.util.TagUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +21,53 @@ public class DICOMUtil {
     public static String hasInformationEntity = "hasInformationEntity";
     public static String SequenceItemURI = "http://semantic-dicom.org/seq#SequenceItem";
     public static String hasItemURI = "http://semantic-dicom.org/seq#hasItem";
+
+    /** Get tag name from dicom tag code, eg in="(0010,0010)" out="PatientName"
+     * getNameFromCode("(0010,0010)") -> PatientName
+     * @param tagCode: "(GGGG,EEEE)" format
+     * @return the tag name in camel case. For Private tag codes, returns "Unknown Tag and Data"
+     */
+    public static String getNameFromCode(String tagCode) {
+        tagCode = tagCode.replaceAll("[(,)]", "");
+        int tag = TagUtils.forName(tagCode);
+        if(tag != -1) {
+            String tagName = ElementDictionary.keywordOf(tag, null);
+            return tagName;
+        }else
+            return "Unknown Tag and Data";
+
+    }
+
+    /** Get the dicom tag code from the tag name
+     * eg, in= "Patient Name" or "PatientName" out="(0010,0010)"
+     * getCodeFromName("Patient Name") -> (0010,0010)
+     * getCodeFromName("PatientName")  -> (0010,0010)
+     * For private tags ("Unknown Tag and Data" returns the tagName back)
+     */
+    public static String getCodeFromName(String tagName) {
+        if("Unknown Tag and Data".equals(tagName))
+            return tagName;
+        else if(tagName.contains(" ")) // is not camel case -> first turn to camel case
+            return getCodeFromCamelCaseName(tagName.replaceAll(" ", ""));
+        else
+            return getCodeFromCamelCaseName(tagName);
+    }
+
+    /** Get the dicom tag code from the tag name in camel case
+     * eg, in= "PatientName" out="(0010,0010)"
+     * For private tags ("Unknown Tag and Data" returns the tagName back)
+     */
+    public static String getCodeFromCamelCaseName(String tagName) {
+        int tag = StandardElementDictionary.INSTANCE.tagForKeyword(tagName);
+        if (tag != -1) {
+            //String tagCode = TagUtils.toHexString(tag); //"00100010" not formatted
+            String formattedTag = TagUtils.toString(tag);
+            return formattedTag;
+        } else {
+            return tagName;
+        }
+    }
+
 
     public static String parseForTime(String value, VR vr) {
         try {

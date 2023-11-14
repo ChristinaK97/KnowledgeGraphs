@@ -58,6 +58,10 @@ public class InputConnector {
             String UseCase  = notification.getDomain();
             String fileName = notification.getFilename();
             this.config = setupConfig(UseCase, fileName, notification);
+
+            if(config.In.isDSON())
+                notification.turnPiiTagNamesToCodes();
+
             Path fileDownloadPath = Paths.get(String.format("%s/%s", config.In.DownloadedDataDir, fileName));
 
             if (downloadFile(fileName, fileDownloadPath))

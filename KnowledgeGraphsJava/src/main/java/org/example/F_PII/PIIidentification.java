@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.getNameFromCode;
 import static org.example.MappingsFiles.ManageMappingsFile.readMapJSONasTemplate;
 
 public class PIIidentification {
@@ -74,11 +75,12 @@ public class PIIidentification {
         findPiis();
 
         extractResults();
+        appendT41piisList();
+        parseJsonColumnNames(); // only applicable for json and dicom input
         groupByDatasetElement();
         cleanupHierarchies();
-        appendT41piisList();
         PiiResults.sortPiiAttributesList();
-        JsonUtil.saveToJSONFile("fintech-piis.json", PiiResults);
+        JsonUtil.saveToJSONFile(config.PiiMap.PiisResultsJsonPath, PiiResults);
 
         System.out.println(this);
     }
@@ -293,8 +295,21 @@ public class PIIidentification {
     }
 
 //=============================================================================================================
-// Group by column and clean up duplicates adn hierarchies
+// Group by column/datasetEl and clean up duplicates and hierarchies
 //=============================================================================================================
+
+    private void parseJsonColumnNames() {
+        if(config.In.isJSON() || config.In.isDSON()) {
+            PiiResults.getPIIattributes().forEach(piiAttr -> {
+                String datasetEl = piiAttr.getDatasetElement();
+                datasetEl = datasetEl.substring(
+                        datasetEl.lastIndexOf("/") + 1);
+                if(config.In.isDSON())
+                    datasetEl = getNameFromCode(datasetEl); // datasetEl was initially (GGGG,EEEE) so turn to tag name
+                piiAttr.setDatasetElement(datasetEl);
+            });
+        }
+    }
 
     private void groupByDatasetElement() {
         HashMap<String, PIIattribute> grouped = new HashMap<>();

@@ -224,6 +224,7 @@ public class Config {
         public boolean rejectPropertyMaps;
 
         public String UseCase2DPV_file_path = null;
+        public String PiisResultsJsonPath = null;
 
         public MappingConfig(JsonObject params, String UseCase, String DatasetResourcesPath) {
 
@@ -242,6 +243,9 @@ public class Config {
 
             // for pii cross mapping. stored in the PiiMap
             if(UseCase != null && DatasetResourcesPath != null) {
+
+                PiisResultsJsonPath = getPath(String.format("%s/KG_Outputs/piiResults.json", DatasetResourcesPath)); // in the KG_Outputs subdir
+
                 UseCase2DPV_file_path = getPath(
                         String.format("%s/%s2DPV.json",
                                 Paths.get(DatasetResourcesPath).getParent(), UseCase));

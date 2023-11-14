@@ -1,8 +1,12 @@
 package org.example.A_Coordinator.Inputs;
 
+import org.example.B_InputDatasetProcessing.DICOM.DICOMUtil;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+
+import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.getCodeFromName;
 
 public class PreprocessingNotification {
     private String document_id;
@@ -63,6 +67,12 @@ public class PreprocessingNotification {
         this.piis = piis;
     }
 
+    /** DICOM input: assuming input from preprocessing for dicom files is piis = [List of tag names] not tag codes */
+    public void turnPiiTagNamesToCodes() {
+        // piis[i] <- getCodeFromName(piis[i])
+        piis.replaceAll(DICOMUtil::getCodeFromName);
+    }
+
 
     public void addExtractedTableName(String extractedTableName) {
         tableNames.add(extractedTableName);
@@ -92,5 +102,7 @@ public class PreprocessingNotification {
                 "\n\tpiis=" + piis +
                 '}';
     }
+
+
 }
 
