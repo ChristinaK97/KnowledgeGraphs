@@ -213,6 +213,42 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
     </dependency>
     <!-- -->
 
+    <!-- graphdb -->
+    <dependency>
+      <groupId>com.ontotext.graphdb</groupId>
+      <artifactId>graphdb-runtime</artifactId>
+      <version>10.4.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ontotext.graphdb</groupId>
+      <artifactId>graphdb-client-api</artifactId>
+      <version>10.0.0</version>
+    </dependency>
+    <!-- rdf4j -->
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-storage</artifactId>
+      <version>4.3.8</version>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-tools-federation</artifactId>
+      <version>4.3.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-model-vocabulary</artifactId>
+      <version>4.3.8</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.rdf4j</groupId>
+      <artifactId>rdf4j-model</artifactId>
+      <version>4.3.8</version>
+    </dependency>
+
+
+
 
   </dependencies>
 <!-- =============================================================================================================== -->

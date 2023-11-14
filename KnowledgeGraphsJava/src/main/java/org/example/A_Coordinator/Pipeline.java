@@ -5,9 +5,9 @@ import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
 import org.example.C_POextractor.POntologyExtractor;
-import org.example.D_MappingGeneration.BertMap;
 import org.example.D_MappingGeneration.ExactMapper;
 import org.example.D_MappingGeneration.MappingSelection.MappingSelection;
+import org.example.E_CreateKG.GraphDB;
 import org.example.E_CreateKG.InsertDataJSON;
 import org.example.E_CreateKG.InsertDataRDB;
 import org.example.E_CreateKG.SetPOasDOextension;
@@ -94,6 +94,10 @@ public class Pipeline {
         }
         LG.info("F. PII IDENTIFICATION");
         runPiiIdentificationPipeline();
+
+        // upload kg to graphdb after having sent the piis
+        LG.info("UPLOAD KG TO GRAPHDB");
+        new GraphDB(/*reset repository ? */ true);
     }
 
     private void runPiiIdentificationPipeline() {

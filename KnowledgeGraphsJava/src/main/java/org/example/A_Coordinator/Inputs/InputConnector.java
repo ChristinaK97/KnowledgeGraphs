@@ -138,9 +138,9 @@ public class InputConnector {
 
 
     private void runPipeline() {
-        LOGGER.info("Run pipeline");
+        LOGGER.info("RUN KGs PIPELINE...");
         new Pipeline(this.config).run();
-        LOGGER.info("KGs pipeline finished");
+        LOGGER.info("KGs PIPELINE FINISHED!");
     }
 
 // =====================================================================================================================
@@ -148,9 +148,10 @@ public class InputConnector {
     @PostMapping(value = "/testPipeline")
     private void startPipeline(@RequestParam("UseCase") String UseCase,
                                @RequestParam("filename") String filename) {
-        LOGGER.info(UseCase + " " + filename);
+        LOGGER.info("Run pipeline for " + UseCase + " " + filename);
         Pipeline pipeline = new Pipeline(setupConfig(UseCase, filename, new PreprocessingNotification()));
         pipeline.run();
+        LOGGER.info("KGs pipeline finished!");
     }
 // =====================================================================================================================
 

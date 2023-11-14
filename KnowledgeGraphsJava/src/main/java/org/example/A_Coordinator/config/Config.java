@@ -30,6 +30,9 @@ public class Config {
     public static String BertMapEndpoint =
             String.format("http://%s:7531/start_bertmap", IS_DOCKER_ENV ? "knowledge-graphs-python" : "localhost");
 
+    public static String GraphDBEndpoint =
+            String.format("http://%s:7200", IS_DOCKER_ENV ? "graphdb" : "localhost");
+
 // =====================================================================================================================
     public InputPointConfig In;
     public KGOutputsConfig Out;
