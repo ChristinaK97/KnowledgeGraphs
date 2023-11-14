@@ -38,7 +38,7 @@ public class TabularFilesReader {
     public TabularFilesReader(List<String> files) {
         db = new RelationalDB();
         for(String downloadedFilePath : files) {
-            String singleTableName = files.size()==1 ? config.In.DefaultRootClassName : null;
+            String singleTableName = null; //files.size()==1 ? config.In.DefaultRootClassName : null;
             addTable(singleTableName, getFileNameWithoutExtension(downloadedFilePath), downloadedFilePath);
         }                                                                                                               if(log) System.out.println("FINISHED READING TABLES");
     }

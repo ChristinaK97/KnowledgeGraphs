@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.util.FileHandler.getFileNameWithoutExtension;
 
 public class ClassExtractor {
 
@@ -94,7 +95,7 @@ public class ClassExtractor {
 
         // TODO: preprocessing notif
         String tableFilename = this.db.getTable(tableName).getFilename();
-        String notificationFilename =  config.notification.getFilename();
+        String notificationFilename = getFileNameWithoutExtension(config.notification.getFilename());
         if(tableFilename.equals(notificationFilename))
             config.notification.addExtractedTableName(tableName);
     }

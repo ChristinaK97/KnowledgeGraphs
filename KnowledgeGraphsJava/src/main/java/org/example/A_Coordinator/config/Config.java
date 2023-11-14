@@ -11,6 +11,9 @@ import static org.example.util.FileHandler.getPath;
 
 public class Config {
 
+    // TODO: DO NOT FORGET TO CHANGE VALUE FOR DEPLOYMENT
+    private static boolean MAINTAIN_PREPROCESSING_RESULTS = false;
+
     public static Path WORKDIR = Paths.get(System.getProperty("user.dir"));
     public static boolean IS_DOCKER_ENV = WORKDIR.toString().startsWith("/KnowledgeGraphsApp");
 
@@ -152,7 +155,7 @@ public class Config {
 
         // po to do mappings
         public String PO2DO_Mappings;
-        public boolean maintainStoredPreprocessingResults = true;
+        public boolean maintainStoredPreprocessingResults = MAINTAIN_PREPROCESSING_RESULTS;
 
         // output ontology
         public String RefinedOntology;

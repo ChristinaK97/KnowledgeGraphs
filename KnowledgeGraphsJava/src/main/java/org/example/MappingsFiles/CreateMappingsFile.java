@@ -29,6 +29,8 @@ public class CreateMappingsFile extends ManageMappingsFile {
         hasStored = fileExists(config.Out.PO2DO_Mappings) && config.Out.maintainStoredPreprocessingResults;
         if(hasStored)
             storedFileTemplate = readMapJSONasTemplate();
+
+        System.out.println("Extracted from notif : " + config.notification.getExtractedTableNames());
     }
 
     public void extractMappingsFile(Object dataSource, RulesetApplication rs) {
@@ -158,7 +160,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
             if(columnName.equals(rootElementName))
                 continue;
             String tableName = columnName.substring(0, columnName.lastIndexOf("/"));
-            System.out.println(tableName + "\t\t" + columnName + "\t\t" + tableClassesTable.get(tableName));
+            //System.out.println(tableName + "\t\t" + columnName + "\t\t" + tableClassesTable.get(tableName));
 
             Column column = updatedColumn(tableName, columnName, config.notification.hasExtractedTable(tableName));
             for (Transformation t : trf.get(columnName))

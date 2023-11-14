@@ -203,7 +203,7 @@ public class JSON2OWL {
         tableClasses.put(tableName, tableClassName);
 
         // TODO: preprocessing notif
-        String notificationFilename =  config.notification.getFilename();
+        String notificationFilename = getFileNameWithoutExtension(config.notification.getFilename());
         if(this.filename.equals(notificationFilename))
             config.notification.addExtractedTableName(tableName);
     }
