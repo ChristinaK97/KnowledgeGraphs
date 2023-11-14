@@ -152,7 +152,7 @@ public class Config {
 
         // po to do mappings
         public String PO2DO_Mappings;
-        public boolean maintainStoredPreprocessingResults = false;
+        public boolean maintainStoredPreprocessingResults = true;
 
         // output ontology
         public String RefinedOntology;

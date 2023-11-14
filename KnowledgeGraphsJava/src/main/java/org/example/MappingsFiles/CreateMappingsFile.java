@@ -11,6 +11,7 @@ import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.util.Annotations.CLASS_SUFFIX;
@@ -174,7 +175,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
     /** Maintain table metadata such as the files from which the table's po elements where extracted */
     private Table updatedTable(String tableName, boolean isExtractedFromCurrentFile) {
         String tableFile =  isExtractedFromCurrentFile ? config.notification.getFilename()    : String.format("%s.%s",tableName, config.In.FileExtension);
-        String tableDocId = isExtractedFromCurrentFile ? config.notification.getDocument_id() : null;
+        String tableDocId = isExtractedFromCurrentFile ? config.notification.getDocument_id() : String.valueOf(tableFile.hashCode());
 
         Table storedTable  = hasStored ? storedFileTemplate.getTable(tableName) : null;
         Table updatedTable = new Table(tableName);

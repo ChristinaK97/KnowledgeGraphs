@@ -3,9 +3,7 @@ package org.example.MappingsFiles;
 import org.example.util.Ontology;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -68,8 +66,7 @@ public class MappingsFileTemplate {
      */
     public static class Table {
         private String table;
-        private ArrayList<String> filenames;
-        private ArrayList<String> docIds;
+        private Set<Source> sources;
         private Mapping mapping;
 
         private List<Column> columns;
@@ -79,18 +76,15 @@ public class MappingsFileTemplate {
             this.table = tableName;
             this.columns = new ArrayList<>();
             this.columnsIdx = new HashMap<>();
-            this.filenames = new ArrayList<>();
-            this.docIds = new ArrayList<>();
+            this.sources = new HashSet<>();
         }
         public void copyTableSource(Table storedTable){
-            this.setFilenames(storedTable.filenames);
-            this.setDocIds(storedTable.docIds);
+            this.sources = storedTable.sources;
         }
         public void addTableSource(String filename, String docId){
-            if(filename != null)
-                filenames.add(filename);
-            if(docId != null)
-                docIds.add(docId);
+            this.sources.add(new Source(
+               filename, docId
+            ));
         }
 
         public void postDeserialization() {
@@ -137,20 +131,6 @@ public class MappingsFileTemplate {
                 return null;
             }
         }
-
-        public ArrayList<String> getFilenames() {
-            return filenames;
-        }
-        public void setFilenames(ArrayList<String> filenames) {
-            this.filenames = filenames;
-        }
-        public ArrayList<String> getDocIds() {
-            return docIds;
-        }
-        public void setDocIds(ArrayList<String> docIds) {
-            this.docIds = docIds;
-        }
-
 
     }
     //================================================================================
@@ -316,5 +296,51 @@ public class MappingsFileTemplate {
 
     }
     //================================================================================
+
+    public static class Source {
+        private String docID;
+        private String fileName;
+        //private String UUI;
+
+        public Source(String fileName, String docID /*, String UUI*/) {
+            this.fileName = fileName;
+            this.docID = docID;
+            //this.UUI = UUI;
+        }
+
+        public String getDocID() {
+            return docID;
+        }
+        public void setDocID(String docID) {
+            this.docID = docID;
+        }
+        public String getFileName() {
+            return fileName;
+        }
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
+        }
+        /*public String getUUI() {
+            return UUI;
+        }
+        public void setUUI(String UUI) {
+            this.UUI = UUI;
+        }*/
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Source source = (Source) o;
+            return docID.equals(source.docID)
+                && fileName.equals(source.fileName);
+                //&& UUI.equals(source.UUI);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(docID, fileName); //, UUI);
+        }
+    }
 
 }
