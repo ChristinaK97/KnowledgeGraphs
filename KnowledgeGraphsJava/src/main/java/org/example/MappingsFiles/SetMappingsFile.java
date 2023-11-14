@@ -36,23 +36,6 @@ public class SetMappingsFile extends ManageMappingsFile {
         saveMappingsFile(tablesList);
     }
 
-
-    //TODO for testing. Remove it
-    /*public SetMappingsFile(Matches matches, FormatSpecificRules spRules, String PO2DO) {
-        super();
-        this.matches = matches;
-        tablesList = readMapJSON(PO2DO);
-        if(spRules != null) {
-            tablesList.addAll(spRules.getNewMappings());
-            setMatches();
-            spRules.modifyMappings(tablesList);
-        }else
-            setMatches();
-        fileTemplate.setTables(tablesList);
-        saveMappingsFile(PO2DO);
-    }*/
-
-
     private void setMatches() {
         for(Table tableMaps : tablesList) {
             Mapping tableMap = tableMaps.getMapping();

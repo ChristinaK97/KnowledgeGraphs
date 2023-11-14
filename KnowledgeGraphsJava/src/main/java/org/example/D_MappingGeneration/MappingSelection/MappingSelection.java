@@ -15,6 +15,7 @@ import org.example.D_MappingGeneration.FormatSpecific.TabularSpecificRules;
 import org.example.D_MappingGeneration.Matches;
 import org.example.MappingsFiles.MappingsFileTemplate;
 import org.example.MappingsFiles.SetMappingsFile;
+import org.example.MappingsFiles.SetPIIsToMappingsFile;
 import org.example.util.Ontology;
 import org.example.util.Pair;
 import org.example.util.XSDmappers;
@@ -59,7 +60,8 @@ public class MappingSelection {
 
     public MappingSelection(String srcOnto, String tgtOnto,
                             JsonObject bertmapJson, Config.MappingConfig config,
-                            Object datasource
+                            Object datasource,
+                            boolean runForMappingToDO
     ) {
         this.srcOnto = new Ontology(srcOnto);
         this.tgtOnto = new Ontology(tgtOnto);
@@ -71,9 +73,14 @@ public class MappingSelection {
         selectTableOptimal();
         selectTableColumnOptimal();
 
-        FormatSpecificRules spRules = datasource instanceof RelationalDB ?
-                                      new TabularSpecificRules((RelationalDB) datasource) : null;
-        new SetMappingsFile(matches, spRules);
+        if(runForMappingToDO) {
+            FormatSpecificRules spRules = datasource instanceof RelationalDB ?
+                    new TabularSpecificRules((RelationalDB) datasource) : null;
+            new SetMappingsFile(matches, spRules);
+        }else { // run for piis
+            new SetPIIsToMappingsFile(matches);
+        }
+
     }
 
 

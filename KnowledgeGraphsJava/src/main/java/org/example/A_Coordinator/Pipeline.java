@@ -61,11 +61,13 @@ public class Pipeline {
             }
             case BERTMAP ->
                     new MappingSelection(
-                        config.Out.POntology,
-                        config.DOMap.TgtOntology,
+                    /* src_onto = */ config.Out.POntology,
+                    /* tgt_onto = */ config.DOMap.TgtOntology,
                         JsonUtil.readJSON(getPath("C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json")).getAsJsonObject(),
-                        //new BertMap().startBertmap(true), // call bertmap service
-                        config.DOMap, dataSource);
+                    // /* bertmapJson = */ new BertMap().startBertmap(/* mapToDo ? */ true), // call bertmap service
+                    /* mapping config params = */ config.DOMap,
+                    /* input data source = */ dataSource,
+                       true);
             default ->
                     config.DOMap.printUnsupportedMapperError();
         }
@@ -90,9 +92,20 @@ public class Pipeline {
         }else if (config.In.isJSON()){
             new InsertDataJSON((List<String>) dataSource);
         }
+        LG.info("F. PII IDENTIFICATION");
+        runPiiIdentificationPipeline();
+    }
 
+    private void runPiiIdentificationPipeline() {
+        new MappingSelection(
+        /* src_onto = */ config.Out.POntology,
+        /* tgt_onto = */ config.PiiMap.TgtOntology,
+                JsonUtil.readJSON(getPath("C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappingsPiis.json")).getAsJsonObject(),
+        // /* bertmapJson = */ new BertMap().startBertmap(/* mapToDo ? */ false), // call bertmap service
+        /* mapping config params = */ config.PiiMap,
+        null,   // not needed for pii mapping
+        /* mapToDo ? */ false);
         new PIIidentification();
-
     }
 
 

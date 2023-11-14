@@ -68,7 +68,7 @@ public class MappingsFileTemplate {
         private String table;
         private Set<Source> sources;
         private Mapping mapping;
-        private List<URI> dpvMappings;
+        private Set<URI> dpvMappings;
 
         private List<Column> columns;
         private transient HashMap<String, Integer> columnsIdx;
@@ -78,7 +78,7 @@ public class MappingsFileTemplate {
             this.columns = new ArrayList<>();
             this.columnsIdx = new HashMap<>();
             this.sources = new HashSet<>();
-            this.dpvMappings = new ArrayList<>();
+            this.dpvMappings = new HashSet<>();
         }
         public void copyTableSource(Table storedTable){
             this.sources = storedTable.sources;
@@ -141,11 +141,14 @@ public class MappingsFileTemplate {
             this.sources = sources;
         }
 
-        public List<URI> getDpvMappings() {
+        public Set<URI> getDpvMappings() {
             return dpvMappings;
         }
-        public void setDpvMappings(List<URI> dpvMappings) {
+        public void setDpvMappings(Set<URI> dpvMappings) {
             this.dpvMappings = dpvMappings;
+        }
+        public void appendDPVMappings(List<URI> dpvMappings) {
+            this.dpvMappings.addAll(dpvMappings);
         }
     }
     //================================================================================
@@ -159,12 +162,12 @@ public class MappingsFileTemplate {
         private boolean isPii;
         private List<Mapping> mappings;
 
-        private List<URI> dpvMappings;
+        private Set<URI> dpvMappings;
 
         public Column(String field) {
             this.column = field;
             this.mappings = new ArrayList<>();
-            this.dpvMappings = new ArrayList<>();
+            this.dpvMappings = new HashSet<>();
         }
 
         public String getColumn() {
@@ -221,11 +224,14 @@ public class MappingsFileTemplate {
             isPii = pii;
         }
 
-        public List<URI> getDpvMappings() {
+        public Set<URI> getDpvMappings() {
             return dpvMappings;
         }
-        public void setDpvMappings(List<URI> dpvMappings) {
+        public void setDpvMappings(Set<URI> dpvMappings) {
             this.dpvMappings = dpvMappings;
+        }
+        public void appendDPVMappings(List<URI> dpvMappings) {
+            this.dpvMappings.addAll(dpvMappings);
         }
     }
 

@@ -132,7 +132,7 @@ public class PIIidentification {
 // BertMap DPV mappings
 //=============================================================================================================
 
-    private void addBertMapDPVmappings(String ontoEl, List<URI> dpvMappings) {
+    private void addBertMapDPVmappings(String ontoEl, Set<URI> dpvMappings) {
         for(URI dpvClass: dpvMappings) {
             addDetectedPII(ontoEl, dpvClass.toString());
         }
