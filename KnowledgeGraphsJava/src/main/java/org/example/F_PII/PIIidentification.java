@@ -199,8 +199,6 @@ public class PIIidentification {
         // -----------------------------------------------------
         piiFields.forEach((datasetEl, ontoElements) -> {
 
-            System.out.println(datasetEl + " onto_elements = " + ontoElements);
-
             PIIattribute piiAttr = new PIIattribute();
 
             // column name and identifiers
