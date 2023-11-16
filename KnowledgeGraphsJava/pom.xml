@@ -312,6 +312,7 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
         </plugin>-->
 
           <!-- Alternative plugin for uber jar build, compatible with rdf4j and spring boot libraries.
+          https://groups.google.com/g/rdf4j-users/c/Au--U7LGrAg
           https://stackoverflow.com/questions/40907324/rdf4j-rio-unsupportedrdformatexception-when-adding-data-to-an-httprepository-usi
           https://itecnote.com/tecnote/maven-shade-for-parameter-resource-cannot-find-resource-in-class-org-apache-maven-plugins-shade-resource-manifestresourcetransformer/
           -->
