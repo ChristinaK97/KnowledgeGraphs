@@ -96,6 +96,7 @@ public class PIIidentification {
     private void findPiis() {
         for(Table table : tablesList.getTables()) {
             this.tableName = table.getTable();
+            this.colName = this.tableName; // the table itself might store piis->it's match with dpv class
 
             // table pii
             String tableClass = table.getMapping().getOntoElURI().toString();
@@ -197,6 +198,8 @@ public class PIIidentification {
 
         // -----------------------------------------------------
         piiFields.forEach((datasetEl, ontoElements) -> {
+
+            System.out.println(datasetEl + " onto_elements = " + ontoElements);
 
             PIIattribute piiAttr = new PIIattribute();
 
