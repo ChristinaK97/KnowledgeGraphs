@@ -7,14 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import static org.example.A_Coordinator.config.Config.PreprocessingEndpoint;
 
+/* GET http://preprocessing-tool:5000/download/files/original/<path:filename> **/
 @Service
 public class PreprocessingFilesDownloader {
     private final WebClient webClient;
-
-    // GET http://preprocessing-tool:5000/download/files/original/<path:filename>
-    // private static final String PreprocessingEndpoint = "http://preprocessing-tool:5000";
-    private static final String PreprocessingEndpoint = "http://localhost:8080";
 
 
     @Autowired

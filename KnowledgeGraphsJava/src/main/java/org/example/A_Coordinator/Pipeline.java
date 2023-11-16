@@ -122,7 +122,7 @@ public class Pipeline {
 
     private Object getFileDataSource() {
         List<String> downloadedFiles = findFilesInFolder(config.In.DownloadedDataDir, config.In.FileExtension);
-        if(config.In.isCSV() || config.In.isExcel())
+        if(config.In.isCSVlike())
             return getExportedDbSource(downloadedFiles);
         else
             return downloadedFiles;

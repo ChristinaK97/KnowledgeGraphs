@@ -4,8 +4,10 @@ import com.google.gson.JsonObject;
 import org.example.A_Coordinator.Inputs.PreprocessingNotification;
 import org.example.util.JsonUtil;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 import static org.example.util.FileHandler.fileExists;
 import static org.example.util.FileHandler.getPath;
@@ -22,7 +24,11 @@ public class Config {
               getPath(String.format("%s/data/KnowledgeGraphsJava", WORKDIR))
             : getPath(String.format("%s/.KnowledgeGraphsData/KnowledgeGraphsJava", WORKDIR.getParent()));
 
-    // Define the URL of the Python services
+    // Define the URL of the Python services and APIS
+
+    // GET http://preprocessing-tool:5000/download/files/original/<path:filename>
+    // public static final String PreprocessingEndpoint = "http://preprocessing-tool:5000";
+    public static final String PreprocessingEndpoint = "http://localhost:8080";
 
     public static String AAExpansionEndpoint =
             String.format("http://%s:7531/start_aa_expansion", IS_DOCKER_ENV ? "knowledge-graphs-python" : "localhost");
@@ -52,8 +58,7 @@ public class Config {
 
     private void setConfigParams(String UseCase, String FileExtension) {
 
-        String configFilePath = getPath(String.format(
-                "%s/ConfigFiles/%s_%s_Config.json", resourcesPath, UseCase, FileExtension));
+        String configFilePath = getConfigFilePath(UseCase, FileExtension);
         JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
 
         // Inputs parameters -----------------------------------------------------------------------
@@ -70,6 +75,22 @@ public class Config {
 
         PiiMap = new MappingConfig(
                 configFile.getAsJsonObject("PiiMappingParameters"), In.UseCase, In.DatasetResourcesPath);
+    }
+
+
+    private String getConfigFilePath(String UseCase, String FileExtension) {
+        String configFilePath = getPath(String.format(
+                "%s/ConfigFiles/%s_%s_Config.json", resourcesPath, UseCase, FileExtension));
+
+        if(InputPointConfig.isCSVlike(FileExtension) && !fileExists(configFilePath)) {
+            for(String CSVlikeExtension : InputPointConfig.CSVlikeFileTypes) {
+                configFilePath = getPath(String.format(
+                        "%s/ConfigFiles/%s_%s_Config.json", resourcesPath, UseCase, CSVlikeExtension));
+                if(fileExists(configFilePath))
+                    break;
+            }
+        }
+        return configFilePath;
     }
 
 
@@ -124,9 +145,16 @@ public class Config {
 
         public boolean isJSON() {return "json".equals(FileExtension);}
         public boolean isDSON() {return "dcm".equals(FileExtension);}
+        public boolean isSQL()  {return credentials != null || "SQL".equals(FileExtension);}
+
+
         public boolean isExcel(){return "xlsx".equals(FileExtension);}
-        public  boolean isCSV() {return "csv".equals(FileExtension);}
-        public boolean isSQL()  {return credentials != null;}
+        public boolean isCSV()  {return "csv".equals(FileExtension);}
+        public boolean isTSV()  {return "tsv".equals(FileExtension);}
+
+        public static Set<String> CSVlikeFileTypes = Set.of("xlsx", "csv", "tsv");
+        public boolean isCSVlike(){return CSVlikeFileTypes.contains(FileExtension);}
+        public static boolean isCSVlike(String fileExtension){return CSVlikeFileTypes.contains(fileExtension);}
 
     }
 

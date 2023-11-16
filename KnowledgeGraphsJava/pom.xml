@@ -246,7 +246,7 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
       <artifactId>rdf4j-model</artifactId>
       <version>4.3.8</version>
     </dependency>
-
+    <!-- -->
 
 
 
