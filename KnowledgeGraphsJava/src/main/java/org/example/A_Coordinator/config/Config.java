@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import org.example.A_Coordinator.Inputs.PreprocessingNotification;
 import org.example.util.JsonUtil;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Set;
@@ -14,7 +13,7 @@ import static org.example.util.FileHandler.getPath;
 
 public class Config {
 
-    // TODO: DO NOT FORGET TO CHANGE VALUE FOR DEPLOYMENT
+    // TODO: DO NOT FORGET TO CHANGE VALUE FOR DEPLOYMENT!!!!!
     private static boolean MAINTAIN_PREPROCESSING_RESULTS = false;
 
     public static Path WORKDIR = Paths.get(System.getProperty("user.dir"));
@@ -26,6 +25,7 @@ public class Config {
 
     // Define the URL of the Python services and APIS
 
+    // TODO: DO NOT FORGET TO CHANGE VALUE FOR DEPLOYMENT!!!!!
     // GET http://preprocessing-tool:5000/download/files/original/<path:filename>
     // public static final String PreprocessingEndpoint = "http://preprocessing-tool:5000";
     public static final String PreprocessingEndpoint = "http://localhost:8080";

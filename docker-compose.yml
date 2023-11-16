@@ -36,9 +36,28 @@ services:
       context: ./KnowledgeGraphsJava
     depends_on:
       - knowledge-graphs-python
+      - graphdb
     image: knowledge-graphs-main:latest
     container_name: knowledge-graphs-main
     ports:
       - "7530:7530"
     volumes:
       - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
+
+
+  graphdb:
+    image: ontotext/graphdb:10.4.0
+    container_name: graphdb
+    restart: unless-stopped
+    environment:
+      - GRAPHDB_HOME=/opt/graphdb/home
+    ports:
+      - "7200:7200"
+    volumes:
+      - graphdb-data:/opt/graphdb/home/data
+
+
+volumes:
+  graphdb-data:
+    name: graphdb-data
+    external: true

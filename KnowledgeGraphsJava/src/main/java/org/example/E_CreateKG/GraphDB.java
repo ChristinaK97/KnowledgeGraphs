@@ -19,6 +19,7 @@ import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.example.A_Coordinator.Pipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.eclipse.rdf4j.model.util.Configurations;
 
 import java.io.*;
 
@@ -58,13 +59,13 @@ public class GraphDB {
 // ----------------------------------------------------------------------------------------------------
 
     // TODO: replace deprecated
+    // https://graphdb.ontotext.com/documentation/10.4/using-graphdb-with-the-rdf4j-api.html
     // NAMESPACE = http://www.openrdf.org/config/repository#
     // REPOSITORY = http://www.openrdf.org/config/repository#Repository
     // REPOSITORYID = http://www.openrdf.org/config/repository#repositoryID
 
 
     private void createRepository() throws Exception{
-        // https://graphdb.ontotext.com/documentation/10.4/using-graphdb-with-the-rdf4j-api.html
         logger.info("> CREATE REPOSITORY");
 
         if (repoExists()) // remove and create again
@@ -99,6 +100,7 @@ public class GraphDB {
     }
 
 // ----------------------------------------------------------------------------------------------------
+    /** Set the name/id of the repository to the config file. TODO: Can setting repo id be done more easily? */
     public String repoConfigFile() {
         String configTemplateFilePath = getPath(String.format(
                 "%s/ConfigFiles/graphdb_config_template_file.ttl", resourcesPath));
@@ -140,9 +142,8 @@ public class GraphDB {
         logger.info("> UPLOAD DATA...");
         // When adding data we need to start a transaction
         connection.begin();
-
-        String DOExtension = getFileExtension(Pipeline.config.DOMap.TgtOntology);
-        RDFFormat DOFormat = "ttl".equals(DOExtension) ? RDFFormat.TURTLE : RDFFormat.RDFXML;
+        // Recognise ontology file syntax. Section 2: https://rdf4j.org/documentation/programming/rio/
+        RDFFormat DOFormat = Rio.getParserFormatForFileName(Pipeline.config.DOMap.TgtOntology).orElse(RDFFormat.RDFXML);
 
         connection.add(new FileInputStream(Pipeline.config.DOMap.TgtOntology), "urn:base", DOFormat);
         connection.add(new FileInputStream(Pipeline.config.Out.FullGraph), "urn:base", RDFFormat.TURTLE);
