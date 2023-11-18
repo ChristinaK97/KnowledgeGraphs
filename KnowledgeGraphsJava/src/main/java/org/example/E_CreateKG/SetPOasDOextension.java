@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.Annotations.normalise;
 import static org.example.util.Annotations.PURE_PROPERTY_URI;
 import static org.example.util.Ontology.getLocalName;
@@ -64,8 +65,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                     if(map.hasPath())
                         importURIs.addAll(extractOntoModule(map.getPathURIs()));
                 }
-        }
-        System.out.println(importURIs);
+        }                                                                                                               if(DEV_MODE) System.out.println(importURIs);
     }
 
     private List<String> extractOntoModule(List<URI> uris) {
@@ -85,8 +85,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         }*/
         OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         RDFDataMgr.read(dModel, config.DOMap.TgtOntology.replace("\\", "/"));
-        ontology.pModel.addSubModel(dModel);
-        //pModel.listClasses().forEach(System.out::println);
+        ontology.pModel.addSubModel(dModel);                                                                            //if(DEV_MODE) pModel.listClasses().forEach(System.out::println);
     }
 
 
@@ -213,11 +212,10 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *      3. Remove all triples that contain this class as subject or object
          *      4. Delete the class from the ontology
          */
-        OntClass ontClass = ontology.getOntClass(classURI);                          // 1
-        if(ontClass != null){
-            System.out.println("DEL " + ontClass.getLocalName());
+        OntClass ontClass = ontology.getOntClass(classURI);                // 1
+        if(ontClass != null){                                                                                           if(DEV_MODE) System.out.println("DEL " + ontClass.getLocalName());
             removeRestriction(ontClass, null);                    //2
-            ontology.pModel.removeAll(ontClass, null, null);                   //3
+            ontology.pModel.removeAll(ontClass, null, null);          //3
             ontology.pModel.removeAll(null, null, ontClass);
             ontClass.remove();                                             //4
         }
@@ -232,8 +230,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *      5. Delete the property from the ontology model
          */
         OntProperty property = ontology.getOntProperty(propURI);     // 1
-        if(property != null) {
-            System.out.println("DEL "+ property.getLocalName());
+        if(property != null) {                                                                                          if(DEV_MODE) System.out.println("DEL "+ property.getLocalName());
 
             // remove restriction statements and anonymous restriction classes containing the property
             OntResource domain = property.getDomain();
@@ -283,8 +280,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *              5. Handle the case where the first element in the mapping path is a DO class
          */
         Mapping tableMapping = tableMaps.getMapping();
-        for (Column colMap : tableMaps.getColumns()) {               //1
-            System.out.println("MAKE CONS WITHOUT PATH : " + tableMaps.getTable() + "." + colMap.getColumn());
+        for (Column colMap : tableMaps.getColumns()) {               /*1*/                                              if(DEV_MODE) System.out.println("MAKE CONS WITHOUT PATH : " + tableMaps.getTable() + "." + colMap.getColumn());
 
             Mapping objMap  = colMap.getObjectPropMapping();       //2
             Mapping dataMap = colMap.getDataPropMapping();
@@ -303,8 +299,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             handleClassAsFirstPathNode(                             //5
                     tableMapping.getOntoElResource(),
                     tableMapping.getOntoElURI(), dataMap);
-
-            System.out.println("-------");
+                                                                                                                        if(DEV_MODE) System.out.println("-------");
         }
     }
 
@@ -314,8 +309,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
         Mapping tableMapping = tableMaps.getMapping();
         List<URI> tablePath = tableMapping.getPathURIs();
 
-        for (Column colMap : tableMaps.getColumns()) {
-            System.out.println("MAKE CONS WITH PATH: " + tableMaps.getTable() + "<.>" + colMap.getColumn());
+        for (Column colMap : tableMaps.getColumns()) {                                                                  if(DEV_MODE) System.out.println("MAKE CONS WITH PATH: " + tableMaps.getTable() + "<.>" + colMap.getColumn());
 
             Mapping objMap = colMap.getObjectPropMapping();
             Mapping dataMap = colMap.getDataPropMapping();
@@ -323,8 +317,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             for(Mapping map : new Mapping[]{objMap, dataMap}) {
                 try {
                     OntProperty prop = ontology.getOntProperty(map.getOntoElURI());
-                    OntResource newDomain = ontology.getOntClass(tablePath.get(tablePath.size()-1));
-                    System.out.println("\ttable class " + tableMapping.getOntoElResource());
+                    OntResource newDomain = ontology.getOntClass(tablePath.get(tablePath.size()-1));                    if(DEV_MODE) System.out.println("\ttable class " + tableMapping.getOntoElResource());
                     correctDomain(prop, prop.getDomain(), getLocalName(tableMapping.getOntoElURI()), newDomain);
                 }catch (NullPointerException e) {
                     // obj property was unnecessary so it was previously deleted
@@ -341,8 +334,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
 
-    private void makeObjPropConsistent(Mapping objMap, String tableClass) {
-        System.out.println("MAKE OBJ PROP CONS " + objMap.getOntoElResource());
+    private void makeObjPropConsistent(Mapping objMap, String tableClass) {                                             if(DEV_MODE) System.out.println("MAKE OBJ PROP CONS " + objMap.getOntoElResource());
         correctDomain(objMap, tableClass);
     }
 
@@ -380,9 +372,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
         OntProperty prop = ontology.getOntProperty(map.getOntoElURI());
         OntResource curDomain = prop.getDomain();
-        OntResource newDomain = ontology.getOntClass(map.getLastNodeFromPath());
+        OntResource newDomain = ontology.getOntClass(map.getLastNodeFromPath());                                        if(DEV_MODE) System.out.println("PATH IS NOT NULL. DOMAIN WILL BE CORRECTED. PATH = " + map.getPathResources());
 
-        System.out.println("PATH IS NOT NULL. DOMAIN WILL BE CORRECTED. PATH = " + map.getPathResources());
         correctDomain(prop, curDomain, tableClass, newDomain);
     }
 
@@ -411,15 +402,13 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          *      10. Go to this class and remove the restriction "prop some range"
          * 11. Set newDomain as the domain of the prop
          */
-        System.out.println("CORRECT DOMAIN\nPROP : " + getLocalName(prop.getURI()) + " CURDOM: " + curDomain + " NEWDOM: " + newDomain + " TABLE CLASS = " + tableClass);
-
+                                                                                                                                if(DEV_MODE) System.out.println("CORRECT DOMAIN\nPROP : " + getLocalName(prop.getURI()) + " CURDOM: " + curDomain + " NEWDOM: " + newDomain + " TABLE CLASS = " + tableClass);
         if(curDomain != null) {                                                                                    //0
             if (curDomain.canAs(UnionClass.class)) {                                                               //1
                 HashSet<OntClass> unionDomainClasses = new HashSet<>();
                 UnionClass unionClass = curDomain.as(UnionClass.class);
 
-                for(OntClass operand : unionClass.listOperands().toList()) {                                       //2
-                    System.out.println("Cur Union operand: " + operand);
+                for(OntClass operand : unionClass.listOperands().toList()) {                                       /*2*/        if(DEV_MODE) System.out.println("Cur Union operand: " + operand);
 
                     if(getLocalName(operand).equals(tableClass)) {   //3
                         unionDomainClasses.add(newDomain.asClass());                                               //4
@@ -433,13 +422,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
                             unionDomainClasses.iterator().next();                                                   // a single class
             }else                                                                                                   //9
                 removeRestriction(curDomain.asClass(), prop);                                                       //10
-        }
-
-        System.out.println("New Domain:");
-        printClass(newDomain);
-
-        prop.setDomain(newDomain);                                                                                  //11
-        System.out.println();
+        }                                                                                                                         if(DEV_MODE) { System.out.println("New Domain:"); printClass(newDomain);}
+        prop.setDomain(newDomain);                                                                                  /*11*/        if(DEV_MODE) System.out.println();
     }
 
 
@@ -450,8 +434,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
          * 3. Remove restriction "property some oldRange" on DClass
          * 4. Add restriction    "property some newRange" on DClass
          */
-        System.out.println("CORRECT RANGE OF " + property + " TO " + newRange + "\n");
-        property.setRange(newRange);
+        property.setRange(newRange);                                                                                    if(DEV_MODE) System.out.println("CORRECT RANGE OF " + property + " TO " + newRange + "\n");
 
         OntClass DClass = property.getDomain().asClass();
         removeRestriction(DClass, property);
@@ -490,8 +473,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             if (stmt.getObject().canAs(Restriction.class))
                 if (onProperty == null || stmt.getObject().as(Restriction.class).onProperty(onProperty))  //4
                     toRemove.add(stmt);  //5
-        }
-        System.out.println(toRemove);
+        }                                                                                                               if(DEV_MODE) System.out.println(toRemove);
         toRemove.forEach(ontology.pModel::remove);  //6
         for(Statement stmt : toRemove)     //7
             ontology.pModel.removeAll(stmt.getObject().asResource(), null, null);
@@ -499,13 +481,11 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     }
 
     private void addRangeRestriction(OntResource DClassExpression, OntProperty onProperty, OntResource newRange) {
-        System.out.println("Add new range restriction");
+                                                                                                                        if(DEV_MODE) System.out.println("Add new range restriction");
         if (DClassExpression.canAs(UnionClass.class)) {
-            for (OntClass operand : DClassExpression.as(UnionClass.class).listOperands().toList()) {
-                System.out.printf("Is Union SET %s sCo %s some %s\n", getLocalName(operand.getURI()), getLocalName(onProperty.getURI()), newRange.getLocalName());
-                addRangeRestriction(operand, onProperty, newRange);                                                        //6
-        }}else {
-            System.out.printf("Is class SET %s sCo %s some %s\n", getLocalName(DClassExpression.getURI()), getLocalName(onProperty.getURI()), newRange.getLocalName());
+            for (OntClass operand : DClassExpression.as(UnionClass.class).listOperands().toList()) {                    if(DEV_MODE) System.out.printf("Is Union SET %s sCo %s some %s\n", getLocalName(operand.getURI()), getLocalName(onProperty.getURI()), newRange.getLocalName());
+                addRangeRestriction(operand, onProperty, newRange);                                                  //6
+        }}else {                                                                                                        if(DEV_MODE) System.out.printf("Is class SET %s sCo %s some %s\n", getLocalName(DClassExpression.getURI()), getLocalName(onProperty.getURI()), newRange.getLocalName());
             addRangeRestriction(DClassExpression.asClass(), onProperty, newRange);
         }
     }
@@ -544,7 +524,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             // property wasn't already created
             if (ontology.getOntProperty(newPropURI) == null) {
 
-                OntClass DtableClass = ontology.getOntClass(tableClassURI);                                             System.out.println("FIRST CLASS : " + firstClass); System.out.println("NEW PROP :" + newPropURI);
+                OntClass DtableClass = ontology.getOntClass(tableClassURI);                                             if(DEV_MODE) System.out.println("FIRST CLASS : " + firstClass); System.out.println("NEW PROP :" + newPropURI);
                 OntProperty newProp = createObjectProperty(
                         newPropURI,
                         DtableClass,
@@ -602,11 +582,8 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
 
     private void addOntologyMetadata() {
-        String basePrefix = ontology.getBasePrefix();
-        System.out.println(basePrefix);
-
+        String basePrefix = ontology.getBasePrefix();                                                                   if(DEV_MODE) System.out.println(basePrefix);
         String filePath = config.Out.RefinedOntology;
-
         String format = config.DOMap.offlineOntology ? "<%s> owl:imports <file:///%s> ." : "<%s> owl:imports <%s> .";
 
         try {

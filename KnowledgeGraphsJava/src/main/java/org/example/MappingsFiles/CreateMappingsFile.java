@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.Annotations.CLASS_SUFFIX;
 import static org.example.util.Annotations.TABLE_PREFIX;
 import static org.example.util.FileHandler.fileExists;
@@ -135,8 +136,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
 // =====================================================================================================
 
     private void createJSON(String rootElementName, HashMap<String, String> tableClasses) {
-        rootElementName = "/" + rootElementName;
-        System.out.println(rootElementName);
+        rootElementName = "/" + rootElementName;                                                                        if(DEV_MODE) System.out.println(rootElementName);
         HashMap<String, Table> tableClassesTable = new HashMap<>(); // MappingsFileTemplate.Table object for each TableClass
         for(String tableName: tableClasses.keySet()) {
             // Table table = new Table(tableName);
@@ -149,9 +149,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
             table.setMapping(tableMapping);
             tableClassesTable.put(tableName, table);
             fileTemplate.addTable(tableName, table);
-        }
-
-        System.out.println(tableClassesTable.keySet());
+        }                                                                                                               if(DEV_MODE) System.out.println(tableClassesTable.keySet());
 
         ArrayList<String> columnNames = new ArrayList<>(trf.keySet());
         Collections.sort(columnNames);
@@ -159,8 +157,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
         for(String columnName : columnNames) {
             if(columnName.equals(rootElementName))
                 continue;
-            String tableName = columnName.substring(0, columnName.lastIndexOf("/"));
-            //System.out.println(tableName + "\t\t" + columnName + "\t\t" + tableClassesTable.get(tableName));
+            String tableName = columnName.substring(0, columnName.lastIndexOf("/"));                                //if(DEV_MODE) System.out.println(tableName + "\t\t" + columnName + "\t\t" + tableClassesTable.get(tableName));
 
             Column column = updatedColumn(tableName, columnName, config.notification.hasExtractedTable(tableName));
             for (Transformation t : trf.get(columnName))

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.*;
 import static org.example.util.Ontology.getLocalName;
 
@@ -50,21 +51,21 @@ public class DICOMspecificRules implements FormatSpecificRules {
                         + "                 rdfs:subPropertyOf <" + prefix + Annotations.PURE_OBJ_PROPERTY + "> ; \n"
                         + "                 rdfs:range ?columnClass . \n"
                         + "}";
-        System.out.println(queryString);
+                                                                                                                                  if(DEV_MODE) System.out.println(queryString);
         String[] vars = new String[] {"colClassURI", "tagName"};
-        tech.tablesaw.api.Table table = dicomPO.runQuery(queryString, vars);                                                System.out.println(table);
+        tech.tablesaw.api.Table table = dicomPO.runQuery(queryString, vars);                                                      if(DEV_MODE) System.out.println(table);
 
         table.forEach(row -> {
 
             String colClassURI = row.getString("colClassURI");
-            String tagName = row.getString("tagName");                                                                  System.out.println("colClassURI: " + colClassURI + ", tagName: " + tagName);
+            String tagName = row.getString("tagName");                                                                 if(DEV_MODE) System.out.println("colClassURI: " + colClassURI + ", tagName: " + tagName);
 
             ArrayList<String> path = new ArrayList<>(Collections.singleton(hasItemURI));
-            String item = dicomDO.getBasePrefix() + tagName.replaceAll(" ", "") + "Item";                           System.out.println(item);
+            String item = dicomDO.getBasePrefix() + tagName.replaceAll(" ", "") + "Item";                         if(DEV_MODE) System.out.println(item);
 
-            if(dicomDO.getOntClass(item) != null) {                                                                                 System.out.println("exists");
+            if(dicomDO.getOntClass(item) != null) {                                                                                if(DEV_MODE)  System.out.println("exists");
                 path.add(item);
-            }else {                                                                                                                 System.out.println("not exists");
+            }else {                                                                                                                if(DEV_MODE) System.out.println("not exists");
                 String newItemClass = colClassURI + "Item";
                 newElements.add(
                         dicomPO.createClass(

@@ -19,6 +19,7 @@ import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
 import org.example.util.Ontology;
 import org.example.util.Pair;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader.nullValues;
 import static org.example.util.Ontology.getLocalName;
 
@@ -238,7 +240,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         // Save the individualsModel to a TTL file
         String outputFile = config.Out.IndividualsTTL;
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-            individualsModel.write(fos, "TURTLE");                                                                  System.out.println("Individuals saved to: " + outputFile);
+            individualsModel.write(fos, "TURTLE");                                                                 if(DEV_MODE) System.out.println("Individuals saved to: " + outputFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -254,7 +256,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         }
         ontology.pModel.setNsPrefix("", config.Out.POntologyBaseNS);
         ontology.pModel.write(out, "TURTLE");
-        System.out.println("Full graph saved to " + filePath);
+        LoggerFactory.getLogger(InsertDataBase.class).info("Full graph saved to " + filePath);
     }
 
 

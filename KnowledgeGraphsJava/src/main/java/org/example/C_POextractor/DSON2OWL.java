@@ -11,6 +11,7 @@ import tech.tablesaw.api.Table;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.Annotations.*;
 import static org.example.util.Ontology.getLocalName;
 
@@ -40,8 +41,7 @@ public class DSON2OWL extends JSON2OWL {
                 triple[1],
                 triple[2],
                 extractedField
-        );
-                                                                                                                        if(print) System.out.println("\tADD OP: " + Arrays.toString(triple) + "\t\t" + rule);
+        );                                                                                                              if(DEV_MODE) System.out.println("\tADD OP: " + Arrays.toString(triple) + "\t\t" + rule);
     }
 
     private String[] getBroaderResources(String domainSubclass, String rangeSubclass) {
@@ -50,9 +50,7 @@ public class DSON2OWL extends JSON2OWL {
         String range = rangeSubclass;
         String objProp = null;
         OntClass domainSuperclass = sedi.getTopSuperclass(domainSubclass);
-        OntClass rangeSuperclass  = sedi.getTopSuperclass(rangeSubclass);
-
-        System.out.println("TOP SUPER = " + domainSuperclass + " " + rangeSuperclass);
+        OntClass rangeSuperclass  = sedi.getTopSuperclass(rangeSubclass);                                               if(DEV_MODE) System.out.println("TOP SUPER = " + domainSuperclass + " " + rangeSuperclass);
 
         if(domainSuperclass != null && rangeSuperclass != null) {
             String query = Ontology.swPrefixes() + "\n" +
@@ -83,8 +81,7 @@ public class DSON2OWL extends JSON2OWL {
         /*for(String topClass : new String[]{domain, range})
             if(!tableClasses.containsKey(topClass))
                 tableClasses.put(topClass, topClass);*/
-
-        System.out.printf("NEW TRIPLE : < %s , %s , %s >\n", domain, objProp, range);
+                                                                                                                        if(DEV_MODE) System.out.printf("NEW TRIPLE : < %s , %s , %s >\n", domain, objProp, range);
         return new String[]{domain, objProp, range};
     }
 

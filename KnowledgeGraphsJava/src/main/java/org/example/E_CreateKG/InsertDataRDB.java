@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.Annotations.symmetricObjPropName;
 import static org.example.util.Ontology.getLocalName;
 
@@ -68,17 +69,12 @@ public class InsertDataRDB extends InsertDataBase {
     @Override
     protected void mapData() {
         db.getrTables().forEach((tableName, rTable) -> {
-            tech.tablesaw.api.Table data = db.retrieveDataFromTable(tableName);
-
-            /*p*/System.out.println(">> TABLE : " + tableName);
-            /*p*/System.out.println(data.first(3));
-            /*p*/rTable.getFKs().forEach((t, r) -> System.out.println("FK " + t + " " + r));
+            tech.tablesaw.api.Table data = db.retrieveDataFromTable(tableName);                                         if(DEV_MODE){System.out.println(">> TABLE : " + tableName); System.out.println(data.first(3)); rTable.getFKs().forEach((t, r) -> System.out.println("FK " + t + " " + r));}
 
             // for each record in the table
             for(Row row : data) {
 
-                if(!tablesClass.containsKey(tableName)) { //TODO
-                    /*p*/System.err.println("Table " + tableName + " is not a class.");
+                if(!tablesClass.containsKey(tableName)) { /*TODO*/                                                      if(DEV_MODE) System.err.println("Table " + tableName + " is not a class.");
                     continue;
                 }
 
@@ -86,9 +82,7 @@ public class InsertDataRDB extends InsertDataBase {
                 String coreIndivURI = getIndivURI(getTClass(tableName), rowID);
                 Resource indiv = createIndiv(coreIndivURI, getTClass(tableName), tableName);
 
-                paths.get(tableName).forEach((colName, colPath) -> {
-
-                     //*p*/System.out.println("T : " + tableName + " C : " + colName);
+                paths.get(tableName).forEach((colName, colPath) -> {                                                    // if(DEV_MODE) System.out.println("T : " + tableName + " C : " + colName);
 
                     Object colValue = row.getObject(colName);
                     if(isNotNull(colValue)) { // row has value for this column
@@ -102,8 +96,7 @@ public class InsertDataRDB extends InsertDataBase {
                                           String.format("%s.%s", tableName, colName));
                     }
                 });
-            }
-            /*p*/System.out.println("\n\n");
+            }                                                                                                           if(DEV_MODE) System.out.println("\n\n");
         });
 
     }
@@ -187,8 +180,7 @@ public class InsertDataRDB extends InsertDataBase {
     private Resource createIndiv(String indivURI, OntClass indivType, String comment) {
         Resource indiv = ontology.getOntResource(indivURI);
         if(indiv == null) {
-            //System.out.println("create " + indivURI);
-            indiv = ontology.createResource(indivURI, null,null, comment);
+            indiv = ontology.createResource(indivURI, null,null, comment);                                 //if(DEV_MODE) System.out.println("create " + indivURI);
             indiv.addProperty(RDF.type, indivType);
         }
         return indiv;
@@ -207,8 +199,7 @@ public class InsertDataRDB extends InsertDataBase {
 
         // select * from refTable where refColumn = trgID
         Iterable<Row> selectedRows = db.selectRowsWithValue(fkp.refTable, fkp.refColumn, trgID);
-        for(Row tgtRow : selectedRows) {
-            System.out.println(tgtRow);
+        for(Row tgtRow : selectedRows) {                                                                                // if(DEV_MODE) System.out.println(tgtRow);
             String tgtURI = getIndivURI( // tgtClass + concat(pk values of ref row)
                                 tgtClass, rowID(tgtRow, db.getTable(fkp.refTable)));
             Resource tgtIndiv = createIndiv(tgtURI, tgtClass, fkp.refTable);

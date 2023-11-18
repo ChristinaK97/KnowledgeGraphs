@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.Ontology.getLocalName;
 
 public class InsertDataJSON  extends InsertDataBase {
@@ -61,7 +62,7 @@ public class InsertDataJSON  extends InsertDataBase {
         for (String file : files) {
             currentFileName = file.substring(file.lastIndexOf("/")+1, file.lastIndexOf("."));
             indivNames = new DualHashBidiMap<>(); // reset per file
-            JsonElement json = JsonUtil.readJSON(file);                                                                 System.out.println("Root " + root);
+            JsonElement json = JsonUtil.readJSON(file);                                                                 if(DEV_MODE) System.out.println("Root " + root);
             parseJson(root, null, null, json,
                     root.equals("/" + config.In.DefaultRootClassName) ? root : ""
             );
@@ -106,7 +107,7 @@ public class InsertDataJSON  extends InsertDataBase {
          * 7. Else, call the appropriate method to parse the jobject or jarray value
          *    (these functions contain the recursive call)
          */
-                                                                                                                        System.out.println("\nREC prev= " + prev +  "\tprevInd= " + (prevIndiv!=null? indivNames.getKey(getLocalName(prevIndiv)):null) + "\textr = " + extractedField +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:""));
+                                                                                                                        if(DEV_MODE) System.out.println("\nREC prev= " + prev +  "\tprevInd= " + (prevIndiv!=null? indivNames.getKey(getLocalName(prevIndiv)):null) + "\textr = " + extractedField +"\tkey= "+ key + (key!=null ? "\tvalue= "+ value:""));
         if(prev.equals(root) && key == null) {                                                                      //1
             classCounter = new HashMap<>();                                                                         //2
             setCounter(root);
@@ -149,10 +150,10 @@ public class InsertDataJSON  extends InsertDataBase {
          *     e.g., key = properties value = {p1:v1, p2:v2}  nestedKey=[p1,p2]
          *           call(key= properties, pI= record1_properties0, nestedKey= p1, value= v1, eF= "/record/properties/p1 and same for p2
          */
-                                                                                                                        System.out.println("JObject :");
+                                                                                                                        if(DEV_MODE) System.out.println("JObject :");
         if(key == null) {    /*1*/
-            key = prev;                                                                                                 System.out.println("Null key");
-        } else {             /*2*/                                                                                      System.out.printf("\tExtr Field = %s Prev Indiv Name = %s\n", extractedField, indivNames.getKey(getLocalName(prevIndiv)));
+            key = prev;                                                                                                 if(DEV_MODE) System.out.println("Null key");
+        } else {             /*2*/                                                                                      if(DEV_MODE) System.out.printf("\tExtr Field = %s Prev Indiv Name = %s\n", extractedField, indivNames.getKey(getLocalName(prevIndiv)));
             setCounter(extractedField);
             prevIndiv = createColPath(prevIndiv, extractedField, null);   //3
         }
@@ -180,7 +181,7 @@ public class InsertDataJSON  extends InsertDataBase {
          *                  -[p_person_friends]-> person1_friends1 -[name]-> Bob
          *                                                         -[age]-> 20
          */
-                                                                                                                        System.out.println("JArray");
+                                                                                                                        if(DEV_MODE) System.out.println("JArray");
         boolean[] type = JsonUtil.arrayType(valueArray);   //1
 
         if(type[0] && type[1]){  //2
@@ -209,7 +210,7 @@ public class InsertDataJSON  extends InsertDataBase {
      */
     private ArrayList<Pair<OntResource,Boolean>> getColPath(String extractedField) {
         String tableClassPath = extractedField.equals(root)? extractedField
-                : extractedField.substring(0, extractedField.lastIndexOf("/"));                                     System.out.println("Get Path for element " + extractedField + " of class " + tableClassPath);
+                : extractedField.substring(0, extractedField.lastIndexOf("/"));                                     if(DEV_MODE) System.out.println("Get Path for element " + extractedField + " of class " + tableClassPath);
 
         ArrayList<Pair<OntResource,Boolean>> cp = paths.get(tableClassPath).get(extractedField);
         return cp != null ? cp : new ArrayList<>();
@@ -228,7 +229,7 @@ public class InsertDataJSON  extends InsertDataBase {
      */
     protected long getClassCounter(String tableClassPath, String className) {
         if(!classCounter.get(tableClassPath).containsKey(className))
-            classCounter.get(tableClassPath).put(className, 0L);                                                        System.out.println("Get counter for table " + tableClassPath + " element : " + className + " = " + classCounter.get(tableClassPath).get(className));
+            classCounter.get(tableClassPath).put(className, 0L);                                                        if(DEV_MODE) System.out.println("Get counter for table " + tableClassPath + " element : " + className + " = " + classCounter.get(tableClassPath).get(className));
         return classCounter.get(tableClassPath).get(className);
     }
 
@@ -237,7 +238,7 @@ public class InsertDataJSON  extends InsertDataBase {
      * (it doesn't reset the counters of table extracted field, just initializes the hashmap)
      * @param extractedField JPath of a table
      */
-    private void setCounter(String extractedField) {                                                                    System.out.println("Set counter for " + extractedField);
+    private void setCounter(String extractedField) {                                                                    if(DEV_MODE) System.out.println("Set counter for " + extractedField);
         if(!classCounter.containsKey(extractedField))
             classCounter.put(extractedField, new HashMap<>());
     }
@@ -298,21 +299,21 @@ public class InsertDataJSON  extends InsertDataBase {
          *
          */
         String className, tableClassPath="", indivLabel;  //1
-        long classCounterValue=-1;                                                                                      System.out.println("> Create indiv of type " + indivType);
+        long classCounterValue=-1;                                                                                      if(DEV_MODE) System.out.println("> Create indiv of type " + indivType);
 
         if(isRoot) {  //2
-            className = root.substring(1);                                                                     System.out.println("\tisRoot true");
+            className = root.substring(1);                                                                     if(DEV_MODE) System.out.println("\tisRoot true");
             indivLabel = String.format("%s%d", className, currRowID);
         }else {      //3
             className = getLocalName(indivType);
             tableClassPath = extractedField.substring(0, extractedField.lastIndexOf("/"));
-            classCounterValue = getClassCounter(tableClassPath, className);                                             System.out.println("\tclass counter value = " + classCounterValue);
+            classCounterValue = getClassCounter(tableClassPath, className);                                             if(DEV_MODE) System.out.println("\tclass counter value = " + classCounterValue);
             String prevIndivLabel = indivNames.getKey(getLocalName(prevIndiv));
 
             boolean isTableClassWithPath = tablesClass.containsKey(extractedField)
                     && tablesClass.get(extractedField).hasPath();  //4
 
-            if(isTableClassWithPath && !className.endsWith("Item")) {                                                   System.out.println("\text field " + extractedField + " is table with path");
+            if(isTableClassWithPath && !className.endsWith("Item")) {                                                   if(DEV_MODE) System.out.println("\text field " + extractedField + " is table with path");
                 Matcher match = Pattern.compile("\\d+$").matcher(prevIndivLabel);
                 match.find();
                 indivLabel = String.format("%s_%s%s", prevIndivLabel, className, match.group());
@@ -321,7 +322,7 @@ public class InsertDataJSON  extends InsertDataBase {
                 indivLabel = String.format("%s_%s%d", prevIndivLabel, className, classCounterValue - (createNewIndiv ? 0 : 1));
             }
         }
-        Resource indiv = null;                                                                                                  System.out.println("\tTry Indiv = "+ indivLabel+ " create new ? " + createNewIndiv + "\n\t counter = " + classCounter);
+        Resource indiv = null;                                                                                                  if(DEV_MODE) System.out.println("\tTry Indiv = "+ indivLabel+ " create new ? " + createNewIndiv + "\n\t counter = " + classCounter);
         if(indivNames.containsKey(indivLabel))
             indiv = ontology.getOntResource(config.Out.POntologyBaseNS + indivNames.get(indivLabel));
 
@@ -332,7 +333,7 @@ public class InsertDataJSON  extends InsertDataBase {
             indivNames.put(indivLabel, indivCounter.toString());
             indiv = ontology.createResource(config.Out.POntologyBaseNS + indivCounter, null, indivLabel, null);
             indiv.addProperty(RDF.type, indivType);
-            indiv.addLiteral(SKOS.prefLabel, String.format("%d_%d_%s", currRowID - (isRoot?0:1), indivCounter, getLocalName(indivType)));   System.out.println("\tcreate " + indivLabel + " as " + indiv);
+            indiv.addLiteral(SKOS.prefLabel, String.format("%d_%d_%s", currRowID - (isRoot?0:1), indivCounter, getLocalName(indivType)));               if(DEV_MODE) System.out.println("\tcreate " + indivLabel + " as " + indiv);
 
             if(isRoot)
                 ++currRowID;
@@ -390,7 +391,7 @@ public class InsertDataJSON  extends InsertDataBase {
          * 5. set the data value to the last node using the data property in the final pos of the path (size-1)
          *    prevNode (size-2) -[dp (size-1)]-> colValue
          */
-        ArrayList<Pair<OntResource,Boolean>> cp = getColPath(extractedField);                                           System.out.println("Create col path for extr field = " + extractedField + "\n\tpath = " + cp + "\n\tprev indiv = " + indivNames.getKey(getLocalName(prevIndiv)));
+        ArrayList<Pair<OntResource,Boolean>> cp = getColPath(extractedField);                                           if(DEV_MODE) System.out.println("Create col path for extr field = " + extractedField + "\n\tpath = " + cp + "\n\tprev indiv = " + indivNames.getKey(getLocalName(prevIndiv)));
         Resource prevNode = prevIndiv;                                          //1
         int upperBound = colValue == null ? cp.size() : cp.size() - 2;          //2
         for (int i = 0; i < upperBound; i+=2) {

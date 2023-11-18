@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.FileHandler.getFileNameWithoutExtension;
 
 public class ClassExtractor {
@@ -18,8 +19,7 @@ public class ClassExtractor {
     public ClassExtractor(RelationalDB db) {
         this.db = db;
         classRule1();
-        classRule2();
-        System.out.println(tableClasses);
+        classRule2();                                                                                                   if(DEV_MODE) System.out.println("Table Classes:\n" + tableClasses);
     }
 
     public void classRule1(){

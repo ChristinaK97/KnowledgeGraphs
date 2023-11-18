@@ -1,5 +1,6 @@
 package org.example.C_POextractor.RDB2OWL;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.RTable.FKpointer;
 import org.example.B_InputDatasetProcessing.Tabular.RTable;
@@ -27,7 +28,7 @@ public class ObjectPropExtractor {
             objPropRule7();
             objPropRule8(db);
         });
-        System.out.println(pureObjProperties);
+        if(DEV_MODE) System.out.println("PURE OBJ PROPS:\n" + pureObjProperties);
     }
 
     private void objPropRule1(RelationalDB db) {

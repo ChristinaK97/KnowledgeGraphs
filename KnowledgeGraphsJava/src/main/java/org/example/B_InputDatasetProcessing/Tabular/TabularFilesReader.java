@@ -1,12 +1,14 @@
 package org.example.B_InputDatasetProcessing.Tabular;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.FileHandler.getFileNameWithExtension;
 import static org.example.util.FileHandler.getFileNameWithoutExtension;
 import static org.example.util.XSDmappers.fixDateFormat;
 
 import org.example.util.FileHandler;
 import org.example.util.Pair;
+import org.slf4j.LoggerFactory;
 import tech.tablesaw.api.*;
 import tech.tablesaw.columns.Column;
 import tech.tablesaw.io.csv.CsvReadOptions;
@@ -22,7 +24,6 @@ import java.util.regex.Pattern;
 
 public class TabularFilesReader {
 
-    boolean log = false;
 
     private RelationalDB db;
 
@@ -40,11 +41,10 @@ public class TabularFilesReader {
         for(String downloadedFilePath : files) {
             String singleTableName = null; //files.size()==1 ? config.In.DefaultRootClassName : null;
             addTable(singleTableName, getFileNameWithoutExtension(downloadedFilePath), downloadedFilePath);
-        }                                                                                                               if(log) System.out.println("FINISHED READING TABLES");
+        }                                                                                                               if(DEV_MODE) System.out.println("FINISHED READING TABLES");
     }
 
-    public RelationalDB getRelationalDB() {
-        System.out.println(db.toString());
+    public RelationalDB getRelationalDB() {                                                                             if(DEV_MODE) System.out.println(db.toString());
         return db;
     }
 
@@ -55,28 +55,28 @@ public class TabularFilesReader {
         if(tableName == null)
             tableName = getFileNameWithoutExtension(processedFilePath);
 
-        Table table;                                                                                                    if(log) System.out.println("TABLE " + tableName);
+        Table table;                                                                                                    if(DEV_MODE) System.out.println("TABLE " + tableName);
         HashMap<String, String> colTypes;
-        if(!Files.exists(Paths.get(processedFilePath))) {                                                               if(log)System.out.println("PROCESS " + downloadedFilePath);
+        if(!Files.exists(Paths.get(processedFilePath))) {                                                               if(DEV_MODE)System.out.println("PROCESS " + downloadedFilePath);
             Pair<List<List<String>>, Integer> rowsInfo = readRows(downloadedFilePath);
-            List<String> headers = repairHeaders(rowsInfo.el1(), rowsInfo.el2());                                       if(log) System.out.println("HEADERS = " + headers);
+            List<String> headers = repairHeaders(rowsInfo.el1(), rowsInfo.el2());                                       if(DEV_MODE) System.out.println("HEADERS = " + headers);
 
-            table = turnToTablesaw(rowsInfo.el1(), headers);                                                            if(log) System.out.println(table.first(5));
-            dropEmptyUnknownColumns(table);                                                                             if(log) System.out.println(table.first(5));
+            table = turnToTablesaw(rowsInfo.el1(), headers);                                                            if(DEV_MODE) System.out.println(table.first(5));
+            dropEmptyUnknownColumns(table);                                                                             if(DEV_MODE) System.out.println(table.first(5));
             addPKCol(table);
 
             // column types
             Pair<Table, HashMap<String,String>> tableTyped = determineColumnTypes(table);
-            table = tableTyped.el1();                                                                                   if(log) {System.out.println(table.first(10)); for(String c:table.columnNames()) System.out.println(c + " " + tableTyped.el2().get(c)); }
+            table = tableTyped.el1();                                                                                   if(DEV_MODE) {System.out.println(table.first(10)); for(String c:table.columnNames()) System.out.println(c + " " + tableTyped.el2().get(c)); }
             colTypes = tableTyped.el2();
 
             saveProcessedFile(table, processedFilePath);
-        } else {                                                                                                        if(log) System.out.println("LOAD " + processedFilePath);
+        } else {                                                                                                        if(DEV_MODE) System.out.println("LOAD " + processedFilePath);
             table = readCSV(processedFilePath);
             colTypes = determineColumnTypes(table).el2();
         }
 
-        db.addTable(tableName, filename, table, colTypes, PKCol);                                                                  if(log) System.out.println("===============================================================\n");
+        db.addTable(tableName, filename, table, colTypes, PKCol);                                                       if(DEV_MODE) System.out.println("===============================================================\n");
     }
 
 
@@ -193,8 +193,7 @@ public class TabularFilesReader {
         HashMap<String, String> colTypes  = new HashMap<>(table.columnCount());
         ArrayList<Column<?>> typedColumns = new ArrayList<>(table.columnCount());
 
-        for(String colName : table.columnNames()) {
-            if(log) System.out.println(">> COLUMN : " + colName);
+        for(String colName : table.columnNames()) {                                                                     if(DEV_MODE) System.out.println(">> COLUMN : " + colName);
 
             StringColumn col = table.stringColumn(colName).map(String::toLowerCase);
             Set<String> cUn = col.unique().asSet();
@@ -296,7 +295,7 @@ public class TabularFilesReader {
             }
             // -------------------------------------------------------------------------------
             Set<String> uniqueDateFormats = new HashSet<>(dateFormats);
-            uniqueDateFormats.remove(null);                                                                                                         if(log){if(uniqueDateFormats.size() > 0) {System.out.println(colName);System.out.println(col.first(10).asList());dateFormats.forEach(f -> System.out.print(f!=null ? f + ", ":""));System.out.println("\n");}System.out.println(colName +"\tInt = " + nInt + "\tnDouble = " + nDouble + "\tnUniqueDateFormats = " + uniqueDateFormats.size());}
+            uniqueDateFormats.remove(null);                                                                                                         if(DEV_MODE){if(uniqueDateFormats.size() > 0) {System.out.println(colName);System.out.println(col.first(10).asList());dateFormats.forEach(f -> System.out.print(f!=null ? f + ", ":""));System.out.println("\n");}System.out.println(colName +"\tInt = " + nInt + "\tnDouble = " + nDouble + "\tnUniqueDateFormats = " + uniqueDateFormats.size());}
 
             if(nDate == col.size() && uniqueDateFormats.size() > 0) {
                 StringColumn dateCol = StringColumn.create(colName);
@@ -305,7 +304,7 @@ public class TabularFilesReader {
                 typedColumns.add(dateCol);
                 colTypes.put(colName, "timestamp");
 
-            }else if (uniqueDateFormats.size() > 0 && nDate > nInt && nDate > nDouble) {                                                              if(log) System.out.println(uniqueDateFormats);
+            }else if (uniqueDateFormats.size() > 0 && nDate > nInt && nDate > nDouble) {                                                              if(DEV_MODE) System.out.println(uniqueDateFormats);
                 typedColumns.add(col);
                 colTypes.put(colName, "varchar");
             }else {
@@ -359,7 +358,7 @@ public class TabularFilesReader {
 
     private void saveProcessedFile(Table table, String processedFilePath) {
         table.write().csv(processedFilePath);
-        System.out.println("CSV repaired successfully.");
+        LoggerFactory.getLogger(TabularFilesReader.class).info("CSV repaired successfully. Saved to " + processedFilePath);
     }
 
 

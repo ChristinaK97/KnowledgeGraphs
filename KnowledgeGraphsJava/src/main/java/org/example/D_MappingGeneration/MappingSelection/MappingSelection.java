@@ -25,6 +25,7 @@ import tech.tablesaw.columns.Column;
 
 import java.util.*;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.MappingsFiles.ManageMappingsFile.readMapJSON;
 import static org.example.util.Ontology.getLocalName;
 
@@ -45,8 +46,8 @@ public class MappingSelection {
 
     private Config.MappingConfig config;
 
-    boolean logHierarchy=false;
-    boolean logNary=false;
+    boolean logHierarchy=false && DEV_MODE;
+    boolean logNary=false && DEV_MODE;
 
 
 //======================================================================================================================
@@ -145,7 +146,7 @@ public class MappingSelection {
                 tMap = tMap.where(tMap.numberColumn(PJPerc).isEqualTo(tMap.numberColumn(PJPerc).max()));
                 tableOptimal = tMap.getString(0, TGTCand);
             }catch (IndexOutOfBoundsException ignored) {}
-            tableClassMaps.put(tablePOClass, tableOptimal);                                                             // System.out.printf(">> %s:\n%s\n%s\n\n", tablePOClass, tMap, tableOptimal);
+            tableClassMaps.put(tablePOClass, tableOptimal);                                                             //if(DEV_MODE) System.out.printf(">> %s:\n%s\n%s\n\n", tablePOClass, tMap, tableOptimal);
             matches.addMatch(tablePOClass, tableOptimal, 0);
         }
     }
@@ -155,7 +156,7 @@ public class MappingSelection {
     private void selectTableColumnOptimal() {
         for(MappingsFileTemplate.Table table : tablesList) {
             String tableMap = tableClassMaps.get(table.getMapping().getOntoElURI().toString());
-            for(MappingsFileTemplate.Column col : table.getColumns()) {                                                 System.out.printf(">> For table = <%s> with selected table map = <%s> : Select map for col <%s>\n", table.getTable(), getLocal(tableMap), col.getColumn());
+            for(MappingsFileTemplate.Column col : table.getColumns()) {                                                 if(DEV_MODE) System.out.printf(">> For table = <%s> with selected table map = <%s> : Select map for col <%s>\n", table.getTable(), getLocal(tableMap), col.getColumn());
                 String objProp   = col.getObjectPropMapping().getOntoElURI().toString();
                 String colClass  = col.getClassPropMapping().getOntoElURI().toString();
                 String dataProp  = col.getDataPropMapping().getOntoElURI().toString();
@@ -163,9 +164,7 @@ public class MappingSelection {
                 Object[] mapTriple = selectTableColumnOptimal(tableMap, objProp, colClass, dataProp);
                 matches.addMatch(objProp,  mapTriple[0], 0);
                 matches.addMatch(colClass, mapTriple[1], 0);
-                matches.addMatch(dataProp, mapTriple[2], 0);
-
-                System.out.println("\n=============================================================================================================================\n\n");
+                matches.addMatch(dataProp, mapTriple[2], 0);                                                      if(DEV_MODE) System.out.println("\n=============================================================================================================================\n\n");
             }
         }
     }
@@ -200,7 +199,7 @@ public class MappingSelection {
                 dataMap = filterDataMap(dataProp, dataMap);
             }
         }
-        /*---------------------------------------------------*/                                                         System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
+        /*---------------------------------------------------*/                                                         if(DEV_MODE) System.out.println("Column candidates (elMap) =\n" + objMap+"\n"+classMap+"\n"+dataMap + "\n");
         // search for n-ary path pattern
         Table mapPaths = findNaryPatterns(objMap, classMap, dataMap);
         if(mapPaths.rowCount()>0)
@@ -306,9 +305,9 @@ public class MappingSelection {
             ++rowID;
             OntResource domain = tgtOnto.getInferedDomRan(objCand, true);
             if((tableClass == null && domain != null) ||
-                !areCompatible(domain, tableClass, true, false)) {                      //System.out.println("Are not compatible " + getLocal(tableClass) + " " + getLocal(objCand));
+                !areCompatible(domain, tableClass, true, false)) {                     //if(DEV_MODE) System.out.println("Are not compatible " + getLocal(tableClass) + " " + getLocal(objCand));
                     toRmv.add(rowID);   }
-        }                                                                                                               //System.out.println("DROP " + toRmv);
+        }                                                                                                               //if(DEV_MODE) System.out.println("DROP " + toRmv);
         return toRmv.size()>0 ? objMap.dropRows(Ints.toArray(toRmv)) : objMap;
     }
 
@@ -332,7 +331,7 @@ public class MappingSelection {
                         ((XSDmappers.decimalDatatypes.contains(DOrange) || XSDmappers.intDatatypes.contains(DOrange)) && XSDmappers.intDatatypes.contains(POrange)) ||
                         (XSDmappers.decimalDatatypes.contains(DOrange) && XSDmappers.decimalDatatypes.contains(POrange)) ||
                         (XSDmappers.dateDatatypes.contains(DOrange) && XSDmappers.dateDatatypes.contains(POrange));
-            }                                                                                                                                   //System.out.printf("%s (%s) - %s (%s) ? %s\n",getLocal(dataProp), getLocal(POrange), getLocal(dataCand), getLocal(DOrange), areCompatible);
+            }                                                                                                                                   //if(DEV_MODE) System.out.printf("%s (%s) - %s (%s) ? %s\n",getLocal(dataProp), getLocal(POrange), getLocal(dataCand), getLocal(DOrange), areCompatible);
             if(!areCompatible)
                 toRmv.add(rowID);
       }
@@ -431,7 +430,7 @@ public class MappingSelection {
         if(hasCands(dataMap))
             dataOptimal = selectDataOptimal(mapPaths, dataMap, objOptimal, clsOptimal);
 
-        System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));
+        if(DEV_MODE) System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));
         return new String[]{objOptimal, clsOptimal, dataOptimal};
     }
 

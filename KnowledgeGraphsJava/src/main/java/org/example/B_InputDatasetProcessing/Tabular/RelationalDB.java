@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 
 public class RelationalDB implements Iterable<RTable> {
     private HashMap<String, RTable> rTables = new HashMap<>();
@@ -84,7 +85,7 @@ public class RelationalDB implements Iterable<RTable> {
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(rTables.toString());
+        if(DEV_MODE) System.out.println(rTables.toString());
     }
 
     public Iterator<RTable> iterator() {

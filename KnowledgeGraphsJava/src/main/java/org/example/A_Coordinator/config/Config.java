@@ -3,6 +3,7 @@ package org.example.A_Coordinator.config;
 import com.google.gson.JsonObject;
 import org.example.A_Coordinator.Inputs.PreprocessingNotification;
 import org.example.util.JsonUtil;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,6 +24,10 @@ public class Config {
               getPath(String.format("%s/data/KnowledgeGraphsJava", WORKDIR))
             : getPath(String.format("%s/.KnowledgeGraphsData/KnowledgeGraphsJava", WORKDIR.getParent()));
 
+
+    public static boolean DEV_MODE = true;
+
+// ---------------------------------------------------------------------------------------------------------------------
     // Define the URL of the Python services and APIS
 
     // TODO: DO NOT FORGET TO CHANGE VALUE FOR DEPLOYMENT!!!!!
@@ -48,9 +53,10 @@ public class Config {
 
 
     public Config(String UseCase, String FileExtension, PreprocessingNotification notification) {
-        System.out.println("WORKDIR: " + WORKDIR);
-        System.out.println("In docker ? " + IS_DOCKER_ENV);
-        System.out.println("Resources dir: " + resourcesPath);
+        LoggerFactory.getLogger(Config.class).info(String.format(
+                "\n\tWORKDIR: %s\n\tIN DOCKER ? %s\n\tRESOURCES DIR: %s",
+                WORKDIR, IS_DOCKER_ENV, resourcesPath
+        ));
         this.notification = notification;
         setConfigParams(UseCase, FileExtension);
     }

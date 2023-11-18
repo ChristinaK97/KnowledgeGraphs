@@ -1,6 +1,7 @@
 package org.example.C_POextractor;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 
 import org.example.B_InputDatasetProcessing.DICOM.DICOM2SediJSON;
 import org.example.B_InputDatasetProcessing.DICOM.TagDictionary;
@@ -47,7 +48,7 @@ public class RulesetApplication {
          * 4. object properties connecting table classes with attribute classes. if !turnAttrToClasses :empty
          */
         classes.put(Annotations.TABLE_PREFIX, new ClassExtractor(db).getTableClasses()); /*1*/
-        objProperties.put(Annotations.PURE_PREFIX, new ObjectPropExtractor(db, classes.get(Annotations.TABLE_PREFIX)).getPureObjProperties());  /*2*/           System.out.println(objProperties.get(Annotations.PURE_PREFIX));
+        objProperties.put(Annotations.PURE_PREFIX, new ObjectPropExtractor(db, classes.get(Annotations.TABLE_PREFIX)).getPureObjProperties());  /*2*/
 
         DataPropExtractor dpExtr = new DataPropExtractor(db, classes.get(Annotations.TABLE_PREFIX));    /*3*/
         dataProperties = dpExtr.getDataProperties();
@@ -78,7 +79,7 @@ public class RulesetApplication {
         else {
             throw new UnsupportedOperationException("Unsupported file format");
         }
-        json2owl.removeNullRanges();                                                                                    json2owl.print();
+        json2owl.removeNullRanges();                                                                                    if(DEV_MODE) json2owl.print();
 
         classes.put(Annotations.TABLE_PREFIX, json2owl.tableClasses);
         objProperties.put(Annotations.PURE_PREFIX, json2owl.pureObjProperties);

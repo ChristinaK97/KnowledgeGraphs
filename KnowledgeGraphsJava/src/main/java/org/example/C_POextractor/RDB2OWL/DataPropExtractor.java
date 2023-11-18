@@ -8,6 +8,7 @@ import org.example.util.XSDmappers;
 
 import java.util.HashMap;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 import static org.example.util.Annotations.*;
 
 public class DataPropExtractor {
@@ -27,8 +28,7 @@ public class DataPropExtractor {
         db.getrTables().forEach((tableName, table) -> {
             if(tableClasses.containsKey(tableName))
                 extractDataProp(tableName, tableClasses.get(tableName), table);
-        });
-        System.out.println(dataProperties);
+        });                                                                                                             if(DEV_MODE) System.out.println("Data Properties:\n" + dataProperties);
     }
 
     private void extractDataProp(String tableName, String tClass, RTable table) {
@@ -67,14 +67,4 @@ public class DataPropExtractor {
 
 
 }
-
-
-
-
-
-
-
-
-
-
 
