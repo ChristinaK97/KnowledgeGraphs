@@ -149,7 +149,7 @@ class HeadersDataset:
             return mostSideIdx, remSideContext
 
         h = self.headers[tgtIdx]
-        print(f"\nGet context for [{tgtIdx}] : {h}")
+        # print(f"\nGet context for [{tgtIdx}] : {h}")
         tgtAbbrevs = self.getHeaderAbbrevs(tgtIdx)
 
         mostFrontIdx = tgtIdx - 1
@@ -172,12 +172,12 @@ class HeadersDataset:
 
             mostFrontIdx, remFrontContext = gatherCandsFromOneSide(mostFrontIdx, remFrontContext, -1)
             mostRearIdx,  remRearContext  = gatherCandsFromOneSide(mostRearIdx,  remRearContext, 1)
-            print("\tCandidate context = ", [self.tokenizedHeaders[i] for i in contextIdxs])
+            # print("\tCandidate context = ", [self.tokenizedHeaders[i] for i in contextIdxs])
             for tgtAbbrev in tgtAbbrevs:
                 self.contextPerAbbrev[tgtAbbrev].update(contextIdxs)
             contextIdxs, checkedPairsIdxs = self._filterContext(contextIdxs, checkedPairsIdxs)
 
-        print("\tSelected context = ", [self.tokenizedHeaders[i] for i in contextIdxs])
+        # print("\tSelected context = ", [self.tokenizedHeaders[i] for i in contextIdxs])
         return contextIdxs
 
 
@@ -197,17 +197,17 @@ class HeadersDataset:
                 checkedPairsIdxs.add((idx1, idx2))
 
                 if self.getHeaderAbbrevs(idx1) & self.getHeaderAbbrevs(idx2):
-                    print(f"\t\tAbbr ORL '{self.tokenizedHeaders[idx1]}' , '{self.tokenizedHeaders[idx2]}'")
+                    # print(f"\t\tAbbr ORL '{self.tokenizedHeaders[idx1]}' , '{self.tokenizedHeaders[idx2]}'")
                     overlapping.union(i, j)
                 else:
                     TfIdf = self.TfIdfMat[idx1, idx2]
-                    print(f"\t\tScore( '{self.tokenizedHeaders[idx1]}' , '{self.tokenizedHeaders[idx2]}' ) = {TfIdf}")
+                    # print(f"\t\tScore( '{self.tokenizedHeaders[idx1]}' , '{self.tokenizedHeaders[idx2]}' ) = {TfIdf}")
                     if TfIdf >= TFIDF_THRS:
                         overlapping.union(i, j)
 
         overlapping = overlapping.getSets()
         overlapping = [[normIdxs[normIdx] for normIdx in group] for group in overlapping]
-        print(overlapping)
+        # print(overlapping)
         selectedContextIdxs = set()
         for group in overlapping:
             if len(group) > 1:
@@ -256,6 +256,8 @@ class HeadersDataset:
         self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
         self.linker = self.nlp.get_pipe("scispacy_linker")
 
+        print("Finished loading entity linker")
+
 
 # ======================================================================================================================
     def _generateHeaderInputs(self):
@@ -272,7 +274,7 @@ class HeadersDataset:
             self.tokenizedHeaders.append(self._createTokenizedHeader(idx))
             self.spans.append(self._findSpans(idx))
             self.headerInputs.append(self._createHeaderInputs(idx))
-        self.print_()
+        # self.print_()
 
 
 

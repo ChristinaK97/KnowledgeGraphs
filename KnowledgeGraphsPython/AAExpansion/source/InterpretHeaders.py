@@ -72,7 +72,7 @@ class InterpretHeaders:
         self.hContext = {}
         self._setup()
 
-        print(">> Inter")
+        print(">> Interpret Headers")
         self.bert = Bert()
 
         self.cachedEmbeddings: Dict[str, Tensor] = {}
@@ -100,11 +100,11 @@ class InterpretHeaders:
 
     def _setup(self):
         for idx in self.hRange:
-            self.hDataset.printHeaderInfo(idx)
+            # self.hDataset.printHeaderInfo(idx)
             self.hDataset.setHeaderAbbrevsInfo(
                 idx,
                 * self.medDict.generateHeaderCandidates(self.hDataset.getHeaderInfo(idx))
-            )                                                                                                           ;print("=" * 30)
+            )                                                                                                           # ;print("=" * 30)
         self.hDataset.setDatasetAbbrevs(self.medDict.datasetAbbrevDetected)                                             # ;print(self.hDataset.datasetAbbrevs) ;[print(f"'{self.hDataset.tokenizedHeaders[idx]}',") for idx in self.hRange]
 
         for idx in self.hRange:
@@ -506,7 +506,7 @@ class InterpretHeaders:
         votes = pd.concat(votes, ignore_index=True)[
             ['abbrev', 'headerAbbrevsFFs', 'index', 'score', 'meanCtxScore', 'meanSeedScore', 'globalScores']] \
             .sort_values(by='abbrev', ignore_index=True)
-        print(votes)
+        # print(votes)
         return votes
 
 
@@ -556,7 +556,7 @@ class InterpretHeaders:
                         break
                 if isSelected: selectedCands.append(i)
 
-            self.headersCandsDFs[idx] = headerCands.loc[selectedCands]                                                  ; print(f"\n\n>> Selected for header [{idx}] : {self.hDataset.headers[idx]}\n{self.headersCandsDFs[idx]}\n\n", end='='*100)
+            self.headersCandsDFs[idx] = headerCands.loc[selectedCands]                                                  # ; print(f"\n\n>> Selected for header [{idx}] : {self.hDataset.headers[idx]}\n{self.headersCandsDFs[idx]}\n\n", end='='*100)
 
 # ======================================================================================================
 
