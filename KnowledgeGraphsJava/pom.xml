@@ -205,6 +205,21 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
     </dependency>
     <!-- -->
 
+    <!-- apache kafka -->
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+      <version>3.0.12</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka-test</artifactId>
+      <version>3.0.12</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- apache kafka -->
+    
+
 
     <!-- graphdb -->
     <dependency>

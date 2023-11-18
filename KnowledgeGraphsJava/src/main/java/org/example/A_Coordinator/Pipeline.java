@@ -1,6 +1,7 @@
 package org.example.A_Coordinator;
 
 import org.apache.jena.riot.RIOT;
+import org.example.A_Coordinator.Kafka.KafkaProducerService;
 import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
@@ -13,7 +14,7 @@ import org.example.E_CreateKG.InsertDataJSON;
 import org.example.E_CreateKG.InsertDataRDB;
 import org.example.E_CreateKG.SetPOasDOextension;
 import org.example.F_PII.PIIidentification;
-import org.example.util.JsonUtil;
+import org.example.F_PII.PIIresultsTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,15 +28,16 @@ import java.util.stream.Stream;
 
 import static org.example.A_Coordinator.config.Config.MappingConfig.BERTMAP;
 import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER;
-import static org.example.util.FileHandler.getPath;
 
 public class Pipeline {
 
     public static Config config;
+    private KafkaProducerService kafkaProducerService;
     private static Logger LG = LoggerFactory.getLogger(Pipeline.class);
 
-    public Pipeline(Config config) {
+    public Pipeline(Config config, KafkaProducerService kafkaProducerService) {
         Pipeline.config = config;
+        this.kafkaProducerService = kafkaProducerService;
         /* Initialize RDF formats to fix the following error in the uber jar:
             Exception in thread "main" org.apache.jena.shared.NoWriterForLangException: Writer not found: TURTLE
             at org.apache.jena.rdf.model.impl.RDFWriterFImpl.getWriter(RDFWriterFImpl.java:66)
@@ -113,7 +115,9 @@ public class Pipeline {
             null,                              //=datasource not needed for pii mapping
             false                             //=mapToDo ?
         );
-        new PIIidentification();
+        PIIresultsTemplate PIIResults = new PIIidentification().getPiiResults();
+        LG.info("PII IDENTIFICATION FINISHED. PRODUCING KAFKA MESSAGE...");
+        kafkaProducerService.sendMessage(PIIResults);
     }
 
 

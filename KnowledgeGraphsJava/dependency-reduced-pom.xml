@@ -241,6 +241,56 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka</artifactId>
+      <version>3.0.12</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.kafka</groupId>
+      <artifactId>spring-kafka-test</artifactId>
+      <version>3.0.12</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>zookeeper</artifactId>
+          <groupId>org.apache.zookeeper</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>kafka-clients</artifactId>
+          <groupId>org.apache.kafka</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>kafka-metadata</artifactId>
+          <groupId>org.apache.kafka</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>kafka-streams-test-utils</artifactId>
+          <groupId>org.apache.kafka</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>kafka_2.13</artifactId>
+          <groupId>org.apache.kafka</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>kafka_2.13</artifactId>
+          <groupId>org.apache.kafka</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-api</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-platform-launcher</artifactId>
+          <groupId>org.junit.platform</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>spring-test</artifactId>
+          <groupId>org.springframework</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>com.ontotext.graphdb</groupId>
       <artifactId>graphdb-runtime</artifactId>
       <version>10.4.1</version>

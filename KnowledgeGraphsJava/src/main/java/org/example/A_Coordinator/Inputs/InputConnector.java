@@ -1,5 +1,6 @@
 package org.example.A_Coordinator.Inputs;
 
+import org.example.A_Coordinator.Kafka.KafkaProducerService;
 import org.example.A_Coordinator.Pipeline;
 import org.example.A_Coordinator.config.Config;
 import org.slf4j.Logger;
@@ -35,10 +36,13 @@ public class InputConnector {
     private final boolean downloadOG = true;
     private Config config;
 
+    private final KafkaProducerService kafkaProducerService;
+
 
     @Autowired
-    public InputConnector(PreprocessingFilesDownloader downloader) {
+    public InputConnector(PreprocessingFilesDownloader downloader, KafkaProducerService kafkaProducerService) {
         this.downloader = downloader;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
 
@@ -139,7 +143,7 @@ public class InputConnector {
 
     private void runPipeline() {
         LOGGER.info("RUN KGs PIPELINE...");
-        new Pipeline(this.config).run();
+        new Pipeline(this.config, kafkaProducerService).run();
         LOGGER.info("KGs PIPELINE FINISHED!");
     }
 
@@ -149,7 +153,10 @@ public class InputConnector {
     private void startPipeline(@RequestParam("UseCase") String UseCase,
                                @RequestParam("filename") String filename) {
         LOGGER.info("Run pipeline for " + UseCase + " " + filename);
-        Pipeline pipeline = new Pipeline(setupConfig(UseCase, filename, new PreprocessingNotification()));
+        Pipeline pipeline = new Pipeline(
+                setupConfig(UseCase, filename, new PreprocessingNotification()),
+                kafkaProducerService
+        );
         pipeline.run();
         LOGGER.info("KGs pipeline finished!");
     }
