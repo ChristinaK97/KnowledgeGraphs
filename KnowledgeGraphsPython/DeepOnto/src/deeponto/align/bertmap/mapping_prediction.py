@@ -93,7 +93,7 @@ class MappingPredictor:
 
         self.init_class_mapping = lambda head, tail, score, rank: EntityMapping(head, tail, "<EquivalentTo>", score, rank)
 
-
+    """
         # new log file
         self.logfile = os.path.join(output_path, "logfile.txt")
         if MappingPredictor.override:
@@ -106,6 +106,7 @@ class MappingPredictor:
         with open(self.logfile, mode, encoding='utf-8') as file:
             file.write(message)
 
+    """
 
     def bert_mapping_score(
         self,
@@ -185,7 +186,7 @@ class MappingPredictor:
         tgt_class_candidates = self.tgt_inverted_annotation_index.idf_select(
             list(src_class_annotations), pool_size=self.num_raw_candidates
         )  # [(tgt_class_iri, idf_score)]
-        best_scored_mappings = []                                                                                       ; self.writelog(f"\n>> Src = {src_class_iri}\nSrc annot = {src_class_annotations}\n\tTrg annot {len(tgt_class_candidates)} = " + (("\n\t".join(str(t) for t in tgt_class_candidates)) if len(tgt_class_candidates) <= self.num_raw_candidates else "all") + "\n")
+        best_scored_mappings = []                                                                                       # ; self.writelog(f"\n>> Src = {src_class_iri}\nSrc annot = {src_class_annotations}\n\tTrg annot {len(tgt_class_candidates)} = " + (("\n\t".join(str(t) for t in tgt_class_candidates)) if len(tgt_class_candidates) <= self.num_raw_candidates else "all") + "\n")
 
         # for string matching: save time if already found string-matched candidates
         def string_match():
@@ -209,7 +210,7 @@ class MappingPredictor:
         best_scored_mappings += string_match()
         # return string-matched mappings if found or if there is no bert module (bertmaplt)
         if best_scored_mappings or not self.bert_synonym_classifier:
-            self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{best_scored_mappings}")         ; self.writelog(f"The best string scored class mappings for {src_class_iri} are\n{best_scored_mappings}\n")
+            self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{best_scored_mappings}")         # ; self.writelog(f"The best string scored class mappings for {src_class_iri} are\n{best_scored_mappings}\n")
             return best_scored_mappings
 
         # else, run bert and return its matches :
@@ -228,7 +229,7 @@ class MappingPredictor:
                 num_annotation_pairs = len(annotation_pairs)
                 current_batch.nums.append(num_annotation_pairs)
 
-                if len(tgt_class_candidates) <= self.num_raw_candidates: self.writelog(f"Tgt cand = {tgt_candidate_iri}\n\ttgt annot = {tgt_candidate_annotations}\n\tannot pairs = {annotation_pairs}\n\tnum annot pairs = {num_annotation_pairs}\n\tcurr batch = <{current_batch.annotations},\n\t\t{current_batch.nums}>\n")
+                # if len(tgt_class_candidates) <= self.num_raw_candidates: self.writelog(f"Tgt cand = {tgt_candidate_iri}\n\ttgt annot = {tgt_candidate_annotations}\n\tannot pairs = {annotation_pairs}\n\tnum annot pairs = {num_annotation_pairs}\n\tcurr batch = <{current_batch.annotations},\n\t\t{current_batch.nums}>\n")
 
                 # collect when the batch is full or for the last target class candidate
                 if sum(current_batch.nums) > batch_size or i == len(tgt_class_candidates) - 1:
@@ -265,7 +266,7 @@ class MappingPredictor:
                 # mean = 4.6955e-01 !
 
                 mapping_scores = torch.stack([torch.max(chunk) for chunk in grouped_synonym_scores])
-                assert len(mapping_scores) == len(annotation_batch.nums)                                                ; self.writelog(f"\tsynonym scores = {synonym_scores}\n\tgrouped = {grouped_synonym_scores}\n\tmapping = {mapping_scores}\n")
+                assert len(mapping_scores) == len(annotation_batch.nums)                                                # ; self.writelog(f"\tsynonym scores = {synonym_scores}\n\tgrouped = {grouped_synonym_scores}\n\tmapping = {mapping_scores}\n")
 
                 # preserve N best scored mappings
                 # scale N in case there are less than N tgt candidates in this batch
@@ -278,14 +279,14 @@ class MappingPredictor:
                     torch.cat([batch_best_scores, final_best_scores]),
                     k=self.num_best_predictions,
                 )
-                final_best_idxs = torch.cat([batch_best_idxs, final_best_idxs])[_idxs]                                  ;self.writelog(f"Final Best = {final_best_scores}\n")
+                final_best_idxs = torch.cat([batch_best_idxs, final_best_idxs])[_idxs]                                  # ;self.writelog(f"Final Best = {final_best_scores}\n")
 
                 # update the index for target candidate classes
                 batch_base_candidate_idx += len(annotation_batch.nums)
 
             for candidate_idx, mapping_score in zip(final_best_idxs, final_best_scores):
 
-                if mapping_score > -1: self.writelog(f"\t{candidate_idx} score = {mapping_score}\t cand = {tgt_class_candidates[candidate_idx.item()][0]}\n")
+                # if mapping_score > -1: self.writelog(f"\t{candidate_idx} score = {mapping_score}\t cand = {tgt_class_candidates[candidate_idx.item()][0]}\n")
 
                 # ignore intial values (-1.0) for dummy mappings
                 # the threshold 0.9 is for mapping extension
@@ -302,7 +303,7 @@ class MappingPredictor:
                     )
 
             assert len(bert_matched_mappings) <= self.num_best_predictions
-            self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{bert_matched_mappings}")        ; self.writelog(f"The best bert scored class mappings for {src_class_iri} are\n{bert_matched_mappings}\n")
+            self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{bert_matched_mappings}")        # ; self.writelog(f"The best bert scored class mappings for {src_class_iri} are\n{bert_matched_mappings}\n")
 
             if not bert_matched_mappings and final_best_scores[0] != -1:    # 1
                 bert_matched_mappings = \
@@ -392,7 +393,7 @@ class MappingPredictor:
                     if len(token) > 1 and fuzz.partial_ratio(token, src_annot) == 100:
                         pair_score += 1
                 pair_score /= len(tgt_tokens)
-                candidate_scores.append([idx, pair_score, len(tgt_tokens)])                                             ; self.writelog(f"\n\t\t\t{idx} : {tgt_annot} {pair_score}")
+                candidate_scores.append([idx, pair_score, len(tgt_tokens)])                                             # ; self.writelog(f"\n\t\t\t{idx} : {tgt_annot} {pair_score}")
             final_candidate_score = sort_scores(candidate_scores)[0]    # 8.2
             return final_candidate_score
 
@@ -412,14 +413,14 @@ class MappingPredictor:
                 current_rank += 1
             ranking[idx] = current_rank
             prev_score = (score, length)
-        self.writelog(f"\n\t\tRanking = {final_candidates_scores}\n\t\t{ranking}\n")
+        # self.writelog(f"\n\t\tRanking = {final_candidates_scores}\n\t\t{ranking}\n")
         return ranking
 
 
     def get_low_score_candidates(self, src_class_iri,
                                  tgt_class_candidates, final_best_scores, final_best_idxs,
                                  k=10, perc_thrs=0.5):
-        self.writelog(f"\n\tGET LOW SCORE CAND FOR {src_class_iri}\n")
+        # self.writelog(f"\n\tGET LOW SCORE CAND FOR {src_class_iri}\n")
 
         def is_suitable_candidate():    # 6
             return \
@@ -450,9 +451,9 @@ class MappingPredictor:
                 best_rank = min(best_rank, cand_rank)
 
         # 7
-        low_score_mappings = []                                                                                         ;self.writelog("\n")
+        low_score_mappings = []                                                                                         # ;self.writelog("\n")
         for candidate_idx, mapping_score, rank in topToKeep:
-            tgt_candidate_iri = tgt_class_candidates[candidate_idx][0]                                                  ;self.writelog(f"\t\t{candidate_idx} score = {mapping_score}, {rank}\t cand = {tgt_class_candidates[candidate_idx][0]}\n")
+            tgt_candidate_iri = tgt_class_candidates[candidate_idx][0]                                                  # ;self.writelog(f"\t\t{candidate_idx} score = {mapping_score}, {rank}\t cand = {tgt_class_candidates[candidate_idx][0]}\n")
             if rank == math.inf: rank = self.num_raw_candidates + 1
             low_score_mappings.append(
                 self.init_class_mapping(

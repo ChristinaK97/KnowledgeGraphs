@@ -16,15 +16,17 @@ public class BertMap {
 
     private class BertmapRequest {
         private String use_case;
+        private String dataset_name;
         private boolean run_for_do_mapping;
         private String pontology_path;
         private String dontology_path;
         private String dpv_path;
 
-        public BertmapRequest(String use_case, boolean run_for_do_mapping,
+        public BertmapRequest(String use_case, String dataset_name, boolean run_for_do_mapping,
                               String pontology_path, String dontology_path, String dpv_path)
         {
             this.use_case = use_case;
+            this.dataset_name = dataset_name;
             this.run_for_do_mapping = run_for_do_mapping;
             this.pontology_path = getAbsolutePath(pontology_path);
             this.dontology_path = dontology_path;
@@ -36,6 +38,12 @@ public class BertMap {
         }
         public void setUse_case(String use_case) {
             this.use_case = use_case;
+        }
+        public String getDataset_name() {
+            return dataset_name;
+        }
+        public void setDataset_name(String dataset_name) {
+            this.dataset_name = dataset_name;
         }
         public boolean isRun_for_do_mapping() {
             return run_for_do_mapping;
@@ -69,6 +77,7 @@ public class BertMap {
 
         BertmapRequest requestBody = new BertmapRequest(
             config.In.UseCase,
+            config.In.DatasetName,
             run_for_do_mapping,
             config.Out.POntology,
             config.DOMap.TgtOntology,

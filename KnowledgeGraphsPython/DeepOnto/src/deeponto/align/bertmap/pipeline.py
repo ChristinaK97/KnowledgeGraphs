@@ -87,7 +87,7 @@ class BERTMapPipeline:
         self.config.output_path = "." if not self.config.output_path else self.config.output_path
         self.config.output_path = os.path.abspath(self.config.output_path)
         self.output_path = os.path.join(self.config.output_path, self.name)
-        FileUtils.create_path(os.path.join(self.output_path, self.config.mode))
+        FileUtils.create_path(os.path.join(self.output_path, self.config.dataset_name, self.config.mode))
 
         # create logger and progress manager (hidden attribute) 
         self.logger = create_logger(self.name, self.output_path)
@@ -100,7 +100,7 @@ class BERTMapPipeline:
 
         # config file
         self.logger.info(f"Load the following configurations:\n{FileUtils.print_dict(self.config)}")
-        config_path = os.path.join(self.output_path, self.config.mode, "config.yaml")
+        config_path = os.path.join(self.output_path, self.config.dataset_name, self.config.mode, "config.yaml")
         self.logger.info(f"Save the configuration file at {config_path}.")
         save_bertmap_config(self.config, config_path)
 
@@ -261,7 +261,7 @@ class BERTMapPipeline:
         # mapping predictions
         self.global_matching_config = self.config.global_matching
         self.mapping_predictor = MappingPredictor(
-            output_path=os.path.join(self.output_path, self.config.mode),
+            output_path=os.path.join(self.output_path, self.config.dataset_name, self.config.mode),
             tokenizer_path=self.bert_config.pretrained_path,
             src_annotation_index=self.src_annotation_index,
             tgt_annotation_index=self.tgt_annotation_index,
@@ -280,7 +280,7 @@ class BERTMapPipeline:
             self.mapping_predictor.mapping_prediction()  # mapping prediction
             if self.name == "bertmap":
                 self.mapping_refiner = MappingRefiner(
-                    output_path=os.path.join(self.output_path, self.config.mode),
+                    output_path=os.path.join(self.output_path, self.config.dataset_name, self.config.mode),
                     src_onto=self.src_onto,
                     tgt_onto=self.tgt_onto,
                     mapping_predictor=self.mapping_predictor,
@@ -365,10 +365,10 @@ class BERTMapPipeline:
     def extractBertMapMappings(self):
         return \
         MappingSelector(
-            rawMappingsFile = os.path.join(self.output_path, self.config.mode, "match", "raw_mappings.json"),
+            rawMappingsFile = os.path.join(self.output_path, self.config.dataset_name, self.config.mode, "match", "raw_mappings.json"),
             srcOntoPath = self.src_onto.owl_path,
             tgtOntoPath = self.tgt_onto.owl_path,
             srcAnnotProps = self.config.annotation_property_iris.source,
             tgtAnnotProps = self.config.annotation_property_iris.target,
-            outputFile = os.path.join(self.output_path, self.config.mode, "match", "BertMapMappings.json")
+            outputFile = os.path.join(self.output_path, self.config.dataset_name, self.config.mode, "match", "BertMapMappings.json")
         ).rawMaps

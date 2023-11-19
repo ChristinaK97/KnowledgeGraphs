@@ -23,6 +23,7 @@ def start_bertmap():
     print("Start BertMap request with input :\n\t", data)
     bertmap_mappings = run_bertmap_pipeline(
         use_case            = data.get('use_case'),
+        dataset_name        = data.get('dataset_name'),
         base_output_dir     = str(Path(f"{base_resources_dir}/DeepOnto")),
         mode                = MAP_TO_DO if data.get('run_for_do_mapping') else MAP_TO_DPV,
         POntology_path      = data.get('pontology_path'),

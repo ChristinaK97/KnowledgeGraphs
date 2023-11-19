@@ -11,6 +11,7 @@ MAP_TO_DPV = "map_to_dpv"
 
 def run_bertmap_pipeline(
         use_case: str,
+        dataset_name: str,
         base_output_dir: str,
         mode: Union[MAP_TO_DO, MAP_TO_DPV],
         POntology_path: str,
@@ -22,21 +23,22 @@ def run_bertmap_pipeline(
     if not map_to_do_mode and DPV_path is None or DPV_path=='null':
         raise FileNotFoundError(f"Mode is {mode} but DPV_path eq {DPV_path}")
 
-    # eg. resources/fintech/bertmap/map_to_do/config.yaml
     output_path = os.path.join(str(Path(base_output_dir)), use_case)
     print("OUTPUT PATH = ", output_path)
-    config_file_path = os.path.join(output_path, 'bertmap', mode, 'config.yaml')
+    # eg. resources/fintech/bertmap/EPIBANK/map_to_do/config.yaml
+    config_file_path = os.path.join(output_path, 'bertmap', dataset_name, mode, 'config.yaml')
 
     if not exists(config_file_path):
         print(f"Not found config file for use case = '{use_case}' and task = '{mode}' in path = '{config_file_path}'. Loading default parameters."
               f"\nNote that default parameters are available only for DOntology in [FIBO, SNOMED], and/or mapping to DPV for PII identification.", sep="")
-        config = get_default_configuration(mode, DOntology_path)
+        config = get_default_configuration(mode, DOntology_path, use_case)
     else:
         from DeepOnto.src.deeponto.align.bertmap.config_file_handler import load_bertmap_config
         config = load_bertmap_config(config_file_path)
         print(f"Found config file for use case = '{use_case}' and task = '{mode}' in path = '{config_file_path}' and loaded successfully.")
 
     config.output_path = output_path
+    config.dataset_name = dataset_name
 
     # Start jvm --------------------------------------------------------------------------------------------------------
     def startJVM(memory: str = '8g'):
@@ -69,17 +71,19 @@ def run_bertmap_pipeline(
 
 def get_default_configuration(
         mode: Union[MAP_TO_DO, MAP_TO_DPV],
-        DOntology_path: str
+        DOntology_path: str,
+        use_case: str
 ):
     mode_is_map_to_do = mode == MAP_TO_DO
     do_is_fibo = 'fibo' in DOntology_path.lower()
-    do_is_snomed = 'snomed' in DOntology_path.lower()
+    use_case_is_health = "health" == use_case
 
     # Load CONFIG ==========================================================================================
     from DeepOnto.src.deeponto.align.bertmap.config_file_handler import DEFAULT_CONFIG_FILE, load_bertmap_config
 
     config = load_bertmap_config(DEFAULT_CONFIG_FILE)
     config.mode = mode
+    config.dataset_name = ""
     config.jvm_max_memory = '2g' if do_is_fibo else '4g'
     config.use_wordnet = do_is_fibo
 
@@ -106,7 +110,7 @@ def get_default_configuration(
             'http://www.w3.org/2004/02/skos/core#note'
         ]
 
-    elif do_is_snomed:
+    elif use_case_is_health:
         DO_annotation_iris = [
             'http://www.w3.org/2004/02/skos/core#altLabel',
             'http://www.w3.org/2004/02/skos/core#prefLabel'
@@ -125,16 +129,17 @@ def get_default_configuration(
 
     # training parameters ================================================================================
     config.bert.pretrained_path = \
-        'yiyanghkust/finbert-pretrain' if do_is_fibo else \
-        'monologg/biobert_v1.1_pubmed'
+        'monologg/biobert_v1.1_pubmed' if use_case_is_health else \
+        'yiyanghkust/finbert-pretrain'
+
 
     # TODO replace temporary number of epochs
-    config.bert.num_epochs_for_training = 1.0 # 3.0 if do_is_fibo else 5.0
+    config.bert.num_epochs_for_training = 3.0 if do_is_fibo else 5.0
     config.bert.batch_size_for_training = 32
     config.bert.batch_size_for_prediction = 32
     # config.bert.resume_training = False
 
-    config.global_matching.num_raw_candidates = 200 if do_is_fibo else 400
+    config.global_matching.num_raw_candidates = 200 # 200 if do_is_fibo else 400
     config.global_matching.num_best_predictions = 20
     config.global_matching.mapping_extension_threshold = 0.85
     config.global_matching.mapping_filtered_threshold = 0.90
@@ -170,6 +175,7 @@ def run_outside_flask():
     # -------------------------------------------------------------
     bertmap_mappings = run_bertmap_pipeline(
         use_case=use_case,
+        dataset_name= "EPIBANK",
         base_output_dir=base_output_path,
         mode=mode,
         POntology_path=POntology,
