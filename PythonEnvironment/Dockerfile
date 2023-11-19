@@ -16,6 +16,9 @@ ARG CUDA_VERSION
 WORKDIR /KnowledgeGraphsApp
 
 COPY requirements.txt .
+
+COPY nltk_data /root/nltk_data
+
 # Copy the model from the same directory as the Dockerfile
 COPY en_core_sci_lg-0.5.1.tar.gz .
 
