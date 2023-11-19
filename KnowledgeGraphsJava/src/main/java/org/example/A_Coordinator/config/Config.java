@@ -14,10 +14,9 @@ import java.util.Set;
 import static org.example.util.FileHandler.fileExists;
 import static org.example.util.FileHandler.getPath;
 
-public class Config {
+// =====================================================================================================================
 
-    // TODO: DO NOT FORGET TO CHANGE VALUE FOR DEPLOYMENT!!!!!
-    private static boolean MAINTAIN_PREPROCESSING_RESULTS = false;
+public class Config {
 
     public static Path WORKDIR = Paths.get(System.getProperty("user.dir"));
     public static boolean IS_DOCKER_ENV = WORKDIR.toString().startsWith("/KnowledgeGraphsApp");
@@ -30,12 +29,17 @@ public class Config {
     public static boolean DEV_MODE = true;
 
 // ---------------------------------------------------------------------------------------------------------------------
-    // Define the URL of the Python services and APIS
+    // Communication with preprocessing
+    // TODO: DO NOT FORGET TO CHANGE VALUES FOR DEPLOYMENT!!!!!
 
-    // TODO: DO NOT FORGET TO CHANGE VALUE FOR DEPLOYMENT!!!!!
     // GET http://preprocessing-tool:5000/download/files/original/<path:filename>
     // public static final String PreprocessingEndpoint = "http://preprocessing-tool:5000";
     public static final String PreprocessingEndpoint = "http://localhost:8080";
+
+    private static boolean MAINTAIN_PREPROCESSING_RESULTS = false;
+
+// ---------------------------------------------------------------------------------------------------------------------
+    // Define the URL of the Python services and APIS
 
     public static String AAExpansionEndpoint =
             String.format("http://%s:7531/start_aa_expansion", IS_DOCKER_ENV ? "knowledge-graphs-python" : "localhost");
@@ -124,6 +128,7 @@ public class Config {
 
         public SQLCredentials credentials;
 
+        /** This is the file extension of the original downloaded files, not the processed files */
         public String FileExtension;
         public String DownloadedDataDir;
         public String ProcessedDataDir;
@@ -165,11 +170,6 @@ public class Config {
         public boolean isJSON() {return "json".equals(FileExtension);}
         public boolean isDSON() {return "dcm".equals(FileExtension);}
         public boolean isSQL()  {return credentials != null || "SQL".equals(FileExtension);}
-
-
-        public boolean isExcel(){return "xlsx".equals(FileExtension);}
-        public boolean isCSV()  {return "csv".equals(FileExtension);}
-        public boolean isTSV()  {return "tsv".equals(FileExtension);}
 
         public static Set<String> CSVlikeFileTypes = Set.of("xlsx", "csv", "tsv");
         public boolean isCSVlike(){return CSVlikeFileTypes.contains(FileExtension);}
