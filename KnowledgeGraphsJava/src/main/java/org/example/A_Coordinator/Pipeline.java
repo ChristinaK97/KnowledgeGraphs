@@ -17,17 +17,11 @@ import org.example.F_PII.PIIidentification;
 import org.example.F_PII.PIIresultsTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.example.A_Coordinator.config.Config.MappingConfig.BERTMAP;
 import static org.example.A_Coordinator.config.Config.MappingConfig.EXACT_MAPPER;
+import static org.example.util.FileHandler.findFilesInFolder;
 
 public class Pipeline {
 
@@ -136,20 +130,7 @@ public class Pipeline {
             return downloadedFiles;
     }
 
-    private List<String> findFilesInFolder(String folder, String fileExtension){
-        try (Stream<Path> walk = Files.walk(Paths.get(folder))) {
-            return walk
-                    .filter(p -> !Files.isDirectory(p))                                 // Not a directory
-                    .map(Path::toString)                                                // Convert path to string
-                    .filter(f -> f.endsWith(fileExtension))                             // Check end with
-                    .collect(Collectors.toList());
 
-        }catch (IOException e) {
-            LG.error("Data source in folder " + folder + " with extension " + fileExtension + " not found");
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     private Object getExportedDbSource(List<String> filesInFolder) {
         return new TabularFilesReader(filesInFolder).getRelationalDB();

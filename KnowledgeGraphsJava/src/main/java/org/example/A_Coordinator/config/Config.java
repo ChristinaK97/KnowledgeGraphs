@@ -2,11 +2,13 @@ package org.example.A_Coordinator.config;
 
 import com.google.gson.JsonObject;
 import org.example.A_Coordinator.Inputs.PreprocessingNotification;
+import org.example.util.FileHandler;
 import org.example.util.JsonUtil;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Set;
 
 import static org.example.util.FileHandler.fileExists;
@@ -59,6 +61,17 @@ public class Config {
         ));
         this.notification = notification;
         setConfigParams(UseCase, FileExtension);
+        createDirectories();
+    }
+
+    private void createDirectories() {
+        FileHandler.createDirectories(List.of(
+                In.DatasetResourcesPath,
+                In.DownloadedDataDir,
+                In.ProcessedDataDir,
+                Out.KGOutputsDir,
+                Out.LogDir
+        ));
     }
 
 
@@ -284,8 +297,8 @@ public class Config {
                 PiisResultsJsonPath = getPath(String.format("%s/KG_Outputs/piiResults.json", DatasetResourcesPath)); // in the KG_Outputs subdir
 
                 UseCase2DPV_file_path = getPath(
-                        String.format("%s/%s2DPV.json",
-                                Paths.get(DatasetResourcesPath).getParent(), UseCase));
+                        String.format("%s/DPVMappings/%s2DPV.json",
+                                resourcesPath, UseCase));
                 if(!fileExists(UseCase2DPV_file_path))
                     UseCase2DPV_file_path = null;
             }
