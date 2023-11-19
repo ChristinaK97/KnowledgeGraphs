@@ -9,6 +9,8 @@ from rdflib.term import Node
 from thefuzz import fuzz
 from tqdm import tqdm
 
+from DeepOnto.src.deeponto.onto import Ontology
+
 OntoEl = 'ontoEl'
 OntoElMaps = 'OntoElMaps'
 TGTCand = 'TGTCand'
@@ -30,14 +32,14 @@ class MappingSelector:
     """
 
 
-    def __init__(self, rawMappingsFile, srcOntoPath, tgtOntoPath, srcAnnotProps, tgtAnnotProps, outputFile):
+    def __init__(self, rawMappingsFile, srcOntoPath: str, tgtOnto: Ontology, srcAnnotProps, tgtAnnotProps, outputFile):
         self.srcOnto = self._loadOntology(srcOntoPath)
         self.srcNs = self._ontoNs(self.srcOnto)
         self.srcAnnotProps = srcAnnotProps
         self.baseElements = {self.srcNs + baseEl for baseEl in MappingSelector.baseElements}
         self.swNamespaces = MappingSelector.swNamespaces + f"PREFIX PO: <{self.srcNs}>\n"
 
-        self.tgtOnto = self._loadOntology(tgtOntoPath)
+        self.tgtOnto = tgtOnto
         self.tgtAnnotProps = tgtAnnotProps
 
         self.rawMaps = self._readRawMappings(rawMappingsFile)
@@ -94,44 +96,64 @@ class MappingSelector:
 
 
     def _getResourceAnnots(self, resource, isSrcResource):
-        annotProps, onto = (self.srcAnnotProps, self.srcOnto) if isSrcResource else \
-                           (self.tgtAnnotProps, self.tgtOnto)
-        query = f"""
-            SELECT ?annot
-            WHERE {{
-                <{resource}> ?predicate ?annot .
-                FILTER (?predicate IN (%s))
-            }}
-        """ % ", ".join(f"<{prop}>" for prop in annotProps)
-        resourceAnnots = [str(annot[0].lower()) for annot in onto.query(query)]
         if isSrcResource:
-            query = f"""{self.swNamespaces}
-                SELECT ?tableClassLabel WHERE {{
-                    ?tableClass rdfs:subClassOf PO:TableClass ;
-                                rdfs:label ?tableClassLabel .
-                    {{
-                        ?tableClass rdfs:subClassOf 
-                            [ a owl:Restriction ; owl:onProperty <{resource}> ] .                        
-                    }}
-                    union
-                    {{
-                        ?tableClass rdfs:subClassOf 
-                            [ a owl:Restriction ; owl:someValuesFrom <{resource}>] . 
-                    }}
-                    union
-                    {{
-                        ?attributeClass rdfs:subClassOf PO:AttributeClass ,
-                            			[a owl:Restriction; owl:onProperty <{resource}> ] .
-                        ?tableClass rdfs:subClassOf [ a owl:Restriction ; owl:someValuesFrom ?attributeClass] .  
-                    }}            
-                }}
-            """
-            resourceAnnots += [f"{tableClassLabel} {resourceLabel}"
-                               for tableClassLabel in [str(r[0].lower()) for r in onto.query(query)]
-                               for resourceLabel in resourceAnnots
-            ]
+            return self._getSourceOntologyAnnotations(resource)
+        else:
+            return self._getTargetOntologyAnnotations(resource)
 
+
+    def _getSourceOntologyAnnotations(self, resource):
+        query = f"""
+                SELECT ?annot
+                WHERE {{
+                    <{resource}> ?predicate ?annot .
+                     FILTER (?predicate IN (%s))
+                }}
+                """ % ", ".join(f"<{prop}>" for prop in self.srcAnnotProps)
+
+        resourceAnnots = [str(annot[0].lower()) for annot in self.srcOnto.query(query)]
+
+        query = f"""{self.swNamespaces}
+                    SELECT ?tableClassLabel WHERE {{
+                        ?tableClass rdfs:subClassOf PO:TableClass ;
+                                    rdfs:label ?tableClassLabel .
+                        {{
+                            ?tableClass rdfs:subClassOf 
+                                [ a owl:Restriction ; owl:onProperty <{resource}> ] .                        
+                        }}
+                        union
+                        {{
+                            ?tableClass rdfs:subClassOf 
+                                [ a owl:Restriction ; owl:someValuesFrom <{resource}>] . 
+                        }}
+                        union
+                        {{
+                            ?attributeClass rdfs:subClassOf PO:AttributeClass ,
+                                			[a owl:Restriction; owl:onProperty <{resource}> ] .
+                            ?tableClass rdfs:subClassOf [ a owl:Restriction ; owl:someValuesFrom ?attributeClass] .  
+                        }}            
+                    }}
+                """
+        resourceAnnots += [f"{tableClassLabel} {resourceLabel}"
+                           for tableClassLabel in [str(r[0].lower()) for r in self.srcOnto.query(query)]
+                           for resourceLabel in resourceAnnots
+        ]
         return resourceAnnots
+
+
+    def _getTargetOntologyAnnotations(self, resource):
+        resourceAnnots = [
+            self.tgtOnto.get_owl_object_annotations(
+                owl_object=resource,
+                annotation_property_iri=annot,
+                annotation_language_tag=None,
+                apply_lowercasing=True,
+                normalise_identifiers=False,
+            )
+            for annot in self.tgtAnnotProps
+        ]
+        return [item for sublist in resourceAnnots for item in sublist]
+
 
 
     def _partialJaccard(self, ontoEl, tgtCand):

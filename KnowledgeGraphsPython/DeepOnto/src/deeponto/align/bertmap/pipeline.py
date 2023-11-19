@@ -367,7 +367,7 @@ class BERTMapPipeline:
         MappingSelector(
             rawMappingsFile = os.path.join(self.output_path, self.config.dataset_name, self.config.mode, "match", "raw_mappings.json"),
             srcOntoPath = self.src_onto.owl_path,
-            tgtOntoPath = self.tgt_onto.owl_path,
+            tgtOnto = self.tgt_onto,
             srcAnnotProps = self.config.annotation_property_iris.source,
             tgtAnnotProps = self.config.annotation_property_iris.target,
             outputFile = os.path.join(self.output_path, self.config.dataset_name, self.config.mode, "match", "BertMapMappings.json")
