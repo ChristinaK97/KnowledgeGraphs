@@ -254,14 +254,16 @@ class MedicalDictionary:
                 if firstLetter in self.letterTries:
                     abbrev, fullForm = self.letterTries[firstLetter].longest_prefix_item(entry, (None, None))
                     if abbrev is not None and len(abbrev) == len(entry):
-                        print(f"\tYS EXACT CANDS FOR '{entry}'  =   {abbrev}  :  {fullForm}")
+                        # print(f"\tYS EXACT CANDS FOR '{entry}'  =   {abbrev}  :  {fullForm}")
                         self.datasetAbbrevDetected.add(abbrev)
                         headerAbbrevCands[entry] = (span, fullForm)
 
                     elif abbrev is not None:
-                        print(f"\tNO EXACT CANDS FOR '{entry}' . CLOSEST CAND =  {abbrev}  :  {fullForm}")
+                        pass
+                        # print(f"\tNO EXACT CANDS FOR '{entry}' . CLOSEST CAND =  {abbrev}  :  {fullForm}")
                     else:
-                        print(f"\tNO EXACT CANDS FOR '{entry}'")
+                        pass
+                        # print(f"\tNO EXACT CANDS FOR '{entry}'")
 
             elif tag == UNK:
                 pass  # TODO
