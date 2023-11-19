@@ -250,6 +250,8 @@ class HeadersDataset:
 
         # DONT REMOVE THESE UNUSED IMPORTS
         import spacy
+        import scispacy
+        from scispacy.linking import EntityLinker
 
         self.nlp = spacy.load("en_core_sci_lg")
         # TODO: gets stuck when running in docker container!
