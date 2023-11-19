@@ -42,7 +42,7 @@ def get_jars_default():
 def get_jars():
     jars_dir = str(Path(str(Path(__file__).parent) + '/align/logmap/java-dependencies'))
     jars = glob.glob(os.path.join(jars_dir, '*.jar'))
-    print(f"Look in {jars_dir}\n# jars = {len(jars)}\njars list = {jars}\n")
+    print(f"Look in {jars_dir}\n# jars = {len(jars)}\njars list = {jars[0:5] if len(jars)>0 else len(jars)}\n")
 
     # Separator for linux is ":" while for windows ";" -> To fix unable to import java libs
     sep  = ":" if jars_dir.startswith("/KnowledgeGraphsApp") else ";"
