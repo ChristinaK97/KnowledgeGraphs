@@ -33,6 +33,7 @@ class MappingSelector:
 
 
     def __init__(self, rawMappingsFile, srcOntoPath: str, tgtOnto: Ontology, srcAnnotProps, tgtAnnotProps, outputFile):
+        print("Extract BERTMap results")
         self.srcOnto = self._loadOntology(srcOntoPath)
         self.srcNs = self._ontoNs(self.srcOnto)
         self.srcAnnotProps = srcAnnotProps
@@ -66,6 +67,8 @@ class MappingSelector:
         rawMaps = {}
         with open(rawMappingsFile, 'r') as file:
             data = json.load(file)
+
+        print(f"# PO elements = {len(data)}")
 
         for ontoEl, cands in tqdm(data.items()):
             if ontoEl in self.baseElements:
