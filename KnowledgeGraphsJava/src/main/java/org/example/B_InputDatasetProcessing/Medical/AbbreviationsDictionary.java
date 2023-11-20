@@ -11,6 +11,7 @@ import org.example.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
@@ -87,7 +88,14 @@ public class AbbreviationsDictionary extends DatasetDictionary {
         Logger LG = LoggerFactory.getLogger(AbbreviationsDictionary.class);
         LG.info("HTTP REQUEST: POST " + AAExpansionEndpoint + " # headers = " + inputs.size());
         try {
-            String responseJson = WebClient.create()
+            String responseJson = WebClient.builder()
+
+                    .exchangeStrategies(ExchangeStrategies.builder()
+                            .codecs(configurer -> configurer.defaultCodecs()
+                                    .maxInMemorySize(16 * 1024 * 1024)) // Set the buffer size to 16 MB
+                            .build()
+
+                    ).build()
                     .post()
                     .uri(AAExpansionEndpoint)
                     .contentType(MediaType.APPLICATION_JSON)

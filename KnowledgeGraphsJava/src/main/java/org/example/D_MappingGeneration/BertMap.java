@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import java.time.Duration;
 
 import static org.example.A_Coordinator.Pipeline.config;
@@ -73,8 +74,6 @@ public class BertMap {
 
     public JsonObject startBertmap(boolean run_for_do_mapping) {
 
-        WebClient webClient = WebClient.create();
-
         BertmapRequest requestBody = new BertmapRequest(
             config.In.UseCase,
             config.In.DatasetName,
@@ -84,7 +83,15 @@ public class BertMap {
             config.PiiMap.TgtOntology
         );
 
-        String response = webClient.post()
+        String response = WebClient.builder()
+
+                .exchangeStrategies(ExchangeStrategies.builder()
+                        .codecs(configurer -> configurer.defaultCodecs()
+                                .maxInMemorySize(16 * 1024 * 1024)) // Set the buffer size to 16 MB
+                        .build()
+                ).build()
+
+                .post()
                 .uri(Config.BertMapEndpoint)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(requestBody))

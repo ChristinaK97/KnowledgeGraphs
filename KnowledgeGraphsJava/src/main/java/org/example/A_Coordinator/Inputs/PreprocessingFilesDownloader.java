@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -14,10 +15,17 @@ import static org.example.A_Coordinator.config.Config.PreprocessingEndpoint;
 public class PreprocessingFilesDownloader {
     private final WebClient webClient;
 
-
     @Autowired
     public PreprocessingFilesDownloader(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(PreprocessingEndpoint).build();
+        // this.webClient = webClientBuilder.baseUrl(PreprocessingEndpoint).build();
+        ExchangeStrategies strategies = ExchangeStrategies.builder()
+                .codecs(configurer ->
+                        configurer.defaultCodecs().maxInMemorySize(50 * 1024 * 1024))
+                .build();
+
+        this.webClient = webClientBuilder.baseUrl(PreprocessingEndpoint)
+                .exchangeStrategies(strategies)
+                .build();
     }
 
     public Mono<Resource> downloadFile(String filename, boolean downloadOG) {
