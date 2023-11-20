@@ -58,6 +58,7 @@ public class InputConnector {
     public ResponseEntity<String> receivePreprocessingNotification(
             @RequestBody PreprocessingNotification notification) {
         try {
+            notification.setReceivedFromPreprocessing(true);
             LOGGER.info("Knowledge Graphs received:\n" + notification);
             String UseCase  = notification.getDomain();
             String fileName = notification.getFilename();
@@ -152,8 +153,10 @@ public class InputConnector {
     private void startPipeline(@RequestParam("UseCase") String UseCase,
                                @RequestParam("filename") String filename) {
         LOGGER.info("Run pipeline for " + UseCase + " " + filename);
+        PreprocessingNotification notification = new PreprocessingNotification();
+        notification.setReceivedFromPreprocessing(false);
         Pipeline pipeline = new Pipeline(
-                setupConfig(UseCase, filename, new PreprocessingNotification()),
+                setupConfig(UseCase, filename, notification),
                 kafkaProducerService
         );
         pipeline.run();
