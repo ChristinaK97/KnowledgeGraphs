@@ -365,11 +365,6 @@ class BERTMapPipeline:
 # ======================================================================================================================
 
     def extractBertMapMappings(self):
-        # file = os.path.join(self.output_path,"results_per_dataset", self.config.dataset_name, self.config.mode, "match", "BertMapMappings.json")
-        # if exists(file):
-        #     with open(file, 'r') as f:
-        #         data = json.load(f)
-        #     return data
         return \
         MappingSelector(
             rawMappingsFile = os.path.join(self.output_path, "results_per_dataset", self.config.dataset_name, self.config.mode, "match", "raw_mappings.json"),

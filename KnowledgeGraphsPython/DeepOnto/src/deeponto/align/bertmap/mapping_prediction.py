@@ -486,6 +486,8 @@ class MappingPredictor:
             mapping_index = dict()
             FileUtils.create_path(match_dir)
 
+        self.logger.info(f"Loaded {len(mapping_index)} mappings.")
+
         progress_bar = self.enlighten_manager.counter(
             total=len(self.src_annotation_index), desc="Mapping Prediction", unit="per src class"
         )
@@ -500,14 +502,20 @@ class MappingPredictor:
             mapping_index[src_class_iri] = [m.to_tuple(with_score=True) for m in mappings]
 
             if i % 100 == 0 or i == len(self.src_annotation_index) - 1:
-                FileUtils.save_file(mapping_index, os.path.join(match_dir, "raw_mappings.json"))
-                # also save a .tsv version
-                mapping_in_tuples = list(itertools.chain.from_iterable(mapping_index.values()))
-                mapping_df = pd.DataFrame(mapping_in_tuples, columns=["SrcEntity", "TgtEntity", "Score", "Rank"])
-                mapping_df.to_csv(os.path.join(match_dir, "raw_mappings.tsv"), sep="\t", index=False)
-                self.logger.info("Save currently computed mappings to prevent undesirable loss.")
+                self.save_checkpoint_mappings(mapping_index, match_dir)
 
             progress_bar.update()
 
-        self.logger.info("Finished mapping prediction for each class in the source ontology.")
+        self.save_checkpoint_mappings(mapping_index, match_dir)
+        self.logger.info(f"Finished mapping prediction for each class in the source ontology. Mapping index has {len(mapping_index)} src elements")
         progress_bar.close()
+
+
+    def save_checkpoint_mappings(self, mapping_index, match_dir):
+        FileUtils.save_file(mapping_index, os.path.join(match_dir, "raw_mappings.json"))
+        # also save a .tsv version
+        mapping_in_tuples = list(itertools.chain.from_iterable(mapping_index.values()))
+        mapping_df = pd.DataFrame(mapping_in_tuples, columns=["SrcEntity", "TgtEntity", "Score", "Rank"])
+        mapping_df.to_csv(os.path.join(match_dir, "raw_mappings.tsv"), sep="\t", index=False)
+        self.logger.info(
+            f"Save currently computed mappings to prevent undesirable loss. Saved {mapping_df.shape[0]} mappings")
