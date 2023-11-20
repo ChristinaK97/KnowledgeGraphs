@@ -69,7 +69,7 @@ public class InsertDataRDB extends InsertDataBase {
     @Override
     protected void mapData() {
         db.getrTables().forEach((tableName, rTable) -> {
-            tech.tablesaw.api.Table data = db.retrieveDataFromTable(tableName);                                         if(DEV_MODE){System.out.println(">> TABLE : " + tableName); System.out.println(data.first(3)); rTable.getFKs().forEach((t, r) -> System.out.println("FK " + t + " " + r));}
+            tech.tablesaw.api.Table data = db.retrieveDataFromTable(tableName);                                         if(DEV_MODE){System.out.println(">> TABLE : " + tableName + " with # records = " + data.rowCount()); System.out.println(data.first(3)); rTable.getFKs().forEach((t, r) -> System.out.println("FK " + t + " " + r));}
 
             // for each record in the table
             for(Row row : data) {
