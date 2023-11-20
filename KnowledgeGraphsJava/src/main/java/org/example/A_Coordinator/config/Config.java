@@ -171,6 +171,10 @@ public class Config {
         public boolean isDSON() {return "dcm".equals(FileExtension);}
         public boolean isSQL()  {return credentials != null || "SQL".equals(FileExtension);}
 
+        public boolean isExcel(){return "xlsx".equals(FileExtension);}
+        public boolean isCSV()  {return "csv".equals(FileExtension);}
+        public boolean isTSV()  {return "tsv".equals(FileExtension);}
+
         public static Set<String> CSVlikeFileTypes = Set.of("xlsx", "csv", "tsv");
         public boolean isCSVlike(){return CSVlikeFileTypes.contains(FileExtension);}
         public static boolean isCSVlike(String fileExtension){return CSVlikeFileTypes.contains(fileExtension);}

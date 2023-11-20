@@ -2,10 +2,13 @@ package org.example.B_InputDatasetProcessing.Tabular;
 
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.A_Coordinator.config.Config.DEV_MODE;
-import static org.example.util.FileHandler.getFileNameWithExtension;
 import static org.example.util.FileHandler.getFileNameWithoutExtension;
 import static org.example.util.XSDmappers.fixDateFormat;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.example.util.FileHandler;
 import org.example.util.Pair;
 import org.slf4j.LoggerFactory;
@@ -24,7 +27,7 @@ import java.util.regex.Pattern;
 
 public class TabularFilesReader {
 
-    private boolean log = false && DEV_MODE;
+    private boolean log = true && DEV_MODE;
 
     private RelationalDB db;
 
@@ -80,9 +83,15 @@ public class TabularFilesReader {
         db.addTable(tableName, filename, table, colTypes, PKCol);                                                       if(log) System.out.println("===============================================================\n");
     }
 
-
+// =================================================================================================================
 
     private Pair<List<List<String>>, Integer> readRows(String downloadedFilePath) {
+        return config.In.isExcel() ?
+                readRowsFromExcel(downloadedFilePath) :
+                readRowsFromCsv(downloadedFilePath);
+    }
+
+    private Pair<List<List<String>>, Integer> readRowsFromCsv(String downloadedFilePath) {
         // Read the input CSV and calculate the max number of cells
         List<List<String>> rows = new ArrayList<>();
         String delimiter = null;
@@ -103,6 +112,49 @@ public class TabularFilesReader {
     }
 
 
+    private Pair<List<List<String>>, Integer> readRowsFromExcel(String filePath) {
+        System.out.println("Read excel file");
+        List<List<String>> rows = new ArrayList<>();
+        int maxCells = 0;
+
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = WorkbookFactory.create(fis)) {
+                Sheet sheet = workbook.getSheetAt(0); // Assuming only one sheet
+
+                Iterator<org.apache.poi.ss.usermodel.Row> rowIterator = sheet.iterator();
+                while (rowIterator.hasNext()) {
+                    org.apache.poi.ss.usermodel.Row row = rowIterator.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();
+
+                    List<String> cellData = new ArrayList<>();
+                    while (cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+                        String cellValue = getCellValueAsString(cell);
+                        cellData.add(cellValue);
+                    }
+                    System.out.println(cellData);
+
+                    maxCells = Math.max(maxCells, cellData.size());
+                    rows.add(cellData);
+                }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Pair<>(rows, maxCells);
+    }
+
+    private String getCellValueAsString(Cell cell) {
+        if (cell == null) {
+            return EMPTY;
+        }
+        return switch (cell.getCellType()) {
+            case STRING -> cell.getStringCellValue();
+            case NUMERIC -> String.valueOf(cell.getNumericCellValue());
+            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
+            default -> EMPTY;
+        };
+    }
+// ==================================================================================================================
     private String detectDelimiter(String line) {
 
         Matcher matcher = Pattern.compile("[^_a-zA-Z0-9]").matcher(line);
@@ -124,13 +176,17 @@ public class TabularFilesReader {
 
     private List<String> repairHeaders(List<List<String>> rows, int maxCells) {
         List<String> headers = rows.get(0);
+        int nUnknownHeaders = 0;
 
-        //Duplicate headers
+        //Duplicate headers or null headers
         HashSet<String> headersSet = new HashSet<>(headers.size());
         for(int i = 0 ; i < headers.size() ; ++i) {
             String header = headers.get(i);
-            if(headersSet.contains(header)) {
-                header += "_";
+            if(header.equals("")) {
+                headers.set(i, UNKNOWN_HEADER + (++nUnknownHeaders));
+            }
+            else if(headersSet.contains(header)) {
+                header += "_" + (i + 1);
                 headers.set(i, header);
             }
             headersSet.add(header);
@@ -139,7 +195,7 @@ public class TabularFilesReader {
         // Generate missing headers
         int missingHeaders = maxCells - headers.size();
         for (int i = 0; i < missingHeaders; i++) {
-            headers.add(UNKNOWN_HEADER + (headers.size() + i + 1));
+            headers.add(UNKNOWN_HEADER + (++nUnknownHeaders));
         }
 
         // Add missing cells and headers to each row
