@@ -9,6 +9,7 @@ import java.util.Random;
 import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.getCodeFromName;
 
 public class PreprocessingNotification {
+    private boolean isReceivedFromPreprocessing;
     private String document_id;
     private String domain;
     private int file_size;
@@ -18,12 +19,21 @@ public class PreprocessingNotification {
     private HashSet<String> tableNames = new HashSet<>();
 
     public PreprocessingNotification() {
+        this.isReceivedFromPreprocessing = false;
         filename = ".";
         document_id = String.valueOf(new Random().nextInt());
         hash = String.valueOf(new Random().nextInt());
     }
 
 // Getters and setters
+
+
+    public boolean isReceivedFromPreprocessing() {
+        return isReceivedFromPreprocessing;
+    }
+    public void setReceivedFromPreprocessing(boolean receivedFromPreprocessing) {
+        isReceivedFromPreprocessing = receivedFromPreprocessing;
+    }
 
     public String getDocument_id() {
         return document_id;
@@ -94,15 +104,14 @@ public class PreprocessingNotification {
     @Override
     public String toString() {
         return "PreprocessingNotification{" +
-                "\n\tdocument_id='" + document_id + '\'' +
-                "\n\tdomain='" + domain + '\'' +
-                "\n\tfile_size=" + file_size +
-                "\n\tfilename='" + filename + '\'' +
-                "\n\thash='" + hash + '\'' +
-                "\n\tpiis=" + piis +
+                "isReceivedFromPreprocessing=" + isReceivedFromPreprocessing +
+                ", document_id='" + document_id + '\'' +
+                ", domain='" + domain + '\'' +
+                ", file_size=" + file_size +
+                ", filename='" + filename + '\'' +
+                ", hash='" + hash + '\'' +
+                ", piis=" + piis +
                 '}';
     }
-
-
 }
 

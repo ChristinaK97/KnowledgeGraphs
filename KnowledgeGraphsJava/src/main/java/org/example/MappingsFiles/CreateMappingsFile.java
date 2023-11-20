@@ -181,7 +181,8 @@ public class CreateMappingsFile extends ManageMappingsFile {
 
         if(storedTable != null)
             updatedTable.copyTableSource(storedTable);
-        updatedTable.addTableSource(tableFile, tableDocId);
+        else if (isExtractedFromCurrentFile || !config.notification.isReceivedFromPreprocessing()) // the 2nd condition is for local testing
+            updatedTable.addTableSource(tableFile, tableDocId);
         return updatedTable;
     }
 

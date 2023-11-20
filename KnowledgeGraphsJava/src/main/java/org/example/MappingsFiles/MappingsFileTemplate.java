@@ -333,27 +333,27 @@ public class MappingsFileTemplate {
     //================================================================================
 
     public static class Source {
-        private String docID;
-        private String fileName;
+        private String document_id;
+        private String filename;
         //private String UUI;
 
-        public Source(String fileName, String docID /*, String UUI*/) {
-            this.fileName = fileName;
-            this.docID = docID;
+        public Source(String filename, String document_id /*, String UUI*/) {
+            this.filename = filename;
+            this.document_id = document_id;
             //this.UUI = UUI;
         }
 
-        public String getDocID() {
-            return docID;
+        public String getDocument_id() {
+            return document_id;
         }
-        public void setDocID(String docID) {
-            this.docID = docID;
+        public void setDocument_id(String document_id) {
+            this.document_id = document_id;
         }
-        public String getFileName() {
-            return fileName;
+        public String getFilename() {
+            return filename;
         }
-        public void setFileName(String fileName) {
-            this.fileName = fileName;
+        public void setFilename(String filename) {
+            this.filename = filename;
         }
         /*public String getUUI() {
             return UUI;
@@ -367,14 +367,14 @@ public class MappingsFileTemplate {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Source source = (Source) o;
-            return docID.equals(source.docID)
-                && fileName.equals(source.fileName);
+            return document_id.equals(source.document_id)
+                && filename.equals(source.filename);
                 //&& UUI.equals(source.UUI);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(docID, fileName); //, UUI);
+            return Objects.hash(document_id, filename); //, UUI);
         }
     }
 
