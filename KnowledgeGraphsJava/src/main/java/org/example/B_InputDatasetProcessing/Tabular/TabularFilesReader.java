@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 public class TabularFilesReader {
 
-    private boolean log = true && DEV_MODE;
+    private boolean log = false && DEV_MODE;
 
     private RelationalDB db;
 
@@ -113,7 +113,6 @@ public class TabularFilesReader {
 
 
     private Pair<List<List<String>>, Integer> readRowsFromExcel(String filePath) {
-        System.out.println("Read excel file");
         List<List<String>> rows = new ArrayList<>();
         int maxCells = 0;
 
@@ -132,7 +131,6 @@ public class TabularFilesReader {
                         String cellValue = getCellValueAsString(cell);
                         cellData.add(cellValue);
                     }
-                    System.out.println(cellData);
 
                     maxCells = Math.max(maxCells, cellData.size());
                     rows.add(cellData);
