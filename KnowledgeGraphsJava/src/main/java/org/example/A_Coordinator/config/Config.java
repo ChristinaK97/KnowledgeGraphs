@@ -33,10 +33,10 @@ public class Config {
     // TODO: DO NOT FORGET TO CHANGE VALUES FOR DEPLOYMENT!!!!!
 
     // GET http://preprocessing-tool:5000/download/files/original/<path:filename>
-    // public static final String PreprocessingEndpoint = "http://preprocessing-tool:5000";
-    public static final String PreprocessingEndpoint = "http://localhost:8080";
+    public static final String PreprocessingEndpoint =
+            IS_DOCKER_ENV ? "http://preprocessing-tool:8080" : "http://localhost:8080";
 
-    private static boolean MAINTAIN_PREPROCESSING_RESULTS = false;
+    private static boolean MAINTAIN_PREPROCESSING_RESULTS = true;
 
 // ---------------------------------------------------------------------------------------------------------------------
     // Define the URL of the Python services and APIS

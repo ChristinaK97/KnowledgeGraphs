@@ -80,7 +80,7 @@ public class InputConnector {
     /** Return a response */
     private ResponseEntity<String> sendResponse(boolean okStatus, int type, String exceptionMessage) {
         String responseBody = switch (type) {
-            case 1 -> "KGs receive metadata and file successfully";
+            case 1 -> "Metadata post request to KGs succeeded";
             case 2 -> "Metadata post request to KGs succeeded, but file download failed.";
             case 3 -> "Metadata post request to KGs failed: " + exceptionMessage;
             default -> null;
@@ -101,7 +101,6 @@ public class InputConnector {
             Mono<Resource> fileMono = downloader.downloadFile(fileName, downloadOG);   // 1
             if (fileMono != null) {
                 processFileMono(fileMono, fileDownloadPath);    // 2
-                LOGGER.info(fileName + " downloaded successfully");
                 return true;
             } else {
                 LOGGER.error(fileName + " download failed: fileMono == null");
@@ -128,10 +127,10 @@ public class InputConnector {
                 Files.copy(inputStream, fileDownloadPath, StandardCopyOption.REPLACE_EXISTING);
                 // 2
             } catch (IOException e) { // 3
-                LOGGER.error("Error while saving to local file");
+                LOGGER.error("Error while saving to local file for" + fileDownloadPath);
             }
         }, error -> { // 4
-            LOGGER.error("Error while processing fileMono");
+            LOGGER.error("Error while processing fileMono for " + fileDownloadPath);
             error.printStackTrace();
         }, () -> {
             // 5
