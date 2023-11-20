@@ -22,7 +22,6 @@ public class KafkaTopicConfig {
     )
     public NewTopic kafkaTopic() {
         return TopicBuilder.name(topic)
-                .replicas(1)
                 .build();
     }
 }
