@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
+import org.example.D_MappingGeneration.BertMap;
 import org.example.util.Annotations;
 import org.example.util.DatasetDictionary;
 import org.example.util.JsonUtil;
@@ -26,6 +27,8 @@ import static org.example.util.Annotations.normalise;
 
 
 public class AbbreviationsDictionary extends DatasetDictionary {
+
+    Logger LG = LoggerFactory.getLogger(AbbreviationsDictionary.class);
 
     // =====================================================================================================================
     class HeaderInfo extends DatasetElementInfo{
@@ -70,7 +73,7 @@ public class AbbreviationsDictionary extends DatasetDictionary {
     public AbbreviationsDictionary(RelationalDB db) {
         readAbbrevExpansionResults(
                 startAAExpansion(
-                        extractHeaders(db)));
+                        extractHeaders(db), 0));
         expandResultsToProperties();
     }
 
@@ -83,6 +86,24 @@ public class AbbreviationsDictionary extends DatasetDictionary {
     }
 
 
+    private JsonObject startAAExpansion(List<String> inputs, int attempt) {
+
+        LG.info("Making request to " + AAExpansionEndpoint+" . Attempt # " + (attempt+1));
+        JsonObject results = startAAExpansion(inputs);
+        if(results != null)
+            return results;
+        else{ // request was unsuccessful, sleep 10'' and try again
+            if(attempt < 4) {
+                try {Thread.sleep(10000);} catch (InterruptedException ignore) {}
+                return startAAExpansion(inputs, ++attempt);
+            }else {
+                LG.error("AAExpansion service unavailable. Max number of attempts (5) reached. " +
+                        "Process will proceed without AAExpansion step.");
+                return null;
+            }
+        }
+    }
+    // -calls->
     /** HTTP GET Request to AAExpansion service */
     private JsonObject startAAExpansion(List<String> inputs) {
         Logger LG = LoggerFactory.getLogger(AbbreviationsDictionary.class);

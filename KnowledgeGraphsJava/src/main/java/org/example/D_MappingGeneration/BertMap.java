@@ -3,6 +3,7 @@ package org.example.D_MappingGeneration;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.example.A_Coordinator.config.Config;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -72,16 +73,39 @@ public class BertMap {
         }
     }
 
-    public JsonObject startBertmap(boolean run_for_do_mapping) {
+    Logger LG = LoggerFactory.getLogger(BertMap.class);
 
+    public JsonObject startBertmap(boolean run_for_do_mapping) {
+        return startBertmap(run_for_do_mapping, 0);
+    }
+    // -calls->
+    private JsonObject startBertmap(boolean run_for_do_mapping, int attempt) {
         BertmapRequest requestBody = new BertmapRequest(
-            config.In.UseCase,
-            config.In.DatasetName,
-            run_for_do_mapping,
-            config.Out.POntology,
-            config.DOMap.TgtOntology,
-            config.PiiMap.TgtOntology
+                config.In.UseCase,
+                config.In.DatasetName,
+                run_for_do_mapping,
+                config.Out.POntology,
+                config.DOMap.TgtOntology,
+                config.PiiMap.TgtOntology
         );
+
+        try {
+            LG.info("Making request to " +Config.BertMapEndpoint+" . Attempt # " + (attempt+1));
+            return startBertmap(requestBody);
+
+        }catch (Exception e) { // attempt was not successful. wait 10'' and retry
+            if(attempt < 5) {
+                try {Thread.sleep(10000);} catch (InterruptedException ignore) {}
+                return startBertmap(run_for_do_mapping, ++attempt);
+            }else {
+                LG.error("Bertmap service unavailable. Max number of attempts (5) reached. Exiting...");
+                e.printStackTrace();
+                throw new RuntimeException();
+            }
+        }
+    }
+    // -calls->
+    private JsonObject startBertmap(BertmapRequest requestBody) {
 
         String response = WebClient.builder()
 
@@ -104,8 +128,9 @@ public class BertMap {
         if (response != null)
             return JsonParser.parseString(response).getAsJsonObject();
         else {
-            LoggerFactory.getLogger(BertMap.class).error("bertmap service returned null!");
-            return null;
+            LG.error("bertmap service returned null!");
+            throw new RuntimeException();
         }
     }
+
 }

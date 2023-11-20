@@ -25,7 +25,11 @@ public class KafkaProducerService {
 	@Autowired
 	private KafkaTemplate<String, PIIresultsTemplate> kafkaTemplate;
 
-	public void sendMessage(PIIresultsTemplate piis, int attemptCounter) {
+	public void sendMessage(PIIresultsTemplate piis) {
+		sendMessage(piis, 0);
+	}
+
+	private void sendMessage(PIIresultsTemplate piis, int attemptCounter) {
 		++attemptCounter;
 		Message<PIIresultsTemplate> message = MessageBuilder
 				.withPayload(piis)

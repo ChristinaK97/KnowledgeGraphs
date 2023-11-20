@@ -18,7 +18,7 @@ public class KafkaTopicConfig {
     @Retryable(
             value = { Exception.class },          // Retry on any exception, customize as needed
             maxAttempts = 10,                    // Maximum attempts
-            backoff = @Backoff(delay = 1000)    // Delay between retries (in milliseconds)
+            backoff = @Backoff(delay = 5000)    // Delay between retries (in milliseconds)
     )
     public NewTopic kafkaTopic() {
         return TopicBuilder.name(topic)
