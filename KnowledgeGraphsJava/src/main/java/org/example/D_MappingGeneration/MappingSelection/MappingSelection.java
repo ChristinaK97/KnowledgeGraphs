@@ -19,6 +19,7 @@ import org.example.MappingsFiles.SetPIIsToMappingsFile;
 import org.example.util.Ontology;
 import org.example.util.Pair;
 import org.example.util.XSDmappers;
+import org.slf4j.LoggerFactory;
 import tech.tablesaw.api.*;
 import org.example.util.JsonUtil;
 import tech.tablesaw.columns.Column;
@@ -64,6 +65,7 @@ public class MappingSelection {
                             Object datasource,
                             boolean runForMappingToDO
     ) {
+        LoggerFactory.getLogger(MappingSelection.class).info("Mapping selector received results with size = " + bertmapJson.size());
         this.srcOnto = new Ontology(srcOnto);
         this.tgtOnto = new Ontology(tgtOnto);
         this.config = config;
@@ -144,7 +146,7 @@ public class MappingSelection {
                 );
                 tMap = tMap.where(tMap.numberColumn(PJRank).isEqualTo(tMap.numberColumn(PJRank).min()));
                 tMap = tMap.where(tMap.numberColumn(PJPerc).isEqualTo(tMap.numberColumn(PJPerc).max()));
-                tableOptimal = tMap.getString(0, TGTCand);
+                tableOptimal = tMap.getString(0, TGTCand);                                                            //if(DEV_MODE) System.out.printf("Table [%s] has selected [%s] from candidates:\n%s\n", table.getTable(), tableOptimal, tMap);
             }catch (IndexOutOfBoundsException ignored) {}
             tableClassMaps.put(tablePOClass, tableOptimal);                                                             //if(DEV_MODE) System.out.printf(">> %s:\n%s\n%s\n\n", tablePOClass, tMap, tableOptimal);
             matches.addMatch(tablePOClass, tableOptimal, 0);

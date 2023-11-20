@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
 
 public class FileHandler {
 
@@ -100,16 +101,19 @@ public class FileHandler {
         }
     }
 
+    /** Creates the given directories if they don't exist and all the parent directories that don't exist */
     public static void createDirectories(List<String> dirPaths) {
         dirPaths.forEach(FileHandler::createDirectory);
     }
 
+    /** Creates a directory if it doesn't exist and all the parent directories that don't exist */
     public static void createDirectory(String dirPath) {
         try {
             Path dirFormattedPath = Paths.get(dirPath);
-            if(!Files.exists(dirFormattedPath))
-                Files.createDirectory(dirFormattedPath);
-        } catch (IOException e) {
+            if(!Files.exists(dirFormattedPath)) {
+                Files.createDirectories(dirFormattedPath);                                                              if (DEV_MODE) System.out.println("Created dir: " + dirFormattedPath);
+        }} catch (IOException e) {
+            System.err.println("Runtime exception when trying to create dir " + dirPath);
             throw new RuntimeException(e);
         }
     }
