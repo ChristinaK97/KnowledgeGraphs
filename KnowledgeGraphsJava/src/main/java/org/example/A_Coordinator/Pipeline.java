@@ -49,6 +49,8 @@ public class Pipeline {
         LG.info("C. EXTRACT PONTOLOGY");
         new POntologyExtractor(dataSource);
 
+        if(config.In.UseCase.equals("health"))
+            throw new RuntimeException();
         // -------------------------------------------------------------------------------------------------------------
         LG.info("D. RUN MAPPER: " + config.DOMap.Mapper);
         switch (config.DOMap.Mapper) {
@@ -94,8 +96,8 @@ public class Pipeline {
         runPiiIdentificationPipeline();
 
         // upload kg to graphdb after having sent the piis
-        LG.info("UPLOAD KG TO GRAPHDB");
-        new GraphDB(/*reset repository ? */ true);
+        LG.info("UPLOAD KG TO GRAPHDB"); //TODO uncomment
+        //new GraphDB(/*reset repository ? */ true);
     }
 
 
