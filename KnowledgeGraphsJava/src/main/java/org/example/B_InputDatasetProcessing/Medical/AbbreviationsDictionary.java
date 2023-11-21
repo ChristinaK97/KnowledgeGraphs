@@ -19,6 +19,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.A_Coordinator.config.Config.AAExpansionEndpoint;
@@ -109,18 +110,21 @@ public class AbbreviationsDictionary extends DatasetDictionary {
         Logger LG = LoggerFactory.getLogger(AbbreviationsDictionary.class);
         LG.info("HTTP REQUEST: POST " + AAExpansionEndpoint + " # headers = " + inputs.size());
         try {
-            String responseJson = WebClient.builder()
+            // Create a request body containing inputs and useScispacyEntityLinker
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("inputs", inputs);
+            requestBody.put("useScispacyEntityLinker", config.Out.useScispacyEntityLinker);
 
+            String responseJson = WebClient.builder()
                     .exchangeStrategies(ExchangeStrategies.builder()
                             .codecs(configurer -> configurer.defaultCodecs()
                                     .maxInMemorySize(16 * 1024 * 1024)) // Set the buffer size to 16 MB
                             .build()
-
                     ).build()
                     .post()
                     .uri(AAExpansionEndpoint)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(inputs)
+                    .bodyValue(requestBody) // Pass the combined request body
                     .retrieve()
                     .bodyToMono(String.class)
                     .timeout(Duration.ofHours(64))
@@ -140,6 +144,7 @@ public class AbbreviationsDictionary extends DatasetDictionary {
             return null;
         }
     }
+
 
 
 // =====================================================================================================================

@@ -33,6 +33,7 @@ class InterpretHeaders:
                  headers: List[str],
                  medDictPath: Union[str,Path],
                  outputPath:Union[str,Path] = None,
+                 useScispacyEntityLinker: bool = True,
                  reset:bool = True):
 
         self.outputPath = outputPath
@@ -42,7 +43,10 @@ class InterpretHeaders:
             self.results = self._try_to_load_results(headers)
 
         if self.reset:
-            self.hDataset = HeadersDataset(aa_expansion_base_dir, headers)
+            self.hDataset = HeadersDataset(aa_expansion_base_dir=aa_expansion_base_dir,
+                                           headers=headers,
+                                           useScispacyEntityLinker=useScispacyEntityLinker)
+
             self.medDict  = MedicalDictionary(aa_expansion_base_dir,
                                               dictionaryCSVPath=medDictPath,
                                               datasetAlphabet=self.hDataset.headersAlphabet)

@@ -198,6 +198,7 @@ public class Config {
         public String KGOutputsDir;
         // preprocessing
         public boolean applyMedAbbrevExpansion;
+        public boolean useScispacyEntityLinker;
         public String abbrevExpansionResultsFile;
 
         // po extraction
@@ -226,19 +227,21 @@ public class Config {
             this(
                     DatasetName, DatasetResourcesPath,
                     kgOutsParams.get("applyMedicalAbbreviationExpansionStep").getAsBoolean(),
+                    kgOutsParams.get("useScispacyEntityLinker").getAsBoolean(),
                     kgOutsParams.get("turnAttributesToClasses").getAsBoolean(),
                     kgOutsParams.get("includeInverseAxiom").getAsBoolean()
             );
         }
 
         public KGOutputsConfig(String DatasetName, String DatasetResourcesPath,
-                  boolean applyMedAbbrevExpansion,
+                  boolean applyMedAbbrevExpansion, boolean useScispacyEntityLinker,
                   boolean turnAttributesToClasses, boolean includeInverseAxioms
         ){
             this.turnAttributesToClasses = turnAttributesToClasses;
             this.includeInverseAxioms = includeInverseAxioms;
 
             this.applyMedAbbrevExpansion = applyMedAbbrevExpansion;
+            this.useScispacyEntityLinker = useScispacyEntityLinker;
             // TODO modify if you want to use:
             abbrevExpansionResultsFile = getPath(String.format("%s/Other/abbrevExpansionResults.json", DatasetResourcesPath));
 

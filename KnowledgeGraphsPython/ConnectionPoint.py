@@ -46,12 +46,21 @@ def start_aa_expansion():
     metaInventoryPath = Path(f"{aa_expansion_base_dir}/Metainventory_Version1.0.0.csv")
     outputPath = Path(f"{aa_expansion_base_dir}/abbrevExpansionResults.json")
     # ------------------------------------------------------------------------------------------------------------------
+    request_data = request.get_json()
+    headers = request_data.get('inputs', [])
+    useScispacyEntityLinker = request_data.get('useScispacyEntityLinker', False)
 
-    headers = request.get_json()
-    print("Start AAExpansion request with input:\n\t# headers = ", len(headers), headers[0:5])
+    print("Start AAExpansion request with input:\n\t# headers = ", len(headers), headers[0:5],
+          "...\nuseScispacyEntityLinker =", useScispacyEntityLinker)
 
-    AAExpansionResults  = InterpretHeaders(
-                            aa_expansion_base_dir, headers, metaInventoryPath, outputPath, False).results
+    AAExpansionResults = InterpretHeaders(
+        aa_expansion_base_dir=aa_expansion_base_dir,
+        headers=headers,
+        medDictPath=metaInventoryPath,
+        outputPath=outputPath,
+        useScispacyEntityLinker=useScispacyEntityLinker,
+        reset=False
+    ).results
     response = jsonify(AAExpansionResults)
     print("jsonify = ", response)
     return response

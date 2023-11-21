@@ -1,5 +1,6 @@
 import pickle
 import re
+import warnings
 from os import remove
 from os.path import exists
 from pathlib import Path
@@ -36,10 +37,12 @@ class HeadersDataset:
     def __init__(self,
                  aa_expansion_base_dir: Union[str,Path],
                  headers:List[str],
+                 useScispacyEntityLinker: bool = True,
                  resetDataset:bool = False):
 
         self.aa_expansion_base_dir = aa_expansion_base_dir
         HeadersDataset.HEADERS_DATASET_FILE = Path(f"{aa_expansion_base_dir}/headerTokenizerOutput.pkl")
+        self.useScispacyEntityLinker = useScispacyEntityLinker
 
         if resetDataset or not exists(HeadersDataset.HEADERS_DATASET_FILE):
             print("Creating headers dictionary...")
@@ -248,17 +251,24 @@ class HeadersDataset:
         nltk.download('stopwords')
         self.en_stopwords = stopwords.words('english')
 
-        # DONT REMOVE THESE UNUSED IMPORTS
-        import spacy
-        import scispacy
-        from scispacy.linking import EntityLinker
+        if self.useScispacyEntityLinker:
+            if str(self.aa_expansion_base_dir).startswith("/KnowledgeGraphsApp"):  # running inside docker
+                warnings.warn(f"AAExpansion WARN: Trying to load SciSpacy Entity Linker inside docker container.\n"
+                              f"In case the AAExpansion gets stuck, consider setting useScispacyEntityLinker: false "
+                              f"in the configuration file of the dataset and retry.\n Some health domain words might be "
+                              f"incorrectly interpreted as abbreviations.")
 
-        self.nlp = spacy.load("en_core_sci_lg")
-        # TODO: gets stuck when running in docker container!
-        self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
-        self.linker = self.nlp.get_pipe("scispacy_linker")
+            # DONT REMOVE THESE UNUSED IMPORTS
+            import spacy
+            import scispacy
+            from scispacy.linking import EntityLinker
 
-        print("Finished loading entity linker")
+            self.nlp = spacy.load("en_core_sci_lg")
+            # TODO: gets stuck when running in docker container!
+            self.nlp.add_pipe("scispacy_linker", config={"resolve_abbreviations": True, "linker_name": "umls"})
+            self.linker = self.nlp.get_pipe("scispacy_linker")
+
+            print("Finished loading entity linker")
 
 
 # ======================================================================================================================
@@ -446,7 +456,7 @@ class HeadersDataset:
         return re.match(r'^\d+(\.\d+)?$', word)
 
 
-    def _isaEnglishWord(self, word, checkLinker=True):
+    def _isaEnglishWord(self, word):
         if self._isNumeric(word):
             return True, NUM
 
@@ -456,13 +466,15 @@ class HeadersDataset:
         if wordnet.synsets(word):
             return True, WORD
 
-        if checkLinker:
+        if self.useScispacyEntityLinker:
             entities = self.nlp(word).ents
             if entities:
                 matches = entities[0]._.kb_ents
                 if matches and matches[0][1] > LINKER_THRS:
                     return self._checkMatches(word, matches)
 
+            return False, UNK
+        else: # if is not numeric or an english word according to wordnet, and entity linker was not used, it's UNK
             return False, UNK
 
 
