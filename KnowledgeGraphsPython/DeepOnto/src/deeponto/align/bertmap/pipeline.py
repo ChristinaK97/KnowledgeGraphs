@@ -99,6 +99,7 @@ class BERTMapPipeline:
         self.src_onto = src_onto
         self.tgt_onto = tgt_onto
         self.annotation_property_iris = self.config.annotation_property_iris
+        self.logger.info(f"\nsrc_onto = {self.src_onto.owl_path}\ntgt_onto = {self.tgt_onto.owl_path}")
 
         # config file
         self.logger.info(f"Load the following configurations:\n{FileUtils.print_dict(self.config)}")
@@ -121,6 +122,8 @@ class BERTMapPipeline:
 # ======================================================================================================================
 
     def build_corpora(self):
+        self.data_path = os.path.join(self.output_path, "data")
+        self.corpora_path = os.path.join(self.data_path, "text-semantics.corpora.json")
 
         # provided mappings if any
         self.known_mappings = self.config.known_mappings
@@ -129,12 +132,12 @@ class BERTMapPipeline:
 
         # auxiliary ontologies if any
         self.auxiliary_ontos = self.config.auxiliary_ontos
-        if self.auxiliary_ontos:
+        if self.auxiliary_ontos and not os.path.exists(self.corpora_path):  # load aux onto only if needed to construct training corpus
             self.auxiliary_ontos = [Ontology(ao, self.config.reasoner) for ao in self.auxiliary_ontos]
+        else:
+            self.auxiliary_ontos = []
 
-        self.data_path = os.path.join(self.output_path, "data")
         # load or construct the corpora
-        self.corpora_path = os.path.join(self.data_path, "text-semantics.corpora.json")
         self.corpora = self.load_text_semantics_corpora()
 
 
