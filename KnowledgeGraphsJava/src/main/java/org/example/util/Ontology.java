@@ -6,6 +6,7 @@ import org.apache.jena.rdf.model.*;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
+import org.slf4j.LoggerFactory;
 import tech.tablesaw.api.StringColumn;
 import tech.tablesaw.api.Table;
 
@@ -50,6 +51,7 @@ public class Ontology {
 
 
     private void loadOntology() {
+        LoggerFactory.getLogger(Ontology.class).info("Loading " +  ontologyFile + " ontology ...");
         pModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         RDFDataMgr.read(pModel, ontologyFile.replace("\\", "/"));
         //pModel.listClasses().forEach(cl -> System.out.println(cl));

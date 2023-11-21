@@ -313,6 +313,7 @@ public class Config {
 
         public void printUnsupportedMapperError() {
             System.err.printf("Unsupported mapper %s. Choose %s or %s\n", Mapper, EXACT_MAPPER, BERTMAP);
+            throw new RuntimeException();
         }
     }
 }
