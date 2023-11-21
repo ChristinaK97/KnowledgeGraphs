@@ -66,8 +66,8 @@ public class MappingSelection {
                             boolean runForMappingToDO
     ) {
         LoggerFactory.getLogger(MappingSelection.class).info("Mapping selector received results with size = " + bertmapJson.size());
-        this.srcOnto = new Ontology(srcOnto);
-        this.tgtOnto = new Ontology(tgtOnto);
+        this.srcOnto = new Ontology(srcOnto);                                                                                        if(DEV_MODE) System.out.println("Loading tgt ontology " + tgtOnto + " ...");
+        this.tgtOnto = new Ontology(tgtOnto);                                                                                        if(DEV_MODE) System.out.println("Loading ontologies completed.");
         this.config = config;
 
         matches = new Matches();
@@ -107,7 +107,7 @@ public class MappingSelection {
         return table;
     }
 
-    private void readMappingsJSON(JsonObject bertmapJson){
+    private void readMappingsJSON(JsonObject bertmapJson){                                                              if(DEV_MODE) System.out.println("Reading BertMap results...");
         // JsonObject bertmapJson = JsonUtil.readJSON(bertmapMappingsFile).getAsJsonObject();
         for (String ontoEl : bertmapJson.keySet()) {
             JsonArray candsList = bertmapJson.getAsJsonArray(ontoEl);
@@ -127,7 +127,7 @@ public class MappingSelection {
                 }
             }
             rawMaps.put(ontoEl, createTable(columns));
-        }
+        }                                                                                                               if(DEV_MODE) System.out.println("Read BertMap results. Starting mapping selector...");
     }
 
 //======================================================================================================================
