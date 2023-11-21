@@ -28,8 +28,8 @@ public class InsertDataRDB extends InsertDataBase {
     RelationalDB db;
     private HashMap<String, Integer> tableIds = new HashMap<>();
 
-    public InsertDataRDB(RelationalDB db) {
-        super();
+    public InsertDataRDB(RelationalDB db, Object refinedOnto) {
+        super(refinedOnto);
         this.db = db;
         run();
     }

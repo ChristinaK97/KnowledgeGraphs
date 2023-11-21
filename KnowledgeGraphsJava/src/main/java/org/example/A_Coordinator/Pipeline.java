@@ -1,5 +1,6 @@
 package org.example.A_Coordinator;
 
+import com.google.gson.JsonObject;
 import org.apache.jena.riot.RIOT;
 import org.example.A_Coordinator.Kafka.KafkaProducerService;
 import org.example.A_Coordinator.config.Config;
@@ -15,6 +16,7 @@ import org.example.E_CreateKG.InsertDataRDB;
 import org.example.E_CreateKG.SetPOasDOextension;
 import org.example.F_PII.PIIidentification;
 import org.example.F_PII.PIIresultsTemplate;
+import org.example.util.Ontology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -40,6 +42,7 @@ public class Pipeline {
     }
 
     public void run() {
+        Ontology cachedOnto = null;
         // -------------------------------------------------------------------------------------------------------------
         LG.info("B. LOAD DATA SOURCE");
         Object dataSource = getDataSource();
@@ -54,41 +57,47 @@ public class Pipeline {
         switch (config.DOMap.Mapper) {
             case EXACT_MAPPER -> {
                 LG.info("D. RUN EXACT MAPPER");
-                new ExactMapper(null);
+                cachedOnto = new Ontology(config.DOMap.TgtOntology);     // the domain ontology, fibo snomed etc
+                new ExactMapper(cachedOnto, null);
             }
-            case BERTMAP ->
-                    new MappingSelection(
-                        config.Out.POntology,                               //=src_onto
-                        config.DOMap.TgtOntology,                          //=tgt_onto
-                        new BertMap().startBertmap(/* mapToDo ? */ true),  //=bertmapJson. Calls bertmap service
-                        config.DOMap,                                     //=mapping config params
-                        dataSource,                                      //=input data source = */
-                        true
-                    );
+            case BERTMAP -> {
+                JsonObject bertmapResults = new BertMap().startBertmap(/* mapToDo ? */ true); //Calls bertmap service
+                cachedOnto = new Ontology(config.DOMap.TgtOntology);   // the domain ontology, fibo snomed etc   
+                new MappingSelection(
+                    config.Out.POntology,          //=src_onto
+                    cachedOnto,                   //=tgt_onto
+                    bertmapResults,              //=bertmapJson. Calls bertmap service
+                    config.DOMap,               //=mapping config params
+                    dataSource,                //=input data source = */
+                    true
+                );
+            }
             default ->
                     config.DOMap.printUnsupportedMapperError();
         }
         // E. Create Knowledge Graph -----------------------------------------------------------------------------------
         LG.info("E1. CREATE USE CASE ONTOLOGY");
-        new SetPOasDOextension();
+        cachedOnto = new SetPOasDOextension(cachedOnto).getRefinedOntology();   // the refined ontology: DO+PO
 
         // -------------------------------------------------------------------------------------------------------------
         LG.info("E2: CREATE FULL GRAPH");
         // Tabular dataset in the form of a RelationDB -----------------------------------------------------------------
         if(isTabular) {
-            new InsertDataRDB((RelationalDB) dataSource);
+            new InsertDataRDB((RelationalDB) dataSource, cachedOnto);
             ((RelationalDB) dataSource).closeConnection();  // Close connection to relational DB (SQL)
 
         // DICOM files that have been transformed to DSON --------------------------------------------------------------
         }else if (config.In.isDSON()) {
             List<String> processedDSONFolder = findFilesInFolder(config.In.ProcessedDataDir, "json");
-            new InsertDataJSON(processedDSONFolder);
+            new InsertDataJSON(processedDSONFolder, cachedOnto);
 
         // Plain JSON files that were not processed --------------------------------------------------------------------
         // TODO: In case you want to apply some preprocessing steps to the downloaded json files retrieve the processed data dir instead of the downloaded
         }else if (config.In.isJSON()){
-            new InsertDataJSON((List<String>) dataSource);
+            new InsertDataJSON((List<String>) dataSource, cachedOnto);
         }
+        cachedOnto = null;   // refined ontology is no longer needed
+
         LG.info("F. PII IDENTIFICATION");
         runPiiIdentificationPipeline();
 

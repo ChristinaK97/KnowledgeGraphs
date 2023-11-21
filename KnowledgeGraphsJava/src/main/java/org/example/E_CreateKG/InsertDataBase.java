@@ -53,9 +53,10 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
 
 
 
-    public InsertDataBase () {
-        super(config.Out.RefinedOntology);
-        ontology.pModel.loadImports();
+    public InsertDataBase (Object refinedOnto) {
+        super(refinedOnto);
+        if(!(refinedOnto instanceof Ontology))
+            ontology.pModel.loadImports();
         sourceFileAnnotProp = ontology.pModel.createAnnotationProperty(config.Out.POntologyBaseNS + "SourceFile");
     }
 

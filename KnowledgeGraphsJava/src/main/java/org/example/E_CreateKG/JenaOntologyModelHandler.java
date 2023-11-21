@@ -21,8 +21,8 @@ public class JenaOntologyModelHandler {
     protected List<Table> tablesMaps;
     private HashMap<String, URI> cachedSpecializedClasses = new HashMap<>();
 
-    public JenaOntologyModelHandler(String ontologyPath) {
-        this.ontology = new Ontology(ontologyPath);
+    public JenaOntologyModelHandler(Object ontology) {
+        this.ontology = ontology instanceof Ontology ? (Ontology) ontology : new Ontology((String) ontology);
         tablesMaps = ManageMappingsFile.readMapJSON();
     }
 

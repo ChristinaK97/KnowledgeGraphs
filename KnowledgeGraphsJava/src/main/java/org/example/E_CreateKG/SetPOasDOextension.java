@@ -10,6 +10,8 @@ import org.apache.jena.vocabulary.XSD;
 import org.example.MappingsFiles.MappingsFileTemplate.Table;
 import org.example.MappingsFiles.MappingsFileTemplate.Column;
 import org.example.MappingsFiles.MappingsFileTemplate.Mapping;
+import org.example.util.Ontology;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URI;
@@ -31,15 +33,23 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
 
     private HashSet<String> importURIs = new HashSet<>();
 
-    public SetPOasDOextension() {
+    /** @param DOntology is either an ontology object of the domain ontology,
+     *  or null -> in that case the config.DOMap.TgtOntology will be loaded as the domain ontology
+     */
+    public SetPOasDOextension(Ontology DOntology) {
         super(config.Out.POntology);
         gatherImports();
-        loadDomainOntoImports();
+        addOntologyMetadata();
+        mergeDO_PO_models(DOntology);
         setHierarchy();
         restoreConsistency();
         saveOutputOntology();
     }
 
+
+    public Ontology getRefinedOntology() {
+        return ontology;
+    }
 
 //======================================================================================================================
 // 1. LOAD PUTATIVE AND DOMAIN ONTOLOGIES
@@ -76,18 +86,31 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
     }
 
 
-    private void loadDomainOntoImports() {
-        //TODO replace
-        /*for (String uri : importURIs) {
+    private void mergeDO_PO_models(Ontology DOntology) {
+        if(DOntology == null) {
+            //TODO replace
+            /*for (String uri : importURIs) {
+                OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+                dModel.read(uri);
+                pModel.addSubModel(dModel);
+            }*/
+            LoggerFactory.getLogger(Ontology.class).info("Loading " +  config.DOMap.TgtOntology + " ontology ...");
             OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-            dModel.read(uri);
-            pModel.addSubModel(dModel);
-        }*/
-        OntModel dModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-        RDFDataMgr.read(dModel, config.DOMap.TgtOntology.replace("\\", "/"));
-        ontology.pModel.addSubModel(dModel);                                                                            //if(DEV_MODE) pModel.listClasses().forEach(System.out::println);
+            RDFDataMgr.read(dModel, config.DOMap.TgtOntology.replace("\\", "/"));
+            ontology.pModel.addSubModel(dModel);
+        }else {
+            ontology.pModel.addSubModel(DOntology.pModel);
+        }                                                                                                               //if(DEV_MODE) pModel.listClasses().forEach(System.out::println);
     }
 
+    private void addOntologyMetadata() {
+        String format = config.DOMap.offlineOntology ? "file:///%s" : "%s";
+        for(String importURI : importURIs) {
+            ontology.pModel
+                    .createOntology(config.Out.POntologyBaseNS)
+                    .addImport(ontology.pModel.createResource(String.format(format, importURI)));
+        }
+    }
 
 
 //======================================================================================================================
@@ -577,11 +600,12 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             e.printStackTrace();
         }
         ontology.pModel.write(out, "TURTLE");
-        addOntologyMetadata();
     }
 
 
-    private void addOntologyMetadata() {
+
+
+    /*private void addOntologyMetadata() {
         String basePrefix = ontology.getBasePrefix();                                                                   if(DEV_MODE) System.out.println(basePrefix);
         String filePath = config.Out.RefinedOntology;
         String format = config.DOMap.offlineOntology ? "<%s> owl:imports <file:///%s> ." : "<%s> owl:imports <%s> .";
@@ -624,7 +648,7 @@ public class SetPOasDOextension extends JenaOntologyModelHandler {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
 // UTIL ================================================================================================================
 

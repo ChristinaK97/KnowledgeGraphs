@@ -27,11 +27,11 @@ public class ExactMapper {
     private boolean removePunct = true;
 
 
-    public ExactMapper(ArrayList<String> annotationPropertiesIRIs) {
+    public ExactMapper(Object tgtOnto, ArrayList<String> annotationPropertiesIRIs) {
 
         srcOnto = new Ontology(config.Out.POntology);
         srcOnto.findAnnotationProperties(annotationPropertiesIRIs, removePunct);
-        trgOnto = new Ontology(config.DOMap.TgtOntology);
+        trgOnto = tgtOnto instanceof Ontology ? (Ontology) tgtOnto : new Ontology((String) tgtOnto);
         trgOnto.findAnnotationProperties(annotationPropertiesIRIs, removePunct);
 
         for(int ONTELEMENT : ONTELEMENTS)

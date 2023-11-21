@@ -60,14 +60,14 @@ public class MappingSelection {
     private HashMap<String, String> tableClassMaps = new HashMap<>();
 
 
-    public MappingSelection(String srcOnto, String tgtOnto,
+    public MappingSelection(String srcOnto, Object tgtOnto, // -> either an Ontology object or a string with the ontology path
                             JsonObject bertmapJson, Config.MappingConfig config,
                             Object datasource,
                             boolean runForMappingToDO
     ) {
         LoggerFactory.getLogger(MappingSelection.class).info("Mapping selector received results with size = " + bertmapJson.size());
-        this.srcOnto = new Ontology(srcOnto);                                                                                        if(DEV_MODE) System.out.println("Loading tgt ontology " + tgtOnto + " ...");
-        this.tgtOnto = new Ontology(tgtOnto);                                                                                        if(DEV_MODE) System.out.println("Loading ontologies completed.");
+        this.srcOnto = new Ontology(srcOnto);
+        this.tgtOnto = tgtOnto instanceof Ontology ? (Ontology) tgtOnto : new Ontology((String) tgtOnto);               if(DEV_MODE) System.out.println("Loading ontologies completed.");
         this.config = config;
 
         matches = new Matches();

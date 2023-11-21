@@ -41,8 +41,8 @@ public class InsertDataJSON  extends InsertDataBase {
     private BigInteger indivCounter;
     private String currentFileName;
 
-    public InsertDataJSON(List<String> files) {
-        super();
+    public InsertDataJSON(List<String> files, Object refinedOntology) {
+        super(refinedOntology);
         this.files = files;
         //TODO Read initial values from a log file (last saved indiv ids). Now it is reset by run/session
         currRowID = 0;
