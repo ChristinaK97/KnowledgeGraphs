@@ -310,7 +310,7 @@ public class PIIidentification {
                 datasetEl = datasetEl.substring(
                         datasetEl.lastIndexOf("/") + 1);
                 if(config.In.isDSON())
-                    datasetEl = getNameFromCode(datasetEl); // datasetEl was initially (GGGG,EEEE) so turn to tag name
+                    datasetEl = String.format("%s|%s", datasetEl, getNameFromCode(datasetEl)); // datasetEl was initially (GGGG,EEEE) so turn to code|tag name
                 piiAttr.setDatasetElement(datasetEl);
             });
         }

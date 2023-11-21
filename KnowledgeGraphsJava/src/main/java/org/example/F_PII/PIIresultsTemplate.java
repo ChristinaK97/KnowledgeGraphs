@@ -3,7 +3,10 @@ import org.example.MappingsFiles.MappingsFileTemplate.Source;
 
 import java.util.*;
 
+import static org.example.A_Coordinator.Pipeline.config;
+
 public class PIIresultsTemplate {
+    String domain = config.In.UseCase;
     List<PIIattribute> PIIattributes = new ArrayList<>();
 
     public List<PIIattribute> getPIIattributes() {
