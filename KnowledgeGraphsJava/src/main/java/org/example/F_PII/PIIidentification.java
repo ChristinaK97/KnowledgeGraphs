@@ -68,6 +68,7 @@ public class PIIidentification {
 
         PIIs = new HashMap<>();
         PiiResults = new PIIresultsTemplate();
+        PiiResults.setDomain(config.In.UseCase);
 
         doCrossMapping = config.PiiMap.UseCase2DPV_file_path != null;
         loadDO2dpvMappings();
@@ -206,7 +207,7 @@ public class PIIidentification {
             PIIattribute piiAttr = new PIIattribute();
 
             // column name and identifiers
-            piiAttr.setDatasetElement(datasetEl.colName());
+            piiAttr.setDataset_element(datasetEl.colName());
             piiAttr.addSources(getSources(datasetEl.tableName()));
 
             // piiAttr.setKnowledgeGraphURI(ontoElements);
@@ -238,12 +239,12 @@ public class PIIidentification {
                             isSpecialPersonalData = true;
                     }
                     piiAttr.addMatch(dpvMatch);
-                    piiAttr.setPersonalData(isPersonalData);
-                    piiAttr.setIdentifying(isIdentifying);
-                    piiAttr.setSpecialCategoryPersonalData(isSpecialPersonalData);
+                    piiAttr.setIs_personal_data(isPersonalData);
+                    piiAttr.setIs_identifying(isIdentifying);
+                    piiAttr.setIs_special_category_personal_data(isSpecialPersonalData);
                 }
             }
-            PiiResults.addPIIattribute(piiAttr);
+            PiiResults.addPII_attribute(piiAttr);
         });
     }
 
@@ -287,12 +288,12 @@ public class PIIidentification {
                    ! KGPiis.contains(new Pair<>(table.getTable(), column.getColumn())) //was not already found by KGs
                 ){
                     PIIattribute piiAttr = new PIIattribute();
-                    piiAttr.setDatasetElement(column.getColumn());
+                    piiAttr.setDataset_element(column.getColumn());
                     piiAttr.addSources(table.getSources());
-                    piiAttr.setPersonalData(true);
-                    piiAttr.setIdentifying(false);
-                    piiAttr.setSpecialCategoryPersonalData(false);
-                    PiiResults.addPIIattribute(piiAttr);
+                    piiAttr.setIs_personal_data(true);
+                    piiAttr.setIs_identifying(false);
+                    piiAttr.setIs_special_category_personal_data(false);
+                    PiiResults.addPII_attribute(piiAttr);
                 }
             }
         }
@@ -305,13 +306,13 @@ public class PIIidentification {
 
     private void parseJsonColumnNames() {
         if(config.In.isJSON() || config.In.isDSON()) {
-            PiiResults.getPIIattributes().forEach(piiAttr -> {
-                String datasetEl = piiAttr.getDatasetElement();
+            PiiResults.getPii_attributes().forEach(piiAttr -> {
+                String datasetEl = piiAttr.getDataset_element();
                 datasetEl = datasetEl.substring(
                         datasetEl.lastIndexOf("/") + 1);
                 if(config.In.isDSON())
                     datasetEl = String.format("%s|%s", datasetEl, getNameFromCode(datasetEl)); // datasetEl was initially (GGGG,EEEE) so turn to code|tag name
-                piiAttr.setDatasetElement(datasetEl);
+                piiAttr.setDataset_element(datasetEl);
             });
         }
     }
@@ -319,22 +320,22 @@ public class PIIidentification {
     private void groupByDatasetElement() {
         HashMap<String, PIIattribute> grouped = new HashMap<>();
 
-        PiiResults.getPIIattributes().forEach(piiAttr -> {
-            String datasetEl = piiAttr.getDatasetElement();
+        PiiResults.getPii_attributes().forEach(piiAttr -> {
+            String datasetEl = piiAttr.getDataset_element();
             if(grouped.containsKey(datasetEl)) {
                 grouped.get(datasetEl).addSources(piiAttr.getSources());
             }else {
                 grouped.put(datasetEl, piiAttr);
             }
         });
-        PiiResults.setPIIattributes(new ArrayList<>(grouped.values()));
+        PiiResults.setPii_attributes(new ArrayList<>(grouped.values()));
     }
 
 
     private void cleanupHierarchies() {
-        for(PIIattribute piiAttr : PiiResults.getPIIattributes()) {
+        for(PIIattribute piiAttr : PiiResults.getPii_attributes()) {
             HashSet<Integer> toRmv = new HashSet<>();
-            List<DpvMatch> dpvMatches = piiAttr.getDpvMatches();
+            List<DpvMatch> dpvMatches = piiAttr.getDpv_matches();
 
             for (int i = 0; i < dpvMatches.size(); i++) {
                 String match = dpvMatches.get(i).getMatch();
@@ -348,7 +349,7 @@ public class PIIidentification {
                 if(!toRmv.contains(i)) {
                     cleanedUpMatches.add(dpvMatches.get(i));
                 }}
-            piiAttr.setDpvMatches(cleanedUpMatches);
+            piiAttr.setDpv_matches(cleanedUpMatches);
         }
     }
 

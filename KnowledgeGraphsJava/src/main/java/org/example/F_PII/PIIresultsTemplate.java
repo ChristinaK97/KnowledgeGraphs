@@ -3,56 +3,61 @@ import org.example.MappingsFiles.MappingsFileTemplate.Source;
 
 import java.util.*;
 
-import static org.example.A_Coordinator.Pipeline.config;
-
 public class PIIresultsTemplate {
-    String domain = config.In.UseCase;
-    List<PIIattribute> PIIattributes = new ArrayList<>();
+    String domain;
+    List<PIIattribute> pii_attributes = new ArrayList<>();
 
-    public List<PIIattribute> getPIIattributes() {
-        return PIIattributes;
+    public String getDomain() {
+        return domain;
+    }
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
-    public void setPIIattributes(List<PIIattribute> PIIattributes) {
-        this.PIIattributes = PIIattributes;
+    public List<PIIattribute> getPii_attributes() {
+        return pii_attributes;
     }
 
-    public void addPIIattribute(PIIattribute piiAttribute){
-        PIIattributes.add(piiAttribute);
+    public void setPii_attributes(List<PIIattribute> pii_attributes) {
+        this.pii_attributes = pii_attributes;
+    }
+
+    public void addPII_attribute(PIIattribute pii_attribute){
+        pii_attributes.add(pii_attribute);
     }
 
     public void sortPiiAttributesList() {
-        PIIattributes.sort(Comparator.comparing(PIIattribute::getDatasetElement));
+        pii_attributes.sort(Comparator.comparing(PIIattribute::getDataset_element));
     }
 }
 
 class PIIattribute {
-    private String datasetElement;
+    private String dataset_element;
     private Set<Source> sources = new HashSet<>();
     //private ArrayList<String> knowledgeGraphURI;
-    private boolean isPersonalData;
-    private boolean isIdentifying;
-    private boolean isSpecialCategoryPersonalData;
-    private List<DpvMatch> dpvMatches = new ArrayList<>();
+    private boolean is_personal_data;
+    private boolean is_identifying;
+    private boolean is_special_category_personal_data;
+    private List<DpvMatch> dpv_matches = new ArrayList<>();
 
     public void addMatch(DpvMatch match) {
-        dpvMatches.add(match);
+        dpv_matches.add(match);
     }
 
-    public String getDatasetElement() {
-        return datasetElement;
+    public String getDataset_element() {
+        return dataset_element;
     }
 
-    public void setDatasetElement(String datasetElement) {
-        this.datasetElement = datasetElement;
+    public void setDataset_element(String dataset_element) {
+        this.dataset_element = dataset_element;
     }
 
-    public List<DpvMatch> getDpvMatches() {
-        return dpvMatches;
+    public List<DpvMatch> getDpv_matches() {
+        return dpv_matches;
     }
 
-    public void setDpvMatches(List<DpvMatch> dpvMatches) {
-        this.dpvMatches = dpvMatches;
+    public void setDpv_matches(List<DpvMatch> dpv_matches) {
+        this.dpv_matches = dpv_matches;
     }
 
     /*public ArrayList<String> getKnowledgeGraphURI() {
@@ -63,25 +68,25 @@ class PIIattribute {
         this.knowledgeGraphURI = knowledgeGraphURI;
     }*/
 
-    public boolean isPersonalData() {
-        return isPersonalData;
+    public boolean isIs_personal_data() {
+        return is_personal_data;
     }
-    public void setPersonalData(boolean personalData) {
-        isPersonalData = personalData;
-    }
-
-    public boolean isIdentifying() {
-        return isIdentifying;
-    }
-    public void setIdentifying(boolean identifying) {
-        isIdentifying = identifying;
+    public void setIs_personal_data(boolean is_personal_data) {
+        this.is_personal_data = is_personal_data;
     }
 
-    public boolean isSpecialCategoryPersonalData() {
-        return isSpecialCategoryPersonalData;
+    public boolean isIs_identifying() {
+        return is_identifying;
     }
-    public void setSpecialCategoryPersonalData(boolean specialCategoryPersonalData) {
-        isSpecialCategoryPersonalData = specialCategoryPersonalData;
+    public void setIs_identifying(boolean is_identifying) {
+        this.is_identifying = is_identifying;
+    }
+
+    public boolean isIs_special_category_personal_data() {
+        return is_special_category_personal_data;
+    }
+    public void setIs_special_category_personal_data(boolean is_special_category_personal_data) {
+        this.is_special_category_personal_data = is_special_category_personal_data;
     }
 
     public Set<Source> getSources() {
@@ -99,11 +104,11 @@ class DpvMatch {
     private String match;
     private String label;
     private String description;
-    private List<IsSubclassOf> isSubclassOf = new ArrayList<>();
+    private List<IsSubclassOf> is_subclass_of = new ArrayList<>();
     private transient HashSet<String> superClasses = new HashSet<>();
 
     public void addSuperclass(IsSubclassOf superClass) {
-        isSubclassOf.add(superClass);
+        is_subclass_of.add(superClass);
         superClasses.add(superClass.getUri());
     }
     public boolean hasSuperClass(String dpvClass) {
@@ -134,12 +139,12 @@ class DpvMatch {
         this.description = description;
     }
 
-    public List<IsSubclassOf> getIsSubclassOf() {
-        return isSubclassOf;
+    public List<IsSubclassOf> getIs_subclass_of() {
+        return is_subclass_of;
     }
 
-    public void setIsSubclassOf(List<IsSubclassOf> isSubclassOf) {
-        this.isSubclassOf = isSubclassOf;
+    public void setIs_subclass_of(List<IsSubclassOf> is_subclass_of) {
+        this.is_subclass_of = is_subclass_of;
     }
 }
 
