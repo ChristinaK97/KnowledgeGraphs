@@ -49,8 +49,6 @@ public class Pipeline {
         LG.info("C. EXTRACT PONTOLOGY");
         new POntologyExtractor(dataSource);
 
-        if(config.In.UseCase.equals("health"))
-            throw new RuntimeException();
         // -------------------------------------------------------------------------------------------------------------
         LG.info("D. RUN MAPPER: " + config.DOMap.Mapper);
         switch (config.DOMap.Mapper) {
@@ -62,7 +60,6 @@ public class Pipeline {
                     new MappingSelection(
                         config.Out.POntology,                               //=src_onto
                         config.DOMap.TgtOntology,                          //=tgt_onto
-                        //JsonUtil.readJSON(getPath("C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappings.json")).getAsJsonObject(),
                         new BertMap().startBertmap(/* mapToDo ? */ true),  //=bertmapJson. Calls bertmap service
                         config.DOMap,                                     //=mapping config params
                         dataSource,                                      //=input data source = */
@@ -96,7 +93,7 @@ public class Pipeline {
         runPiiIdentificationPipeline();
 
         // upload kg to graphdb after having sent the piis
-        LG.info("UPLOAD KG TO GRAPHDB"); //TODO uncomment
+        LG.info("UPLOAD KG TO GRAPHDB"); //TODO uncomment   !!!!!!
         //new GraphDB(/*reset repository ? */ true);
     }
 
@@ -105,7 +102,6 @@ public class Pipeline {
         new MappingSelection(
             config.Out.POntology,              //=src_onto
             config.PiiMap.TgtOntology,         //=tgt_onto
-            //JsonUtil.readJSON(getPath("C:/Users/karal/progr/onto_workspace/pythonProject/BertMapMappingsPiis.json")).getAsJsonObject(),
             new BertMap().startBertmap(/* mapToDo ? */ false), //=bertmapJson. Calls bertmap service
             config.PiiMap,                      //=mapping config params
             null,                              //=datasource not needed for pii mapping
