@@ -10,6 +10,8 @@ services:
         - CUDA_VERSION=${CUDA_VERSION}
     image: python-environment:latest
     container_name: python-environment
+    networks:
+      - encrypt-network
 
   knowledge-graphs-python:
     build:
@@ -18,6 +20,7 @@ services:
       - python-environment
     image: knowledge-graphs-python:latest
     container_name: knowledge-graphs-python
+    restart: always
     ports:
       - "7531:7531"
     deploy:
@@ -29,6 +32,8 @@ services:
               capabilities: [ gpu ]
     volumes:
       - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
+    networks:
+      - encrypt-network
 
 
   knowledge-graphs-main:
@@ -38,8 +43,10 @@ services:
       - knowledge-graphs-python
       - graphdb
       - kafka
+      - preprocessing-tool
     image: knowledge-graphs-main:latest
     container_name: knowledge-graphs-main
+    restart: always
     ports:
       - "7530:7530"
     environment:
@@ -50,12 +57,14 @@ services:
       KG_PRODUCER_ID: ${KG_PRODUCER_ID}
     volumes:
       - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
+    networks:
+      - encrypt-network
 
 
   graphdb:
     image: ontotext/graphdb:10.4.0
     container_name: graphdb
-    restart: unless-stopped
+    restart: always
     environment:
       - GRAPHDB_HOME=/opt/graphdb/home
     ports:
@@ -63,9 +72,12 @@ services:
       - "7300:7300"
     volumes:
       - graphdb-data:/opt/graphdb/home/data
+    networks:
+      - encrypt-network
 
 
-
+# -------------------------------------------------------------------------
+  # TODO: for testing
   zookeeper:
     image: confluentinc/cp-zookeeper
     hostname: zookeeper
@@ -75,7 +87,10 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - encrypt-network
 
+  # TODO: for testing
   kafka:
     image: confluentinc/cp-kafka
     hostname: kafka
@@ -93,8 +108,21 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
-      KAFKA_CREATE_TOPICS: ${KAFKA_TOPIC}
-      # GROUP_ID: "group-event-1"
+    networks:
+      - encrypt-network
+
+  # TODO: for testing
+  preprocessing-tool:
+    build:
+      context: ./PreprocessingDummy
+    image: preprocessing-tool:latest
+    container_name: preprocessing-tool
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - encrypt-network
+# -------------------------------------------------------------------------
 
 
 
@@ -103,3 +131,8 @@ volumes:
   graphdb-data:
     name: graphdb-data
     external: true
+
+
+networks:
+  encrypt-network:
+    name: encrypt-network
