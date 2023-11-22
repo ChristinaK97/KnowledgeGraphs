@@ -102,8 +102,11 @@ public class Pipeline {
         runPiiIdentificationPipeline();
 
         // upload kg to graphdb after having sent the piis
-        LG.info("UPLOAD KG TO GRAPHDB"); //TODO uncomment   !!!!!!
-        //new GraphDB(/*reset repository ? */ true);
+        if(config.Out.uploadToGraphDB) {
+            LG.info("UPLOAD KG TO GRAPHDB");
+            new GraphDB(/*reset repository ? */ true);
+        }else
+            LG.info("Upload to GraphDB was skipped since the arg uploadToGraphDB in the configuration file is set to false");
     }
 
 

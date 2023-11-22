@@ -220,6 +220,7 @@ public class Config {
         public String IndividualsTTL;
         public String PathsTXT;
         public String FullGraph;
+        public boolean uploadToGraphDB;
 
         public String LogDir;
 
@@ -229,13 +230,15 @@ public class Config {
                     kgOutsParams.get("applyMedicalAbbreviationExpansionStep").getAsBoolean(),
                     kgOutsParams.get("useScispacyEntityLinker").getAsBoolean(),
                     kgOutsParams.get("turnAttributesToClasses").getAsBoolean(),
-                    kgOutsParams.get("includeInverseAxiom").getAsBoolean()
+                    kgOutsParams.get("includeInverseAxiom").getAsBoolean(),
+                    kgOutsParams.get("uploadToGraphDB").getAsBoolean()
             );
         }
 
         public KGOutputsConfig(String DatasetName, String DatasetResourcesPath,
                   boolean applyMedAbbrevExpansion, boolean useScispacyEntityLinker,
-                  boolean turnAttributesToClasses, boolean includeInverseAxioms
+                  boolean turnAttributesToClasses, boolean includeInverseAxioms,
+                  boolean uploadToGraphDB
         ){
             this.turnAttributesToClasses = turnAttributesToClasses;
             this.includeInverseAxioms = includeInverseAxioms;
@@ -244,6 +247,8 @@ public class Config {
             this.useScispacyEntityLinker = useScispacyEntityLinker;
             // TODO modify if you want to use:
             abbrevExpansionResultsFile = getPath(String.format("%s/Other/abbrevExpansionResults.json", DatasetResourcesPath));
+
+            this.uploadToGraphDB = uploadToGraphDB;
 
             KGOutputsDir    = getPath(String.format("%s/KG_Outputs/", DatasetResourcesPath));
             POntologyName   = DatasetName;

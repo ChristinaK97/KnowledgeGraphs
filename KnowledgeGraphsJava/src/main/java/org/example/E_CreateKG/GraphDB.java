@@ -19,9 +19,10 @@ import org.eclipse.rdf4j.rio.helpers.StatementCollector;
 import org.example.A_Coordinator.Pipeline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.eclipse.rdf4j.model.util.Configurations;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.example.A_Coordinator.config.Config.GraphDBEndpoint;
 import static org.example.A_Coordinator.config.Config.resourcesPath;
@@ -32,6 +33,7 @@ public class GraphDB {
     private RepositoryManager repoManager;
     private RepositoryConnection connection;
     private static final Logger logger = LoggerFactory.getLogger(GraphDB.class);
+    private String repoConfigFilePath;
 
     public GraphDB(boolean rewrite) {
         try {
@@ -51,6 +53,7 @@ public class GraphDB {
                 connection.close();
                 repoManager.shutDown();
             }
+            deleteRepoConfigFile();
 
         }catch (Exception e){
             e.printStackTrace();
@@ -73,7 +76,8 @@ public class GraphDB {
 
         TreeModel graph = new TreeModel();
 
-        InputStream config = new FileInputStream(repoConfigFile());
+        createRepoConfigFile();
+        InputStream config = new FileInputStream(repoConfigFilePath);
         RDFParser rdfParser = Rio.createParser(RDFFormat.TURTLE);
         rdfParser.setRDFHandler(new StatementCollector(graph));
 
@@ -101,11 +105,11 @@ public class GraphDB {
 
 // ----------------------------------------------------------------------------------------------------
     /** Set the name/id of the repository to the config file. TODO: Can setting repo id be done more easily? */
-    public String repoConfigFile() {
+    public void createRepoConfigFile() {
         String configTemplateFilePath = getPath(String.format(
-                "%s/ConfigFiles/graphdb_config_template_file.ttl", resourcesPath));
-        String configRepoFilePath = getPath(String.format(
-                "%s/ConfigFiles/graphdb_config_repo_file_modified.ttl", resourcesPath));
+                "%s/ConfigFiles/graphdb_template_config_file.ttl", resourcesPath));
+        repoConfigFilePath = getPath(String.format(
+                "%s/ConfigFiles/graphdb_repo_config_file.ttl", resourcesPath));
 
         try {
             File configTemplateFile = new File(configTemplateFilePath);
@@ -126,14 +130,20 @@ public class GraphDB {
             }
             reader.close();
 
-            FileWriter writer = new FileWriter(configRepoFilePath);
+            FileWriter writer = new FileWriter(repoConfigFilePath);
             writer.write(stringBuilder.toString());
             writer.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return configRepoFilePath;
+    }
+
+    private void deleteRepoConfigFile() {
+        try {
+            if(fileExists(repoConfigFilePath))
+                Files.delete(Paths.get(repoConfigFilePath));
+        } catch (IOException ignore) {}
     }
 
 // ----------------------------------------------------------------------------------------------------
