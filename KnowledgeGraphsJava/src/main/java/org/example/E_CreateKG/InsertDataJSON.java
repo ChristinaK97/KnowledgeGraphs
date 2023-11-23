@@ -9,6 +9,7 @@ import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.SKOS;
 import static org.example.A_Coordinator.Pipeline.config;
 import org.example.util.JsonUtil;
@@ -331,9 +332,10 @@ public class InsertDataJSON  extends InsertDataBase {
         if(indiv == null) {
             indivCounter = indivCounter.add(BigInteger.ONE);
             indivNames.put(indivLabel, indivCounter.toString());
-            indiv = ontology.createResource(config.Out.POntologyBaseNS + indivCounter, null, indivLabel, null);
+            indiv = ontology.createResource(config.Out.POntologyBaseNS + indivCounter, SKOS.altLabel, indivLabel, null);
             indiv.addProperty(RDF.type, indivType);
-            indiv.addLiteral(SKOS.prefLabel, String.format("%d_%d_%s", currRowID - (isRoot?0:1), indivCounter, getLocalName(indivType)));               if(DEV_MODE) System.out.println("\tcreate " + indivLabel + " as " + indiv);
+            String indivShortLabel = String.format("%d_%d_%s", currRowID - (isRoot?0:1), indivCounter, getLocalName(indivType));
+            indiv.addLiteral(RDFS.label, indivShortLabel);                                                                      if(DEV_MODE) System.out.println("\tcreate " + indivLabel + " as " + indiv);
 
             if(isRoot)
                 ++currRowID;
