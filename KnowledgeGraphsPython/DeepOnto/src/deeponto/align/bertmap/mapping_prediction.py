@@ -37,6 +37,9 @@ from .bert_classifier import BERTSynonymClassifier
 from ...utils.kg_utils import BEST_RANK
 
 
+DEV_MODE = False
+
+
 # @paper(
 #     "BERTMap: A BERT-based Ontology Alignment System (AAAI-2022)",
 #     "https://ojs.aaai.org/index.php/AAAI/article/view/20510",
@@ -210,7 +213,7 @@ class MappingPredictor:
         best_scored_mappings += string_match()
         # return string-matched mappings if found or if there is no bert module (bertmaplt)
         if best_scored_mappings or not self.bert_synonym_classifier:
-            self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{best_scored_mappings}")         # ; self.writelog(f"The best string scored class mappings for {src_class_iri} are\n{best_scored_mappings}\n")
+            if DEV_MODE: self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{best_scored_mappings}")         # ; self.writelog(f"The best string scored class mappings for {src_class_iri} are\n{best_scored_mappings}\n")
             return best_scored_mappings
 
         # else, run bert and return its matches :
@@ -303,7 +306,7 @@ class MappingPredictor:
                     )
 
             assert len(bert_matched_mappings) <= self.num_best_predictions
-            self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{bert_matched_mappings}")        # ; self.writelog(f"The best bert scored class mappings for {src_class_iri} are\n{bert_matched_mappings}\n")
+            if DEV_MODE: self.logger.info(f"The best scored class mappings for {src_class_iri} are\n{bert_matched_mappings}")        # ; self.writelog(f"The best bert scored class mappings for {src_class_iri} are\n{bert_matched_mappings}\n")
 
             if not bert_matched_mappings and final_best_scores[0] != -1:    # 1
                 bert_matched_mappings = \
@@ -476,12 +479,12 @@ class MappingPredictor:
         If this process is accidentally stopped, it can be resumed from already saved predictions. The progress
         bar keeps track of the number of source ontology classes that have been matched.
         """
-        self.logger.info("Start global matching for each class in the source ontology.")
+        self.logger.info("Start global matching for each element in the source ontology...")
 
         match_dir = os.path.join(self.output_path, "match")
         try:
             mapping_index = FileUtils.load_file(os.path.join(match_dir, "raw_mappings.json"))
-            self.logger.info("Load the existing mapping prediction file.")
+            if DEV_MODE: self.logger.info("Load the existing mapping prediction file.")
         except:
             mapping_index = dict()
             FileUtils.create_path(match_dir)
@@ -495,7 +498,7 @@ class MappingPredictor:
 
         for i, src_class_iri in enumerate(self.src_annotation_index.keys()):
             if src_class_iri in mapping_index.keys():
-                self.logger.info(f"[Class {i}] Skip matching {src_class_iri} as already computed.")
+                if DEV_MODE: self.logger.info(f"[Class {i}] Skip matching {src_class_iri} as already computed.")
                 progress_bar.update()
                 continue
             mappings = self.mapping_prediction_for_src_class(src_class_iri)
@@ -507,7 +510,7 @@ class MappingPredictor:
             progress_bar.update()
 
         self.save_checkpoint_mappings(mapping_index, match_dir)
-        self.logger.info(f"Finished mapping prediction for each class in the source ontology. Mapping index has {len(mapping_index)} src elements")
+        self.logger.info(f"Finished mapping prediction for each element in the source ontology. Mapping index has {len(mapping_index)} src elements")
         progress_bar.close()
 
 
@@ -517,5 +520,4 @@ class MappingPredictor:
         mapping_in_tuples = list(itertools.chain.from_iterable(mapping_index.values()))
         mapping_df = pd.DataFrame(mapping_in_tuples, columns=["SrcEntity", "TgtEntity", "Score", "Rank"])
         mapping_df.to_csv(os.path.join(match_dir, "raw_mappings.tsv"), sep="\t", index=False)
-        self.logger.info(
-            f"Save currently computed mappings to prevent undesirable loss. Saved {mapping_df.shape[0]} mappings")
+        if DEV_MODE: self.logger.info(f"Save currently computed mappings to prevent undesirable loss. Saved {mapping_df.shape[0]} mappings")

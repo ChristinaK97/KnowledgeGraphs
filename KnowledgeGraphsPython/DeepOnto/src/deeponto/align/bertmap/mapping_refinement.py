@@ -31,6 +31,7 @@ from DeepOnto.src.deeponto.align.logmap import run_logmap_repair
 from .mapping_prediction import MappingPredictor
 from ...utils.kg_utils import BEST_RANK
 
+DEV_MODE = False
 
 # @paper(
 #     "BERTMap: A BERT-based Ontology Alignment System (AAAI-2022)",
@@ -156,9 +157,7 @@ class MappingRefiner:
         for _ in range(len(expansion)):
             extension_progress_bar.update()
 
-        self.logger.info(
-            f"Start mapping extension for each class pair with score >= {self.mapping_extension_threshold}."
-        )
+        if DEV_MODE: self.logger.info(f"Start mapping extension for each class pair with score >= {self.mapping_extension_threshold}.")
         while frontier and num_iter < max_iter:
             new_mappings = []
             for src_class_iri, tgt_class_iri in frontier:
@@ -171,14 +170,12 @@ class MappingRefiner:
             # renew frontier with the newly discovered mappings
             frontier = [(x, y) for x, y, _, _ in new_mappings]
 
-            self.logger.info(f"Add {len(new_mappings)} mappings at iteration #{num_iter}.")
+            if DEV_MODE: self.logger.info(f"Add {len(new_mappings)} mappings at iteration #{num_iter}.")
             num_iter += 1
             extension_progress_bar.desc = f"Mapping Extension [Iteration #{num_iter}]"
 
         num_extended = len(expansion) - len(self.raw_mappings)
-        self.logger.info(
-            f"Finished iterative mapping extension with {num_extended} new mappings and in total {len(expansion)} extended mappings."
-        )
+        if DEV_MODE: self.logger.info(f"Finished iterative mapping extension with {num_extended} new mappings and in total {len(expansion)} extended mappings.")
 
         extended_mapping_df = pd.DataFrame(expansion, columns=["SrcEntity", "TgtEntity", "Score", "Rank"])
         extended_mapping_df.to_csv(self.extended_mapping_path, sep="\t", index=False)
@@ -188,7 +185,7 @@ class MappingRefiner:
         filtered_expansion = [
             (src, tgt, score, rank) for src, tgt, score, rank in expansion if score >= self.mapping_filtered_threshold
         ]
-        self.logger.info(
+        if DEV_MODE: self.logger.info(
             f"Filtered the extended mappings by a threshold of {self.mapping_filtered_threshold}."
             + f"There are {len(filtered_expansion)} mappings left for mapping repair."
         )
@@ -258,7 +255,7 @@ class MappingRefiner:
 
             extended_mappings.append((src_candidate_iri, tgt_candidate_iri, score, BEST_RANK))
 
-        self.logger.info(
+        if DEV_MODE: self.logger.info(
             f"New mappings (in tuples) extended from {(src_class_iri, tgt_class_iri)} are:\n" + f"{extended_mappings}"
         )
 

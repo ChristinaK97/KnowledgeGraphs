@@ -128,7 +128,7 @@ class Ontology:
 
         # reasoning
         self.reasoner = OntologyReasoner(self, reasoner)
-        print(type(self.reasoner))
+        # print(type(self.reasoner))
 
         # hidden attributes
         self._multi_children_classes = None
@@ -147,7 +147,7 @@ class Ontology:
             }
         }
 
-        print(self.info)
+        # print(self.info)
 
     @property
     def name(self):
@@ -588,7 +588,7 @@ class OntologyReasoner:
             raise Exception(f"Unsupported reasoner {reasoner}. Set config.reasoner to Hermit, Pellet or Elk")
 
         self.owl_reasoner = self.owl_reasoner_factory.createReasoner(self.onto.owl_onto)
-        print(type(self.owl_reasoner))
+        # print(type(self.owl_reasoner))
         self.owl_data_factory = self.onto.owl_data_factory
 
     def reload_reasoner(self):

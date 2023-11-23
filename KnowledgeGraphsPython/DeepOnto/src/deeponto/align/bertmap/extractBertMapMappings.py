@@ -33,7 +33,7 @@ class MappingSelector:
 
 
     def __init__(self, rawMappingsFile, srcOntoPath: str, tgtOnto: Ontology, srcAnnotProps, tgtAnnotProps, outputFile):
-        print("Extract BERTMap results")
+        print("Extract BERTMap results...")
         self.srcOnto = self._loadOntology(srcOntoPath)
         self.srcNs = self._ontoNs(self.srcOnto)
         self.srcAnnotProps = srcAnnotProps

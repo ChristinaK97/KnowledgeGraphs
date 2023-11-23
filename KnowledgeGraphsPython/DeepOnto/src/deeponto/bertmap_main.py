@@ -24,18 +24,18 @@ def run_bertmap_pipeline(
         raise FileNotFoundError(f"Mode is {mode} but DPV_path eq {DPV_path}")
 
     output_path = os.path.join(str(Path(base_output_dir)), use_case)
-    print("OUTPUT PATH = ", output_path)
+    # print("OUTPUT PATH = ", output_path)
     # eg. resources/fintech/bertmap/EPIBANK/map_to_do/config.yaml
     config_file_path = os.path.join(output_path, 'bertmap', dataset_name, mode, 'config.yaml')
 
     if not exists(config_file_path):
-        print(f"Not found config file for use case = '{use_case}' and task = '{mode}' in path = '{config_file_path}'. Loading default parameters."
+        print(f"Not found config file for use case = '{use_case}', dataset = {dataset_name} and task = '{mode}' in path = '{config_file_path}'. Loading default parameters."
               f"\nNote that default parameters are available only for DOntology in [FIBO, SNOMED], and/or mapping to DPV for PII identification.", sep="")
         config = get_default_configuration(mode, DOntology_path, use_case)
     else:
         from DeepOnto.src.deeponto.align.bertmap.config_file_handler import load_bertmap_config
         config = load_bertmap_config(config_file_path)
-        print(f"Found config file for use case = '{use_case}' and task = '{mode}' in path = '{config_file_path}' and loaded successfully.")
+        print(f"Found config file for use case = '{use_case}', dataset = {dataset_name} and task = '{mode}' in path = '{config_file_path}' and loaded successfully.")
 
     config.output_path = output_path
     config.dataset_name = dataset_name

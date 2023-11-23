@@ -13,7 +13,7 @@ def load_bertmap_config(config_file: Optional[str] = None):
     """
     if not config_file:
         config_file = DEFAULT_CONFIG_FILE
-        print(f"Use the default configuration at {DEFAULT_CONFIG_FILE}.")
+        # print(f"Use the default configuration at {DEFAULT_CONFIG_FILE}.")
     if not config_file.endswith(".yaml"):
         raise RuntimeError("Configuration file should be in `yaml` format.")
     return CfgNode(FileUtils.load_file(config_file))
