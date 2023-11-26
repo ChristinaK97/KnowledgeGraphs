@@ -18,7 +18,7 @@ services:
       context: ./KnowledgeGraphsPython
     depends_on:
       - python-environment
-    image: knowledge-graphs-python:latest
+    image: knowledge-graphs-python:1.0.0
     container_name: knowledge-graphs-python
     restart: always
     ports:
@@ -47,7 +47,7 @@ services:
       - graphdb
       # - kafka
       - preprocessing-tool
-    image: knowledge-graphs-main:latest
+    image: knowledge-graphs-main:1.0.0
     container_name: knowledge-graphs-main
     restart: always
     ports:
@@ -176,6 +176,13 @@ services:
 
 # an external volume needs to be created/defined "docker volume create graphdb_data"
 volumes:
+  encrypt-graphdb-data:
+    name: encrypt-graphdb-data
+    #external: true
+  #encrypt-knowledge-graphs-data:
+  #  name: knowledge-graphs-data
+  #  external: true
+
   #encrypt_mongo_data:
   #  name: encrypt_mongo_data
   #  #external: true
@@ -188,13 +195,6 @@ volumes:
   #encrypt-zookeeper-log-data:
   #  name: encrypt-zookeeper-log-data
   #  #external: true
-
-  encrypt-graphdb-data:
-    name: encrypt-graphdb-data
-    #external: true
-  #encrypt-knowledge-graphs-data:
-  #  name: knowledge-graphs-data
-  #  external: true
 
 
 networks:
