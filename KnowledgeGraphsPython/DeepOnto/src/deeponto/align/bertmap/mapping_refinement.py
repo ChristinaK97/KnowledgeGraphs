@@ -277,7 +277,7 @@ class MappingRefiner:
         
         # skip repairing if already found the file
         if os.path.exists(self.repaired_mapping_path):
-            self.logger.info(
+            if DEV_MODE: self.logger.info(
                 f"Found the repaired mapping file at {self.repaired_mapping_path}."
                 + "\nPlease check file integrity; if incomplete, "
                 + "delete it and re-run the program."
@@ -289,7 +289,7 @@ class MappingRefiner:
             return 
 
         # start mapping repair
-        self.logger.info("Repair the filtered mappings with LogMap debugger.")
+        if DEV_MODE: self.logger.info("Repair the filtered mappings with LogMap debugger.")
         # formatting the filtered mappings
         self.logmap_repair_formatting()
         
@@ -311,7 +311,7 @@ class MappingRefiner:
                 f.write(f"{src_ent_iri}\t{tgt_ent_iri}\t{score}\t{rank}")
                 repair_progress_bar.update()
 
-        self.logger.info("Mapping repair finished.")
+        if DEV_MODE: self.logger.info("Mapping repair finished.")
         repair_progress_bar.close()
 
     def logmap_repair_formatting(self):

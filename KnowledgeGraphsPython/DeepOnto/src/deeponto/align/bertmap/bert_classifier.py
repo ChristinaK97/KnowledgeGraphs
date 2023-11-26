@@ -143,7 +143,7 @@ class BERTSynonymClassifier:
 
     def eval(self):
         """To eval mode."""
-        print("The BERT model is set to eval mode for making predictions.")
+        # print("The BERT model is set to eval mode for making predictions.")
         self.model.eval()
         # TODO: to implement multi-gpus for inference
         self.device = self.get_device(device_num=0)

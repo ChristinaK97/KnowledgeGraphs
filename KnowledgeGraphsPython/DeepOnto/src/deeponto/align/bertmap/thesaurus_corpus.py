@@ -9,14 +9,17 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import wordnet
 from tqdm import tqdm
 
-nltk.download('punkt')
-nltk.download('stopwords')
-nltk.download('wordnet')
+
 
 class WordNetCorpus:
 
     def __init__(self, ontologyPath, allAnnotProperties):
-        print("Build WordNet Corpus for", ontologyPath)
+
+        nltk.download('punkt')
+        nltk.download('stopwords')
+        nltk.download('wordnet')
+
+        # print("Build WordNet Corpus for", ontologyPath)
         self.annotProperties = allAnnotProperties
         self.stopwordsList = set(stopwords.words('english'))
         ontologyTokens = self.extractOntologyTokens(ontologyPath)
@@ -28,7 +31,7 @@ class WordNetCorpus:
                 "num_ontology_tokens": len(ontologyTokens)
             }
         }
-        print(self.info)
+        # print(self.info)
 
 
 
@@ -52,7 +55,7 @@ class WordNetCorpus:
 
         # Execute the query and get the results
         results = g.query(query)
-        print("# annotation triples =", len(results))
+        # print("# annotation triples =", len(results))
 
         ontologyTokens = set()
         for annotation in results:

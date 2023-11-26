@@ -34,6 +34,7 @@ from .bert_classifier import BERTSynonymClassifier
 from .mapping_prediction import MappingPredictor
 from .mapping_refinement import MappingRefiner
 
+DEV_MODE = False
 
 MODEL_OPTIONS = {"bertmap": {"trainable": True}, "bertmaplt": {"trainable": False}}
 transformers.logging.set_verbosity_info()
@@ -160,12 +161,12 @@ class BERTMapPipeline:
                     auxiliary_ontos=self.auxiliary_ontos,
                     use_wordnet=self.config.use_wordnet
                 )
-                self.logger.info(str(corpora))
+                if DEV_MODE: self.logger.info(str(corpora))
                 corpora.save(self.data_path)
 
             return self.load_or_construct(self.corpora_path, data_name, construct)
 
-        self.logger.info(f"No training needed; skip the construction of {data_name}.")
+        if DEV_MODE: self.logger.info(f"No training needed; skip the construction of {data_name}.")
         return None
 
 
@@ -178,9 +179,9 @@ class BERTMapPipeline:
         a local data file.
         """
         if os.path.exists(data_file):
-            self.logger.info(f"Load existing {data_name} from {data_file}.")
+            if DEV_MODE: self.logger.info(f"Load existing {data_name} from {data_file}.")
         else:
-            self.logger.info(f"Construct new {data_name} and save at {data_file}.")
+            if DEV_MODE: self.logger.info(f"Construct new {data_name} and save at {data_file}.")
             construct_func(*args, **kwargs)
         # load the data file that is supposed to be saved locally
         return FileUtils.load_file(data_file)
@@ -209,7 +210,7 @@ class BERTMapPipeline:
 
             return self.load_or_construct(self.finetune_data_path, data_name, construct)
 
-        self.logger.info(f"No training needed; skip the construction of {data_name}.")
+        if DEV_MODE: self.logger.info(f"No training needed; skip the construction of {data_name}.")
         return None
 
 # ======================================================================================================================
@@ -233,7 +234,7 @@ class BERTMapPipeline:
             self.bert_synonym_classifier = self.load_bert_synonym_classifier()
             # train if the loaded classifier is not in eval mode
             if self.bert_synonym_classifier.eval_mode == False:
-                self.logger.info(
+                if DEV_MODE: self.logger.info(
                     f"Data statistics:\n \
                     {FileUtils.print_dict(self.bert_synonym_classifier.data_stat)}"
                 )
@@ -244,9 +245,9 @@ class BERTMapPipeline:
             self.best_checkpoint = self.load_best_checkpoint()
             if not self.best_checkpoint:
                 raise RuntimeError(f"No best checkpoint found for the BERT synonym classifier model.")
-            self.logger.info(f"Fine-tuning finished, found best checkpoint at {self.best_checkpoint}.")
+            if DEV_MODE: self.logger.info(f"Fine-tuning finished, found best checkpoint at {self.best_checkpoint}.")
         else:
-            self.logger.info(f"No training needed; skip BERT fine-tuning.")
+            if DEV_MODE: self.logger.info(f"No training needed; skip BERT fine-tuning.")
             
         # pretty progress bar tracking
         self.enlighten_status = self.enlighten_manager.status_bar(
