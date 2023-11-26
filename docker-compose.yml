@@ -45,7 +45,7 @@ services:
     depends_on:
       - knowledge-graphs-python
       - graphdb
-      - kafka
+      # - kafka
       - preprocessing-tool
     image: knowledge-graphs-main:latest
     container_name: knowledge-graphs-main
@@ -83,47 +83,6 @@ services:
 # -------------------------------------------------------------------------
 
   # TODO: for testing
-  zookeeper:
-    # https://hub.docker.com/r/confluentinc/cp-zookeeper
-    image: confluentinc/cp-zookeeper:${ZOOKEEPER_VERSION}
-    container_name: zookeeper
-    hostname: zookeeper
-    restart: always
-    environment:
-      ZOOKEEPER_CLIENT_PORT: ${ZOOKEEPER_PORT}
-    volumes:
-      - encrypt-zookeeper-data:/var/lib/zookeeper/data
-      - encrypt-zookeeper-log-data:/var/lib/zookeeper/log
-    networks:
-      - encrypt-network
-    ports:
-      - ${ZOOKEEPER_PORT}:${ZOOKEEPER_EXPOSED_PORT}
-
-  # TODO: for testing
-  kafka:
-    image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    container_name: kafka
-    hostname: kafka
-    environment:
-      KAFKA_BROKER_ID: ${KAFKA_BROKER_ID}
-      KAFKA_ZOOKEEPER_CONNECT: ${KAFKA_ZOOKEEPER_CONNECT}
-      KAFKA_INTER_BROKER_LISTENER_NAME: ${KAFKA_INTER_BROKER_LISTENER_NAME}
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: ${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP}
-      KAFKA_ADVERTISED_LISTENERS: ${KAFKA_ADVERTISED_LISTENERS}
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    depends_on:
-      - zookeeper
-    restart: always
-    volumes:
-      - encrypt-kafka-data:/var/lib/kafka/data
-      #- ./certs:/etc/kafka/secrets/
-    networks:
-      - encrypt-network
-    ports:
-      - ${KAFKA_OUTSIDE_PORT}:${KAFKA_OUTSIDE_PORT}
-  #END OF KAFKA SETUP
-
-  # TODO: for testing
   preprocessing-tool:
     build:
       context: ./encrypt-project-master/PreprocessingDummy
@@ -135,62 +94,106 @@ services:
     networks:
       - encrypt-network
 
-  # TODO: for testing
-  api_node:
-    build:
-      context: ./encrypt-project-master/API_node
-    image: api_node:0.5
-    container_name: api_node
-    hostname: api_node
-    depends_on:
-      - mongodb
-      - kafka
-    restart: always
-    environment:
-      MONGO_HOSTNAME:
-      KAFKA_SERVER:
-      PYTHONUNBUFFERED: 1
-    networks:
-      - encrypt-network
-    ports:
-      - 9000:9000
-      - 9001:9001
 
-  # TODO: for testing
-  mongodb:
-    image: mongo:4.0.4
-    container_name: mongodb
-    hostname: mongodb
-    restart: always
-    volumes:
-      - encrypt_mongo_data:/data/db
-    networks:
-      - encrypt-network
-    ports:
-      - 27017:27017
+  ## TODO: for testing
+  #zookeeper:
+  #  # https://hub.docker.com/r/confluentinc/cp-zookeeper
+  #  image: confluentinc/cp-zookeeper:${ZOOKEEPER_VERSION}
+  #  container_name: zookeeper
+  #  hostname: zookeeper
+  #  restart: always
+  #  environment:
+  #    ZOOKEEPER_CLIENT_PORT: ${ZOOKEEPER_PORT}
+  #  volumes:
+  #    - encrypt-zookeeper-data:/var/lib/zookeeper/data
+  #    - encrypt-zookeeper-log-data:/var/lib/zookeeper/log
+  #  networks:
+  #    - encrypt-network
+  #  ports:
+  #    - ${ZOOKEEPER_PORT}:${ZOOKEEPER_EXPOSED_PORT}
+  #
+  ## TODO: for testing
+  #kafka:
+  #  image: confluentinc/cp-kafka:${KAFKA_VERSION}
+  #  container_name: kafka
+  #  hostname: kafka
+  #  environment:
+  #    KAFKA_BROKER_ID: ${KAFKA_BROKER_ID}
+  #    KAFKA_ZOOKEEPER_CONNECT: ${KAFKA_ZOOKEEPER_CONNECT}
+  #    KAFKA_INTER_BROKER_LISTENER_NAME: ${KAFKA_INTER_BROKER_LISTENER_NAME}
+  #    KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: ${KAFKA_LISTENER_SECURITY_PROTOCOL_MAP}
+  #    KAFKA_ADVERTISED_LISTENERS: ${KAFKA_ADVERTISED_LISTENERS}
+  #    KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  #  depends_on:
+  #    - zookeeper
+  #  restart: always
+  #  volumes:
+  #    - encrypt-kafka-data:/var/lib/kafka/data
+  #    #- ./certs:/etc/kafka/secrets/
+  #  networks:
+  #    - encrypt-network
+  #  ports:
+  #    - ${KAFKA_OUTSIDE_PORT}:${KAFKA_OUTSIDE_PORT}
+  ##END OF KAFKA SETUP
 
+
+  ## TODO: for testing
+  #api_node:
+  #  build:
+  #    context: ./encrypt-project-master/API_node
+  #  image: api_node:0.5
+  #  container_name: api_node
+  #  hostname: api_node
+  #  depends_on:
+  #    - mongodb
+  #    - kafka
+  #  restart: always
+  #  environment:
+  #    MONGO_HOSTNAME:
+  #    KAFKA_SERVER:
+  #    PYTHONUNBUFFERED: 1
+  #  networks:
+  #    - encrypt-network
+  #  ports:
+  #    - 9000:9000
+  #    - 9001:9001
+  #
+  ## TODO: for testing
+  #mongodb:
+  #  image: mongo:4.0.4
+  #  container_name: mongodb
+  #  hostname: mongodb
+  #  restart: always
+  #  volumes:
+  #    - encrypt_mongo_data:/data/db
+  #  networks:
+  #    - encrypt-network
+  #  ports:
+  #    - 27017:27017
+  #
 # -------------------------------------------------------------------------
 
 
 # an external volume needs to be created/defined "docker volume create graphdb_data"
 volumes:
-  encrypt_mongo_data:
-    name: encrypt_mongo_data
-    #external: true
-  encrypt-kafka-data:
-    name: encrypt-kafka-data
-    #external: true
-  encrypt-zookeeper-data:
-    name: encrypt-zookeeper-data
-    #external: true
-  encrypt-zookeeper-log-data:
-    name: encrypt-zookeeper-log-data
-    #external: true
+  #encrypt_mongo_data:
+  #  name: encrypt_mongo_data
+  #  #external: true
+  #encrypt-kafka-data:
+  #  name: encrypt-kafka-data
+  #  #external: true
+  #encrypt-zookeeper-data:
+  #  name: encrypt-zookeeper-data
+  #  #external: true
+  #encrypt-zookeeper-log-data:
+  #  name: encrypt-zookeeper-log-data
+  #  #external: true
 
   encrypt-graphdb-data:
     name: encrypt-graphdb-data
     #external: true
-  #knowledge-graphs-data:
+  #encrypt-knowledge-graphs-data:
+  #  name: knowledge-graphs-data
   #  external: true
 
 
