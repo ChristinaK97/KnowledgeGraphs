@@ -1,11 +1,23 @@
-# Added by KGs
-# also changes in the API_endpoint.py : start piis consumer thread
-#                     Dockerfile : copy this file inside the container
-#--------------KAFKA PIIS CONSUMER-thread---------------------
-# Consume the message from piisTopic kafka topic and then save
-# the piis results json to a MongoDB collection
-# ------------------------------------------------------------
+"""
+Added by KGs
+also changes in the
+- API_endpoint.py : start piis consumer thread
+->
+from piis_consumer_thread import consume_piis_messages
+# Start piis consumer thread
+piis_consumer_thread = threading.Thread(target=consume_piis_messages)
+piis_consumer_thread.daemon = True
+piis_consumer_thread.start()
 
+- Dockerfile : copy this file inside the container
+->
+COPY API_endpoint.py variables.py functions.py piis_consumer_thread.py ./
+
+--------------KAFKA PIIS CONSUMER-thread---------------------
+ Consume the message from piisTopic kafka topic and then save
+ the piis results json to a MongoDB collection
+ ------------------------------------------------------------
+"""
 from typing import Callable, Union
 from confluent_kafka import Producer, Consumer, KafkaException
 from aiokafka import AIOKafkaConsumer   # pip install aiokafka
