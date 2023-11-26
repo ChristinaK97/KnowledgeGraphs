@@ -4,7 +4,6 @@ also changes in the
 - API_endpoint.py : start piis consumer thread
 ->
 from piis_consumer_thread import consume_piis_messages
-# Start piis consumer thread
 piis_consumer_thread = threading.Thread(target=consume_piis_messages)
 piis_consumer_thread.daemon = True
 piis_consumer_thread.start()
