@@ -8,7 +8,7 @@ piis_consumer_thread = threading.Thread(target=consume_piis_messages)
 piis_consumer_thread.daemon = True
 piis_consumer_thread.start()
 
-- Dockerfile : copy this file inside the container
+- Dockerfile : copy this file inside the image
 ->
 COPY API_endpoint.py variables.py functions.py piis_consumer_thread.py ./
 
