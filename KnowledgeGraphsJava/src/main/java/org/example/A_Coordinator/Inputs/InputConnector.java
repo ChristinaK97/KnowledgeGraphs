@@ -27,13 +27,11 @@ public class InputConnector {
 
     public static String FINTECH = "fintech";
     public static String HEALTH = "health";
-    public static String CTI = "CTI";
+    public static String CTI = "threat-intelligence";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InputConnector.class);
 
     private final PreprocessingFilesDownloader downloader;
-    // Whether to download the original or processed file
-    private final boolean downloadOG = true;
     private Config config;
 
     private final KafkaProducerService kafkaProducerService;
@@ -99,7 +97,7 @@ public class InputConnector {
         /* 1. Call service to download the file and handle response
          * 2. Use fileMono to access the downloaded file (i.e., save file a local directory or process it further) */
         try {
-            Mono<Resource> fileMono = downloader.downloadFile(fileName, downloadOG);   // 1
+            Mono<Resource> fileMono = downloader.downloadFile(fileName, this.config.In.downloadOriginal);   // 1
             if (fileMono != null) {
                 processFileMono(fileMono, fileDownloadPath);    // 2
                 return true;

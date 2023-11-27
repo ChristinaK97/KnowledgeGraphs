@@ -28,6 +28,9 @@ public class PreprocessingFilesDownloader {
                 .build();
     }
 
+    /**
+     * @param filename received from preprocessing notification
+     * @param downloadOG Whether to download the original or processed file */
     public Mono<Resource> downloadFile(String filename, boolean downloadOG) {
 
         String endpoint = downloadOG ? "original" : "processed";

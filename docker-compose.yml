@@ -45,7 +45,6 @@ services:
     depends_on:
       - knowledge-graphs-python
       - graphdb
-      # - kafka
       - preprocessing-tool
     image: knowledge-graphs-main:1.0.0
     container_name: knowledge-graphs-main

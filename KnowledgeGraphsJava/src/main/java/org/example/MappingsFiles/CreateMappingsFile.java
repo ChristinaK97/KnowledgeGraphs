@@ -175,6 +175,8 @@ public class CreateMappingsFile extends ManageMappingsFile {
     private Table updatedTable(String tableName, boolean isExtractedFromCurrentFile) {
         String tableFile =  isExtractedFromCurrentFile ? config.notification.getFilename()    : String.format("%s.%s",tableName, config.In.FileExtension);
         String tableDocId = isExtractedFromCurrentFile ? config.notification.getDocument_id() : String.valueOf(tableFile.hashCode());
+        // TODO: metadata_id
+        String metadataId = isExtractedFromCurrentFile ? config.notification.getMetadata_id() : String.valueOf(tableFile.hashCode());
 
         Table storedTable  = hasStored ? storedFileTemplate.getTable(tableName) : null;
         Table updatedTable = new Table(tableName);
@@ -182,7 +184,7 @@ public class CreateMappingsFile extends ManageMappingsFile {
         if(storedTable != null)
             updatedTable.copyTableSource(storedTable);
         else if (isExtractedFromCurrentFile || !config.notification.isReceivedFromPreprocessing()) // the 2nd condition is for local testing
-            updatedTable.addTableSource(tableFile, tableDocId);
+            updatedTable.addTableSource(tableFile, tableDocId, metadataId);     // TODO: metadata_id
         return updatedTable;
     }
 

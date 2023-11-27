@@ -5,6 +5,8 @@ import org.example.A_Coordinator.Inputs.PreprocessingNotification;
 import org.example.util.FileHandler;
 import org.example.util.JsonUtil;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,8 +27,7 @@ public class Config {
               getPath(String.format("%s/data/KnowledgeGraphsJava", WORKDIR))
             : getPath(String.format("%s/.KnowledgeGraphsData/KnowledgeGraphsJava", WORKDIR.getParent()));
 
-
-    public static boolean DEV_MODE = true;
+    public static boolean DEV_MODE;
 
 // ---------------------------------------------------------------------------------------------------------------------
     // Communication with preprocessing
@@ -59,13 +60,14 @@ public class Config {
 
 
     public Config(String UseCase, String FileExtension, PreprocessingNotification notification) {
-        LoggerFactory.getLogger(Config.class).info(String.format(
-                "\n\tWORKDIR: %s\n\tIN DOCKER ? %s\n\tRESOURCES DIR: %s",
-                WORKDIR, IS_DOCKER_ENV, resourcesPath
-        ));
         this.notification = notification;
         setConfigParams(UseCase, FileExtension);
         createDirectories();
+
+        LoggerFactory.getLogger(Config.class).info(String.format(
+                "\n\tWORKDIR: %s\n\tIN DOCKER ? %s\n\tRESOURCES DIR: %s \n\tDEV_MODE: %b",
+                WORKDIR, IS_DOCKER_ENV, resourcesPath, DEV_MODE
+        ));
     }
 
     private void createDirectories() {
@@ -83,6 +85,7 @@ public class Config {
 
         String configFilePath = getConfigFilePath(UseCase, FileExtension);
         JsonObject configFile = JsonUtil.readJSON(configFilePath).getAsJsonObject();
+        DEV_MODE = configFile.getAsJsonPrimitive("DEV_MODE").getAsBoolean();
 
         // Inputs parameters -----------------------------------------------------------------------
         In = new InputPointConfig(
@@ -130,6 +133,7 @@ public class Config {
 
         /** This is the file extension of the original downloaded files, not the processed files */
         public String FileExtension;
+        public boolean downloadOriginal;
         public String DownloadedDataDir;
         public String ProcessedDataDir;
         public String DefaultRootClassName;
@@ -138,6 +142,7 @@ public class Config {
             this.UseCase = UseCase;
             this.FileExtension = FileExtension;
             this.DatasetName = inputDatasetParams.get("DatasetName").getAsString();
+            this.downloadOriginal = inputDatasetParams.get("downloadOriginal").getAsBoolean();
 
             this.DefaultRootClassName = "Record";
             if("SQL".equals(FileExtension)) {

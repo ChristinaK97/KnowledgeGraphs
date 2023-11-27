@@ -83,9 +83,11 @@ public class MappingsFileTemplate {
         public void copyTableSource(Table storedTable){
             this.sources = storedTable.sources;
         }
-        public void addTableSource(String filename, String docId){
+
+        // TODO: metadata_id
+        public void addTableSource(String filename, String docId, String metadataId) {
             this.sources.add(new Source(
-               filename, docId
+               filename, docId, metadataId
             ));
         }
 
@@ -332,15 +334,16 @@ public class MappingsFileTemplate {
     }
     //================================================================================
 
+    // TODO: metadata_id
     public static class Source {
         private String document_id;
         private String filename;
-        //private String UUI;
+        private String metadata_id;
 
-        public Source(String filename, String document_id /*, String UUI*/) {
+        public Source(String filename, String document_id, String metadata_id) {
             this.filename = filename;
             this.document_id = document_id;
-            //this.UUI = UUI;
+            this.metadata_id = metadata_id;
         }
 
         public String getDocument_id() {
@@ -355,12 +358,12 @@ public class MappingsFileTemplate {
         public void setFilename(String filename) {
             this.filename = filename;
         }
-        /*public String getUUI() {
-            return UUI;
+        public String getMetadata_id() {
+            return metadata_id;
         }
-        public void setUUI(String UUI) {
-            this.UUI = UUI;
-        }*/
+        public void setMetadata_id(String metadata_id) {
+            this.metadata_id = metadata_id;
+        }
 
         @Override
         public boolean equals(Object o) {
@@ -368,13 +371,13 @@ public class MappingsFileTemplate {
             if (o == null || getClass() != o.getClass()) return false;
             Source source = (Source) o;
             return document_id.equals(source.document_id)
-                && filename.equals(source.filename);
-                //&& UUI.equals(source.UUI);
+                && filename.equals(source.filename)
+                && metadata_id.equals(source.metadata_id);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(document_id, filename); //, UUI);
+            return Objects.hash(document_id, filename, metadata_id);
         }
     }
 

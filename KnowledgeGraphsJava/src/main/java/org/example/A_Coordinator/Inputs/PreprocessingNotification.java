@@ -12,6 +12,8 @@ public class PreprocessingNotification {
     private boolean isReceivedFromPreprocessing;
     private String document_id;
     private String domain;
+    // TODO: metadata_id
+    private String metadata_id;
     private int file_size;
     private String filename;
     private String hash;
@@ -23,6 +25,7 @@ public class PreprocessingNotification {
         filename = ".";
         document_id = String.valueOf(new Random().nextInt());
         hash = String.valueOf(new Random().nextInt());
+        metadata_id = String.valueOf(new Random().nextInt());
     }
 
 // Getters and setters
@@ -47,6 +50,13 @@ public class PreprocessingNotification {
     }
     public void setDomain(String domain) {
         this.domain = domain;
+    }
+
+    public String getMetadata_id() {
+        return metadata_id;
+    }
+    public void setMetadata_id(String metadata_id) {
+        this.metadata_id = metadata_id;
     }
 
     public int getFile_size() {
@@ -103,15 +113,14 @@ public class PreprocessingNotification {
 
     @Override
     public String toString() {
-        return "PreprocessingNotification{" +
-                "isReceivedFromPreprocessing=" + isReceivedFromPreprocessing +
-                ", document_id='" + document_id + '\'' +
-                ", domain='" + domain + '\'' +
-                ", file_size=" + file_size +
-                ", filename='" + filename + '\'' +
-                ", hash='" + hash + '\'' +
-                ", piis=" + piis +
-                '}';
+        return "PreprocessingNotification {" +
+                ",\n\tdocument_id='" + document_id + '\'' +
+                ",\n\tdomain='" + domain + '\'' +
+                ",\n\tfile_size=" + file_size +
+                ",\n\tfilename='" + filename + '\'' +
+                ",\n\thash='" + hash + '\'' +
+                ",\n\tpiis=" + piis +
+                "\n}";
     }
 }
 
