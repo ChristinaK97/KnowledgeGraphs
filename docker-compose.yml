@@ -85,7 +85,7 @@ services:
   # TODO: for testing
   preprocessing-tool:
     build:
-      context: ./encrypt-project-master/PreprocessingDummy
+      context: ./PreprocessingDummy
     image: preprocessing-tool:latest
     container_name: preprocessing-tool
     ports:
