@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   knowledge-graphs-python:
-    image: knowledge-graphs-python:1.0.0
+    image: encryptdev/knowledge-graphs-python:1.0.0
     container_name: knowledge-graphs-python
     restart: always
     ports:
@@ -23,12 +23,11 @@ services:
 
 
   knowledge-graphs-main:
-    image: knowledge-graphs-main:1.0.0
+    image: encryptdev/knowledge-graphs-main:1.0.0
     container_name: knowledge-graphs-main
     depends_on:
       - knowledge-graphs-python
       - graphdb
-      #- kafka
       - preprocessing-tool
     restart: always
     ports:
@@ -56,12 +55,12 @@ services:
       - "7200:7200"
       - "7300:7300"
     volumes:
-      - graphdb-data:/opt/graphdb/home/data
+      - encrypt-graphdb-data:/opt/graphdb/home/data
     networks:
       - encrypt-network
 
 
-  # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
   # TODO: for testing
   preprocessing-tool:
     image: preprocessing-tool:latest
@@ -76,10 +75,11 @@ services:
 
 # an external volume needs to be created/defined "docker volume create graphdb_data"
 volumes:
-  graphdb-data:
-    name: graphdb-data
+  encrypt-graphdb-data:
+    name: encrypt-graphdb-data
     external: true
   #encrypt-knowledge-graphs-data:
+  #  name: encrypt-knowledge-graphs-data
   #  external: true
 
 
