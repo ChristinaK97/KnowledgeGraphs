@@ -85,9 +85,9 @@ public class MappingsFileTemplate {
         }
 
         // TODO: metadata_id
-        public void addTableSource(String filename, /*String docId,*/ String metadataId) {
+        public void addTableSource(String filename, String metadataId) {
             this.sources.add(new Source(
-               filename, /*docId,*/ metadataId
+               filename, metadataId
             ));
         }
 
@@ -336,22 +336,14 @@ public class MappingsFileTemplate {
 
     // TODO: metadata_id
     public static class Source {
-        //private String document_id;
         private String filename;
         private String metadata_id;
 
-        public Source(String filename, /*String document_id,*/ String metadata_id) {
+        public Source(String filename, String metadata_id) {
             this.filename = filename;
-            //this.document_id = document_id;
             this.metadata_id = metadata_id;
         }
 
-        /*public String getDocument_id() {
-            return document_id;
-        }
-        public void setDocument_id(String document_id) {
-            this.document_id = document_id;
-        }*/
         public String getFilename() {
             return filename;
         }
@@ -370,14 +362,14 @@ public class MappingsFileTemplate {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Source source = (Source) o;
-            return //document_id.equals(source.document_id) &&
+            return
                 filename.equals(source.filename) &&
                 metadata_id.equals(source.metadata_id);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(/*document_id,*/ filename, metadata_id);
+            return Objects.hash(filename, metadata_id);
         }
     }
 

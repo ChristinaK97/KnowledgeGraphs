@@ -10,7 +10,6 @@ import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.getCodeFromNa
 
 public class PreprocessingNotification {
 
-    // private String document_id; //removed by preprocessing
     private String filename;
     private int file_size;
     private String owner;
@@ -28,7 +27,6 @@ public class PreprocessingNotification {
     public PreprocessingNotification() {
         this.isReceivedFromPreprocessing = false;
         filename = ".";
-        //document_id = String.valueOf(new Random().nextInt());
         owner = "-";
         preprocessed = false;
         hash = String.valueOf(new Random().nextInt());
@@ -45,13 +43,6 @@ public class PreprocessingNotification {
         isReceivedFromPreprocessing = receivedFromPreprocessing;
     }
 
-    /*public String getDocument_id() {
-        return document_id;
-    }
-    public void setDocument_id(String document_id) {
-        this.document_id = document_id;
-    }*/
-
     public String getDomain() {
         return domain;
     }
@@ -62,29 +53,12 @@ public class PreprocessingNotification {
     public String getMetadata_id() {
         return metadata_id;
     }
-    public void setMetadata_id(String metadata_id) {
-        this.metadata_id = metadata_id;
-    }
-
-    public int getFile_size() {
-        return file_size;
-    }
-    public void setFile_size(int file_size) {
-        this.file_size = file_size;
-    }
 
     public String getFilename() {
         return filename;
     }
     public void setFilename(String filename) {
         this.filename = filename;
-    }
-
-    public String getHash() {
-        return hash;
-    }
-    public void setHash(String hash) {
-        this.hash = hash;
     }
 
     public List<String> getPiis() {
