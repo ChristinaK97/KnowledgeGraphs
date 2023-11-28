@@ -1,5 +1,6 @@
 package org.example.A_Coordinator.Inputs;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -38,6 +39,9 @@ public class PreprocessingFilesDownloader {
         MediaType applicationType = "dcm".equals(fileExtension) ?
                                     MediaType.ALL :
                                     MediaType.APPLICATION_OCTET_STREAM;
+        LoggerFactory.getLogger(PreprocessingFilesDownloader.class).info(
+                String.format("Making request to %s/download/files/%s/%s", PreprocessingEndpoint, endpoint, filename));
+
         return webClient
                 .get()
                 .uri("/download/files/" + endpoint + "/{filename}", filename)

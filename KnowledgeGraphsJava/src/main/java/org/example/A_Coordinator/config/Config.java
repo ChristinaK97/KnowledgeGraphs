@@ -35,7 +35,7 @@ public class Config {
 
     // GET http://preprocessing-tool:5000/download/files/original/<path:filename>
     public static final String PreprocessingEndpoint =
-            IS_DOCKER_ENV ? "http://preprocessing-tool:8080" : "http://localhost:8080";
+            IS_DOCKER_ENV ? "http://preprocessing-tool:5000" : "http://localhost:5000";
 
     private static boolean MAINTAIN_PREPROCESSING_RESULTS = true;
 

@@ -269,7 +269,7 @@ public class MappingSelection {
         if(hasDataCands)
            dataOptimal = selectDataOptimal(dataMap, compatibleDomain, tableOptimal, (String) objOptimal, clsOptimal);
 
-       System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));
+       if(DEV_MODE) System.out.printf("Selected optimal | %s -> %s -> %s |\n", getLocal(objOptimal), getLocal(clsOptimal), getLocal(dataOptimal));
 
        return new Object[]{objOptimal, clsOptimal, dataOptimal};
     }

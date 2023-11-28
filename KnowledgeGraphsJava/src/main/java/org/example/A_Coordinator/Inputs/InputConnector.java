@@ -133,8 +133,13 @@ public class InputConnector {
             error.printStackTrace();
         }, () -> {
             // 5
-            LOGGER.info("File " + fileDownloadPath + " saved successfully");
-            runPipeline();
+            boolean isDownloadSuccessful = Files.exists(fileDownloadPath);
+            if(isDownloadSuccessful) {
+                LOGGER.info("File " + fileDownloadPath + " saved successfully");
+                runPipeline();
+            }else
+                LOGGER.error("File was not downloaded successfully: Downloaded file not found at "
+                        + fileDownloadPath + ". Skipping KGs component!");
         });
     }
 

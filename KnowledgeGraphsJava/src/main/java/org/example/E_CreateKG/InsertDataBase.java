@@ -241,7 +241,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
         // Save the individualsModel to a TTL file
         String outputFile = config.Out.IndividualsTTL;
         try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-            individualsModel.write(fos, "TURTLE");                                                                 if(DEV_MODE) System.out.println("Individuals saved to: " + outputFile);
+            individualsModel.write(fos, "TURTLE");                                                                 LoggerFactory.getLogger(InsertDataBase.class).info("Individuals saved to: " + outputFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -256,8 +256,7 @@ public abstract class InsertDataBase extends JenaOntologyModelHandler {
             e.printStackTrace();
         }
         ontology.pModel.setNsPrefix("", config.Out.POntologyBaseNS);
-        ontology.pModel.write(out, "TURTLE");
-        LoggerFactory.getLogger(InsertDataBase.class).info("Full graph saved to " + filePath);
+        ontology.pModel.write(out, "TURTLE");                                                                      LoggerFactory.getLogger(InsertDataBase.class).info("Full graph saved to " + filePath);
     }
 
 

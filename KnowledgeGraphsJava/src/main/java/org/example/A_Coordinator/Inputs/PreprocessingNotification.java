@@ -9,21 +9,28 @@ import java.util.Random;
 import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.getCodeFromName;
 
 public class PreprocessingNotification {
-    private boolean isReceivedFromPreprocessing;
-    private String document_id;
-    private String domain;
-    // TODO: metadata_id
-    private String metadata_id;
-    private int file_size;
+
+    // private String document_id; //removed by preprocessing
     private String filename;
+    private int file_size;
+    private String owner;
+    private boolean preprocessed;
+    private String domain;
     private String hash;
     private List<String> piis;
+    // TODO: metadata_id
+    private String metadata_id;
+
+    // for KGs internal use
+    private boolean isReceivedFromPreprocessing;
     private HashSet<String> tableNames = new HashSet<>();
 
     public PreprocessingNotification() {
         this.isReceivedFromPreprocessing = false;
         filename = ".";
-        document_id = String.valueOf(new Random().nextInt());
+        //document_id = String.valueOf(new Random().nextInt());
+        owner = "-";
+        preprocessed = false;
         hash = String.valueOf(new Random().nextInt());
         metadata_id = String.valueOf(new Random().nextInt());
     }
@@ -38,12 +45,12 @@ public class PreprocessingNotification {
         isReceivedFromPreprocessing = receivedFromPreprocessing;
     }
 
-    public String getDocument_id() {
+    /*public String getDocument_id() {
         return document_id;
     }
     public void setDocument_id(String document_id) {
         this.document_id = document_id;
-    }
+    }*/
 
     public String getDomain() {
         return domain;
@@ -114,12 +121,14 @@ public class PreprocessingNotification {
     @Override
     public String toString() {
         return "PreprocessingNotification {" +
-                ",\n\tdocument_id='" + document_id + '\'' +
-                ",\n\tdomain='" + domain + '\'' +
+                "\n\tfilename='" + filename + '\'' +
                 ",\n\tfile_size=" + file_size +
-                ",\n\tfilename='" + filename + '\'' +
+                ",\n\towner='" + owner + '\'' +
+                ",\n\tpreprocessed=" + preprocessed +
+                ",\n\tdomain='" + domain + '\'' +
                 ",\n\thash='" + hash + '\'' +
                 ",\n\tpiis=" + piis +
+                ",\n\tmetadata_id='" + metadata_id + '\'' +
                 "\n}";
     }
 }

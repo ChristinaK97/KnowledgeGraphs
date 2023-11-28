@@ -8,7 +8,7 @@ services:
         - TORCHAUDIO_VERSION=${TORCHAUDIO_VERSION}
         - TORCHVISION_VERSION=${TORCHVISION_VERSION}
         - CUDA_VERSION=${CUDA_VERSION}
-    image: python-environment:latest
+    image: encryptdev/python-environment:1.0.0
     container_name: python-environment
     networks:
       - encrypt-network
@@ -18,7 +18,7 @@ services:
       context: ./KnowledgeGraphsPython
     depends_on:
       - python-environment
-    image: knowledge-graphs-python:1.0.0
+    image: encryptdev/knowledge-graphs-python:1.0.0
     container_name: knowledge-graphs-python
     restart: always
     ports:
@@ -46,7 +46,7 @@ services:
       - knowledge-graphs-python
       - graphdb
       - preprocessing-tool
-    image: knowledge-graphs-main:1.0.0
+    image: encryptdev/knowledge-graphs-main:1.0.0
     container_name: knowledge-graphs-main
     restart: always
     ports:

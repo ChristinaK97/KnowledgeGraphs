@@ -1,4 +1,4 @@
-FROM python-environment:latest
+FROM encryptdev/python-environment:1.0.0
 
 # Set working directory
 WORKDIR /KnowledgeGraphsApp
