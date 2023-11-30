@@ -1,5 +1,7 @@
 package org.example.A_Coordinator.Inputs;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.example.A_Coordinator.Kafka.KafkaProducerService;
 import org.example.A_Coordinator.Pipeline;
 import org.example.A_Coordinator.config.Config;
@@ -54,8 +56,9 @@ public class InputConnector {
     /** Receive post request / notification from preprocessing */
     @PostMapping(value = "/fileMetadata")
     public ResponseEntity<String> receivePreprocessingNotification(
-            @RequestBody PreprocessingNotification notification) {
+            @RequestBody String notificationString) {
         try {
+            PreprocessingNotification notification = new Gson().fromJson(notificationString, PreprocessingNotification.class);
             notification.setReceivedFromPreprocessing(true);
             LOGGER.info("Knowledge Graphs received:\n" + notification);
             String UseCase  = notification.getDomain();

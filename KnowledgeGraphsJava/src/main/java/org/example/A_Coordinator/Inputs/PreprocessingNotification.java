@@ -21,7 +21,10 @@ public class PreprocessingNotification {
     private String metadata_id;
 
     // for KGs internal use
-    private boolean isReceivedFromPreprocessing;
+    /* Whether this notification was received from the preprocessing tool,
+     * or is dummy notification during testing
+  */private boolean isReceivedFromPreprocessing;
+
     private HashSet<String> tableNames = new HashSet<>();
 
     public PreprocessingNotification() {
@@ -34,7 +37,6 @@ public class PreprocessingNotification {
     }
 
 // Getters and setters
-
 
     public boolean isReceivedFromPreprocessing() {
         return isReceivedFromPreprocessing;
@@ -75,15 +77,20 @@ public class PreprocessingNotification {
     }
 
 
+
     public void addExtractedTableName(String extractedTableName) {
         tableNames.add(extractedTableName);
     }
-    public boolean hasExtractedTable(String extractedTableName) {
+    /** The "table" elements of the received file that were transformed to TableClasses
+     * table elements might be the file itself, eg "person.csv" => person isa TableClass
+     * or the parent element of some nested elements, eg { address : {zipcode: ...}} => address isa TableClass
+    */public boolean hasExtractedTable(String extractedTableName) {
         return tableNames.contains(extractedTableName);
     }
     public HashSet<String> getExtractedTableNames() {
         return tableNames;
     }
+
 
     public boolean isPii(String colName) {
         for(String pii : piis)
