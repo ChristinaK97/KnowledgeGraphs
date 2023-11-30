@@ -9,6 +9,8 @@ import org.example.util.Ontology;
 import java.net.URI;
 import java.util.*;
 
+import static org.example.A_Coordinator.config.Config.DEV_MODE;
+
 
 /**
  * Find columns that, although they are not explicitly recorded as PKs and FKs, they might be
@@ -64,21 +66,21 @@ public class TabularSpecificRules implements FormatSpecificRules {
         for(Table table: tablesList) {
             if(table.getMapping().hasMatch()) {
 
-                HashSet<String> uniqueValuedColumns = determineCandidateKeys(table.getTable());
+                HashSet<String> uniqueValuedColumns = determineCandidateKeys(table.getTable());                         if(DEV_MODE) System.out.printf("Table %s has distinctly valued columns: %s\n", table.getTable(), uniqueValuedColumns);
                 List<URI> tableMatch = table.getMapping().getMatchURI();
 
                 for(Column col : table.getColumns()) {
                     String colClassMatch = col.getClassPropMapping().getMatchURI().toString();
                     if(tableMatch.toString().equals(colClassMatch)) {
                         col.getObjectPropMapping().setAsInitialMatch();
-                        col.getClassPropMapping() .setAsInitialMatch();
+                        col.getClassPropMapping() .setAsInitialMatch();                                                     if(DEV_MODE) System.out.printf("Column %s is direct data property of %s \n", col.getColumn(), table.getTable());
 
                         // only the columns with unique values are considered as candidate keys to
                         // be referenced by other tables' columns.
                         // Other columns that where only mapped to the same class as that table class
                         // without having unique values are simply direct attributes of the table class\
                         // and will not be referenced by other tables
-                        if(uniqueValuedColumns.contains(col.getColumn())) {
+                        if(uniqueValuedColumns.contains(col.getColumn())) {                                                 if(DEV_MODE) System.out.printf("Column %s IS candidate key of table %s\n", col.getColumn(), table.getTable());
                             candKeyCols.put(col.getColumn(), new CandKeyCol(
                                     table.getTable(),
                                     tableMatch.size() == 1 ? tableMatch.get(0) : table.getMapping().getOntoElURI()
@@ -101,9 +103,8 @@ public class TabularSpecificRules implements FormatSpecificRules {
             for(Column col : table.getColumns()) {
                 String colName = col.getColumn();
                 // if a column with the same name was recorded as a candidate key of some table, then candKeyCol is not null
-                CandKeyCol candKeyCol = candKeyCols.get(colName);
-                if(isCandFK(srcTable, colName, candKeyCol)) {
-
+                CandKeyCol candKeyCol = candKeyCols.get(colName);                                                                   if(DEV_MODE) System.out.print(candKeyCol!=null ? String.format("Column %s.%s is a possible FK\n", table.getTable(), colName) : "");
+                if(isCandFK(srcTable, colName, candKeyCol)) {                                                                       if(DEV_MODE) System.out.printf("Column %s.%s IS FK\n",table.getTable(), colName);
                     col.getObjectPropMapping().setAsInitialMatch();
                     col.getClassPropMapping() .setAsInitialMatch();
                     col.getDataPropMapping()  .setPath(Collections.singletonList(candKeyCol.pathURI));
