@@ -12,13 +12,24 @@ import static org.example.util.FileHandler.fileExists;
 
 public class ManageMappingsFile {
 
-    protected MappingsFileTemplate fileTemplate;
+    protected MappingsFileTemplate mappingsFile;
 
-    public ManageMappingsFile() {
-        fileTemplate = new MappingsFileTemplate();
+    /** Create a handler for the mappings json file, containing an instance of the MappingsFileTemplate class
+     * @param overrideExistingMappingsFile: If set to false it will retrieve the saved mappings file.
+     *        To save this new file, also call saveMappingsFile<br><br>
+     *        If set to true (or a saved file doesn't exist), it will create a new MappingsFileTemplate object.
+     *        To override the (possibly) existing file with this new mappings file, also call saveMappingsFile after
+     *        performing modifications.
+     */
+    public ManageMappingsFile(boolean overrideExistingMappingsFile) {
+        mappingsFile = (overrideExistingMappingsFile || !fileExists(config.Out.PO2DO_Mappings)) ?
+                new MappingsFileTemplate()
+                : readMappingsFile();
     }
 
-    public static MappingsFileTemplate readMapJSONasTemplate() {
+    /** When called as static, it is recommended to be for read only.
+     * To also save modifications, create a ManageMappingsFile object, or from one of its subclasses */
+    public static MappingsFileTemplate readMappingsFile() {
         try (FileReader reader = new FileReader(config.Out.PO2DO_Mappings)) {
             MappingsFileTemplate mft = new Gson().fromJson(reader, MappingsFileTemplate.class);
             mft.postDeserialization();
@@ -28,7 +39,9 @@ public class ManageMappingsFile {
         return null;
     }
 
-    public static List<Table> readMapJSON() {
+    /** When called as static, it is recommended to be for read only.
+     * To also save modifications, create a ManageMappingsFile object, or from one of its subclasses */
+    public static List<Table> readTableMappings() {
         try (FileReader reader = new FileReader(config.Out.PO2DO_Mappings)) {
             MappingsFileTemplate mft = new Gson().fromJson(reader, MappingsFileTemplate.class);
             mft.postDeserialization();
@@ -39,13 +52,8 @@ public class ManageMappingsFile {
     }
 
 
-    public void saveMappingsFile(List<Table> tablesList) {
-        fileTemplate.setTables(tablesList);
-        saveMappingsFile();
-    }
-
     public void saveMappingsFile() {
-        JsonUtil.saveToJSONFile(config.Out.PO2DO_Mappings, fileTemplate);
+        JsonUtil.saveToJSONFile(config.Out.PO2DO_Mappings, mappingsFile);
     }
 
 }

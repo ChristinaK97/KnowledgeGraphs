@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 
 public class MappingsFileTemplate {
 
+    // TODO: metadata_id
+    private String prev_metadata_id = null;
+    private String current_metadata_id;
+
     private List<Table> tables;
     private transient HashMap<String, Integer> tablesIdx;
 
@@ -58,6 +62,12 @@ public class MappingsFileTemplate {
             return null;
         }
     }
+
+
+    public String getPrev_metadata_id() {return prev_metadata_id;}
+    public void setPrev_metadata_id(String prev_metadata_id) {this.prev_metadata_id = prev_metadata_id;}
+    public String getCurrent_metadata_id() {return current_metadata_id;}
+    public void setCurrent_metadata_id(String current_metadata_id) {this.current_metadata_id = current_metadata_id;}
 
     //================================================================================
 

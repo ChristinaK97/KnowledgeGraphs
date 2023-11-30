@@ -18,9 +18,9 @@ public class SetMappingsFile extends ManageMappingsFile {
     private boolean addPathsOnlyToTableMaps = config.In.isDSON();
 
     public SetMappingsFile(Matches matches, FormatSpecificRules spRules) {
-        super();
+        super(false);
         this.matches = matches;
-        tablesList = readMapJSON();
+        tablesList = mappingsFile.getTables();
 
         if(spRules != null) {
             // add new mappings
@@ -33,7 +33,7 @@ public class SetMappingsFile extends ManageMappingsFile {
         }else // if not format specific need to be applied simply set the matches to the mappings file template
             setMatches();
 
-        saveMappingsFile(tablesList);
+        saveMappingsFile();
     }
 
     private void setMatches() {

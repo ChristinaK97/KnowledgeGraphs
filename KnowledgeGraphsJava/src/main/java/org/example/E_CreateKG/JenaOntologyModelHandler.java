@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 
-import static org.example.A_Coordinator.Pipeline.config;
+import static org.example.MappingsFiles.ManageMappingsFile.readTableMappings;
 import static org.example.util.Annotations.TABLE_CLASS_URI;
 import static org.example.util.Ontology.getLocalName;
 
@@ -23,7 +23,7 @@ public class JenaOntologyModelHandler {
 
     public JenaOntologyModelHandler(Object ontology) {
         this.ontology = ontology instanceof Ontology ? (Ontology) ontology : new Ontology((String) ontology);
-        tablesMaps = ManageMappingsFile.readMapJSON();
+        tablesMaps = readTableMappings();
     }
 
 

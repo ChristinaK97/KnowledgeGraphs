@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import static org.example.A_Coordinator.Pipeline.config;
 import static org.example.B_InputDatasetProcessing.DICOM.DICOMUtil.getNameFromCode;
-import static org.example.MappingsFiles.ManageMappingsFile.readMapJSONasTemplate;
+import static org.example.MappingsFiles.ManageMappingsFile.readMappingsFile;
 
 public class PIIidentification {
 
@@ -48,7 +48,7 @@ public class PIIidentification {
 
     private Ontology DOnto;
     private Ontology dpvOnto;
-    private MappingsFileTemplate tablesList;
+    private MappingsFileTemplate mappingsFile;
 
     private HashMap<String, ArrayList<String>> do2dpv;
     private boolean doCrossMapping;
@@ -64,11 +64,10 @@ public class PIIidentification {
         DOnto   = doCrossMapping ? new Ontology(config.DOMap.TgtOntology) : null;
         dpvOnto = new Ontology(config.PiiMap.TgtOntology);
 
-        tablesList = readMapJSONasTemplate();
+        mappingsFile = readMappingsFile();
 
         PIIs = new HashMap<>();
-        PiiResults = new PIIresultsTemplate();
-        PiiResults.setDomain(config.In.UseCase);
+        createPiiResultsObject();
 
         doCrossMapping = config.PiiMap.UseCase2DPV_file_path != null;
         loadDO2dpvMappings();
@@ -90,7 +89,15 @@ public class PIIidentification {
         return PiiResults;
     }
 
-    //=============================================================================================================
+
+    public void createPiiResultsObject() {
+        PiiResults = new PIIresultsTemplate();
+        PiiResults.setDomain(config.In.UseCase);
+        PiiResults.setPrev_metadata_id(mappingsFile.getPrev_metadata_id());
+        PiiResults.setCurrent_metadata_id(mappingsFile.getCurrent_metadata_id());
+    }
+
+//=============================================================================================================
 // Find piis mapping
 //=============================================================================================================
 
@@ -99,7 +106,7 @@ public class PIIidentification {
     private String colName;
 
     private void findPiis() {
-        for(Table table : tablesList.getTables()) {
+        for(Table table : mappingsFile.getTables()) {
             this.tableName = table.getTable();
             this.colName = this.tableName; // the table itself might store piis->it's match with dpv class
 
@@ -249,7 +256,7 @@ public class PIIidentification {
     }
 
     private Set<Source> getSources(String tableName) {
-        return tablesList.getTable(tableName).getSources();
+        return mappingsFile.getTable(tableName).getSources();
     }
 
 
@@ -281,7 +288,7 @@ public class PIIidentification {
 
     private void appendT41piisList() {
 
-        for(Table table : tablesList.getTables()) {
+        for(Table table : mappingsFile.getTables()) {
             for(Column column : table.getColumns()) {
 
                 if(  column.isPii() &&                                                  //was detected by T41 as pii and

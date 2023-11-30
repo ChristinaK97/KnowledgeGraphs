@@ -21,13 +21,12 @@ import org.example.util.Pair;
 import org.example.util.XSDmappers;
 import org.slf4j.LoggerFactory;
 import tech.tablesaw.api.*;
-import org.example.util.JsonUtil;
 import tech.tablesaw.columns.Column;
 
 import java.util.*;
 
 import static org.example.A_Coordinator.config.Config.DEV_MODE;
-import static org.example.MappingsFiles.ManageMappingsFile.readMapJSON;
+import static org.example.MappingsFiles.ManageMappingsFile.readTableMappings;
 import static org.example.util.Ontology.getLocalName;
 
 public class MappingSelection {
@@ -72,7 +71,7 @@ public class MappingSelection {
 
         matches = new Matches();
         readMappingsJSON(bertmapJson);
-        tablesList = readMapJSON();
+        tablesList = readTableMappings();
         selectTableOptimal();
         selectTableColumnOptimal();
 

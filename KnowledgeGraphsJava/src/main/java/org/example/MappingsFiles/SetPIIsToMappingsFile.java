@@ -11,17 +11,15 @@ import java.util.List;
 public class SetPIIsToMappingsFile extends ManageMappingsFile {
 
     private Matches matches;
-    private List<Table> tablesList;
 
     public SetPIIsToMappingsFile(Matches matches) {
-        super();
+        super(false);
         this.matches = matches;
-        tablesList = readMapJSON();
-        setDPVMatches();
-        saveMappingsFile(tablesList);
+        setDPVMatches(mappingsFile.getTables());
+        saveMappingsFile();
     }
 
-    private void setDPVMatches() {
+    private void setDPVMatches(List<Table> tablesList) {
         for(Table tableMaps : tablesList) {
 
             URI ontoEl = tableMaps.getMapping().getOntoElURI();

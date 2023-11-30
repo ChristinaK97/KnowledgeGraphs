@@ -4,6 +4,10 @@ import org.example.MappingsFiles.MappingsFileTemplate.Source;
 import java.util.*;
 
 public class PIIresultsTemplate {
+    // TODO: metadata_id
+    private String prev_metadata_id;
+    private String current_metadata_id;
+
     String domain;
     List<PIIattribute> pii_attributes = new ArrayList<>();
 
@@ -29,6 +33,10 @@ public class PIIresultsTemplate {
     public void sortPiiAttributesList() {
         pii_attributes.sort(Comparator.comparing(PIIattribute::getDataset_element));
     }
+
+
+    public void setPrev_metadata_id(String prev_metadata_id) {this.prev_metadata_id = prev_metadata_id;}
+    public void setCurrent_metadata_id(String current_metadata_id) {this.current_metadata_id = current_metadata_id;}
 }
 
 class PIIattribute {
