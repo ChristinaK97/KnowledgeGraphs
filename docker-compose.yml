@@ -84,7 +84,7 @@ services:
   # TODO: for testing
   preprocessing-tool:
     build:
-      context: ./PreprocessingDummy
+      context: ./PreprocessingDummyAPI
     image: preprocessing-tool:latest
     container_name: preprocessing-tool
     ports:
