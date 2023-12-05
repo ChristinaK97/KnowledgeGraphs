@@ -26,7 +26,8 @@ How to use?
     - Step 2: Place the resulting directory ".KnowledgeGraphsData" in the same directory as the docker-compose.yml file. This path is specified by the ```KNOWLEDGE_GRAPHS_DATA_PATH``` value in the .env file. 
     - Step 3: On both the ```knowledge-graphs-main``` and ```knowledge-graphs-python``` services in the docker-compose specify the following bind mount: <br>
       ```volumes:```<br>```- ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data```
-<br>
+
+      
 - Option 2: [Volume method] Use a new named external volume
     - Step 1: Migrate the data of the tar file to a new external volume named ```encrypt-knowledge-graphs-data```
         - Linux:<br>```docker run --rm -v encrypt-knowledge-graphs-data:/data --mount type=bind,source=$(pwd),target=/backup_mount --name temp_container busybox sh -c "tar xvf /backup_mount/kg-data-backup.tar -C /data --strip-components=2"```
