@@ -1,0 +1,12 @@
+{
+  "document_id": "451527604d85b154a05f73f7",
+  "domain": "fintech",
+  "metadata_id": "151527604d85b154a05f73f70",
+  "file_size": 1708214,
+  "filename": "payment_typed.csv",
+  "hash": "480c5a85b254f302f3da37446fca79729c70b3fe",
+  "piis": [
+    "capital_amount",
+    "account_key"
+  ]
+}
