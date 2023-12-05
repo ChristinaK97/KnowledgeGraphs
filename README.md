@@ -1,9 +1,8 @@
 ## Knowledge Graphs Component Modules
-
 * __KnowledgeGraphsJava__: Main codebase implemented with Java. Its Dockerfile is used to build the ```knowledge-graphs-main``` image.
 * __KnowledgeGraphsPython__: Encompasses two following python modules Its Dockerfile is used to build the ```knowledge-graphs-python``` image.
-  - AAExpansion: Medical Abbreviation and Acronym Expansion preprocessing module implemented with Python
-  - DeepOnto: Forked BERTMap codebase implemented with Python
+  * AAExpansion: Medical Abbreviation and Acronym Expansion preprocessing module implemented with Python
+  * DeepOnto: Forked BERTMap codebase implemented with Python
 * __PythonEnvironment__: Contains the requirements.txt for the python projects. Its Dockerfile is used to build a base image for the ```knowledge-graphs-python``` image,
 encompassing all the requirements of the two python projects.
 
