@@ -1,0 +1,15 @@
+{
+  "document_id": "151527604d85b154a05f73f7",
+  "domain": "health",
+  "metadata_id": "351527604d85b154a05f73f70",
+  "file_size": 1708214,
+  "filename": "Data_test_Encrypt.xlsx",
+  "hash": "180c5a85b254f302f3da37446fca79729c70b3fe",
+  "piis": [
+    "Dyslipidemia",
+    "age",
+    "weight",
+    "height",
+    "Smoking"
+  ]
+}
