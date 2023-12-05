@@ -1,4 +1,6 @@
-## Knowledge Graphs Component Modules
+## ENCRYPT Knowledge Graphs
+
+### Knowledge Graphs Component Modules
 * __KnowledgeGraphsJava__: Main codebase implemented with Java. Its Dockerfile is used to build the ```knowledge-graphs-main``` image.
 * __KnowledgeGraphsPython__: Encompasses two following python modules Its Dockerfile is used to build the ```knowledge-graphs-python``` image.
   * AAExpansion: Medical Abbreviation and Acronym Expansion preprocessing module implemented with Python
