@@ -19,8 +19,7 @@ services:
       # bind mount a local directory for access to kg data and persistent storage :
       - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
       # or migrate an external volume :
-      # - knowledge-graphs-data:/KnowledgeGraphsApp/data
-
+      #- encrypt-knowledge-graphs-data:/KnowledgeGraphsApp/data
 
   knowledge-graphs-main:
     image: encryptdev/knowledge-graphs-main:1.0.0
@@ -42,7 +41,7 @@ services:
       # bind mount a local directory for access to kg data and persistent storage :
       - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
       # or migrate an external volume :
-      #- knowledge-graphs-data:/KnowledgeGraphsApp/data
+      #- encrypt-knowledge-graphs-data:/KnowledgeGraphsApp/data
 
 
   graphdb:
