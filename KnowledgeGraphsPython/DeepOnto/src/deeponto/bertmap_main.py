@@ -24,8 +24,8 @@ def run_bertmap_pipeline(
         raise FileNotFoundError(f"Mode is {mode} but DPV_path eq {DPV_path}")
 
     output_path = os.path.join(str(Path(base_output_dir)), use_case)
-    # eg. resources/fintech/bertmap/EPIBANK/map_to_do/config.yaml
-    config_file_path = os.path.join(output_path, 'bertmap', dataset_name, mode, 'config.yaml')
+    # eg. resources/fintech/bertmap/results_per_dataset/EPIBANK/map_to_do/config.yaml
+    config_file_path = os.path.join(output_path, 'bertmap', 'results_per_dataset', dataset_name, mode, 'config.yaml')
 
     if not exists(config_file_path):
         print(f"Not found config file for use case = '{use_case}', dataset = {dataset_name} and task = '{mode}' in path = '{config_file_path}'. Loading default parameters."
