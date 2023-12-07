@@ -7,9 +7,14 @@ from flask import Flask, jsonify, request
 def test_gpu():
     import torch
     from torch.cuda import is_available, get_device_name, current_device
-    print(is_available(), get_device_name(current_device()))
-    tensor = torch.tensor([3, 4, 5], dtype=torch.int64, device=current_device())
-    return tensor.device
+    if is_available():
+        print(is_available(), get_device_name(current_device()))
+        tensor = torch.tensor([3, 4, 5], dtype=torch.int64, device=current_device())
+        return tensor.device
+    else:
+        return "CPU"
+
+
 # ======================================================================================================================
 app = Flask(__name__)
 
