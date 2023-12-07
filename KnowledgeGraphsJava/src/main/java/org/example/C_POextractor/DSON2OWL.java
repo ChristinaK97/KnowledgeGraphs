@@ -32,7 +32,7 @@ public class DSON2OWL extends JSON2OWL {
         if(JsonUtil.isInvalidProperty(domain, range, extractedField))
             return;
 
-        System.out.println(domain  + " " + range);
+        //System.out.println(domain  + " " + range);
         String[] triple = getBroaderResources(domain, range);
 
         pureObjProperties.addProperty(

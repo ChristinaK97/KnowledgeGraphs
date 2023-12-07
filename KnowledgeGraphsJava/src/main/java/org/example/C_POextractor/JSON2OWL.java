@@ -50,7 +50,7 @@ import static org.example.util.FileHandler.getFileNameWithoutExtension;
  * person -[has_name]-> xsd:string  (John Doe)
  * person -[has_status]-> xsd:string  (active) etc
  *
- * value is a list of simple.dcm elements
+ * value is a list of simple elements
  * person -[has_languages]-> xsd:string (English)
  * person -[has_languages]-> xsd:string (Spanish) etc
  *
@@ -58,11 +58,13 @@ import static org.example.util.FileHandler.getFileNameWithoutExtension;
  * person -[has_friends]-> friends -[has_name]-> Jane and other properties for Jane
  * person -[has_friends]-> friends -[has_name]-> Bob and other properties for Bob
  *
- * value is a dictionary with simple.dcm values
+ * value is a dictionary with simple values
  * person -[has_address]-> address
- * address -[has_street]-> xsd:string (123 Main St)
- * address -[has_city]-> xsd:string (New York) etc
+ *                         address -[has_street]-> xsd:string (123 Main St)
+ *                         address -[has_city]-> xsd:string (New York) etc
  *
+ * (turnAttributesToClasses is set to false in the above example,
+ *  so only TableClasses are created, not AttributeClasses)
  */
 public class JSON2OWL {
 
