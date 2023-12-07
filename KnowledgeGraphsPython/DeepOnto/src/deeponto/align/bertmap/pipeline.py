@@ -113,6 +113,7 @@ class BERTMapPipeline:
         # Run bert
         self.config_bert()
         for entity_type in ["Classes", "ObjectProperties", "DataProperties"]:
+            self.logger.info(f"Run mapping predictor for entity type : {entity_type}")
             self.run_predictor(entity_type)
         if self.config.global_matching.run_logmap_repair:
             self.run_repair()
