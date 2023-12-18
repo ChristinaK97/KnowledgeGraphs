@@ -15,6 +15,7 @@ from os.path import exists
 
 # the following code is credited to the mOWL library 
 import jpype
+import jpype.imports  # very important for basic Java dependencies!
 import os
 import glob
 from pathlib import Path
@@ -24,18 +25,6 @@ def writelog(message):
     mode = "a" if exists("debug.txt") else "w"
     with open("debug.txt", mode, encoding='utf-8') as file:
         file.write(message)
-
-
-""" Get jars from mowl dir in .conda env. Initial implementation"""
-def get_jars_default():
-    import mowl
-    dirname = os.path.dirname(mowl.__file__)
-    jars_dir = os.path.join(dirname, "lib/")
-    # jars = f'{str.join(":", [jars_dir + name for name in os.listdir(jars_dir)])}'
-    jars = f'{str.join(";", [str(Path(jars_dir + name)) for name in os.listdir(jars_dir)])}'
-    # jars = jars.replace('/', '\\').replace('\\', '\\\\')
-    # print("# jars = ", len(os.listdir(jars_dir)))
-    return jars
 
 
 """ Get jars from in-project dir """

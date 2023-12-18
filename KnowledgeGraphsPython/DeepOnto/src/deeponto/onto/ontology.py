@@ -21,24 +21,9 @@ from tqdm import tqdm
 from yacs.config import CfgNode
 import warnings
 import itertools
-# don't remove this unused import, it won't be able to import java
-import mowl
 
 from DeepOnto.src.deeponto.utils import TextUtils, Tokenizer, InvertedIndex, FileUtils, DataUtils
 
-# start jvm in main instead
-"""
-from DeepOnto.src.deeponto import init_jvm
-
-# ======================================================================================================================
-# initialise JVM for python-java interaction
-import click
-
-if not jpype.isJVMStarted():
-    memory = click.prompt("Please enter the maximum memory located to JVM", type=str, default="8g")
-    print()
-    init_jvm(memory)
-"""
 
 # ======================================================================================================================
 from java.io import File  # type: ignore

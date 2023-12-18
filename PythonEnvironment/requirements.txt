@@ -14,9 +14,10 @@ Flask==3.0.0
 huggingface-hub==0.14.1
 ipykernel==6.22.0
 ipywidgets==7.7.1
-JPype1==1.3.0
+JPype1==1.4.1
 lxml==4.9.2
-mowl-borg==0.1.0
+# mowl library was removed. jpype1 was upgraded. jar files are loaded directly
+# mowl-borg==0.1.0
 networkx==3.1
 nltk==3.8.1
 numpy==1.24.3
