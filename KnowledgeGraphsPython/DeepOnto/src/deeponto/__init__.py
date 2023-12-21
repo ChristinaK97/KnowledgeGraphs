@@ -40,10 +40,9 @@ def get_jars():
 
 
 def init_jvm(memory):
-    jars = get_jars()
 
     if not jpype.isJVMStarted():
-        
+        jars = get_jars()
         jpype.startJVM(
             jpype.getDefaultJVMPath(), "-ea",
             f"-Xmx{memory}",

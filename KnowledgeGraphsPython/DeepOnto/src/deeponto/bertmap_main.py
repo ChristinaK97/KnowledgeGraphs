@@ -43,9 +43,7 @@ def run_bertmap_pipeline(
     def startJVM(memory: str = '8g'):
         from DeepOnto.src.deeponto import init_jvm
         # initialise JVM for python-java interaction
-        import jpype
-        if not jpype.isJVMStarted():
-            init_jvm(memory)
+        init_jvm(memory)
 
     startJVM(config.jvm_max_memory)
 
