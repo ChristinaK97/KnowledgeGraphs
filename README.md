@@ -44,3 +44,14 @@ How to use?
       ```volumes:```<br>```- encrypt-knowledge-graphs-data:/KnowledgeGraphsApp/data```
 
 This shared directory also serves as the output space for the containers, functioning as persistent storage to ensure the preservation and accessibility of its contents across system restarts or updates.
+
+### Test Endpoint
+When integrated into the ENCRYPT platform, this tool is triggered and receives input from the Data Preprocessing Tool 
+through a sequence of API requests. Alternatively, the KGs' pipeline can be instantiated using a dedicated test endpoint.
+- Step 1: Place the data files in the same directory as the downloader would after receiving them from the Preprocessing container. <br>
+  Example: ```.KnowledgeGraphsData/KnowledgeGraphsJava/Use_Case/fintech/${DatasetName}/Downloaded_Data/person.csv``` <br>
+  The ```${DatasetName}``` value corresponds to the DatasetName attribute in the ```.KnowledgeGraphsData/KnowledgeGraphsJava/ConfigFiles/fintech_csv_Config.json```
+- Step 2: Use Postman to call the endpoint. <br>
+  Example: ```POST http://localhost:7530/KGInputPoint/testPipeline?UseCase=fintech&filename=whatever.csv``` <br>
+  The KG will be generated from all the csv file in the ```Downloaded_Data``` directory. 
+  Therefore, only the file extension (```.csv``) will be utilized to determine the dataset.
