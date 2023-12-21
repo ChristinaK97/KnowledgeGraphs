@@ -45,7 +45,7 @@ services:
     depends_on:
       - knowledge-graphs-python
       - graphdb
-      - preprocessing-tool
+      # - preprocessing-tool
     image: encryptdev/knowledge-graphs-main:1.0.0
     container_name: knowledge-graphs-main
     restart: always
@@ -138,6 +138,12 @@ services:
 
 # an external volume needs to be created/defined "docker volume create graphdb_data"
 volumes:
+  encrypt-kafka-data:
+    name: encrypt-kafka-data
+  encrypt-zookeeper-data:
+    name: encrypt-zookeeper-data
+  encrypt-zookeeper-log-data:
+    name: encrypt-zookeeper-log-data
   encrypt-graphdb-data:
     name: encrypt-graphdb-data
     #external: true
