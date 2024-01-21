@@ -1,7 +1,6 @@
 package org.example.A_Coordinator.Inputs;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.example.A_Coordinator.Kafka.KafkaProducerService;
 import org.example.A_Coordinator.Pipeline;
 import org.example.A_Coordinator.config.Config;
@@ -21,7 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import static org.example.util.FileHandler.*;
+import static org.example.util.FileHandler.getFileExtension;
 
 @RestController
 @RequestMapping("/KGInputPoint")
@@ -53,7 +52,9 @@ public class InputConnector {
     }
 
 
-    /** Receive post request / notification from preprocessing */
+    /**
+     * Receive post request / notification from preprocessing
+     */
     @PostMapping(value = "/fileMetadata")
     public ResponseEntity<String> receivePreprocessingNotification(
             @RequestBody String notificationString) {
@@ -61,11 +62,11 @@ public class InputConnector {
             PreprocessingNotification notification = new Gson().fromJson(notificationString, PreprocessingNotification.class);
             notification.setReceivedFromPreprocessing(true);
             LOGGER.info("Knowledge Graphs received:\n" + notification);
-            String UseCase  = notification.getDomain();
+            String UseCase = notification.getDomain();
             String fileName = notification.getFilename();
             this.config = setupConfig(UseCase, fileName, notification);
 
-            if(config.In.isDSON())
+            if (config.In.isDSON())
                 notification.turnPiiTagNamesToCodes();
 
             Path fileDownloadPath = Paths.get(String.format("%s/%s", config.In.DownloadedDataDir, fileName));
@@ -79,7 +80,9 @@ public class InputConnector {
         }
     }
 
-    /** Return a response */
+    /**
+     * Return a response
+     */
     private ResponseEntity<String> sendResponse(boolean okStatus, int type, String exceptionMessage) {
         String responseBody = switch (type) {
             case 1 -> "Metadata post request to KGs succeeded";
@@ -88,7 +91,7 @@ public class InputConnector {
             default -> null;
         };
         LOGGER.info(responseBody);
-        if(okStatus)
+        if (okStatus)
             return ResponseEntity.ok(responseBody);
         else
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -137,10 +140,10 @@ public class InputConnector {
         }, () -> {
             // 5
             boolean isDownloadSuccessful = Files.exists(fileDownloadPath);
-            if(isDownloadSuccessful) {
+            if (isDownloadSuccessful) {
                 LOGGER.info("File " + fileDownloadPath + " saved successfully");
                 runPipeline();
-            }else
+            } else
                 LOGGER.error("File was not downloaded successfully: Downloaded file not found at "
                         + fileDownloadPath + ". Skipping KGs component!");
         });
@@ -149,11 +152,12 @@ public class InputConnector {
 
     private void runPipeline() {
         LOGGER.info("RUN KGs PIPELINE...");
-        new Pipeline(this.config, kafkaProducerService).run();
+        LOGGER.info("Pipeline has been disabled");
+        //new Pipeline(this.config, kafkaProducerService).run();
         LOGGER.info("KGs PIPELINE FINISHED!");
     }
 
-// =====================================================================================================================
+    // =====================================================================================================================
     // TODO: for testing
     @PostMapping(value = "/testPipeline")
     private void startPipeline(@RequestParam("UseCase") String UseCase,
@@ -165,7 +169,8 @@ public class InputConnector {
                 setupConfig(UseCase, filename, notification),
                 kafkaProducerService
         );
-        pipeline.run();
+        //pipeline.run();
+        LOGGER.info("Pipeline has been disabled");
         LOGGER.info("KGs pipeline finished!");
     }
 // =====================================================================================================================
