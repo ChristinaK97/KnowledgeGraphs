@@ -23,6 +23,19 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>www.dcm4che.org</id>
+      <name>dcm4che Repository</name>
+      <url>https://maven.scijava.org/content/repositories/public/</url>
+    </repository>
+<!--    <repository>-->
+<!--      <id>www.dcm4che2.org</id>-->
+<!--      <name>dcm4che2 Repository</name>-->
+<!--      <url>https://www.dcm4che.org/maven2/</url>-->
+<!--    </repository>-->
+  </repositories>
+
 <!-- =============================================================================================================== -->
   <dependencies>
 
@@ -149,8 +162,8 @@ mvn install:install-file -Dfile="C:\Users\karal\progr\onto_workspace\ConvertData
 
     <!-- dcm4che-tool-commons library -->
     <dependency>
-      <groupId>org.dcm4che</groupId>
-      <artifactId>dcm4che-tool-commons</artifactId>
+      <groupId>org.dcm4che.tool</groupId>
+      <artifactId>dcm4che-tool-common</artifactId>
       <version>5.30.0</version>
     </dependency>
 
