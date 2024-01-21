@@ -2,9 +2,24 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="www.dcm4che.org" />
+      <option name="name" value="dcm4che Repository" />
+      <option name="url" value="http://www.dcm4che.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="www.dcm4che.org" />
+      <option name="name" value="dcm4che Repository" />
+      <option name="url" value="https://maven.scijava.org/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="www.dcm4che2.org" />
+      <option name="name" value="dcm4che2 Repository" />
+      <option name="url" value="https://www.dcm4che.org/maven2/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />
