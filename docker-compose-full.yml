@@ -1,23 +1,8 @@
 version: '3.9'
+
 services:
-#  python-environment:
-#    build:
-#      context: ./PythonEnvironment
-#      args:
-#        - TORCH_VERSION=${TORCH_VERSION}
-#        - TORCHAUDIO_VERSION=${TORCHAUDIO_VERSION}
-#        - TORCHVISION_VERSION=${TORCHVISION_VERSION}
-#        - CUDA_VERSION=${CUDA_VERSION}
-#    image: encryptdev/python-environment:1.0.0
-#    container_name: python-environment
-#    networks:
-#      - encrypt-network
 
 #  knowledge-graphs-python:
-#    build:
-#      context: ./KnowledgeGraphsPython
-#    depends_on:
-#      - python-environment
 #    image: encryptdev/knowledge-graphs-python:1.0.0
 #    container_name: knowledge-graphs-python
 #    restart: always
@@ -36,18 +21,15 @@ services:
 #      # bind mount a local directory for access to kg data and persistent storage :
 #      - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
 #      # or migrate an external volume :
-#      #- knowledge-graphs-data:/KnowledgeGraphsApp/data
-#
+#      #- encrypt-knowledge-graphs-data:/KnowledgeGraphsApp/data
 
   knowledge-graphs-main:
-    build:
-      context: ./KnowledgeGraphsJava
-#    depends_on:
-#      - knowledge-graphs-python
-#      - graphdb
-      # - preprocessing-tool
     image: encryptdev/knowledge-graphs-main:1.0.0
     container_name: knowledge-graphs-main
+    depends_on:
+#      - knowledge-graphs-python
+#      - graphdb
+      - preprocessing-tool
     restart: always
     ports:
       - "7530:7530"
@@ -61,7 +43,7 @@ services:
       # bind mount a local directory for access to kg data and persistent storage :
       - ${KNOWLEDGE_GRAPHS_DATA_PATH}:/KnowledgeGraphsApp/data
       # or migrate an external volume :
-      #- knowledge-graphs-data:/KnowledgeGraphsApp/data
+      #- encrypt-knowledge-graphs-data:/KnowledgeGraphsApp/data
 
 
 #  graphdb:
@@ -79,19 +61,41 @@ services:
 #      - encrypt-network
 
 
-# -------------------------------------------------------------------------
 
-  # TODO: for testing
-  #preprocessing-tool:
-  #  build:
-  #    context: ./PreprocessingDummyAPI
-  #  image: preprocessing-tool:latest
-  #  container_name: preprocessing-tool
-  #  ports:
-  #    - "8080:8080"
-  #    - "8081:8081"
-  #  networks:
-  #    - encrypt-network
+
+  # REST API node
+  api_node:
+    image: encryptdev/api_node:0.5
+    container_name: api_node
+    hostname: api_node
+    depends_on:
+      - mongodb
+      - kafka
+    restart: always
+    environment:
+      MONGO_HOSTNAME:
+      KAFKA_SERVER:
+      PYTHONUNBUFFERED: 1
+    networks:
+      - encrypt-network
+    ports:
+      - 9000:9000
+      - 9001:9001
+
+
+  # MongoDB database
+  mongodb:
+    image: mongo:4.0.4
+    container_name: mongodb
+    hostname: mongodb
+    restart: always
+    volumes:
+      - encrypt_mongo_data:/data/db
+    networks:
+      - encrypt-network
+    ports:
+      - 27017:27017
+
 
   #KAFKA cluster
   zookeeper:
@@ -133,11 +137,54 @@ services:
       - ${KAFKA_OUTSIDE_PORT}:${KAFKA_OUTSIDE_PORT}
   #END OF KAFKA SETUP
 
-# -------------------------------------------------------------------------
+
+  #rec-eng:
+  #  image:  encryptdev/rec-eng:v3
+  #  container_name: Rec-Eng
+  #  environment:
+  #    INPUT_TOPIC_NAME:
+  #    INPUT_GROUP_NAME:
+  #    OUTPUT_TOPIC_NAME:
+  #    SERVER:
+  #  depends_on:
+  #    kafka:
+  #      condition: service_healthy
+  #  restart: always
+  #  networks:
+  #    - encrypt-network
 
 
-# an external volume needs to be created/defined "docker volume create graphdb_data"
+  # ENCRYPT UI
+  encrypt-ui:
+    image: encryptdev/encrypt-ui:0.5
+    container_name: encrypt-ui
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - encrypt-network
+
+      # PREPROCESSING TOOL
+  preprocessing-tool:
+    image: encryptdev/encrypt-preprocessing:0.5
+    container_name: preprocessing_tool
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    networks:
+      - encrypt-network
+
+  redis:
+    container_name: celery-task-queue
+    image: redis:latest
+    networks:
+      - encrypt-network
+
 volumes:
+  encrypt_mongo_data:
+    name: encrypt_mongo_data
   encrypt-kafka-data:
     name: encrypt-kafka-data
   encrypt-zookeeper-data:
@@ -146,11 +193,9 @@ volumes:
     name: encrypt-zookeeper-log-data
   encrypt-graphdb-data:
     name: encrypt-graphdb-data
-    #external: true
   #encrypt-knowledge-graphs-data:
-  #  name: knowledge-graphs-data
+  #  name: encrypt-knowledge-graphs-data
   #  external: true
-
 
 networks:
   encrypt-network:
