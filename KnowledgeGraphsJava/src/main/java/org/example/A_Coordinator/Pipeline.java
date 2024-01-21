@@ -6,6 +6,9 @@ import org.example.A_Coordinator.config.Config;
 import org.example.B_InputDatasetProcessing.Tabular.RelationalDB;
 import org.example.B_InputDatasetProcessing.Tabular.TabularFilesReader;
 import org.example.C_POextractor.POntologyExtractor;
+import org.example.E_CreateKG.InsertDataJSON;
+import org.example.E_CreateKG.InsertDataRDB;
+import org.example.E_CreateKG.SetPOasDOextension;
 import org.example.F_PII.PIIidentification;
 import org.example.F_PII.PIIresultsTemplate;
 import org.example.util.Ontology;
@@ -66,29 +69,29 @@ public class Pipeline {
 //            default ->
 //                    config.DOMap.printUnsupportedMapperError();
 //        }
-//        // E. Create Knowledge Graph -----------------------------------------------------------------------------------
-//        LG.info("E1. CREATE USE CASE ONTOLOGY");
-//        cachedOnto = new SetPOasDOextension(cachedOnto).getRefinedOntology();   // the refined ontology: DO+PO
+        // E. Create Knowledge Graph -----------------------------------------------------------------------------------
+        LG.info("E1. CREATE USE CASE ONTOLOGY");
+        cachedOnto = new SetPOasDOextension(cachedOnto).getRefinedOntology();   // the refined ontology: DO+PO
 //
 //        // -------------------------------------------------------------------------------------------------------------
-//        LG.info("E2: CREATE FULL GRAPH");
-//        // Tabular dataset in the form of a RelationDB -----------------------------------------------------------------
-//        if(isTabular) {
-//            new InsertDataRDB((RelationalDB) dataSource, cachedOnto);
-//            ((RelationalDB) dataSource).closeConnection();  // Close connection to relational DB (SQL)
-//
-//        // DICOM files that have been transformed to DSON --------------------------------------------------------------
-//        }else if (config.In.isDSON()) {
-//            List<String> processedDSONFolder = findFilesInFolder(config.In.ProcessedDataDir, "json");
-//            new InsertDataJSON(processedDSONFolder, cachedOnto);
-//
-//        // Plain JSON files that were not processed --------------------------------------------------------------------
-//        // TODO: In case you want to apply some preprocessing steps to the downloaded json files retrieve the processed data dir instead of the downloaded
-//        }else if (config.In.isJSON()){
-//            new InsertDataJSON((List<String>) dataSource, cachedOnto);
-//        }
-//        cachedOnto = null;   // refined ontology is no longer needed
-//
+        LG.info("E2: CREATE FULL GRAPH");
+        // Tabular dataset in the form of a RelationDB -----------------------------------------------------------------
+        if(isTabular) {
+            new InsertDataRDB((RelationalDB) dataSource, cachedOnto);
+            ((RelationalDB) dataSource).closeConnection();  // Close connection to relational DB (SQL)
+
+        // DICOM files that have been transformed to DSON --------------------------------------------------------------
+        }else if (config.In.isDSON()) {
+            List<String> processedDSONFolder = findFilesInFolder(config.In.ProcessedDataDir, "json");
+            new InsertDataJSON(processedDSONFolder, cachedOnto);
+
+        // Plain JSON files that were not processed --------------------------------------------------------------------
+        // TODO: In case you want to apply some preprocessing steps to the downloaded json files retrieve the processed data dir instead of the downloaded
+        }else if (config.In.isJSON()){
+            new InsertDataJSON((List<String>) dataSource, cachedOnto);
+        }
+        cachedOnto = null;   // refined ontology is no longer needed
+
         LG.info("F. PII IDENTIFICATION");
         runPiiIdentificationPipeline();
 //
