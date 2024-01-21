@@ -8,6 +8,7 @@ import org.springframework.retry.annotation.Retryable;
 @Retryable
 public class KnowledgeGraphsJavaApp {
     public static void main( String[] args ) {
+        System.out.println("Hello");
         SpringApplication.run(KnowledgeGraphsJavaApp.class, args);
     }
 }
