@@ -71,6 +71,12 @@ public class InputConnector {
 
             Path fileDownloadPath = Paths.get(String.format("%s/%s", config.In.DownloadedDataDir, fileName));
 
+            if(!Config.IS_DOCKER_ENV)
+            {
+                runPipeline();
+                return sendResponse(true, 1, null); //skip download
+
+            }
             if (downloadFile(fileName, fileDownloadPath))
                 return sendResponse(true, 1, null);
             else
@@ -153,7 +159,7 @@ public class InputConnector {
     private void runPipeline() {
         LOGGER.info("RUN KGs PIPELINE...");
         LOGGER.info("Pipeline has been disabled");
-        //new Pipeline(this.config, kafkaProducerService).run();
+        new Pipeline(this.config, kafkaProducerService).run();
         LOGGER.info("KGs PIPELINE FINISHED!");
     }
 
