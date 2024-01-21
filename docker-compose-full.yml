@@ -65,7 +65,7 @@ services:
 
   # REST API node
   api_node:
-    image: encryptdev/api_node:0.5
+    image: encryptdev/api_node:0.6
     container_name: api_node
     hostname: api_node
     depends_on:
@@ -178,7 +178,7 @@ services:
 
   redis:
     container_name: celery-task-queue
-    image: redis:latest
+    image: redis:7.2.3
     networks:
       - encrypt-network
 
