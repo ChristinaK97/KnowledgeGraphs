@@ -5,10 +5,10 @@ FROM openjdk:17-alpine
 WORKDIR /KnowledgeGraphsApp
 
 # Copy Uber JAR into the container
-COPY target/KnowledgeGraphsJava-1.0-SNAPSHOT.jar .
+COPY target/KnowledgeGraphsJava-0.5-SNAPSHOT.jar .
 
 # Make port available to the outside of this container
 EXPOSE 7530
 
 # Command to run Java application
-CMD ["java", "-jar", "KnowledgeGraphsJava-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "KnowledgeGraphsJava-0.5-SNAPSHOT.jar"]
